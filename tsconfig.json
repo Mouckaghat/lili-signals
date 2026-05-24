@@ -14,5 +14,9 @@
     ".expo/types/**/*.d.ts",
     "expo-env.d.ts",
     ".expo/types/**/*.ts"
+  ],
+  "exclude": [
+    "scripts/wc-data-generated.ts",
+    "node_modules"
   ]
 }

@@ -1,12 +1,12 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import {
   Animated,
-  ScrollView,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { computeWorldSignals, type SignalIntercept, type PulseTeam, type NarrativeArc, type RegionSignal } from '../lib/worldSignals';
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
@@ -29,150 +29,6 @@ const D = {
   sep:     'rgba(0,200,255,0.09)',
 };
 
-// ─── Signal data ──────────────────────────────────────────────────────────────
-
-interface Intercept {
-  flag: string;
-  team: string;
-  type: string;
-  color: string;
-  text: string;
-  ago: string;
-}
-
-const INTERCEPTS: Intercept[] = [
-  {
-    flag: '🇯🇵', team: 'Japan',
-    type: 'SURGE', color: D.cyan,
-    text: 'Global attention spiking. Tactical discipline narrative spreading across international signal channels at accelerating rate.',
-    ago: '4m',
-  },
-  {
-    flag: '🇲🇦', team: 'Morocco',
-    type: 'RISE', color: D.green,
-    text: 'Dual momentum detected across African and European channels simultaneously. Historical resonance amplifying signal strength.',
-    ago: '11m',
-  },
-  {
-    flag: '🇧🇷', team: 'Brazil',
-    type: 'CONCERN', color: D.orange,
-    text: 'Fan anxiety increasing following injury reports. Confidence trajectory showing measurable downward pressure across all regions.',
-    ago: '19m',
-  },
-  {
-    flag: '🇺🇸', team: 'USA',
-    type: 'HYPE', color: D.blue,
-    text: 'Host nation atmospheric pressure building. Domestic signal intensity entering high-output zone ahead of opening fixture.',
-    ago: '27m',
-  },
-  {
-    flag: '🇦🇷', team: 'Argentina',
-    type: 'BURDEN', color: D.red,
-    text: 'Defending champion weight detectable across all signal channels. Narrative pressure index at maximum threshold.',
-    ago: '35m',
-  },
-  {
-    flag: '🇲🇽', team: 'Mexico',
-    type: 'INTENSITY', color: D.gold,
-    text: 'Quinto partido mythology activating early. Host nation expectation cluster generating dense signal concentration.',
-    ago: '48m',
-  },
-  {
-    flag: '🇫🇷', team: 'France',
-    type: 'INSTABILITY', color: D.orange,
-    text: 'Media fragmentation detected. Internal camp signal divergence emerging. Cohesion index weakening.',
-    ago: '1h',
-  },
-  {
-    flag: '🇩🇪', team: 'Germany',
-    type: 'CALM', color: D.text3,
-    text: 'Minimal signal volatility. Methodical preparation narrative holding. Emotional baseline stable across regions.',
-    ago: '1h 12m',
-  },
-];
-
-interface PulseTeam {
-  flag: string;
-  team: string;
-  state: string;
-  value: number;
-  color: string;
-}
-
-const PULSE_TEAMS: PulseTeam[] = [
-  { flag: '🇦🇷', team: 'Argentina', state: 'BURDEN',      value: 91, color: D.red    },
-  { flag: '🇯🇵', team: 'Japan',     state: 'SURGE',       value: 88, color: D.cyan   },
-  { flag: '🇲🇦', team: 'Morocco',   state: 'MOMENTUM',    value: 84, color: D.green  },
-  { flag: '🇧🇷', team: 'Brazil',    state: 'ANXIETY',     value: 79, color: D.orange },
-  { flag: '🇫🇷', team: 'France',    state: 'INSTABILITY', value: 75, color: D.orange },
-  { flag: '🇲🇽', team: 'Mexico',    state: 'INTENSITY',   value: 74, color: D.gold   },
-  { flag: '🇺🇸', team: 'USA',       state: 'HYPE',        value: 68, color: D.blue   },
-  { flag: '🇩🇪', team: 'Germany',   state: 'CALM',        value: 31, color: D.text3  },
-];
-
-interface NarrativeArc {
-  title: string;
-  color: string;
-  intensity: number;
-  teams: string[];
-  desc: string;
-}
-
-const NARRATIVES: NarrativeArc[] = [
-  {
-    title: 'The Underdog Arc',
-    color: D.cyan,
-    intensity: 94,
-    teams: ['🇯🇵 Japan', '🇲🇦 Morocco', '🇺🇸 USA'],
-    desc: 'Global fascination with outsider disruption. Upset victories generate disproportionate emotional signal versus established powers.',
-  },
-  {
-    title: 'Golden Generation Pressure',
-    color: D.orange,
-    intensity: 88,
-    teams: ['🇧🇪 Belgium', '🇵🇹 Portugal', '🇫🇷 France'],
-    desc: 'Legacy-defining tournament for squads at peak or past it. Expectation weight measurable across all signal channels at once.',
-  },
-  {
-    title: 'Host Nation Destiny',
-    color: D.gold,
-    intensity: 82,
-    teams: ['🇺🇸 USA', '🇲🇽 Mexico', '🇨🇦 Canada'],
-    desc: 'Three-nation co-hosting creates layered identity pressure. Home soil advantage meets once-in-a-generation opportunity.',
-  },
-  {
-    title: 'Redemption Campaign',
-    color: D.purple,
-    intensity: 79,
-    teams: ['🇦🇷 Argentina', '🇧🇷 Brazil'],
-    desc: 'Defending champions and eternal rivals both carrying fractured momentum into unfamiliar continental territory.',
-  },
-  {
-    title: 'Dark Horse Surge',
-    color: D.signal,
-    intensity: 71,
-    teams: ['🇯🇵 Japan', '🇲🇦 Morocco', '🇸🇳 Senegal'],
-    desc: 'Low-expectation entries with structural advantages. Narrative alignment accelerates global attention disproportionately.',
-  },
-];
-
-interface Region {
-  confed: string;
-  label: string;
-  energy: number;
-  trend: string;
-  up: boolean;
-  color: string;
-  desc: string;
-}
-
-const REGIONS: Region[] = [
-  { confed: 'UEFA',     label: 'Europe',      energy: 88, trend: '+2', up: true,  color: D.blue,   desc: 'Dominant signal volume. Multiple high-expectation nations active.' },
-  { confed: 'CONMEBOL', label: 'S. America',  energy: 83, trend: '-4', up: false, color: D.gold,   desc: 'Emotional volatility rising. Brazil + Argentina tension compounding.' },
-  { confed: 'AFC',      label: 'Asia',        energy: 73, trend: '+9', up: true,  color: D.cyan,   desc: 'Breakthrough momentum. Japan driving continental signal surge.' },
-  { confed: 'CAF',      label: 'Africa',      energy: 68, trend: '+6', up: true,  color: D.purple, desc: 'Morocco narrative amplifying. Historical upset probability activating.' },
-  { confed: 'CONCACAF', label: 'N. America',  energy: 65, trend: '+5', up: true,  color: D.orange, desc: 'Host advantage generating unprecedented regional momentum signal.' },
-];
 
 // ─── Radar node ───────────────────────────────────────────────────────────────
 
@@ -241,7 +97,7 @@ function LiveDot() {
 
 // ─── Signal intercept card ────────────────────────────────────────────────────
 
-function InterceptCard({ item, index }: { item: Intercept; index: number }) {
+function InterceptCard({ item, index }: { item: SignalIntercept; index: number }) {
   const opacity    = useRef(new Animated.Value(0)).current;
   const translateX = useRef(new Animated.Value(-12)).current;
 
@@ -260,7 +116,7 @@ function InterceptCard({ item, index }: { item: Intercept; index: number }) {
         <View style={[ic.typeBadge, { backgroundColor: `${item.color}10`, borderColor: `${item.color}28` }]}>
           <Text style={[ic.typeText, { color: item.color }]}>{item.type}</Text>
         </View>
-        <Text style={ic.ago}>{item.ago} ago</Text>
+        <Text style={ic.ago}>{item.timing}</Text>
       </View>
       <Text style={ic.text}>{item.text}</Text>
     </Animated.View>
@@ -384,7 +240,7 @@ const na = StyleSheet.create({
 
 // ─── Regional energy row ──────────────────────────────────────────────────────
 
-function RegionRow({ region }: { region: Region }) {
+function RegionRow({ region }: { region: RegionSignal }) {
   return (
     <View style={re.row}>
       <View style={re.left}>
@@ -439,8 +295,11 @@ const sh = StyleSheet.create({
 // ─── Main screen ──────────────────────────────────────────────────────────────
 
 export default function WorldSignalsScreen() {
-  const insets = useSafeAreaInsets();
-  const fadeIn = useRef(new Animated.Value(0)).current;
+  const insets  = useSafeAreaInsets();
+  const fadeIn  = useRef(new Animated.Value(0)).current;
+  // Pass a Set of active team names here once live standings are integrated.
+  // undefined = all 48 teams active (pre-tournament / full field).
+  const signals = useMemo(() => computeWorldSignals(undefined), []);
 
   useEffect(() => {
     Animated.timing(fadeIn, { toValue: 1, duration: 700, useNativeDriver: true }).start();
@@ -477,17 +336,17 @@ export default function WorldSignalsScreen() {
           </View>
           <View style={ms.stripSep} />
           <View style={ms.stripCell}>
-            <Text style={[ms.stripValue, { color: D.cyan }]}>24</Text>
-            <Text style={ms.stripLabel}>ACTIVE SIGNALS</Text>
+            <Text style={[ms.stripValue, { color: D.cyan }]}>{signals.activeCount}</Text>
+            <Text style={ms.stripLabel}>ACTIVE TEAMS</Text>
           </View>
           <View style={ms.stripSep} />
           <View style={ms.stripCell}>
-            <Text style={[ms.stripValue, { color: D.signal }]}>5</Text>
+            <Text style={[ms.stripValue, { color: D.signal }]}>{signals.narrativeCount}</Text>
             <Text style={ms.stripLabel}>NARRATIVES</Text>
           </View>
           <View style={ms.stripSep} />
           <View style={ms.stripCell}>
-            <Text style={[ms.stripValue, { color: D.purple }]}>6</Text>
+            <Text style={[ms.stripValue, { color: D.purple }]}>{signals.regionCount}</Text>
             <Text style={ms.stripLabel}>REGIONS</Text>
           </View>
         </View>
@@ -504,11 +363,11 @@ export default function WorldSignalsScreen() {
         <View style={ms.section}>
           <SectionHeader
             title="SIGNAL INTERCEPTS"
-            sub="Live intelligence feed"
+            sub="Fixture intelligence · ranked by narrative weight"
           />
           <View style={ms.gap8}>
-            {INTERCEPTS.map((item, i) => (
-              <InterceptCard key={item.team} item={item} index={i} />
+            {signals.intercepts.map((item, i) => (
+              <InterceptCard key={`${item.team}-${i}`} item={item} index={i} />
             ))}
           </View>
         </View>
@@ -517,7 +376,7 @@ export default function WorldSignalsScreen() {
         <View style={ms.section}>
           <SectionHeader
             title="EMOTIONAL PULSE"
-            sub="Lili-estimated team atmosphere index"
+            sub="Lili-computed team pressure index"
           />
           <View style={ms.pulseCard}>
             <View style={ms.pulseLegend}>
@@ -526,7 +385,7 @@ export default function WorldSignalsScreen() {
             </View>
             <View style={ms.sep} />
             <View style={ms.gap10}>
-              {PULSE_TEAMS.map((t, i) => (
+              {signals.pulse.map((t, i) => (
                 <PulseRow key={t.team} team={t} index={i} />
               ))}
             </View>
@@ -540,7 +399,7 @@ export default function WorldSignalsScreen() {
             sub="Active tournament story lines"
           />
           <View style={ms.gap8}>
-            {NARRATIVES.map((arc) => (
+            {signals.narratives.map((arc) => (
               <NarrativeCard key={arc.title} arc={arc} />
             ))}
           </View>
@@ -550,11 +409,11 @@ export default function WorldSignalsScreen() {
         <View style={ms.section}>
           <SectionHeader
             title="CONTINENTAL ENERGY"
-            sub="Regional signal momentum · trend vs previous cycle"
+            sub="Regional signal momentum · vs global average"
           />
           <View style={ms.regionCard}>
             <View style={ms.gap12}>
-              {REGIONS.map((r) => (
+              {signals.regions.map((r) => (
                 <RegionRow key={r.confed} region={r} />
               ))}
             </View>
