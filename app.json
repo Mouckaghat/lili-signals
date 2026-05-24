@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "Lili Signals",
+    "slug": "lili-signals",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/blue_lobster.png",
+    "userInterfaceStyle": "light",
+    "scheme": "lili-signals",
+    "splash": {
+      "image": "./assets/blue_lobster.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F5F5F7"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.lilisignals.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/blue_lobster.png",
+        "backgroundColor": "#F5F5F7"
+      },
+      "package": "com.lilisignals.app"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/blue_lobster.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-asset"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

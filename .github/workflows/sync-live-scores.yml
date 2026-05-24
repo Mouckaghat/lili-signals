@@ -1,0 +1,79 @@
+name: Sync Live Scores
+
+# ─── When this runs ───────────────────────────────────────────────────────────
+#
+# During the tournament (June 11 – July 19, 2026):
+#   Every 10 minutes from 13:00–23:59 UTC (covers all match windows globally)
+#
+# Outside tournament hours / rest of year:
+#   Once per hour — keeps the workflow active and catches any schedule changes
+#
+# Manual trigger available at any time from the GitHub Actions tab.
+
+on:
+  schedule:
+    # ── June: Group Stage (June 11–30) ──
+    # Every 10 min, 13:00–23:00 UTC
+    - cron: '*/10 13-23 11-30 6 *'
+    # Once per hour outside match window
+    - cron: '0 0-12 11-30 6 *'
+
+    # ── July: Knockouts (July 1–19) ──
+    # Every 10 min, 13:00–23:00 UTC
+    - cron: '*/10 13-23 1-19 7 *'
+    # Once per hour outside match window
+    - cron: '0 0-12 1-19 7 *'
+
+    # ── Rest of year: hourly heartbeat ──
+    # Catches pre-tournament fixture schedule updates
+    - cron: '0 * * 1-5,8-12 *'
+
+  # Manual trigger — useful for testing or forcing an immediate sync
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (preview only, no writes)'
+        type: boolean
+        default: false
+
+# ─── Job ─────────────────────────────────────────────────────────────────────
+
+jobs:
+  sync:
+    name: Sync live scores → Google Sheets
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        # --ignore-scripts skips Expo/React Native native build steps
+        # --prefer-offline uses cache when available
+        run: npm ci --ignore-scripts --prefer-offline
+
+      # Write the service account JSON from the secret to a temp file.
+      # Never stored in the repo — exists only for the duration of this job.
+      - name: Write service account key
+        run: echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}' > /tmp/sa.json
+
+      - name: Sync live scores
+        run: npx tsx scripts/sync-live-scores.ts
+        env:
+          SHEETS_SPREADSHEET_ID:   ${{ secrets.SHEETS_SPREADSHEET_ID }}
+          API_FOOTBALL_KEY:        ${{ secrets.API_FOOTBALL_KEY }}
+          GOOGLE_APPLICATION_CREDENTIALS: /tmp/sa.json
+          # Override league ID if the WC 2026 id differs from 1
+          # API_FOOTBALL_LEAGUE_ID: ${{ secrets.API_FOOTBALL_LEAGUE_ID }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+
+      - name: Clean up key
+        if: always()
+        run: rm -f /tmp/sa.json

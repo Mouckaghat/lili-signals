@@ -1,0 +1,418 @@
+import { useState } from 'react';
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { FED_BG, FED_COLOR, getGroupTeams, getTeamFixtures, WC_TEAMS, type WCTeam } from '../lib/wcData';
+
+// ─── Status logic ─────────────────────────────────────────────────────────────
+
+type Status = 'qualified' | 'alive' | 'at-risk' | 'eliminated';
+
+const STATUS_COLOR: Record<Status, string> = {
+  qualified: '#34C759',
+  alive:     '#005F8E',
+  'at-risk': '#FF9F0A',
+  eliminated:'#FF3B30',
+};
+const STATUS_BG: Record<Status, string> = {
+  qualified: '#E5F7EB',
+  alive:     '#EEF4FA',
+  'at-risk': '#FFF4E5',
+  eliminated:'#FFEBE8',
+};
+const STATUS_LABEL: Record<Status, string> = {
+  qualified: 'Qualified',
+  alive:     'Still Alive',
+  'at-risk': 'At Risk',
+  eliminated:'Eliminated',
+};
+
+function deriveStatus(rank: number, pts: number, played: number, maxPts: number): Status {
+  if (played === 0) return 'alive';
+  if (rank <= 2) return pts >= 4 ? 'qualified' : 'alive';
+  if (rank === 3) return pts >= 4 ? 'alive' : 'at-risk';
+  if (maxPts < 3) return 'eliminated';
+  return 'at-risk';
+}
+
+// ─── Form dots ────────────────────────────────────────────────────────────────
+
+type FormChar = 'W' | 'D' | 'L' | '–';
+
+function FormDots({ team, groupTeams }: { team: WCTeam; groupTeams: WCTeam[] }) {
+  const fixtures = getTeamFixtures(team.name).filter((f) => f.status === 'FINISHED');
+  const results: FormChar[] = fixtures.map((f) => {
+    const isHome = f.home === team.name;
+    const my = isHome ? f.homeScore! : f.awayScore!;
+    const opp = isHome ? f.awayScore! : f.homeScore!;
+    if (my > opp) return 'W';
+    if (my < opp) return 'L';
+    return 'D';
+  });
+
+  // Pad to 3 slots
+  while (results.length < 3) results.push('–');
+
+  return (
+    <View style={f.row}>
+      {results.map((r, i) => (
+        <View
+          key={i}
+          style={[
+            f.dot,
+            r === 'W' && f.win,
+            r === 'D' && f.draw,
+            r === 'L' && f.loss,
+            r === '–' && f.empty,
+          ]}
+        >
+          <Text style={[f.dotText, r === '–' && { color: '#C7C7CC' }]}>{r}</Text>
+        </View>
+      ))}
+    </View>
+  );
+}
+
+const f = StyleSheet.create({
+  row: { flexDirection: 'row', gap: 3 },
+  dot: {
+    width: 18,
+    height: 18,
+    borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  win: { backgroundColor: '#34C759' },
+  draw: { backgroundColor: '#FF9F0A' },
+  loss: { backgroundColor: '#FF3B30' },
+  empty: { backgroundColor: '#F2F2F7' },
+  dotText: { fontSize: 9, fontWeight: '800', color: '#FFFFFF' },
+});
+
+// ─── Standing row ─────────────────────────────────────────────────────────────
+
+interface StandingEntry {
+  team: WCTeam;
+  played: number;
+  won: number;
+  drawn: number;
+  lost: number;
+  gf: number;
+  ga: number;
+  gd: number;
+  pts: number;
+  rank: number;
+  status: Status;
+}
+
+function computeStandings(group: string): StandingEntry[] {
+  const teams = getGroupTeams(group);
+  const fixtures = teams.flatMap((t) => getTeamFixtures(t.name).filter((f) => f.status === 'FINISHED'));
+  const seen = new Set<string>();
+  const uniq = fixtures.filter((f) => { if (seen.has(f.id)) return false; seen.add(f.id); return true; });
+
+  const stats: Record<string, Omit<StandingEntry, 'rank' | 'status'>> = {};
+  teams.forEach((t) => {
+    stats[t.name] = { team: t, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0 };
+  });
+
+  uniq.forEach((f) => {
+    if (f.homeScore === undefined) return;
+    const hg = f.homeScore, ag = f.awayScore!;
+    const hs = stats[f.home], as_ = stats[f.away];
+    if (!hs || !as_) return;
+    hs.played++; as_.played++;
+    hs.gf += hg; hs.ga += ag; hs.gd += hg - ag;
+    as_.gf += ag; as_.ga += hg; as_.gd += ag - hg;
+    if (hg > ag) { hs.won++; hs.pts += 3; as_.lost++; }
+    else if (hg < ag) { as_.won++; as_.pts += 3; hs.lost++; }
+    else { hs.drawn++; hs.pts++; as_.drawn++; as_.pts++; }
+  });
+
+  const sorted = Object.values(stats).sort(
+    (a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf || a.team.name.localeCompare(b.team.name)
+  );
+
+  return sorted.map((s, i) => {
+    const rank = i + 1;
+    const remaining = (3 - s.played) * 3;
+    return { ...s, rank, status: deriveStatus(rank, s.pts, s.played, s.pts + remaining) };
+  });
+}
+
+function GroupTable({ group }: { group: string }) {
+  const entries = computeStandings(group);
+  const groupTeams = getGroupTeams(group);
+
+  return (
+    <View style={t.card}>
+      {/* Header */}
+      <View style={t.groupHeader}>
+        <Text style={t.groupTitle}>Group {group}</Text>
+        <View style={t.groupFeds}>
+          {[...new Set(groupTeams.map((t) => t.federation))].map((fed) => (
+            <View key={fed} style={[t.fedBadge, { backgroundColor: FED_BG[fed] }]}>
+              <Text style={[t.fedText, { color: FED_COLOR[fed] }]}>{fed}</Text>
+            </View>
+          ))}
+        </View>
+      </View>
+
+      {/* Column headers */}
+      <View style={t.colHeader}>
+        <Text style={[t.col, t.rankCol]}>#</Text>
+        <Text style={[t.col, t.teamCol]}>Team</Text>
+        <Text style={t.col}>P</Text>
+        <Text style={t.col}>W</Text>
+        <Text style={t.col}>D</Text>
+        <Text style={t.col}>L</Text>
+        <Text style={t.col}>GF</Text>
+        <Text style={t.col}>GA</Text>
+        <Text style={t.col}>GD</Text>
+        <Text style={[t.col, t.ptsCol]}>Pts</Text>
+        <Text style={[t.col, t.formCol]}>Form</Text>
+      </View>
+
+      {entries.map((e, idx) => {
+        const qualLine = idx === 1; // separator after rank 2
+        return (
+          <View key={e.team.name}>
+            {qualLine && (
+              <View style={t.qualLine}>
+                <Text style={t.qualLineText}>Automatic qualification line</Text>
+              </View>
+            )}
+            <View style={[t.row, idx % 2 === 1 && t.rowAlt]}>
+              <View style={[t.rankDot, { backgroundColor: STATUS_COLOR[e.status] }]}>
+                <Text style={t.rankDotText}>{e.rank}</Text>
+              </View>
+              <View style={t.teamBlock}>
+                <Text style={t.flag}>{e.team.flag}</Text>
+                <Text style={t.teamName} numberOfLines={1}>{e.team.name}</Text>
+              </View>
+              <Text style={t.col}>{e.played}</Text>
+              <Text style={t.col}>{e.won}</Text>
+              <Text style={t.col}>{e.drawn}</Text>
+              <Text style={t.col}>{e.lost}</Text>
+              <Text style={t.col}>{e.gf}</Text>
+              <Text style={t.col}>{e.ga}</Text>
+              <Text style={[t.col, e.gd > 0 && t.gdPos, e.gd < 0 && t.gdNeg]}>
+                {e.gd > 0 ? `+${e.gd}` : e.gd}
+              </Text>
+              <Text style={[t.col, t.ptsCol, t.ptsText]}>{e.pts}</Text>
+              <View style={[t.col, t.formCol, { alignItems: 'center' }]}>
+                <FormDots team={e.team} groupTeams={groupTeams} />
+              </View>
+            </View>
+          </View>
+        );
+      })}
+
+      {/* Status row */}
+      <View style={t.statusRow}>
+        {entries.map((e) => (
+          <View key={e.team.name} style={[t.statusBadge, { backgroundColor: STATUS_BG[e.status] }]}>
+            <Text style={[t.statusText, { color: STATUS_COLOR[e.status] }]}>
+              {STATUS_LABEL[e.status]}
+            </Text>
+          </View>
+        ))}
+      </View>
+    </View>
+  );
+}
+
+// ─── Screen ───────────────────────────────────────────────────────────────────
+
+const GROUPS = 'ABCDEFGHIJKL'.split('');
+
+export default function WorldCupTableScreen() {
+  const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
+
+  const displayGroups = selectedGroup ? [selectedGroup] : GROUPS;
+
+  return (
+    <SafeAreaView style={st.safe} edges={['bottom']}>
+      {/* Group filter pills */}
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={st.pillScroll}
+        contentContainerStyle={st.pillContent}
+      >
+        <TouchableOpacity
+          style={[st.pill, selectedGroup === null && st.pillActive]}
+          onPress={() => setSelectedGroup(null)}
+        >
+          <Text style={[st.pillText, selectedGroup === null && st.pillTextActive]}>All</Text>
+        </TouchableOpacity>
+        {GROUPS.map((g) => (
+          <TouchableOpacity
+            key={g}
+            style={[st.pill, selectedGroup === g && st.pillActive]}
+            onPress={() => setSelectedGroup(selectedGroup === g ? null : g)}
+          >
+            <Text style={[st.pillText, selectedGroup === g && st.pillTextActive]}>Grp {g}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+
+      {/* Banner */}
+      <View style={st.banner}>
+        <Text style={st.bannerEmoji}>🏆</Text>
+        <View>
+          <Text style={st.bannerTitle}>FIFA World Cup 2026</Text>
+          <Text style={st.bannerSub}>48 teams · 12 groups · Begins June 11, 2026</Text>
+        </View>
+      </View>
+
+      <ScrollView contentContainerStyle={st.content}>
+        {displayGroups.map((g) => (
+          <GroupTable key={g} group={g} />
+        ))}
+        <Text style={st.footNote}>
+          Top 2 from each group qualify automatically.{'\n'}
+          8 best 3rd-place teams also advance to Round of 16.
+        </Text>
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
+
+const t = StyleSheet.create({
+  card: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 16,
+    marginBottom: 16,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.07,
+    shadowRadius: 8,
+    elevation: 3,
+  },
+  groupHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#E5E5EA',
+    gap: 10,
+  },
+  groupTitle: { fontSize: 15, fontWeight: '800', color: '#1D1D1F', flex: 1 },
+  groupFeds: { flexDirection: 'row', gap: 6 },
+  fedBadge: { paddingHorizontal: 6, paddingVertical: 2, borderRadius: 5 },
+  fedText: { fontSize: 9, fontWeight: '700', letterSpacing: 0.3 },
+
+  colHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 7,
+    backgroundColor: '#F9F9FB',
+  },
+  col: {
+    flex: 1,
+    fontSize: 9,
+    fontWeight: '700',
+    color: '#8E8E93',
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    letterSpacing: 0.3,
+  },
+  rankCol: { flex: 0.5 },
+  teamCol: { flex: 3, textAlign: 'left' },
+  ptsCol: { flex: 1.2 },
+  formCol: { flex: 2.2, textAlign: 'left' },
+
+  qualLine: {
+    backgroundColor: '#E5F7EB',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderTopWidth: 1,
+    borderTopColor: '#34C759',
+  },
+  qualLineText: { fontSize: 9, color: '#34C759', fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.4 },
+
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+  },
+  rowAlt: { backgroundColor: '#FAFAFA' },
+
+  rankDot: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 4,
+    flex: 0.5,
+  },
+  rankDotText: { fontSize: 10, fontWeight: '800', color: '#FFFFFF' },
+
+  teamBlock: { flex: 3, flexDirection: 'row', alignItems: 'center', gap: 6 },
+  flag: { fontSize: 18 },
+  teamName: { fontSize: 12, fontWeight: '600', color: '#1D1D1F', flex: 1 },
+
+  gdPos: { color: '#34C759', fontWeight: '700' },
+  gdNeg: { color: '#FF3B30', fontWeight: '700' },
+  ptsText: { fontWeight: '800', color: '#005F8E', fontSize: 13 },
+
+  statusRow: {
+    flexDirection: 'row',
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    gap: 6,
+    flexWrap: 'wrap',
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: '#F2F2F7',
+    backgroundColor: '#F9F9FB',
+  },
+  statusBadge: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
+  },
+  statusText: { fontSize: 10, fontWeight: '700' },
+});
+
+const st = StyleSheet.create({
+  safe: { flex: 1, backgroundColor: '#F5F5F7' },
+  pillScroll: { flexGrow: 0 },
+  pillContent: { paddingHorizontal: 16, paddingVertical: 10, gap: 8, flexDirection: 'row' },
+  pill: { paddingHorizontal: 14, paddingVertical: 7, borderRadius: 20, backgroundColor: '#E8E8ED' },
+  pillActive: { backgroundColor: '#005F8E' },
+  pillText: { fontSize: 12, fontWeight: '600', color: '#6E6E73' },
+  pillTextActive: { color: '#FFFFFF' },
+  banner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    backgroundColor: '#FFFFFF',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#E5E5EA',
+  },
+  bannerEmoji: { fontSize: 28 },
+  bannerTitle: { fontSize: 14, fontWeight: '700', color: '#1D1D1F' },
+  bannerSub: { fontSize: 11, color: '#8E8E93', marginTop: 2 },
+  content: { padding: 16, paddingBottom: 48 },
+  footNote: {
+    fontSize: 11,
+    color: '#AEAEB2',
+    textAlign: 'center',
+    lineHeight: 17,
+    marginTop: 4,
+    fontStyle: 'italic',
+  },
+});

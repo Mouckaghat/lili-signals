@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+
+# Build outputs
+*.tsbuildinfo
+
+# Environment & credentials — NEVER commit these
+.env
+.env.local
+.env.*.local
+scripts/service-account.json
+
+# OS
+.DS_Store
+*.log
+
+# Generated (re-run build:wc-data to regenerate)
+scripts/wc-data-generated.ts
