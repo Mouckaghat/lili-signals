@@ -99,6 +99,7 @@ const T: Record<LangCode, LangT> = {
       { title: 'Cumulative Journey Graph', desc: 'Tournament momentum analytics'   },
       { title: 'World Signals',            desc: 'Global tournament intelligence'  },
       { title: 'Alternate Timeline',        desc: 'Counterfactual engine'            },
+      { title: 'Group Drama Index',         desc: 'Group-stage tension analysis'     },
     ],
   },
   FR: {
@@ -120,6 +121,7 @@ const T: Record<LangCode, LangT> = {
       { title: 'Graphe Cumulatif',        desc: 'Analyse du momentum'            },
       { title: 'Signaux Mondiaux',        desc: 'Intelligence mondiale'          },
       { title: 'Chronologie Alternative',  desc: 'Moteur contrefactuel'           },
+      { title: 'Indice de Drame',          desc: 'Tension de phase de groupes'    },
     ],
   },
   IT: {
@@ -141,6 +143,7 @@ const T: Record<LangCode, LangT> = {
       { title: 'Grafico Cumulativo',        desc: 'Analisi del momentum'         },
       { title: 'Segnali Mondiali',          desc: 'Intelligence mondiale'        },
       { title: 'Linea Temporale Alt.',      desc: 'Motore controfattuale'         },
+      { title: 'Indice del Dramma',         desc: 'Tensione nei gironi'            },
     ],
   },
   DE: {
@@ -162,6 +165,7 @@ const T: Record<LangCode, LangT> = {
       { title: 'Kumulativer Graph',   desc: 'Dynamik-Analyse'                 },
       { title: 'Weltsignale',         desc: 'Globale Tournament-Intelligence' },
       { title: 'Alternate Timeline',  desc: 'Gegenläufige Simulation'          },
+      { title: 'Gruppen-Drama-Index', desc: 'Mathematische Gruppenspannung'    },
     ],
   },
   ES: {
@@ -183,6 +187,7 @@ const T: Record<LangCode, LangT> = {
       { title: 'Gráfico Acumulativo',       desc: 'Análisis de impulso'         },
       { title: 'Señales Mundiales',         desc: 'Inteligencia global'         },
       { title: 'Línea Temporal Alt.',        desc: 'Motor contrafáctico'          },
+      { title: 'Índice de Drama',           desc: 'Tensión en fase de grupos'     },
     ],
   },
   RU: {
@@ -204,6 +209,7 @@ const T: Record<LangCode, LangT> = {
       { title: 'Кумулятивный График', desc: 'Анализ динамики'    },
       { title: 'Мировые Сигналы',     desc: 'Глобальная разведка'},
       { title: 'Альтернативный Поток', desc: 'Контрфактический движок' },
+      { title: 'Индекс Драмы Групп',  desc: 'Напряжённость группового этапа' },
     ],
   },
   CN: {
@@ -225,6 +231,7 @@ const T: Record<LangCode, LangT> = {
       { title: '累计旅程图',   desc: '动势分析'  },
       { title: '世界信号',     desc: '全球情报'  },
       { title: '平行时间线',   desc: '反事实引擎' },
+      { title: '小组悬念指数', desc: '数学张力分析' },
     ],
   },
 };
@@ -520,6 +527,13 @@ const FEATURES: FeatureCardData[] = [
     path: '/alternate-timeline',
     accentColor: '#C060FF',
   },
+  {
+    icon: '🎭',
+    title: 'Group Drama Index',
+    description: 'Mathematical group-stage tension',
+    path: '/group-drama',
+    accentColor: '#D4A520',
+  },
 ];
 
 function FeatureCard({
@@ -629,14 +643,14 @@ export default function LandingScreen() {
   // Per-section display languages — updated staggered by the wave
   const [topLang,       setTopLang]       = useState<LangCode>('EN');
   const [countdownLang, setCountdownLang] = useState<LangCode>('EN');
-  const [cardLangs,     setCardLangs]     = useState<LangCode[]>(Array(10).fill('EN') as LangCode[]);
+  const [cardLangs,     setCardLangs]     = useState<LangCode[]>(Array(11).fill('EN') as LangCode[]);
   const [footerLang,    setFooterLang]    = useState<LangCode>('EN');
 
   // Flash animations (opacity: 1 → 0.1 → 1 at update moment)
   const topFlash    = useRef(new Animated.Value(1)).current;
   const countFlash  = useRef(new Animated.Value(1)).current;
   const footerFlash = useRef(new Animated.Value(1)).current;
-  const cardFlashes = useRef(Array.from({ length: 10 }, () => new Animated.Value(1))).current;
+  const cardFlashes = useRef(Array.from({ length: 11 }, () => new Animated.Value(1))).current;
 
   // Full-screen wave ring (scale 0→1, opacity fades out)
   const waveScale   = useRef(new Animated.Value(0)).current;
@@ -690,7 +704,7 @@ export default function LandingScreen() {
     ]).start();
 
     // Module cards cascade — 90ms between each card
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 11; i++) {
       const delay = 250 + i * 90;
       flashSection(cardFlashes[i], delay, () =>
         setCardLangs(prev => { const n = [...prev] as LangCode[]; n[i] = code; return n; })

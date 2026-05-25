@@ -7,7 +7,7 @@ import BottomNavigationDock from '../components/BottomNavigationDock';
 export default function RootLayout() {
   return (
     <SafeAreaProvider>
-      <StatusBar style="dark" />
+      <StatusBar style="light" />
       <View style={{ flex: 1 }}>
         <Stack
           screenOptions={{
@@ -29,6 +29,7 @@ export default function RootLayout() {
           <Stack.Screen name="lili-route-intelligence" options={{ title: 'Lili Route Intelligence', headerShown: false }} />
           <Stack.Screen name="world-signals"           options={{ title: 'World Signals',           headerShown: false }} />
           <Stack.Screen name="alternate-timeline"     options={{ title: 'Alternate Timeline',      headerShown: false }} />
+          <Stack.Screen name="group-drama"          options={{ title: 'Group Drama Index',       headerShown: false }} />
         </Stack>
         <BottomNavigationDock />
       </View>
