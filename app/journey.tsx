@@ -252,7 +252,7 @@ function PathChip({
     >
       <Text style={[s.pathChipStage, isActive && { color }]}>{chip.label}</Text>
       <Text style={s.pathChipFlag}>{chip.opponentFlag}</Text>
-      <Text style={[s.pathChipProb, { color: isActive ? color : '#8E8E93' }]}>
+      <Text style={[s.pathChipProb, { color: isActive ? color : '#7A90B8' }]}>
         W{Math.round(chip.winProb * 100)}%
       </Text>
     </TouchableOpacity>
@@ -337,7 +337,7 @@ export default function JourneyScreen() {
     return chips;
   }, [team, groupFixtures, groupPredictions, projectedPath]);
 
-  const fedColor = team ? FED_COLOR[team.federation] : '#005F8E';
+  const fedColor = team ? FED_COLOR[team.federation] : '#4A9EFF';
 
   return (
     <SafeAreaView style={s.safe} edges={['bottom']}>
@@ -409,14 +409,22 @@ export default function JourneyScreen() {
                 draw={groupPredictions[stageIndex].drawProb}
                 loss={groupPredictions[stageIndex].lossProb}
               />
-            ) : null
+            ) : (
+              <View style={s.noDataCard}>
+                <Text style={s.noDataText}>Fixture data not yet available for this matchday</Text>
+              </View>
+            )
           ) : (
             projectedPath[stageIndex - GROUP_STAGE_COUNT] ? (
               <ProjectedCard
                 projected={projectedPath[stageIndex - GROUP_STAGE_COUNT]}
                 teamName={team.name}
               />
-            ) : null
+            ) : (
+              <View style={s.noDataCard}>
+                <Text style={s.noDataText}>Projected path requires group stage qualification</Text>
+              </View>
+            )
           )}
 
           {/* Lili insight */}
@@ -475,41 +483,41 @@ export default function JourneyScreen() {
 // ─── Styles ───────────────────────────────────────────────────────────────────
 
 const s = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#F5F5F7' },
+  safe: { flex: 1, backgroundColor: '#050810' },
   content: { paddingHorizontal: 16, paddingBottom: 52 },
 
   // Empty state
   empty: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 40 },
   emptyIcon: { fontSize: 56, marginBottom: 16 },
-  emptyTitle: { fontSize: 20, fontWeight: '700', color: '#1D1D1F', marginBottom: 10 },
-  emptySub: { fontSize: 15, color: '#8E8E93', textAlign: 'center', lineHeight: 22 },
+  emptyTitle: { fontSize: 20, fontWeight: '700', color: '#EEF2FF', marginBottom: 10 },
+  emptySub: { fontSize: 15, color: '#7A90B8', textAlign: 'center', lineHeight: 22 },
 
   // Team hero
   teamHero: { flexDirection: 'row', alignItems: 'center', gap: 14, marginTop: 4, marginBottom: 16 },
   heroFlag: { fontSize: 52 },
   heroText: { flex: 1 },
-  heroName: { fontSize: 22, fontWeight: '700', color: '#1D1D1F', marginBottom: 6 },
+  heroName: { fontSize: 22, fontWeight: '700', color: '#EEF2FF', marginBottom: 6 },
   heroMeta: { flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap' },
-  heroGroup: { fontSize: 13, color: '#6E6E73', fontWeight: '500' },
-  heroStrength: { fontSize: 12, color: '#AEAEB2', fontWeight: '500' },
+  heroGroup: { fontSize: 13, color: '#7A90B8', fontWeight: '500' },
+  heroStrength: { fontSize: 12, color: '#374F7A', fontWeight: '500' },
 
   // Scrubber card
   scrubberCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#0E1933',
     borderRadius: 16,
     paddingTop: 14,
     paddingBottom: 10,
     marginBottom: 16,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.06,
+    shadowOpacity: 0.3,
     shadowRadius: 6,
     elevation: 2,
   },
   scrubberTitle: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#8E8E93',
+    color: '#7A90B8',
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     marginLeft: 20,
@@ -519,13 +527,13 @@ const s = StyleSheet.create({
 
   // Active card shared
   activeCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#0E1933',
     borderRadius: 16,
     marginBottom: 12,
     overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
+    shadowOpacity: 0.3,
     shadowRadius: 10,
     elevation: 4,
   },
@@ -537,14 +545,14 @@ const s = StyleSheet.create({
     paddingBottom: 10,
     gap: 8,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#F2F2F7',
+    borderBottomColor: 'rgba(80,140,255,0.10)',
   },
-  activeCardDate: { flex: 1, fontSize: 13, color: '#6E6E73', fontWeight: '500' },
-  activeCardTime: { fontSize: 12, color: '#AEAEB2' },
+  activeCardDate: { flex: 1, fontSize: 13, color: '#7A90B8', fontWeight: '500' },
+  activeCardTime: { fontSize: 12, color: '#374F7A' },
 
   // Group stage badge
   mdBadge: {
-    backgroundColor: '#005F8E',
+    backgroundColor: '#4A9EFF',
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 6,
@@ -552,19 +560,19 @@ const s = StyleSheet.create({
   mdBadgeText: { fontSize: 11, fontWeight: '700', color: '#FFF' },
 
   // Projected badge
-  projectedCard: { borderWidth: 1.5, borderColor: '#E5E5EA', borderStyle: 'dashed' },
-  projectedBadge: { backgroundColor: '#8E8E93' },
-  projectedBadgeText: { fontSize: 10, fontWeight: '700', color: '#FFF', letterSpacing: 0.3 },
+  projectedCard: { borderWidth: 1.5, borderColor: 'rgba(80,140,255,0.15)', borderStyle: 'dashed' },
+  projectedBadge: { backgroundColor: '#374F7A' },
+  projectedBadgeText: { fontSize: 10, fontWeight: '700', color: '#EEF2FF', letterSpacing: 0.3 },
   simTag: {
-    backgroundColor: '#F5F5F7',
+    backgroundColor: '#0B1426',
     paddingHorizontal: 7,
     paddingVertical: 3,
     borderRadius: 5,
   },
-  simTagText: { fontSize: 9, fontWeight: '700', color: '#AEAEB2', letterSpacing: 0.5 },
+  simTagText: { fontSize: 9, fontWeight: '700', color: '#374F7A', letterSpacing: 0.5 },
   projectedNote: {
     fontSize: 11,
-    color: '#AEAEB2',
+    color: '#374F7A',
     textAlign: 'center',
     fontStyle: 'italic',
     paddingHorizontal: 16,
@@ -583,15 +591,15 @@ const s = StyleSheet.create({
   teamBlock: { flex: 1, alignItems: 'center', gap: 5 },
   teamBlockRight: {},
   teamFlagLarge: { fontSize: 40 },
-  teamNameLarge: { fontSize: 13, fontWeight: '600', color: '#1D1D1F', textAlign: 'center' },
+  teamNameLarge: { fontSize: 13, fontWeight: '600', color: '#EEF2FF', textAlign: 'center' },
   homeAwayLabel: {
     fontSize: 10,
-    color: '#005F8E',
+    color: '#4A9EFF',
     fontWeight: '600',
     textTransform: 'uppercase',
     letterSpacing: 0.3,
   },
-  vsText: { fontSize: 18, fontWeight: '700', color: '#C7C7CC', minWidth: 32, textAlign: 'center' },
+  vsText: { fontSize: 18, fontWeight: '700', color: '#374F7A', minWidth: 32, textAlign: 'center' },
 
   // Federation pill
   fedPill: { paddingHorizontal: 7, paddingVertical: 3, borderRadius: 6 },
@@ -603,12 +611,12 @@ const s = StyleSheet.create({
     paddingTop: 2,
     paddingBottom: 14,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: '#F2F2F7',
+    borderTopColor: 'rgba(80,140,255,0.10)',
   },
   predLabel: {
     fontSize: 9,
     fontWeight: '700',
-    color: '#AEAEB2',
+    color: '#374F7A',
     letterSpacing: 0.6,
     marginBottom: 8,
     marginTop: 10,
@@ -626,22 +634,22 @@ const s = StyleSheet.create({
     gap: 10,
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: '#F9F9FB',
+    backgroundColor: '#0B1426',
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: '#F2F2F7',
+    borderTopColor: 'rgba(80,140,255,0.10)',
   },
   venueFlag: { fontSize: 20 },
-  stadiumText: { fontSize: 13, fontWeight: '600', color: '#1D1D1F' },
-  cityText: { fontSize: 11, color: '#8E8E93', marginTop: 2 },
+  stadiumText: { fontSize: 13, fontWeight: '600', color: '#EEF2FF' },
+  cityText: { fontSize: 11, color: '#7A90B8', marginTop: 2 },
 
   // Lili insight
   insightBox: {
-    backgroundColor: '#EEF4FA',
+    backgroundColor: 'rgba(74,158,255,0.08)',
     borderRadius: 14,
     padding: 16,
     marginBottom: 16,
     borderLeftWidth: 3,
-    borderLeftColor: '#005F8E',
+    borderLeftColor: '#4A9EFF',
   },
   insightHeader: {
     flexDirection: 'row',
@@ -652,18 +660,18 @@ const s = StyleSheet.create({
   insightBadge: {
     fontSize: 9,
     fontWeight: '700',
-    color: '#005F8E',
+    color: '#4A9EFF',
     letterSpacing: 0.8,
   },
   insightRobot: { fontSize: 16 },
-  insightText: { fontSize: 14, color: '#1D1D1F', lineHeight: 21 },
+  insightText: { fontSize: 14, color: '#EEF2FF', lineHeight: 21 },
 
   // Path overview
   pathSection: { marginBottom: 16 },
   pathSectionLabel: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#8E8E93',
+    color: '#7A90B8',
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     marginBottom: 10,
@@ -675,31 +683,40 @@ const s = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 12,
     borderWidth: 1.5,
-    borderColor: '#E5E5EA',
-    backgroundColor: '#FFFFFF',
+    borderColor: 'rgba(80,140,255,0.12)',
+    backgroundColor: '#0E1933',
     minWidth: 56,
     gap: 3,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.04,
+    shadowOpacity: 0.2,
     shadowRadius: 3,
     elevation: 1,
   },
   pathChipProjected: { borderStyle: 'dashed', opacity: 0.85 },
-  pathChipStage: { fontSize: 10, fontWeight: '700', color: '#8E8E93', letterSpacing: 0.2 },
+  pathChipStage: { fontSize: 10, fontWeight: '700', color: '#7A90B8', letterSpacing: 0.2 },
   pathChipFlag: { fontSize: 20 },
   pathChipProb: { fontSize: 10, fontWeight: '600' },
   pathChipWithSep: { alignItems: 'center', gap: 4 },
   pathSep: { flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 4 },
-  pathSepLine: { width: 12, height: 1, backgroundColor: '#E5E5EA' },
-  pathSepLabel: { fontSize: 8, fontWeight: '600', color: '#C7C7CC', letterSpacing: 0.4 },
+  pathSepLine: { width: 12, height: 1, backgroundColor: 'rgba(80,140,255,0.12)' },
+  pathSepLabel: { fontSize: 8, fontWeight: '600', color: '#374F7A', letterSpacing: 0.4 },
 
   footNote: {
     fontSize: 11,
-    color: '#AEAEB2',
+    color: '#374F7A',
     textAlign: 'center',
     lineHeight: 17,
     marginTop: 4,
     fontStyle: 'italic',
   },
+
+  noDataCard: {
+    backgroundColor: 'rgba(80,140,255,0.06)',
+    borderRadius: 14,
+    padding: 24,
+    marginBottom: 12,
+    alignItems: 'center',
+  },
+  noDataText: { fontSize: 13, color: '#374F7A', textAlign: 'center', lineHeight: 20 },
 });

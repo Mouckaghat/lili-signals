@@ -208,6 +208,18 @@ export const STADIUM_ENV: Record<string, StadiumEnvironment> = {
     travelNote:
       "Guadalajara at 1,561m is the tournament's second most demanding altitude environment. Temperature is mild due to elevation, but aerobic capacity reduction remains significant — approximately 6–8% below sea level. Teams arriving directly from sea-level venues carry an unadapted physiological gradient.",
   },
+  nrg: {
+    id: 'nrg',
+    coords: { lat: 29.68, lng: -95.41 },
+    altitudeM: 12,
+    avgTempJune: 32,
+    avgTempJuly: 33,
+    humidityLabel: 'Very High',
+    climateChallenge: 9,
+    altitudeChallenge: 1,
+    travelNote:
+      "Houston in June is the tournament's joint-most demanding climate environment. 32°C ambient temperature and Gulf Coast humidity compound into conditions that fundamentally test squad conditioning. Teams without specific heat-acclimatisation protocols carry a measurable second-half performance deficit — historically, the final 20 minutes at NRG are where preparation margins surface.",
+  },
 };
 
 // ─── Haversine distance ───────────────────────────────────────────────────────

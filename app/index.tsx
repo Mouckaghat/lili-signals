@@ -98,6 +98,7 @@ const T: Record<LangCode, LangT> = {
       { title: '48-Team World Table',      desc: 'Global standings system'         },
       { title: 'Cumulative Journey Graph', desc: 'Tournament momentum analytics'   },
       { title: 'World Signals',            desc: 'Global tournament intelligence'  },
+      { title: 'Alternate Timeline',        desc: 'Counterfactual engine'            },
     ],
   },
   FR: {
@@ -118,6 +119,7 @@ const T: Record<LangCode, LangT> = {
       { title: 'Tableau Mondial 48',         desc: 'Classement mondial'             },
       { title: 'Graphe Cumulatif',        desc: 'Analyse du momentum'            },
       { title: 'Signaux Mondiaux',        desc: 'Intelligence mondiale'          },
+      { title: 'Chronologie Alternative',  desc: 'Moteur contrefactuel'           },
     ],
   },
   IT: {
@@ -138,6 +140,7 @@ const T: Record<LangCode, LangT> = {
       { title: 'Tabella Mondiale 48',        desc: 'Sistema classifiche'         },
       { title: 'Grafico Cumulativo',        desc: 'Analisi del momentum'         },
       { title: 'Segnali Mondiali',          desc: 'Intelligence mondiale'        },
+      { title: 'Linea Temporale Alt.',      desc: 'Motore controfattuale'         },
     ],
   },
   DE: {
@@ -158,6 +161,7 @@ const T: Record<LangCode, LangT> = {
       { title: '48-Team-Tabelle',         desc: 'Globale Rangliste'    },
       { title: 'Kumulativer Graph',   desc: 'Dynamik-Analyse'                 },
       { title: 'Weltsignale',         desc: 'Globale Tournament-Intelligence' },
+      { title: 'Alternate Timeline',  desc: 'Gegenläufige Simulation'          },
     ],
   },
   ES: {
@@ -178,6 +182,7 @@ const T: Record<LangCode, LangT> = {
       { title: 'Tabla Mundial 48',          desc: 'Clasificación global'   },
       { title: 'Gráfico Acumulativo',       desc: 'Análisis de impulso'         },
       { title: 'Señales Mundiales',         desc: 'Inteligencia global'         },
+      { title: 'Línea Temporal Alt.',        desc: 'Motor contrafáctico'          },
     ],
   },
   RU: {
@@ -198,6 +203,7 @@ const T: Record<LangCode, LangT> = {
       { title: 'Таблица 48 Команд',         desc: 'Глобальный рейтинг'   },
       { title: 'Кумулятивный График', desc: 'Анализ динамики'    },
       { title: 'Мировые Сигналы',     desc: 'Глобальная разведка'},
+      { title: 'Альтернативный Поток', desc: 'Контрфактический движок' },
     ],
   },
   CN: {
@@ -218,6 +224,7 @@ const T: Record<LangCode, LangT> = {
       { title: '48队世界榜',   desc: '全球积分'   },
       { title: '累计旅程图',   desc: '动势分析'  },
       { title: '世界信号',     desc: '全球情报'  },
+      { title: '平行时间线',   desc: '反事实引擎' },
     ],
   },
 };
@@ -506,6 +513,13 @@ const FEATURES: FeatureCardData[] = [
     path: '/world-signals',
     accentColor: D.signalGreen,
   },
+  {
+    icon: '⚡',
+    title: 'Alternate Timeline',
+    description: 'Counterfactual intelligence engine',
+    path: '/alternate-timeline',
+    accentColor: '#C060FF',
+  },
 ];
 
 function FeatureCard({
@@ -615,14 +629,14 @@ export default function LandingScreen() {
   // Per-section display languages — updated staggered by the wave
   const [topLang,       setTopLang]       = useState<LangCode>('EN');
   const [countdownLang, setCountdownLang] = useState<LangCode>('EN');
-  const [cardLangs,     setCardLangs]     = useState<LangCode[]>(Array(9).fill('EN') as LangCode[]);
+  const [cardLangs,     setCardLangs]     = useState<LangCode[]>(Array(10).fill('EN') as LangCode[]);
   const [footerLang,    setFooterLang]    = useState<LangCode>('EN');
 
   // Flash animations (opacity: 1 → 0.1 → 1 at update moment)
   const topFlash    = useRef(new Animated.Value(1)).current;
   const countFlash  = useRef(new Animated.Value(1)).current;
   const footerFlash = useRef(new Animated.Value(1)).current;
-  const cardFlashes = useRef(Array.from({ length: 9 }, () => new Animated.Value(1))).current;
+  const cardFlashes = useRef(Array.from({ length: 10 }, () => new Animated.Value(1))).current;
 
   // Full-screen wave ring (scale 0→1, opacity fades out)
   const waveScale   = useRef(new Animated.Value(0)).current;
@@ -676,7 +690,7 @@ export default function LandingScreen() {
     ]).start();
 
     // Module cards cascade — 90ms between each card
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 10; i++) {
       const delay = 250 + i * 90;
       flashSection(cardFlashes[i], delay, () =>
         setCardLangs(prev => { const n = [...prev] as LangCode[]; n[i] = code; return n; })

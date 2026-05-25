@@ -15,15 +15,15 @@ type Status = 'qualified' | 'alive' | 'at-risk' | 'eliminated';
 
 const STATUS_COLOR: Record<Status, string> = {
   qualified: '#34C759',
-  alive:     '#005F8E',
+  alive:     '#4A9EFF',
   'at-risk': '#FF9F0A',
   eliminated:'#FF3B30',
 };
 const STATUS_BG: Record<Status, string> = {
-  qualified: '#E5F7EB',
-  alive:     '#EEF4FA',
-  'at-risk': '#FFF4E5',
-  eliminated:'#FFEBE8',
+  qualified: 'rgba(52,199,89,0.12)',
+  alive:     'rgba(74,158,255,0.10)',
+  'at-risk': 'rgba(255,159,10,0.12)',
+  eliminated:'rgba(255,59,48,0.12)',
 };
 const STATUS_LABEL: Record<Status, string> = {
   qualified: 'Qualified',
@@ -90,7 +90,7 @@ const f = StyleSheet.create({
   win: { backgroundColor: '#34C759' },
   draw: { backgroundColor: '#FF9F0A' },
   loss: { backgroundColor: '#FF3B30' },
-  empty: { backgroundColor: '#F2F2F7' },
+  empty: { backgroundColor: '#0B1426' },
   dotText: { fontSize: 9, fontWeight: '800', color: '#FFFFFF' },
 });
 
@@ -286,13 +286,13 @@ export default function WorldCupTableScreen() {
 
 const t = StyleSheet.create({
   card: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#0E1933',
     borderRadius: 16,
     marginBottom: 16,
     overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.07,
+    shadowOpacity: 0.3,
     shadowRadius: 8,
     elevation: 3,
   },
@@ -302,10 +302,10 @@ const t = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 12,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#E5E5EA',
+    borderBottomColor: 'rgba(80,140,255,0.10)',
     gap: 10,
   },
-  groupTitle: { fontSize: 15, fontWeight: '800', color: '#1D1D1F', flex: 1 },
+  groupTitle: { fontSize: 15, fontWeight: '800', color: '#EEF2FF', flex: 1 },
   groupFeds: { flexDirection: 'row', gap: 6 },
   fedBadge: { paddingHorizontal: 6, paddingVertical: 2, borderRadius: 5 },
   fedText: { fontSize: 9, fontWeight: '700', letterSpacing: 0.3 },
@@ -315,13 +315,13 @@ const t = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 10,
     paddingVertical: 7,
-    backgroundColor: '#F9F9FB',
+    backgroundColor: '#0B1426',
   },
   col: {
     flex: 1,
     fontSize: 9,
     fontWeight: '700',
-    color: '#8E8E93',
+    color: '#7A90B8',
     textAlign: 'center',
     textTransform: 'uppercase',
     letterSpacing: 0.3,
@@ -332,7 +332,7 @@ const t = StyleSheet.create({
   formCol: { flex: 2.2, textAlign: 'left' },
 
   qualLine: {
-    backgroundColor: '#E5F7EB',
+    backgroundColor: 'rgba(52,199,89,0.12)',
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderTopWidth: 1,
@@ -346,7 +346,7 @@ const t = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 10,
   },
-  rowAlt: { backgroundColor: '#FAFAFA' },
+  rowAlt: { backgroundColor: 'rgba(80,140,255,0.04)' },
 
   rankDot: {
     width: 20,
@@ -361,11 +361,11 @@ const t = StyleSheet.create({
 
   teamBlock: { flex: 3, flexDirection: 'row', alignItems: 'center', gap: 6 },
   flag: { fontSize: 18 },
-  teamName: { fontSize: 12, fontWeight: '600', color: '#1D1D1F', flex: 1 },
+  teamName: { fontSize: 12, fontWeight: '600', color: '#EEF2FF', flex: 1 },
 
   gdPos: { color: '#34C759', fontWeight: '700' },
   gdNeg: { color: '#FF3B30', fontWeight: '700' },
-  ptsText: { fontWeight: '800', color: '#005F8E', fontSize: 13 },
+  ptsText: { fontWeight: '800', color: '#4A9EFF', fontSize: 13 },
 
   statusRow: {
     flexDirection: 'row',
@@ -374,8 +374,8 @@ const t = StyleSheet.create({
     gap: 6,
     flexWrap: 'wrap',
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: '#F2F2F7',
-    backgroundColor: '#F9F9FB',
+    borderTopColor: 'rgba(80,140,255,0.10)',
+    backgroundColor: '#0B1426',
   },
   statusBadge: {
     paddingHorizontal: 8,
@@ -386,12 +386,12 @@ const t = StyleSheet.create({
 });
 
 const st = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#F5F5F7' },
+  safe: { flex: 1, backgroundColor: '#050810' },
   pillScroll: { flexGrow: 0 },
   pillContent: { paddingHorizontal: 16, paddingVertical: 10, gap: 8, flexDirection: 'row' },
-  pill: { paddingHorizontal: 14, paddingVertical: 7, borderRadius: 20, backgroundColor: '#E8E8ED' },
-  pillActive: { backgroundColor: '#005F8E' },
-  pillText: { fontSize: 12, fontWeight: '600', color: '#6E6E73' },
+  pill: { paddingHorizontal: 14, paddingVertical: 7, borderRadius: 20, backgroundColor: '#0B1426' },
+  pillActive: { backgroundColor: '#4A9EFF' },
+  pillText: { fontSize: 12, fontWeight: '600', color: '#7A90B8' },
   pillTextActive: { color: '#FFFFFF' },
   banner: {
     flexDirection: 'row',
@@ -399,17 +399,17 @@ const st = StyleSheet.create({
     gap: 12,
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#0E1933',
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#E5E5EA',
+    borderBottomColor: 'rgba(80,140,255,0.10)',
   },
   bannerEmoji: { fontSize: 28 },
-  bannerTitle: { fontSize: 14, fontWeight: '700', color: '#1D1D1F' },
-  bannerSub: { fontSize: 11, color: '#8E8E93', marginTop: 2 },
+  bannerTitle: { fontSize: 14, fontWeight: '700', color: '#EEF2FF' },
+  bannerSub: { fontSize: 11, color: '#7A90B8', marginTop: 2 },
   content: { padding: 16, paddingBottom: 48 },
   footNote: {
     fontSize: 11,
-    color: '#AEAEB2',
+    color: '#374F7A',
     textAlign: 'center',
     lineHeight: 17,
     marginTop: 4,

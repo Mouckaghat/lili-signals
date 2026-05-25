@@ -32,10 +32,10 @@ import { FED_BG, FED_COLOR, WC_TEAMS, type Federation, type WCTeam } from '../li
 // ─── Shared primitives ────────────────────────────────────────────────────────
 
 const QUAL_COLORS: Record<QualStatus, { text: string; bg: string }> = {
-  Qualified:   { text: '#1A7A3C', bg: '#E3F5EC' },
-  'Play-offs': { text: '#B45309', bg: '#FEF3C7' },
-  'Still Alive': { text: '#0369A1', bg: '#E0F2FE' },
-  Eliminated:  { text: '#B91C1C', bg: '#FEE2E2' },
+  Qualified:   { text: '#34C759', bg: 'rgba(52,199,89,0.12)' },
+  'Play-offs': { text: '#FF9F0A', bg: 'rgba(255,159,10,0.12)' },
+  'Still Alive': { text: '#4A9EFF', bg: 'rgba(74,158,255,0.10)' },
+  Eliminated:  { text: '#FF3B30', bg: 'rgba(255,59,48,0.12)' },
 };
 
 function StatusPill({ status }: { status: QualStatus }) {
@@ -66,8 +66,8 @@ function ProbBar({ label, value, color, labelWidth = 130 }: {
 }
 const pb = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 12 },
-  label: { fontSize: 12, color: '#6E6E73', fontWeight: '500' },
-  track: { flex: 1, height: 8, backgroundColor: '#F0F0F5', borderRadius: 4, overflow: 'hidden' },
+  label: { fontSize: 12, color: '#7A90B8', fontWeight: '500' },
+  track: { flex: 1, height: 8, backgroundColor: 'rgba(80,140,255,0.10)', borderRadius: 4, overflow: 'hidden' },
   fill: { height: '100%', borderRadius: 4 },
   pct: { width: 38, fontSize: 13, fontWeight: '700', textAlign: 'right' },
 });
@@ -261,11 +261,13 @@ function OverviewCard({ stats, confColor }: { stats: ConfStats; confColor: strin
 function SimulationCard({
   result,
   loading,
+  error,
   onRun,
   confColor,
 }: {
   result: ConfSimResult | null;
   loading: boolean;
+  error: string | null;
   onRun: () => void;
   confColor: string;
 }) {
@@ -287,7 +289,12 @@ function SimulationCard({
         )}
       </TouchableOpacity>
 
-      {result ? (
+      {error ? (
+        <View style={s.simErrorCard}>
+          <Text style={s.simErrorTitle}>⚠  Simulation Error</Text>
+          <Text style={s.simErrorText}>{error}</Text>
+        </View>
+      ) : result ? (
         <View style={s.simBars}>
           <ProbBar label="Win World Cup"       value={result.winWC}      color={confColor} />
           <ProbBar label="Reach Final"         value={result.reachFinal} color={confColor} />
@@ -378,7 +385,7 @@ function RaceSurvivalBar({
       <View style={pb.track}>
         <View style={[pb.fill, { width: `${pct}%`, backgroundColor: conf.color, opacity: pct === 0 ? 0 : 1 }]} />
       </View>
-      <Text style={[tr.racePct, { color: pct > 0 ? conf.color : '#D1D1D6' }]}>
+      <Text style={[tr.racePct, { color: pct > 0 ? conf.color : '#374F7A' }]}>
         {pct > 0 ? `${pct}%` : '—'}
       </Text>
     </View>
@@ -405,7 +412,7 @@ function TournamentRaceCard({
         activeIndex={stageIndex}
         onIndexChange={onStageChange}
         futureStartIndex={3}
-        color="#005F8E"
+        color="#4A9EFF"
         style={tr.scrubber}
       />
 
@@ -441,14 +448,14 @@ const tr = StyleSheet.create({
     paddingHorizontal: 4,
     paddingVertical: 5,
   },
-  raceConfName: { width: 80, fontSize: 12, fontWeight: '600', color: '#6E6E73' },
+  raceConfName: { width: 80, fontSize: 12, fontWeight: '600', color: '#7A90B8' },
   racePct: { width: 34, fontSize: 12, fontWeight: '700', textAlign: 'right' },
   insightBox: {
-    backgroundColor: '#F5F5F7',
+    backgroundColor: 'rgba(74,158,255,0.08)',
     borderRadius: 12,
     padding: 14,
     borderLeftWidth: 3,
-    borderLeftColor: '#005F8E',
+    borderLeftColor: '#4A9EFF',
   },
   insightHeader: {
     flexDirection: 'row',
@@ -456,9 +463,9 @@ const tr = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 8,
   },
-  insightBadge: { fontSize: 9, fontWeight: '700', color: '#005F8E', letterSpacing: 0.7 },
+  insightBadge: { fontSize: 9, fontWeight: '700', color: '#4A9EFF', letterSpacing: 0.7 },
   insightRobot: { fontSize: 16 },
-  insightText: { fontSize: 13, color: '#1D1D1F', lineHeight: 20 },
+  insightText: { fontSize: 13, color: '#EEF2FF', lineHeight: 20 },
 });
 
 // ─── Main Screen ──────────────────────────────────────────────────────────────
@@ -469,6 +476,7 @@ export default function ConfederationsScreen() {
   const [sortBy, setSortBy] = useState<'ranking' | 'name'>('ranking');
   const [simResult, setSimResult] = useState<ConfSimResult | null>(null);
   const [simLoading, setSimLoading] = useState(false);
+  const [simError, setSimError] = useState<string | null>(null);
   const [raceStageIndex, setRaceStageIndex] = useState(0);
   const { width } = useWindowDimensions();
   const isWide = width >= 700;
@@ -497,16 +505,23 @@ export default function ConfederationsScreen() {
   const handleSelectConf = (conf: Federation) => {
     setSelectedConf(conf);
     setSimResult(null);
+    setSimError(null);
     setSearch('');
   };
 
   const handleRunSim = async () => {
     setSimLoading(true);
     setSimResult(null);
+    setSimError(null);
     await new Promise((r) => setTimeout(r, 60));
-    const result = runConfedSimulation(selectedConf, 300);
-    setSimResult(result);
-    setSimLoading(false);
+    try {
+      const result = runConfedSimulation(selectedConf, 300);
+      setSimResult(result);
+    } catch (e) {
+      setSimError(e instanceof Error ? e.message : 'Simulation failed. Please try again.');
+    } finally {
+      setSimLoading(false);
+    }
   };
 
   const rightPanel = (
@@ -515,6 +530,7 @@ export default function ConfederationsScreen() {
       <SimulationCard
         result={simResult}
         loading={simLoading}
+        error={simError}
         onRun={handleRunSim}
         confColor={confColor}
       />
@@ -573,7 +589,7 @@ export default function ConfederationsScreen() {
 // ─── Styles ───────────────────────────────────────────────────────────────────
 
 const s = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#F5F5F7' },
+  safe: { flex: 1, backgroundColor: '#050810' },
   scrollContent: { paddingBottom: 52 },
 
   // Header
@@ -587,8 +603,8 @@ const s = StyleSheet.create({
   },
   headerLogo: { width: 46, height: 46 },
   headerText: { flex: 1 },
-  headerTitle: { fontSize: 26, fontWeight: '700', color: '#1D1D1F', letterSpacing: -0.5 },
-  headerSubtitle: { fontSize: 14, color: '#6E6E73', marginTop: 2 },
+  headerTitle: { fontSize: 26, fontWeight: '700', color: '#EEF2FF', letterSpacing: -0.5 },
+  headerSubtitle: { fontSize: 14, color: '#7A90B8', marginTop: 2 },
 
   // Confederation cards
   cardsScroll: { marginBottom: 6 },
@@ -598,20 +614,20 @@ const s = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 10,
     borderRadius: 14,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#0E1933',
     alignItems: 'center',
     borderWidth: 1.5,
-    borderColor: '#E5E5EA',
+    borderColor: 'rgba(80,140,255,0.12)',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
+    shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 2,
   },
   confIcon: { fontSize: 22, marginBottom: 6 },
-  confName: { fontSize: 12, fontWeight: '700', color: '#1D1D1F', marginBottom: 2 },
-  confTagline: { fontSize: 10, color: '#AEAEB2', fontWeight: '500', textAlign: 'center', marginBottom: 4 },
-  confCount: { fontSize: 11, color: '#8E8E93', fontWeight: '500' },
+  confName: { fontSize: 12, fontWeight: '700', color: '#EEF2FF', marginBottom: 2 },
+  confTagline: { fontSize: 10, color: '#374F7A', fontWeight: '500', textAlign: 'center', marginBottom: 4 },
+  confCount: { fontSize: 11, color: '#7A90B8', fontWeight: '500' },
   confActiveDot: { width: 6, height: 6, borderRadius: 3, marginTop: 8 },
 
   // Layout
@@ -622,18 +638,18 @@ const s = StyleSheet.create({
 
   // Card shell (no horizontal margin — parent handles padding)
   card: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#0E1933',
     borderRadius: 16,
     padding: 16,
     marginBottom: 14,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.06,
+    shadowOpacity: 0.3,
     shadowRadius: 6,
     elevation: 2,
   },
-  cardTitle: { fontSize: 15, fontWeight: '700', color: '#1D1D1F', marginBottom: 2 },
-  cardSubtitle: { fontSize: 12, color: '#8E8E93', marginBottom: 14 },
+  cardTitle: { fontSize: 15, fontWeight: '700', color: '#EEF2FF', marginBottom: 2 },
+  cardSubtitle: { fontSize: 12, color: '#7A90B8', marginBottom: 14 },
 
   // Teams table controls
   tableControls: {
@@ -647,45 +663,45 @@ const s = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F5F5F7',
+    backgroundColor: '#0B1426',
     borderRadius: 10,
     paddingHorizontal: 10,
     paddingVertical: 7,
     gap: 6,
   },
   searchIcon: { fontSize: 13 },
-  searchInput: { flex: 1, fontSize: 13, color: '#1D1D1F' },
-  clearBtn: { fontSize: 14, color: '#AEAEB2', paddingHorizontal: 4 },
+  searchInput: { flex: 1, fontSize: 13, color: '#EEF2FF' },
+  clearBtn: { fontSize: 14, color: '#374F7A', paddingHorizontal: 4 },
   sortBtns: { flexDirection: 'row', gap: 6 },
   sortBtn: {
     paddingHorizontal: 11,
     paddingVertical: 7,
     borderRadius: 8,
-    backgroundColor: '#F0F0F5',
+    backgroundColor: '#0B1426',
   },
-  sortBtnText: { fontSize: 12, fontWeight: '600', color: '#6E6E73' },
+  sortBtnText: { fontSize: 12, fontWeight: '600', color: '#7A90B8' },
 
   // Table header
   tableHeader: {
     flexDirection: 'row',
     paddingBottom: 8,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#E5E5EA',
+    borderBottomColor: 'rgba(80,140,255,0.10)',
     marginBottom: 2,
   },
-  thCell: { fontSize: 9, fontWeight: '700', color: '#AEAEB2', letterSpacing: 0.5 },
+  thCell: { fontSize: 9, fontWeight: '700', color: '#374F7A', letterSpacing: 0.5 },
 
   // Team row
   teamRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10, gap: 6 },
   teamRowBorder: {
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: '#F5F5F7',
+    borderTopColor: 'rgba(80,140,255,0.07)',
   },
-  teamRank: { width: 34, fontSize: 11, color: '#AEAEB2', fontWeight: '600' },
+  teamRank: { width: 34, fontSize: 11, color: '#374F7A', fontWeight: '600' },
   teamFlag: { fontSize: 17, width: 24 },
-  teamName: { flex: 1, fontSize: 13, fontWeight: '500', color: '#1D1D1F' },
-  teamGroup: { width: 28, fontSize: 12, color: '#8E8E93', fontWeight: '600', textAlign: 'center' },
-  emptyTable: { fontSize: 13, color: '#AEAEB2', textAlign: 'center', paddingVertical: 20 },
+  teamName: { flex: 1, fontSize: 13, fontWeight: '500', color: '#EEF2FF' },
+  teamGroup: { width: 28, fontSize: 12, color: '#7A90B8', fontWeight: '600', textAlign: 'center' },
+  emptyTable: { fontSize: 13, color: '#374F7A', textAlign: 'center', paddingVertical: 20 },
 
   // Overview stats grid
   statGrid: { flexDirection: 'row', flexWrap: 'wrap', marginTop: 12, marginBottom: 12 },
@@ -693,7 +709,7 @@ const s = StyleSheet.create({
   statValue: { fontSize: 22, fontWeight: '700', marginBottom: 2 },
   statLabel: {
     fontSize: 10,
-    color: '#8E8E93',
+    color: '#7A90B8',
     fontWeight: '600',
     textTransform: 'uppercase',
     letterSpacing: 0.4,
@@ -705,17 +721,17 @@ const s = StyleSheet.create({
     paddingTop: 12,
     paddingLeft: 10,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: '#F0F0F5',
+    borderTopColor: 'rgba(80,140,255,0.10)',
     borderLeftWidth: 3,
   },
   strongestLabel: {
     fontSize: 10,
-    color: '#8E8E93',
+    color: '#7A90B8',
     fontWeight: '600',
     textTransform: 'uppercase',
     letterSpacing: 0.4,
   },
-  strongestValue: { fontSize: 14, fontWeight: '600', color: '#1D1D1F' },
+  strongestValue: { fontSize: 14, fontWeight: '600', color: '#EEF2FF' },
 
   // Simulation
   runBtn: {
@@ -733,7 +749,7 @@ const s = StyleSheet.create({
   simBars: { paddingTop: 2 },
   simHint: {
     fontSize: 13,
-    color: '#AEAEB2',
+    color: '#374F7A',
     lineHeight: 20,
     textAlign: 'center',
     paddingHorizontal: 8,
@@ -742,19 +758,19 @@ const s = StyleSheet.create({
 
   // Top teams
   topRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 14, gap: 8 },
-  topRankNum: { width: 16, fontSize: 11, color: '#AEAEB2', fontWeight: '700' },
+  topRankNum: { width: 16, fontSize: 11, color: '#374F7A', fontWeight: '700' },
   topFlag: { fontSize: 17 },
-  topName: { width: 88, fontSize: 13, fontWeight: '500', color: '#1D1D1F' },
+  topName: { width: 88, fontSize: 13, fontWeight: '500', color: '#EEF2FF' },
   topPct: { width: 38, fontSize: 12, fontWeight: '700', textAlign: 'right' },
 
   // Lili Insight
   insightCard: {
-    backgroundColor: '#EEF4FA',
+    backgroundColor: 'rgba(74,158,255,0.08)',
     borderRadius: 16,
     padding: 16,
     marginBottom: 14,
     borderLeftWidth: 3,
-    borderLeftColor: '#005F8E',
+    borderLeftColor: '#4A9EFF',
   },
   insightHeader: {
     flexDirection: 'row',
@@ -765,10 +781,20 @@ const s = StyleSheet.create({
   insightBadge: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#005F8E',
+    color: '#4A9EFF',
     letterSpacing: 0.8,
   },
   insightRobot: { fontSize: 18 },
-  insightText: { fontSize: 14, color: '#1D1D1F', lineHeight: 22 },
-  insightMeta: { fontSize: 11, color: '#8E8E93', marginTop: 10, fontStyle: 'italic' },
+  insightText: { fontSize: 14, color: '#EEF2FF', lineHeight: 22 },
+  insightMeta: { fontSize: 11, color: '#7A90B8', marginTop: 10, fontStyle: 'italic' },
+
+  simErrorCard: {
+    backgroundColor: 'rgba(255,59,48,0.10)',
+    borderRadius: 14,
+    padding: 14,
+    borderLeftWidth: 3,
+    borderLeftColor: '#FF3B30',
+  },
+  simErrorTitle: { fontSize: 11, fontWeight: '700', color: '#FF3B30', letterSpacing: 0.5, marginBottom: 5 },
+  simErrorText: { fontSize: 12, color: '#EEF2FF', lineHeight: 19 },
 });

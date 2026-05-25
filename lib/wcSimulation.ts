@@ -40,7 +40,7 @@ function sigmoid(x: number): number {
  * Returns [winProb, drawProb, lossProb] for team A.
  * Uses a sigmoid on the strength difference — symmetric, bounded.
  */
-function matchProbs(sA: number, sB: number): [number, number, number] {
+export function matchProbs(sA: number, sB: number): [number, number, number] {
   const diff = (sA - sB) / 25;
   const rawWin = sigmoid(diff);
 

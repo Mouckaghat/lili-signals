@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Animated,
   Image,
@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { computeRouteSignals, type RouteDangerZone, type RouteBriefing } from '../lib/routeSignals';
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
@@ -29,110 +30,6 @@ const D = {
   text3:   '#374F7A',
   sep:     'rgba(80,140,255,0.12)',
 };
-
-// ─── Static intelligence data ─────────────────────────────────────────────────
-
-const BRIEFINGS: Array<{ type: string; color: string; text: string }> = [
-  {
-    type: 'ROUTE',
-    color: D.orange,
-    text: 'Brazil projects a high-turbulence path through three distinct climate zones and maximum-pressure knockout venues.',
-  },
-  {
-    type: 'MOMENTUM',
-    color: D.cyan,
-    text: 'Japan confidence surge detected. Reduced-expectation entry with high-variance group structure creates a dark-horse corridor.',
-  },
-  {
-    type: 'CLIMATE',
-    color: D.green,
-    text: 'Mexico City altitude exposure accumulates measurable fatigue for non-CONCACAF teams across consecutive fixtures.',
-  },
-  {
-    type: 'PRESSURE',
-    color: D.orange,
-    text: 'MetLife Final pressure coefficient locked at 10.0. Every group-stage fixture here carries structural weight beyond the immediate result.',
-  },
-  {
-    type: 'ROUTE',
-    color: D.orange,
-    text: "England projects the most geographically complex European path — spanning Gulf Coast heat, altitude, and East Coast conditions.",
-  },
-  {
-    type: 'NARRATIVE',
-    color: D.signal,
-    text: 'Argentina enters with fractured momentum. Late-equaliser psychology elevates upset exposure across the full knockout sequence.',
-  },
-  {
-    type: 'CLIMATE',
-    color: D.green,
-    text: 'Houston–Miami dual-heat chain generates compound fatigue loading for teams scheduled without adequate recovery intervals.',
-  },
-  {
-    type: 'ROUTE',
-    color: D.blue,
-    text: 'Germany draws a structurally clean path — limited altitude variance, stable climate profile, high venue quality throughout.',
-  },
-];
-
-interface DangerZone {
-  label: string;
-  color: string;
-  desc: string;
-  score: number;
-  teams: Array<{ flag: string; name: string }>;
-}
-
-const DANGER_ZONES: DangerZone[] = [
-  {
-    label: 'DEATH CORRIDOR',
-    color: D.red,
-    desc: 'Altitude shock · consecutive heat · extended travel chains',
-    score: 9.4,
-    teams: [
-      { flag: '🇧🇷', name: 'Brazil'    },
-      { flag: '🇲🇽', name: 'Mexico'    },
-      { flag: '🇲🇦', name: 'Morocco'   },
-      { flag: '🇪🇨', name: 'Ecuador'   },
-    ],
-  },
-  {
-    label: 'HIGH TURBULENCE',
-    color: D.orange,
-    desc: 'Climate variance · pressure escalation · reduced recovery',
-    score: 7.2,
-    teams: [
-      { flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', name: 'England'   },
-      { flag: '🇫🇷', name: 'France'    },
-      { flag: '🇵🇹', name: 'Portugal'  },
-      { flag: '🇨🇴', name: 'Colombia'  },
-    ],
-  },
-  {
-    label: 'COLLAPSE RISK',
-    color: '#FFD60A',
-    desc: 'Psychological pressure · narrative weight · upset exposure',
-    score: 6.1,
-    teams: [
-      { flag: '🇦🇷', name: 'Argentina' },
-      { flag: '🇧🇪', name: 'Belgium'   },
-      { flag: '🇪🇸', name: 'Spain'     },
-      { flag: '🇺🇾', name: 'Uruguay'   },
-    ],
-  },
-  {
-    label: 'SAFE CORRIDOR',
-    color: D.green,
-    desc: 'Stable climate · clean schedule · low cumulative fatigue',
-    score: 2.8,
-    teams: [
-      { flag: '🇩🇪', name: 'Germany'     },
-      { flag: '🇳🇱', name: 'Netherlands' },
-      { flag: '🇯🇵', name: 'Japan'       },
-      { flag: '🇺🇸', name: 'USA'         },
-    ],
-  },
-];
 
 // ─── Tournament pulse ─────────────────────────────────────────────────────────
 
@@ -171,7 +68,7 @@ function PulseDot({ color }: { color: string }) {
 
 // ─── Briefing entry ───────────────────────────────────────────────────────────
 
-function BriefingEntry({ entry, index }: { entry: typeof BRIEFINGS[0]; index: number }) {
+function BriefingEntry({ entry, index }: { entry: RouteBriefing; index: number }) {
   const opacity    = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(10)).current;
 
@@ -225,7 +122,7 @@ function DangerZoneCard({
   isSelected,
   onPress,
 }: {
-  zone: DangerZone;
+  zone: RouteDangerZone;
   isSelected: boolean;
   onPress: () => void;
 }) {
@@ -345,6 +242,7 @@ export default function LiliRouteIntelligenceScreen() {
   const fadeIn  = useRef(new Animated.Value(0)).current;
 
   const [selectedZone, setSelectedZone] = useState<string | null>(null);
+  const { zones, briefings } = useMemo(() => computeRouteSignals(undefined), []);
 
   useEffect(() => {
     Animated.timing(fadeIn, { toValue: 1, duration: 800, useNativeDriver: true }).start();
@@ -438,7 +336,7 @@ export default function LiliRouteIntelligenceScreen() {
             sub="Lili's active observation layer"
           />
           <View style={ms.gap8}>
-            {BRIEFINGS.map((b, i) => (
+            {briefings.map((b, i) => (
               <BriefingEntry key={i} entry={b} index={i} />
             ))}
           </View>
@@ -451,7 +349,7 @@ export default function LiliRouteIntelligenceScreen() {
             sub="Tap a classification to reveal affected teams"
           />
           <View style={ms.gap8}>
-            {DANGER_ZONES.map((z) => (
+            {zones.map((z) => (
               <DangerZoneCard
                 key={z.label}
                 zone={z}

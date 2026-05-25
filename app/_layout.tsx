@@ -11,10 +11,10 @@ export default function RootLayout() {
       <View style={{ flex: 1 }}>
         <Stack
           screenOptions={{
-            headerStyle: { backgroundColor: '#F5F5F7' },
-            headerTintColor: '#005F8E',
-            headerTitleStyle: { fontWeight: '600', color: '#1D1D1F' },
-            contentStyle: { backgroundColor: '#F5F5F7' },
+            headerStyle: { backgroundColor: '#05080F' },
+            headerTintColor: '#4A9EFF',
+            headerTitleStyle: { fontWeight: '600', color: '#EEF2FF' },
+            contentStyle: { backgroundColor: '#050810' },
             headerShadowVisible: false,
           }}
         >
@@ -28,6 +28,7 @@ export default function RootLayout() {
           <Stack.Screen name="stadium-intelligence"      options={{ title: 'Stadium Intelligence',      headerShown: false }} />
           <Stack.Screen name="lili-route-intelligence" options={{ title: 'Lili Route Intelligence', headerShown: false }} />
           <Stack.Screen name="world-signals"           options={{ title: 'World Signals',           headerShown: false }} />
+          <Stack.Screen name="alternate-timeline"     options={{ title: 'Alternate Timeline',      headerShown: false }} />
         </Stack>
         <BottomNavigationDock />
       </View>

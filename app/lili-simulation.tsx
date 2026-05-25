@@ -78,7 +78,7 @@ function ResultsView({ result }: { result: WCSimResult }) {
       {/* Tournament probabilities */}
       <View style={s.card}>
         <Text style={s.cardTitle}>Tournament Probabilities</Text>
-        <StatRow label="Qualify" value={pct(result.qualificationRate)} bar={result.qualificationRate} color="#005F8E" />
+        <StatRow label="Qualify" value={pct(result.qualificationRate)} bar={result.qualificationRate} color="#4A9EFF" />
         <StatRow label="Quarter-final" value={pct(result.quarterFinalRate)} bar={result.quarterFinalRate} color="#30A0D8" />
         <StatRow label="Semi-final" value={pct(result.semiFinalRate)} bar={result.semiFinalRate} color="#FF9F0A" />
         <StatRow label="Final" value={pct(result.finalRate)} bar={result.finalRate} color="#FF6B00" />
@@ -132,18 +132,28 @@ export default function LiliSimulationScreen() {
   const [runs, setRuns] = useState<RunOption>(1_000);
   const [result, setResult] = useState<WCSimResult | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleRun = async () => {
     if (!team) return;
     setLoading(true);
     setResult(null);
+    setError(null);
 
-    // Run synchronously but yield to UI thread first
+    // yield to UI before heavy computation
     await new Promise((r) => setTimeout(r, 50));
 
-    const sim = runWCSimulation(team.name, runs);
-    setResult(sim);
-    setLoading(false);
+    let sim: WCSimResult | null = null;
+    try {
+      sim = runWCSimulation(team.name, runs);
+      setResult(sim);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Simulation failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+
+    if (!sim) return;
 
     // Persist to JSONL in background
     try {
@@ -201,7 +211,7 @@ export default function LiliSimulationScreen() {
       <TeamPickerModal
         visible={pickerOpen}
         selected={team}
-        onSelect={(t) => { setTeam(t); setResult(null); }}
+        onSelect={(t) => { setTeam(t); setResult(null); setError(null); }}
         onClose={() => setPickerOpen(false)}
       />
 
@@ -250,6 +260,14 @@ export default function LiliSimulationScreen() {
               )}
             </TouchableOpacity>
 
+            {/* Error */}
+            {error && (
+              <View style={s.errorCard}>
+                <Text style={s.errorTitle}>⚠  Simulation Error</Text>
+                <Text style={s.errorText}>{error}</Text>
+              </View>
+            )}
+
             {/* Results */}
             {result && <ResultsView result={result} />}
           </>
@@ -260,19 +278,19 @@ export default function LiliSimulationScreen() {
 }
 
 const s = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#F5F5F7' },
+  safe: { flex: 1, backgroundColor: '#050810' },
   content: { padding: 16, paddingBottom: 48 },
 
   empty: { alignItems: 'center', paddingTop: 60, paddingHorizontal: 32 },
   emptyIcon: { fontSize: 56, marginBottom: 16 },
-  emptyTitle: { fontSize: 20, fontWeight: '700', color: '#1D1D1F', marginBottom: 10 },
-  emptySub: { fontSize: 15, color: '#8E8E93', textAlign: 'center', lineHeight: 22 },
+  emptyTitle: { fontSize: 20, fontWeight: '700', color: '#EEF2FF', marginBottom: 10 },
+  emptySub: { fontSize: 15, color: '#7A90B8', textAlign: 'center', lineHeight: 22 },
 
   section: { marginBottom: 16 },
   sectionLabel: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#8E8E93',
+    color: '#7A90B8',
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     marginBottom: 10,
@@ -282,19 +300,19 @@ const s = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 9,
     borderRadius: 20,
-    backgroundColor: '#E8E8ED',
+    backgroundColor: '#0B1426',
   },
-  runOptionActive: { backgroundColor: '#005F8E' },
-  runOptionText: { fontSize: 14, fontWeight: '600', color: '#6E6E73' },
+  runOptionActive: { backgroundColor: '#4A9EFF' },
+  runOptionText: { fontSize: 14, fontWeight: '600', color: '#7A90B8' },
   runOptionTextActive: { color: '#FFFFFF' },
 
   runBtn: {
-    backgroundColor: '#005F8E',
+    backgroundColor: '#4A9EFF',
     borderRadius: 14,
     paddingVertical: 16,
     alignItems: 'center',
     marginBottom: 24,
-    shadowColor: '#005F8E',
+    shadowColor: '#4A9EFF',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
@@ -304,17 +322,17 @@ const s = StyleSheet.create({
   runBtnText: { fontSize: 16, fontWeight: '700', color: '#FFFFFF' },
 
   card: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#0E1933',
     borderRadius: 16,
     padding: 16,
     marginBottom: 14,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.06,
+    shadowOpacity: 0.3,
     shadowRadius: 6,
     elevation: 2,
   },
-  cardTitle: { fontSize: 14, fontWeight: '700', color: '#1D1D1F', marginBottom: 14 },
+  cardTitle: { fontSize: 14, fontWeight: '700', color: '#EEF2FF', marginBottom: 14 },
 
   statRow: {
     flexDirection: 'row',
@@ -322,11 +340,11 @@ const s = StyleSheet.create({
     marginBottom: 11,
     gap: 10,
   },
-  statLabel: { width: 100, fontSize: 13, color: '#6E6E73' },
+  statLabel: { width: 100, fontSize: 13, color: '#7A90B8' },
   barTrack: {
     flex: 1,
     height: 6,
-    backgroundColor: '#F0F0F5',
+    backgroundColor: '#0B1426',
     borderRadius: 3,
     overflow: 'hidden',
   },
@@ -338,25 +356,25 @@ const s = StyleSheet.create({
     overflow: 'hidden',
     marginBottom: 10,
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: '#E5E5EA',
+    borderColor: 'rgba(80,140,255,0.12)',
   },
   matchCardHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: 12,
     gap: 8,
-    backgroundColor: '#F9F9FB',
+    backgroundColor: '#0B1426',
   },
   matchMD: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#005F8E',
-    backgroundColor: '#E8EEF9',
+    color: '#4A9EFF',
+    backgroundColor: 'rgba(74,158,255,0.12)',
     paddingHorizontal: 7,
     paddingVertical: 3,
     borderRadius: 5,
   },
-  matchOpponent: { flex: 1, fontSize: 14, fontWeight: '600', color: '#1D1D1F' },
+  matchOpponent: { flex: 1, fontSize: 14, fontWeight: '600', color: '#EEF2FF' },
   fedPill: { paddingHorizontal: 7, paddingVertical: 3, borderRadius: 6 },
   fedText: { fontSize: 10, fontWeight: '700', letterSpacing: 0.3 },
 
@@ -364,38 +382,49 @@ const s = StyleSheet.create({
   probBar: { height: '100%' },
   probLabels: { flexDirection: 'row', padding: 10, gap: 12 },
   probLabel: { fontSize: 12, fontWeight: '600' },
-  expPts: { marginLeft: 'auto', fontSize: 12, color: '#8E8E93', fontWeight: '500' },
+  expPts: { marginLeft: 'auto', fontSize: 12, color: '#7A90B8', fontWeight: '500' },
 
   signalRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   signalIcon: {
     width: 40,
     height: 40,
     borderRadius: 12,
-    backgroundColor: '#F9F9FB',
+    backgroundColor: '#0B1426',
     alignItems: 'center',
     justifyContent: 'center',
   },
   signalEmoji: { fontSize: 20 },
   signalText: {},
-  signalLabel: { fontSize: 11, color: '#8E8E93', fontWeight: '600', textTransform: 'uppercase', letterSpacing: 0.3 },
-  signalValue: { fontSize: 15, fontWeight: '600', color: '#1D1D1F', marginTop: 2 },
+  signalLabel: { fontSize: 11, color: '#7A90B8', fontWeight: '600', textTransform: 'uppercase', letterSpacing: 0.3 },
+  signalValue: { fontSize: 15, fontWeight: '600', color: '#EEF2FF', marginTop: 2 },
 
   reasoningCard: {
-    backgroundColor: '#EEF4FA',
+    backgroundColor: 'rgba(74,158,255,0.08)',
     borderRadius: 16,
     padding: 16,
     marginBottom: 14,
     borderLeftWidth: 3,
-    borderLeftColor: '#005F8E',
+    borderLeftColor: '#4A9EFF',
   },
   reasoningLabel: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#005F8E',
+    color: '#4A9EFF',
     textTransform: 'uppercase',
     letterSpacing: 0.5,
     marginBottom: 8,
   },
-  reasoningText: { fontSize: 14, color: '#1D1D1F', lineHeight: 22 },
-  runsNote: { fontSize: 11, color: '#8E8E93', marginTop: 10, fontStyle: 'italic' },
+  reasoningText: { fontSize: 14, color: '#EEF2FF', lineHeight: 22 },
+  runsNote: { fontSize: 11, color: '#7A90B8', marginTop: 10, fontStyle: 'italic' },
+
+  errorCard: {
+    backgroundColor: 'rgba(255,59,48,0.10)',
+    borderRadius: 14,
+    padding: 16,
+    marginBottom: 14,
+    borderLeftWidth: 3,
+    borderLeftColor: '#FF3B30',
+  },
+  errorTitle: { fontSize: 12, fontWeight: '700', color: '#FF3B30', letterSpacing: 0.5, marginBottom: 6 },
+  errorText: { fontSize: 13, color: '#EEF2FF', lineHeight: 20 },
 });

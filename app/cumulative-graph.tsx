@@ -140,7 +140,7 @@ function Chart({ points }: { points: PlotPoint[] }) {
               left: x - 6,
               top: y - 6,
               borderWidth: 2,
-              borderColor: '#FFFFFF',
+              borderColor: '#0E1933',
             }}
           />
         );
@@ -273,6 +273,12 @@ export default function CumulativeGraphScreen() {
             cumulative points journey.
           </Text>
         </View>
+      ) : preds.length === 0 ? (
+        <View style={s.empty}>
+          <Text style={s.emptyIcon}>⚠️</Text>
+          <Text style={s.emptyTitle}>No Fixture Data</Text>
+          <Text style={s.emptySub}>No group stage fixtures found for {team.name}.</Text>
+        </View>
       ) : (
         <ScrollView contentContainerStyle={s.content}>
           {/* Legend */}
@@ -315,7 +321,7 @@ export default function CumulativeGraphScreen() {
           </View>
 
           {/* Qualification indicator */}
-          <View style={[s.qualBanner, { backgroundColor: willQualify ? '#E5F7EB' : '#FFF0E8' }]}>
+          <View style={[s.qualBanner, { backgroundColor: willQualify ? 'rgba(52,199,89,0.12)' : 'rgba(255,107,0,0.12)' }]}>
             <Text style={[s.qualText, { color: willQualify ? '#34C759' : '#FF6B00' }]}>
               {willQualify
                 ? `Lili projects ~${finalPts.toFixed(1)} pts — likely to qualify`
@@ -344,29 +350,29 @@ export default function CumulativeGraphScreen() {
 }
 
 const s = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#F5F5F7' },
+  safe: { flex: 1, backgroundColor: '#050810' },
   content: { padding: 16, paddingBottom: 48 },
 
   empty: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 40 },
   emptyIcon: { fontSize: 56, marginBottom: 16 },
-  emptyTitle: { fontSize: 20, fontWeight: '700', color: '#1D1D1F', marginBottom: 10 },
-  emptySub: { fontSize: 15, color: '#8E8E93', textAlign: 'center', lineHeight: 22 },
+  emptyTitle: { fontSize: 20, fontWeight: '700', color: '#EEF2FF', marginBottom: 10 },
+  emptySub: { fontSize: 15, color: '#7A90B8', textAlign: 'center', lineHeight: 22 },
 
   legend: { flexDirection: 'row', gap: 14, marginBottom: 14, flexWrap: 'wrap' },
   legendItem: { flexDirection: 'row', alignItems: 'center', gap: 5 },
   legendDot: { width: 8, height: 8, borderRadius: 4 },
-  legendText: { fontSize: 11, color: '#6E6E73', textTransform: 'capitalize' },
+  legendText: { fontSize: 11, color: '#7A90B8', textTransform: 'capitalize' },
 
   chartWrap: {
     flexDirection: 'row',
     height: CHART_H + 32,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#0E1933',
     borderRadius: 16,
     padding: 12,
     marginBottom: 12,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.06,
+    shadowOpacity: 0.3,
     shadowRadius: 6,
     elevation: 2,
   },
@@ -375,7 +381,7 @@ const s = StyleSheet.create({
     position: 'absolute',
     right: 0,
     fontSize: 10,
-    color: '#AEAEB2',
+    color: '#374F7A',
     fontWeight: '500',
   },
   xAxis: {
@@ -384,8 +390,8 @@ const s = StyleSheet.create({
     marginTop: 8,
   },
   xTap: { paddingHorizontal: 8, paddingVertical: 4 },
-  xLabel: { fontSize: 12, color: '#8E8E93', fontWeight: '500' },
-  xLabelActive: { color: '#005F8E', fontWeight: '700' },
+  xLabel: { fontSize: 12, color: '#7A90B8', fontWeight: '500' },
+  xLabelActive: { color: '#4A9EFF', fontWeight: '700' },
 
   qualBanner: {
     borderRadius: 10,
@@ -397,21 +403,21 @@ const s = StyleSheet.create({
 
   hint: {
     fontSize: 12,
-    color: '#AEAEB2',
+    color: '#374F7A',
     textAlign: 'center',
     fontStyle: 'italic',
     marginBottom: 14,
   },
 
   detailCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#0E1933',
     borderRadius: 16,
     overflow: 'hidden',
     marginBottom: 14,
     flexDirection: 'row',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.07,
+    shadowOpacity: 0.3,
     shadowRadius: 8,
     elevation: 3,
   },
@@ -419,33 +425,33 @@ const s = StyleSheet.create({
   detailBody: { flex: 1, padding: 14 },
   detailHeader: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 },
   detailMatchday: {
-    backgroundColor: '#EEF4FA',
+    backgroundColor: 'rgba(74,158,255,0.12)',
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 6,
   },
-  detailMDText: { fontSize: 11, fontWeight: '700', color: '#005F8E' },
-  detailOpponent: { flex: 1, fontSize: 14, fontWeight: '600', color: '#1D1D1F' },
+  detailMDText: { fontSize: 11, fontWeight: '700', color: '#4A9EFF' },
+  detailOpponent: { flex: 1, fontSize: 14, fontWeight: '600', color: '#EEF2FF' },
   fedPill: { paddingHorizontal: 7, paddingVertical: 3, borderRadius: 6 },
   fedText: { fontSize: 10, fontWeight: '700', letterSpacing: 0.3 },
 
-  detailDate: { fontSize: 12, color: '#8E8E93', marginBottom: 2 },
-  detailVenue: { fontSize: 12, color: '#8E8E93', marginBottom: 12 },
+  detailDate: { fontSize: 12, color: '#7A90B8', marginBottom: 2 },
+  detailVenue: { fontSize: 12, color: '#7A90B8', marginBottom: 12 },
 
   detailStats: { flexDirection: 'row', gap: 0, marginBottom: 12 },
   detailStat: { flex: 1, alignItems: 'center' },
-  detailStatLabel: { fontSize: 10, color: '#8E8E93', fontWeight: '600', textTransform: 'uppercase', marginBottom: 3 },
-  detailStatValue: { fontSize: 16, fontWeight: '700', color: '#1D1D1F' },
+  detailStatLabel: { fontSize: 10, color: '#7A90B8', fontWeight: '600', textTransform: 'uppercase', marginBottom: 3 },
+  detailStatValue: { fontSize: 16, fontWeight: '700', color: '#EEF2FF' },
 
   detailProbs: {},
-  detailProbsLabel: { fontSize: 10, color: '#8E8E93', marginBottom: 5, textTransform: 'uppercase', fontWeight: '600', letterSpacing: 0.3 },
+  detailProbsLabel: { fontSize: 10, color: '#7A90B8', marginBottom: 5, textTransform: 'uppercase', fontWeight: '600', letterSpacing: 0.3 },
   detailProbBar: { flexDirection: 'row', height: 6, borderRadius: 3, overflow: 'hidden', marginBottom: 4 },
   detailProbFill: { height: '100%' },
   detailProbNums: { flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 2 },
 
   footNote: {
     fontSize: 11,
-    color: '#AEAEB2',
+    color: '#374F7A',
     textAlign: 'center',
     lineHeight: 17,
     marginTop: 4,
