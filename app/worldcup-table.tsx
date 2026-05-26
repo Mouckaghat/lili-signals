@@ -287,7 +287,7 @@ export default function WorldCupTableScreen() {
         </View>
       </View>
 
-      <ScrollView contentContainerStyle={st.content}>
+      <ScrollView style={st.scroll} contentContainerStyle={st.content}>
         {displayGroups.map((g) => (
           <GroupTable key={g} group={g} />
         ))}
@@ -420,6 +420,7 @@ const st = StyleSheet.create({
   bannerEmoji: { fontSize: 28 },
   bannerTitle: { fontSize: 14, fontWeight: '700', color: '#EEF2FF' },
   bannerSub: { fontSize: 11, color: '#7A90B8', marginTop: 2 },
+  scroll: { flex: 1 },
   content: { padding: 16, paddingBottom: 48 },
   footNote: {
     fontSize: 11,
