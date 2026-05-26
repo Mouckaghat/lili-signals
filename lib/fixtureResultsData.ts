@@ -12,6 +12,8 @@ export interface FixtureResult {
 
 // Keyed by "HomeTeam|AwayTeam" — matches WC_FIXTURES home|away exactly.
 // Only contains entries for fixtures that are LIVE or FINISHED.
-export const FIXTURE_RESULTS: Record<string, FixtureResult> = {};
+export const FIXTURE_RESULTS: Record<string, FixtureResult> = {
 
-export const FIXTURE_RESULTS_LAST_UPDATED = '';
+};
+
+export const FIXTURE_RESULTS_LAST_UPDATED = '2026-05-26T18:23:45.797Z';
