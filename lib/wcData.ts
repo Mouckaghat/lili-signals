@@ -22,6 +22,13 @@ export const FED_BG: Record<Federation, string> = {
   OFC:      '#E0F5FA',
 };
 
+export interface InjuredPlayer {
+  name: string;
+  reason: string;
+  severity: 'OUT' | 'DOUBTFUL' | 'SUSPENDED';
+  returnDate?: string; // ISO date string, or omitted if unknown
+}
+
 export interface WCTeam {
   name: string;
   flag: string;

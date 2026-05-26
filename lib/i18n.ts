@@ -294,6 +294,15 @@ export interface I18n {
   capacityComparison: string;
   tapMatchHint: string;
   graphFootnote: string;
+  // ── Injury bulletin ────────────────────────────────────────────────────────
+  injuryBulletin: string;
+  injuryOut: string;
+  injuryDoubtful: string;
+  injurySuspended: string;
+  injuryReturn: string;   // {date}
+  injuryNoReturn: string;
+  injuryClean: string;
+  injuryImpact: string;   // {n}
 }
 
 export const I18N: Record<LangCode, I18n> = {
@@ -485,6 +494,14 @@ export const I18N: Record<LangCode, I18n> = {
     capacityComparison: 'CAPACITY COMPARISON',
     tapMatchHint: 'Tap a match node above to see details',
     graphFootnote: "Dashed lines = Lili's projected outcome (pre-match).\nSolid lines = confirmed results. lili-v1.0",
+    injuryBulletin: 'Injury Bulletin',
+    injuryOut: 'OUT',
+    injuryDoubtful: 'DOUBTFUL',
+    injurySuspended: 'SUSPENDED',
+    injuryReturn: 'Return: {date}',
+    injuryNoReturn: 'Return unknown',
+    injuryClean: 'All squads fully fit',
+    injuryImpact: 'Lili impact: −{n} strength pts',
   },
 
   FR: {
@@ -675,6 +692,14 @@ export const I18N: Record<LangCode, I18n> = {
     capacityComparison: 'COMPARAISON DE CAPACITÉ',
     tapMatchHint: 'Appuyez sur un nœud de match pour voir les détails',
     graphFootnote: "Lignes pointillées = résultat projeté par Lili (avant-match).\nLignes pleines = résultats confirmés. lili-v1.0",
+    injuryBulletin: 'Bulletin des blessures',
+    injuryOut: 'FORFAIT',
+    injuryDoubtful: 'INCERTAIN',
+    injurySuspended: 'SUSPENDU',
+    injuryReturn: 'Retour : {date}',
+    injuryNoReturn: 'Retour incertain',
+    injuryClean: 'Tous les effectifs aptes',
+    injuryImpact: 'Impact Lili : −{n} pts de force',
   },
 
   IT: {
@@ -865,6 +890,14 @@ export const I18N: Record<LangCode, I18n> = {
     capacityComparison: 'CONFRONTO CAPACITÀ',
     tapMatchHint: 'Tocca un nodo partita per vedere i dettagli',
     graphFootnote: "Linee tratteggiate = esito proiettato da Lili (pre-partita).\nLinee continue = risultati confermati. lili-v1.0",
+    injuryBulletin: 'Bollettino infortuni',
+    injuryOut: 'INDISPONIBILE',
+    injuryDoubtful: 'IN DUBBIO',
+    injurySuspended: 'SQUALIFICATO',
+    injuryReturn: 'Rientro: {date}',
+    injuryNoReturn: 'Rientro incerto',
+    injuryClean: 'Tutti i gruppi in forma',
+    injuryImpact: 'Impatto Lili: −{n} pt forza',
   },
 
   DE: {
@@ -1055,6 +1088,14 @@ export const I18N: Record<LangCode, I18n> = {
     capacityComparison: 'KAPAZITÄTSVERGLEICH',
     tapMatchHint: 'Tippen Sie auf einen Match-Knoten, um Details anzuzeigen',
     graphFootnote: "Gestrichelte Linien = Lilis projiziertes Ergebnis (vor dem Spiel).\nDurchgezogene Linien = bestätigte Ergebnisse. lili-v1.0",
+    injuryBulletin: 'Verletzungsbericht',
+    injuryOut: 'AUSFALL',
+    injuryDoubtful: 'FRAGLICH',
+    injurySuspended: 'GESPERRT',
+    injuryReturn: 'Rückkehr: {date}',
+    injuryNoReturn: 'Rückkehr unbekannt',
+    injuryClean: 'Alle Kader fit',
+    injuryImpact: 'Lili-Einfluss: −{n} Stärkepunkte',
   },
 
   ES: {
@@ -1245,6 +1286,14 @@ export const I18N: Record<LangCode, I18n> = {
     capacityComparison: 'COMPARACIÓN DE CAPACIDAD',
     tapMatchHint: 'Toca un nodo de partido para ver los detalles',
     graphFootnote: "Líneas discontinuas = resultado proyectado de Lili (pre-partido).\nLíneas sólidas = resultados confirmados. lili-v1.0",
+    injuryBulletin: 'Boletín de lesiones',
+    injuryOut: 'BAJA',
+    injuryDoubtful: 'DUDOSO',
+    injurySuspended: 'SUSPENDIDO',
+    injuryReturn: 'Retorno: {date}',
+    injuryNoReturn: 'Retorno desconocido',
+    injuryClean: 'Todos los equipos aptos',
+    injuryImpact: 'Impacto Lili: −{n} pts fuerza',
   },
 
   RU: {
@@ -1435,6 +1484,14 @@ export const I18N: Record<LangCode, I18n> = {
     capacityComparison: 'СРАВНЕНИЕ ВМЕСТИМОСТИ',
     tapMatchHint: 'Нажмите на узел матча, чтобы увидеть детали',
     graphFootnote: "Пунктирные линии = прогноз Лили (до матча).\nСплошные линии = подтверждённые результаты. lili-v1.0",
+    injuryBulletin: 'Бюллетень травм',
+    injuryOut: 'ВЫБЫЛ',
+    injuryDoubtful: 'ПОД ВОПРОСОМ',
+    injurySuspended: 'ДИСКВАЛИФИЦИРОВАН',
+    injuryReturn: 'Возвращение: {date}',
+    injuryNoReturn: 'Дата возвращения неизвестна',
+    injuryClean: 'Все составы здоровы',
+    injuryImpact: 'Влияние Lili: −{n} ед. силы',
   },
 
   CN: {
@@ -1625,6 +1682,14 @@ export const I18N: Record<LangCode, I18n> = {
     capacityComparison: '容量比较',
     tapMatchHint: '点击上方的比赛节点查看详情',
     graphFootnote: "虚线 = Lili 的预计结果（赛前）。\n实线 = 确认结果。lili-v1.0",
+    injuryBulletin: '伤情公报',
+    injuryOut: '缺席',
+    injuryDoubtful: '存疑',
+    injurySuspended: '停赛',
+    injuryReturn: '预计复出：{date}',
+    injuryNoReturn: '复出时间未知',
+    injuryClean: '全部阵容状态良好',
+    injuryImpact: 'Lili影响：−{n}实力分',
   },
 
   JP: {
@@ -1815,6 +1880,14 @@ export const I18N: Record<LangCode, I18n> = {
     capacityComparison: '容量比較',
     tapMatchHint: '上のマッチノードをタップして詳細を表示',
     graphFootnote: "破線 = Liliの予測結果（試合前）。\n実線 = 確認済み結果。lili-v1.0",
+    injuryBulletin: '負傷者速報',
+    injuryOut: '欠場',
+    injuryDoubtful: '出場疑問',
+    injurySuspended: '出場停止',
+    injuryReturn: '復帰予定：{date}',
+    injuryNoReturn: '復帰日未定',
+    injuryClean: '全チーム健全',
+    injuryImpact: 'Lili影響：−{n}強さポイント',
   },
 
   KR: {
@@ -2005,6 +2078,14 @@ export const I18N: Record<LangCode, I18n> = {
     capacityComparison: '수용인원 비교',
     tapMatchHint: '위의 경기 노드를 탭하여 세부정보 확인',
     graphFootnote: "점선 = Lili의 예상 결과 (경기 전).\n실선 = 확인된 결과. lili-v1.0",
+    injuryBulletin: '부상 공보',
+    injuryOut: '결장',
+    injuryDoubtful: '출전 의문',
+    injurySuspended: '출전 정지',
+    injuryReturn: '복귀 예정: {date}',
+    injuryNoReturn: '복귀일 미정',
+    injuryClean: '전 팀 정상',
+    injuryImpact: 'Lili 영향: −{n} 강도 포인트',
   },
 
   PT: {
@@ -2195,6 +2276,14 @@ export const I18N: Record<LangCode, I18n> = {
     capacityComparison: 'COMPARAÇÃO DE CAPACIDADE',
     tapMatchHint: 'Toque num nó de jogo para ver detalhes',
     graphFootnote: "Linhas tracejadas = resultado projetado pela Lili (pré-jogo).\nLinhas sólidas = resultados confirmados. lili-v1.0",
+    injuryBulletin: 'Boletim de lesões',
+    injuryOut: 'FORA',
+    injuryDoubtful: 'DUVIDOSO',
+    injurySuspended: 'SUSPENSO',
+    injuryReturn: 'Regresso: {date}',
+    injuryNoReturn: 'Regresso desconhecido',
+    injuryClean: 'Todos os plantéis aptos',
+    injuryImpact: 'Impacto Lili: −{n} pts força',
   },
 
   AR: {
@@ -2385,5 +2474,13 @@ export const I18N: Record<LangCode, I18n> = {
     capacityComparison: 'مقارنة الطاقة الاستيعابية',
     tapMatchHint: 'اضغط على عقدة مباراة لرؤية التفاصيل',
     graphFootnote: "الخطوط المتقطعة = النتيجة المتوقعة من ليلي (قبل المباراة).\nالخطوط المصمتة = النتائج المؤكدة. lili-v1.0",
+    injuryBulletin: 'نشرة الإصابات',
+    injuryOut: 'خارج الحسابات',
+    injuryDoubtful: 'مشكوك فيه',
+    injurySuspended: 'موقوف',
+    injuryReturn: 'العودة: {date}',
+    injuryNoReturn: 'موعد العودة غير معروف',
+    injuryClean: 'جميع المنتخبات بصحة جيدة',
+    injuryImpact: 'تأثير Lili: −{n} نقطة قوة',
   },
 };
