@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Animated,
   StyleSheet,
@@ -7,6 +7,10 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { computeWorldSignals, type SignalIntercept, type PulseTeam, type NarrativeArc, type RegionSignal } from '../lib/worldSignals';
+import { WORLD_SIGNALS_I18N } from '../lib/worldSignalsI18n';
+import FeatureIntro from '../components/FeatureIntro';
+import { playerByPath } from '../lib/playerXI';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
@@ -295,15 +299,19 @@ const sh = StyleSheet.create({
 // ─── Main screen ──────────────────────────────────────────────────────────────
 
 export default function WorldSignalsScreen() {
+  const [launched, setLaunched] = useState(false);
+  const { i18n, lang } = useLanguage();
   const insets  = useSafeAreaInsets();
   const fadeIn  = useRef(new Animated.Value(0)).current;
   // Pass a Set of active team names here once live standings are integrated.
   // undefined = all 48 teams active (pre-tournament / full field).
-  const signals = useMemo(() => computeWorldSignals(undefined), []);
+  const signals = useMemo(() => computeWorldSignals(undefined, WORLD_SIGNALS_I18N[lang] ?? WORLD_SIGNALS_I18N.EN), [lang]);
 
   useEffect(() => {
     Animated.timing(fadeIn, { toValue: 1, duration: 700, useNativeDriver: true }).start();
   }, [fadeIn]);
+
+  if (!launched) return <FeatureIntro player={playerByPath('/world-signals')!} onLaunch={() => setLaunched(true)} />;
 
   return (
     <View style={ms.root}>
@@ -319,7 +327,7 @@ export default function WorldSignalsScreen() {
           <RadarNode />
           <View style={ms.titleBlock}>
             <Text style={ms.eyebrow}>WORLD</Text>
-            <Text style={ms.title}>Signals</Text>
+            <Text style={ms.title}>{i18n.titleWorldSignals}</Text>
             <Text style={ms.tagline}>Global football atmosphere · Live radar</Text>
           </View>
           <View style={ms.liveChip}>
@@ -362,8 +370,8 @@ export default function WorldSignalsScreen() {
         {/* Signal Intercepts */}
         <View style={ms.section}>
           <SectionHeader
-            title="SIGNAL INTERCEPTS"
-            sub="Fixture intelligence · ranked by narrative weight"
+            title={i18n.signalIntercepts}
+            sub={i18n.signalInterceptsSub}
           />
           <View style={ms.gap8}>
             {signals.intercepts.map((item, i) => (
@@ -375,8 +383,8 @@ export default function WorldSignalsScreen() {
         {/* Emotional Pulse */}
         <View style={ms.section}>
           <SectionHeader
-            title="EMOTIONAL PULSE"
-            sub="Lili-computed team pressure index"
+            title={i18n.emotionalPulse}
+            sub={i18n.emotionalPulseSub}
           />
           <View style={ms.pulseCard}>
             <View style={ms.pulseLegend}>
@@ -395,8 +403,8 @@ export default function WorldSignalsScreen() {
         {/* Narrative Arcs */}
         <View style={ms.section}>
           <SectionHeader
-            title="NARRATIVE ARCS"
-            sub="Active tournament story lines"
+            title={i18n.narrativeArcs}
+            sub={i18n.narrativeArcsSub}
           />
           <View style={ms.gap8}>
             {signals.narratives.map((arc) => (
@@ -408,8 +416,8 @@ export default function WorldSignalsScreen() {
         {/* Continental Energy */}
         <View style={ms.section}>
           <SectionHeader
-            title="CONTINENTAL ENERGY"
-            sub="Regional signal momentum · vs global average"
+            title={i18n.continentalEnergy}
+            sub={i18n.continentalEnergySub}
           />
           <View style={ms.regionCard}>
             <View style={ms.gap12}>

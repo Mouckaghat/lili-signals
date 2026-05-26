@@ -17,6 +17,9 @@ import {
   type QualifyingPair,
   type TeamDramaStats,
 } from '../lib/groupDrama';
+import FeatureIntro from '../components/FeatureIntro';
+import { playerByPath } from '../lib/playerXI';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
@@ -66,10 +69,12 @@ function PulseDot({ color }: { color: string }) {
 // ─── Drama badge ──────────────────────────────────────────────────────────────
 
 function DramaBadge({ label, color, index }: { label: DramaLabel; color: string; index: number }) {
+  const { i18n } = useLanguage();
+  const labelMap: Record<DramaLabel, string> = { CALM: i18n.calm, BUILDING: i18n.building, TENSION: i18n.tension, CHAOS: i18n.chaos };
   return (
     <View style={[db.wrap, { borderColor: `${color}40`, backgroundColor: `${color}12` }]}>
       <PulseDot color={color} />
-      <Text style={[db.label, { color }]}>{label}</Text>
+      <Text style={[db.label, { color }]}>{labelMap[label]}</Text>
       <Text style={[db.index, { color }]}>{index}</Text>
     </View>
   );
@@ -176,6 +181,7 @@ const pr = StyleSheet.create({
 // ─── Group card ───────────────────────────────────────────────────────────────
 
 function GroupCard({ data, index }: { data: GroupDrama; index: number }) {
+  const { i18n } = useLanguage();
   const [expanded, setExpanded] = useState(false);
 
   const opacity    = useRef(new Animated.Value(0)).current;
@@ -222,7 +228,7 @@ function GroupCard({ data, index }: { data: GroupDrama; index: number }) {
 
             {/* Top qualifying pairs */}
             <View style={gc.detailSection}>
-              <Text style={gc.detailTitle}>MOST LIKELY QUALIFIERS</Text>
+              <Text style={gc.detailTitle}>{i18n.mostLikelyQualifiers}</Text>
               {data.topPairs.map((p, i) => (
                 <PairRow key={`${p.t0}-${p.t1}`} pair={p} rank={i + 1} color={data.dramaColor} />
               ))}
@@ -232,17 +238,17 @@ function GroupCard({ data, index }: { data: GroupDrama; index: number }) {
             <View style={gc.detailRow}>
               {data.darkHorse && (
                 <View style={[gc.callout, { borderColor: `${data.dramaColor}30`, backgroundColor: `${data.dramaColor}08` }]}>
-                  <Text style={[gc.calloutLabel, { color: data.dramaColor }]}>DARK HORSE</Text>
+                  <Text style={[gc.calloutLabel, { color: data.dramaColor }]}>{i18n.darkHorse}</Text>
                   <Text style={gc.calloutValue}>{data.darkHorseFlag} {data.darkHorse}</Text>
                   <Text style={gc.calloutSub}>
-                    {Math.round((data.teams.find(t => t.name === data.darkHorse)?.qualProb ?? 0) * 100)}% qual prob
+                    {i18n.qualProbPct.replace('{pct}', String(Math.round((data.teams.find(t => t.name === data.darkHorse)?.qualProb ?? 0) * 100)))}
                   </Text>
                 </View>
               )}
               <View style={[gc.callout, { borderColor: 'rgba(80,140,255,0.20)', backgroundColor: 'rgba(80,140,255,0.06)' }]}>
-                <Text style={[gc.calloutLabel, { color: D.blue }]}>TIGHTNESS</Text>
+                <Text style={[gc.calloutLabel, { color: D.blue }]}>{i18n.tightness}</Text>
                 <Text style={gc.calloutValue}>{data.tightnessPts.toFixed(2)} pts</Text>
-                <Text style={gc.calloutSub}>2nd–3rd gap (xPts)</Text>
+                <Text style={gc.calloutSub}>{i18n.xPtsGap}</Text>
               </View>
             </View>
 
@@ -289,11 +295,13 @@ const gc = StyleSheet.create({
 // ─── Main screen ──────────────────────────────────────────────────────────────
 
 export default function GroupDramaScreen() {
+  const [launched, setLaunched] = useState(false);
   const insets = useSafeAreaInsets();
 
   const breathe = useRef(new Animated.Value(0.25)).current;
   const fadeIn  = useRef(new Animated.Value(0)).current;
 
+  const { i18n } = useLanguage();
   const [sortMode, setSortMode] = useState<SortMode>('drama');
 
   useEffect(() => {
@@ -320,6 +328,8 @@ export default function GroupDramaScreen() {
   const tensionCount = allDrama.filter(g => g.dramaIndex >= 50).length;
   const topGroup     = [...allDrama].sort((a, b) => b.dramaIndex - a.dramaIndex)[0];
 
+  if (!launched) return <FeatureIntro player={playerByPath('/group-drama')!} onLaunch={() => setLaunched(true)} />;
+
   return (
     <View style={ms.root}>
 
@@ -342,8 +352,8 @@ export default function GroupDramaScreen() {
 
           <View style={ms.titleBlock}>
             <Text style={ms.eyebrow}>LILI</Text>
-            <Text style={ms.title}>Drama Index</Text>
-            <Text style={ms.tagline}>Group-stage mathematical tension</Text>
+            <Text style={ms.title}>{i18n.titleGroupDrama}</Text>
+            <Text style={ms.tagline}>{i18n.groupStageTension}</Text>
           </View>
 
           <View style={ms.statusChip}>
@@ -356,22 +366,22 @@ export default function GroupDramaScreen() {
         <View style={ms.pulseStrip}>
           <View style={ms.pulseCell}>
             <Text style={[ms.pulseValue, { color: topGroup.dramaColor }]}>{topGroup.group}</Text>
-            <Text style={ms.pulseLabel}>MOST TENSE</Text>
+            <Text style={ms.pulseLabel}>{i18n.mostTense}</Text>
           </View>
           <View style={ms.pulseSep} />
           <View style={ms.pulseCell}>
             <Text style={[ms.pulseValue, { color: D.gold }]}>{avgDrama}</Text>
-            <Text style={ms.pulseLabel}>AVG DRAMA</Text>
+            <Text style={ms.pulseLabel}>{i18n.avgDrama}</Text>
           </View>
           <View style={ms.pulseSep} />
           <View style={ms.pulseCell}>
             <Text style={[ms.pulseValue, { color: D.orange }]}>{tensionCount}</Text>
-            <Text style={ms.pulseLabel}>TENSION+</Text>
+            <Text style={ms.pulseLabel}>{i18n.tensionPlus}</Text>
           </View>
           <View style={ms.pulseSep} />
           <View style={ms.pulseCell}>
             <Text style={ms.pulseValue}>12</Text>
-            <Text style={ms.pulseLabel}>GROUPS</Text>
+            <Text style={ms.pulseLabel}>{i18n.groups}</Text>
           </View>
         </View>
 
@@ -382,14 +392,14 @@ export default function GroupDramaScreen() {
             onPress={() => setSortMode('drama')}
             activeOpacity={0.7}
           >
-            <Text style={[ms.sortText, sortMode === 'drama' && { color: D.gold }]}>BY DRAMA</Text>
+            <Text style={[ms.sortText, sortMode === 'drama' && { color: D.gold }]}>{i18n.sortDrama}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[ms.sortBtn, sortMode === 'alpha' && ms.sortActive]}
             onPress={() => setSortMode('alpha')}
             activeOpacity={0.7}
           >
-            <Text style={[ms.sortText, sortMode === 'alpha' && { color: D.gold }]}>A → L</Text>
+            <Text style={[ms.sortText, sortMode === 'alpha' && { color: D.gold }]}>{i18n.sortAlpha}</Text>
           </TouchableOpacity>
         </View>
       </View>

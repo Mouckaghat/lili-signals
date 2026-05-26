@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n '\"[A-Za-z][^\"]\\\\{5,\\\\}\"' \"/Users/johannboucavel/Library/CloudStorage/GoogleDrive-johannboucavel@gmail.com/My Drive/00 I Carl/01 - Training/25 I Python/01 - Active/Lili_Signals/app/lili-simulation.tsx\")",
+      "Bash(grep -n '\"[A-Za-z][^\"]\\\\{5,\\\\}\"' \"/Users/johannboucavel/Library/CloudStorage/GoogleDrive-johannboucavel@gmail.com/My Drive/00 I Carl/01 - Training/25 I Python/01 - Active/Lili_Signals/app/alternate-timeline.tsx\")",
+      "Bash(grep -n '\"[A-Za-z][^\"]\\\\{5,\\\\}\"' \"/Users/johannboucavel/Library/CloudStorage/GoogleDrive-johannboucavel@gmail.com/My Drive/00 I Carl/01 - Training/25 I Python/01 - Active/Lili_Signals/app/world-signals.tsx\")",
+      "Bash(grep -n '\"[A-Za-z][^\"]\\\\{4,\\\\}\"' \"/Users/johannboucavel/Library/CloudStorage/GoogleDrive-johannboucavel@gmail.com/My Drive/00 I Carl/01 - Training/25 I Python/01 - Active/Lili_Signals/app/stadium-intelligence.tsx\")",
+      "Bash(grep -n '\"[A-Za-z][^\"]\\\\{4,\\\\}\"' \"/Users/johannboucavel/Library/CloudStorage/GoogleDrive-johannboucavel@gmail.com/My Drive/00 I Carl/01 - Training/25 I Python/01 - Active/Lili_Signals/app/team-route.tsx\")",
+      "Bash(grep -n \"function SectionHeader\\\\|function.*{ title\\\\|{ title, sub\" \"/Users/johannboucavel/Library/CloudStorage/GoogleDrive-johannboucavel@gmail.com/My Drive/00 I Carl/01 - Training/25 I Python/01 - Active/Lili_Signals/app/world-signals.tsx\")",
+      "Bash(grep -n \"function SectionHeader\\\\|function.*{ title\\\\|{ title, sub\" \"/Users/johannboucavel/Library/CloudStorage/GoogleDrive-johannboucavel@gmail.com/My Drive/00 I Carl/01 - Training/25 I Python/01 - Active/Lili_Signals/app/stadium-intelligence.tsx\")",
+      "Bash(grep -n \"function SectionHeader\\\\|function.*{ title\\\\|{ title, sub\" \"/Users/johannboucavel/Library/CloudStorage/GoogleDrive-johannboucavel@gmail.com/My Drive/00 I Carl/01 - Training/25 I Python/01 - Active/Lili_Signals/app/confederations.tsx\")",
+      "Bash(awk '/FR:/{found=1} found && /stadiumDetails/{print NR\": \"$0} found && /DE:|IT:|ES:|RU:|CN:|JP:|KR:|PT:|AR:/{if\\(found>1\\) exit; found++}' \"/Users/johannboucavel/Library/CloudStorage/GoogleDrive-johannboucavel@gmail.com/My Drive/00 I Carl/01 - Training/25 I Python/01 - Active/Lili_Signals/lib/i18n.ts\")",
+      "Bash(grep -rn \"return \\\\`\\\\|return \\(\" \"/Users/johannboucavel/Library/CloudStorage/GoogleDrive-johannboucavel@gmail.com/My Drive/00 I Carl/01 - Training/25 I Python/01 - Active/Lili_Signals/lib/\" --include=\"*.ts\")"
+    ]
+  }
+}

@@ -1,3 +1,4 @@
+import { Stack } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import {
   ActivityIndicator,
@@ -15,9 +16,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import FutureScrubber, { type ScrubberStage } from '../components/FutureScrubber';
 import {
   CONFEDERATION_META,
-  CONF_RACE_STAGE_INSIGHTS,
   CONF_STAGE_SURVIVAL,
-  LILI_INSIGHTS,
   TEAM_FIFA_RANKING,
   TEAM_QUAL_STATUS,
   getConfStats,
@@ -27,7 +26,14 @@ import {
   type ConfStats,
   type QualStatus,
 } from '../lib/confederationData';
+import {
+  CONF_RACE_INSIGHTS_I18N,
+  LILI_INSIGHTS_I18N,
+} from '../lib/confederationInsightsI18n';
 import { FED_BG, FED_COLOR, WC_TEAMS, type Federation, type WCTeam } from '../lib/wcData';
+import FeatureIntro from '../components/FeatureIntro';
+import { playerByPath } from '../lib/playerXI';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // ─── Shared primitives ────────────────────────────────────────────────────────
 
@@ -75,6 +81,7 @@ const pb = StyleSheet.create({
 // ─── Screen Header ────────────────────────────────────────────────────────────
 
 function ScreenHeader() {
+  const { i18n } = useLanguage();
   return (
     <View style={s.header}>
       <Image
@@ -83,8 +90,8 @@ function ScreenHeader() {
         resizeMode="contain"
       />
       <View style={s.headerText}>
-        <Text style={s.headerTitle}>Confederations</Text>
-        <Text style={s.headerSubtitle}>Explore teams by football confederation</Text>
+        <Text style={s.headerTitle}>{i18n.titleConfederations}</Text>
+        <Text style={s.headerSubtitle}>{i18n.confHeaderSub}</Text>
       </View>
     </View>
   );
@@ -99,6 +106,7 @@ function ConfederationCards({
   selected: Federation;
   onSelect: (f: Federation) => void;
 }) {
+  const { i18n } = useLanguage();
   return (
     <ScrollView
       horizontal
@@ -126,7 +134,7 @@ function ConfederationCards({
             <Text style={s.confIcon}>{conf.icon}</Text>
             <Text style={[s.confName, active && { color: conf.color }]}>{conf.name}</Text>
             <Text style={s.confTagline}>{conf.tagline}</Text>
-            <Text style={s.confCount}>{count} teams</Text>
+            <Text style={s.confCount}>{i18n.confTeamsCount.replace('{count}', String(count))}</Text>
             {active && (
               <View style={[s.confActiveDot, { backgroundColor: conf.color }]} />
             )}
@@ -168,9 +176,10 @@ function TeamsTableCard({
   onSort: (s: 'ranking' | 'name') => void;
   confColor: string;
 }) {
+  const { i18n } = useLanguage();
   return (
     <View style={s.card}>
-      <Text style={s.cardTitle}>Federation Teams</Text>
+      <Text style={s.cardTitle}>{i18n.federationTeams}</Text>
 
       {/* Controls */}
       <View style={s.tableControls}>
@@ -178,7 +187,7 @@ function TeamsTableCard({
           <Text style={s.searchIcon}>🔍</Text>
           <TextInput
             style={s.searchInput}
-            placeholder="Search teams…"
+            placeholder={i18n.searchTeams}
             placeholderTextColor="#AEAEB2"
             value={search}
             onChangeText={onSearch}
@@ -200,7 +209,7 @@ function TeamsTableCard({
               onPress={() => onSort(opt)}
             >
               <Text style={[s.sortBtnText, sortBy === opt && { color: '#FFF' }]}>
-                {opt === 'ranking' ? 'Rank' : 'A–Z'}
+                {opt === 'ranking' ? i18n.sortRank : i18n.sortAZ}
               </Text>
             </TouchableOpacity>
           ))}
@@ -209,15 +218,15 @@ function TeamsTableCard({
 
       {/* Column headers */}
       <View style={s.tableHeader}>
-        <Text style={[s.thCell, { width: 40 }]}>RANK</Text>
-        <Text style={[s.thCell, { flex: 1 }]}>TEAM</Text>
-        <Text style={[s.thCell, { width: 34 }]}>GRP</Text>
-        <Text style={[s.thCell, { width: 82 }]}>STATUS</Text>
+        <Text style={[s.thCell, { width: 40 }]}>{i18n.colRank}</Text>
+        <Text style={[s.thCell, { flex: 1 }]}>{i18n.colTeam.toUpperCase()}</Text>
+        <Text style={[s.thCell, { width: 34 }]}>{i18n.colGroup}</Text>
+        <Text style={[s.thCell, { width: 82 }]}>{i18n.colStatus}</Text>
       </View>
 
       {/* Rows */}
       {teams.length === 0 ? (
-        <Text style={s.emptyTable}>No teams match your search</Text>
+        <Text style={s.emptyTable}>{i18n.noTeamsMatch}</Text>
       ) : (
         teams.map((team, i) => <TeamRow key={team.name} team={team} index={i} />)
       )}
@@ -237,17 +246,18 @@ function StatTile({ label, value, color }: { label: string; value: string; color
 }
 
 function OverviewCard({ stats, confColor }: { stats: ConfStats; confColor: string }) {
+  const { i18n } = useLanguage();
   return (
     <View style={s.card}>
-      <Text style={s.cardTitle}>Federation Overview</Text>
+      <Text style={s.cardTitle}>{i18n.federationOverview}</Text>
       <View style={s.statGrid}>
-        <StatTile label="Teams in WC" value={String(stats.totalTeams)} color={confColor} />
-        <StatTile label="Avg Ranking" value={`#${stats.avgRanking}`} color={confColor} />
-        <StatTile label="Best Ranked" value={`#${stats.bestRanking}`} color="#1A7A3C" />
-        <StatTile label="Strength Idx" value={String(stats.avgStrength)} color={confColor} />
+        <StatTile label={i18n.teamsInWC} value={String(stats.totalTeams)} color={confColor} />
+        <StatTile label={i18n.avgRanking} value={`#${stats.avgRanking}`} color={confColor} />
+        <StatTile label={i18n.bestRanked} value={`#${stats.bestRanking}`} color="#1A7A3C" />
+        <StatTile label={i18n.strengthIdx} value={String(stats.avgStrength)} color={confColor} />
       </View>
       <View style={[s.strongestRow, { borderLeftColor: confColor }]}>
-        <Text style={s.strongestLabel}>Strongest team</Text>
+        <Text style={s.strongestLabel}>{i18n.strongestTeam}</Text>
         <Text style={s.strongestValue}>
           {stats.strongestTeam.flag}{'  '}{stats.strongestTeam.name}
         </Text>
@@ -271,10 +281,11 @@ function SimulationCard({
   onRun: () => void;
   confColor: string;
 }) {
+  const { i18n } = useLanguage();
   return (
     <View style={s.card}>
-      <Text style={s.cardTitle}>Lili Confederation Simulation</Text>
-      <Text style={s.cardSubtitle}>300 Monte Carlo runs per team</Text>
+      <Text style={s.cardTitle}>{i18n.liliConfSim}</Text>
+      <Text style={s.cardSubtitle}>{i18n.monteCarlo300}</Text>
 
       <TouchableOpacity
         style={[s.runBtn, { backgroundColor: confColor, shadowColor: confColor }, loading && s.runBtnBusy]}
@@ -285,7 +296,7 @@ function SimulationCard({
         {loading ? (
           <ActivityIndicator color="#FFF" size="small" />
         ) : (
-          <Text style={s.runBtnText}>{result ? '↺  Run Again' : '▶  Run Simulation'}</Text>
+          <Text style={s.runBtnText}>{result ? `↺  ${i18n.runSim}` : `▶  ${i18n.runSim}`}</Text>
         )}
       </TouchableOpacity>
 
@@ -296,15 +307,13 @@ function SimulationCard({
         </View>
       ) : result ? (
         <View style={s.simBars}>
-          <ProbBar label="Win World Cup"       value={result.winWC}      color={confColor} />
-          <ProbBar label="Reach Final"         value={result.reachFinal} color={confColor} />
-          <ProbBar label="Reach Semi-final"    value={result.reachSemi}  color={confColor} />
-          <ProbBar label="Reach Quarter-final" value={result.reachQF}    color={confColor} />
+          <ProbBar label={i18n.winWorldCup}       value={result.winWC}      color={confColor} />
+          <ProbBar label={i18n.reachFinalLabel}  value={result.reachFinal} color={confColor} />
+          <ProbBar label={i18n.reachSemi}        value={result.reachSemi}  color={confColor} />
+          <ProbBar label={i18n.reachQF}          value={result.reachQF}    color={confColor} />
         </View>
       ) : !loading ? (
-        <Text style={s.simHint}>
-          Run Lili's simulation to see confederation-level tournament probabilities across 300 runs per team.
-        </Text>
+        <Text style={s.simHint}>{i18n.simHintText}</Text>
       ) : null}
     </View>
   );
@@ -328,10 +337,11 @@ function TopTeamRow({ team, rank, confColor }: { team: WCTeam; rank: number; con
 }
 
 function TopTeamsCard({ teams, confColor }: { teams: WCTeam[]; confColor: string }) {
+  const { i18n } = useLanguage();
   return (
     <View style={s.card}>
-      <Text style={s.cardTitle}>Top Teams by Lili</Text>
-      <Text style={s.cardSubtitle}>Qualification confidence</Text>
+      <Text style={s.cardTitle}>{i18n.topTeams}</Text>
+      <Text style={s.cardSubtitle}>{i18n.qualConfidence}</Text>
       {teams.map((team, i) => (
         <TopTeamRow key={team.name} team={team} rank={i + 1} confColor={confColor} />
       ))}
@@ -342,14 +352,15 @@ function TopTeamsCard({ teams, confColor }: { teams: WCTeam[]; confColor: string
 // ─── Lili Insight Card ────────────────────────────────────────────────────────
 
 function LiliInsightCard({ confId }: { confId: Federation }) {
+  const { i18n, lang } = useLanguage();
   return (
     <View style={s.insightCard}>
       <View style={s.insightHeader}>
-        <Text style={s.insightBadge}>LILI INSIGHT</Text>
+        <Text style={s.insightBadge}>{i18n.liliInsightLabel}</Text>
         <Text style={s.insightRobot}>🤖</Text>
       </View>
-      <Text style={s.insightText}>{LILI_INSIGHTS[confId]}</Text>
-      <Text style={s.insightMeta}>lili-v1.0 · momentum analysis · 2026 WC cycle</Text>
+      <Text style={s.insightText}>{LILI_INSIGHTS_I18N[lang][confId]}</Text>
+      <Text style={s.insightMeta}>{i18n.liliMetaTag}</Text>
     </View>
   );
 }
@@ -401,11 +412,12 @@ function TournamentRaceCard({
   onStageChange: (i: number) => void;
   selectedConf: Federation;
 }) {
-  const insight = CONF_RACE_STAGE_INSIGHTS[stageIndex] ?? '';
+  const { i18n, lang } = useLanguage();
+  const insight = CONF_RACE_INSIGHTS_I18N[lang]?.[stageIndex] ?? '';
   return (
     <View style={s.card}>
-      <Text style={s.cardTitle}>Confederation Race</Text>
-      <Text style={s.cardSubtitle}>Survival probability at each tournament stage</Text>
+      <Text style={s.cardTitle}>{i18n.confederationRace}</Text>
+      <Text style={s.cardSubtitle}>{i18n.survivalProb}</Text>
 
       <FutureScrubber
         stages={RACE_STAGES}
@@ -429,7 +441,7 @@ function TournamentRaceCard({
 
       <View style={tr.insightBox}>
         <View style={tr.insightHeader}>
-          <Text style={tr.insightBadge}>LILI RACE INSIGHT</Text>
+          <Text style={tr.insightBadge}>{i18n.liliRaceInsight}</Text>
           <Text style={tr.insightRobot}>🤖</Text>
         </View>
         <Text style={tr.insightText}>{insight}</Text>
@@ -471,6 +483,8 @@ const tr = StyleSheet.create({
 // ─── Main Screen ──────────────────────────────────────────────────────────────
 
 export default function ConfederationsScreen() {
+  const { i18n } = useLanguage();
+  const [launched, setLaunched] = useState(false);
   const [selectedConf, setSelectedConf] = useState<Federation>('UEFA');
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState<'ranking' | 'name'>('ranking');
@@ -544,8 +558,17 @@ export default function ConfederationsScreen() {
     </>
   );
 
+  if (!launched) return (
+    <>
+      <Stack.Screen options={{ title: i18n.titleConfederations, headerShown: false }} />
+      <FeatureIntro player={playerByPath('/confederations')!} onLaunch={() => setLaunched(true)} />
+    </>
+  );
+
   return (
-    <SafeAreaView style={s.safe} edges={['bottom']}>
+    <>
+      <Stack.Screen options={{ title: i18n.titleConfederations, headerShown: true }} />
+      <SafeAreaView style={s.safe} edges={['bottom']}>
       <ScrollView
         contentContainerStyle={s.scrollContent}
         showsVerticalScrollIndicator={false}
@@ -583,6 +606,7 @@ export default function ConfederationsScreen() {
         )}
       </ScrollView>
     </SafeAreaView>
+    </>
   );
 }
 

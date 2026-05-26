@@ -2,6 +2,7 @@
 // Runs entirely locally — no API calls during simulation.
 
 import { getGroupTeams, getTeam, getTeamFixtures, WC_TEAMS, type WCTeam } from './wcData';
+import { I18N, type I18n } from './i18n';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -100,21 +101,23 @@ function qualifyProb(pts: number): number {
 function buildReasoning(
   team: string,
   preds: MatchPrediction[],
-  result: Omit<WCSimResult, 'liliReasoning' | 'matchPredictions'>
+  result: Omit<WCSimResult, 'liliReasoning' | 'matchPredictions'>,
+  i18n: I18n,
 ): string {
-  const topMatch = [...preds].sort((a, b) => b.winProb - a.winProb)[0];
+  const topMatch   = [...preds].sort((a, b) => b.winProb - a.winProb)[0];
   const toughMatch = [...preds].sort((a, b) => a.winProb - b.winProb)[0];
-  const qPct = Math.round(result.qualificationRate * 100);
-  const wPct = (result.winnerRate * 100).toFixed(1);
-  const danger = result.mostDangerousOpponent;
+  const qPct  = Math.round(result.qualificationRate * 100);
+  const wPct  = (result.winnerRate * 100).toFixed(1);
 
-  return (
-    `${team} qualifies in ${qPct}% of runs. ` +
-    `Strongest opportunity: ${topMatch.opponent} (${Math.round(topMatch.winProb * 100)}% win). ` +
-    `Biggest test: ${toughMatch.opponent} (${Math.round(toughMatch.winProb * 100)}% win). ` +
-    `Most dangerous knockout threat: ${danger}. ` +
-    `Tournament winner in ${wPct}% of simulations.`
-  );
+  return i18n.simReasoning
+    .replace('{team}',    team)
+    .replace('{qPct}',   String(qPct))
+    .replace('{bestOpp}', topMatch.opponent)
+    .replace('{bestPct}', String(Math.round(topMatch.winProb * 100)))
+    .replace('{hardOpp}', toughMatch.opponent)
+    .replace('{hardPct}', String(Math.round(toughMatch.winProb * 100)))
+    .replace('{danger}',  result.mostDangerousOpponent)
+    .replace('{wPct}',    wPct);
 }
 
 // ─── Main simulation ──────────────────────────────────────────────────────────
@@ -143,7 +146,7 @@ export function buildMatchPredictions(teamName: string): MatchPrediction[] {
   });
 }
 
-export function runWCSimulation(teamName: string, N: number): WCSimResult {
+export function runWCSimulation(teamName: string, N: number, i18n: I18n = I18N.EN): WCSimResult {
   const team = getTeam(teamName);
   if (!team) throw new Error(`Unknown team: ${teamName}`);
 
@@ -220,6 +223,6 @@ export function runWCSimulation(teamName: string, N: number): WCSimResult {
   return {
     ...partial,
     matchPredictions: preds,
-    liliReasoning: buildReasoning(teamName, preds, partial),
+    liliReasoning: buildReasoning(teamName, preds, partial, i18n),
   };
 }

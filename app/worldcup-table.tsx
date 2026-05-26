@@ -1,3 +1,4 @@
+import { Stack } from 'expo-router';
 import { useState } from 'react';
 import {
   ScrollView,
@@ -8,6 +9,9 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FED_BG, FED_COLOR, getGroupTeams, getTeamFixtures, WC_TEAMS, type WCTeam } from '../lib/wcData';
+import FeatureIntro from '../components/FeatureIntro';
+import { playerByPath } from '../lib/playerXI';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // ─── Status logic ─────────────────────────────────────────────────────────────
 
@@ -146,6 +150,7 @@ function computeStandings(group: string): StandingEntry[] {
 }
 
 function GroupTable({ group }: { group: string }) {
+  const { i18n } = useLanguage();
   const entries = computeStandings(group);
   const groupTeams = getGroupTeams(group);
 
@@ -153,7 +158,7 @@ function GroupTable({ group }: { group: string }) {
     <View style={t.card}>
       {/* Header */}
       <View style={t.groupHeader}>
-        <Text style={t.groupTitle}>Group {group}</Text>
+        <Text style={t.groupTitle}>{i18n.group} {group}</Text>
         <View style={t.groupFeds}>
           {[...new Set(groupTeams.map((t) => t.federation))].map((fed) => (
             <View key={fed} style={[t.fedBadge, { backgroundColor: FED_BG[fed] }]}>
@@ -166,7 +171,7 @@ function GroupTable({ group }: { group: string }) {
       {/* Column headers */}
       <View style={t.colHeader}>
         <Text style={[t.col, t.rankCol]}>#</Text>
-        <Text style={[t.col, t.teamCol]}>Team</Text>
+        <Text style={[t.col, t.teamCol]}>{i18n.colTeam}</Text>
         <Text style={t.col}>P</Text>
         <Text style={t.col}>W</Text>
         <Text style={t.col}>D</Text>
@@ -175,7 +180,7 @@ function GroupTable({ group }: { group: string }) {
         <Text style={t.col}>GA</Text>
         <Text style={t.col}>GD</Text>
         <Text style={[t.col, t.ptsCol]}>Pts</Text>
-        <Text style={[t.col, t.formCol]}>Form</Text>
+        <Text style={[t.col, t.formCol]}>{i18n.colForm}</Text>
       </View>
 
       {entries.map((e, idx) => {
@@ -184,7 +189,7 @@ function GroupTable({ group }: { group: string }) {
           <View key={e.team.name}>
             {qualLine && (
               <View style={t.qualLine}>
-                <Text style={t.qualLineText}>Automatic qualification line</Text>
+                <Text style={t.qualLineText}>{i18n.autoQualLine}</Text>
               </View>
             )}
             <View style={[t.row, idx % 2 === 1 && t.rowAlt]}>
@@ -218,7 +223,7 @@ function GroupTable({ group }: { group: string }) {
         {entries.map((e) => (
           <View key={e.team.name} style={[t.statusBadge, { backgroundColor: STATUS_BG[e.status] }]}>
             <Text style={[t.statusText, { color: STATUS_COLOR[e.status] }]}>
-              {STATUS_LABEL[e.status]}
+              {{ qualified: i18n.qualified, alive: i18n.stillAlive, 'at-risk': i18n.atRisk, eliminated: i18n.eliminated }[e.status]}
             </Text>
           </View>
         ))}
@@ -232,12 +237,23 @@ function GroupTable({ group }: { group: string }) {
 const GROUPS = 'ABCDEFGHIJKL'.split('');
 
 export default function WorldCupTableScreen() {
+  const [launched, setLaunched] = useState(false);
+  const { i18n } = useLanguage();
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
 
   const displayGroups = selectedGroup ? [selectedGroup] : GROUPS;
 
+  if (!launched) return (
+    <>
+      <Stack.Screen options={{ title: i18n.titleWorldTable, headerShown: false }} />
+      <FeatureIntro player={playerByPath('/worldcup-table')!} onLaunch={() => setLaunched(true)} />
+    </>
+  );
+
   return (
-    <SafeAreaView style={st.safe} edges={['bottom']}>
+    <>
+      <Stack.Screen options={{ title: i18n.titleWorldTable, headerShown: true }} />
+      <SafeAreaView style={st.safe} edges={['bottom']}>
       {/* Group filter pills */}
       <ScrollView
         horizontal
@@ -249,7 +265,7 @@ export default function WorldCupTableScreen() {
           style={[st.pill, selectedGroup === null && st.pillActive]}
           onPress={() => setSelectedGroup(null)}
         >
-          <Text style={[st.pillText, selectedGroup === null && st.pillTextActive]}>All</Text>
+          <Text style={[st.pillText, selectedGroup === null && st.pillTextActive]}>{i18n.all}</Text>
         </TouchableOpacity>
         {GROUPS.map((g) => (
           <TouchableOpacity
@@ -257,7 +273,7 @@ export default function WorldCupTableScreen() {
             style={[st.pill, selectedGroup === g && st.pillActive]}
             onPress={() => setSelectedGroup(selectedGroup === g ? null : g)}
           >
-            <Text style={[st.pillText, selectedGroup === g && st.pillTextActive]}>Grp {g}</Text>
+            <Text style={[st.pillText, selectedGroup === g && st.pillTextActive]}>{i18n.group} {g}</Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -266,8 +282,8 @@ export default function WorldCupTableScreen() {
       <View style={st.banner}>
         <Text style={st.bannerEmoji}>🏆</Text>
         <View>
-          <Text style={st.bannerTitle}>FIFA World Cup 2026</Text>
-          <Text style={st.bannerSub}>48 teams · 12 groups · Begins June 11, 2026</Text>
+          <Text style={st.bannerTitle}>{i18n.wcBannerTitle}</Text>
+          <Text style={st.bannerSub}>{i18n.wcBannerSub}</Text>
         </View>
       </View>
 
@@ -275,12 +291,10 @@ export default function WorldCupTableScreen() {
         {displayGroups.map((g) => (
           <GroupTable key={g} group={g} />
         ))}
-        <Text style={st.footNote}>
-          Top 2 from each group qualify automatically.{'\n'}
-          8 best 3rd-place teams also advance to Round of 16.
-        </Text>
+        <Text style={st.footNote}>{i18n.tableFootnote}</Text>
       </ScrollView>
     </SafeAreaView>
+    </>
   );
 }
 

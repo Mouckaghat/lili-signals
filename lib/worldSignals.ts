@@ -4,6 +4,7 @@
 
 import { WC_TEAMS, WC_FIXTURES, FED_COLOR, type WCTeam, type Federation } from './wcData';
 import { buildMatchPredictions } from './wcSimulation';
+import { WORLD_SIGNALS_I18N, wsT, type WorldSignalsI18n } from './worldSignalsI18n';
 
 // ─── Exported types ───────────────────────────────────────────────────────────
 
@@ -80,20 +81,22 @@ function avgOpponentStrength(team: WCTeam): number {
   return opps.reduce((s, t) => s + t.strength, 0) / opps.length;
 }
 
-function relativeTime(isoDate: string): string {
+function relativeTime(isoDate: string, ws: WorldSignalsI18n): string {
   const diffMs = new Date(isoDate).getTime() - Date.now();
   if (diffMs > 0) {
     const days = Math.floor(diffMs / 86_400_000);
     const hours = Math.floor(diffMs / 3_600_000);
-    return days > 0 ? `in ${days}d` : `in ${hours}h`;
+    return days > 0
+      ? wsT(ws.time.inDays, { n: days })
+      : wsT(ws.time.inHours, { n: hours });
   }
   const ago = -diffMs;
   const days = Math.floor(ago / 86_400_000);
   const hours = Math.floor(ago / 3_600_000);
   const mins = Math.floor(ago / 60_000);
-  if (days > 0) return `${days}d ago`;
-  if (hours > 0) return `${hours}h ago`;
-  return `${mins}m ago`;
+  if (days > 0) return wsT(ws.time.daysAgo, { n: days });
+  if (hours > 0) return wsT(ws.time.hoursAgo, { n: hours });
+  return wsT(ws.time.minsAgo, { n: mins });
 }
 
 // Normalises raw expected group points (range ≈ 1.5–8.0) to 0–100 for display.
@@ -111,18 +114,19 @@ function deriveState(
   isHost: boolean,
   isDefChamp: boolean,
   avgOppStr: number,
+  ws: WorldSignalsI18n,
 ): { state: string; color: string } {
-  if (isDefChamp)                       return { state: 'BURDEN',    color: C.red    };
-  if (value >= 75)                      return { state: 'BURDEN',    color: C.red    };
-  if (isHost && value >= 50)            return { state: 'INTENSITY', color: C.gold   };
-  if (value >= 62 && avgOppStr > 70)    return { state: 'PRESSURE',  color: C.orange };
-  if (value >= 58)                      return { state: 'MOMENTUM',  color: C.blue   };
-  if (value >= 46 && avgOppStr > 67)    return { state: 'SURGE',     color: C.cyan   };
-  if (value >= 40)                      return { state: 'CALM',      color: C.text3  };
-  return                                       { state: 'UNDERDOG',  color: C.purple };
+  if (isDefChamp)                       return { state: ws.states.BURDEN,    color: C.red    };
+  if (value >= 75)                      return { state: ws.states.BURDEN,    color: C.red    };
+  if (isHost && value >= 50)            return { state: ws.states.INTENSITY, color: C.gold   };
+  if (value >= 62 && avgOppStr > 70)    return { state: ws.states.PRESSURE,  color: C.orange };
+  if (value >= 58)                      return { state: ws.states.MOMENTUM,  color: C.blue   };
+  if (value >= 46 && avgOppStr > 67)    return { state: ws.states.SURGE,     color: C.cyan   };
+  if (value >= 40)                      return { state: ws.states.CALM,      color: C.text3  };
+  return                                       { state: ws.states.UNDERDOG,  color: C.purple };
 }
 
-export function computePulse(activeTeamNames?: Set<string>): PulseTeam[] {
+export function computePulse(activeTeamNames?: Set<string>, ws: WorldSignalsI18n = WORLD_SIGNALS_I18N.EN): PulseTeam[] {
   return WC_TEAMS
     .filter(t => !activeTeamNames || activeTeamNames.has(t.name))
     .map(team => {
@@ -133,6 +137,7 @@ export function computePulse(activeTeamNames?: Set<string>): PulseTeam[] {
         HOST_NATIONS.has(team.name),
         team.name === DEFENDING_CHAMPION,
         avgOpponentStrength(team),
+        ws,
       );
       return { flag: team.flag, team: team.name, state, value, color };
     })
@@ -154,42 +159,43 @@ function narrativeScore(home: WCTeam, away: WCTeam): number {
 function interceptMeta(
   home: WCTeam,
   away: WCTeam,
-): { type: string; color: string; featured: WCTeam } {
+  ws: WorldSignalsI18n,
+): { type: string; typeKey: string; color: string; featured: WCTeam } {
   const diff   = Math.abs(home.strength - away.strength);
   const isHost = HOST_NATIONS.has(home.name) || HOST_NATIONS.has(away.name);
   const avgStr = (home.strength + away.strength) / 2;
   const weaker = home.strength <= away.strength ? home : away;
   const host   = HOST_NATIONS.has(home.name) ? home : away;
 
-  if (diff >= 20)    return { type: 'UPSET ALERT', color: C.red,    featured: weaker };
-  if (isHost)        return { type: 'HOST',        color: C.gold,   featured: host   };
-  if (avgStr >= 82)  return { type: 'MARQUEE',     color: C.cyan,   featured: home   };
-  if (home.federation === away.federation) return { type: 'DERBY',  color: C.purple, featured: home };
-  return                                          { type: 'WATCH',   color: C.blue,   featured: home };
+  if (diff >= 20)    return { type: ws.types['UPSET ALERT'], typeKey: 'UPSET ALERT', color: C.red,    featured: weaker };
+  if (isHost)        return { type: ws.types.HOST,           typeKey: 'HOST',        color: C.gold,   featured: host   };
+  if (avgStr >= 82)  return { type: ws.types.MARQUEE,        typeKey: 'MARQUEE',     color: C.cyan,   featured: home   };
+  if (home.federation === away.federation) return { type: ws.types.DERBY, typeKey: 'DERBY', color: C.purple, featured: home };
+  return                                          { type: ws.types.WATCH,  typeKey: 'WATCH', color: C.blue,   featured: home };
 }
 
-function interceptText(home: WCTeam, away: WCTeam, type: string, homeWinProb: number): string {
+function interceptText(home: WCTeam, away: WCTeam, typeKey: string, homeWinProb: number, ws: WorldSignalsI18n): string {
   const diff     = Math.abs(home.strength - away.strength);
   const stronger = home.strength >= away.strength ? home : away;
   const weaker   = home.strength >= away.strength ? away : home;
-  const upsetPct = Math.round((home.strength < away.strength ? homeWinProb : 1 - homeWinProb - 0.2) * 100);
+  const upsetPct = Math.max(5, Math.round((home.strength < away.strength ? homeWinProb : 1 - homeWinProb - 0.2) * 100));
+  const host     = HOST_NATIONS.has(home.name) ? home : away;
 
-  switch (type) {
+  switch (typeKey) {
     case 'UPSET ALERT':
-      return `${weaker.name} faces a ${diff}-point strength deficit against ${stronger.name}. Lili assigns ${Math.max(5, upsetPct)}% upset probability — elevated signal for an outlier outcome.`;
+      return wsT(ws.intercepts.upsetAlert, { weaker: weaker.name, diff, stronger: stronger.name, pct: upsetPct });
     case 'HOST':
-      const host = HOST_NATIONS.has(home.name) ? home : away;
-      return `${host.name} on home soil activates a compound signal. Crowd familiarity, reduced travel fatigue, and atmospheric intensity all weight simultaneously in Lili's model.`;
+      return wsT(ws.intercepts.host, { host: host.name });
     case 'MARQUEE':
-      return `Combined strength index of ${home.strength + away.strength}. Two elite sides in direct collision — maximum narrative weight and global attention signal concentrated in one fixture.`;
+      return wsT(ws.intercepts.marquee, { combined: home.strength + away.strength });
     case 'DERBY':
-      return `${home.federation} internal contest — tactical familiarity compresses variance. Lili tracks elevated psychological volatility in same-confederation group fixtures.`;
+      return wsT(ws.intercepts.derby, { fed: home.federation });
     default:
-      return `Strength differential of ${diff} points. Group-stage dynamics give both sides a credible path. Lili identifies signal balance across this fixture.`;
+      return wsT(ws.intercepts.watch, { diff });
   }
 }
 
-export function computeIntercepts(activeTeamNames?: Set<string>): SignalIntercept[] {
+export function computeIntercepts(activeTeamNames?: Set<string>, ws: WorldSignalsI18n = WORLD_SIGNALS_I18N.EN): SignalIntercept[] {
   const teamMap = new Map(WC_TEAMS.map(t => [t.name, t]));
 
   return WC_FIXTURES
@@ -202,22 +208,22 @@ export function computeIntercepts(activeTeamNames?: Set<string>): SignalIntercep
     .sort((a, b) => b.score - a.score)
     .slice(0, 8)
     .map(({ f, home, away }) => {
-      const { type, color, featured } = interceptMeta(home, away);
+      const { type, typeKey, color, featured } = interceptMeta(home, away, ws);
       const pred = buildMatchPredictions(home.name).find(p => p.opponent === away.name);
       return {
         flag:   featured.flag,
         team:   featured.name,
         type,
         color,
-        text:   interceptText(home, away, type, pred?.winProb ?? 0.33),
-        timing: relativeTime(f.date),
+        text:   interceptText(home, away, typeKey, pred?.winProb ?? 0.33, ws),
+        timing: relativeTime(f.date, ws),
       };
     });
 }
 
 // ─── Narratives computation ───────────────────────────────────────────────────
 
-export function computeNarratives(activeTeamNames?: Set<string>): NarrativeArc[] {
+export function computeNarratives(activeTeamNames?: Set<string>, ws: WorldSignalsI18n = WORLD_SIGNALS_I18N.EN): NarrativeArc[] {
   const active = WC_TEAMS.filter(t => !activeTeamNames || activeTeamNames.has(t.name));
   const arcs: NarrativeArc[] = [];
 
@@ -232,11 +238,11 @@ export function computeNarratives(activeTeamNames?: Set<string>): NarrativeArc[]
   if (underdogs.length > 0) {
     const avgGap = underdogs.reduce((s, { team, avgOpp }) => s + (avgOpp - team.strength), 0) / underdogs.length;
     arcs.push({
-      title: 'The Underdog Arc',
+      title: ws.arcTitles.underdogs,
       color: C.cyan,
       intensity: Math.min(99, Math.round(58 + avgGap)),
       teams: underdogs.map(({ team }) => `${team.flag} ${team.name}`),
-      desc: `${underdogs.length} low-ranked entries face statistically dominant opposition. Lili's upset probability model assigns these fixtures the highest surprise coefficient in the group stage.`,
+      desc: wsT(ws.arcDescs.underdogs, { count: underdogs.length }),
     });
   }
 
@@ -245,11 +251,11 @@ export function computeNarratives(activeTeamNames?: Set<string>): NarrativeArc[]
   if (hosts.length > 0) {
     const avgPts = hosts.reduce((s, t) => s + expectedGroupPts(t.name), 0) / hosts.length;
     arcs.push({
-      title: 'Host Nation Destiny',
+      title: ws.arcTitles.host,
       color: C.gold,
       intensity: Math.round(50 + (avgPts / 9) * 45),
       teams: hosts.map(t => `${t.flag} ${t.name}`),
-      desc: `Three co-hosts generate simultaneous atmospheric pressure. Home soil signals — crowd familiarity, reduced travel, and officiating familiarity — compound across all three nations.`,
+      desc: ws.arcDescs.host,
     });
   }
 
@@ -258,11 +264,11 @@ export function computeNarratives(activeTeamNames?: Set<string>): NarrativeArc[]
   if (golden.length > 0) {
     const avgPts = golden.reduce((s, t) => s + expectedGroupPts(t.name), 0) / golden.length;
     arcs.push({
-      title: 'Golden Generation Pressure',
+      title: ws.arcTitles.golden,
       color: C.orange,
       intensity: Math.round(55 + (avgPts / 9) * 40),
       teams: golden.slice(0, 4).map(t => `${t.flag} ${t.name}`),
-      desc: `${golden.length} elite nations entering with peak-or-declining squad cycles. Legacy pressure compresses variance and amplifies expectation weight across all signal channels simultaneously.`,
+      desc: wsT(ws.arcDescs.golden, { n: golden.length }),
     });
   }
 
@@ -272,11 +278,11 @@ export function computeNarratives(activeTeamNames?: Set<string>): NarrativeArc[]
   const redemptionTeams = [defChamp, ...highBurden].filter((t): t is WCTeam => !!t);
   if (redemptionTeams.length > 0) {
     arcs.push({
-      title: 'Redemption Campaign',
+      title: ws.arcTitles.redemption,
       color: C.purple,
       intensity: Math.round(redemptionTeams.reduce((s, t) => s + t.strength, 0) / redemptionTeams.length),
       teams: redemptionTeams.map(t => `${t.flag} ${t.name}`),
-      desc: `Defending champions and maximum-expectation sides carrying fractured momentum into unfamiliar continental territory. Narrative pressure index at maximum threshold.`,
+      desc: ws.arcDescs.redemption,
     });
   }
 
@@ -290,11 +296,11 @@ export function computeNarratives(activeTeamNames?: Set<string>): NarrativeArc[]
   if (darkHorses.length > 0) {
     const avgPts = darkHorses.reduce((s, { pts }) => s + pts, 0) / darkHorses.length;
     arcs.push({
-      title: 'Dark Horse Surge',
+      title: ws.arcTitles.darkHorse,
       color: C.signal,
       intensity: Math.round((avgPts / 9) * 100),
       teams: darkHorses.map(({ team }) => `${team.flag} ${team.name}`),
-      desc: `Mid-tier entries with structural group-stage advantages. Low expectation creates signal amplification when results overperform — disproportionate global attention follows.`,
+      desc: ws.arcDescs.darkHorse,
     });
   }
 
@@ -305,12 +311,7 @@ export function computeNarratives(activeTeamNames?: Set<string>): NarrativeArc[]
 // Energy = avg expected group-stage points for active conf teams, scaled 0-100.
 // Trend = deviation from the global average (3.0 pts = perfectly balanced draw).
 
-const CONFED_LABELS: Partial<Record<Federation, string>> = {
-  UEFA: 'Europe', CONMEBOL: 'S. America', CAF: 'Africa',
-  AFC: 'Asia', CONCACAF: 'N. America', OFC: 'Oceania',
-};
-
-export function computeRegions(activeTeamNames?: Set<string>): RegionSignal[] {
+export function computeRegions(activeTeamNames?: Set<string>, ws: WorldSignalsI18n = WORLD_SIGNALS_I18N.EN): RegionSignal[] {
   const federations: Federation[] = ['UEFA', 'CONMEBOL', 'CAF', 'AFC', 'CONCACAF', 'OFC'];
   // Global average expected pts across all 48 teams — computed once for trend baseline
   const globalAvgPts = WC_TEAMS.reduce((s, t) => s + expectedGroupPts(t.name), 0) / WC_TEAMS.length;
@@ -330,23 +331,23 @@ export function computeRegions(activeTeamNames?: Set<string>): RegionSignal[] {
 
     return [{
       confed: fed,
-      label:  CONFED_LABELS[fed] ?? fed,
+      label:  ws.regionLabels[fed] ?? fed,
       energy,
       trend,
       up,
       color,
-      desc: `${teams.length} active ${teams.length === 1 ? 'nation' : 'nations'}. Avg strength ${Math.round(teams.reduce((s, t) => s + t.strength, 0) / teams.length)}. ${strongest.name} leads the continental signal.`,
+      desc: `${teams.length} · ${strongest.name}`,
     }];
   });
 }
 
 // ─── Main entry point ─────────────────────────────────────────────────────────
 
-export function computeWorldSignals(activeTeamNames?: Set<string>): WorldSignals {
-  const pulse      = computePulse(activeTeamNames);
-  const intercepts = computeIntercepts(activeTeamNames);
-  const narratives = computeNarratives(activeTeamNames);
-  const regions    = computeRegions(activeTeamNames);
+export function computeWorldSignals(activeTeamNames?: Set<string>, ws: WorldSignalsI18n = WORLD_SIGNALS_I18N.EN): WorldSignals {
+  const pulse      = computePulse(activeTeamNames, ws);
+  const intercepts = computeIntercepts(activeTeamNames, ws);
+  const narratives = computeNarratives(activeTeamNames, ws);
+  const regions    = computeRegions(activeTeamNames, ws);
 
   return {
     pulse,

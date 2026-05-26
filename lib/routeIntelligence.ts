@@ -1,6 +1,12 @@
 // Route Intelligence — climate, altitude, travel, and campaign difficulty analysis
 // Provides the environmental and logistical layer for Team Route visualisation.
 
+import { type I18n } from './i18n';
+
+function fill(template: string, vars: Record<string, string>): string {
+  return template.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '');
+}
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export interface StadiumEnvironment {
@@ -244,33 +250,32 @@ export function travelDistanceKm(fromId: string, toId: string): number {
 
 // ─── Transition intelligence note ────────────────────────────────────────────
 
-export function getTransitionNote(fromId: string, toId: string, distKm: number): string {
+export function getTransitionNote(fromId: string, toId: string, distKm: number, i18n: I18n): string {
   const from = STADIUM_ENV[fromId];
   const to   = STADIUM_ENV[toId];
   if (!from || !to) return '';
-
-  const altGain = to.altitudeM - from.altitudeM;
-  const tempShift = to.avgTempJune - from.avgTempJune;
+  const rb = i18n.routeBriefings;
+  const km = distKm.toLocaleString();
 
   if (to.altitudeM > 1400 && from.altitudeM < 500) {
-    return `Major altitude gain — sea level to ${to.altitudeM.toLocaleString()}m. This is one of the most demanding environmental transitions in the tournament. Aerobic capacity contracts 6–12% without prior acclimatisation.`;
+    return fill(rb.transitionAltitudeGain, { alt: to.altitudeM.toLocaleString() });
   }
   if (from.altitudeM > 1400 && to.altitudeM < 500) {
-    return `Descending to sea level after high-altitude exposure. Elevated red blood cell count typically provides a transient performance advantage in the 48–72 hours following altitude.`;
+    return rb.transitionAltitudeLoss;
   }
   if (to.climateChallenge >= 8 && from.climateChallenge <= 3) {
-    return `Sharp climate transition — entering ${to.humidityLabel.toLowerCase()}-humidity heat conditions. Squads without specific heat-training protocols statistically underperform here relative to pre-match probability.`;
+    return rb.transitionHeatEntry;
   }
   if (from.climateChallenge >= 8 && to.climateChallenge <= 3) {
-    return `Climate relief — transitioning from extreme conditions to a temperate environment. Recovery window is extended. Match preparation benefits.`;
+    return rb.transitionHeatExit;
   }
   if (distKm > 3500) {
-    return `Cross-continental transfer of ${distKm.toLocaleString()}km. Travel fatigue, timezone compression, and disrupted sleep cycles become performance variables. This is where tournament management separates contenders.`;
+    return fill(rb.transitionLongHaul, { km });
   }
   if (distKm > 1800) {
-    return `${distKm.toLocaleString()}km transfer. Significant logistical movement — squad recovery protocols and arrival timing determine competitive readiness for the next fixture.`;
+    return fill(rb.transitionMedium, { km });
   }
-  return `${distKm.toLocaleString()}km transfer. Standard intra-tournament travel.`;
+  return fill(rb.transitionShort, { km });
 }
 
 // ─── Campaign difficulty ──────────────────────────────────────────────────────

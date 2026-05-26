@@ -1,4 +1,8 @@
+import { Stack } from 'expo-router';
 import { useState } from 'react';
+import FeatureIntro from '../components/FeatureIntro';
+import { playerByPath } from '../lib/playerXI';
+import { useLanguage } from '../contexts/LanguageContext';
 import {
   ActivityIndicator,
   ScrollView,
@@ -73,21 +77,22 @@ function MatchProfileCard({ pred, teamFederation }: {
 }
 
 function ResultsView({ result }: { result: WCSimResult }) {
+  const { i18n } = useLanguage();
   return (
     <>
       {/* Tournament probabilities */}
       <View style={s.card}>
-        <Text style={s.cardTitle}>Tournament Probabilities</Text>
-        <StatRow label="Qualify" value={pct(result.qualificationRate)} bar={result.qualificationRate} color="#4A9EFF" />
-        <StatRow label="Quarter-final" value={pct(result.quarterFinalRate)} bar={result.quarterFinalRate} color="#30A0D8" />
-        <StatRow label="Semi-final" value={pct(result.semiFinalRate)} bar={result.semiFinalRate} color="#FF9F0A" />
-        <StatRow label="Final" value={pct(result.finalRate)} bar={result.finalRate} color="#FF6B00" />
-        <StatRow label="Champion" value={pct(result.winnerRate)} bar={result.winnerRate} color="#FFD60A" />
+        <Text style={s.cardTitle}>{i18n.tournamentProbabilities}</Text>
+        <StatRow label={i18n.qualify} value={pct(result.qualificationRate)} bar={result.qualificationRate} color="#4A9EFF" />
+        <StatRow label={i18n.quarterFinal} value={pct(result.quarterFinalRate)} bar={result.quarterFinalRate} color="#30A0D8" />
+        <StatRow label={i18n.semiFinal} value={pct(result.semiFinalRate)} bar={result.semiFinalRate} color="#FF9F0A" />
+        <StatRow label={i18n.final} value={pct(result.finalRate)} bar={result.finalRate} color="#FF6B00" />
+        <StatRow label={i18n.champion} value={pct(result.winnerRate)} bar={result.winnerRate} color="#FFD60A" />
       </View>
 
       {/* Group match predictions */}
       <View style={s.card}>
-        <Text style={s.cardTitle}>Lili's Match Predictions</Text>
+        <Text style={s.cardTitle}>{i18n.liliMatchPredictions}</Text>
         {result.matchPredictions.map((p, i) => (
           <MatchProfileCard key={i} pred={p} teamFederation="" />
         ))}
@@ -95,13 +100,13 @@ function ResultsView({ result }: { result: WCSimResult }) {
 
       {/* Danger + elimination */}
       <View style={s.card}>
-        <Text style={s.cardTitle}>Key Signals</Text>
+        <Text style={s.cardTitle}>{i18n.keySignals}</Text>
         <View style={s.signalRow}>
           <View style={s.signalIcon}>
             <Text style={s.signalEmoji}>⚠️</Text>
           </View>
           <View style={s.signalText}>
-            <Text style={s.signalLabel}>Most Common Exit</Text>
+            <Text style={s.signalLabel}>{i18n.mostCommonExit}</Text>
             <Text style={s.signalValue}>{result.mostCommonElimination}</Text>
           </View>
         </View>
@@ -110,7 +115,7 @@ function ResultsView({ result }: { result: WCSimResult }) {
             <Text style={s.signalEmoji}>🎯</Text>
           </View>
           <View style={s.signalText}>
-            <Text style={s.signalLabel}>Most Dangerous Opponent</Text>
+            <Text style={s.signalLabel}>{i18n.mostDangerousOpponent}</Text>
             <Text style={s.signalValue}>{result.mostDangerousOpponent}</Text>
           </View>
         </View>
@@ -118,15 +123,17 @@ function ResultsView({ result }: { result: WCSimResult }) {
 
       {/* Lili reasoning */}
       <View style={s.reasoningCard}>
-        <Text style={s.reasoningLabel}>Lili's Reasoning</Text>
+        <Text style={s.reasoningLabel}>{i18n.liliReasoning}</Text>
         <Text style={s.reasoningText}>{result.liliReasoning}</Text>
-        <Text style={s.runsNote}>{result.runs.toLocaleString()} simulation runs · lili-v1.0</Text>
+        <Text style={s.runsNote}>{i18n.simRunsNote.replace('{n}', result.runs.toLocaleString())}</Text>
       </View>
     </>
   );
 }
 
 export default function LiliSimulationScreen() {
+  const [launched, setLaunched] = useState(false);
+  const { i18n } = useLanguage();
   const [team, setTeam] = useState<WCTeam | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [runs, setRuns] = useState<RunOption>(1_000);
@@ -145,10 +152,10 @@ export default function LiliSimulationScreen() {
 
     let sim: WCSimResult | null = null;
     try {
-      sim = runWCSimulation(team.name, runs);
+      sim = runWCSimulation(team.name, runs, i18n);
       setResult(sim);
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Simulation failed. Please try again.');
+      setError(e instanceof Error ? e.message : i18n.simFailed);
     } finally {
       setLoading(false);
     }
@@ -201,12 +208,21 @@ export default function LiliSimulationScreen() {
     } catch {}
   };
 
+  if (!launched) return (
+    <>
+      <Stack.Screen options={{ title: i18n.titleSimulation, headerShown: false }} />
+      <FeatureIntro player={playerByPath('/lili-simulation')!} onLaunch={() => setLaunched(true)} />
+    </>
+  );
+
   return (
-    <SafeAreaView style={s.safe} edges={['bottom']}>
+    <>
+      <Stack.Screen options={{ title: i18n.titleSimulation, headerShown: true }} />
+      <SafeAreaView style={s.safe} edges={['bottom']}>
       <TeamPickerTrigger
         team={team}
         onPress={() => setPickerOpen(true)}
-        placeholder="Choose a team to simulate"
+        placeholder={i18n.selectTeam}
       />
       <TeamPickerModal
         visible={pickerOpen}
@@ -219,17 +235,14 @@ export default function LiliSimulationScreen() {
         {!team ? (
           <View style={s.empty}>
             <Text style={s.emptyIcon}>🤖</Text>
-            <Text style={s.emptyTitle}>Play Against Lili</Text>
-            <Text style={s.emptySub}>
-              Pick a team. Lili generates a prediction profile,{'\n'}
-              then runs a Monte Carlo tournament simulation.
-            </Text>
+            <Text style={s.emptyTitle}>{i18n.titleSimulation}</Text>
+            <Text style={s.emptySub}>{i18n.emptyPlaySub}</Text>
           </View>
         ) : (
           <>
             {/* Run count selector */}
             <View style={s.section}>
-              <Text style={s.sectionLabel}>Simulations</Text>
+              <Text style={s.sectionLabel}>{i18n.simulations}</Text>
               <View style={s.runOptions}>
                 {RUN_OPTIONS.map((n) => (
                   <TouchableOpacity
@@ -255,7 +268,7 @@ export default function LiliSimulationScreen() {
                 <ActivityIndicator color="#FFFFFF" />
               ) : (
                 <Text style={s.runBtnText}>
-                  {result ? 'Run Again' : `▶  Play Against Lili`}
+                  {result ? i18n.runAgain : `▶  ${i18n.titleSimulation}`}
                 </Text>
               )}
             </TouchableOpacity>
@@ -263,7 +276,7 @@ export default function LiliSimulationScreen() {
             {/* Error */}
             {error && (
               <View style={s.errorCard}>
-                <Text style={s.errorTitle}>⚠  Simulation Error</Text>
+                <Text style={s.errorTitle}>{i18n.simError}</Text>
                 <Text style={s.errorText}>{error}</Text>
               </View>
             )}
@@ -274,6 +287,7 @@ export default function LiliSimulationScreen() {
         )}
       </ScrollView>
     </SafeAreaView>
+    </>
   );
 }
 

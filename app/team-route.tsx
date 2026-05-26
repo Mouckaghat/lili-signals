@@ -19,6 +19,7 @@ import {
   travelDistanceKm,
 } from '../lib/routeIntelligence';
 import { ATMOSPHERE_COLOR, FIXTURE_STADIUM_ID, getStadium } from '../lib/stadiumData';
+import { getTravelNote } from '../lib/travelNoteI18n';
 import {
   FED_COLOR,
   getOpponent,
@@ -27,6 +28,9 @@ import {
   type WCFixture,
   type WCTeam,
 } from '../lib/wcData';
+import FeatureIntro from '../components/FeatureIntro';
+import { playerByPath } from '../lib/playerXI';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
@@ -73,11 +77,11 @@ const KO_VENUES: Record<string, { stadiumName: string; city: string; stadiumId: 
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function pressureLabel(n: number): string {
-  if (n >= 9) return 'Extreme';
-  if (n >= 7) return 'High';
-  if (n >= 5) return 'Medium';
-  return 'Low';
+function pressureLabel(n: number, i18n: { pressureExtreme: string; pressureHigh: string; pressureMedium: string; pressureLow: string }): string {
+  if (n >= 9) return i18n.pressureExtreme;
+  if (n >= 7) return i18n.pressureHigh;
+  if (n >= 5) return i18n.pressureMedium;
+  return i18n.pressureLow;
 }
 function pressureColor(n: number): string {
   if (n >= 9) return D.red;
@@ -162,13 +166,21 @@ interface EnrichedStop {
 // ─── Campaign Intelligence Card ───────────────────────────────────────────────
 
 function CampaignCard({ stats, fedColor }: { stats: ReturnType<typeof computeCampaignStats>; fedColor: string }) {
+  const { i18n } = useLanguage();
   const dc = difficultyColor(stats.difficultyLabel);
+  const diffMap: Record<string, string> = {
+    Comfortable: i18n.difficultyLabels.comfortable,
+    Moderate:    i18n.difficultyLabels.moderate,
+    Demanding:   i18n.difficultyLabels.demanding,
+    Gruelling:   i18n.difficultyLabels.gruelling,
+    Maximum:     i18n.difficultyLabels.maximum,
+  };
   return (
     <View style={[cc.card, { borderColor: `${dc}25`, shadowColor: dc }]}>
       <View style={cc.headerRow}>
-        <Text style={cc.cardTitle}>CAMPAIGN INTELLIGENCE</Text>
+        <Text style={cc.cardTitle}>{i18n.campaignIntelligence}</Text>
         <View style={[cc.diffBadge, { borderColor: `${dc}50`, backgroundColor: `${dc}12` }]}>
-          <Text style={[cc.diffLabel, { color: dc }]}>{stats.difficultyLabel.toUpperCase()}</Text>
+          <Text style={[cc.diffLabel, { color: dc }]}>{(diffMap[stats.difficultyLabel] ?? stats.difficultyLabel).toUpperCase()}</Text>
         </View>
       </View>
 
@@ -177,26 +189,26 @@ function CampaignCard({ stats, fedColor }: { stats: ReturnType<typeof computeCam
           <Text style={[cc.metricValue, { color: fedColor }]}>
             {stats.totalDistanceKm.toLocaleString()}
           </Text>
-          <Text style={cc.metricLabel}>KM TOTAL</Text>
+          <Text style={cc.metricLabel}>{i18n.kmTotal}</Text>
         </View>
         <View style={cc.metricDivider} />
         <View style={cc.metric}>
           <Text style={[cc.metricValue, { color: stats.maxAltitudeM > 1000 ? D.orange : D.text2 }]}>
             {stats.maxAltitudeM.toLocaleString()}
           </Text>
-          <Text style={cc.metricLabel}>MAX ALT (M)</Text>
+          <Text style={cc.metricLabel}>{i18n.maxAltM}</Text>
         </View>
         <View style={cc.metricDivider} />
         <View style={cc.metric}>
           <Text style={[cc.metricValue, { color: stats.climateTransitions > 2 ? D.orange : D.text2 }]}>
             {stats.climateTransitions}
           </Text>
-          <Text style={cc.metricLabel}>CLIMATE SHIFTS</Text>
+          <Text style={cc.metricLabel}>{i18n.climateShifts}</Text>
         </View>
         <View style={cc.metricDivider} />
         <View style={cc.metric}>
           <Text style={[cc.metricValue, { color: dc }]}>{stats.cumulativeFatigue}</Text>
-          <Text style={cc.metricLabel}>FATIGUE LOAD</Text>
+          <Text style={cc.metricLabel}>{i18n.fatigueLoad}</Text>
         </View>
       </View>
 
@@ -294,6 +306,7 @@ function RouteStop({ stop, isFirst, isLast, active, past, fedColor, onPress }: {
   fedColor: string;
   onPress: () => void;
 }) {
+  const { i18n, lang } = useLanguage();
   const stadId = FIXTURE_STADIUM_ID[stop.stadiumName] ?? stop.stadiumId;
   const stad   = stadId ? getStadium(stadId) : undefined;
   const pi     = stad?.pressureIndex ?? stop.climateChallenge;
@@ -322,7 +335,7 @@ function RouteStop({ stop, isFirst, isLast, active, past, fedColor, onPress }: {
           </View>
           {stop.isProjected && (
             <View style={sr.projBadge}>
-              <Text style={sr.projBadgeText}>PROJECTED</Text>
+              <Text style={sr.projBadgeText}>{i18n.projectedBadge}</Text>
             </View>
           )}
           <Text style={sr.stopDate}>{stop.matchDate}</Text>
@@ -343,11 +356,11 @@ function RouteStop({ stop, isFirst, isLast, active, past, fedColor, onPress }: {
         {stad && (
           <View style={sr.presSection}>
             <View style={sr.presRow}>
-              <Text style={sr.presTitle}>{stad.atmosphereTag} Atmosphere</Text>
+              <Text style={sr.presTitle}>{i18n.atmosphereTags[stad.atmosphereTag]} {i18n.atmosphereLabel}</Text>
               <View style={sr.presTrack}>
                 <View style={[sr.presFill, { width: `${pi * 10}%` as any, backgroundColor: pressureColor(pi) }]} />
               </View>
-              <Text style={[sr.presLabel, { color: pressureColor(pi) }]}>{pressureLabel(pi)}</Text>
+              <Text style={[sr.presLabel, { color: pressureColor(pi) }]}>{pressureLabel(pi, i18n)}</Text>
             </View>
           </View>
         )}
@@ -367,7 +380,7 @@ function RouteStop({ stop, isFirst, isLast, active, past, fedColor, onPress }: {
               <View style={sr.envCell}>
                 <Text style={sr.envIcon}>💧</Text>
                 <Text style={[sr.envValue, env.humidityLabel === 'Very High' && { color: D.orange }]}>
-                  {env.humidityLabel}
+                  {i18n.humidityValues[env.humidityLabel]}
                 </Text>
               </View>
               {/* Altitude — only if significant */}
@@ -383,7 +396,7 @@ function RouteStop({ stop, isFirst, isLast, active, past, fedColor, onPress }: {
               {env.climateChallenge >= 7 && (
                 <View style={[sr.envAlert, { borderColor: `${D.orange}40`, backgroundColor: `${D.orange}10` }]}>
                   <Text style={[sr.envAlertText, { color: D.orange }]}>
-                    {env.altitudeChallenge >= 7 ? 'Altitude Risk' : 'Heat Risk'}
+                    {env.altitudeChallenge >= 7 ? i18n.altitudeRisk : i18n.heatRisk}
                   </Text>
                 </View>
               )}
@@ -391,7 +404,7 @@ function RouteStop({ stop, isFirst, isLast, active, past, fedColor, onPress }: {
 
             {/* Venue intelligence note — shown when active */}
             {active && env.travelNote ? (
-              <Text style={sr.envNote}>{env.travelNote}</Text>
+              <Text style={sr.envNote}>{getTravelNote(env.id, lang)}</Text>
             ) : null}
           </View>
         )}
@@ -488,26 +501,24 @@ const tc = StyleSheet.create({
   chipName: { fontSize: 12, color: D.text2 },
 });
 
-// ─── Lili intelligence ────────────────────────────────────────────────────────
-
-const STAGE_INSIGHTS: Record<string, (name: string) => string> = {
-  MD1: (n) => `${n} opens their campaign. Lili reads the draw — momentum establishes itself early. First-game patterns in major tournaments are disproportionately predictive of knockout behaviour.`,
-  MD2: (n) => `Matchday 2 is where qualification arithmetic begins. ${n}'s position here shapes tactical decisions entering the decisive third fixture. Lili identifies MD2 as the tournament's highest-variance matchday.`,
-  MD3: (n) => `The group stage resolves. ${n} must secure their route forward — goal difference can separate paths to very different second-round opponents. Conservative qualification often creates unintended jeopardy.`,
-  R16: (n) => `The Round of 16. ${n} enters knockout territory. One game, no second chance. Teams with clean group-stage momentum statistically outperform those who qualified nervously.`,
-  QF:  (n) => `The Quarter-final. ${n} is four wins from the trophy. This is the stage where tactical systems either hold under real scrutiny — or fracture under consequence.`,
-  SF:  (n) => `The Semi-final. ${n} is two matches from immortality. Semi-finalists who controlled their previous fixture carry superior psychological momentum. History is within reach.`,
-  Final: (n) => `The Final. July 19, 2026. MetLife Stadium. If ${n} reaches this moment, the tournament resolves to a single equation: accumulated pressure versus inherited belief.`,
-};
-
 function LiliInsightBlock({ team, stageKey, stats }: {
   team: WCTeam;
   stageKey: string;
   stats: ReturnType<typeof computeCampaignStats>;
 }) {
+  const { i18n } = useLanguage();
   const fedColor = FED_COLOR[team.federation];
-  const insight  = STAGE_INSIGHTS[stageKey]?.(team.name) ?? STAGE_INSIGHTS.MD1(team.name);
+  const template = (i18n.routeStageInsights as Record<string, string>)[stageKey]
+    ?? i18n.routeStageInsights.MD1;
+  const insight  = template.replace('{team}', team.name);
   const dc = difficultyColor(stats.difficultyLabel);
+  const diffMap: Record<string, string> = {
+    Comfortable: i18n.difficultyLabels.comfortable,
+    Moderate:    i18n.difficultyLabels.moderate,
+    Demanding:   i18n.difficultyLabels.demanding,
+    Gruelling:   i18n.difficultyLabels.gruelling,
+    Maximum:     i18n.difficultyLabels.maximum,
+  };
 
   return (
     <View style={[li.box, { borderLeftColor: fedColor }]}>
@@ -516,16 +527,16 @@ function LiliInsightBlock({ team, stageKey, stats }: {
           <Image source={require('../assets/blue_lobster.png')} style={li.logo} resizeMode="contain" />
         </View>
         <View>
-          <Text style={li.title}>Lili Route Intelligence</Text>
-          <Text style={li.subtitle}>{team.flag}  {team.name} · {team.group} Group</Text>
+          <Text style={li.title}>{i18n.liliRouteIntelTitle}</Text>
+          <Text style={li.subtitle}>{team.flag}  {team.name} · {team.group} {i18n.group}</Text>
         </View>
       </View>
 
       <Text style={li.text}>{insight}</Text>
 
       <View style={li.diffRow}>
-        <Text style={li.diffPrefix}>Campaign difficulty —</Text>
-        <Text style={[li.diffValue, { color: dc }]}>{stats.difficultyLabel}</Text>
+        <Text style={li.diffPrefix}>{i18n.campaignDifficultyPrefix}</Text>
+        <Text style={[li.diffValue, { color: dc }]}>{diffMap[stats.difficultyLabel] ?? stats.difficultyLabel}</Text>
         <Text style={[li.diffScore, { color: dc }]}> ({stats.difficultyScore}/100)</Text>
       </View>
     </View>
@@ -549,6 +560,7 @@ const li = StyleSheet.create({
 // ─── Lili Prediction Block ───────────────────────────────────────────────────
 
 function LiliPredictionBlock({ team, stop }: { team: WCTeam; stop: EnrichedStop }) {
+  const { i18n } = useLanguage();
   const fedColor = FED_COLOR[team.federation];
   const opponent = WC_TEAMS.find((t) => t.name === stop.opponentName);
   const diff     = team.strength - (opponent?.strength ?? 65);
@@ -567,7 +579,7 @@ function LiliPredictionBlock({ team, stop }: { team: WCTeam; stop: EnrichedStop 
   const predFor     = diff > 15 ? 2 : diff > 5 ? 2 : diff > 0 ? 1 : diff >= -5 ? 1 : 0;
   const predAgainst = diff > 15 ? 0 : diff > 5 ? 1 : diff > 0 ? 0 : diff >= -5 ? 1 : diff > -15 ? 1 : 2;
 
-  const signalLabel = diff > 15 ? 'Strong Win Signal' : diff > 5 ? 'Win Probable' : diff >= -5 ? 'Balanced' : 'Underdog Alert';
+  const signalLabel = diff > 15 ? i18n.signalStrongWin : diff > 5 ? i18n.signalWinProbable : diff >= -5 ? i18n.signalBalanced : i18n.signalUnderdog;
   const signalColor = diff > 5 ? D.green : diff >= -5 ? '#C8962A' : D.red;
 
   const probs = [
@@ -721,6 +733,7 @@ const sm = StyleSheet.create({
 // ─── Stadium detail card ───────────────────────────────────────────────────────
 
 function StadiumDetailCard({ stop }: { stop: EnrichedStop }) {
+  const { i18n, lang } = useLanguage();
   const stadId = FIXTURE_STADIUM_ID[stop.stadiumName] ?? stop.stadiumId;
   const stad   = stadId ? getStadium(stadId) : undefined;
   const pi     = stad?.pressureIndex ?? stop.climateChallenge;
@@ -728,15 +741,15 @@ function StadiumDetailCard({ stop }: { stop: EnrichedStop }) {
 
   return (
     <View style={sd.card}>
-      <Text style={sd.title}>STADIUM DETAILS</Text>
+      <Text style={sd.title}>{i18n.stadiumDetails}</Text>
 
       {stad && (
         <View style={sd.presRow}>
-          <Text style={sd.presTitle}>{stad.atmosphereTag} Atmosphere</Text>
+          <Text style={sd.presTitle}>{i18n.atmosphereTags[stad.atmosphereTag]} {i18n.atmosphereLabel}</Text>
           <View style={sd.presTrack}>
             <View style={[sd.presFill, { width: `${pi * 10}%` as any, backgroundColor: pressureColor(pi) }]} />
           </View>
-          <Text style={[sd.presLabel, { color: pressureColor(pi) }]}>{pressureLabel(pi)}</Text>
+          <Text style={[sd.presLabel, { color: pressureColor(pi) }]}>{pressureLabel(pi, i18n)}</Text>
         </View>
       )}
 
@@ -748,14 +761,14 @@ function StadiumDetailCard({ stop }: { stop: EnrichedStop }) {
               <Text style={[sd.envValue, env.climateChallenge >= 7 && { color: D.orange }]}>
                 {env.avgTempJune}°C
               </Text>
-              <Text style={sd.envLabel}>June Temp</Text>
+              <Text style={sd.envLabel}>{i18n.juneTemp}</Text>
             </View>
             <View style={sd.envCell}>
               <Text style={sd.envIcon}>💧</Text>
               <Text style={[sd.envValue, env.humidityLabel === 'Very High' && { color: D.orange }]}>
-                {env.humidityLabel}
+                {i18n.humidityValues[env.humidityLabel]}
               </Text>
-              <Text style={sd.envLabel}>Humidity</Text>
+              <Text style={sd.envLabel}>{i18n.humidityLabel}</Text>
             </View>
             {stad?.capacity && (
               <View style={sd.envCell}>
@@ -765,7 +778,7 @@ function StadiumDetailCard({ stop }: { stop: EnrichedStop }) {
                     ? `${Math.round(stad.capacity / 1000)}k`
                     : String(stad.capacity)}
                 </Text>
-                <Text style={sd.envLabel}>Capacity</Text>
+                <Text style={sd.envLabel}>{i18n.capacityLabel}</Text>
               </View>
             )}
             {env.altitudeM >= 400 && (
@@ -774,24 +787,24 @@ function StadiumDetailCard({ stop }: { stop: EnrichedStop }) {
                 <Text style={[sd.envValue, env.altitudeChallenge >= 6 && { color: D.orange }]}>
                   {env.altitudeM.toLocaleString()}m
                 </Text>
-                <Text style={sd.envLabel}>Altitude</Text>
+                <Text style={sd.envLabel}>{i18n.altitudeLabel}</Text>
               </View>
             )}
             {env.climateChallenge >= 7 && (
               <View style={[sd.alertBadge, { borderColor: `${D.orange}40`, backgroundColor: `${D.orange}10` }]}>
                 <Text style={[sd.alertText, { color: D.orange }]}>
-                  {env.altitudeChallenge >= 7 ? 'Altitude Risk' : 'Heat Risk'}
+                  {env.altitudeChallenge >= 7 ? i18n.altitudeRisk : i18n.heatRisk}
                 </Text>
               </View>
             )}
           </View>
-          {env.travelNote ? <Text style={sd.venueNote}>{env.travelNote}</Text> : null}
+          {env.travelNote ? <Text style={sd.venueNote}>{getTravelNote(env.id, lang)}</Text> : null}
         </>
       )}
 
       {stop.travelDistFromPrev > 0 && (
         <View style={sd.distRow}>
-          <Text style={sd.distLabel}>Distance from previous venue</Text>
+          <Text style={sd.distLabel}>{i18n.distFromPrev}</Text>
           <Text style={sd.distValue}>✈ {stop.travelDistFromPrev.toLocaleString()} km</Text>
         </View>
       )}
@@ -873,6 +886,8 @@ const gs = StyleSheet.create({
 // ─── Main screen ──────────────────────────────────────────────────────────────
 
 export default function TeamRouteScreen() {
+  const { i18n } = useLanguage();
+  const [launched, setLaunched] = useState(false);
   const insets = useSafeAreaInsets();
 
   const [selectedTeam, setSelectedTeam] = useState<WCTeam>(
@@ -955,11 +970,11 @@ export default function TeamRouteScreen() {
       if (i === 0) return { ...stop, cumulativeFatigue: 0 };
       const prevId = all[i - 1].stadiumId;
       const dist   = travelDistanceKm(prevId, stop.stadiumId);
-      const note   = getTransitionNote(prevId, stop.stadiumId, dist);
+      const note   = getTransitionNote(prevId, stop.stadiumId, dist, i18n);
       cumFatigue  += Math.round(dist / 500 + stop.climateChallenge * 0.5 + stop.altitudeChallenge * 0.8);
       return { ...stop, travelDistFromPrev: dist, transitionNote: note, cumulativeFatigue: Math.min(cumFatigue, 100) };
     });
-  }, [groupFixtures, projectedPath, selectedTeam]);
+  }, [groupFixtures, projectedPath, selectedTeam, i18n]);
 
   // Campaign stats
   const campaignStats = useMemo(
@@ -971,12 +986,14 @@ export default function TeamRouteScreen() {
 
   const handleStageChange = useCallback((idx: number) => setStageIndex(idx), []);
 
+  if (!launched) return <FeatureIntro player={playerByPath('/team-route')!} onLaunch={() => setLaunched(true)} />;
+
   return (
     <View style={[ms.root, { paddingTop: insets.top }]}>
       {/* ── Header ── */}
       <View style={ms.header}>
         <View style={ms.headerLeft}>
-          <Text style={ms.headerTitle}>Team Route</Text>
+          <Text style={ms.headerTitle}>{i18n.titleTeamRoute}</Text>
           <Text style={ms.headerSub}>World Cup 2026 · Stadium Expedition</Text>
         </View>
         <View style={[ms.fedBadge, { borderColor: `${fedColor}50`, backgroundColor: `${fedColor}18` }]}>
@@ -986,7 +1003,7 @@ export default function TeamRouteScreen() {
 
       {/* ── Team selector ── */}
       <View style={ms.selectorWrap}>
-        <Text style={ms.selectorLabel}>SELECT NATIONAL TEAM</Text>
+        <Text style={ms.selectorLabel}>{i18n.selectTeam.toUpperCase()}</Text>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}

@@ -1,3 +1,4 @@
+import { Stack } from 'expo-router';
 import { useState } from 'react';
 import {
   Dimensions,
@@ -11,6 +12,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import TeamPickerModal, { TeamPickerTrigger } from '../components/TeamPickerModal';
 import { FED_BG, FED_COLOR, getTeam, getTeamFixtures, type WCFixture, type WCTeam } from '../lib/wcData';
 import { buildMatchPredictions, type MatchPrediction } from '../lib/wcSimulation';
+import FeatureIntro from '../components/FeatureIntro';
+import { playerByPath } from '../lib/playerXI';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const W = Dimensions.get('window').width - 32; // chart width
 const CHART_H = 200;
@@ -211,6 +215,8 @@ function MatchDetail({ point }: { point: PlotPoint }) {
 }
 
 export default function CumulativeGraphScreen() {
+  const [launched, setLaunched] = useState(false);
+  const { i18n } = useLanguage();
   const [team, setTeam] = useState<WCTeam | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
@@ -250,12 +256,21 @@ export default function CumulativeGraphScreen() {
   const finalPts = plotPoints.at(-1)?.y ?? 0;
   const willQualify = finalPts >= QUALIFY_PTS;
 
+  if (!launched) return (
+    <>
+      <Stack.Screen options={{ title: i18n.titleCumulativeGraph, headerShown: false }} />
+      <FeatureIntro player={playerByPath('/cumulative-graph')!} onLaunch={() => setLaunched(true)} />
+    </>
+  );
+
   return (
-    <SafeAreaView style={s.safe} edges={['bottom']}>
+    <>
+      <Stack.Screen options={{ title: i18n.titleCumulativeGraph, headerShown: true }} />
+      <SafeAreaView style={s.safe} edges={['bottom']}>
       <TeamPickerTrigger
         team={team}
         onPress={() => setPickerOpen(true)}
-        placeholder="Choose a team to project"
+        placeholder={i18n.selectTeam}
       />
       <TeamPickerModal
         visible={pickerOpen}
@@ -336,16 +351,14 @@ export default function CumulativeGraphScreen() {
 
           {/* Tap hint */}
           {selected === null && (
-            <Text style={s.hint}>Tap a match node above to see details</Text>
+            <Text style={s.hint}>{i18n.tapMatchHint}</Text>
           )}
 
-          <Text style={s.footNote}>
-            Dashed lines = Lili's projected outcome (pre-match).{'\n'}
-            Solid lines = confirmed results. lili-v1.0
-          </Text>
+          <Text style={s.footNote}>{i18n.graphFootnote}</Text>
         </ScrollView>
       )}
     </SafeAreaView>
+    </>
   );
 }
 

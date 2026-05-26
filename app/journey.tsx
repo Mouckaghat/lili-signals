@@ -1,3 +1,4 @@
+import { Stack } from 'expo-router';
 import { useMemo, useState } from 'react';
 import {
   ScrollView,
@@ -25,6 +26,9 @@ import {
   type WCFixture,
   type WCTeam,
 } from '../lib/wcData';
+import FeatureIntro from '../components/FeatureIntro';
+import { playerByPath } from '../lib/playerXI';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // ─── Scrubber stages ──────────────────────────────────────────────────────────
 
@@ -87,12 +91,14 @@ function GroupStageCard({
   win,
   draw,
   loss,
+  i18n,
 }: {
   fixture: WCFixture;
   teamName: string;
   win: number;
   draw: number;
   loss: number;
+  i18n: ReturnType<typeof useLanguage>['i18n'];
 }) {
   const opponentName = getOpponent(fixture, teamName);
   const opponent     = getTeam(opponentName);
@@ -115,7 +121,7 @@ function GroupStageCard({
         <View style={s.teamBlock}>
           <Text style={s.teamFlagLarge}>{myTeam.flag}</Text>
           <Text style={s.teamNameLarge} numberOfLines={1}>{teamName}</Text>
-          <Text style={s.homeAwayLabel}>{homeGame ? 'Home' : 'Away'}</Text>
+          <Text style={s.homeAwayLabel}>{homeGame ? i18n.homeMatch : i18n.awayMatch}</Text>
         </View>
 
         <Text style={s.vsText}>vs</Text>
@@ -133,7 +139,7 @@ function GroupStageCard({
 
       {/* Lili prediction */}
       <View style={s.predSection}>
-        <Text style={s.predLabel}>LILI PREDICTION</Text>
+        <Text style={s.predLabel}>{i18n.liliPrediction}</Text>
         <ProbRow win={win} draw={draw} loss={loss} />
       </View>
 
@@ -154,9 +160,11 @@ function GroupStageCard({
 function ProjectedCard({
   projected,
   teamName,
+  i18n,
 }: {
   projected: ProjectedMatch;
   teamName: string;
+  i18n: ReturnType<typeof useLanguage>['i18n'];
 }) {
   return (
     <View style={[s.activeCard, s.projectedCard]}>
@@ -167,7 +175,7 @@ function ProjectedCard({
         </View>
         <Text style={s.activeCardDate}>{projected.approxDate}</Text>
         <View style={s.simTag}>
-          <Text style={s.simTagText}>SIMULATION</Text>
+          <Text style={s.simTagText}>{i18n.simulationLabel}</Text>
         </View>
       </View>
 
@@ -176,7 +184,7 @@ function ProjectedCard({
         <View style={s.teamBlock}>
           <Text style={s.teamFlagLarge}>{'🏳'}</Text>
           <Text style={s.teamNameLarge} numberOfLines={1}>{teamName}</Text>
-          <Text style={s.homeAwayLabel}>Neutral</Text>
+          <Text style={s.homeAwayLabel}>{i18n.neutralMatch}</Text>
         </View>
 
         <Text style={s.vsText}>vs</Text>
@@ -192,26 +200,24 @@ function ProjectedCard({
         </View>
       </View>
 
-      {/* Lili prediction */}
+      {/* Lili projection */}
       <View style={s.predSection}>
-        <Text style={s.predLabel}>LILI PROJECTION</Text>
+        <Text style={s.predLabel}>{i18n.liliProjection}</Text>
         <ProbRow win={projected.winProb} draw={projected.drawProb} loss={projected.lossProb} />
       </View>
 
-      <Text style={s.projectedNote}>
-        Based on Monte Carlo simulation · opponent projection, not confirmed
-      </Text>
+      <Text style={s.projectedNote}>{i18n.basedOnSimulation}</Text>
     </View>
   );
 }
 
 // ─── Lili Insight Box ─────────────────────────────────────────────────────────
 
-function LiliInsightBox({ text }: { text: string }) {
+function LiliInsightBox({ text, label }: { text: string; label: string }) {
   return (
     <View style={s.insightBox}>
       <View style={s.insightHeader}>
-        <Text style={s.insightBadge}>LILI INSIGHT</Text>
+        <Text style={s.insightBadge}>{label}</Text>
         <Text style={s.insightRobot}>🤖</Text>
       </View>
       <Text style={s.insightText}>{text}</Text>
@@ -262,6 +268,8 @@ function PathChip({
 // ─── Main Screen ──────────────────────────────────────────────────────────────
 
 export default function JourneyScreen() {
+  const [launched, setLaunched] = useState(false);
+  const { i18n } = useLanguage();
   const [team, setTeam]           = useState<WCTeam | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [stageIndex, setStageIndex] = useState(0);
@@ -295,16 +303,16 @@ export default function JourneyScreen() {
       const oppName = getOpponent(fixture, team.name);
       const opp     = getTeam(oppName);
       return buildStageInsight(
-        team, stageIndex, oppName, opp?.strength ?? 65, pred.winProb, false
+        team, stageIndex, oppName, opp?.strength ?? 65, pred.winProb, false, i18n
       );
     } else {
       const proj = projectedPath[stageIndex - GROUP_STAGE_COUNT];
       if (!proj) return '';
       return buildStageInsight(
-        team, stageIndex, proj.opponent.name, proj.opponent.strength, proj.winProb, true
+        team, stageIndex, proj.opponent.name, proj.opponent.strength, proj.winProb, true, i18n
       );
     }
-  }, [team, stageIndex, groupFixtures, groupPredictions, projectedPath]);
+  }, [team, stageIndex, groupFixtures, groupPredictions, projectedPath, i18n]);
 
   // Build path chips for the overview row
   const pathChips: PathChipData[] = useMemo(() => {
@@ -339,13 +347,22 @@ export default function JourneyScreen() {
 
   const fedColor = team ? FED_COLOR[team.federation] : '#4A9EFF';
 
+  if (!launched) return (
+    <>
+      <Stack.Screen options={{ title: i18n.titleJourney, headerShown: false }} />
+      <FeatureIntro player={playerByPath('/journey')!} onLaunch={() => setLaunched(true)} />
+    </>
+  );
+
   return (
-    <SafeAreaView style={s.safe} edges={['bottom']}>
+    <>
+      <Stack.Screen options={{ title: i18n.titleJourney, headerShown: true }} />
+      <SafeAreaView style={s.safe} edges={['bottom']}>
       {/* Team picker trigger */}
       <TeamPickerTrigger
         team={team}
         onPress={() => setPickerOpen(true)}
-        placeholder="Choose a team to follow"
+        placeholder={i18n.selectTeam}
       />
       <TeamPickerModal
         visible={pickerOpen}
@@ -357,11 +374,8 @@ export default function JourneyScreen() {
       {!team ? (
         <View style={s.empty}>
           <Text style={s.emptyIcon}>🌍</Text>
-          <Text style={s.emptyTitle}>Your World Cup Path</Text>
-          <Text style={s.emptySub}>
-            Choose a nation. Lili maps their real group fixtures{'\n'}
-            and simulates the full knockout journey ahead.
-          </Text>
+          <Text style={s.emptyTitle}>{i18n.chooseNationTitle}</Text>
+          <Text style={s.emptySub}>{i18n.chooseNationSub}</Text>
         </View>
       ) : (
         <ScrollView
@@ -380,7 +394,7 @@ export default function JourneyScreen() {
                     {team.federation}
                   </Text>
                 </View>
-                <Text style={s.heroGroup}>Group {team.group}</Text>
+                <Text style={s.heroGroup}>{i18n.group} {team.group}</Text>
                 <Text style={s.heroStrength}>STR {team.strength}</Text>
               </View>
             </View>
@@ -388,7 +402,7 @@ export default function JourneyScreen() {
 
           {/* Future scrubber */}
           <View style={s.scrubberCard}>
-            <Text style={s.scrubberTitle}>World Cup Path</Text>
+            <Text style={s.scrubberTitle}>{i18n.worldCupPath}</Text>
             <FutureScrubber
               stages={JOURNEY_STAGES}
               activeIndex={stageIndex}
@@ -408,10 +422,11 @@ export default function JourneyScreen() {
                 win={groupPredictions[stageIndex].winProb}
                 draw={groupPredictions[stageIndex].drawProb}
                 loss={groupPredictions[stageIndex].lossProb}
+                i18n={i18n}
               />
             ) : (
               <View style={s.noDataCard}>
-                <Text style={s.noDataText}>Fixture data not yet available for this matchday</Text>
+                <Text style={s.noDataText}>{i18n.selectTeam}</Text>
               </View>
             )
           ) : (
@@ -419,20 +434,21 @@ export default function JourneyScreen() {
               <ProjectedCard
                 projected={projectedPath[stageIndex - GROUP_STAGE_COUNT]}
                 teamName={team.name}
+                i18n={i18n}
               />
             ) : (
               <View style={s.noDataCard}>
-                <Text style={s.noDataText}>Projected path requires group stage qualification</Text>
+                <Text style={s.noDataText}>{i18n.chooseNationSub}</Text>
               </View>
             )
           )}
 
           {/* Lili insight */}
-          {liliInsight ? <LiliInsightBox text={liliInsight} /> : null}
+          {liliInsight ? <LiliInsightBox text={liliInsight} label={i18n.liliInsightLabel} /> : null}
 
           {/* Path overview */}
           <View style={s.pathSection}>
-            <Text style={s.pathSectionLabel}>Full Path</Text>
+            <Text style={s.pathSectionLabel}>{i18n.fullPath}</Text>
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -440,12 +456,11 @@ export default function JourneyScreen() {
             >
               {pathChips.map((chip) => {
                 if (chip.stageIndex === GROUP_STAGE_COUNT && chip.isProjected) {
-                  // Insert separator before projected section
                   return (
                     <View key={chip.label} style={s.pathChipWithSep}>
                       <View style={s.pathSep}>
                         <View style={s.pathSepLine} />
-                        <Text style={s.pathSepLabel}>projected</Text>
+                        <Text style={s.pathSepLabel}>{i18n.projectedLabel}</Text>
                         <View style={s.pathSepLine} />
                       </View>
                       <PathChip
@@ -470,13 +485,11 @@ export default function JourneyScreen() {
             </ScrollView>
           </View>
 
-          <Text style={s.footNote}>
-            Group fixtures: FIFA 2026 official schedule (approximate).{'\n'}
-            Knockout projection: Lili simulation · not confirmed opponents.
-          </Text>
+          <Text style={s.footNote}>{i18n.groupFixturesFootnote}</Text>
         </ScrollView>
       )}
     </SafeAreaView>
+    </>
   );
 }
 

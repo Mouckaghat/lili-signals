@@ -3,6 +3,7 @@
 // All computation is synchronous and deterministic (deterministic per team name hash).
 
 import { WC_TEAMS, type WCTeam } from './wcData';
+import { type I18n } from './i18n';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -131,77 +132,55 @@ export function getProjectedKnockoutPath(team: WCTeam): ProjectedMatch[] {
 
 // ─── Lili stage insight generator ────────────────────────────────────────────
 
-const GROUP_STAGE_LABELS = ['MD 1', 'MD 2', 'MD 3'];
-
-function roundLabel(stageIndex: number): string {
-  if (stageIndex < 3) return GROUP_STAGE_LABELS[stageIndex];
-  return ROUND_LABELS[KNOCKOUT_ORDER[stageIndex - 3]];
+function fill(template: string, vars: Record<string, string>): string {
+  return template.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '');
 }
 
 export function buildStageInsight(
   team: WCTeam,
   stageIndex: number,
   opponentName: string,
-  opponentStrength: number,
+  _opponentStrength: number,
   winProb: number,
   isProjected: boolean,
+  i18n: I18n,
 ): string {
-  const tName = team.name;
-  const oName = opponentName;
-  const stageLabel = roundLabel(stageIndex);
-  const wPct = Math.round(winProb * 100);
+  const t = i18n.journeyInsights;
+  const v = { team: team.name, opp: opponentName, wPct: String(Math.round(winProb * 100)) };
 
   if (!isProjected) {
-    // Group stage — real fixture
     if (stageIndex === 0) {
-      // MD1
-      if (winProb > 0.68) {
-        return `${tName} opens from a position of structural advantage. Lili reads ${oName}'s defensive transition as the primary vulnerability — a weakness ${tName} is equipped to exploit in the first twenty minutes. The risk is tactical complacency after an early lead.`;
-      } else if (winProb > 0.48) {
-        return `A genuinely contested opening fixture. ${tName} and ${oName} carry comparable pressing efficiency into this game. The team that controls midfield transition density in the opening forty minutes will likely define the result.`;
-      } else {
-        return `${oName} enters this fixture as the stronger signal according to Lili. ${tName}'s qualification campaign depends on resilience here — a point would recalibrate the group arithmetic significantly before Matchday 2.`;
-      }
+      if (winProb > 0.68) return fill(t.md1High, v);
+      if (winProb > 0.48) return fill(t.md1Mid,  v);
+      return fill(t.md1Low, v);
     } else if (stageIndex === 1) {
-      // MD2
-      if (winProb > 0.60) {
-        return `Matchday 2 carries full qualification weight. A ${tName} win here creates a mathematically comfortable path to the round of sixteen. ${oName}'s defensive block showed cracks in their opener — Lili flags this as a moment of tournament acceleration.`;
-      } else if (winProb > 0.42) {
-        return `This is the pressure-defining fixture of the group stage. Both ${tName} and ${oName} need points, which tends to open tactical space. Lili tracks second-half intensity spikes as the key narrative variable in closely matched Matchday 2 games.`;
-      } else {
-        return `${oName} arrives with ${wPct < 35 ? 'a meaningful strength advantage' : 'momentum and purpose'}. ${tName}'s pathway to the knockout rounds likely requires either a surprise here or a defining Matchday 3 performance. These are the games that build tournament character.`;
-      }
+      if (winProb > 0.60) return fill(t.md2High, v);
+      if (winProb > 0.42) return fill(t.md2Mid,  v);
+      return fill(t.md2Low, v);
     } else {
-      // MD3
-      if (winProb > 0.60) {
-        return `${tName} enters Matchday 3 in a commanding position. A win confirms group standing. Lili reads the ${oName} matchup as one where defensive structure outweighs individual quality — ${tName}'s depth becomes the differentiating variable.`;
-      } else if (winProb > 0.42) {
-        return `Matchday 3 unfolds in full calculation mode. Both teams enter knowing the arithmetic — draws, wins, other results — and the tactical footprint will reflect that awareness. ${tName} must balance aggression with qualification arithmetic.`;
-      } else {
-        return `A difficult final group game. ${oName} carries the stronger signal, but Lili notes that Matchday 3 outcomes are historically the least predictable in the group stage — circumstance creates opportunity for lower-probability results.`;
-      }
+      if (winProb > 0.60) return fill(t.md3High, v);
+      if (winProb > 0.42) return fill(t.md3Mid,  v);
+      return fill(t.md3Low, v);
     }
   } else {
-    // Projected knockout stage
-    const round = ROUND_LABELS[KNOCKOUT_ORDER[stageIndex - 3]];
+    const roundI18n: Record<string, string> = {
+      R16:   i18n.roundOf16,
+      QF:    i18n.quarterFinal,
+      SF:    i18n.semiFinal,
+      Final: i18n.final,
+    };
+    const round = roundI18n[KNOCKOUT_ORDER[stageIndex - 3]] ?? KNOCKOUT_ORDER[stageIndex - 3];
+    const vr = { ...v, round };
     if (stageIndex === 3) {
-      // R16
-      if (winProb > 0.55) {
-        return `Projected ${round}: Lili's simulation most frequently positions ${oName} as ${tName}'s first knockout test — a ${oName.toLowerCase().includes('brazil') || oName.toLowerCase().includes('argentina') ? 'continental heavyweight' : 'technically strong side'} with their own deep-tournament ambitions. ${tName} holds a marginal strength advantage, but momentum from the group stage will define the atmosphere.`;
-      } else if (winProb > 0.40) {
-        return `Projected ${round}: ${oName} emerges as the most common simulation opponent for ${tName} at this stage — a genuinely balanced matchup. The ${round} tests whether group-stage performances translate under single-elimination pressure. Lili reads this as the tournament's first major inflection point.`;
-      } else {
-        return `Projected ${round}: ${oName} represents a demanding first knockout barrier. Lili's simulation places ${tName}'s win probability here at ${wPct}% — competitive, but requiring near-optimal defensive organisation and transition efficiency to convert.`;
-      }
+      if (winProb > 0.55) return fill(t.r16High, vr);
+      if (winProb > 0.40) return fill(t.r16Mid,  vr);
+      return fill(t.r16Low, vr);
     } else if (stageIndex === 4) {
-      // QF
-      return `Projected ${round}: At simulation depth, ${oName} appears most frequently as ${tName}'s quarter-final challenge — a stage where tactical setup and squad depth carry more weight than individual quality. Lili notes that QF results across historical tournaments show the highest variance of any knockout round. ${tName} arrives here having already cleared two elimination barriers.`;
+      return fill(t.qf, vr);
     } else if (stageIndex === 5) {
-      // SF
-      return `Projected ${round}: The semi-final projection surfaces ${oName} as ${tName}'s most probable opponent at this stage. At the four-team level, tournament psychology becomes the dominant signal — rest cycles, defensive organisation, and set-piece efficiency converge. Lili reads ${tName}'s ${winProb > 0.5 ? 'controlled pressing pattern' : 'transition exposure'} as the key variable in this branch.`;
+      return fill(t.sf, vr);
     } else {
-      // Final
-      return `Projected Final: The simulation's most common championship encounter for ${tName} is against ${oName}. Reaching the final represents the convergence of preparation, tournament health, and bracket luck — three signals Lili weights equally at this stage. This is what football intelligence exists to anticipate.`;
+      return fill(t.final, vr);
     }
   }
 }

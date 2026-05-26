@@ -19,6 +19,9 @@ import {
   type GroupRipple,
   type TimelineComparison,
 } from '../lib/alternateTimeline';
+import FeatureIntro from '../components/FeatureIntro';
+import { playerByPath } from '../lib/playerXI';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
@@ -105,6 +108,7 @@ const dlt = StyleSheet.create({
 // ─── Match card ───────────────────────────────────────────────────────────────
 
 function MatchCard({ match, index }: { match: MatchTimeline; index: number }) {
+  const { i18n } = useLanguage();
   const opacity    = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(12)).current;
   useEffect(() => {
@@ -141,8 +145,8 @@ function MatchCard({ match, index }: { match: MatchTimeline; index: number }) {
       {/* Column labels */}
       <View style={mc.colRow}>
         <View style={{ width: 30 }} />
-        <Text style={[mc.colLabel, { flex: 1, textAlign: 'center' }]}>BASE</Text>
-        <Text style={[mc.colLabel, { flex: 1, textAlign: 'center' }]}>ALT</Text>
+        <Text style={[mc.colLabel, { flex: 1, textAlign: 'center' }]}>{i18n.base}</Text>
+        <Text style={[mc.colLabel, { flex: 1, textAlign: 'center' }]}>{i18n.alt}</Text>
         <Text style={[mc.colLabel, { flex: 1, textAlign: 'center' }]}>Δ</Text>
       </View>
 
@@ -303,6 +307,8 @@ const qr = StyleSheet.create({
 // ─── Main screen ──────────────────────────────────────────────────────────────
 
 export default function AlternateTimelineScreen() {
+  const [launched, setLaunched] = useState(false);
+  const { i18n } = useLanguage();
   const insets = useSafeAreaInsets();
 
   const breathe = useRef(new Animated.Value(0.25)).current;
@@ -346,6 +352,8 @@ export default function AlternateTimelineScreen() {
     : comparison.divergenceIndex >= 35 ? D.orange
     : D.blue;
 
+  if (!launched) return <FeatureIntro player={playerByPath('/alternate-timeline')!} onLaunch={() => setLaunched(true)} />;
+
   return (
     <View style={ms.root}>
 
@@ -368,7 +376,7 @@ export default function AlternateTimelineScreen() {
 
           <View style={ms.titleBlock}>
             <Text style={ms.eyebrow}>LILI</Text>
-            <Text style={ms.title}>Alternate Timeline</Text>
+            <Text style={ms.title}>{i18n.titleAltTimeline}</Text>
             <Text style={ms.tagline}>What if this team were different?</Text>
           </View>
 
@@ -421,8 +429,8 @@ export default function AlternateTimelineScreen() {
         {/* ── Team selector ── */}
         <View style={ms.section}>
           <SectionHeader
-            title="SELECT NATION"
-            sub="Choose the team to diverge from base timeline"
+            title={i18n.selectNation}
+            sub={i18n.selectNationSub}
           />
           <ScrollView
             horizontal
@@ -461,8 +469,8 @@ export default function AlternateTimelineScreen() {
         {/* ── Strength override control ── */}
         <View style={ms.section}>
           <SectionHeader
-            title="STRENGTH OVERRIDE"
-            sub="Shift this team's effective strength and observe the divergence"
+            title={i18n.strengthOverride}
+            sub={i18n.strengthOverrideSub}
           />
           <View style={ctrl.card}>
 
@@ -480,12 +488,12 @@ export default function AlternateTimelineScreen() {
               <View style={ctrl.displayBlock}>
                 <View style={ctrl.strRow}>
                   <View style={ctrl.strCol}>
-                    <Text style={ctrl.strLabel}>BASE</Text>
+                    <Text style={ctrl.strLabel}>{i18n.base}</Text>
                     <Text style={ctrl.strValue}>{comparison?.baseStrength ?? '—'}</Text>
                   </View>
                   <Text style={ctrl.strArrow}>→</Text>
                   <View style={ctrl.strCol}>
-                    <Text style={ctrl.strLabel}>ALTERNATE</Text>
+                    <Text style={ctrl.strLabel}>{i18n.alternateStrength}</Text>
                     <Text style={[ctrl.strValue, {
                       color: strengthDelta === 0 ? D.text1 : strengthDelta > 0 ? D.green : D.red
                     }]}>
@@ -497,7 +505,7 @@ export default function AlternateTimelineScreen() {
                   <Text style={[ctrl.deltaText, {
                     color: strengthDelta === 0 ? D.text3 : strengthDelta > 0 ? D.green : D.red
                   }]}>
-                    {strengthDelta > 0 ? `+${strengthDelta}` : strengthDelta === 0 ? 'BASE TIMELINE' : `${strengthDelta}`}
+                    {strengthDelta > 0 ? `+${strengthDelta}` : strengthDelta === 0 ? i18n.baseTimeline : `${strengthDelta}`}
                   </Text>
                 </View>
               </View>
@@ -515,7 +523,7 @@ export default function AlternateTimelineScreen() {
             {/* Divergence bar */}
             <View style={ctrl.divSection}>
               <View style={ctrl.divRow}>
-                <Text style={ctrl.divLabel}>DIVERGENCE INDEX</Text>
+                <Text style={ctrl.divLabel}>{i18n.divergenceIndex}</Text>
                 <Text style={[ctrl.divValue, { color: divergenceColor }]}>
                   {comparison?.divergenceIndex ?? 0}
                 </Text>
@@ -528,12 +536,12 @@ export default function AlternateTimelineScreen() {
               </View>
               <Text style={ctrl.divNote}>
                 {(comparison?.divergenceIndex ?? 0) === 0
-                  ? 'No divergence — base timeline active'
+                  ? i18n.divNoDiv
                   : (comparison?.divergenceIndex ?? 0) < 35
-                  ? 'Low divergence — minor probability shifts'
+                  ? i18n.divLow
                   : (comparison?.divergenceIndex ?? 0) < 65
-                  ? 'Significant divergence — group dynamics altered'
-                  : 'Maximum divergence — this timeline is radically different'}
+                  ? i18n.divSignificant
+                  : i18n.divMaximum}
               </Text>
             </View>
 
@@ -544,8 +552,8 @@ export default function AlternateTimelineScreen() {
         {comparison && comparison.matches.length > 0 && (
           <View style={ms.section}>
             <SectionHeader
-              title="MATCH ANALYSIS"
-              sub={`${comparison.matches.length} group-stage fixtures  ·  base vs alternate probabilities`}
+              title={i18n.matchAnalysis}
+              sub={i18n.matchAnalysisSub.replace('{n}', String(comparison.matches.length))}
             />
             <View style={ms.gap8}>
               {comparison.matches.map((m, i) => (
@@ -559,19 +567,19 @@ export default function AlternateTimelineScreen() {
         {comparison && (
           <View style={ms.section}>
             <SectionHeader
-              title="QUALIFICATION SHIFT"
-              sub="Group-stage qualification probability — base vs alternate"
+              title={i18n.qualificationShift}
+              sub={i18n.qualificationShiftSub}
             />
             <View style={qs.card}>
               <QualRow base={comparison.baseQualProb} alt={comparison.altQualProb} />
               <View style={qs.ptsRow}>
                 <View style={qs.ptsBlock}>
-                  <Text style={qs.ptsLabel}>BASE XP</Text>
+                  <Text style={qs.ptsLabel}>{i18n.baseXP}</Text>
                   <Text style={qs.ptsValue}>{comparison.baseExpectedPts.toFixed(2)}</Text>
                 </View>
                 <Text style={qs.ptsArrow}>→</Text>
                 <View style={qs.ptsBlock}>
-                  <Text style={qs.ptsLabel}>ALT XP</Text>
+                  <Text style={qs.ptsLabel}>{i18n.altXP}</Text>
                   <Text style={[qs.ptsValue, {
                     color: comparison.altExpectedPts > comparison.baseExpectedPts ? D.green
                          : comparison.altExpectedPts < comparison.baseExpectedPts ? D.red
@@ -589,8 +597,8 @@ export default function AlternateTimelineScreen() {
         {comparison && comparison.groupRipple.length > 0 && (
           <View style={ms.section}>
             <SectionHeader
-              title={`GROUP ${comparison.group} — RIPPLE EFFECT`}
-              sub="How rivals' expected group-stage points shift in this timeline"
+              title={`${i18n.group} ${comparison.group} — ${i18n.rippleEffect}`}
+              sub={i18n.rippleEffectSub}
             />
             <View style={ms.cardWrap}>
               {comparison.groupRipple.map(r => (

@@ -5,12 +5,12 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/blue_lobster.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "scheme": "lili-signals",
     "splash": {
       "image": "./assets/blue_lobster.png",
       "resizeMode": "contain",
-      "backgroundColor": "#F5F5F7"
+      "backgroundColor": "#050810"
     },
     "ios": {
       "supportsTablet": true,
@@ -19,7 +19,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/blue_lobster.png",
-        "backgroundColor": "#F5F5F7"
+        "backgroundColor": "#050810"
       },
       "package": "com.lilisignals.app"
     },

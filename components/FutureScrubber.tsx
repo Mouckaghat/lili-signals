@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, PanResponder, StyleSheet, Text, View } from 'react-native';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -37,6 +38,7 @@ export default function FutureScrubber({
   color = '#005F8E',
   style,
 }: Props) {
+  const { i18n } = useLanguage();
   const [trackWidth, setTrackWidth] = useState(0);
   const trackWidthRef = useRef(0);
   const thumbAnim    = useRef(new Animated.Value(0)).current;
@@ -215,7 +217,7 @@ export default function FutureScrubber({
       {futureStartIndex < n && (
         <View style={sc.projectedHint}>
           <View style={[sc.projectedLine, { backgroundColor: '#E5E5EA' }]} />
-          <Text style={sc.projectedLabel}>PROJECTED</Text>
+          <Text style={sc.projectedLabel}>{i18n.projectedBadge}</Text>
           <View style={[sc.projectedLine, { backgroundColor: '#E5E5EA' }]} />
         </View>
       )}

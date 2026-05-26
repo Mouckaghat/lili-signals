@@ -15,6 +15,10 @@ import {
   STADIUMS,
   type StadiumInfo,
 } from '../lib/stadiumData';
+import { STADIUM_IDENTITY_I18N } from '../lib/stadiumIdentityI18n';
+import FeatureIntro from '../components/FeatureIntro';
+import { playerByPath } from '../lib/playerXI';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
@@ -84,6 +88,7 @@ function GroupPill({ group }: { group: string }) {
 // ─── Featured card (large, hero) ─────────────────────────────────────────────
 
 function FeaturedCard({ stadium }: { stadium: StadiumInfo }) {
+  const { i18n, lang } = useLanguage();
   const acColor = ATMOSPHERE_COLOR[stadium.atmosphereTag];
   return (
     <View style={[sc.featuredCard, { borderColor: `${acColor}30`, shadowColor: acColor }]}>
@@ -110,7 +115,7 @@ function FeaturedCard({ stadium }: { stadium: StadiumInfo }) {
 
       {/* Capacity */}
       <View style={sc.featuredCapRow}>
-        <Text style={sc.featuredCapLabel}>CAPACITY</Text>
+        <Text style={sc.featuredCapLabel}>{i18n.capacityLabel.toUpperCase()}</Text>
         <Text style={[sc.featuredCapValue, { color: acColor }]}>
           {stadium.capacity.toLocaleString()}
         </Text>
@@ -118,11 +123,11 @@ function FeaturedCard({ stadium }: { stadium: StadiumInfo }) {
       <CapacityBar capacity={stadium.capacity} />
 
       {/* Identity text */}
-      <Text style={sc.featuredIdentity}>{stadium.identity}</Text>
+      <Text style={sc.featuredIdentity}>{STADIUM_IDENTITY_I18N[lang][stadium.id] ?? stadium.identity}</Text>
 
       {/* Groups */}
       <View style={sc.groupsRow}>
-        <Text style={sc.groupsLabel}>HOSTS</Text>
+        <Text style={sc.groupsLabel}>{i18n.hosts}</Text>
         <View style={sc.groupsList}>
           {stadium.groups.map((g) => <GroupPill key={g} group={g} />)}
         </View>
@@ -130,7 +135,7 @@ function FeaturedCard({ stadium }: { stadium: StadiumInfo }) {
 
       {/* Pressure */}
       <View style={sc.presMeter}>
-        <Text style={sc.presLabel}>PRESSURE INDEX</Text>
+        <Text style={sc.presLabel}>{i18n.pressureIndex}</Text>
         <View style={sc.presBarRow}>
           {Array.from({ length: 10 }).map((_, i) => (
             <View
@@ -166,6 +171,7 @@ function StadiumCard({
   onSelect: () => void;
   isSelected: boolean;
 }) {
+  const { i18n, lang } = useLanguage();
   const acColor = ATMOSPHERE_COLOR[stadium.atmosphereTag];
   return (
     <TouchableOpacity
@@ -209,7 +215,7 @@ function StadiumCard({
           <Text style={[sc.cardPressure, { color: stadium.pressureIndex >= 8 ? D.orange : D.text3 }]}>
             {stadium.pressureIndex}/10
           </Text>
-          <Text style={sc.cardPressureLabel}>PRESSURE</Text>
+          <Text style={sc.cardPressureLabel}>{i18n.pressure}</Text>
         </View>
       </View>
 
@@ -230,25 +236,25 @@ function StadiumCard({
           <View style={sc.expandedMeta}>
             <View style={sc.expandedMetaCell}>
               <Text style={sc.expandedMetaValue}>{stadium.opened}</Text>
-              <Text style={sc.expandedMetaLabel}>OPENED</Text>
+              <Text style={sc.expandedMetaLabel}>{i18n.opened}</Text>
             </View>
             <View style={sc.expandedMetaDivider} />
             <View style={sc.expandedMetaCell}>
               <Text style={sc.expandedMetaValue}>{stadium.surface}</Text>
-              <Text style={sc.expandedMetaLabel}>SURFACE</Text>
+              <Text style={sc.expandedMetaLabel}>{i18n.surface}</Text>
             </View>
             <View style={sc.expandedMetaDivider} />
             <View style={sc.expandedMetaCell}>
               <Text style={[sc.expandedMetaValue, { color: acColor }]}>
                 {stadium.capacity.toLocaleString()}
               </Text>
-              <Text style={sc.expandedMetaLabel}>CAPACITY</Text>
+              <Text style={sc.expandedMetaLabel}>{i18n.capacityLabel.toUpperCase()}</Text>
             </View>
           </View>
 
           {/* All groups */}
           <View style={sc.expandedGroupsRow}>
-            <Text style={sc.expandedGroupsLabel}>HOSTS</Text>
+            <Text style={sc.expandedGroupsLabel}>{i18n.hosts}</Text>
             <View style={sc.groupsList}>
               {stadium.groups.map((g) => <GroupPill key={g} group={g} />)}
             </View>
@@ -256,7 +262,7 @@ function StadiumCard({
 
           {/* Pressure meter */}
           <View style={sc.expandedPressure}>
-            <Text style={sc.presLabel}>PRESSURE INDEX</Text>
+            <Text style={sc.presLabel}>{i18n.pressureIndex}</Text>
             <View style={sc.presBarRow}>
               {Array.from({ length: 10 }).map((_, i) => (
                 <View
@@ -284,9 +290,9 @@ function StadiumCard({
           <View style={[sc.expandedInsight, { borderLeftColor: acColor }]}>
             <View style={sc.insightHeader}>
               <Image source={require('../assets/blue_lobster.png')} style={sc.lobsterIcon as any} resizeMode="contain" />
-              <Text style={sc.insightTitle}>Lili Stadium Intelligence</Text>
+              <Text style={sc.insightTitle}>{i18n.liliStadiumIntel}</Text>
             </View>
-            <Text style={sc.insightText}>{stadium.identity}</Text>
+            <Text style={sc.insightText}>{STADIUM_IDENTITY_I18N[lang][stadium.id] ?? stadium.identity}</Text>
           </View>
         </View>
       )}
@@ -297,6 +303,7 @@ function StadiumCard({
 // ─── Lili stadium insight ─────────────────────────────────────────────────────
 
 function LiliStadiumInsight({ stadium }: { stadium: StadiumInfo }) {
+  const { i18n, lang } = useLanguage();
   return (
     <View style={[sc.insightBox, { borderLeftColor: ATMOSPHERE_COLOR[stadium.atmosphereTag] }]}>
       <View style={sc.insightHeader}>
@@ -305,10 +312,10 @@ function LiliStadiumInsight({ stadium }: { stadium: StadiumInfo }) {
           style={sc.lobsterIcon as any}
           resizeMode="contain"
         />
-        <Text style={sc.insightTitle}>Lili Stadium Intelligence</Text>
+        <Text style={sc.insightTitle}>{i18n.liliStadiumIntel}</Text>
       </View>
       <Text style={sc.insightSubject}>{stadium.name}</Text>
-      <Text style={sc.insightText}>{stadium.identity}</Text>
+      <Text style={sc.insightText}>{STADIUM_IDENTITY_I18N[lang][stadium.id] ?? stadium.identity}</Text>
     </View>
   );
 }
@@ -316,11 +323,12 @@ function LiliStadiumInsight({ stadium }: { stadium: StadiumInfo }) {
 // ─── Comparison bar (all stadiums by capacity) ───────────────────────────────
 
 function CapacityComparison({ stadiums }: { stadiums: StadiumInfo[] }) {
+  const { i18n } = useLanguage();
   const sorted = [...stadiums].sort((a, b) => b.capacity - a.capacity);
   const max = sorted[0]?.capacity ?? 87523;
   return (
     <View style={sc.comparisonCard}>
-      <Text style={sc.comparisonTitle}>CAPACITY COMPARISON</Text>
+      <Text style={sc.comparisonTitle}>{i18n.capacityComparison}</Text>
       {sorted.map((s) => {
         const pct = s.capacity / max;
         const color = pct > 0.85 ? D.orange : pct > 0.7 ? D.blue : D.green;
@@ -341,6 +349,7 @@ function CapacityComparison({ stadiums }: { stadiums: StadiumInfo[] }) {
 // ─── Main screen ──────────────────────────────────────────────────────────────
 
 export default function StadiumIntelligenceScreen() {
+  const [launched, setLaunched] = useState(false);
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
 
@@ -369,6 +378,10 @@ export default function StadiumIntelligenceScreen() {
   const totalCapacity = filteredStadiums.reduce((a, s) => a + s.capacity, 0);
   const avgPressure   = Math.round(filteredStadiums.reduce((a, s) => a + s.pressureIndex, 0) / filteredStadiums.length * 10) / 10;
 
+  const { i18n } = useLanguage();
+
+  if (!launched) return <FeatureIntro player={playerByPath('/stadium-intelligence')!} onLaunch={() => setLaunched(true)} />;
+
   return (
     <View style={sc.root}>
       {/* ── Fixed header area ── */}
@@ -376,7 +389,7 @@ export default function StadiumIntelligenceScreen() {
 
         {/* Screen header */}
         <View style={sc.screenHeader}>
-          <Text style={sc.screenTitle}>Stadium Intelligence</Text>
+          <Text style={sc.screenTitle}>{i18n.titleStadium}</Text>
           <Text style={sc.screenSub}>WC 2026 · 15 Venues · USA · Canada · Mexico</Text>
         </View>
 
@@ -384,22 +397,22 @@ export default function StadiumIntelligenceScreen() {
         <View style={sc.statsStrip}>
           <View style={sc.statCell}>
             <Text style={sc.statValue}>{filteredStadiums.length}</Text>
-            <Text style={sc.statLabel}>VENUES</Text>
+            <Text style={sc.statLabel}>{i18n.venues}</Text>
           </View>
           <View style={sc.statDivider} />
           <View style={sc.statCell}>
             <Text style={sc.statValue}>{(totalCapacity / 1000).toFixed(0)}k</Text>
-            <Text style={sc.statLabel}>TOTAL SEATS</Text>
+            <Text style={sc.statLabel}>{i18n.totalSeats}</Text>
           </View>
           <View style={sc.statDivider} />
           <View style={sc.statCell}>
             <Text style={[sc.statValue, { color: D.orange }]}>{avgPressure}</Text>
-            <Text style={sc.statLabel}>AVG PRESSURE</Text>
+            <Text style={sc.statLabel}>{i18n.avgPressure}</Text>
           </View>
           <View style={sc.statDivider} />
           <View style={sc.statCell}>
             <Text style={[sc.statValue, { color: D.green }]}>{favourites.size}</Text>
-            <Text style={sc.statLabel}>FAVOURITES</Text>
+            <Text style={sc.statLabel}>{i18n.favourites.toUpperCase()}</Text>
           </View>
         </View>
 
@@ -416,7 +429,7 @@ export default function StadiumIntelligenceScreen() {
             >
               {f !== 'All' && <Text style={sc.filterFlag}>{COUNTRY_FLAG[f]}</Text>}
               <Text style={[sc.filterText, filter === f && { color: D.blue, fontWeight: '700' }]}>
-                {f}
+                {f === 'All' ? i18n.all : f}
               </Text>
             </TouchableOpacity>
           ))}
@@ -512,7 +525,7 @@ const sc = StyleSheet.create({
   featuredIdentity: { fontSize: 13, color: D.text2, lineHeight: 20, marginTop: 12, marginBottom: 14 },
   groupsRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 14 },
   groupsLabel: { fontSize: 9, color: D.text3, fontWeight: '700', letterSpacing: 1 },
-  groupsList: { flexDirection: 'row', flexWrap: 'wrap', gap: 4 },
+  groupsList: { flexDirection: 'row', flexWrap: 'wrap', gap: 4, flex: 1 },
 
   // ── Pressure meter
   presMeter: { gap: 6 },
@@ -627,7 +640,6 @@ const sc = StyleSheet.create({
   expandedMetaLabel: { fontSize: 8, color: D.text3, fontWeight: '600', letterSpacing: 0.8 },
   expandedGroupsRow: { flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap' },
   expandedGroupsLabel: { fontSize: 9, color: D.text3, fontWeight: '700', letterSpacing: 1 },
-  groupsList: { flexDirection: 'row', flexWrap: 'wrap', gap: 4, flex: 1 },
   expandedPressure: { gap: 6 },
   mapContainer: {
     borderRadius: 10,

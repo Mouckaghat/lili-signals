@@ -10,6 +10,9 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { computeRouteSignals, type RouteDangerZone, type RouteBriefing } from '../lib/routeSignals';
+import FeatureIntro from '../components/FeatureIntro';
+import { playerByPath } from '../lib/playerXI';
+import { useLanguage } from '../contexts/LanguageContext';
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
@@ -121,10 +124,14 @@ function DangerZoneCard({
   zone,
   isSelected,
   onPress,
+  dangerIndexLabel,
+  routeExposureLabel,
 }: {
   zone: RouteDangerZone;
   isSelected: boolean;
   onPress: () => void;
+  dangerIndexLabel: string;
+  routeExposureLabel: string;
 }) {
   return (
     <TouchableOpacity
@@ -139,14 +146,14 @@ function DangerZoneCard({
       {/* Header row */}
       <View style={dz.row}>
         <View style={[dz.badge, { backgroundColor: `${zone.color}10`, borderColor: `${zone.color}30` }]}>
-          <Text style={[dz.badgeText, { color: zone.color }]}>{zone.label}</Text>
+          <Text style={[dz.badgeText, { color: zone.color }]}>{zone.displayLabel}</Text>
         </View>
         <View style={dz.rightCol}>
           <View style={dz.scoreBlock}>
             <Text style={[dz.score, { color: zone.color }]}>
               {zone.score.toFixed(1)}<Text style={dz.scoreUnit}> /10</Text>
             </Text>
-            <Text style={dz.scoreLabel}>DANGER INDEX</Text>
+            <Text style={dz.scoreLabel}>{dangerIndexLabel}</Text>
           </View>
           <Text style={[dz.chevron, { color: zone.color }]}>{isSelected ? '▴' : '▾'}</Text>
         </View>
@@ -166,7 +173,7 @@ function DangerZoneCard({
       {/* Expanded: affected teams */}
       {isSelected && (
         <View style={[dz.expanded, { borderTopColor: `${zone.color}20` }]}>
-          <Text style={dz.teamsLabel}>ROUTE EXPOSURE</Text>
+          <Text style={dz.teamsLabel}>{routeExposureLabel}</Text>
           <View style={dz.teamsRow}>
             {zone.teams.map((t) => (
               <View
@@ -236,13 +243,13 @@ const sh = StyleSheet.create({
 // ─── Main screen ──────────────────────────────────────────────────────────────
 
 export default function LiliRouteIntelligenceScreen() {
+  const [launched, setLaunched] = useState(false);
   const insets = useSafeAreaInsets();
 
   const breathe = useRef(new Animated.Value(0.25)).current;
   const fadeIn  = useRef(new Animated.Value(0)).current;
 
   const [selectedZone, setSelectedZone] = useState<string | null>(null);
-  const { zones, briefings } = useMemo(() => computeRouteSignals(undefined), []);
 
   useEffect(() => {
     Animated.timing(fadeIn, { toValue: 1, duration: 800, useNativeDriver: true }).start();
@@ -254,9 +261,13 @@ export default function LiliRouteIntelligenceScreen() {
     ).start();
   }, [breathe, fadeIn]);
 
+  const { i18n } = useLanguage();
+  const { zones, briefings } = useMemo(() => computeRouteSignals(i18n, undefined), [i18n]);
   const daysToFinal   = daysUntil(FINAL_MS);
   const daysToKickoff = daysUntil(KICKOFF_MS);
   const isLive        = daysToKickoff === 0;
+
+  if (!launched) return <FeatureIntro player={playerByPath('/lili-route-intelligence')!} onLaunch={() => setLaunched(true)} />;
 
   return (
     <View style={ms.root}>
@@ -281,13 +292,13 @@ export default function LiliRouteIntelligenceScreen() {
 
           <View style={ms.titleBlock}>
             <Text style={ms.eyebrow}>LILI</Text>
-            <Text style={ms.title}>Route Intelligence</Text>
-            <Text style={ms.tagline}>One World · Forty-Eight Dreams</Text>
+            <Text style={ms.title}>{i18n.titleRouteIntel}</Text>
+            <Text style={ms.tagline}>{i18n.tagline}</Text>
           </View>
 
           <View style={ms.statusChip}>
             <PulseDot color={D.signal} />
-            <Text style={ms.statusText}>ACTIVE</Text>
+            <Text style={ms.statusText}>{i18n.routeActive}</Text>
           </View>
         </View>
 
@@ -295,29 +306,29 @@ export default function LiliRouteIntelligenceScreen() {
         <View style={ms.pulseStrip}>
           <View style={ms.pulseCell}>
             <Text style={[ms.pulseValue, isLive && { color: D.signal }]}>
-              {isLive ? 'LIVE' : daysToKickoff}
+              {isLive ? i18n.liveLabel : daysToKickoff}
             </Text>
-            <Text style={ms.pulseLabel}>{isLive ? 'TOURNAMENT' : 'TO KICKOFF'}</Text>
+            <Text style={ms.pulseLabel}>{isLive ? i18n.liveLabel : i18n.daysToKickoff}</Text>
           </View>
           <View style={ms.pulseSep} />
           <View style={ms.pulseCell}>
             <Text style={ms.pulseValue}>{daysToFinal}</Text>
-            <Text style={ms.pulseLabel}>TO FINAL</Text>
+            <Text style={ms.pulseLabel}>{i18n.routeToFinal}</Text>
           </View>
           <View style={ms.pulseSep} />
           <View style={ms.pulseCell}>
             <Text style={ms.pulseValue}>15</Text>
-            <Text style={ms.pulseLabel}>VENUES</Text>
+            <Text style={ms.pulseLabel}>{i18n.routeVenues}</Text>
           </View>
           <View style={ms.pulseSep} />
           <View style={ms.pulseCell}>
             <Text style={ms.pulseValue}>48</Text>
-            <Text style={ms.pulseLabel}>TEAMS</Text>
+            <Text style={ms.pulseLabel}>{i18n.routeTeams}</Text>
           </View>
           <View style={ms.pulseSep} />
           <View style={ms.pulseCell}>
             <Text style={ms.pulseValue}>12</Text>
-            <Text style={ms.pulseLabel}>GROUPS</Text>
+            <Text style={ms.pulseLabel}>{i18n.groups}</Text>
           </View>
         </View>
       </View>
@@ -332,8 +343,8 @@ export default function LiliRouteIntelligenceScreen() {
         {/* Intelligence Briefing */}
         <View style={ms.section}>
           <SectionHeader
-            title="INTELLIGENCE BRIEFING"
-            sub="Lili's active observation layer"
+            title={i18n.intelligenceBriefingTitle}
+            sub={i18n.intelligenceBriefingSub}
           />
           <View style={ms.gap8}>
             {briefings.map((b, i) => (
@@ -345,8 +356,8 @@ export default function LiliRouteIntelligenceScreen() {
         {/* Route Danger Matrix */}
         <View style={ms.section}>
           <SectionHeader
-            title="ROUTE DANGER MATRIX"
-            sub="Tap a classification to reveal affected teams"
+            title={i18n.routeDangerMatrixTitle}
+            sub={i18n.routeDangerMatrixSub}
           />
           <View style={ms.gap8}>
             {zones.map((z) => (
@@ -355,6 +366,8 @@ export default function LiliRouteIntelligenceScreen() {
                 zone={z}
                 isSelected={selectedZone === z.label}
                 onPress={() => setSelectedZone((prev) => prev === z.label ? null : z.label)}
+                dangerIndexLabel={i18n.dangerIndex}
+                routeExposureLabel={i18n.routeExposure}
               />
             ))}
           </View>

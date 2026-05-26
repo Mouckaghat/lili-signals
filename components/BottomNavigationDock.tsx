@@ -1,5 +1,6 @@
 import { usePathname, useRouter } from 'expo-router';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 import {
   Animated,
   Image,
@@ -73,6 +74,7 @@ export default function BottomNavigationDock() {
   const router   = useRouter();
   const pathname = usePathname();
   const insets   = useSafeAreaInsets();
+  const { i18n } = useLanguage();
 
   const fadeAnim   = useRef(new Animated.Value(0)).current;
   const slideAnim  = useRef(new Animated.Value(16)).current;
@@ -205,7 +207,9 @@ export default function BottomNavigationDock() {
               ) : (
                 <Text style={[s.icon, active && { opacity: 1 }]}>{route.icon}</Text>
               )}
-              <Text style={[s.label, active && s.labelActive]}>{route.label}</Text>
+              <Text style={[s.label, active && s.labelActive]}>
+                {(i18n.navLabels as Record<string, string>)[route.key] ?? route.label}
+              </Text>
               {active && <View style={s.dot} />}
             </TouchableOpacity>
           );

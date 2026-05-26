@@ -13,6 +13,20 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { checkApiHealth, type ApiStatus } from '../lib/apiClient';
+import { PLAYERS, type PlayerXI } from '../lib/playerXI';
+import { useLanguage } from '../contexts/LanguageContext';
+import { I18N, LANGUAGES, type LangCode } from '../lib/i18n';
+
+// Maps player jersey number (1–11) to i18n.modules array index.
+// Computed once at module load from EN titles vs PLAYERS.name.
+const PLAYER_MODULE_IDX: Partial<Record<number, number>> = Object.fromEntries(
+  I18N['EN'].modules
+    .map((m, idx) => {
+      const p = PLAYERS.find(pl => pl.name === m.title);
+      return p ? ([p.number, idx] as [number, number]) : null;
+    })
+    .filter((x): x is [number, number] => x !== null)
+);
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
@@ -68,174 +82,6 @@ const SIGNAL_GREEN_55  = 'rgba(0,229,160,0.55)';
 // WC 2026 Opening Match: Azteca, June 11 2026 at approx 22:00 UTC
 const WC_KICKOFF = new Date('2026-06-11T22:00:00Z');
 
-type LangCode = 'EN' | 'FR' | 'IT' | 'DE' | 'ES' | 'RU' | 'CN';
-const LANGUAGES: LangCode[] = ['EN', 'FR', 'IT', 'DE', 'ES', 'RU', 'CN'];
-
-type LangT = {
-  tagline: string; brandSub: string;
-  kickoffIn: string; live: string;
-  days: string; hrs: string; min: string; sec: string;
-  chooseLang: string; enterSystem: string; footerSub: string;
-  modules: { title: string; desc: string }[];
-};
-
-const T: Record<LangCode, LangT> = {
-  EN: {
-    tagline: 'One World  ·  Forty-Eight Dreams',
-    brandSub: 'Your World Cup Companion',
-    kickoffIn: 'KICKOFF IN', live: 'Tournament is LIVE',
-    days: 'DAYS', hrs: 'HRS', min: 'MIN', sec: 'SEC',
-    chooseLang: 'Choose your language',
-    enterSystem: 'ENTER THE SYSTEM',
-    footerSub: 'under the Jura Technology umbrella',
-    modules: [
-      { title: 'Team Route',               desc: 'Tournament expedition tracker'   },
-      { title: 'Stadium Intelligence',     desc: 'Venue ecosystem intelligence'    },
-      { title: 'Confederations',           desc: 'Global power structure'          },
-      { title: 'Play Against Lili',        desc: 'Simulation battles'             },
-      { title: 'Favourite Team Journey',   desc: 'Personal campaign tracking'      },
-      { title: 'Lili Route Intelligence',  desc: 'AI route analysis engine'        },
-      { title: '48-Team World Table',      desc: 'Global standings system'         },
-      { title: 'Cumulative Journey Graph', desc: 'Tournament momentum analytics'   },
-      { title: 'World Signals',            desc: 'Global tournament intelligence'  },
-      { title: 'Alternate Timeline',        desc: 'Counterfactual engine'            },
-      { title: 'Group Drama Index',         desc: 'Group-stage tension analysis'     },
-    ],
-  },
-  FR: {
-    tagline: 'Un Monde  ·  48 Rêves',
-    brandSub: 'Votre Compagnon de Coupe du Monde',
-    kickoffIn: "COUP D'ENVOI DANS", live: 'Tournoi EN DIRECT',
-    days: 'JOURS', hrs: 'HRS', min: 'MIN', sec: 'SEC',
-    chooseLang: 'Choisissez votre langue',
-    enterSystem: 'ENTRER DANS LE SYSTÈME',
-    footerSub: "sous l'égide de Jura Technology",
-    modules: [
-      { title: "Parcours d'Équipe",       desc: "Suivi de l'expédition"         },
-      { title: 'Intelligence des Stades', desc: 'Analyse des enceintes'          },
-      { title: 'Confédérations',          desc: 'Structure de pouvoir mondial'   },
-      { title: 'Jouer Contre Lili',       desc: 'Batailles de simulation'        },
-      { title: 'Voyage de Mon Équipe',       desc: 'Suivi de campagne personnelle'  },
-      { title: 'Intelligence de Route Lili', desc: "Moteur d'analyse de route"     },
-      { title: 'Tableau Mondial 48',         desc: 'Classement mondial'             },
-      { title: 'Graphe Cumulatif',        desc: 'Analyse du momentum'            },
-      { title: 'Signaux Mondiaux',        desc: 'Intelligence mondiale'          },
-      { title: 'Chronologie Alternative',  desc: 'Moteur contrefactuel'           },
-      { title: 'Indice de Drame',          desc: 'Tension de phase de groupes'    },
-    ],
-  },
-  IT: {
-    tagline: 'Un Mondo  ·  48 Sogni',
-    brandSub: 'Il Tuo Compagno di Coppa del Mondo',
-    kickoffIn: "CALCIO D'INIZIO IN", live: 'Torneo IN DIRETTA',
-    days: 'GIORNI', hrs: 'ORE', min: 'MIN', sec: 'SEC',
-    chooseLang: 'Scegli la tua lingua',
-    enterSystem: 'ENTRA NEL SISTEMA',
-    footerSub: 'sotto il marchio Jura Technology',
-    modules: [
-      { title: 'Percorso Squadra',          desc: 'Tracker spedizione torneo'    },
-      { title: 'Intelligence Stadio', desc: 'Analisi degli impianti'      },
-      { title: 'Confederazioni',      desc: 'Struttura di potere globale' },
-      { title: 'Gioca Contro Lili',         desc: 'Battaglie di simulazione'     },
-      { title: 'Viaggio Squadra Preferita',  desc: 'Tracking campagna personale' },
-      { title: 'Intelligenza Percorso Lili', desc: 'Analisi percorsi AI'         },
-      { title: 'Tabella Mondiale 48',        desc: 'Sistema classifiche'         },
-      { title: 'Grafico Cumulativo',        desc: 'Analisi del momentum'         },
-      { title: 'Segnali Mondiali',          desc: 'Intelligence mondiale'        },
-      { title: 'Linea Temporale Alt.',      desc: 'Motore controfattuale'         },
-      { title: 'Indice del Dramma',         desc: 'Tensione nei gironi'            },
-    ],
-  },
-  DE: {
-    tagline: 'Eine Welt  ·  48 Träume',
-    brandSub: 'Dein WM-Begleiter',
-    kickoffIn: 'ANPFIFF IN', live: 'Turnier LIVE',
-    days: 'TAGE', hrs: 'STD', min: 'MIN', sec: 'SEK',
-    chooseLang: 'Sprache wählen',
-    enterSystem: 'SYSTEM BETRETEN',
-    footerSub: 'unter dem Dach von Jura Technology',
-    modules: [
-      { title: 'Team-Route',          desc: 'Expeditions-Tracker'            },
-      { title: 'Stadion-Intelligenz', desc: 'Venue-Intelligence'     },
-      { title: 'Konföderationen',     desc: 'Globale Machtstruktur'  },
-      { title: 'Gegen Lili spielen',  desc: 'Simulations-Kämpfe'              },
-      { title: 'Lieblingsreise',          desc: 'Persönliche Kampagne' },
-      { title: 'Lili Routen-Intelligenz', desc: 'KI-Routenanalyse'    },
-      { title: '48-Team-Tabelle',         desc: 'Globale Rangliste'    },
-      { title: 'Kumulativer Graph',   desc: 'Dynamik-Analyse'                 },
-      { title: 'Weltsignale',         desc: 'Globale Tournament-Intelligence' },
-      { title: 'Alternate Timeline',  desc: 'Gegenläufige Simulation'          },
-      { title: 'Gruppen-Drama-Index', desc: 'Mathematische Gruppenspannung'    },
-    ],
-  },
-  ES: {
-    tagline: 'Un Mundo  ·  48 Sueños',
-    brandSub: 'Tu Compañero de Copa del Mundo',
-    kickoffIn: 'INICIO EN', live: 'Torneo EN VIVO',
-    days: 'DÍAS', hrs: 'HRS', min: 'MIN', sec: 'SEG',
-    chooseLang: 'Elige tu idioma',
-    enterSystem: 'ENTRAR AL SISTEMA',
-    footerSub: 'bajo el paraguas de Jura Technology',
-    modules: [
-      { title: 'Ruta del Equipo',           desc: 'Rastreador de expedición'    },
-      { title: 'Inteligencia del Estadio', desc: 'Análisis del estadio'       },
-      { title: 'Confederaciones',          desc: 'Estructura de poder global' },
-      { title: 'Jugar Contra Lili',         desc: 'Batallas de simulación'      },
-      { title: 'Viaje del Equipo',          desc: 'Seguimiento personal'   },
-      { title: 'Inteligencia de Ruta Lili', desc: 'Análisis de ruta IA'   },
-      { title: 'Tabla Mundial 48',          desc: 'Clasificación global'   },
-      { title: 'Gráfico Acumulativo',       desc: 'Análisis de impulso'         },
-      { title: 'Señales Mundiales',         desc: 'Inteligencia global'         },
-      { title: 'Línea Temporal Alt.',        desc: 'Motor contrafáctico'          },
-      { title: 'Índice de Drama',           desc: 'Tensión en fase de grupos'     },
-    ],
-  },
-  RU: {
-    tagline: 'Один Мир  ·  48 Мечт',
-    brandSub: 'Ваш Гид по Чемпионату Мира',
-    kickoffIn: 'НАЧАЛО ЧЕРЕЗ', live: 'Турнир LIVE',
-    days: 'ДНЕЙ', hrs: 'ЧАС', min: 'МИН', sec: 'СЕК',
-    chooseLang: 'Выберите язык',
-    enterSystem: 'ВОЙТИ В СИСТЕМУ',
-    footerSub: 'бренд Jura Technology',
-    modules: [
-      { title: 'Маршрут Команды',     desc: 'Трекер экспедиции'  },
-      { title: 'Интеллект Стадиона', desc: 'Анализ площадок'     },
-      { title: 'Конфедерации',       desc: 'Глобальная структура' },
-      { title: 'Против Лили',         desc: 'Симуляционные бои'  },
-      { title: 'Путь Команды',              desc: 'Личное отслеживание'  },
-      { title: 'Маршрутный Интеллект Лили', desc: 'Анализ маршрутов ИИ'  },
-      { title: 'Таблица 48 Команд',         desc: 'Глобальный рейтинг'   },
-      { title: 'Кумулятивный График', desc: 'Анализ динамики'    },
-      { title: 'Мировые Сигналы',     desc: 'Глобальная разведка'},
-      { title: 'Альтернативный Поток', desc: 'Контрфактический движок' },
-      { title: 'Индекс Драмы Групп',  desc: 'Напряжённость группового этапа' },
-    ],
-  },
-  CN: {
-    tagline: '一个世界  ·  48个梦想',
-    brandSub: '您的世界杯伴侣',
-    kickoffIn: '开球倒计时', live: '赛事直播中',
-    days: '天', hrs: '时', min: '分', sec: '秒',
-    chooseLang: '选择语言',
-    enterSystem: '进入系统',
-    footerSub: '归属 Jura Technology',
-    modules: [
-      { title: '队伍路线',     desc: '赛事追踪'  },
-      { title: '球场智能', desc: '场馆分析' },
-      { title: '联合会',   desc: '全球架构' },
-      { title: '对战莉莉',     desc: '模拟对战'  },
-      { title: '最爱队伍之旅', desc: '个人追踪'   },
-      { title: '莉莉路线情报', desc: 'AI路线分析' },
-      { title: '48队世界榜',   desc: '全球积分'   },
-      { title: '累计旅程图',   desc: '动势分析'  },
-      { title: '世界信号',     desc: '全球情报'  },
-      { title: '平行时间线',   desc: '反事实引擎' },
-      { title: '小组悬念指数', desc: '数学张力分析' },
-    ],
-  },
-};
-
 // ─── Countdown logic ──────────────────────────────────────────────────────────
 
 function useCountdown() {
@@ -268,7 +114,7 @@ function useCountdown() {
 
 function CountdownBlock({ lang }: { lang: LangCode }) {
   const { days, hours, minutes, seconds, live } = useCountdown();
-  const tx = T[lang];
+  const tx = I18N[lang];
 
   if (live) {
     return (
@@ -417,7 +263,7 @@ function LobsterSignalNode({
         </View>
       </TouchableOpacity>
 
-      <Animated.Text style={[ls.signalLabel, { color: g.label, opacity: labelPulse }]}>{T[lang].chooseLang}</Animated.Text>
+      <Animated.Text style={[ls.signalLabel, { color: g.label, opacity: labelPulse }]}>{I18N[lang].chooseLang}</Animated.Text>
 
       {open && (
         <Animated.View
@@ -444,189 +290,252 @@ function LobsterSignalNode({
   );
 }
 
-// ─── Feature entry cards ──────────────────────────────────────────────────────
+// ─── Pitch formation ──────────────────────────────────────────────────────────
 
-interface FeatureCardData {
-  icon: string;
-  isLobster?: boolean;
-  title: string;
-  description: string;
-  path: string | null;
-  accentColor: string;
-}
-
-const FEATURES: FeatureCardData[] = [
-  {
-    icon: '📍',
-    title: 'Team Route',
-    description: 'Tournament expedition tracker',
-    path: '/team-route',
-    accentColor: D.orange,
-  },
-  {
-    icon: '🏟️',
-    title: 'Stadium Intelligence',
-    description: 'Venue ecosystem intelligence',
-    path: '/stadium-intelligence',
-    accentColor: D.blue,
-  },
-  {
-    icon: '🌐',
-    title: 'Confederations',
-    description: 'Global power structure',
-    path: '/confederations',
-    accentColor: '#34D399',
-  },
-  {
-    isLobster: true,
-    icon: '',
-    title: 'Play Against Lili',
-    description: 'Simulation battles',
-    path: '/lili-simulation',
-    accentColor: D.blue,
-  },
-  {
-    icon: '⭐',
-    title: 'Favourite Team Journey',
-    description: 'Personal campaign tracking',
-    path: '/journey',
-    accentColor: D.gold,
-  },
-  {
-    icon: '🧠',
-    title: 'Lili Route Intelligence',
-    description: 'AI route analysis engine',
-    path: '/lili-route-intelligence',
-    accentColor: D.signalGreen,
-  },
-  {
-    icon: '🏆',
-    title: '48-Team World Table',
-    description: 'Global standings system',
-    path: '/worldcup-table',
-    accentColor: D.gold,
-  },
-  {
-    icon: '📈',
-    title: 'Cumulative Journey Graph',
-    description: 'Tournament momentum analytics',
-    path: '/cumulative-graph',
-    accentColor: D.blue,
-  },
-  {
-    icon: '🌍',
-    title: 'World Signals',
-    description: 'Global tournament intelligence',
-    path: '/world-signals',
-    accentColor: D.signalGreen,
-  },
-  {
-    icon: '⚡',
-    title: 'Alternate Timeline',
-    description: 'Counterfactual intelligence engine',
-    path: '/alternate-timeline',
-    accentColor: '#C060FF',
-  },
-  {
-    icon: '🎭',
-    title: 'Group Drama Index',
-    description: 'Mathematical group-stage tension',
-    path: '/group-drama',
-    accentColor: '#D4A520',
-  },
+const DEFAULT_FORMATION: number[][] = [
+  [11, 10, 9],     // attack
+  [6,  7,  8],     // midfield
+  [5,  3,  4,  2], // defense
+  [1],             // GK (always locked)
 ];
 
-function FeatureCard({
-  data, wide, compact, cardWidth, flashOpacity,
-}: {
-  data: FeatureCardData;
-  wide: boolean;
-  compact?: boolean;
-  flashOpacity?: Animated.Value;
-}) {
-  const live = data.path !== null;
+// Formation label: read rows bottom-up, skip GK
+function formationLabel(f: number[][]): string {
+  return [...f].reverse().slice(1).map(r => r.length).join(' · ');
+}
 
-  if (compact) {
-    return (
-      <Animated.View
-        style={[
-          ls.featureCardCompact,
-          { borderColor: `${data.accentColor}22`, shadowColor: data.accentColor },
-          !live && ls.featureCardSoon,
-          flashOpacity !== undefined ? { opacity: flashOpacity } : null,
-        ]}
-      >
-        <TouchableOpacity
-          onPress={() => { if (data.path) router.push(data.path as any); }}
-          activeOpacity={live ? 0.75 : 1}
-          style={ls.featureCardCompactInner}
-        >
-          <View style={[ls.featureIconWrapCompact, { backgroundColor: `${data.accentColor}12` }]}>
-            {data.isLobster ? (
-              <View style={ls.featureLobsterClipCompact}>
-                <Image
-                  source={require('../assets/blue_lobster.png')}
-                  style={ls.featureLobsterImgCompact}
-                  resizeMode="cover"
-                />
-              </View>
-            ) : (
-              <Text style={ls.featureIconCompact}>{data.icon}</Text>
-            )}
-          </View>
-          <Text style={[ls.featureTitleCompact, !live && ls.featureTitleDim]} numberOfLines={2}>
-            {data.title}
-          </Text>
-          <Text style={ls.featureDescCompact} numberOfLines={1}>{data.description}</Text>
-          {!live && (
-            <View style={ls.soonBadge}>
-              <Text style={ls.soonText}>SOON</Text>
-            </View>
-          )}
-        </TouchableOpacity>
-      </Animated.View>
-    );
+// Same row → swap. Different rows → insert mover before target (row sizes change).
+function movePlayer(f: number[][], moverNum: number, targetNum: number): number[][] {
+  let mR = -1, mC = -1, tR = -1, tC = -1;
+  for (let r = 0; r < f.length; r++) {
+    for (let c = 0; c < f[r].length; c++) {
+      if (f[r][c] === moverNum) { mR = r; mC = c; }
+      if (f[r][c] === targetNum) { tR = r; tC = c; }
+    }
   }
+  if (mR === -1 || tR === -1) return f;
+  const next = f.map(row => [...row]);
+  if (mR === tR) {
+    // Same row: swap
+    [next[mR][mC], next[tR][tC]] = [next[tR][tC], next[mR][mC]];
+  } else {
+    // Cross-row: remove from source, insert before target
+    if (next[mR].length <= 1) return f; // keep at least one player per row
+    next[mR].splice(mC, 1);
+    const newTC = next[tR].indexOf(targetNum);
+    next[tR].splice(newTC, 0, moverNum);
+  }
+  return next;
+}
+
+function PitchPlayerCard({
+  player, lang, flash, isSelected, isTarget, onPress, onLongPress,
+}: {
+  player:      PlayerXI;
+  lang:        LangCode;
+  flash:       Animated.Value;
+  isSelected:  boolean;
+  isTarget:    boolean;
+  onPress:     () => void;
+  onLongPress: () => void;
+}) {
+  const scale = useRef(new Animated.Value(1)).current;
+  useEffect(() => {
+    Animated.spring(scale, { toValue: isSelected ? 1.07 : 1, useNativeDriver: true, friction: 7 }).start();
+  }, [isSelected, scale]);
+
+  const moduleIdx  = PLAYER_MODULE_IDX[player.number];
+  const displayName = moduleIdx !== undefined ? I18N[lang].modules[moduleIdx].title : player.name;
+  const borderColor = isSelected ? '#D4A520' : isTarget ? `${player.accentColor}70` : `${player.accentColor}35`;
 
   return (
-    <Animated.View
-      style={[
-        ls.featureCard,
-        wide && ls.featureCardWide,
-        { borderColor: `${data.accentColor}22`, shadowColor: data.accentColor },
-        !live && ls.featureCardSoon,
-        flashOpacity !== undefined ? { opacity: flashOpacity } : null,
-      ]}
-    >
+    <Animated.View style={[pp.wrap, { opacity: flash, transform: [{ scale }] }]}>
       <TouchableOpacity
-        onPress={() => { if (data.path) router.push(data.path as any); }}
-        activeOpacity={live ? 0.75 : 1}
-        style={ls.featureCardInner}
+        style={[
+          pp.card,
+          { borderColor },
+          isSelected && pp.cardSelected,
+          isTarget   && pp.cardTarget,
+        ]}
+        onPress={onPress}
+        onLongPress={onLongPress}
+        delayLongPress={350}
+        activeOpacity={0.7}
       >
-        <View style={[ls.featureIconWrap, { backgroundColor: `${data.accentColor}12` }]}>
-          {data.isLobster ? (
-            <View style={ls.featureLobsterClip}>
-              <Image
-                source={require('../assets/blue_lobster.png')}
-                style={ls.featureLobsterImg}
-                resizeMode="cover"
-              />
-            </View>
-          ) : (
-            <Text style={ls.featureIcon}>{data.icon}</Text>
-          )}
+        <View style={[pp.posBadge, { backgroundColor: `${player.accentColor}15` }]}>
+          <Text style={[pp.pos, { color: player.accentColor }]}>{player.position}</Text>
+          <Text style={pp.num}>#{player.number}</Text>
         </View>
-        <Text style={[ls.featureTitle, !live && ls.featureTitleDim]}>{data.title}</Text>
-        <Text style={ls.featureDesc}>{data.description}</Text>
-        {!live && (
-          <View style={ls.soonBadge}>
-            <Text style={ls.soonText}>SOON</Text>
-          </View>
-        )}
+        <Text style={pp.icon}>{player.icon}</Text>
+        <Text style={pp.name} numberOfLines={2}>{displayName}</Text>
       </TouchableOpacity>
     </Animated.View>
   );
 }
+
+const pp = StyleSheet.create({
+  wrap: { flex: 1 },
+  card: {
+    flex: 1, alignItems: 'center', justifyContent: 'center', gap: 4,
+    borderRadius: 10, borderWidth: 1,
+    backgroundColor: 'rgba(255,255,255,0.025)',
+    paddingVertical: 8, paddingHorizontal: 4,
+    minHeight: 82,
+  },
+  cardSelected: { backgroundColor: 'rgba(212,165,32,0.10)' },
+  cardTarget:   { backgroundColor: 'rgba(80,140,255,0.05)' },
+  posBadge: { flexDirection: 'row', alignItems: 'center', gap: 3, paddingHorizontal: 6, paddingVertical: 2, borderRadius: 5 },
+  pos:  { fontSize: 7, fontWeight: '900', letterSpacing: 0.8 },
+  num:  { fontSize: 7, fontWeight: '600', color: 'rgba(238,242,255,0.35)' },
+  icon: { fontSize: 20 },
+  name: { fontSize: 8, fontWeight: '700', color: 'rgba(238,242,255,0.75)', textAlign: 'center', lineHeight: 11, letterSpacing: 0.2 },
+});
+
+function PitchFormation({ cardFlashes, cardLangs }: { cardFlashes: Animated.Value[]; cardLangs: LangCode[] }) {
+  const [formation, setFormation] = useState<number[][]>(DEFAULT_FORMATION);
+  const [selected, setSelected]   = useState<number | null>(null);
+  const { i18n } = useLanguage();
+
+  const formLabel  = formationLabel(formation);
+  const isDefault  = JSON.stringify(formation) === JSON.stringify(DEFAULT_FORMATION);
+
+  function handlePress(num: number) {
+    if (selected === null) {
+      router.push(PLAYERS.find(p => p.number === num)!.path as any);
+    } else if (selected === num) {
+      setSelected(null);
+    } else {
+      setFormation(prev => movePlayer(prev, selected, num));
+      setSelected(null);
+    }
+  }
+
+  function handleLongPress(num: number) {
+    if (num === 1) return; // GK stays
+    setSelected(prev => (prev === num ? null : num));
+  }
+
+  return (
+    <View style={pf.section}>
+      <View style={pf.sectionHeader}>
+        <Text style={pf.sectionLabel}>{i18n.liliXILabel.toUpperCase()}</Text>
+        <View style={pf.pillRow}>
+          {!isDefault && (
+            <TouchableOpacity
+              style={pf.resetBtn}
+              onPress={() => { setFormation(DEFAULT_FORMATION); setSelected(null); }}
+              activeOpacity={0.7}
+            >
+              <Text style={pf.resetText}>↩</Text>
+            </TouchableOpacity>
+          )}
+          <View style={pf.formationPill}>
+            <Text style={pf.formationText}>{formLabel}</Text>
+          </View>
+        </View>
+      </View>
+
+      <View style={pf.pitch}>
+        {/* Pitch decorations */}
+        <View pointerEvents="none" style={pf.decorLayer}>
+          <View style={pf.halfLine} />
+          <View style={pf.centerCircle} />
+        </View>
+
+        {/* Formation rows */}
+        {formation.map((row, rowIdx) => (
+          <View key={rowIdx} style={[pf.row, rowIdx === 1 && pf.rowMidAfter]}>
+            {row.map(num => {
+              const player = PLAYERS.find(p => p.number === num)!;
+              return (
+                <PitchPlayerCard
+                  key={num}
+                  player={player}
+                  lang={cardLangs[num - 1]}
+                  flash={cardFlashes[num - 1]}
+                  isSelected={selected === num}
+                  isTarget={selected !== null && selected !== num}
+                  onPress={() => handlePress(num)}
+                  onLongPress={() => handleLongPress(num)}
+                />
+              );
+            })}
+          </View>
+        ))}
+      </View>
+
+      <Text style={pf.tapHint}>
+        {selected !== null ? i18n.tapHintSelected : i18n.tapHintDefault}
+      </Text>
+    </View>
+  );
+}
+
+const pf = StyleSheet.create({
+  section: { marginBottom: 24 },
+
+  sectionHeader: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  sectionLabel: { fontSize: 9, fontWeight: '800', color: 'rgba(238,242,255,0.30)', letterSpacing: 2 },
+
+  pillRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  resetBtn: {
+    paddingHorizontal: 8, paddingVertical: 4, borderRadius: 7,
+    backgroundColor: 'rgba(212,165,32,0.10)',
+    borderWidth: 1, borderColor: 'rgba(212,165,32,0.25)',
+  },
+  resetText: { fontSize: 11, color: 'rgba(212,165,32,0.70)' },
+
+  formationPill: {
+    paddingHorizontal: 10, paddingVertical: 4, borderRadius: 8,
+    backgroundColor: 'rgba(74,158,255,0.08)',
+    borderWidth: 1, borderColor: 'rgba(74,158,255,0.15)',
+  },
+  formationText: { fontSize: 9, fontWeight: '800', color: 'rgba(74,158,255,0.7)', letterSpacing: 1.5 },
+
+  pitch: {
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: 'rgba(80,140,255,0.12)',
+    backgroundColor: 'rgba(8,16,40,0.7)',
+    overflow: 'hidden',
+    padding: 10,
+    gap: 8,
+  },
+
+  decorLayer: {
+    ...StyleSheet.absoluteFillObject,
+    alignItems: 'center',
+  },
+  halfLine: {
+    position: 'absolute',
+    top: '50%',
+    left: 10,
+    right: 10,
+    height: 1,
+    backgroundColor: 'rgba(80,140,255,0.07)',
+  },
+  centerCircle: {
+    position: 'absolute',
+    top: '50%',
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: 'rgba(80,140,255,0.07)',
+    marginTop: -24,
+  },
+
+  row:         { flexDirection: 'row', gap: 6, justifyContent: 'center' },
+  rowMidAfter: { marginTop: 4 },
+
+  tapHint: {
+    textAlign: 'center', marginTop: 8,
+    fontSize: 9, color: 'rgba(238,242,255,0.18)', letterSpacing: 0.5,
+  },
+});
 
 // ─── Landing screen ───────────────────────────────────────────────────────────
 
@@ -637,8 +546,8 @@ export default function LandingScreen() {
 
   const [apiStatus, setApiStatus] = useState<ApiStatus>('checking');
 
-  // Signal node language (updates immediately — it's the wave origin)
-  const [lang, setLang] = useState<LangCode>('EN');
+  // Language — persisted globally via context; local staggered copies drive the wave animation
+  const { lang, setLang } = useLanguage();
 
   // Per-section display languages — updated staggered by the wave
   const [topLang,       setTopLang]       = useState<LangCode>('EN');
@@ -758,9 +667,8 @@ export default function LandingScreen() {
             <Animated.View style={{ opacity: topFlash }}>
               <View style={ls.heroArea}>
                 <Text style={ls.brand}>WORLDCUPILOU</Text>
-                <Text style={ls.brandSub}>{T[topLang].brandSub}</Text>
                 <View style={ls.heroSep} />
-                <Text style={ls.tagline}>{T[topLang].tagline}</Text>
+                <Text style={ls.tagline}>{I18N[topLang].tagline}</Text>
                 <View style={ls.taglineDivider} />
                 <Text style={ls.tournamentLine}>USA  ·  Canada  ·  Mexico</Text>
                 <Text style={ls.tournamentDates}>June 11 – July 19, 2026</Text>
@@ -775,26 +683,13 @@ export default function LandingScreen() {
             {/* ── Lobster signal node ── */}
             <LobsterSignalNode lang={lang} onSelectLang={activateLanguage} apiStatus={apiStatus} />
 
-            {/* ── 8 module cards ── */}
-            <View style={ls.featuresSection}>
-              <Text style={ls.featuresSectionLabel}>{T[cardLangs[0]].enterSystem}</Text>
-              <View style={[ls.featuresGrid, isWide && ls.featuresGridWide]}>
-                {FEATURES.map((f, i) => (
-                  <FeatureCard
-                    key={f.title}
-                    data={{ ...f, title: T[cardLangs[i]].modules[i].title, description: T[cardLangs[i]].modules[i].desc }}
-                    wide={isWide}
-                    compact={!isWide}
-                    flashOpacity={cardFlashes[i]}
-                  />
-                ))}
-              </View>
-            </View>
+            {/* ── The Lili XI — pitch formation ── */}
+            <PitchFormation cardFlashes={cardFlashes} cardLangs={cardLangs} />
 
             {/* ── Footer ── */}
             <Animated.View style={[ls.footer, { opacity: footerFlash }]}>
               <Text style={ls.footerPrimary}>Worldcupilou by Lobster Inc.</Text>
-              <Text style={ls.footerSecondary}>{T[footerLang].footerSub}</Text>
+              <Text style={ls.footerSecondary}>{I18N[footerLang].footerSub}</Text>
             </Animated.View>
 
           </Animated.View>
@@ -846,10 +741,10 @@ const ls = StyleSheet.create({
     gap: 6,
   },
   brand: {
-    fontSize: 22,
-    fontWeight: '800',
+    fontSize: 30,
+    fontWeight: '900',
     color: D.text1,
-    letterSpacing: 4,
+    letterSpacing: 6,
     textAlign: 'center',
   },
   brandSub: {

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FED_BG, FED_COLOR, WC_TEAMS, type WCTeam } from '../lib/wcData';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface Props {
   visible: boolean;
@@ -19,6 +20,7 @@ interface Props {
 }
 
 export default function TeamPickerModal({ visible, selected, onSelect, onClose }: Props) {
+  const { i18n } = useLanguage();
   const [query, setQuery] = useState('');
 
   const sections = useMemo(() => {
@@ -37,7 +39,7 @@ export default function TeamPickerModal({ visible, selected, onSelect, onClose }
     <Modal visible={visible} animationType="slide" presentationStyle="pageSheet">
       <SafeAreaView style={s.safe} edges={['top', 'bottom']}>
         <View style={s.header}>
-          <Text style={s.title}>Select a team</Text>
+          <Text style={s.title}>{i18n.selectTeam}</Text>
           <TouchableOpacity onPress={onClose} style={s.closeBtn}>
             <Text style={s.closeTxt}>Done</Text>
           </TouchableOpacity>
@@ -46,7 +48,7 @@ export default function TeamPickerModal({ visible, selected, onSelect, onClose }
         <View style={s.searchWrap}>
           <TextInput
             style={s.searchInput}
-            placeholder="Search team or federation…"
+            placeholder={i18n.searchTeams}
             placeholderTextColor="#AEAEB2"
             value={query}
             onChangeText={setQuery}

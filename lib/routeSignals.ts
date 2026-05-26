@@ -9,6 +9,13 @@ import {
   getTransitionNote,
   type CampaignStats,
 } from './routeIntelligence';
+import { type I18n } from './i18n';
+
+// ─── Template filler ──────────────────────────────────────────────────────────
+
+function fill(template: string, vars: Record<string, string>): string {
+  return template.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '');
+}
 
 // ─── Stadium name → STADIUM_ENV key ──────────────────────────────────────────
 
@@ -41,10 +48,11 @@ export interface TeamCampaign {
 }
 
 export interface RouteDangerZone {
-  label: string;
-  color: string;
-  desc:  string;
-  score: number; // 0–10 display scale
+  label:        string; // internal English ID (used for selection state)
+  displayLabel: string; // translated display label
+  color:        string;
+  desc:         string;
+  score:        number; // 0–10 display scale
   teams: Array<{ flag: string; name: string }>;
 }
 
@@ -80,8 +88,6 @@ export function computeAllCampaigns(activeTeamNames?: Set<string>): TeamCampaign
 }
 
 // ─── Danger zones ─────────────────────────────────────────────────────────────
-// Divide sorted campaign list into four quartile tiers.
-// Each tier becomes a zone with a computed score and description.
 
 const ZONE_DEFS = [
   { label: 'DEATH CORRIDOR',  color: '#FF5B5B' },
@@ -90,16 +96,33 @@ const ZONE_DEFS = [
   { label: 'SAFE CORRIDOR',   color: '#34D399' },
 ];
 
-function zoneDesc(tier: TeamCampaign[], label: string): string {
+function getZoneDisplayLabel(label: string, i18n: I18n): string {
+  switch (label) {
+    case 'DEATH CORRIDOR':  return i18n.deathCorridor.toUpperCase();
+    case 'HIGH TURBULENCE': return i18n.highTurbulence.toUpperCase();
+    case 'COLLAPSE RISK':   return i18n.collapseRisk.toUpperCase();
+    case 'SAFE CORRIDOR':   return i18n.safeCorridor.toUpperCase();
+    default: return label;
+  }
+}
+
+function zoneDesc(tier: TeamCampaign[], label: string, i18n: I18n): string {
   const top = tier[0];
   if (!top) return '';
+  const rb = i18n.routeBriefings;
 
   if (label === 'DEATH CORRIDOR') {
     const parts: string[] = [];
-    if (top.stats.maxAltitudeM > 1000) parts.push(`altitude peak ${top.stats.maxAltitudeM.toLocaleString()}m`);
-    if (top.stats.climateTransitions > 0)
-      parts.push(`${top.stats.climateTransitions} climate transition${top.stats.climateTransitions !== 1 ? 's' : ''}`);
-    parts.push(`${top.stats.totalDistanceKm.toLocaleString()}km travel chain`);
+    if (top.stats.maxAltitudeM > 1000)
+      parts.push(fill(rb.zoneDeathAlt, { alt: top.stats.maxAltitudeM.toLocaleString() }));
+    if (top.stats.climateTransitions > 0) {
+      if (top.stats.climateTransitions === 1) {
+        parts.push(rb.zoneDeathTransition1);
+      } else {
+        parts.push(fill(rb.zoneDeathTransitionN, { n: String(top.stats.climateTransitions) }));
+      }
+    }
+    parts.push(fill(rb.zoneDeathDistance, { km: top.stats.totalDistanceKm.toLocaleString() }));
     return parts.join(' · ');
   }
 
@@ -107,20 +130,20 @@ function zoneDesc(tier: TeamCampaign[], label: string): string {
     const avgFatigue = Math.round(
       tier.reduce((s, c) => s + c.stats.cumulativeFatigue, 0) / tier.length,
     );
-    return `Elevated climate load · ${avgFatigue}% avg fatigue index · compound environmental exposure`;
+    return fill(rb.zoneDescTurbulence, { fatigue: String(avgFatigue) });
   }
 
   if (label === 'COLLAPSE RISK') {
     const avgHours = Math.round(
       tier.reduce((s, c) => s + c.stats.estimatedFlightHours, 0) / tier.length,
     );
-    return `Moderate environmental variance · ${avgHours}h avg flight time · psychological pressure over physical stress`;
+    return fill(rb.zoneDescCollapse, { hours: String(avgHours) });
   }
 
-  return 'Stable climate · manageable travel distances · low cumulative fatigue projection';
+  return rb.zoneDescSafe;
 }
 
-export function computeDangerZones(activeTeamNames?: Set<string>): RouteDangerZone[] {
+export function computeDangerZones(i18n: I18n, activeTeamNames?: Set<string>): RouteDangerZone[] {
   const all = computeAllCampaigns(activeTeamNames);
   if (all.length === 0) return [];
   const q = Math.ceil(all.length / 4);
@@ -131,58 +154,72 @@ export function computeDangerZones(activeTeamNames?: Set<string>): RouteDangerZo
       if (tier.length === 0) return null;
       const avgScore = tier.reduce((s, c) => s + c.stats.difficultyScore, 0) / tier.length;
       return {
-        label: z.label,
-        color: z.color,
-        desc:  zoneDesc(tier, z.label),
-        score: parseFloat((avgScore / 10).toFixed(1)),
-        teams: tier.slice(0, 4).map(c => ({ flag: c.flag, name: c.name })),
+        label:        z.label,
+        displayLabel: getZoneDisplayLabel(z.label, i18n),
+        color:        z.color,
+        desc:         zoneDesc(tier, z.label, i18n),
+        score:        parseFloat((avgScore / 10).toFixed(1)),
+        teams:        tier.slice(0, 4).map(c => ({ flag: c.flag, name: c.name })),
       };
     })
     .filter((z): z is RouteDangerZone => z !== null);
 }
 
 // ─── Intelligence briefings ───────────────────────────────────────────────────
-// Eight notes derived from STADIUM_ENV travel notes and computed campaign extremes.
 
-export function computeRouteBriefings(activeTeamNames?: Set<string>): RouteBriefing[] {
-  const all   = computeAllCampaigns(activeTeamNames);
+export function computeRouteBriefings(i18n: I18n, activeTeamNames?: Set<string>): RouteBriefing[] {
+  const all  = computeAllCampaigns(activeTeamNames);
+  const rb   = i18n.routeBriefings;
   const items: RouteBriefing[] = [];
+
+  const diffMap: Record<string, string> = {
+    'Comfortable': i18n.difficultyLabels.comfortable,
+    'Moderate':    i18n.difficultyLabels.moderate,
+    'Demanding':   i18n.difficultyLabels.demanding,
+    'Gruelling':   i18n.difficultyLabels.gruelling,
+    'Maximum':     i18n.difficultyLabels.maximum,
+  };
 
   // 1 — Hardest campaign
   if (all.length > 0) {
     const t = all[0];
     items.push({
-      type:  'ROUTE',
+      type:  i18n.briefingTypeRoute,
       color: '#FF7B35',
-      text:  `${t.name} carries the tournament's heaviest group-stage load — ${t.stats.difficultyLabel.toLowerCase()} difficulty, ${t.stats.totalDistanceKm.toLocaleString()}km travel, altitude peak ${t.stats.maxAltitudeM.toLocaleString()}m across ${t.stops.length} venues.`,
+      text:  fill(rb.hardestCampaign, {
+        team:  t.name,
+        diff:  diffMap[t.stats.difficultyLabel] ?? t.stats.difficultyLabel,
+        km:    t.stats.totalDistanceKm.toLocaleString(),
+        alt:   t.stats.maxAltitudeM.toLocaleString(),
+        stops: String(t.stops.length),
+      }),
     });
   }
 
   // 2 — Azteca altitude note
-  items.push({
-    type:  'ALTITUDE',
-    color: '#C060FF',
-    text:  STADIUM_ENV.azteca.travelNote,
-  });
+  items.push({ type: i18n.briefingTypeAltitude, color: '#C060FF', text: rb.venueAzteca });
 
   // 3 — Extreme heat/humidity note (hardrock)
-  items.push({
-    type:  'CLIMATE',
-    color: '#34D399',
-    text:  STADIUM_ENV.hardrock.travelNote,
-  });
+  items.push({ type: i18n.briefingTypeClimate, color: '#34D399', text: rb.venueHardRock });
 
   // 4 — Second hardest campaign
   if (all.length > 1) {
     const t = all[1];
+    const transitionsPhrase = t.stats.climateTransitions === 1
+      ? rb.transitionPhrase1
+      : fill(rb.transitionPhraseN, { n: String(t.stats.climateTransitions) });
     items.push({
-      type:  'ROUTE',
+      type:  i18n.briefingTypeRoute,
       color: '#FF7B35',
-      text:  `${t.name} draws ${t.stats.climateTransitions} climate transition${t.stats.climateTransitions !== 1 ? 's' : ''} and ${t.stats.estimatedFlightHours}h estimated flight time — compound logistical stress that Lili's route engine tracks across the full group phase.`,
+      text:  fill(rb.secondHardest, {
+        team:             t.name,
+        transitionsPhrase,
+        hours:            String(t.stats.estimatedFlightHours),
+      }),
     });
   }
 
-  // 5 — Most extreme venue-to-venue transition in the active campaign set
+  // 5 — Most extreme venue-to-venue transition
   let worstNote   = '';
   let worstSignal = 0;
   for (const c of all) {
@@ -190,41 +227,37 @@ export function computeRouteBriefings(activeTeamNames?: Set<string>): RouteBrief
       const from = STADIUM_ENV[c.stops[i - 1]];
       const to   = STADIUM_ENV[c.stops[i]];
       if (!from || !to) continue;
-      const dist     = travelDistanceKm(c.stops[i - 1], c.stops[i]);
-      const altDiff  = Math.abs(to.altitudeM - from.altitudeM);
-      const tempDiff = Math.abs(to.avgTempJune - from.avgTempJune);
-      const signal   = altDiff * 0.08 + tempDiff * 2 + dist * 0.001;
+      const dist    = travelDistanceKm(c.stops[i - 1], c.stops[i]);
+      const altDiff = Math.abs(to.altitudeM - from.altitudeM);
+      const tmpDiff = Math.abs(to.avgTempJune - from.avgTempJune);
+      const signal  = altDiff * 0.08 + tmpDiff * 2 + dist * 0.001;
       if (signal > worstSignal) {
         worstSignal = signal;
-        worstNote   = getTransitionNote(c.stops[i - 1], c.stops[i], dist);
+        worstNote   = getTransitionNote(c.stops[i - 1], c.stops[i], dist, i18n);
       }
     }
   }
   if (worstNote) {
-    items.push({ type: 'TRANSITION', color: '#00C8FF', text: worstNote });
+    items.push({ type: i18n.briefingTypeTransition, color: '#00C8FF', text: worstNote });
   }
 
   // 6 — MetLife pressure note
-  items.push({
-    type:  'PRESSURE',
-    color: '#FF7B35',
-    text:  STADIUM_ENV.metlife.travelNote,
-  });
+  items.push({ type: i18n.briefingTypePressure, color: '#FF7B35', text: rb.venueMetLife });
 
   // 7 — Texas heat chain note
-  items.push({
-    type:  'CLIMATE',
-    color: '#34D399',
-    text:  STADIUM_ENV.att.travelNote,
-  });
+  items.push({ type: i18n.briefingTypeClimate, color: '#34D399', text: rb.venueATT });
 
   // 8 — Easiest route
   if (all.length > 0) {
     const t = all[all.length - 1];
     items.push({
-      type:  'ROUTE',
+      type:  i18n.briefingTypeRoute,
       color: '#4A9EFF',
-      text:  `${t.name} draws the cleanest group-stage path in Lili's matrix — ${t.stats.difficultyLabel.toLowerCase()} difficulty, ${t.stats.totalDistanceKm.toLocaleString()}km total travel, minimal environmental variance across all venues.`,
+      text:  fill(rb.easiestRoute, {
+        team: t.name,
+        diff: diffMap[t.stats.difficultyLabel] ?? t.stats.difficultyLabel,
+        km:   t.stats.totalDistanceKm.toLocaleString(),
+      }),
     });
   }
 
@@ -233,9 +266,9 @@ export function computeRouteBriefings(activeTeamNames?: Set<string>): RouteBrief
 
 // ─── Main entry point ─────────────────────────────────────────────────────────
 
-export function computeRouteSignals(activeTeamNames?: Set<string>): RouteSignals {
+export function computeRouteSignals(i18n: I18n, activeTeamNames?: Set<string>): RouteSignals {
   return {
-    zones:     computeDangerZones(activeTeamNames),
-    briefings: computeRouteBriefings(activeTeamNames),
+    zones:     computeDangerZones(i18n, activeTeamNames),
+    briefings: computeRouteBriefings(i18n, activeTeamNames),
   };
 }
