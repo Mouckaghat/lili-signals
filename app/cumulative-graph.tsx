@@ -11,10 +11,17 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import TeamPickerModal, { TeamPickerTrigger } from '../components/TeamPickerModal';
 import { FED_BG, FED_COLOR, getTeam, getTeamFixtures, type WCFixture, type WCTeam } from '../lib/wcData';
+import { FIXTURE_RESULTS } from '../lib/fixtureResultsData';
 import { buildMatchPredictions, type MatchPrediction } from '../lib/wcSimulation';
 import FeatureIntro from '../components/FeatureIntro';
 import { playerByPath } from '../lib/playerXI';
 import { useLanguage } from '../contexts/LanguageContext';
+
+function withResult(fixture: WCFixture): WCFixture {
+  const r = FIXTURE_RESULTS[`${fixture.home}|${fixture.away}`];
+  if (!r) return fixture;
+  return { ...fixture, status: r.status, homeScore: r.homeScore ?? undefined, awayScore: r.awayScore ?? undefined };
+}
 
 const W = Dimensions.get('window').width - 32; // chart width
 const CHART_H = 200;
@@ -222,7 +229,7 @@ export default function CumulativeGraphScreen() {
   const [selected, setSelected] = useState<number | null>(null);
 
   const preds = team ? buildMatchPredictions(team.name) : [];
-  const fixtures = team ? getTeamFixtures(team.name) : [];
+  const fixtures = team ? getTeamFixtures(team.name).map(withResult) : [];
 
   // Build plot points — running accumulator avoids self-reference in const initializer
   let runningCumul = 0;

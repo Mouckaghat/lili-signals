@@ -28,9 +28,18 @@ import {
   type WCFixture,
   type WCTeam,
 } from '../lib/wcData';
+import { FIXTURE_RESULTS } from '../lib/fixtureResultsData';
 import FeatureIntro from '../components/FeatureIntro';
 import { playerByPath } from '../lib/playerXI';
 import { useLanguage } from '../contexts/LanguageContext';
+
+// ─── Live result overlay ──────────────────────────────────────────────────────
+
+function withResult(fixture: WCFixture): WCFixture {
+  const r = FIXTURE_RESULTS[`${fixture.home}|${fixture.away}`];
+  if (!r) return fixture;
+  return { ...fixture, status: r.status, homeScore: r.homeScore ?? undefined, awayScore: r.awayScore ?? undefined };
+}
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
@@ -161,6 +170,10 @@ interface EnrichedStop {
   travelDistFromPrev: number;
   transitionNote: string;
   cumulativeFatigue: number;
+  // Live result (undefined = not yet played)
+  teamScore?: number;
+  oppScore?:  number;
+  winner?:    string | null;
 }
 
 // ─── Campaign Intelligence Card ───────────────────────────────────────────────
@@ -677,9 +690,9 @@ function SelectedMatchCard({ stop, fedColor, teamFlag, teamName }: {
           <Text style={[sm.matchTeam, { color: fedColor }]}>{teamName}</Text>
         </View>
         <View style={sm.scoreBox}>
-          <Text style={sm.scoreNum}>0</Text>
+          <Text style={sm.scoreNum}>{stop.teamScore ?? 0}</Text>
           <Text style={sm.scoreSep}>–</Text>
-          <Text style={sm.scoreNum}>0</Text>
+          <Text style={sm.scoreNum}>{stop.oppScore ?? 0}</Text>
         </View>
         <View style={sm.oppSide}>
           <Text style={sm.matchFlag}>{stop.opponentFlag}</Text>
@@ -899,7 +912,7 @@ export default function TeamRouteScreen() {
 
   // Group fixtures
   const groupFixtures = useMemo(
-    () => getTeamFixtures(selectedTeam.name),
+    () => getTeamFixtures(selectedTeam.name).map(withResult),
     [selectedTeam]
   );
 
@@ -912,8 +925,15 @@ export default function TeamRouteScreen() {
   // Build enriched stops
   const stops = useMemo<EnrichedStop[]>(() => {
     const gs: EnrichedStop[] = groupFixtures.map((f, i) => {
-      const sid  = FIXTURE_STADIUM_ID[f.stadium] ?? '';
-      const env  = STADIUM_ENV[sid];
+      const sid    = FIXTURE_STADIUM_ID[f.stadium] ?? '';
+      const env    = STADIUM_ENV[sid];
+      const isHome = f.home === selectedTeam.name;
+      const teamScore = f.homeScore !== undefined
+        ? (isHome ? f.homeScore : f.awayScore!)
+        : undefined;
+      const oppScore = f.homeScore !== undefined
+        ? (isHome ? f.awayScore! : f.homeScore)
+        : undefined;
       return {
         key:          `md${i + 1}`,
         label:        `MD ${i + 1}`,
@@ -933,6 +953,9 @@ export default function TeamRouteScreen() {
         travelDistFromPrev: 0,
         transitionNote: '',
         cumulativeFatigue: 0,
+        teamScore,
+        oppScore,
+        winner: FIXTURE_RESULTS[`${f.home}|${f.away}`]?.winner ?? null,
       };
     });
 
