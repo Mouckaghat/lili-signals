@@ -8,10 +8,26 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { FED_BG, FED_COLOR, getGroupTeams, getTeamFixtures, WC_TEAMS, type WCTeam } from '../lib/wcData';
+import { FED_BG, FED_COLOR, getGroupTeams, getTeamFixtures, WC_TEAMS, type WCFixture, type WCTeam } from '../lib/wcData';
+import { FIXTURE_RESULTS } from '../lib/fixtureResultsData';
 import FeatureIntro from '../components/FeatureIntro';
 import { playerByPath } from '../lib/playerXI';
 import { useLanguage } from '../contexts/LanguageContext';
+
+// ─── Live result overlay ──────────────────────────────────────────────────────
+// Merges fixtureResultsData (live) onto a static WCFixture. Falls back to the
+// static entry when no live result exists (pre-tournament or unknown fixture).
+
+function withResult(fixture: WCFixture): WCFixture {
+  const r = FIXTURE_RESULTS[`${fixture.home}|${fixture.away}`];
+  if (!r) return fixture;
+  return {
+    ...fixture,
+    status:    r.status,
+    homeScore: r.homeScore ?? undefined,
+    awayScore: r.awayScore ?? undefined,
+  };
+}
 
 // ─── Status logic ─────────────────────────────────────────────────────────────
 
@@ -49,7 +65,7 @@ function deriveStatus(rank: number, pts: number, played: number, maxPts: number)
 type FormChar = 'W' | 'D' | 'L' | '–';
 
 function FormDots({ team, groupTeams }: { team: WCTeam; groupTeams: WCTeam[] }) {
-  const fixtures = getTeamFixtures(team.name).filter((f) => f.status === 'FINISHED');
+  const fixtures = getTeamFixtures(team.name).map(withResult).filter((f) => f.status === 'FINISHED');
   const results: FormChar[] = fixtures.map((f) => {
     const isHome = f.home === team.name;
     const my = isHome ? f.homeScore! : f.awayScore!;
@@ -116,7 +132,7 @@ interface StandingEntry {
 
 function computeStandings(group: string): StandingEntry[] {
   const teams = getGroupTeams(group);
-  const fixtures = teams.flatMap((t) => getTeamFixtures(t.name).filter((f) => f.status === 'FINISHED'));
+  const fixtures = teams.flatMap((t) => getTeamFixtures(t.name).map(withResult).filter((f) => f.status === 'FINISHED'));
   const seen = new Set<string>();
   const uniq = fixtures.filter((f) => { if (seen.has(f.id)) return false; seen.add(f.id); return true; });
 

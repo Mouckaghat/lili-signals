@@ -9,6 +9,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { computeWorldSignals, type SignalIntercept, type PulseTeam, type NarrativeArc, type RegionSignal } from '../lib/worldSignals';
 import { WORLD_SIGNALS_I18N } from '../lib/worldSignalsI18n';
 import { INJURED_PLAYERS, INJURY_LAST_UPDATED } from '../lib/injuryData';
+import { GROUP_STANDINGS } from '../lib/standingsData';
 import { WC_TEAMS } from '../lib/wcData';
 import FeatureIntro from '../components/FeatureIntro';
 import { playerByPath } from '../lib/playerXI';
@@ -383,9 +384,19 @@ export default function WorldSignalsScreen() {
   const { i18n, lang } = useLanguage();
   const insets  = useSafeAreaInsets();
   const fadeIn  = useRef(new Animated.Value(0)).current;
-  // Pass a Set of active team names here once live standings are integrated.
-  // undefined = all 48 teams active (pre-tournament / full field).
-  const signals = useMemo(() => computeWorldSignals(undefined, WORLD_SIGNALS_I18N[lang] ?? WORLD_SIGNALS_I18N.EN), [lang]);
+
+  // Derive active teams from live standings. Falls back to undefined (all 48) pre-tournament.
+  const activeTeamNames = useMemo(() => {
+    if (GROUP_STANDINGS.length === 0) return undefined;
+    return new Set(
+      GROUP_STANDINGS.filter((s) => s.status !== 'ELIMINATED').map((s) => s.team)
+    );
+  }, []);
+
+  const signals = useMemo(
+    () => computeWorldSignals(activeTeamNames, WORLD_SIGNALS_I18N[lang] ?? WORLD_SIGNALS_I18N.EN),
+    [activeTeamNames, lang]
+  );
 
   useEffect(() => {
     Animated.timing(fadeIn, { toValue: 1, duration: 700, useNativeDriver: true }).start();
