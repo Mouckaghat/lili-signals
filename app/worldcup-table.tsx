@@ -10,6 +10,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FED_BG, FED_COLOR, getGroupTeams, getTeamFixtures, WC_TEAMS, type WCFixture, type WCTeam } from '../lib/wcData';
 import { FIXTURE_RESULTS } from '../lib/fixtureResultsData';
+import { GROUP_STANDINGS } from '../lib/standingsData';
 import FeatureIntro from '../components/FeatureIntro';
 import { playerByPath } from '../lib/playerXI';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -165,9 +166,45 @@ function computeStandings(group: string): StandingEntry[] {
   });
 }
 
+// ─── API standings (preferred when live data is available) ────────────────────
+
+const STATUS_MAP: Record<string, Status> = {
+  QUALIFIED:  'qualified',
+  ALIVE:      'alive',
+  'AT-RISK':  'at-risk',
+  ELIMINATED: 'eliminated',
+  UPCOMING:   'alive',
+};
+
+function getApiStandings(group: string): StandingEntry[] {
+  return GROUP_STANDINGS
+    .filter((s) => s.group === group)
+    .sort((a, b) => a.rank - b.rank)
+    .map((s) => {
+      const team = WC_TEAMS.find((t) => t.name === s.team);
+      if (!team) return null;
+      return {
+        team,
+        played: s.played,
+        won:    s.won,
+        drawn:  s.drawn,
+        lost:   s.lost,
+        gf:     s.gf,
+        ga:     s.ga,
+        gd:     s.gd,
+        pts:    s.pts,
+        rank:   s.rank,
+        status: STATUS_MAP[s.status] ?? 'alive',
+      };
+    })
+    .filter((s): s is StandingEntry => s !== null);
+}
+
 function GroupTable({ group }: { group: string }) {
   const { i18n } = useLanguage();
-  const entries = computeStandings(group);
+  const entries = GROUP_STANDINGS.length > 0
+    ? getApiStandings(group)
+    : computeStandings(group);
   const groupTeams = getGroupTeams(group);
 
   return (
