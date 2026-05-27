@@ -7,6 +7,7 @@
     "icon": "./assets/blue_lobster.png",
     "userInterfaceStyle": "dark",
     "scheme": "lili-signals",
+    "newArchEnabled": false,
     "splash": {
       "image": "./assets/blue_lobster.png",
       "resizeMode": "contain",
@@ -14,14 +15,16 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.lilisignals.app"
+      "bundleIdentifier": "com.lilisignals.app",
+      "buildNumber": "1"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/blue_lobster.png",
         "backgroundColor": "#050810"
       },
-      "package": "com.lilisignals.app"
+      "package": "com.lilisignals.app",
+      "versionCode": 1
     },
     "web": {
       "bundler": "metro",
