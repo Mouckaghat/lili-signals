@@ -7,7 +7,6 @@
     "icon": "./assets/blue_lobster.png",
     "userInterfaceStyle": "dark",
     "scheme": "lili-signals",
-    "newArchEnabled": false,
     "splash": {
       "image": "./assets/blue_lobster.png",
       "resizeMode": "contain",
@@ -37,6 +36,13 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "b24ffe21-dc5d-4fe7-a62a-686a98f90033"
+      }
+    },
+    "owner": "mouckaghat"
   }
 }
