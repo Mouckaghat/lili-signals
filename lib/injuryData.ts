@@ -4,6 +4,8 @@
 import type { InjuredPlayer } from './wcData';
 
 // Keyed by team name (matches WC_TEAMS[].name exactly).
-export const INJURED_PLAYERS: Record<string, InjuredPlayer[]> = {};
+export const INJURED_PLAYERS: Record<string, InjuredPlayer[]> = {
 
-export const INJURY_LAST_UPDATED = '';
+};
+
+export const INJURY_LAST_UPDATED = '2026-05-27T09:39:53.532Z';
