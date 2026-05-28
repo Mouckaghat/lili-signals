@@ -16,4 +16,4 @@ export const FIXTURE_RESULTS: Record<string, FixtureResult> = {
 
 };
 
-export const FIXTURE_RESULTS_LAST_UPDATED = '2026-05-28T14:36:43.225Z';
+export const FIXTURE_RESULTS_LAST_UPDATED = '2026-05-28T18:09:28.187Z';
