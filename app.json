@@ -14,7 +14,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.lilisignals.app",
+      "bundleIdentifier": "com.juratechnology.worldcupilou",
       "buildNumber": "1"
     },
     "android": {
@@ -22,7 +22,7 @@
         "foregroundImage": "./assets/blue_lobster.png",
         "backgroundColor": "#050810"
       },
-      "package": "com.lilisignals.app",
+      "package": "com.juratechnology.worldcupilou",
       "versionCode": 1
     },
     "web": {
