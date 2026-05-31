@@ -82,4 +82,4 @@ export const GROUP_STANDINGS: GroupStanding[] = [
   { group: "Ranking of third-placed teams", team: "Ghana", rank: 12, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
 ];
 
-export const STANDINGS_LAST_UPDATED = '2026-05-30T08:32:02.661Z';
+export const STANDINGS_LAST_UPDATED = '2026-05-31T08:51:19.939Z';
