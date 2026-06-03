@@ -1,37 +1,37 @@
 {
   "expo": {
-    "name": "Lili Signals",
+    "name": "Worldcupilou",
     "slug": "lili-signals",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/blue_lobster.png",
+    "icon": "./marketing/icons/lobsterinc-worldcupilou-icon.png",
     "userInterfaceStyle": "dark",
     "scheme": "lili-signals",
     "splash": {
-      "image": "./assets/blue_lobster.png",
+      "image": "./marketing/icons/lobsterinc-worldcupilou-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#050810"
     },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.juratechnology.worldcupilou",
-      "buildNumber": "1",
+      "buildNumber": "3",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/blue_lobster.png",
+        "foregroundImage": "./marketing/icons/lobsterinc-worldcupilou-icon.png",
         "backgroundColor": "#050810"
       },
       "package": "com.juratechnology.worldcupilou",
-      "versionCode": 2
+      "versionCode": 3
     },
     "web": {
       "bundler": "metro",
       "output": "single",
-      "favicon": "./assets/blue_lobster.png"
+      "favicon": "./marketing/icons/lobsterinc-worldcupilou-icon.png"
     },
     "plugins": [
       "expo-router",
