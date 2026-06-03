@@ -27,3 +27,6 @@ scripts/wc-data-generated.ts
 
 expo-env.d.ts
 # @end expo-cli
+# EAS / signing credentials
+*.jks
+*.pem
