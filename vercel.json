@@ -1,0 +1,5 @@
+{
+  "buildCommand": "expo export -p web",
+  "outputDirectory": "dist",
+  "framework": null
+}
