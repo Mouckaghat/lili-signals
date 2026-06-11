@@ -11,6 +11,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { computeRouteSignals, type RouteDangerZone, type RouteBriefing } from '../lib/routeSignals';
 import FeatureIntro from '../components/FeatureIntro';
+import TournamentIntelligenceSection from '../components/TournamentIntelligenceSection';
 import { playerByPath } from '../lib/playerXI';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -372,6 +373,9 @@ export default function LiliRouteIntelligenceScreen() {
             ))}
           </View>
         </View>
+
+        {/* Tournament Intelligence */}
+        <TournamentIntelligenceSection />
 
         {/* Footer */}
         <View style={ms.footer}>
