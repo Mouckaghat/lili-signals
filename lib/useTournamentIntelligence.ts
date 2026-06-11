@@ -52,7 +52,7 @@ export function useTournamentIntelligence(): { data: TournamentIntelligence; loa
     async function refresh() {
       try {
         const res = await fetch('/api/tournament-intelligence');
-        if (!res.ok) return;
+        if (!res.ok) { if (active) setLoading(false); return; }
         const json = await res.json() as TournamentIntelligence;
         if (active) { setData(json); setLoading(false); }
       } catch {

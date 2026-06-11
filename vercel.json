@@ -2,9 +2,7 @@
   "buildCommand": "expo export -p web",
   "outputDirectory": "dist",
   "framework": null,
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/(.*)", "dest": "/index.html" }
+  "rewrites": [
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }
