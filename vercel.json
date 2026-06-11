@@ -1,9 +1,5 @@
 {
   "buildCommand": "expo export -p web",
   "outputDirectory": "dist",
-  "framework": null,
-  "env": {
-    "API_FOOTBALL_KEY": "@api_football_key",
-    "API_FOOTBALL_LEAGUE_ID": "@api_football_league_id"
-  }
+  "framework": null
 }
