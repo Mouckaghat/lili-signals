@@ -203,7 +203,7 @@ function getApiStandings(group: string): StandingEntry[] {
 
 function GroupTable({ group, liveResults }: { group: string; liveResults: LiveResults }) {
   const { i18n } = useLanguage();
-  const entries = GROUP_STANDINGS.length > 0
+  const entries = GROUP_STANDINGS.some((s) => s.played > 0)
     ? getApiStandings(group)
     : computeStandings(group, liveResults);
   const groupTeams = getGroupTeams(group);
