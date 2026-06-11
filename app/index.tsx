@@ -79,8 +79,8 @@ const SIGNAL_GREEN_16  = 'rgba(0,229,160,0.16)';
 const SIGNAL_GREEN_35  = 'rgba(0,229,160,0.35)';
 const SIGNAL_GREEN_55  = 'rgba(0,229,160,0.55)';
 
-// WC 2026 Opening Match: Azteca, June 11 2026 at approx 22:00 UTC
-const WC_KICKOFF = new Date('2026-06-11T22:00:00Z');
+// WC 2026 Final: MetLife Stadium, July 19 2026 at 22:00 UTC
+const WC_KICKOFF = new Date('2026-07-19T22:00:00Z');
 
 // ─── Countdown logic ──────────────────────────────────────────────────────────
 
@@ -145,7 +145,7 @@ function CountdownBlock({ lang }: { lang: LangCode }) {
         ))}
       </View>
       <Text style={ls.countdownSub}>
-        Estadio Azteca · Mexico City · June 11, 2026
+        MetLife Stadium · New York/New Jersey · July 19, 2026
       </Text>
     </View>
   );
