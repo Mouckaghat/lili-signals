@@ -1,5 +1,6 @@
 import { Stack } from 'expo-router';
 import { useState } from 'react';
+import { useLiveResults } from '../lib/useLiveResults';
 import {
   Dimensions,
   ScrollView,
@@ -11,14 +12,15 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import TeamPickerModal, { TeamPickerTrigger } from '../components/TeamPickerModal';
 import { FED_BG, FED_COLOR, getTeam, getTeamFixtures, type WCFixture, type WCTeam } from '../lib/wcData';
-import { FIXTURE_RESULTS } from '../lib/fixtureResultsData';
+import { type FixtureResult } from '../lib/fixtureResultsData';
+import { useLiveResults } from '../lib/useLiveResults';
 import { buildMatchPredictions, type MatchPrediction } from '../lib/wcSimulation';
 import FeatureIntro from '../components/FeatureIntro';
 import { playerByPath } from '../lib/playerXI';
 import { useLanguage } from '../contexts/LanguageContext';
 
-function withResult(fixture: WCFixture): WCFixture {
-  const r = FIXTURE_RESULTS[`${fixture.home}|${fixture.away}`];
+function withResult(fixture: WCFixture, results: Record<string, FixtureResult>): WCFixture {
+  const r = results[`${fixture.home}|${fixture.away}`];
   if (!r) return fixture;
   return { ...fixture, status: r.status, homeScore: r.homeScore ?? undefined, awayScore: r.awayScore ?? undefined };
 }
@@ -227,9 +229,10 @@ export default function CumulativeGraphScreen() {
   const [team, setTeam] = useState<WCTeam | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
+  const liveResults = useLiveResults();
 
   const preds = team ? buildMatchPredictions(team.name) : [];
-  const fixtures = team ? getTeamFixtures(team.name).map(withResult) : [];
+  const fixtures = team ? getTeamFixtures(team.name).map((f) => withResult(f, liveResults)) : [];
 
   // Build plot points — running accumulator avoids self-reference in const initializer
   let runningCumul = 0;

@@ -9,18 +9,19 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FED_BG, FED_COLOR, getGroupTeams, getTeamFixtures, WC_TEAMS, type WCFixture, type WCTeam } from '../lib/wcData';
-import { FIXTURE_RESULTS } from '../lib/fixtureResultsData';
+import { type FixtureResult } from '../lib/fixtureResultsData';
+import { useLiveResults } from '../lib/useLiveResults';
 import { GROUP_STANDINGS } from '../lib/standingsData';
 import FeatureIntro from '../components/FeatureIntro';
 import { playerByPath } from '../lib/playerXI';
 import { useLanguage } from '../contexts/LanguageContext';
 
 // ─── Live result overlay ──────────────────────────────────────────────────────
-// Merges fixtureResultsData (live) onto a static WCFixture. Falls back to the
-// static entry when no live result exists (pre-tournament or unknown fixture).
 
-function withResult(fixture: WCFixture): WCFixture {
-  const r = FIXTURE_RESULTS[`${fixture.home}|${fixture.away}`];
+type LiveResults = Record<string, FixtureResult>;
+
+function withResult(fixture: WCFixture, results: LiveResults): WCFixture {
+  const r = results[`${fixture.home}|${fixture.away}`];
   if (!r) return fixture;
   return {
     ...fixture,
@@ -65,8 +66,8 @@ function deriveStatus(rank: number, pts: number, played: number, maxPts: number)
 
 type FormChar = 'W' | 'D' | 'L' | '–';
 
-function FormDots({ team, groupTeams }: { team: WCTeam; groupTeams: WCTeam[] }) {
-  const fixtures = getTeamFixtures(team.name).map(withResult).filter((f) => f.status === 'FINISHED');
+function FormDots({ team, groupTeams, liveResults }: { team: WCTeam; groupTeams: WCTeam[]; liveResults: LiveResults }) {
+  const fixtures = getTeamFixtures(team.name).map((f) => withResult(f, liveResults)).filter((f) => f.status === 'FINISHED');
   const results: FormChar[] = fixtures.map((f) => {
     const isHome = f.home === team.name;
     const my = isHome ? f.homeScore! : f.awayScore!;
@@ -131,9 +132,9 @@ interface StandingEntry {
   status: Status;
 }
 
-function computeStandings(group: string): StandingEntry[] {
+function computeStandings(group: string, liveResults: LiveResults): StandingEntry[] {
   const teams = getGroupTeams(group);
-  const fixtures = teams.flatMap((t) => getTeamFixtures(t.name).map(withResult).filter((f) => f.status === 'FINISHED'));
+  const fixtures = teams.flatMap((t) => getTeamFixtures(t.name).map((f) => withResult(f, liveResults)).filter((f) => f.status === 'FINISHED'));
   const seen = new Set<string>();
   const uniq = fixtures.filter((f) => { if (seen.has(f.id)) return false; seen.add(f.id); return true; });
 
@@ -200,11 +201,11 @@ function getApiStandings(group: string): StandingEntry[] {
     .filter((s): s is StandingEntry => s !== null);
 }
 
-function GroupTable({ group }: { group: string }) {
+function GroupTable({ group, liveResults }: { group: string; liveResults: LiveResults }) {
   const { i18n } = useLanguage();
   const entries = GROUP_STANDINGS.length > 0
     ? getApiStandings(group)
-    : computeStandings(group);
+    : computeStandings(group, liveResults);
   const groupTeams = getGroupTeams(group);
 
   return (
@@ -264,7 +265,7 @@ function GroupTable({ group }: { group: string }) {
               </Text>
               <Text style={[t.col, t.ptsCol, t.ptsText]}>{e.pts}</Text>
               <View style={[t.col, t.formCol, { alignItems: 'center' }]}>
-                <FormDots team={e.team} groupTeams={groupTeams} />
+                <FormDots team={e.team} groupTeams={groupTeams} liveResults={liveResults} />
               </View>
             </View>
           </View>
@@ -293,6 +294,7 @@ export default function WorldCupTableScreen() {
   const [launched, setLaunched] = useState(false);
   const { i18n } = useLanguage();
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
+  const liveResults = useLiveResults();
 
   const displayGroups = selectedGroup ? [selectedGroup] : GROUPS;
 
@@ -342,7 +344,7 @@ export default function WorldCupTableScreen() {
 
       <ScrollView style={st.scroll} contentContainerStyle={st.content}>
         {displayGroups.map((g) => (
-          <GroupTable key={g} group={g} />
+          <GroupTable key={g} group={g} liveResults={liveResults} />
         ))}
         <Text style={st.footNote}>{i18n.tableFootnote}</Text>
       </ScrollView>

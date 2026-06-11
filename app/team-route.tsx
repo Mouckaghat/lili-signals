@@ -28,15 +28,16 @@ import {
   type WCFixture,
   type WCTeam,
 } from '../lib/wcData';
-import { FIXTURE_RESULTS } from '../lib/fixtureResultsData';
+import { type FixtureResult } from '../lib/fixtureResultsData';
+import { useLiveResults } from '../lib/useLiveResults';
 import FeatureIntro from '../components/FeatureIntro';
 import { playerByPath } from '../lib/playerXI';
 import { useLanguage } from '../contexts/LanguageContext';
 
 // ─── Live result overlay ──────────────────────────────────────────────────────
 
-function withResult(fixture: WCFixture): WCFixture {
-  const r = FIXTURE_RESULTS[`${fixture.home}|${fixture.away}`];
+function withResult(fixture: WCFixture, results: Record<string, FixtureResult>): WCFixture {
+  const r = results[`${fixture.home}|${fixture.away}`];
   if (!r) return fixture;
   return { ...fixture, status: r.status, homeScore: r.homeScore ?? undefined, awayScore: r.awayScore ?? undefined };
 }
@@ -902,6 +903,7 @@ export default function TeamRouteScreen() {
   const { i18n } = useLanguage();
   const [launched, setLaunched] = useState(false);
   const insets = useSafeAreaInsets();
+  const liveResults = useLiveResults();
 
   const [selectedTeam, setSelectedTeam] = useState<WCTeam>(
     WC_TEAMS.find((t) => t.name === 'France') ?? WC_TEAMS[0]
@@ -912,8 +914,8 @@ export default function TeamRouteScreen() {
 
   // Group fixtures
   const groupFixtures = useMemo(
-    () => getTeamFixtures(selectedTeam.name).map(withResult),
-    [selectedTeam]
+    () => getTeamFixtures(selectedTeam.name).map((f) => withResult(f, liveResults)),
+    [selectedTeam, liveResults]
   );
 
   // Projected knockout
@@ -955,7 +957,7 @@ export default function TeamRouteScreen() {
         cumulativeFatigue: 0,
         teamScore,
         oppScore,
-        winner: FIXTURE_RESULTS[`${f.home}|${f.away}`]?.winner ?? null,
+        winner: liveResults[`${f.home}|${f.away}`]?.winner ?? null,
       };
     });
 
