@@ -179,7 +179,7 @@ const STATUS_MAP: Record<string, Status> = {
 
 function getApiStandings(group: string): StandingEntry[] {
   return GROUP_STANDINGS
-    .filter((s) => s.group === group)
+    .filter((s) => s.group === group || s.group.endsWith(group))
     .sort((a, b) => a.rank - b.rank)
     .map((s) => {
       const team = WC_TEAMS.find((t) => t.name === s.team);
