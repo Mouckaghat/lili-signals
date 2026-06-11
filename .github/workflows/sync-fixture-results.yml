@@ -3,7 +3,7 @@ name: Sync Fixture Results
 # ─── When this runs ───────────────────────────────────────────────────────────
 #
 # During match windows (June 11 – July 19, 2026):
-#   Every 10 minutes from 13:00–23:59 UTC — covers all kick-off windows globally
+#   Every 5 minutes from 13:00–23:59 UTC — covers all kick-off windows globally
 #
 # Outside match windows / rest of year:
 #   Once per hour — keeps the workflow active, catches late results
@@ -13,11 +13,11 @@ name: Sync Fixture Results
 on:
   schedule:
     # ── June: Group Stage (June 11–30) ──
-    - cron: '*/10 13-23 11-30 6 *'
+    - cron: '*/5 13-23 11-30 6 *'
     - cron: '0 0-12 11-30 6 *'
 
     # ── July: Knockouts (July 1–19) ──
-    - cron: '*/10 13-23 1-19 7 *'
+    - cron: '*/5 13-23 1-19 7 *'
     - cron: '0 0-12 1-19 7 *'
 
     # ── Rest of year: hourly heartbeat ──
