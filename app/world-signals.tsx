@@ -350,7 +350,7 @@ function InjuryBulletin() {
           );
         })
       )}
-      {INJURY_LAST_UPDATED !== '' && (
+      {Boolean(INJURY_LAST_UPDATED) && (
         <Text style={ij.updated}>↻ {INJURY_LAST_UPDATED}</Text>
       )}
     </View>

@@ -1,6 +1,5 @@
 import { Stack } from 'expo-router';
 import { useState } from 'react';
-import { useLiveResults } from '../lib/useLiveResults';
 import {
   Dimensions,
   ScrollView,
