@@ -134,7 +134,7 @@ function CountdownBlock({ lang }: { lang: LangCode }) {
 
   return (
     <View style={ls.countdownCard}>
-      <Text style={ls.countdownTitle}>{tx.kickoffIn}</Text>
+      <Text style={ls.countdownTitle}>{tx.finalIn}</Text>
       <View style={ls.countdownRow}>
         {cells.map(({ value, label }, i) => (
           <View key={String(i)} style={ls.countdownCell}>

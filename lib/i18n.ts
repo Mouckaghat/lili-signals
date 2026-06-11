@@ -5,7 +5,7 @@ export const LANGUAGES: LangCode[] = ['EN', 'FR', 'IT', 'DE', 'ES', 'RU', 'CN', 
 export interface I18n {
   // ── Home ──────────────────────────────────────────────────────────────────
   tagline: string; brandSub: string;
-  kickoffIn: string; live: string;
+  finalIn: string; live: string;
   days: string; hrs: string; min: string; sec: string;
   chooseLang: string; footerSub: string;
   modules: { title: string; desc: string }[];
@@ -308,7 +308,7 @@ export interface I18n {
 export const I18N: Record<LangCode, I18n> = {
   EN: {
     tagline: 'One World  ·  Forty-Eight Dreams', brandSub: 'Your World Cup Companion',
-    kickoffIn: 'KICKOFF IN', live: 'Tournament is LIVE',
+    finalIn: 'FINAL IN', live: 'Tournament is LIVE',
     days: 'DAYS', hrs: 'HRS', min: 'MIN', sec: 'SEC',
     chooseLang: 'Choose your language', footerSub: 'under the Jura Technology umbrella',
     modules: [
@@ -506,7 +506,7 @@ export const I18N: Record<LangCode, I18n> = {
 
   FR: {
     tagline: 'Un Monde  ·  48 Rêves', brandSub: 'Votre Compagnon de Coupe du Monde',
-    kickoffIn: "COUP D'ENVOI DANS", live: 'Tournoi EN DIRECT',
+    finalIn: 'FINALE DANS', live: 'Tournoi EN DIRECT',
     days: 'JOURS', hrs: 'HRS', min: 'MIN', sec: 'SEC',
     chooseLang: 'Choisissez votre langue', footerSub: "sous l'égide de Jura Technology",
     modules: [
@@ -704,7 +704,7 @@ export const I18N: Record<LangCode, I18n> = {
 
   IT: {
     tagline: 'Un Mondo  ·  48 Sogni', brandSub: 'Il Tuo Compagno di Coppa del Mondo',
-    kickoffIn: "CALCIO D'INIZIO IN", live: 'Torneo IN DIRETTA',
+    finalIn: 'FINALE TRA', live: 'Torneo IN DIRETTA',
     days: 'GIORNI', hrs: 'ORE', min: 'MIN', sec: 'SEC',
     chooseLang: 'Scegli la tua lingua', footerSub: 'sotto il marchio Jura Technology',
     modules: [
@@ -902,7 +902,7 @@ export const I18N: Record<LangCode, I18n> = {
 
   DE: {
     tagline: 'Eine Welt  ·  48 Träume', brandSub: 'Dein WM-Begleiter',
-    kickoffIn: 'ANPFIFF IN', live: 'Turnier LIVE',
+    finalIn: 'FINALE IN', live: 'Turnier LIVE',
     days: 'TAGE', hrs: 'STD', min: 'MIN', sec: 'SEK',
     chooseLang: 'Sprache wählen', footerSub: 'unter dem Dach von Jura Technology',
     modules: [
@@ -1100,7 +1100,7 @@ export const I18N: Record<LangCode, I18n> = {
 
   ES: {
     tagline: 'Un Mundo  ·  48 Sueños', brandSub: 'Tu Compañero de Copa del Mundo',
-    kickoffIn: 'INICIO EN', live: 'Torneo EN VIVO',
+    finalIn: 'FINAL EN', live: 'Torneo EN VIVO',
     days: 'DÍAS', hrs: 'HRS', min: 'MIN', sec: 'SEG',
     chooseLang: 'Elige tu idioma', footerSub: 'bajo el paraguas de Jura Technology',
     modules: [
@@ -1298,7 +1298,7 @@ export const I18N: Record<LangCode, I18n> = {
 
   RU: {
     tagline: 'Один Мир  ·  48 Мечт', brandSub: 'Ваш Гид по Чемпионату Мира',
-    kickoffIn: 'НАЧАЛО ЧЕРЕЗ', live: 'Турнир LIVE',
+    finalIn: 'ФИНАЛ ЧЕРЕЗ', live: 'Турнир LIVE',
     days: 'ДНЕЙ', hrs: 'ЧАС', min: 'МИН', sec: 'СЕК',
     chooseLang: 'Выберите язык', footerSub: 'бренд Jura Technology',
     modules: [
@@ -1496,7 +1496,7 @@ export const I18N: Record<LangCode, I18n> = {
 
   CN: {
     tagline: '一个世界  ·  48个梦想', brandSub: '您的世界杯伴侣',
-    kickoffIn: '开球倒计时', live: '赛事直播中',
+    finalIn: '决赛倒计时', live: '赛事直播中',
     days: '天', hrs: '时', min: '分', sec: '秒',
     chooseLang: '选择语言', footerSub: '归属 Jura Technology',
     modules: [
@@ -1694,7 +1694,7 @@ export const I18N: Record<LangCode, I18n> = {
 
   JP: {
     tagline: '一つの世界  ·  48の夢', brandSub: 'ワールドカップの相棒',
-    kickoffIn: 'キックオフまで', live: 'トーナメント開催中',
+    finalIn: 'ファイナルまで', live: 'トーナメント開催中',
     days: '日', hrs: '時', min: '分', sec: '秒',
     chooseLang: '言語を選択', footerSub: 'Jura Technology傘下',
     modules: [
@@ -1892,7 +1892,7 @@ export const I18N: Record<LangCode, I18n> = {
 
   KR: {
     tagline: '하나의 세계  ·  48개의 꿈', brandSub: '월드컵 동반자',
-    kickoffIn: '킥오프까지', live: '토너먼트 진행 중',
+    finalIn: '결승까지', live: '토너먼트 진행 중',
     days: '일', hrs: '시', min: '분', sec: '초',
     chooseLang: '언어 선택', footerSub: 'Jura Technology 브랜드',
     modules: [
@@ -2090,7 +2090,7 @@ export const I18N: Record<LangCode, I18n> = {
 
   PT: {
     tagline: 'Um Mundo  ·  48 Sonhos', brandSub: 'Seu Companheiro da Copa do Mundo',
-    kickoffIn: 'INÍCIO EM', live: 'Torneio AO VIVO',
+    finalIn: 'FINAL EM', live: 'Torneio AO VIVO',
     days: 'DIAS', hrs: 'HRS', min: 'MIN', sec: 'SEG',
     chooseLang: 'Escolha o idioma', footerSub: 'sob a égide da Jura Technology',
     modules: [
@@ -2288,7 +2288,7 @@ export const I18N: Record<LangCode, I18n> = {
 
   AR: {
     tagline: 'عالم واحد  ·  ثمانية وأربعون حلمًا', brandSub: 'رفيقك في كأس العالم',
-    kickoffIn: 'الانطلاق في', live: 'البطولة مباشرة',
+    finalIn: 'النهائي في', live: 'البطولة مباشرة',
     days: 'أيام', hrs: 'ساعة', min: 'دقيقة', sec: 'ثانية',
     chooseLang: 'اختر لغتك', footerSub: 'تحت مظلة Jura Technology',
     modules: [
