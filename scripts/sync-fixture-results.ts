@@ -47,12 +47,21 @@ interface ApiFixture {
 // Maps api-football names → wcData.ts names (WC_FIXTURES home/away).
 
 const TEAM_NAME_MAP: Record<string, string> = {
-  'Korea Republic': 'South Korea',
-  "Côte d'Ivoire":  'Ivory Coast',
-  'United States':  'USA',
-  'IR Iran':        'Iran',
-  'Congo DR':       'Congo DR',
-  'DR Congo':       'Congo DR',
+  // AFC
+  'Korea Republic':       'South Korea',
+  'IR Iran':              'Iran',
+  // CAF
+  "Côte d'Ivoire":        'Ivory Coast',
+  'Cape Verde':           'Cape Verde Islands',
+  'DR Congo':             'Congo DR',
+  // CONCACAF
+  'United States':        'USA',
+  'Curacao':              'Curaçao',
+  // UEFA
+  'Turkey':               'Türkiye',
+  'Czechia':              'Czech Republic',
+  'Bosnia':               'Bosnia & Herzegovina',
+  'Bosnia-Herzegovina':   'Bosnia & Herzegovina',
 };
 
 function normalise(apiName: string): string {
