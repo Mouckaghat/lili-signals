@@ -137,6 +137,10 @@ function buildMap(apiFixtures: ApiFixture[]): Map<string, ResultEntry> {
       if (af.teams.home.winner === false && af.teams.away.winner === false) winner = 'Draw';
     }
 
+    // Never downgrade a FINISHED result to LIVE (API may return duplicate entries in different order)
+    const existing = results.get(key);
+    if (existing?.status === 'FINISHED' && status !== 'FINISHED') continue;
+
     results.set(key, {
       status,
       homeScore: af.goals.home,

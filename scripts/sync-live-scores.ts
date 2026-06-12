@@ -93,13 +93,21 @@ async function apiFetch<T>(endpoint: string): Promise<T> {
 // Keys = api-football name, Values = our wcData.ts name.
 
 const TEAM_NAME_MAP: Record<string, string> = {
-  'Korea Republic':  'South Korea',
-  "Côte d'Ivoire":   'Ivory Coast',
-  'United States':   'USA',
-  'IR Iran':         'Iran',
-  'New Zealand':     'New Zealand',
-  'Saudi Arabia':    'Saudi Arabia',
-  // Add more here if api-football returns unexpected names
+  // AFC
+  'Korea Republic':       'South Korea',
+  'IR Iran':              'Iran',
+  // CAF
+  "Côte d'Ivoire":        'Ivory Coast',
+  'Cape Verde':           'Cape Verde Islands',
+  'DR Congo':             'Congo DR',
+  // CONCACAF
+  'United States':        'USA',
+  'Curacao':              'Curaçao',
+  // UEFA
+  'Turkey':               'Türkiye',
+  'Czechia':              'Czech Republic',
+  'Bosnia':               'Bosnia & Herzegovina',
+  'Bosnia-Herzegovina':   'Bosnia & Herzegovina',
 };
 
 function normalise(name: string): string {

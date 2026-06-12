@@ -47,10 +47,21 @@ interface ApiStandingEntry {
 // Maps api-football names → wcData.ts names.
 
 const TEAM_NAME_MAP: Record<string, string> = {
-  'Korea Republic': 'South Korea',
-  "Côte d'Ivoire":  'Ivory Coast',
-  'United States':  'USA',
-  'IR Iran':        'Iran',
+  // AFC
+  'Korea Republic':       'South Korea',
+  'IR Iran':              'Iran',
+  // CAF
+  "Côte d'Ivoire":        'Ivory Coast',
+  'Cape Verde':           'Cape Verde Islands',
+  'DR Congo':             'Congo DR',
+  // CONCACAF
+  'United States':        'USA',
+  'Curacao':              'Curaçao',
+  // UEFA
+  'Turkey':               'Türkiye',
+  'Czechia':              'Czech Republic',
+  'Bosnia':               'Bosnia & Herzegovina',
+  'Bosnia-Herzegovina':   'Bosnia & Herzegovina',
 };
 
 function normalise(apiName: string): string {
@@ -207,7 +218,8 @@ async function main() {
   }
 
   if (rawGroups.length === 0) {
-    console.log('  ℹ️  Tournament not started — standings not yet available. Empty file will be written.');
+    console.warn('  ⚠️  No groups returned — aborting write to protect existing data.');
+    process.exit(0);
   }
 
   const entries = buildEntries(rawGroups);

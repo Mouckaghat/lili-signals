@@ -12,13 +12,12 @@ name: Sync Fixture Results
 
 on:
   schedule:
-    # ── June: Group Stage (June 11–30) ──
-    - cron: '*/5 13-23 11-30 6 *'
-    - cron: '0 0-12 11-30 6 *'
+    # ── June: Group Stage (June 11–30) — every 5 min all day ──
+    # Full 24h coverage: early ET games (10am ET = 14:00 UTC) through late PT games (9pm PT = 04:00 UTC)
+    - cron: '*/5 * 11-30 6 *'
 
-    # ── July: Knockouts (July 1–19) ──
-    - cron: '*/5 13-23 1-19 7 *'
-    - cron: '0 0-12 1-19 7 *'
+    # ── July: Knockouts (July 1–19) — every 5 min all day ──
+    - cron: '*/5 * 1-19 7 *'
 
     # ── Rest of year: hourly heartbeat ──
     - cron: '0 * * 1-5,8-12 *'

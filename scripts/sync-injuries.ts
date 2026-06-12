@@ -47,12 +47,21 @@ interface ApiInjury {
 // Maps api-football team names → WC_TEAMS names (add entries as needed).
 
 const TEAM_NAME_MAP: Record<string, string> = {
-  'USA':                    'United States',
-  'United States':          'United States',
-  'Korea Republic':         'South Korea',
-  'Republic of Ireland':    'Ireland',
-  'Ivory Coast':            "Côte d'Ivoire",
-  'DR Congo':               'DR Congo',
+  // AFC
+  'Korea Republic':       'South Korea',
+  'IR Iran':              'Iran',
+  // CAF
+  "Côte d'Ivoire":        'Ivory Coast',
+  'Cape Verde':           'Cape Verde Islands',
+  'DR Congo':             'Congo DR',
+  // CONCACAF
+  'United States':        'USA',
+  'Curacao':              'Curaçao',
+  // UEFA
+  'Turkey':               'Türkiye',
+  'Czechia':              'Czech Republic',
+  'Bosnia':               'Bosnia & Herzegovina',
+  'Bosnia-Herzegovina':   'Bosnia & Herzegovina',
 };
 
 function normalise(apiName: string): string {
