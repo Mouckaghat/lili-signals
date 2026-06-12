@@ -1,6 +1,7 @@
 import { WC_TEAMS } from '../lib/wcData';
 import { GROUP_STANDINGS } from '../lib/standingsData';
 import { MATCH_EVENTS } from '../lib/matchEventsData';
+import { PLAYER_PROFILES } from '../lib/playerProfilesData';
 
 function getTeam(name: string) {
   return WC_TEAMS.find((t) => t.name === name);
@@ -43,13 +44,26 @@ export default async function handler(_req: any, res: any) {
       scorerMap[g.player].goals++;
     }
   }
+  const profileMap = new Map(PLAYER_PROFILES.map((p) => [p.name, p]));
+
   const topScorers = Object.entries(scorerMap)
-    .map(([name, { team, goals }]) => ({
-      name,
-      team,
-      teamFlag: getTeam(team)?.flag ?? '🏳',
-      goals,
-    }))
+    .map(([name, { team, goals }]) => {
+      const profile = profileMap.get(name);
+      return {
+        name,
+        team,
+        teamFlag: getTeam(team)?.flag ?? '🏳',
+        goals,
+        ...(profile && {
+          age:          profile.age,
+          club:         profile.club,
+          league:       profile.league,
+          clubStanding: profile.clubStanding,
+          wcCount:      profile.wcCount,
+          caps:         profile.caps,
+        }),
+      };
+    })
     .sort((a, b) => b.goals - a.goals)
     .slice(0, 10);
 

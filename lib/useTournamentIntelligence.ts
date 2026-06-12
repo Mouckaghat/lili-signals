@@ -6,6 +6,13 @@ export interface ScorerEntry {
   team: string;
   teamFlag: string;
   goals: number;
+  // Optional enrichment from playerProfilesData.ts (Lili-curated)
+  age?: number;
+  club?: string;
+  league?: string;
+  clubStanding?: string;
+  wcCount?: number;
+  caps?: number;
 }
 
 export interface TeamRankEntry {

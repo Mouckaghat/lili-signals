@@ -55,7 +55,24 @@ const sh = StyleSheet.create({
 
 // ─── Scorer row ───────────────────────────────────────────────────────────────
 
+function wcLabel(count: number): string {
+  if (count === 1) return 'WC debut';
+  if (count === 2) return '2nd WC';
+  if (count === 3) return '3rd WC';
+  return '4th WC';
+}
+
 function ScorerRow({ entry, rank, color }: { entry: ScorerEntry; rank: number; color: string }) {
+  const profileParts = [
+    entry.age != null       && `${entry.age}y`,
+    entry.club,
+    entry.league && entry.clubStanding
+      ? `${entry.league} · ${entry.clubStanding}`
+      : entry.league,
+    entry.wcCount != null   && wcLabel(entry.wcCount),
+    entry.caps    != null   && `${entry.caps} caps`,
+  ].filter(Boolean) as string[];
+
   return (
     <View style={[rw.row, rank === 1 && rw.rowFirst]}>
       <Text style={[rw.rank, { color: rank <= 3 ? color : D.text3 }]}>
@@ -64,6 +81,9 @@ function ScorerRow({ entry, rank, color }: { entry: ScorerEntry; rank: number; c
       <View style={rw.infoBlock}>
         <Text style={rw.name} numberOfLines={1}>{entry.name}</Text>
         <Text style={rw.detail}>{entry.teamFlag} {entry.team}</Text>
+        {profileParts.length > 0 && (
+          <Text style={rw.profile}>{profileParts.join(' · ')}</Text>
+        )}
       </View>
       <View style={[rw.badge, { borderColor: `${color}30`, backgroundColor: `${color}10` }]}>
         <Text style={[rw.badgeVal, { color }]}>{entry.goals}</Text>
@@ -115,6 +135,7 @@ const rw = StyleSheet.create({
   infoBlock: { flex: 1, gap: 1 },
   name:  { fontSize: 12, fontWeight: '700', color: D.text1, flex: 1 },
   detail:{ fontSize: 10, color: D.text3 },
+  profile: { fontSize: 9, color: D.text3, lineHeight: 14, marginTop: 1 },
   badge: {
     alignItems: 'center',
     paddingHorizontal: 9,
