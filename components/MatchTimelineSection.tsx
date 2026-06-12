@@ -55,12 +55,15 @@ function tomorrowDate(): string {
 }
 
 function fmtDate(iso: string, i18n: I18n): string {
-  const datePart = iso.slice(0, 10);
-  const time     = iso.slice(11, 16);
+  const d        = new Date(iso);
+  const year     = d.getFullYear();
+  const month    = String(d.getMonth() + 1).padStart(2, '0');
+  const day      = String(d.getDate()).padStart(2, '0');
+  const datePart = `${year}-${month}-${day}`;
+  const time     = `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
   if (datePart === localDate())    return `${i18n.tlToday} · ${time}`;
   if (datePart === tomorrowDate()) return `${i18n.tlTomorrow} · ${time}`;
-  const [, mm, dd] = datePart.split('-');
-  return `${parseInt(dd)} ${i18n.monthsShort[parseInt(mm) - 1]}, ${time}`;
+  return `${parseInt(day)} ${i18n.monthsShort[parseInt(month) - 1]}, ${time}`;
 }
 
 function fmtAlt(m: number, i18n: I18n): string {
