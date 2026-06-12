@@ -70,23 +70,17 @@ function wcLabel(count: number): string {
 }
 
 function ScorerRow({ entry, rank, color }: { entry: ScorerEntry; rank: number; color: string }) {
-  const profileParts: string[] = [];
-
-  if (entry.dob) {
-    profileParts.push(`DOB (${fmtDob(entry.dob)}) · ${entry.age} years old`);
-  }
-  if (entry.club) {
-    const leagueStr = entry.leagueFlag
-      ? `${entry.leagueFlag} ${entry.league}`
-      : entry.league ?? '';
-    const rankStr = entry.clubRank != null ? ` · #${entry.clubRank}` : '';
-    profileParts.push(`Club: ${entry.club} · ${leagueStr}${rankStr}`);
-  }
-  const wcParts = [
+  const parts = [
+    `${entry.teamFlag} ${entry.team}`,
+    entry.dob       && `DOB (${fmtDob(entry.dob)}) · ${entry.age} y/o`,
+    entry.club      && [
+      `Club: ${entry.club}`,
+      entry.leagueFlag ? `${entry.leagueFlag} ${entry.league}` : entry.league,
+      entry.clubRank != null && `#${entry.clubRank}`,
+    ].filter(Boolean).join(' · '),
     entry.wcCount != null && wcLabel(entry.wcCount),
     entry.caps    != null && `${entry.caps} caps`,
   ].filter(Boolean) as string[];
-  if (wcParts.length > 0) profileParts.push(wcParts.join(' · '));
 
   return (
     <View style={[rw.row, rank === 1 && rw.rowFirst]}>
@@ -95,10 +89,7 @@ function ScorerRow({ entry, rank, color }: { entry: ScorerEntry; rank: number; c
       </Text>
       <View style={rw.infoBlock}>
         <Text style={rw.name} numberOfLines={1}>{entry.name}</Text>
-        <Text style={rw.detail}>{entry.teamFlag} {entry.team}</Text>
-        {profileParts.map((line, i) => (
-          <Text key={i} style={rw.profile}>{line}</Text>
-        ))}
+        <Text style={rw.profile}>{parts.join(' · ')}</Text>
       </View>
       <View style={[rw.badge, { borderColor: `${color}30`, backgroundColor: `${color}10` }]}>
         <Text style={[rw.badgeVal, { color }]}>{entry.goals}</Text>
@@ -150,7 +141,7 @@ const rw = StyleSheet.create({
   infoBlock: { flex: 1, gap: 1 },
   name:  { fontSize: 12, fontWeight: '700', color: D.text1, flex: 1 },
   detail:{ fontSize: 10, color: D.text3 },
-  profile: { fontSize: 9, color: D.text3, lineHeight: 14, marginTop: 1 },
+  profile: { fontSize: 10, color: D.text3, lineHeight: 15, marginTop: 2 },
   badge: {
     alignItems: 'center',
     paddingHorizontal: 9,
