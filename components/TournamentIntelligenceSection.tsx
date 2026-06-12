@@ -402,10 +402,35 @@ function PerformanceRow({ entry, rank, formation }: { entry: PerfEntry; rank: nu
 
 // ─── Cards tab ────────────────────────────────────────────────────────────────
 
-function CardsTab({ yellows, reds, discipline, i18n }: {
+function CardRow({ entry, rank, icon, label, color, formation }: {
+  entry: TeamRankEntry;
+  rank: number;
+  icon: string;
+  label: string;
+  color: string;
+  formation?: string;
+}) {
+  const medal = rank <= 3 ? ['①', '②', '③'][rank - 1] : `${rank}`;
+  const rankColor = rank <= 3 ? color : D.text3;
+  return (
+    <View style={[rw.row, rank === 1 && rw.rowFirst]}>
+      <Text style={[rw.rank, { color: rankColor }]}>{medal}</Text>
+      <Text style={[rw.profile, { flex: 1 }]} numberOfLines={1}>
+        <Text style={rw.name}>{entry.flag} {entry.name}</Text>
+        {formation ? <Text style={{ color: D.text3, fontSize: 10 }}>{' '}{formation}</Text> : null}
+        <Text style={{ color: D.text3 }}>{' - '}</Text>
+        <Text style={{ color, fontWeight: '700' }}>{entry.value}</Text>
+        <Text style={{ color: D.text3 }}>{' '}{icon}{' '}{label}</Text>
+      </Text>
+    </View>
+  );
+}
+
+function CardsTab({ yellows, reds, discipline, teamFormation, i18n }: {
   yellows: TeamRankEntry[];
   reds: TeamRankEntry[];
   discipline: TeamRankEntry[];
+  teamFormation: Map<string, string>;
   i18n: I18n;
 }) {
   const [sub, setSub] = useState<'yellow' | 'red' | 'discipline'>('yellow');
@@ -427,16 +452,16 @@ function CardsTab({ yellows, reds, discipline, i18n }: {
       </View>
 
       {sub === 'yellow' && yellows.map((e, i) => (
-        <TeamRow key={e.name} entry={e} rank={i + 1} color={D.yellow} label="YLW" />
+        <CardRow key={e.name} entry={e} rank={i + 1} icon="🟨" label="yellow cards" color={D.yellow} formation={teamFormation.get(e.name)} />
       ))}
       {sub === 'red' && (reds.length === 0
         ? <Text style={ct.empty}>{i18n.tiNoReds}</Text>
         : reds.map((e, i) => (
-          <TeamRow key={e.name} entry={e} rank={i + 1} color={D.red} label="RED" />
+          <CardRow key={e.name} entry={e} rank={i + 1} icon="🟥" label="red cards" color={D.red} formation={teamFormation.get(e.name)} />
         ))
       )}
       {sub === 'discipline' && discipline.map((e, i) => (
-        <TeamRow key={e.name} entry={e} rank={i + 1} color={D.signal} label={i18n.tiScore} />
+        <CardRow key={e.name} entry={e} rank={i + 1} icon="⚖️" label={i18n.tiScore} color={D.signal} formation={teamFormation.get(e.name)} />
       ))}
     </View>
   );
@@ -554,6 +579,7 @@ export default function TournamentIntelligenceSection() {
                 yellows={data.mostYellows}
                 reds={data.mostReds}
                 discipline={data.disciplineRank}
+                teamFormation={teamFormation}
                 i18n={i18n}
               />
             )}
