@@ -5,6 +5,8 @@ import { useLineups } from '../lib/useLineups';
 import type { MatchLineup } from '../lib/lineupData';
 import { TEAM_FORMATIONS_BASELINE } from '../lib/teamFormationsBaseline';
 import { FIXTURE_RESULTS } from '../lib/fixtureResultsData';
+import type { FixtureResult } from '../lib/fixtureResultsData';
+import { WC_TEAMS } from '../lib/wcData';
 import { useLanguage } from '../contexts/LanguageContext';
 import type { I18n } from '../lib/i18n';
 
@@ -31,17 +33,16 @@ const D = {
 
 // ─── Tabs config ──────────────────────────────────────────────────────────────
 
-type TabKey = 'scorers' | 'attack' | 'defence' | 'cards' | 'danger' | 'surprise' | 'tactics';
+type TabKey = 'scorers' | 'performance' | 'cards' | 'danger' | 'surprise' | 'tactics';
 
 function getTabs(i18n: I18n): Array<{ key: TabKey; label: string; icon: string; color: string }> {
   return [
-    { key: 'scorers',  label: i18n.tabScorers,  icon: '⚽',  color: D.blue   },
-    { key: 'attack',   label: i18n.tabAttack,   icon: '🗡️',  color: D.orange },
-    { key: 'defence',  label: i18n.tabDefence,  icon: '🛡️',  color: D.cyan   },
-    { key: 'cards',    label: i18n.tabCards,    icon: '🟨',  color: D.yellow },
-    { key: 'danger',   label: i18n.tabDanger,   icon: '💀',  color: D.red    },
-    { key: 'surprise', label: i18n.tabLili,     icon: '✨',  color: D.signal },
-    { key: 'tactics',  label: i18n.tabTactics,  icon: '🧩',  color: D.green  },
+    { key: 'scorers',     label: i18n.tabScorers, icon: '⚽',  color: D.blue   },
+    { key: 'performance', label: 'PERF',           icon: '📊',  color: D.orange },
+    { key: 'cards',       label: i18n.tabCards,    icon: '🟨',  color: D.yellow },
+    { key: 'danger',      label: i18n.tabDanger,   icon: '💀',  color: D.red    },
+    { key: 'surprise',    label: i18n.tabLili,     icon: '✨',  color: D.signal },
+    { key: 'tactics',     label: i18n.tabTactics,  icon: '🧩',  color: D.green  },
   ];
 }
 
@@ -327,6 +328,78 @@ const rw = StyleSheet.create({
   badgeLbl: { fontSize: 6, fontWeight: '700', color: D.text3, letterSpacing: 1 },
 });
 
+// ─── Performance tab ──────────────────────────────────────────────────────────
+
+interface PerfEntry {
+  name:        string;
+  flag:        string;
+  games:       number;
+  wins:        number;
+  gf:          number;
+  ga:          number;
+  cleanSheets: number;
+  pts:         number;
+}
+
+function buildPerformanceRanking(
+  results: Record<string, FixtureResult>,
+  flagMap: Map<string, string>,
+): PerfEntry[] {
+  const map: Record<string, PerfEntry> = {};
+
+  const get = (name: string): PerfEntry =>
+    (map[name] ??= { name, flag: flagMap.get(name) ?? '🏳', games: 0, wins: 0, gf: 0, ga: 0, cleanSheets: 0, pts: 0 });
+
+  for (const [key, result] of Object.entries(results)) {
+    if (result.status !== 'FINISHED') continue;
+    const [home, away] = key.split('|');
+    const hg = result.homeScore ?? 0;
+    const ag = result.awayScore ?? 0;
+
+    const h = get(home);
+    h.games++; h.gf += hg; h.ga += ag;
+    if (hg > ag) h.wins++;
+    if (ag === 0) h.cleanSheets++;
+
+    const a = get(away);
+    a.games++; a.gf += ag; a.ga += hg;
+    if (ag > hg) a.wins++;
+    if (hg === 0) a.cleanSheets++;
+  }
+
+  for (const e of Object.values(map)) {
+    e.pts = e.wins * 3 + e.cleanSheets;
+  }
+
+  return Object.values(map)
+    .filter((e) => e.games > 0)
+    .sort((a, b) => b.pts !== a.pts ? b.pts - a.pts : (b.gf - b.ga) - (a.gf - a.ga));
+}
+
+function PerformanceRow({ entry, rank, formation }: { entry: PerfEntry; rank: number; formation?: string }) {
+  const medal = rank <= 3 ? ['①', '②', '③'][rank - 1] : `${rank}`;
+  const rankColor = rank === 1 ? D.gold : rank === 2 ? D.text2 : rank === 3 ? '#CD7F32' : D.text3;
+
+  return (
+    <View style={[rw.row, rank === 1 && rw.rowFirst]}>
+      <Text style={[rw.rank, { color: rankColor }]}>{medal}</Text>
+      <Text style={[rw.profile, { flex: 1 }]} numberOfLines={1}>
+        <Text style={[rw.name, { color: D.gold }]}>{entry.pts} pts</Text>
+        <Text style={{ color: D.text3 }}>{' // '}</Text>
+        <Text style={rw.name}>{entry.flag} {entry.name}</Text>
+        {formation ? <Text style={{ color: D.text3, fontSize: 10 }}>{' '}{formation}</Text> : null}
+        <Text style={{ color: D.text3 }}>{' // '}</Text>
+        <Text style={{ color: D.text3 }}>{'Games: '}{entry.games}</Text>
+        <Text style={{ color: D.text3 }}>{' // '}</Text>
+        <Text style={{ color: D.red, fontWeight: '700' }}>{entry.gf}</Text>
+        <Text style={{ color: D.text3 }}>{' (attack) - '}</Text>
+        <Text style={{ color: D.blue, fontWeight: '700' }}>{entry.ga}</Text>
+        <Text style={{ color: D.text3 }}>{' (defense)'}</Text>
+      </Text>
+    </View>
+  );
+}
+
 // ─── Cards tab ────────────────────────────────────────────────────────────────
 
 function CardsTab({ yellows, reds, discipline, i18n }: {
@@ -414,6 +487,9 @@ export default function TournamentIntelligenceSection() {
   const teamFormation     = buildTeamFormationMap(lineups);
   const [activeTab, setActiveTab] = useState<TabKey>('scorers');
 
+  const teamFlagMap = new Map(WC_TEAMS.map((t) => [t.name, t.flag]));
+  const perfRanking = buildPerformanceRanking(FIXTURE_RESULTS, teamFlagMap);
+
   const TABS = getTabs(i18n);
   const activeConfig = TABS.find((t) => t.key === activeTab)!;
 
@@ -465,19 +541,11 @@ export default function TournamentIntelligenceSection() {
                   ))
             )}
 
-            {activeTab === 'attack' && (
-              data.bestAttack.length === 0
+            {activeTab === 'performance' && (
+              perfRanking.length === 0
                 ? <NoData i18n={i18n} />
-                : data.bestAttack.map((e, i) => (
-                    <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label={i18n.tiGoals} formation={teamFormation.get(e.name)} />
-                  ))
-            )}
-
-            {activeTab === 'defence' && (
-              data.bestDefence.length === 0
-                ? <NoData i18n={i18n} />
-                : data.bestDefence.map((e, i) => (
-                    <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label={i18n.tiGaPerGame} formation={teamFormation.get(e.name)} />
+                : perfRanking.map((e, i) => (
+                    <PerformanceRow key={e.name} entry={e} rank={i + 1} formation={teamFormation.get(e.name)} />
                   ))
             )}
 
