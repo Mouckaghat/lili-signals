@@ -21,8 +21,8 @@ export interface GroupStanding {
 // All 12 groups (A–L), populated once the tournament starts.
 export const GROUP_STANDINGS: GroupStanding[] = [
   { group: "Stage - Group A", team: "Mexico", rank: 1, played: 1, won: 1, drawn: 0, lost: 0, gf: 2, ga: 0, gd: 2, pts: 3, status: 'ALIVE' },
-  { group: "Stage - Group A", team: "South Korea", rank: 2, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
-  { group: "Stage - Group A", team: "Czech Republic", rank: 3, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
+  { group: "Stage - Group A", team: "South Korea", rank: 2, played: 1, won: 1, drawn: 0, lost: 0, gf: 2, ga: 1, gd: 1, pts: 3, status: 'ALIVE' },
+  { group: "Stage - Group A", team: "Czech Republic", rank: 3, played: 1, won: 0, drawn: 0, lost: 1, gf: 1, ga: 2, gd: -1, pts: 0, status: 'AT-RISK' },
   { group: "Stage - Group A", team: "South Africa", rank: 4, played: 1, won: 0, drawn: 0, lost: 1, gf: 0, ga: 2, gd: -2, pts: 0, status: 'AT-RISK' },
   { group: "Stage - Group B", team: "Canada", rank: 1, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
   { group: "Stage - Group B", team: "Bosnia & Herzegovina", rank: 2, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
