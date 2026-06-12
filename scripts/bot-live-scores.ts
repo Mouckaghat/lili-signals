@@ -16,8 +16,11 @@ const redis = new Redis({
   token: process.env.KV_REST_API_TOKEN!,
 });
 
-const ESPN_URL =
-  'https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard';
+function espnUrl(): string {
+  const d = new Date();
+  const date = `${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, '0')}${String(d.getUTCDate()).padStart(2, '0')}`;
+  return `https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=${date}`;
+}
 
 const TEAM: Record<string, string> = {
   'Bosnia and Herzegovina': 'Bosnia & Herzegovina',
@@ -38,9 +41,19 @@ type Score = {
 };
 
 async function scrape(): Promise<Record<string, Score>> {
-  const r = await fetch(ESPN_URL, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+  const url = espnUrl();
+  const r = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
   if (!r.ok) throw new Error(`ESPN ${r.status}`);
   const raw = await r.json() as { events?: any[] };
+
+  console.log(`  ESPN URL: ${url}`);
+  console.log(`  Events returned: ${raw.events?.length ?? 0}`);
+  for (const ev of raw.events ?? []) {
+    const comp = ev.competitions?.[0];
+    const home = comp?.competitors?.find((c: any) => c.homeAway === 'home');
+    const away = comp?.competitors?.find((c: any) => c.homeAway === 'away');
+    console.log(`  → ${home?.team?.displayName} vs ${away?.team?.displayName} [${ev.status?.type?.name}]`);
+  }
 
   const scores: Record<string, Score> = {};
   for (const ev of raw.events ?? []) {
