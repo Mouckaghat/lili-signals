@@ -303,6 +303,31 @@ export interface I18n {
   injuryNoReturn: string;
   injuryClean: string;
   injuryImpact: string;   // {n}
+  // ── Tournament Intelligence ──────────────────────────────────────────────
+  tournamentIntelTitle: string;
+  tournamentIntelSub: string;
+  tabScorers: string;
+  tabAttack: string;
+  tabDefence: string;
+  tabCards: string;
+  tabDanger: string;
+  tabLili: string;
+  tiGoals: string;
+  tiGaPerGame: string;
+  tiScore: string;
+  tiWaiting: string;
+  tiWaitingSub: string;
+  tiSurpriseHint: string;
+  tiSubYellow: string;
+  tiSubRed: string;
+  tiSubFairPlay: string;
+  tiNoReds: string;
+  tiDob: string;
+  tiYearsOld: string;
+  tiClub: string;
+  tiWcLabels: string[];
+  tiCaps: string;
+  monthsShort: string[];
 }
 
 export const I18N: Record<LangCode, I18n> = {
@@ -502,6 +527,20 @@ export const I18N: Record<LangCode, I18n> = {
     injuryNoReturn: 'Return unknown',
     injuryClean: 'All squads fully fit',
     injuryImpact: 'Lili impact: −{n} strength pts',
+    // ── Tournament Intelligence ────────────────────────────────────────────
+    tournamentIntelTitle: 'TOURNAMENT INTELLIGENCE',
+    tournamentIntelSub: "Live stats — goals, defence, cards & Lili's picks",
+    tabScorers: 'SCORERS', tabAttack: 'ATTACK', tabDefence: 'DEFENCE',
+    tabCards: 'CARDS', tabDanger: 'DANGER', tabLili: 'LILI 🎯',
+    tiGoals: 'GOALS', tiGaPerGame: 'GA/G', tiScore: 'SCORE',
+    tiWaiting: 'Waiting for match data…', tiWaitingSub: 'Stats update after each game',
+    tiSurpriseHint: 'Teams beating expectations based on their pre-tournament strength rating',
+    tiSubYellow: '🟨 YELLOW', tiSubRed: '🟥 RED', tiSubFairPlay: '⚖️ FAIR PLAY',
+    tiNoReds: 'No red cards yet',
+    tiDob: 'DOB', tiYearsOld: 'years old', tiClub: 'Club',
+    tiWcLabels: ['WC debut', '2nd WC', '3rd WC', '4th WC'],
+    tiCaps: 'caps',
+    monthsShort: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
   },
 
   FR: {
@@ -700,6 +739,20 @@ export const I18N: Record<LangCode, I18n> = {
     injuryNoReturn: 'Retour incertain',
     injuryClean: 'Tous les effectifs aptes',
     injuryImpact: 'Impact Lili : −{n} pts de force',
+    // ── Intelligence Tournoi ───────────────────────────────────────────────
+    tournamentIntelTitle: 'STATISTIQUES DU TOURNOI',
+    tournamentIntelSub: 'Stats en direct — buts, défense, cartons & sélections de Lili',
+    tabScorers: 'BUTEURS', tabAttack: 'ATTAQUE', tabDefence: 'DÉFENSE',
+    tabCards: 'CARTONS', tabDanger: 'DANGER', tabLili: 'LILI 🎯',
+    tiGoals: 'BUTS', tiGaPerGame: 'BC/M', tiScore: 'SCORE',
+    tiWaiting: 'En attente de données…', tiWaitingSub: 'Stats mises à jour après chaque match',
+    tiSurpriseHint: 'Équipes dépassant les attentes selon leur indice de force pré-tournoi',
+    tiSubYellow: '🟨 JAUNE', tiSubRed: '🟥 ROUGE', tiSubFairPlay: '⚖️ FAIR-PLAY',
+    tiNoReds: 'Aucun carton rouge pour l\'instant',
+    tiDob: 'Naissance', tiYearsOld: 'ans', tiClub: 'Club',
+    tiWcLabels: ['1ère CM', '2e CM', '3e CM', '4e CM'],
+    tiCaps: 'sélections',
+    monthsShort: ['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Aoû','Sep','Oct','Nov','Déc'],
   },
 
   IT: {
@@ -898,6 +951,20 @@ export const I18N: Record<LangCode, I18n> = {
     injuryNoReturn: 'Rientro incerto',
     injuryClean: 'Tutti i gruppi in forma',
     injuryImpact: 'Impatto Lili: −{n} pt forza',
+    // ── Statistiche Torneo ─────────────────────────────────────────────────
+    tournamentIntelTitle: 'STATISTICHE TORNEO',
+    tournamentIntelSub: 'Statistiche live — gol, difesa, cartellini & scelte di Lili',
+    tabScorers: 'MARCATORI', tabAttack: 'ATTACCO', tabDefence: 'DIFESA',
+    tabCards: 'CARTELLINI', tabDanger: 'PERICOLO', tabLili: 'LILI 🎯',
+    tiGoals: 'GOL', tiGaPerGame: 'SBP/P', tiScore: 'PUNTI',
+    tiWaiting: 'In attesa dei dati…', tiWaitingSub: 'Statistiche aggiornate dopo ogni partita',
+    tiSurpriseHint: 'Squadre che superano le aspettative in base alla valutazione pre-torneo',
+    tiSubYellow: '🟨 GIALLO', tiSubRed: '🟥 ROSSO', tiSubFairPlay: '⚖️ FAIR PLAY',
+    tiNoReds: 'Nessun cartellino rosso finora',
+    tiDob: 'Nato', tiYearsOld: 'anni', tiClub: 'Club',
+    tiWcLabels: ['1° Mondiale', '2° Mondiale', '3° Mondiale', '4° Mondiale'],
+    tiCaps: 'presenze',
+    monthsShort: ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'],
   },
 
   DE: {
@@ -1096,6 +1163,20 @@ export const I18N: Record<LangCode, I18n> = {
     injuryNoReturn: 'Rückkehr unbekannt',
     injuryClean: 'Alle Kader fit',
     injuryImpact: 'Lili-Einfluss: −{n} Stärkepunkte',
+    // ── Turnierstatistiken ─────────────────────────────────────────────────
+    tournamentIntelTitle: 'TURNIERSTATISTIKEN',
+    tournamentIntelSub: 'Live-Statistiken — Tore, Abwehr, Karten & Lilis Auswahl',
+    tabScorers: 'TORSCHÜTZEN', tabAttack: 'ANGRIFF', tabDefence: 'ABWEHR',
+    tabCards: 'KARTEN', tabDanger: 'GEFAHR', tabLili: 'LILI 🎯',
+    tiGoals: 'TORE', tiGaPerGame: 'GT/S', tiScore: 'WERTUNG',
+    tiWaiting: 'Warte auf Spieldaten…', tiWaitingSub: 'Statistiken nach jedem Spiel aktualisiert',
+    tiSurpriseHint: 'Mannschaften, die die Erwartungen auf Basis ihrer Vorturnierstärke übertreffen',
+    tiSubYellow: '🟨 GELB', tiSubRed: '🟥 ROT', tiSubFairPlay: '⚖️ FAIR PLAY',
+    tiNoReds: 'Noch keine roten Karten',
+    tiDob: 'Geb.', tiYearsOld: 'Jahre', tiClub: 'Verein',
+    tiWcLabels: ['WM-Debüt', '2. WM', '3. WM', '4. WM'],
+    tiCaps: 'Länderspiele',
+    monthsShort: ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],
   },
 
   ES: {
@@ -1294,6 +1375,20 @@ export const I18N: Record<LangCode, I18n> = {
     injuryNoReturn: 'Retorno desconocido',
     injuryClean: 'Todos los equipos aptos',
     injuryImpact: 'Impacto Lili: −{n} pts fuerza',
+    // ── Estadísticas del Torneo ────────────────────────────────────────────
+    tournamentIntelTitle: 'ESTADÍSTICAS DEL TORNEO',
+    tournamentIntelSub: 'Stats en vivo — goles, defensa, tarjetas & selecciones de Lili',
+    tabScorers: 'GOLEADORES', tabAttack: 'ATAQUE', tabDefence: 'DEFENSA',
+    tabCards: 'TARJETAS', tabDanger: 'PELIGRO', tabLili: 'LILI 🎯',
+    tiGoals: 'GOLES', tiGaPerGame: 'GC/P', tiScore: 'PUNTUACIÓN',
+    tiWaiting: 'Esperando datos…', tiWaitingSub: 'Estadísticas actualizadas tras cada partido',
+    tiSurpriseHint: 'Equipos que superan las expectativas según su índice de fuerza pre-torneo',
+    tiSubYellow: '🟨 AMARILLA', tiSubRed: '🟥 ROJA', tiSubFairPlay: '⚖️ JUEGO LIMPIO',
+    tiNoReds: 'No hay tarjetas rojas aún',
+    tiDob: 'Nac.', tiYearsOld: 'años', tiClub: 'Club',
+    tiWcLabels: ['1ª Copa del Mundo', '2ª Copa del Mundo', '3ª Copa del Mundo', '4ª Copa del Mundo'],
+    tiCaps: 'internacionales',
+    monthsShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
   },
 
   RU: {
@@ -1492,6 +1587,20 @@ export const I18N: Record<LangCode, I18n> = {
     injuryNoReturn: 'Дата возвращения неизвестна',
     injuryClean: 'Все составы здоровы',
     injuryImpact: 'Влияние Lili: −{n} ед. силы',
+    // ── Статистика турнира ─────────────────────────────────────────────────
+    tournamentIntelTitle: 'СТАТИСТИКА ТУРНИРА',
+    tournamentIntelSub: 'Статистика в реальном времени — голы, защита, карточки & выборы Лили',
+    tabScorers: 'БОМБАРДИРЫ', tabAttack: 'АТАКА', tabDefence: 'ЗАЩИТА',
+    tabCards: 'КАРТОЧКИ', tabDanger: 'УГРОЗА', tabLili: 'LILI 🎯',
+    tiGoals: 'ГОЛЫ', tiGaPerGame: 'ПГ/И', tiScore: 'ОЧКИ',
+    tiWaiting: 'Ожидание данных…', tiWaitingSub: 'Статистика обновляется после каждой игры',
+    tiSurpriseHint: 'Команды, превзошедшие ожидания согласно рейтингу силы перед турниром',
+    tiSubYellow: '🟨 ЖЁЛТЫЕ', tiSubRed: '🟥 КРАСНЫЕ', tiSubFairPlay: '⚖️ ФЕЙ ПЛЕЙ',
+    tiNoReds: 'Красных карточек пока нет',
+    tiDob: 'Дата рожд.', tiYearsOld: 'лет', tiClub: 'Клуб',
+    tiWcLabels: ['1-й ЧМ', '2-й ЧМ', '3-й ЧМ', '4-й ЧМ'],
+    tiCaps: 'матчей за сборную',
+    monthsShort: ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'],
   },
 
   CN: {
@@ -1690,6 +1799,20 @@ export const I18N: Record<LangCode, I18n> = {
     injuryNoReturn: '复出时间未知',
     injuryClean: '全部阵容状态良好',
     injuryImpact: 'Lili影响：−{n}实力分',
+    // ── 赛事数据 ──────────────────────────────────────────────────────────
+    tournamentIntelTitle: '赛事数据',
+    tournamentIntelSub: '实时数据 — 进球、防守、牌照及莉莉精选',
+    tabScorers: '射手', tabAttack: '进攻', tabDefence: '防守',
+    tabCards: '牌照', tabDanger: '危险', tabLili: 'LILI 🎯',
+    tiGoals: '进球', tiGaPerGame: '场均失球', tiScore: '分值',
+    tiWaiting: '等待比赛数据…', tiWaitingSub: '每场比赛后更新数据',
+    tiSurpriseHint: '超越赛前实力预期的球队',
+    tiSubYellow: '🟨 黄牌', tiSubRed: '🟥 红牌', tiSubFairPlay: '⚖️ 公平竞技',
+    tiNoReds: '暂无红牌',
+    tiDob: '出生日期', tiYearsOld: '岁', tiClub: '俱乐部',
+    tiWcLabels: ['首届世界杯', '第2届世界杯', '第3届世界杯', '第4届世界杯'],
+    tiCaps: '国家队出场',
+    monthsShort: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
   },
 
   JP: {
@@ -1888,6 +2011,20 @@ export const I18N: Record<LangCode, I18n> = {
     injuryNoReturn: '復帰日未定',
     injuryClean: '全チーム健全',
     injuryImpact: 'Lili影響：−{n}強さポイント',
+    // ── トーナメント統計 ───────────────────────────────────────────────────
+    tournamentIntelTitle: 'トーナメント統計',
+    tournamentIntelSub: 'リアルタイム統計 — ゴール、守備、カード & リリの注目',
+    tabScorers: '得点者', tabAttack: '攻撃', tabDefence: '守備',
+    tabCards: 'カード', tabDanger: '危険度', tabLili: 'LILI 🎯',
+    tiGoals: 'ゴール', tiGaPerGame: '失点/試合', tiScore: 'スコア',
+    tiWaiting: 'データ待機中…', tiWaitingSub: '各試合後に更新',
+    tiSurpriseHint: '大会前の実力評価を超えたチーム',
+    tiSubYellow: '🟨 イエロー', tiSubRed: '🟥 レッド', tiSubFairPlay: '⚖️ フェアプレー',
+    tiNoReds: '赤カードはまだありません',
+    tiDob: '生年月日', tiYearsOld: '歳', tiClub: 'クラブ',
+    tiWcLabels: ['初W杯', '2回目W杯', '3回目W杯', '4回目W杯'],
+    tiCaps: '代表キャップ',
+    monthsShort: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
   },
 
   KR: {
@@ -2086,6 +2223,20 @@ export const I18N: Record<LangCode, I18n> = {
     injuryNoReturn: '복귀일 미정',
     injuryClean: '전 팀 정상',
     injuryImpact: 'Lili 영향: −{n} 강도 포인트',
+    // ── 토너먼트 통계 ──────────────────────────────────────────────────────
+    tournamentIntelTitle: '토너먼트 통계',
+    tournamentIntelSub: '실시간 통계 — 골, 수비, 카드 & 릴리 픽',
+    tabScorers: '득점자', tabAttack: '공격', tabDefence: '수비',
+    tabCards: '카드', tabDanger: '위험', tabLili: 'LILI 🎯',
+    tiGoals: '골', tiGaPerGame: '실점/경기', tiScore: '점수',
+    tiWaiting: '경기 데이터 대기 중…', tiWaitingSub: '각 경기 후 통계 업데이트',
+    tiSurpriseHint: '대회 전 실력 지수를 초과한 팀',
+    tiSubYellow: '🟨 옐로카드', tiSubRed: '🟥 레드카드', tiSubFairPlay: '⚖️ 페어플레이',
+    tiNoReds: '아직 레드카드 없음',
+    tiDob: '생년월일', tiYearsOld: '세', tiClub: '클럽',
+    tiWcLabels: ['첫 월드컵', '2번째 월드컵', '3번째 월드컵', '4번째 월드컵'],
+    tiCaps: '국가대표 출전',
+    monthsShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
   },
 
   PT: {
@@ -2284,6 +2435,20 @@ export const I18N: Record<LangCode, I18n> = {
     injuryNoReturn: 'Regresso desconhecido',
     injuryClean: 'Todos os plantéis aptos',
     injuryImpact: 'Impacto Lili: −{n} pts força',
+    // ── Estatísticas do Torneio ────────────────────────────────────────────
+    tournamentIntelTitle: 'ESTATÍSTICAS DO TORNEIO',
+    tournamentIntelSub: 'Estatísticas ao vivo — golos, defesa, cartões & escolhas da Lili',
+    tabScorers: 'MARCADORES', tabAttack: 'ATAQUE', tabDefence: 'DEFESA',
+    tabCards: 'CARTÕES', tabDanger: 'PERIGO', tabLili: 'LILI 🎯',
+    tiGoals: 'GOLOS', tiGaPerGame: 'GM/J', tiScore: 'PONTOS',
+    tiWaiting: 'A aguardar dados…', tiWaitingSub: 'Estatísticas atualizadas após cada jogo',
+    tiSurpriseHint: 'Equipas que superam as expectativas com base no índice de força pré-torneio',
+    tiSubYellow: '🟨 AMARELO', tiSubRed: '🟥 VERMELHO', tiSubFairPlay: '⚖️ JOGO LIMPO',
+    tiNoReds: 'Ainda sem cartões vermelhos',
+    tiDob: 'Nasc.', tiYearsOld: 'anos', tiClub: 'Clube',
+    tiWcLabels: ['1ª CM', '2ª CM', '3ª CM', '4ª CM'],
+    tiCaps: 'internacionais',
+    monthsShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
   },
 
   AR: {
@@ -2482,5 +2647,19 @@ export const I18N: Record<LangCode, I18n> = {
     injuryNoReturn: 'موعد العودة غير معروف',
     injuryClean: 'جميع المنتخبات بصحة جيدة',
     injuryImpact: 'تأثير Lili: −{n} نقطة قوة',
+    // ── إحصائيات البطولة ──────────────────────────────────────────────────
+    tournamentIntelTitle: 'إحصائيات البطولة',
+    tournamentIntelSub: 'إحصائيات مباشرة — الأهداف، الدفاع، البطاقات & اختيارات ليلى',
+    tabScorers: 'الهدافون', tabAttack: 'هجوم', tabDefence: 'دفاع',
+    tabCards: 'البطاقات', tabDanger: 'خطر', tabLili: 'LILI 🎯',
+    tiGoals: 'أهداف', tiGaPerGame: 'هـ/م', tiScore: 'نقاط',
+    tiWaiting: 'انتظار بيانات المباراة…', tiWaitingSub: 'تُحدَّث الإحصائيات بعد كل مباراة',
+    tiSurpriseHint: 'الفرق التي تجاوزت التوقعات بناءً على مؤشر قوتها قبل البطولة',
+    tiSubYellow: '🟨 أصفر', tiSubRed: '🟥 أحمر', tiSubFairPlay: '⚖️ اللعب النظيف',
+    tiNoReds: 'لا بطاقات حمراء حتى الآن',
+    tiDob: 'تاريخ الميلاد', tiYearsOld: 'سنة', tiClub: 'النادي',
+    tiWcLabels: ['أول كأس عالم', 'ثاني كأس عالم', 'ثالث كأس عالم', 'رابع كأس عالم'],
+    tiCaps: 'مباريات دولية',
+    monthsShort: ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'],
   },
 };

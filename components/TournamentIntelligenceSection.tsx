@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { ActivityIndicator, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useTournamentIntelligence, type ScorerEntry, type TeamRankEntry } from '../lib/useTournamentIntelligence';
+import { useLanguage } from '../contexts/LanguageContext';
+import type { I18n } from '../lib/i18n';
 
 // ─── Design tokens (matches lili-route-intelligence palette) ─────────────────
 
@@ -27,14 +29,16 @@ const D = {
 
 type TabKey = 'scorers' | 'attack' | 'defence' | 'cards' | 'danger' | 'surprise';
 
-const TABS: Array<{ key: TabKey; label: string; icon: string; color: string }> = [
-  { key: 'scorers',  label: 'SCORERS',    icon: '⚽',  color: D.blue   },
-  { key: 'attack',   label: 'ATTACK',     icon: '🗡️',  color: D.orange },
-  { key: 'defence',  label: 'DEFENCE',    icon: '🛡️',  color: D.cyan   },
-  { key: 'cards',    label: 'CARDS',      icon: '🟨',  color: D.yellow },
-  { key: 'danger',   label: 'DANGER',     icon: '💀',  color: D.red    },
-  { key: 'surprise', label: 'LILI 🎯',    icon: '✨',  color: D.signal },
-];
+function getTabs(i18n: I18n): Array<{ key: TabKey; label: string; icon: string; color: string }> {
+  return [
+    { key: 'scorers',  label: i18n.tabScorers, icon: '⚽',  color: D.blue   },
+    { key: 'attack',   label: i18n.tabAttack,  icon: '🗡️',  color: D.orange },
+    { key: 'defence',  label: i18n.tabDefence, icon: '🛡️',  color: D.cyan   },
+    { key: 'cards',    label: i18n.tabCards,   icon: '🟨',  color: D.yellow },
+    { key: 'danger',   label: i18n.tabDanger,  icon: '💀',  color: D.red    },
+    { key: 'surprise', label: i18n.tabLili,    icon: '✨',  color: D.signal },
+  ];
+}
 
 // ─── Section header ───────────────────────────────────────────────────────────
 
@@ -55,31 +59,22 @@ const sh = StyleSheet.create({
 
 // ─── Scorer row ───────────────────────────────────────────────────────────────
 
-const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-function fmtDob(dob: string): string {
+function fmtDob(dob: string, months: string[]): string {
   const [, mm, dd] = dob.split('-');
-  return `${parseInt(dd, 10)} ${MONTHS[parseInt(mm, 10) - 1]} ${dob.slice(0, 4)}`;
+  return `${parseInt(dd, 10)} ${months[parseInt(mm, 10) - 1]} ${dob.slice(0, 4)}`;
 }
 
-function wcLabel(count: number): string {
-  if (count === 1) return 'WC debut';
-  if (count === 2) return '2nd WC';
-  if (count === 3) return '3rd WC';
-  return '4th WC';
-}
-
-function ScorerRow({ entry, rank, color }: { entry: ScorerEntry; rank: number; color: string }) {
+function ScorerRow({ entry, rank, color, i18n }: { entry: ScorerEntry; rank: number; color: string; i18n: I18n }) {
   const parts = [
     `${entry.teamFlag} ${entry.team}`,
-    entry.dob       && `DOB (${fmtDob(entry.dob)}) · ${entry.age} y/o`,
+    entry.dob       && `${i18n.tiDob} (${fmtDob(entry.dob, i18n.monthsShort)}) · ${entry.age} ${i18n.tiYearsOld}`,
     entry.club      && [
-      `Club: ${entry.club}`,
+      `${i18n.tiClub}: ${entry.club}`,
       entry.leagueFlag ? `${entry.leagueFlag} ${entry.league}` : entry.league,
       entry.clubRank != null && `#${entry.clubRank}`,
     ].filter(Boolean).join(' · '),
-    entry.wcCount != null && wcLabel(entry.wcCount),
-    entry.caps    != null && `${entry.caps} caps`,
+    entry.wcCount != null && i18n.tiWcLabels[(entry.wcCount ?? 1) - 1],
+    entry.caps    != null && `${entry.caps} ${i18n.tiCaps}`,
   ].filter(Boolean) as string[];
 
   return (
@@ -93,7 +88,7 @@ function ScorerRow({ entry, rank, color }: { entry: ScorerEntry; rank: number; c
       </View>
       <View style={[rw.badge, { borderColor: `${color}30`, backgroundColor: `${color}10` }]}>
         <Text style={[rw.badgeVal, { color }]}>{entry.goals}</Text>
-        <Text style={rw.badgeLbl}>GOALS</Text>
+        <Text style={rw.badgeLbl}>{i18n.tiGoals}</Text>
       </View>
     </View>
   );
@@ -102,14 +97,12 @@ function ScorerRow({ entry, rank, color }: { entry: ScorerEntry; rank: number; c
 // ─── Team row ─────────────────────────────────────────────────────────────────
 
 function TeamRow({
-  entry, rank, color, label, subLabel, ascending = false,
+  entry, rank, color, label,
 }: {
   entry: TeamRankEntry;
   rank: number;
   color: string;
   label: string;
-  subLabel?: string;
-  ascending?: boolean;
 }) {
   return (
     <View style={[rw.row, rank === 1 && rw.rowFirst]}>
@@ -157,10 +150,11 @@ const rw = StyleSheet.create({
 
 // ─── Cards tab ────────────────────────────────────────────────────────────────
 
-function CardsTab({ yellows, reds, discipline }: {
+function CardsTab({ yellows, reds, discipline, i18n }: {
   yellows: TeamRankEntry[];
   reds: TeamRankEntry[];
   discipline: TeamRankEntry[];
+  i18n: I18n;
 }) {
   const [sub, setSub] = useState<'yellow' | 'red' | 'discipline'>('yellow');
   return (
@@ -174,7 +168,7 @@ function CardsTab({ yellows, reds, discipline }: {
             onPress={() => setSub(k)}
           >
             <Text style={[ct.subLabel, sub === k && ct.subLabelActive]}>
-              {k === 'yellow' ? '🟨 YELLOW' : k === 'red' ? '🟥 RED' : '⚖️ FAIR PLAY'}
+              {k === 'yellow' ? i18n.tiSubYellow : k === 'red' ? i18n.tiSubRed : i18n.tiSubFairPlay}
             </Text>
           </TouchableOpacity>
         ))}
@@ -184,13 +178,13 @@ function CardsTab({ yellows, reds, discipline }: {
         <TeamRow key={e.name} entry={e} rank={i + 1} color={D.yellow} label="YLW" />
       ))}
       {sub === 'red' && (reds.length === 0
-        ? <Text style={ct.empty}>No red cards yet</Text>
+        ? <Text style={ct.empty}>{i18n.tiNoReds}</Text>
         : reds.map((e, i) => (
           <TeamRow key={e.name} entry={e} rank={i + 1} color={D.red} label="RED" />
         ))
       )}
       {sub === 'discipline' && discipline.map((e, i) => (
-        <TeamRow key={e.name} entry={e} rank={i + 1} color={D.signal} label="SCORE" />
+        <TeamRow key={e.name} entry={e} rank={i + 1} color={D.signal} label={i18n.tiScore} />
       ))}
     </View>
   );
@@ -215,12 +209,12 @@ const ct = StyleSheet.create({
 
 // ─── Empty state ──────────────────────────────────────────────────────────────
 
-function NoData({ color }: { color: string }) {
+function NoData({ i18n }: { i18n: I18n }) {
   return (
     <View style={nd.wrap}>
       <Text style={nd.icon}>📡</Text>
-      <Text style={nd.text}>Waiting for match data…</Text>
-      <Text style={nd.sub}>Stats update after each game</Text>
+      <Text style={nd.text}>{i18n.tiWaiting}</Text>
+      <Text style={nd.sub}>{i18n.tiWaitingSub}</Text>
     </View>
   );
 }
@@ -236,15 +230,17 @@ const nd = StyleSheet.create({
 
 export default function TournamentIntelligenceSection() {
   const { data, loading } = useTournamentIntelligence();
+  const { i18n } = useLanguage();
   const [activeTab, setActiveTab] = useState<TabKey>('scorers');
 
+  const TABS = getTabs(i18n);
   const activeConfig = TABS.find((t) => t.key === activeTab)!;
 
   return (
     <View style={ms.section}>
       <SectionHeader
-        title="TOURNAMENT INTELLIGENCE"
-        sub="Live stats — goals, defence, cards & Lili's picks"
+        title={i18n.tournamentIntelTitle}
+        sub={i18n.tournamentIntelSub}
       />
 
       {/* ── Tab row ── */}
@@ -282,25 +278,25 @@ export default function TournamentIntelligenceSection() {
           <>
             {activeTab === 'scorers' && (
               data.topScorers.length === 0
-                ? <NoData color={activeConfig.color} />
+                ? <NoData i18n={i18n} />
                 : data.topScorers.map((e, i) => (
-                    <ScorerRow key={e.name + i} entry={e} rank={i + 1} color={activeConfig.color} />
+                    <ScorerRow key={e.name + i} entry={e} rank={i + 1} color={activeConfig.color} i18n={i18n} />
                   ))
             )}
 
             {activeTab === 'attack' && (
               data.bestAttack.length === 0
-                ? <NoData color={activeConfig.color} />
+                ? <NoData i18n={i18n} />
                 : data.bestAttack.map((e, i) => (
-                    <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label="GOALS" />
+                    <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label={i18n.tiGoals} />
                   ))
             )}
 
             {activeTab === 'defence' && (
               data.bestDefence.length === 0
-                ? <NoData color={activeConfig.color} />
+                ? <NoData i18n={i18n} />
                 : data.bestDefence.map((e, i) => (
-                    <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label="GA/G" />
+                    <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label={i18n.tiGaPerGame} />
                   ))
             )}
 
@@ -309,14 +305,15 @@ export default function TournamentIntelligenceSection() {
                 yellows={data.mostYellows}
                 reds={data.mostReds}
                 discipline={data.disciplineRank}
+                i18n={i18n}
               />
             )}
 
             {activeTab === 'danger' && (
               data.mostDangerous.length === 0
-                ? <NoData color={activeConfig.color} />
+                ? <NoData i18n={i18n} />
                 : data.mostDangerous.map((e, i) => (
-                    <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label="SCORE" />
+                    <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label={i18n.tiScore} />
                   ))
             )}
 
@@ -324,11 +321,11 @@ export default function TournamentIntelligenceSection() {
               <>
                 <View style={ms.surpriseHint}>
                   <Text style={ms.surpriseHintText}>
-                    Teams beating expectations based on their pre-tournament strength rating
+                    {i18n.tiSurpriseHint}
                   </Text>
                 </View>
                 {data.liliSurpriseRank.length === 0
-                  ? <NoData color={activeConfig.color} />
+                  ? <NoData i18n={i18n} />
                   : data.liliSurpriseRank.map((e, i) => (
                       <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label="INDEX" />
                     ))
