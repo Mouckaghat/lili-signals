@@ -70,16 +70,16 @@ export const GROUP_STANDINGS: GroupStanding[] = [
   { group: "Stage - Group L", team: "Panama", rank: 4, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
   { group: "Stage", team: "Iran", rank: 1, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
   { group: "Stage", team: "Austria", rank: 2, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
-  { group: "Stage", team: "Czech Republic", rank: 3, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
-  { group: "Stage", team: "Australia", rank: 4, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
-  { group: "Stage", team: "Ivory Coast", rank: 5, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
-  { group: "Stage", team: "Sweden", rank: 6, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
-  { group: "Stage", team: "Uzbekistan", rank: 7, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
-  { group: "Stage", team: "Qatar", rank: 8, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
-  { group: "Stage", team: "Iraq", rank: 9, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
-  { group: "Stage", team: "Saudi Arabia", rank: 10, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
-  { group: "Stage", team: "Ghana", rank: 11, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
-  { group: "Stage", team: "Haiti", rank: 12, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
+  { group: "Stage", team: "Australia", rank: 3, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
+  { group: "Stage", team: "Ivory Coast", rank: 4, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
+  { group: "Stage", team: "Sweden", rank: 5, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
+  { group: "Stage", team: "Uzbekistan", rank: 6, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
+  { group: "Stage", team: "Qatar", rank: 7, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
+  { group: "Stage", team: "Iraq", rank: 8, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
+  { group: "Stage", team: "Saudi Arabia", rank: 9, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
+  { group: "Stage", team: "Ghana", rank: 10, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
+  { group: "Stage", team: "Haiti", rank: 11, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
+  { group: "Stage", team: "Czech Republic", rank: 12, played: 1, won: 0, drawn: 0, lost: 1, gf: 1, ga: 2, gd: -1, pts: 0, status: 'AT-RISK' },
 ];
 
-export const STANDINGS_LAST_UPDATED = '2026-06-12T03:53:24.277Z';
+export const STANDINGS_LAST_UPDATED = '2026-06-12T08:25:48.088Z';
