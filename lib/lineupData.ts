@@ -9,24 +9,685 @@ export interface LineupPlayer {
   name: string;
   number: number;
   pos: Position;
-  starter: boolean;  // false = bench
+  starter: boolean;
 }
 
 export interface TeamLineup {
-  formation: string;    // e.g. "4-3-3"
+  formation: string;
   players: LineupPlayer[];
   coach?: string;
 }
 
 export interface MatchLineup {
-  fixtureKey: string;   // "Home|Away" — same convention as FIXTURE_RESULTS
+  fixtureKey: string;
   home: TeamLineup;
   away: TeamLineup;
-  confirmed: boolean;   // true = official submission; false = predicted
+  confirmed: boolean;
   source: 'sofascore' | 'api-football';
   updatedAt: string;
 }
 
-export const MATCH_LINEUPS: MatchLineup[] = [];
+export const MATCH_LINEUPS: MatchLineup[] = [
+  {
+    "fixtureKey": "Mexico|South Africa",
+    "home": {
+      "formation": "4-1-4-1",
+      "players": [
+        {
+          "name": "Raúl Rangel",
+          "number": 1,
+          "pos": "GK",
+          "starter": true
+        },
+        {
+          "name": "Israel Reyes",
+          "number": 15,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "César Montes",
+          "number": 3,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Johan Vásquez",
+          "number": 5,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Jesús Gallardo",
+          "number": 23,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Erik Lira",
+          "number": 6,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Roberto Alvarado",
+          "number": 25,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Brian Gutiérrez",
+          "number": 26,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Álvaro Fidalgo",
+          "number": 8,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Julián Quiñones",
+          "number": 16,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Raúl Jiménez",
+          "number": 9,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Gilberto Mora",
+          "number": 19,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Luis Chávez",
+          "number": 24,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Edson Álvarez",
+          "number": 4,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Armando González",
+          "number": 14,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Alexis Vega",
+          "number": 10,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Carlos Acevedo",
+          "number": 12,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Guillermo Ochoa",
+          "number": 13,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Jorge Sánchez",
+          "number": 2,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Luis Romo",
+          "number": 7,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Mateo Chávez",
+          "number": 20,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "César Huerta",
+          "number": 21,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Obed Vargas",
+          "number": 18,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Orbelín Pineda",
+          "number": 17,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Guillermo Martínez",
+          "number": 22,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Santiago Giménez",
+          "number": 11,
+          "pos": "FW",
+          "starter": false
+        }
+      ],
+      "coach": "Javier Aguirre"
+    },
+    "away": {
+      "formation": "5-3-2",
+      "players": [
+        {
+          "name": "Ronwen Williams",
+          "number": 1,
+          "pos": "GK",
+          "starter": true
+        },
+        {
+          "name": "Khuliso Mudau",
+          "number": 20,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Nkosinathi Sibisi",
+          "number": 19,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Ime Okon",
+          "number": 21,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Mbekezeli Mbokazi",
+          "number": 14,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Aubrey Modiba",
+          "number": 6,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Teboho Mokoena",
+          "number": 4,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Siphephelo Sithole",
+          "number": 13,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Jayden Adams",
+          "number": 23,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Iqraam Rayners",
+          "number": 15,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Lyle Foster",
+          "number": 9,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Thalente Mbatha",
+          "number": 5,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Themba Zwane",
+          "number": 11,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Oswin Appollis",
+          "number": 7,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Evidence Makgopa",
+          "number": 17,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Ricardo Goss",
+          "number": 22,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Sipho Chaine",
+          "number": 16,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Bradley Cross",
+          "number": 26,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Khulumani Ndamane",
+          "number": 3,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Olwethu Makhanya",
+          "number": 24,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Samukelo Kabini",
+          "number": 18,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Tholo Thabang Matuludi",
+          "number": 2,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Tshepang Moremi",
+          "number": 8,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Relebohile Mofokeng",
+          "number": 10,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Kamogelo Sebelebele",
+          "number": 25,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Thapelo Maseko",
+          "number": 12,
+          "pos": "FW",
+          "starter": false
+        }
+      ],
+      "coach": "Hugo Broos"
+    },
+    "confirmed": true,
+    "source": "api-football",
+    "updatedAt": "2026-06-12T13:46:47.676Z"
+  },
+  {
+    "fixtureKey": "South Korea|Czech Republic",
+    "home": {
+      "formation": "3-4-2-1",
+      "players": [
+        {
+          "name": "Kim Seung-gyu",
+          "number": 1,
+          "pos": "GK",
+          "starter": true
+        },
+        {
+          "name": "Han-Beom Lee",
+          "number": 2,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Kim Min-jae",
+          "number": 4,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Gi-Hyuk Lee",
+          "number": 3,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Young-woo Seol",
+          "number": 22,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Hwang In-beom",
+          "number": 6,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Seung Ho Paik",
+          "number": 8,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Lee Tae-seok",
+          "number": 13,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Kang-in Lee",
+          "number": 19,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Jae-sung Lee",
+          "number": 10,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Son Heung-min",
+          "number": 7,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Hwang Hee-chan",
+          "number": 11,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Ji-sung Eom",
+          "number": 25,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Hyeon-gyu Oh",
+          "number": 18,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Jin-gyu Kim",
+          "number": 24,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Jin-seob Park",
+          "number": 16,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Jo Hyeonwoo",
+          "number": 21,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Song Bum-keun",
+          "number": 12,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Kim Moon-hwan",
+          "number": 15,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Wi-je Cho",
+          "number": 14,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Kim Tae-hyeon",
+          "number": 5,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Dong-gyeong Lee",
+          "number": 26,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Jens Castrop",
+          "number": 23,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Jun-Ho Bae",
+          "number": 17,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Gue-sung Cho",
+          "number": 9,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Yang Hyun-Jun",
+          "number": 20,
+          "pos": "FW",
+          "starter": false
+        }
+      ],
+      "coach": "Myung-Bo Hong"
+    },
+    "away": {
+      "formation": "3-4-2-1",
+      "players": [
+        {
+          "name": "Matěj Kovář",
+          "number": 1,
+          "pos": "GK",
+          "starter": true
+        },
+        {
+          "name": "Štěpán Chaloupek",
+          "number": 6,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Robin Hranáč",
+          "number": 4,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Ladislav Krejčí",
+          "number": 7,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Vladimír Coufal",
+          "number": 5,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Tomáš Souček",
+          "number": 22,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Alexandr Sojka",
+          "number": 24,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Jaroslav Zelený",
+          "number": 20,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Lukáš Provod",
+          "number": 17,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Pavel Šulc",
+          "number": 15,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Patrik Schick",
+          "number": 10,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Michal Sadílek",
+          "number": 18,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Adam Hložek",
+          "number": 9,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Tomáš Chorý",
+          "number": 19,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Mojmír Chytil",
+          "number": 13,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Jindřich Staněk",
+          "number": 16,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Lukáš Horníček",
+          "number": 23,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "David Jurásek",
+          "number": 14,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "David Zima",
+          "number": 2,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Tomáš Holeš",
+          "number": 3,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "David Douděra",
+          "number": 21,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Denis Višinský",
+          "number": 26,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Hugo Sochurek",
+          "number": 25,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Lukáš Červ",
+          "number": 12,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Vladimír Darida",
+          "number": 8,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Jan Kuchta",
+          "number": 11,
+          "pos": "FW",
+          "starter": false
+        }
+      ],
+      "coach": "Miroslav Koubek"
+    },
+    "confirmed": true,
+    "source": "api-football",
+    "updatedAt": "2026-06-12T13:46:47.777Z"
+  }
+];
 
-export const LINEUPS_LAST_UPDATED = '';
+export const LINEUPS_LAST_UPDATED = '2026-06-12T13:46:47.785Z';
