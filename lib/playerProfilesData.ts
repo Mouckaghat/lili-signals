@@ -44,9 +44,9 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     dob: '1999-04-20',
     age: 27,
     club: 'Wolverhampton',
-    league: 'Championship',
+    league: 'Premier League',
     leagueFlag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
-    // clubRank omitted — 2025-26 Championship final position unconfirmed
+    clubRank: 20, // relegated — finished 20th (last) in 2025-26 PL
     wcCount: 1,
     caps: 27,
   },
