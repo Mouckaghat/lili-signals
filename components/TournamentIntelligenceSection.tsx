@@ -255,10 +255,10 @@ function ScorerRow({ entry, rank, color, i18n }: { entry: ScorerEntry; rank: num
       <Text style={[rw.rank, { color: rank <= 3 ? color : D.text3 }]}>
         {rank <= 3 ? ['①', '②', '③'][rank - 1] : `${rank}`}
       </Text>
-      <View style={rw.infoBlock}>
-        <Text style={rw.name} numberOfLines={1}>{entry.name}</Text>
-        <Text style={rw.profile}>{parts.join(' · ')}</Text>
-      </View>
+      <Text style={[rw.profile, { flex: 1 }]} numberOfLines={1}>
+        <Text style={rw.name}>{entry.name}</Text>
+        {parts.length > 0 && <Text>{' - '}{parts.join(' · ')}</Text>}
+      </Text>
       <View style={[rw.badge, { borderColor: `${color}30`, backgroundColor: `${color}10` }]}>
         <Text style={[rw.badgeVal, { color }]}>{entry.goals}</Text>
         <Text style={rw.badgeLbl}>{i18n.tiGoals}</Text>
