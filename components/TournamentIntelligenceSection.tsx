@@ -451,15 +451,22 @@ function CardsTab({ yellows, reds, discipline, teamFormation, i18n }: {
         ))}
       </View>
 
-      {sub === 'yellow' && yellows.map((e, i) => (
-        <CardRow key={e.name} entry={e} rank={i + 1} icon="🟨" label="yellow cards" color={D.yellow} formation={teamFormation.get(e.name)} />
-      ))}
-      {sub === 'red' && (reds.length === 0
-        ? <Text style={ct.empty}>{i18n.tiNoReds}</Text>
-        : reds.map((e, i) => (
-          <CardRow key={e.name} entry={e} rank={i + 1} icon="🟥" label="red cards" color={D.red} formation={teamFormation.get(e.name)} />
-        ))
-      )}
+      {sub === 'yellow' && (() => {
+        const active = yellows.filter((e) => e.value > 0);
+        return active.length === 0
+          ? <Text style={ct.empty}>{i18n.tiNoReds}</Text>
+          : active.map((e, i) => (
+              <CardRow key={e.name} entry={e} rank={i + 1} icon="🟨" label="yellow cards" color={D.yellow} formation={teamFormation.get(e.name)} />
+            ));
+      })()}
+      {sub === 'red' && (() => {
+        const active = reds.filter((e) => e.value > 0);
+        return active.length === 0
+          ? <Text style={ct.empty}>{i18n.tiNoReds}</Text>
+          : active.map((e, i) => (
+              <CardRow key={e.name} entry={e} rank={i + 1} icon="🟥" label="red cards" color={D.red} formation={teamFormation.get(e.name)} />
+            ));
+      })()}
       {sub === 'discipline' && discipline.map((e, i) => (
         <CardRow key={e.name} entry={e} rank={i + 1} icon="⚖️" label={i18n.tiScore} color={D.signal} formation={teamFormation.get(e.name)} />
       ))}
