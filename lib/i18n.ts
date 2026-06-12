@@ -328,6 +328,16 @@ export interface I18n {
   tiWcLabels: string[];
   tiCaps: string;
   monthsShort: string[];
+  // ── Match Timeline ────────────────────────────────────────────────────────
+  tlTitle: string;
+  tlSub: string;
+  tlPlayed: string;
+  tlLive: string;
+  tlNext: string;
+  tlUpcoming: string;
+  tlToday: string;
+  tlTomorrow: string;
+  tlSeaLevel: string;
 }
 
 export const I18N: Record<LangCode, I18n> = {
@@ -541,6 +551,10 @@ export const I18N: Record<LangCode, I18n> = {
     tiWcLabels: ['WC debut', '2nd WC', '3rd WC', '4th WC'],
     tiCaps: 'caps',
     monthsShort: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    // ── Match Timeline ──────────────────────────────────────────────────────
+    tlTitle: 'LILI MATCH TIMELINE', tlSub: 'Past, live and upcoming games',
+    tlPlayed: 'PLAYED', tlLive: 'LIVE', tlNext: 'NEXT', tlUpcoming: 'UPCOMING',
+    tlToday: 'Today', tlTomorrow: 'Tomorrow', tlSeaLevel: '~Sea level',
   },
 
   FR: {
@@ -753,6 +767,10 @@ export const I18N: Record<LangCode, I18n> = {
     tiWcLabels: ['1ère CM', '2e CM', '3e CM', '4e CM'],
     tiCaps: 'sélections',
     monthsShort: ['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Aoû','Sep','Oct','Nov','Déc'],
+    // ── Calendrier des matchs ────────────────────────────────────────────────
+    tlTitle: 'CALENDRIER DES MATCHS LILI', tlSub: 'Matchs passés, en cours et à venir',
+    tlPlayed: 'JOUÉ', tlLive: 'EN DIRECT', tlNext: 'PROCHAIN', tlUpcoming: 'À VENIR',
+    tlToday: "Aujourd'hui", tlTomorrow: 'Demain', tlSeaLevel: '~Niveau mer',
   },
 
   IT: {
@@ -965,6 +983,10 @@ export const I18N: Record<LangCode, I18n> = {
     tiWcLabels: ['1° Mondiale', '2° Mondiale', '3° Mondiale', '4° Mondiale'],
     tiCaps: 'presenze',
     monthsShort: ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'],
+    // ── Calendario partite ───────────────────────────────────────────────────
+    tlTitle: 'CALENDARIO PARTITE LILI', tlSub: 'Partite passate, in corso e future',
+    tlPlayed: 'GIOCATO', tlLive: 'IN DIRETTA', tlNext: 'PROSSIMA', tlUpcoming: 'PROSSIMAMENTE',
+    tlToday: 'Oggi', tlTomorrow: 'Domani', tlSeaLevel: '~Livello mare',
   },
 
   DE: {
@@ -1177,6 +1199,10 @@ export const I18N: Record<LangCode, I18n> = {
     tiWcLabels: ['WM-Debüt', '2. WM', '3. WM', '4. WM'],
     tiCaps: 'Länderspiele',
     monthsShort: ['Jan','Feb','Mär','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'],
+    // ── Spielkalender ────────────────────────────────────────────────────────
+    tlTitle: 'LILI SPIELKALENDER', tlSub: 'Vergangene, laufende und kommende Spiele',
+    tlPlayed: 'GESPIELT', tlLive: 'LIVE', tlNext: 'NÄCHSTES', tlUpcoming: 'BALD',
+    tlToday: 'Heute', tlTomorrow: 'Morgen', tlSeaLevel: '~Meereshöhe',
   },
 
   ES: {
@@ -1389,6 +1415,10 @@ export const I18N: Record<LangCode, I18n> = {
     tiWcLabels: ['1ª Copa del Mundo', '2ª Copa del Mundo', '3ª Copa del Mundo', '4ª Copa del Mundo'],
     tiCaps: 'internacionales',
     monthsShort: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+    // ── Calendario de partidos ───────────────────────────────────────────────
+    tlTitle: 'CALENDARIO DE PARTIDOS LILI', tlSub: 'Partidos pasados, en vivo y próximos',
+    tlPlayed: 'JUGADO', tlLive: 'EN VIVO', tlNext: 'PRÓXIMO', tlUpcoming: 'PRÓXIMAMENTE',
+    tlToday: 'Hoy', tlTomorrow: 'Mañana', tlSeaLevel: '~Nivel del mar',
   },
 
   RU: {
@@ -1601,6 +1631,10 @@ export const I18N: Record<LangCode, I18n> = {
     tiWcLabels: ['1-й ЧМ', '2-й ЧМ', '3-й ЧМ', '4-й ЧМ'],
     tiCaps: 'матчей за сборную',
     monthsShort: ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'],
+    // ── Расписание матчей ────────────────────────────────────────────────────
+    tlTitle: 'РАСПИСАНИЕ МАТЧЕЙ ЛИЛИ', tlSub: 'Прошедшие, текущие и предстоящие матчи',
+    tlPlayed: 'СЫГРАН', tlLive: 'ПРЯМОЙ ЭФИР', tlNext: 'СЛЕДУЮЩИЙ', tlUpcoming: 'СКОРО',
+    tlToday: 'Сегодня', tlTomorrow: 'Завтра', tlSeaLevel: '~Уровень моря',
   },
 
   CN: {
@@ -1813,6 +1847,10 @@ export const I18N: Record<LangCode, I18n> = {
     tiWcLabels: ['首届世界杯', '第2届世界杯', '第3届世界杯', '第4届世界杯'],
     tiCaps: '国家队出场',
     monthsShort: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+    // ── 赛程时间线 ─────────────────────────────────────────────────────────
+    tlTitle: '莉莉赛程时间线', tlSub: '已完成、进行中及即将到来的比赛',
+    tlPlayed: '已完成', tlLive: '直播', tlNext: '下一场', tlUpcoming: '即将开始',
+    tlToday: '今天', tlTomorrow: '明天', tlSeaLevel: '~海平面',
   },
 
   JP: {
@@ -2025,6 +2063,10 @@ export const I18N: Record<LangCode, I18n> = {
     tiWcLabels: ['初W杯', '2回目W杯', '3回目W杯', '4回目W杯'],
     tiCaps: '代表キャップ',
     monthsShort: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+    // ── 試合スケジュール ──────────────────────────────────────────────────
+    tlTitle: 'リリ試合スケジュール', tlSub: '過去・進行中・今後の試合',
+    tlPlayed: '終了', tlLive: 'ライブ', tlNext: '次の試合', tlUpcoming: '近日開催',
+    tlToday: '今日', tlTomorrow: '明日', tlSeaLevel: '~海抜0m',
   },
 
   KR: {
@@ -2237,6 +2279,10 @@ export const I18N: Record<LangCode, I18n> = {
     tiWcLabels: ['첫 월드컵', '2번째 월드컵', '3번째 월드컵', '4번째 월드컵'],
     tiCaps: '국가대표 출전',
     monthsShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+    // ── 경기 일정 ──────────────────────────────────────────────────────────
+    tlTitle: '릴리 경기 일정', tlSub: '지난 경기, 진행 중, 예정된 경기',
+    tlPlayed: '종료', tlLive: '라이브', tlNext: '다음 경기', tlUpcoming: '예정',
+    tlToday: '오늘', tlTomorrow: '내일', tlSeaLevel: '~해수면',
   },
 
   PT: {
@@ -2449,6 +2495,10 @@ export const I18N: Record<LangCode, I18n> = {
     tiWcLabels: ['1ª CM', '2ª CM', '3ª CM', '4ª CM'],
     tiCaps: 'internacionais',
     monthsShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+    // ── Calendário de jogos ──────────────────────────────────────────────────
+    tlTitle: 'CALENDÁRIO DE JOGOS LILI', tlSub: 'Jogos passados, ao vivo e próximos',
+    tlPlayed: 'JOGADO', tlLive: 'AO VIVO', tlNext: 'PRÓXIMO', tlUpcoming: 'EM BREVE',
+    tlToday: 'Hoje', tlTomorrow: 'Amanhã', tlSeaLevel: '~Nível do mar',
   },
 
   AR: {
@@ -2661,5 +2711,9 @@ export const I18N: Record<LangCode, I18n> = {
     tiWcLabels: ['أول كأس عالم', 'ثاني كأس عالم', 'ثالث كأس عالم', 'رابع كأس عالم'],
     tiCaps: 'مباريات دولية',
     monthsShort: ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'],
+    // ── جدول المباريات ─────────────────────────────────────────────────────
+    tlTitle: 'جدول مباريات ليلى', tlSub: 'المباريات المنتهية والحية والقادمة',
+    tlPlayed: 'انتهت', tlLive: 'مباشر', tlNext: 'القادمة', tlUpcoming: 'قريباً',
+    tlToday: 'اليوم', tlTomorrow: 'غداً', tlSeaLevel: '~مستوى البحر',
   },
 };
