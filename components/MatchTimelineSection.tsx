@@ -139,8 +139,8 @@ function MatchCard({ entry, i18n }: { entry: MatchEntry; i18n: I18n }) {
           <Text style={[mc.statusLabel, { color }]}>{kindLabels[kind]}</Text>
         </View>
         <View style={mc.statusRight}>
-          <Text style={mc.groupText}>Group {fixture.group}</Text>
           <Text style={mc.dateText}>{dateStr}</Text>
+          <Text style={mc.groupText}>Group {fixture.group}</Text>
         </View>
       </View>
 

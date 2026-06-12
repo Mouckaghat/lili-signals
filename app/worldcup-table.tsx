@@ -344,10 +344,10 @@ export default function WorldCupTableScreen() {
       </View>
 
       <ScrollView style={st.scroll} contentContainerStyle={st.content}>
-        <MatchTimelineSection group={selectedGroup} />
         {displayGroups.map((g) => (
           <GroupTable key={g} group={g} liveResults={liveResults} />
         ))}
+        <MatchTimelineSection group={selectedGroup} />
         <Text style={st.footNote}>{i18n.tableFootnote}</Text>
       </ScrollView>
     </SafeAreaView>
