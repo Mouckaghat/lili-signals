@@ -44,6 +44,29 @@ function getTabs(i18n: I18n): Array<{ key: TabKey; label: string; icon: string; 
   ];
 }
 
+// ─── Team → most-used formation map ──────────────────────────────────────────
+
+function buildTeamFormationMap(lineups: MatchLineup[]): Map<string, string> {
+  const counts: Record<string, Record<string, number>> = {};
+  for (const lineup of lineups) {
+    const [home, away] = lineup.fixtureKey.split('|');
+    const w = lineup.confirmed ? 2 : 1; // confirmed lineups count double
+    const add = (team: string, f: string) => {
+      if (!f || f === '?') return;
+      counts[team] ??= {};
+      counts[team][f] = (counts[team][f] ?? 0) + w;
+    };
+    add(home, lineup.home.formation);
+    add(away, lineup.away.formation);
+  }
+  const map = new Map<string, string>();
+  for (const [team, formations] of Object.entries(counts)) {
+    const best = Object.entries(formations).sort((a, b) => b[1] - a[1])[0]?.[0];
+    if (best) map.set(team, best);
+  }
+  return map;
+}
+
 // ─── Tactics helpers ──────────────────────────────────────────────────────────
 
 interface FormationStats {
@@ -243,12 +266,13 @@ function ScorerRow({ entry, rank, color, i18n }: { entry: ScorerEntry; rank: num
 // ─── Team row ─────────────────────────────────────────────────────────────────
 
 function TeamRow({
-  entry, rank, color, label,
+  entry, rank, color, label, formation,
 }: {
   entry: TeamRankEntry;
   rank: number;
   color: string;
   label: string;
+  formation?: string;
 }) {
   return (
     <View style={[rw.row, rank === 1 && rw.rowFirst]}>
@@ -256,7 +280,10 @@ function TeamRow({
         {rank <= 3 ? ['①', '②', '③'][rank - 1] : `${rank}`}
       </Text>
       <Text style={rw.flag}>{entry.flag}</Text>
-      <Text style={rw.name} numberOfLines={1}>{entry.name}</Text>
+      <View style={rw.nameBlock}>
+        <Text style={rw.name} numberOfLines={1}>{entry.name}</Text>
+        {formation && <Text style={rw.formationTag}>{formation}</Text>}
+      </View>
       <View style={[rw.badge, { borderColor: `${color}30`, backgroundColor: `${color}10` }]}>
         <Text style={[rw.badgeVal, { color }]}>{entry.value}</Text>
         <Text style={rw.badgeLbl}>{label}</Text>
@@ -277,8 +304,10 @@ const rw = StyleSheet.create({
   rowFirst: { paddingTop: 0 },
   rank:  { fontSize: 14, fontWeight: '800', width: 22, textAlign: 'center' },
   flag:  { fontSize: 18, width: 24 },
+  nameBlock: { flex: 1, gap: 1 },
   infoBlock: { flex: 1, gap: 1 },
-  name:  { fontSize: 12, fontWeight: '700', color: D.text1, flex: 1 },
+  name:  { fontSize: 12, fontWeight: '700', color: D.text1 },
+  formationTag: { fontSize: 9, fontWeight: '600', color: D.text3, letterSpacing: 0.5 },
   detail:{ fontSize: 10, color: D.text3 },
   profile: { fontSize: 10, color: D.text3, lineHeight: 15, marginTop: 2 },
   badge: {
@@ -378,6 +407,7 @@ export default function TournamentIntelligenceSection() {
   const { data, loading } = useTournamentIntelligence();
   const { i18n }          = useLanguage();
   const lineups           = useLineups();
+  const teamFormation     = buildTeamFormationMap(lineups);
   const [activeTab, setActiveTab] = useState<TabKey>('scorers');
 
   const TABS = getTabs(i18n);
@@ -435,7 +465,7 @@ export default function TournamentIntelligenceSection() {
               data.bestAttack.length === 0
                 ? <NoData i18n={i18n} />
                 : data.bestAttack.map((e, i) => (
-                    <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label={i18n.tiGoals} />
+                    <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label={i18n.tiGoals} formation={teamFormation.get(e.name)} />
                   ))
             )}
 
@@ -443,7 +473,7 @@ export default function TournamentIntelligenceSection() {
               data.bestDefence.length === 0
                 ? <NoData i18n={i18n} />
                 : data.bestDefence.map((e, i) => (
-                    <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label={i18n.tiGaPerGame} />
+                    <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label={i18n.tiGaPerGame} formation={teamFormation.get(e.name)} />
                   ))
             )}
 
@@ -460,7 +490,7 @@ export default function TournamentIntelligenceSection() {
               data.mostDangerous.length === 0
                 ? <NoData i18n={i18n} />
                 : data.mostDangerous.map((e, i) => (
-                    <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label={i18n.tiScore} />
+                    <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label={i18n.tiScore} formation={teamFormation.get(e.name)} />
                   ))
             )}
 
@@ -474,7 +504,7 @@ export default function TournamentIntelligenceSection() {
                 {data.liliSurpriseRank.length === 0
                   ? <NoData i18n={i18n} />
                   : data.liliSurpriseRank.map((e, i) => (
-                      <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label="INDEX" />
+                      <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label="INDEX" formation={teamFormation.get(e.name)} />
                     ))
                 }
               </>
