@@ -15,6 +15,7 @@ export interface FixtureResult {
 export const FIXTURE_RESULTS: Record<string, FixtureResult> = {
   "South Korea|Czech Republic": { status: 'LIVE', homeScore: 0, awayScore: 0, winner: null },
   "Mexico|South Africa": { status: 'FINISHED', homeScore: 2, awayScore: 0, winner: 'Mexico' },
+  "South Korea|Czech Republic": { status: 'FINISHED', homeScore: 2, awayScore: 1, winner: 'South Korea' },
 };
 
 export const FIXTURE_RESULTS_LAST_UPDATED = '2026-06-12T02:15:19.102Z';
