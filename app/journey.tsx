@@ -29,6 +29,7 @@ import {
 import FeatureIntro from '../components/FeatureIntro';
 import { playerByPath } from '../lib/playerXI';
 import { useLanguage } from '../contexts/LanguageContext';
+import { fmtDate, fmtTime } from '../lib/fmt';
 
 // ─── Scrubber stages ──────────────────────────────────────────────────────────
 
@@ -52,15 +53,6 @@ function countryFlag(country: 'USA' | 'Canada' | 'Mexico') {
   return '🇲🇽';
 }
 
-function fmtDate(iso: string) {
-  return new Date(iso).toLocaleDateString('en-GB', {
-    weekday: 'short', day: 'numeric', month: 'short', year: 'numeric',
-  });
-}
-
-function fmtTime(iso: string) {
-  return new Date(iso).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) + ' local';
-}
 
 function pct(n: number) { return `${Math.round(n * 100)}%`; }
 

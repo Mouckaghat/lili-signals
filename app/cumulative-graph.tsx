@@ -17,6 +17,7 @@ import { buildMatchPredictions, type MatchPrediction } from '../lib/wcSimulation
 import FeatureIntro from '../components/FeatureIntro';
 import { playerByPath } from '../lib/playerXI';
 import { useLanguage } from '../contexts/LanguageContext';
+import { fmtDateTime } from '../lib/fmt';
 
 function withResult(fixture: WCFixture, results: Record<string, FixtureResult>): WCFixture {
   const r = results[`${fixture.home}|${fixture.away}`];
@@ -181,7 +182,7 @@ function MatchDetail({ point }: { point: PlotPoint }) {
         </View>
 
         <Text style={s.detailDate}>
-          {new Date(fixture.date).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}
+          {fmtDateTime(fixture.date)}
         </Text>
         <Text style={s.detailVenue}>{fixture.stadium} · {fixture.city}</Text>
 
