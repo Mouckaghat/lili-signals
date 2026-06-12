@@ -3,6 +3,7 @@ import { ActivityIndicator, ScrollView, StyleSheet, Text, TouchableOpacity, View
 import { useTournamentIntelligence, type ScorerEntry, type TeamRankEntry } from '../lib/useTournamentIntelligence';
 import { useLineups } from '../lib/useLineups';
 import type { MatchLineup } from '../lib/lineupData';
+import { TEAM_FORMATIONS_BASELINE } from '../lib/teamFormationsBaseline';
 import { FIXTURE_RESULTS } from '../lib/fixtureResultsData';
 import { useLanguage } from '../contexts/LanguageContext';
 import type { I18n } from '../lib/i18n';
@@ -47,19 +48,22 @@ function getTabs(i18n: I18n): Array<{ key: TabKey; label: string; icon: string; 
 // ─── Team → most-used formation map ──────────────────────────────────────────
 
 function buildTeamFormationMap(lineups: MatchLineup[]): Map<string, string> {
+  // Start from web-researched baseline so every team always has a formation.
+  const map = new Map<string, string>(Object.entries(TEAM_FORMATIONS_BASELINE));
+
+  // Override with live/confirmed data when available (confirmed lineups weighted 2x).
   const counts: Record<string, Record<string, number>> = {};
   for (const lineup of lineups) {
     const [home, away] = lineup.fixtureKey.split('|');
-    const w = lineup.confirmed ? 2 : 1; // confirmed lineups count double
+    const w = lineup.confirmed ? 2 : 1;
     const add = (team: string, f: string) => {
-      if (!f || f === '?') return;
+      if (!f || f === '?' || f === 'baseline') return;
       counts[team] ??= {};
       counts[team][f] = (counts[team][f] ?? 0) + w;
     };
     add(home, lineup.home.formation);
     add(away, lineup.away.formation);
   }
-  const map = new Map<string, string>();
   for (const [team, formations] of Object.entries(counts)) {
     const best = Object.entries(formations).sort((a, b) => b[1] - a[1])[0]?.[0];
     if (best) map.set(team, best);
