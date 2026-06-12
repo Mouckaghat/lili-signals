@@ -9,9 +9,8 @@ import type { I18n } from '../lib/i18n';
 
 const D = {
   bg:      '#050810',
-  card:    '#0E1933',
   surface: '#0B1426',
-  border:  'rgba(80,140,255,0.10)',
+  border:  'rgba(80,140,255,0.08)',
   blue:    '#4A9EFF',
   green:   '#34C759',
   red:     '#FF3B30',
@@ -38,18 +37,6 @@ const KIND_COLOR: Record<MatchKind, string> = {
   NEXT:     D.gold,
   UPCOMING: D.blue,
 };
-const KIND_BG: Record<MatchKind, string> = {
-  PLAYED:   'rgba(55,79,122,0.10)',
-  LIVE:     'rgba(255,59,48,0.10)',
-  NEXT:     'rgba(212,165,32,0.12)',
-  UPCOMING: 'rgba(74,158,255,0.08)',
-};
-const KIND_ICON: Record<MatchKind, string> = {
-  PLAYED:   '✅',
-  LIVE:     '🔴',
-  NEXT:     '🎯',
-  UPCOMING: '🔜',
-};
 
 // ─── Date helpers ─────────────────────────────────────────────────────────────
 
@@ -64,20 +51,17 @@ function tomorrowDate(): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }
 
-function fmtMatchDate(iso: string, i18n: I18n): string {
+function fmtDate(iso: string, i18n: I18n): string {
   const datePart = iso.slice(0, 10);
   const time     = iso.slice(11, 16);
   if (datePart === localDate())    return `${i18n.tlToday} · ${time}`;
   if (datePart === tomorrowDate()) return `${i18n.tlTomorrow} · ${time}`;
   const [, mm, dd] = datePart.split('-');
-  return `${parseInt(dd)} ${i18n.monthsShort[parseInt(mm) - 1]} · ${time}`;
+  return `${parseInt(dd)} ${i18n.monthsShort[parseInt(mm) - 1]}, ${time}`;
 }
 
-// ─── Altitude display ─────────────────────────────────────────────────────────
-
-function fmtAlt(m: number, seaLevel: string): string {
-  if (m < 100) return seaLevel;
-  return `${m.toLocaleString()} m`;
+function fmtAlt(m: number, i18n: I18n): string {
+  return m < 100 ? i18n.tlSeaLevel : `⛰ ${m.toLocaleString()} m`;
 }
 
 // ─── Build entries ────────────────────────────────────────────────────────────
@@ -85,7 +69,7 @@ function fmtAlt(m: number, seaLevel: string): string {
 function buildEntries(group: string | null): MatchEntry[] {
   const fixtures = group
     ? WC_FIXTURES.filter((f) => f.group === group)
-    : WC_FIXTURES.slice(0, 48); // group stage only
+    : WC_FIXTURES.slice(0, 48);
 
   const sorted = [...fixtures].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
@@ -95,151 +79,81 @@ function buildEntries(group: string | null): MatchEntry[] {
   return sorted.map((fixture) => {
     const result = FIXTURE_RESULTS[`${fixture.home}|${fixture.away}`];
     const status = result?.status ?? fixture.status;
-
-    if (status === 'FINISHED') {
-      return { fixture, kind: 'PLAYED' as MatchKind, homeScore: result?.homeScore, awayScore: result?.awayScore };
-    }
-    if (status === 'LIVE') {
-      return { fixture, kind: 'LIVE' as MatchKind, homeScore: result?.homeScore, awayScore: result?.awayScore };
-    }
+    if (status === 'FINISHED') return { fixture, kind: 'PLAYED' as MatchKind, homeScore: result?.homeScore, awayScore: result?.awayScore };
+    if (status === 'LIVE')     return { fixture, kind: 'LIVE' as MatchKind,   homeScore: result?.homeScore, awayScore: result?.awayScore };
     if (!nextMarked) { nextMarked = true; return { fixture, kind: 'NEXT' as MatchKind }; }
     return { fixture, kind: 'UPCOMING' as MatchKind };
   });
 }
 
-// ─── Match card ───────────────────────────────────────────────────────────────
+// ─── Match row ────────────────────────────────────────────────────────────────
 
-function MatchCard({ entry, i18n }: { entry: MatchEntry; i18n: I18n }) {
+function MatchRow({ entry, i18n }: { entry: MatchEntry; i18n: I18n }) {
   const { fixture, kind, homeScore, awayScore } = entry;
-  const color = KIND_COLOR[kind];
-  const bg    = KIND_BG[kind];
-
+  const color    = KIND_COLOR[kind];
   const homeTeam = WC_TEAMS.find((t) => t.name === fixture.home);
   const awayTeam = WC_TEAMS.find((t) => t.name === fixture.away);
+  const stadium  = getStadium(FIXTURE_STADIUM_ID[fixture.stadium] ?? '');
 
-  const stadiumId = FIXTURE_STADIUM_ID[fixture.stadium];
-  const stadium   = stadiumId ? getStadium(stadiumId) : undefined;
+  // ── Centre meta string ──────────────────────────────────────────────────────
+  const dateStr = fmtDate(fixture.date, i18n);
+  const scored  = homeScore != null && awayScore != null;
 
-  const isScored = homeScore != null && awayScore != null;
-  const dateStr  = fmtMatchDate(fixture.date, i18n);
-
-  const kindLabels: Record<MatchKind, string> = {
-    PLAYED:   i18n.tlPlayed,
-    LIVE:     i18n.tlLive,
-    NEXT:     i18n.tlNext,
-    UPCOMING: i18n.tlUpcoming,
-  };
+  const parts: string[] = [dateStr];
+  if (kind === 'PLAYED' && scored) parts.push(`${homeScore} – ${awayScore}`);
+  if (kind === 'LIVE'   && scored) parts.push(`🔴 ${homeScore} – ${awayScore}`);
+  if (stadium) {
+    parts.push(stadium.shortName);
+    parts.push(`🌡 ${stadium.tempJuneC}°`);
+    parts.push(fmtAlt(stadium.altitudeM, i18n));
+  }
+  const metaStr = parts.join('  ·  ');
 
   return (
-    <View style={[mc.card, { borderColor: `${color}22` }]}>
-      {/* ── Status bar ── */}
-      <View style={[mc.statusBar, { backgroundColor: bg }]}>
-        <View style={mc.statusLeft}>
-          <Text style={mc.statusIcon}>{KIND_ICON[kind]}</Text>
-          <Text style={[mc.statusLabel, { color }]}>{kindLabels[kind]}</Text>
-        </View>
-        <View style={mc.statusRight}>
-          <Text style={mc.dateText}>{dateStr}</Text>
-          <Text style={mc.groupText}>Group {fixture.group}</Text>
-        </View>
+    <View style={[row.wrap, { borderLeftColor: color, borderLeftWidth: 2 }]}>
+      {/* Home */}
+      <View style={row.teamLeft}>
+        <Text style={row.flag}>{homeTeam?.flag ?? '🏳'}</Text>
+        <Text style={row.nameLeft} numberOfLines={1}>{fixture.home}</Text>
       </View>
 
-      {/* ── Score row ── */}
-      <View style={mc.scoreRow}>
-        <View style={mc.teamHome}>
-          <Text style={mc.teamFlag}>{homeTeam?.flag ?? '🏳'}</Text>
-          <Text style={mc.teamName} numberOfLines={1}>{fixture.home}</Text>
-        </View>
-        <View style={mc.centre}>
-          {isScored ? (
-            <>
-              <Text style={[mc.scoreNum, { color: D.text1 }]}>{homeScore}</Text>
-              <Text style={mc.dash}>—</Text>
-              <Text style={[mc.scoreNum, { color: D.text1 }]}>{awayScore}</Text>
-            </>
-          ) : (
-            <Text style={[mc.vs, { color: D.text3 }]}>vs</Text>
-          )}
-        </View>
-        <View style={mc.teamAway}>
-          <Text style={mc.teamName} numberOfLines={1}>{fixture.away}</Text>
-          <Text style={mc.teamFlag}>{awayTeam?.flag ?? '🏳'}</Text>
-        </View>
+      {/* Centre */}
+      <View style={row.centre}>
+        <Text style={[row.meta, { color: kind === 'LIVE' ? D.red : kind === 'NEXT' ? D.gold : D.text2 }]}
+              numberOfLines={2}
+              textBreakStrategy="balanced"
+        >
+          {metaStr}
+        </Text>
       </View>
 
-      {/* ── Venue footer — two columns ── */}
-      <View style={mc.venueRow}>
-        <View style={mc.venueLeft}>
-          <Text style={mc.venueStadium}>🏟 {stadium?.shortName ?? fixture.stadium}</Text>
-          <Text style={mc.venueCity}>📍 {fixture.city}</Text>
-        </View>
-        {stadium && (
-          <View style={mc.venueRight}>
-            <Text style={mc.venueClimate}>🌡 {stadium.tempJuneC}°C</Text>
-            <Text style={mc.venueClimate}>⛰ {fmtAlt(stadium.altitudeM, i18n.tlSeaLevel)}</Text>
-          </View>
-        )}
+      {/* Away */}
+      <View style={row.teamRight}>
+        <Text style={row.nameRight} numberOfLines={1}>{fixture.away}</Text>
+        <Text style={row.flag}>{awayTeam?.flag ?? '🏳'}</Text>
       </View>
     </View>
   );
 }
 
-const mc = StyleSheet.create({
-  card: {
-    backgroundColor: D.card,
-    borderRadius: 14,
-    borderWidth: 1,
-    marginBottom: 10,
-    overflow: 'hidden',
-  },
-  statusBar: {
+const row = StyleSheet.create({
+  wrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 12,
-    paddingVertical: 7,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(80,140,255,0.07)',
-  },
-  statusLeft:  { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  statusRight: { alignItems: 'flex-end', gap: 1 },
-  statusIcon:  { fontSize: 13 },
-  statusLabel: { fontSize: 9, fontWeight: '800', letterSpacing: 1.2 },
-  groupText:   { fontSize: 9, fontWeight: '700', color: D.text3, letterSpacing: 0.5 },
-  dateText:    { fontSize: 10, fontWeight: '600', color: D.text2 },
-
-  scoreRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 12,
-    paddingVertical: 12,
+    paddingVertical: 11,
+    paddingRight: 12,
+    paddingLeft: 10,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: D.border,
     gap: 8,
   },
-  teamHome:  { flex: 1, flexDirection: 'row', alignItems: 'center', gap: 6 },
-  teamAway:  { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', gap: 6 },
-  teamFlag:  { fontSize: 20 },
-  teamName:  { fontSize: 11, fontWeight: '700', color: D.text1, flex: 1 },
-  centre:    { alignItems: 'center', flexDirection: 'row', gap: 4, minWidth: 70, justifyContent: 'center' },
-  scoreNum:  { fontSize: 20, fontWeight: '800' },
-  dash:      { fontSize: 14, fontWeight: '700', color: D.text3 },
-  vs:        { fontSize: 14, fontWeight: '700' },
-
-  venueRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(80,140,255,0.07)',
-    backgroundColor: D.surface,
-    gap: 8,
-  },
-  venueLeft:    { flex: 1, gap: 2 },
-  venueStadium: { fontSize: 10, fontWeight: '700', color: D.text2 },
-  venueCity:    { fontSize: 9, color: D.text3 },
-  venueRight:   { alignItems: 'flex-end', gap: 2 },
-  venueClimate: { fontSize: 10, fontWeight: '600', color: D.text2 },
+  teamLeft:  { flex: 3, flexDirection: 'row', alignItems: 'center', gap: 6 },
+  teamRight: { flex: 3, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', gap: 6 },
+  flag:      { fontSize: 18 },
+  nameLeft:  { fontSize: 12, fontWeight: '700', color: D.text1, flex: 1 },
+  nameRight: { fontSize: 12, fontWeight: '700', color: D.text1, flex: 1, textAlign: 'right' },
+  centre:    { flex: 4, alignItems: 'center' },
+  meta:      { fontSize: 10, textAlign: 'center', lineHeight: 15 },
 });
 
 // ─── Section ──────────────────────────────────────────────────────────────────
@@ -250,20 +164,32 @@ export default function MatchTimelineSection({ group }: { group: string | null }
 
   return (
     <View style={tl.section}>
+      {/* Header */}
       <View style={tl.header}>
         <Text style={tl.title}>{i18n.tlTitle}</Text>
         <Text style={tl.sub}>{i18n.tlSub}</Text>
       </View>
-      {entries.map((entry) => (
-        <MatchCard key={entry.fixture.id} entry={entry} i18n={i18n} />
-      ))}
+
+      {/* Row list */}
+      <View style={tl.list}>
+        {entries.map((entry) => (
+          <MatchRow key={entry.fixture.id} entry={entry} i18n={i18n} />
+        ))}
+      </View>
     </View>
   );
 }
 
 const tl = StyleSheet.create({
-  section: { marginBottom: 8 },
-  header:  { marginBottom: 12, gap: 2 },
+  section: { marginBottom: 24 },
+  header:  { marginBottom: 10, gap: 2 },
   title:   { fontSize: 9, fontWeight: '800', color: D.text3, letterSpacing: 1.8 },
   sub:     { fontSize: 11, color: D.text2 },
+  list: {
+    backgroundColor: D.surface,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: 'rgba(80,140,255,0.10)',
+    overflow: 'hidden',
+  },
 });
