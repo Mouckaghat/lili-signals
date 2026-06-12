@@ -109,15 +109,15 @@ function MatchRow({ entry, i18n }: { entry: MatchEntry; i18n: I18n }) {
 
   return (
     <View style={[row.wrap, { borderLeftColor: color, borderLeftWidth: 2 }]}>
-      {/* Match line: home · time [· score] · away */}
+      {/* Match line: time · home vs away [· score] */}
       <Text style={row.matchLine} numberOfLines={2}>
-        <Text style={[row.team, { color: nameClr }]}>{homeTeam?.flag ?? '🏳'} {fixture.home}</Text>
-        <Text style={{ color: timeClr }}>{'  ·  '}</Text>
         <Text style={{ color: timeClr }}>{dateStr}</Text>
+        <Text style={{ color: timeClr }}>{'  ·  '}</Text>
+        <Text style={[row.team, { color: nameClr }]}>{homeTeam?.flag ?? '🏳'} {fixture.home}</Text>
+        <Text style={{ color: D.text3 }}>{' vs '}</Text>
+        <Text style={[row.team, { color: nameClr }]}>{awayTeam?.flag ?? '🏳'} {fixture.away}</Text>
         {scored && kind === 'LIVE'   && <Text style={{ color: D.red,   fontWeight: '700' }}>{'  ·  🔴 '}{homeScore}{'–'}{awayScore}</Text>}
         {scored && kind === 'PLAYED' && <Text style={{ color: D.text3, fontWeight: '700' }}>{'  ·  '}{homeScore}{'–'}{awayScore}</Text>}
-        <Text style={{ color: timeClr }}>{'  ·  '}</Text>
-        <Text style={[row.team, { color: nameClr }]}>{fixture.away} {awayTeam?.flag ?? '🏳'}</Text>
       </Text>
 
       {/* Environment line: stadium · temp · altitude */}
