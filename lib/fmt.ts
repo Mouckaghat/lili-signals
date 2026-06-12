@@ -1,4 +1,4 @@
-const TZ = 'Europe/Zurich';
+const TZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 export function fmtDate(iso: string): string {
   return new Date(iso).toLocaleDateString('en-GB', {
