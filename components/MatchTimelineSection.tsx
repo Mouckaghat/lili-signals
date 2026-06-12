@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { WC_FIXTURES, WC_TEAMS, type WCFixture } from '../lib/wcData';
-import { FIXTURE_RESULTS } from '../lib/fixtureResultsData';
+import type { FixtureResult } from '../lib/fixtureResultsData';
+import { useLiveResults } from '../lib/useLiveResults';
 import { FIXTURE_STADIUM_ID, getStadium } from '../lib/stadiumData';
 import { useLanguage } from '../contexts/LanguageContext';
 import type { I18n } from '../lib/i18n';
@@ -66,7 +67,7 @@ function fmtAlt(m: number, i18n: I18n): string {
 
 // ─── Build entries ────────────────────────────────────────────────────────────
 
-function buildEntries(group: string | null): MatchEntry[] {
+function buildEntries(group: string | null, liveResults: Record<string, FixtureResult>): MatchEntry[] {
   const fixtures = group
     ? WC_FIXTURES.filter((f) => f.group === group)
     : WC_FIXTURES.slice(0, 48);
@@ -77,7 +78,7 @@ function buildEntries(group: string | null): MatchEntry[] {
 
   let nextMarked = false;
   return sorted.map((fixture) => {
-    const result = FIXTURE_RESULTS[`${fixture.home}|${fixture.away}`];
+    const result = liveResults[`${fixture.home}|${fixture.away}`];
     const status = result?.status ?? fixture.status;
     if (status === 'FINISHED') return { fixture, kind: 'PLAYED' as MatchKind, homeScore: result?.homeScore, awayScore: result?.awayScore };
     if (status === 'LIVE')     return { fixture, kind: 'LIVE' as MatchKind,   homeScore: result?.homeScore, awayScore: result?.awayScore };
@@ -145,8 +146,9 @@ const row = StyleSheet.create({
 // ─── Section ──────────────────────────────────────────────────────────────────
 
 export default function MatchTimelineSection({ group }: { group: string | null }) {
-  const { i18n } = useLanguage();
-  const entries  = buildEntries(group);
+  const { i18n }      = useLanguage();
+  const liveResults   = useLiveResults();
+  const entries       = buildEntries(group, liveResults);
 
   return (
     <View style={tl.section}>
