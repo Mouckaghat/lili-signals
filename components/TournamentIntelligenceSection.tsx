@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { ActivityIndicator, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useTournamentIntelligence, type ScorerEntry, type TeamRankEntry } from '../lib/useTournamentIntelligence';
+import { useLineups } from '../lib/useLineups';
+import type { MatchLineup } from '../lib/lineupData';
+import { FIXTURE_RESULTS } from '../lib/fixtureResultsData';
 import { useLanguage } from '../contexts/LanguageContext';
 import type { I18n } from '../lib/i18n';
 
@@ -27,18 +30,161 @@ const D = {
 
 // ─── Tabs config ──────────────────────────────────────────────────────────────
 
-type TabKey = 'scorers' | 'attack' | 'defence' | 'cards' | 'danger' | 'surprise';
+type TabKey = 'scorers' | 'attack' | 'defence' | 'cards' | 'danger' | 'surprise' | 'tactics';
 
 function getTabs(i18n: I18n): Array<{ key: TabKey; label: string; icon: string; color: string }> {
   return [
-    { key: 'scorers',  label: i18n.tabScorers, icon: '⚽',  color: D.blue   },
-    { key: 'attack',   label: i18n.tabAttack,  icon: '🗡️',  color: D.orange },
-    { key: 'defence',  label: i18n.tabDefence, icon: '🛡️',  color: D.cyan   },
-    { key: 'cards',    label: i18n.tabCards,   icon: '🟨',  color: D.yellow },
-    { key: 'danger',   label: i18n.tabDanger,  icon: '💀',  color: D.red    },
-    { key: 'surprise', label: i18n.tabLili,    icon: '✨',  color: D.signal },
+    { key: 'scorers',  label: i18n.tabScorers,  icon: '⚽',  color: D.blue   },
+    { key: 'attack',   label: i18n.tabAttack,   icon: '🗡️',  color: D.orange },
+    { key: 'defence',  label: i18n.tabDefence,  icon: '🛡️',  color: D.cyan   },
+    { key: 'cards',    label: i18n.tabCards,    icon: '🟨',  color: D.yellow },
+    { key: 'danger',   label: i18n.tabDanger,   icon: '💀',  color: D.red    },
+    { key: 'surprise', label: i18n.tabLili,     icon: '✨',  color: D.signal },
+    { key: 'tactics',  label: i18n.tabTactics,  icon: '🧩',  color: D.green  },
   ];
 }
+
+// ─── Tactics helpers ──────────────────────────────────────────────────────────
+
+interface FormationStats {
+  formation: string;
+  games:  number;
+  wins:   number;
+  draws:  number;
+  losses: number;
+  gf:     number;
+  ga:     number;
+}
+
+function buildFormationStats(lineups: MatchLineup[]): FormationStats[] {
+  const map: Record<string, FormationStats> = {};
+
+  for (const lineup of lineups) {
+    if (!lineup.confirmed) continue;
+    const result = FIXTURE_RESULTS[lineup.fixtureKey];
+    if (!result || result.status !== 'FINISHED') continue;
+
+    const hScore = result.homeScore ?? 0;
+    const aScore = result.awayScore ?? 0;
+
+    const addResult = (formation: string, gf: number, ga: number) => {
+      if (!formation || formation === '?') return;
+      if (!map[formation]) map[formation] = { formation, games: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0 };
+      const s = map[formation];
+      s.games++;
+      s.gf += gf;
+      s.ga += ga;
+      if (gf > ga) s.wins++;
+      else if (gf === ga) s.draws++;
+      else s.losses++;
+    };
+
+    addResult(lineup.home.formation, hScore, aScore);
+    addResult(lineup.away.formation, aScore, hScore);
+  }
+
+  return Object.values(map)
+    .filter((s) => s.games >= 1)
+    .sort((a, b) => {
+      const rateA = a.wins / a.games;
+      const rateB = b.wins / b.games;
+      return rateB !== rateA ? rateB - rateA : b.games - a.games;
+    });
+}
+
+// ─── Tactics tab UI ───────────────────────────────────────────────────────────
+
+function TacticsTab({ lineups, i18n }: { lineups: MatchLineup[]; i18n: I18n }) {
+  const stats = buildFormationStats(lineups);
+
+  if (stats.length === 0) {
+    return (
+      <View style={tc.empty}>
+        <Text style={tc.emptyIcon}>🧩</Text>
+        <Text style={tc.emptyText}>{i18n.tacNoData}</Text>
+      </View>
+    );
+  }
+
+  const medals = ['①', '②', '③'];
+
+  return (
+    <View style={{ gap: 2 }}>
+      {/* Column headers */}
+      <View style={tc.headerRow}>
+        <Text style={[tc.col, tc.colFormation, tc.colHdr]}>{i18n.tacFormation}</Text>
+        <Text style={[tc.col, tc.colStat, tc.colHdr]}>{i18n.tacGames}</Text>
+        <Text style={[tc.col, tc.colStat, tc.colHdr, { color: D.green }]}>W</Text>
+        <Text style={[tc.col, tc.colStat, tc.colHdr, { color: D.text3 }]}>D</Text>
+        <Text style={[tc.col, tc.colStat, tc.colHdr, { color: D.red }]}>L</Text>
+        <Text style={[tc.col, tc.colRate, tc.colHdr]}>{i18n.tacWinRate}</Text>
+      </View>
+
+      {stats.map((s, i) => {
+        const pct     = Math.round((s.wins / s.games) * 100);
+        const isTop   = i < 3;
+        const barColor = i === 0 ? D.gold : i === 1 ? D.text2 : i === 2 ? '#CD7F32' : D.blue;
+
+        return (
+          <View key={s.formation} style={[tc.row, i === 0 && tc.rowFirst]}>
+            <Text style={[tc.col, tc.colFormation]}>
+              <Text style={{ color: isTop ? barColor : D.text3 }}>
+                {isTop ? medals[i] : `${i + 1}`}{' '}
+              </Text>
+              <Text style={[tc.formation, { color: isTop ? D.text1 : D.text2 }]}>{s.formation}</Text>
+            </Text>
+            <Text style={[tc.col, tc.colStat, { color: D.text3 }]}>{s.games}</Text>
+            <Text style={[tc.col, tc.colStat, { color: D.green,  fontWeight: '700' }]}>{s.wins}</Text>
+            <Text style={[tc.col, tc.colStat, { color: D.text3 }]}>{s.draws}</Text>
+            <Text style={[tc.col, tc.colStat, { color: D.red,    fontWeight: '700' }]}>{s.losses}</Text>
+            <View style={[tc.col, tc.colRate]}>
+              <View style={tc.barBg}>
+                <View style={[tc.barFill, { width: `${pct}%` as any, backgroundColor: barColor }]} />
+              </View>
+              <Text style={[tc.pct, { color: isTop ? barColor : D.text2 }]}>{pct}%</Text>
+            </View>
+          </View>
+        );
+      })}
+
+      {/* Confirmed / Predicted legend */}
+      <View style={tc.legend}>
+        {lineups.some((l) => l.confirmed) && (
+          <Text style={tc.legendItem}>
+            <Text style={{ color: D.green }}>● </Text>
+            <Text>{i18n.tacConfirmed}</Text>
+          </Text>
+        )}
+        {lineups.some((l) => !l.confirmed) && (
+          <Text style={tc.legendItem}>
+            <Text style={{ color: D.text3 }}>● </Text>
+            <Text>{i18n.tacPredicted}</Text>
+          </Text>
+        )}
+      </View>
+    </View>
+  );
+}
+
+const tc = StyleSheet.create({
+  empty:        { alignItems: 'center', paddingVertical: 28, gap: 6 },
+  emptyIcon:    { fontSize: 28 },
+  emptyText:    { fontSize: 12, color: D.text3, textAlign: 'center' },
+  headerRow:    { flexDirection: 'row', paddingBottom: 6, borderBottomWidth: 1, borderBottomColor: D.border, marginBottom: 4 },
+  row:          { flexDirection: 'row', alignItems: 'center', paddingVertical: 7, borderBottomWidth: 1, borderBottomColor: 'rgba(80,140,255,0.04)' },
+  rowFirst:     { paddingTop: 0 },
+  col:          { fontSize: 11 },
+  colHdr:       { fontSize: 8, fontWeight: '800', color: D.text3, letterSpacing: 0.8 },
+  colFormation: { flex: 3 },
+  colStat:      { flex: 1, textAlign: 'center' },
+  colRate:      { flex: 3, flexDirection: 'row', alignItems: 'center', gap: 6 },
+  formation:    { fontSize: 13, fontWeight: '700', letterSpacing: 0.5 },
+  barBg:        { flex: 1, height: 5, borderRadius: 3, backgroundColor: 'rgba(80,140,255,0.10)', overflow: 'hidden' },
+  barFill:      { height: 5, borderRadius: 3 },
+  pct:          { fontSize: 10, fontWeight: '700', width: 30, textAlign: 'right' },
+  legend:       { flexDirection: 'row', gap: 12, paddingTop: 10, justifyContent: 'flex-end' },
+  legendItem:   { fontSize: 9, color: D.text3 },
+});
 
 // ─── Section header ───────────────────────────────────────────────────────────
 
@@ -230,7 +376,8 @@ const nd = StyleSheet.create({
 
 export default function TournamentIntelligenceSection() {
   const { data, loading } = useTournamentIntelligence();
-  const { i18n } = useLanguage();
+  const { i18n }          = useLanguage();
+  const lineups           = useLineups();
   const [activeTab, setActiveTab] = useState<TabKey>('scorers');
 
   const TABS = getTabs(i18n);
@@ -331,6 +478,10 @@ export default function TournamentIntelligenceSection() {
                     ))
                 }
               </>
+            )}
+
+            {activeTab === 'tactics' && (
+              <TacticsTab lineups={lineups} i18n={i18n} />
             )}
           </>
         )}

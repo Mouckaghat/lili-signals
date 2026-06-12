@@ -338,6 +338,16 @@ export interface I18n {
   tlToday: string;
   tlTomorrow: string;
   tlSeaLevel: string;
+  // ── Tactics Tab ──────────────────────────────────────────────────────────
+  tabTactics: string;
+  tacTitle: string;
+  tacSub: string;
+  tacFormation: string;
+  tacGames: string;
+  tacWinRate: string;
+  tacNoData: string;
+  tacConfirmed: string;
+  tacPredicted: string;
 }
 
 export const I18N: Record<LangCode, I18n> = {
@@ -555,6 +565,9 @@ export const I18N: Record<LangCode, I18n> = {
     tlTitle: 'LILI MATCH TIMELINE', tlSub: 'Past, live and upcoming games',
     tlPlayed: 'PLAYED', tlLive: 'LIVE', tlNext: 'NEXT', tlUpcoming: 'UPCOMING',
     tlToday: 'Today', tlTomorrow: 'Tomorrow', tlSeaLevel: '~Sea level',
+    tabTactics: 'TACTICS', tacTitle: 'TACTICAL ANALYSIS', tacSub: 'Formation win rates across the tournament',
+    tacFormation: 'Formation', tacGames: 'GP', tacWinRate: 'Win rate',
+    tacNoData: 'Lineups appear ~1h before kickoff', tacConfirmed: 'Confirmed', tacPredicted: 'Predicted',
   },
 
   FR: {
@@ -771,6 +784,9 @@ export const I18N: Record<LangCode, I18n> = {
     tlTitle: 'CALENDRIER DES MATCHS LILI', tlSub: 'Matchs passés, en cours et à venir',
     tlPlayed: 'JOUÉ', tlLive: 'EN DIRECT', tlNext: 'PROCHAIN', tlUpcoming: 'À VENIR',
     tlToday: "Aujourd'hui", tlTomorrow: 'Demain', tlSeaLevel: '~Niveau mer',
+    tabTactics: 'TACTIQUE', tacTitle: 'ANALYSE TACTIQUE', tacSub: 'Taux de victoire par formation dans le tournoi',
+    tacFormation: 'Formation', tacGames: 'MJ', tacWinRate: 'Victoires',
+    tacNoData: "Compos disponibles ~1h avant le coup d'envoi", tacConfirmed: 'Confirmée', tacPredicted: 'Probable',
   },
 
   IT: {
@@ -987,6 +1003,9 @@ export const I18N: Record<LangCode, I18n> = {
     tlTitle: 'CALENDARIO PARTITE LILI', tlSub: 'Partite passate, in corso e future',
     tlPlayed: 'GIOCATO', tlLive: 'IN DIRETTA', tlNext: 'PROSSIMA', tlUpcoming: 'PROSSIMAMENTE',
     tlToday: 'Oggi', tlTomorrow: 'Domani', tlSeaLevel: '~Livello mare',
+    tabTactics: 'TATTICA', tacTitle: 'ANALISI TATTICA', tacSub: 'Tasso di vittoria per modulo nel torneo',
+    tacFormation: 'Modulo', tacGames: 'PG', tacWinRate: 'Vittorie',
+    tacNoData: 'Formazioni disponibili ~1h prima del fischio', tacConfirmed: 'Confermata', tacPredicted: 'Probabile',
   },
 
   DE: {
@@ -1203,6 +1222,9 @@ export const I18N: Record<LangCode, I18n> = {
     tlTitle: 'LILI SPIELKALENDER', tlSub: 'Vergangene, laufende und kommende Spiele',
     tlPlayed: 'GESPIELT', tlLive: 'LIVE', tlNext: 'NÄCHSTES', tlUpcoming: 'BALD',
     tlToday: 'Heute', tlTomorrow: 'Morgen', tlSeaLevel: '~Meereshöhe',
+    tabTactics: 'TAKTIK', tacTitle: 'TAKTISCHE ANALYSE', tacSub: 'Siegquoten nach Formation im Turnier',
+    tacFormation: 'Formation', tacGames: 'Sp', tacWinRate: 'Siegrate',
+    tacNoData: 'Aufstellungen ~1h vor Anpfiff verfügbar', tacConfirmed: 'Bestätigt', tacPredicted: 'Voraussichtlich',
   },
 
   ES: {
@@ -1419,6 +1441,9 @@ export const I18N: Record<LangCode, I18n> = {
     tlTitle: 'CALENDARIO DE PARTIDOS LILI', tlSub: 'Partidos pasados, en vivo y próximos',
     tlPlayed: 'JUGADO', tlLive: 'EN VIVO', tlNext: 'PRÓXIMO', tlUpcoming: 'PRÓXIMAMENTE',
     tlToday: 'Hoy', tlTomorrow: 'Mañana', tlSeaLevel: '~Nivel del mar',
+    tabTactics: 'TÁCTICA', tacTitle: 'ANÁLISIS TÁCTICO', tacSub: 'Tasa de victorias por formación en el torneo',
+    tacFormation: 'Formación', tacGames: 'PJ', tacWinRate: 'Victorias',
+    tacNoData: 'Alineaciones disponibles ~1h antes del partido', tacConfirmed: 'Confirmada', tacPredicted: 'Probable',
   },
 
   RU: {
@@ -1635,6 +1660,9 @@ export const I18N: Record<LangCode, I18n> = {
     tlTitle: 'РАСПИСАНИЕ МАТЧЕЙ ЛИЛИ', tlSub: 'Прошедшие, текущие и предстоящие матчи',
     tlPlayed: 'СЫГРАН', tlLive: 'ПРЯМОЙ ЭФИР', tlNext: 'СЛЕДУЮЩИЙ', tlUpcoming: 'СКОРО',
     tlToday: 'Сегодня', tlTomorrow: 'Завтра', tlSeaLevel: '~Уровень моря',
+    tabTactics: 'ТАКТИКА', tacTitle: 'ТАКТИЧЕСКИЙ АНАЛИЗ', tacSub: 'Процент побед по схемам на турнире',
+    tacFormation: 'Схема', tacGames: 'И', tacWinRate: 'Победы',
+    tacNoData: 'Составы появятся ~за 1ч до начала', tacConfirmed: 'Подтверждён', tacPredicted: 'Прогноз',
   },
 
   CN: {
@@ -1851,6 +1879,9 @@ export const I18N: Record<LangCode, I18n> = {
     tlTitle: '莉莉赛程时间线', tlSub: '已完成、进行中及即将到来的比赛',
     tlPlayed: '已完成', tlLive: '直播', tlNext: '下一场', tlUpcoming: '即将开始',
     tlToday: '今天', tlTomorrow: '明天', tlSeaLevel: '~海平面',
+    tabTactics: '战术', tacTitle: '战术分析', tacSub: '本届锦标赛各阵型胜率统计',
+    tacFormation: '阵型', tacGames: '场', tacWinRate: '胜率',
+    tacNoData: '首发阵容将在开球前约1小时公布', tacConfirmed: '已确认', tacPredicted: '预测',
   },
 
   JP: {
@@ -2067,6 +2098,9 @@ export const I18N: Record<LangCode, I18n> = {
     tlTitle: 'リリ試合スケジュール', tlSub: '過去・進行中・今後の試合',
     tlPlayed: '終了', tlLive: 'ライブ', tlNext: '次の試合', tlUpcoming: '近日開催',
     tlToday: '今日', tlTomorrow: '明日', tlSeaLevel: '~海抜0m',
+    tabTactics: '戦術', tacTitle: '戦術分析', tacSub: 'トーナメントのフォーメーション勝率',
+    tacFormation: 'フォーメーション', tacGames: '試合', tacWinRate: '勝率',
+    tacNoData: '先発は試合開始約1時間前に公開', tacConfirmed: '確定', tacPredicted: '予想',
   },
 
   KR: {
@@ -2283,6 +2317,9 @@ export const I18N: Record<LangCode, I18n> = {
     tlTitle: '릴리 경기 일정', tlSub: '지난 경기, 진행 중, 예정된 경기',
     tlPlayed: '종료', tlLive: '라이브', tlNext: '다음 경기', tlUpcoming: '예정',
     tlToday: '오늘', tlTomorrow: '내일', tlSeaLevel: '~해수면',
+    tabTactics: '전술', tacTitle: '전술 분석', tacSub: '대회 포메이션별 승률',
+    tacFormation: '포메이션', tacGames: '경기', tacWinRate: '승률',
+    tacNoData: '선발 명단은 킥오프 ~1시간 전 공개', tacConfirmed: '확정', tacPredicted: '예상',
   },
 
   PT: {
@@ -2499,6 +2536,9 @@ export const I18N: Record<LangCode, I18n> = {
     tlTitle: 'CALENDÁRIO DE JOGOS LILI', tlSub: 'Jogos passados, ao vivo e próximos',
     tlPlayed: 'JOGADO', tlLive: 'AO VIVO', tlNext: 'PRÓXIMO', tlUpcoming: 'EM BREVE',
     tlToday: 'Hoje', tlTomorrow: 'Amanhã', tlSeaLevel: '~Nível do mar',
+    tabTactics: 'TÁTICA', tacTitle: 'ANÁLISE TÁTICA', tacSub: 'Taxa de vitórias por formação no torneio',
+    tacFormation: 'Formação', tacGames: 'PJ', tacWinRate: 'Vitórias',
+    tacNoData: 'Escalações disponíveis ~1h antes do jogo', tacConfirmed: 'Confirmada', tacPredicted: 'Provável',
   },
 
   AR: {
@@ -2715,5 +2755,8 @@ export const I18N: Record<LangCode, I18n> = {
     tlTitle: 'جدول مباريات ليلى', tlSub: 'المباريات المنتهية والحية والقادمة',
     tlPlayed: 'انتهت', tlLive: 'مباشر', tlNext: 'القادمة', tlUpcoming: 'قريباً',
     tlToday: 'اليوم', tlTomorrow: 'غداً', tlSeaLevel: '~مستوى البحر',
+    tabTactics: 'تكتيك', tacTitle: 'التحليل التكتيكي', tacSub: 'معدل الفوز لكل تشكيل في البطولة',
+    tacFormation: 'تشكيل', tacGames: 'م', tacWinRate: 'نسبة الفوز',
+    tacNoData: 'التشكيلات متاحة قبل ~1 ساعة من الانطلاق', tacConfirmed: 'مؤكد', tacPredicted: 'متوقع',
   },
 };

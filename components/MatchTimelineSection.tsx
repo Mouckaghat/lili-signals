@@ -2,6 +2,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import { WC_FIXTURES, WC_TEAMS, type WCFixture } from '../lib/wcData';
 import type { FixtureResult } from '../lib/fixtureResultsData';
 import { useLiveResults } from '../lib/useLiveResults';
+import { useLineups } from '../lib/useLineups';
+import type { MatchLineup } from '../lib/lineupData';
 import { FIXTURE_STADIUM_ID, getStadium } from '../lib/stadiumData';
 import { useLanguage } from '../contexts/LanguageContext';
 import type { I18n } from '../lib/i18n';
@@ -89,7 +91,7 @@ function buildEntries(group: string | null, liveResults: Record<string, FixtureR
 
 // ─── Match row ────────────────────────────────────────────────────────────────
 
-function MatchRow({ entry, i18n }: { entry: MatchEntry; i18n: I18n }) {
+function MatchRow({ entry, lineup, i18n }: { entry: MatchEntry; lineup?: MatchLineup; i18n: I18n }) {
   const { fixture, kind, homeScore, awayScore } = entry;
   const color    = KIND_COLOR[kind];
   const homeTeam = WC_TEAMS.find((t) => t.name === fixture.home);
@@ -110,12 +112,18 @@ function MatchRow({ entry, i18n }: { entry: MatchEntry; i18n: I18n }) {
 
   return (
     <View style={[row.wrap, { borderLeftColor: color, borderLeftWidth: 2 }]}>
-      {/* Match line: time · home vs away [· score] */}
+      {/* Match line: time · home [4-3-3] vs [3-5-2] away [· score] */}
       <Text style={row.matchLine} numberOfLines={2}>
         <Text style={{ color: timeClr }}>{dateStr}</Text>
         <Text style={{ color: timeClr }}>{'  ·  '}</Text>
         <Text style={[row.team, { color: nameClr }]}>{homeTeam?.flag ?? '🏳'} {fixture.home}</Text>
+        {lineup?.home.formation && lineup.home.formation !== '?' && (
+          <Text style={row.formation}>{' ['}{lineup.home.formation}{']'}</Text>
+        )}
         <Text style={{ color: D.text3 }}>{' vs '}</Text>
+        {lineup?.away.formation && lineup.away.formation !== '?' && (
+          <Text style={row.formation}>{' ['}{lineup.away.formation}{'] '}</Text>
+        )}
         <Text style={[row.team, { color: nameClr }]}>{awayTeam?.flag ?? '🏳'} {fixture.away}</Text>
         {scored && kind === 'LIVE'   && <Text style={{ color: D.red,   fontWeight: '700' }}>{'  ·  🔴 '}{homeScore}{'–'}{awayScore}</Text>}
         {scored && kind === 'PLAYED' && <Text style={{ color: D.text3, fontWeight: '700' }}>{'  ·  '}{homeScore}{'–'}{awayScore}</Text>}
@@ -140,15 +148,19 @@ const row = StyleSheet.create({
   },
   matchLine: { fontSize: 12, lineHeight: 18 },
   team:      { fontWeight: '700' },
+  formation: { fontSize: 10, color: D.text3, fontWeight: '400' },
   env:       { fontSize: 10, color: D.text3, lineHeight: 15, paddingLeft: 2 },
 });
 
 // ─── Section ──────────────────────────────────────────────────────────────────
 
 export default function MatchTimelineSection({ group }: { group: string | null }) {
-  const { i18n }      = useLanguage();
-  const liveResults   = useLiveResults();
-  const entries       = buildEntries(group, liveResults);
+  const { i18n }    = useLanguage();
+  const liveResults = useLiveResults();
+  const allLineups  = useLineups();
+  const entries     = buildEntries(group, liveResults);
+
+  const lineupByKey = new Map(allLineups.map((l) => [l.fixtureKey, l]));
 
   return (
     <View style={tl.section}>
@@ -161,7 +173,12 @@ export default function MatchTimelineSection({ group }: { group: string | null }
       {/* Row list */}
       <View style={tl.list}>
         {entries.map((entry) => (
-          <MatchRow key={entry.fixture.id} entry={entry} i18n={i18n} />
+          <MatchRow
+            key={entry.fixture.id}
+            entry={entry}
+            lineup={lineupByKey.get(`${entry.fixture.home}|${entry.fixture.away}`)}
+            i18n={i18n}
+          />
         ))}
       </View>
     </View>
