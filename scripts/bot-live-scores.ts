@@ -24,6 +24,7 @@ function espnUrl(): string {
 
 const TEAM: Record<string, string> = {
   'Bosnia and Herzegovina': 'Bosnia & Herzegovina',
+  'Bosnia-Herzegovina':     'Bosnia & Herzegovina',
   'Korea Republic':         'South Korea',
   'United States':          'USA',
   "Côte d'Ivoire":          'Ivory Coast',
@@ -64,8 +65,8 @@ async function scrape(): Promise<Record<string, Score>> {
     if (!home || !away) continue;
 
     const typeName: string = ev.status?.type?.name ?? '';
-    const isLive     = typeName === 'STATUS_IN_PROGRESS' || typeName === 'STATUS_HALFTIME';
-    const isFinished = typeName === 'STATUS_FINAL';
+    const isLive     = typeName === 'STATUS_IN_PROGRESS' || typeName === 'STATUS_HALFTIME' || typeName === 'STATUS_END_PERIOD';
+    const isFinished = typeName === 'STATUS_FINAL' || typeName === 'STATUS_FULL_TIME';
     if (!isLive && !isFinished) continue;
 
     const key = `${norm(home.team?.displayName)}|${norm(away.team?.displayName)}`;
