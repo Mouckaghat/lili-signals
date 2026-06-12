@@ -1,0 +1,39 @@
+name: "🤖 Lili Bot — Live Scores"
+
+# Runs every 5 min during tournament hours.
+# The script itself loops every 30 s internally for the full window,
+# so scores are always fresh without relying on any paid API.
+
+on:
+  schedule:
+    # Every 5 min — June group stage (11–30) + July knockouts (1–19), full 24h
+    - cron: '*/5 * 11-30 6 *'
+    - cron: '*/5 * 1-19 7 *'
+
+  # Trigger manually from the Actions tab for testing
+  workflow_dispatch:
+
+jobs:
+  bot:
+    name: Scrape ESPN → Redis
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --prefer-offline
+
+      - name: Run live-scores bot
+        run: npx tsx scripts/bot-live-scores.ts
+        env:
+          KV_REST_API_URL:   ${{ secrets.KV_REST_API_URL }}
+          KV_REST_API_TOKEN: ${{ secrets.KV_REST_API_TOKEN }}

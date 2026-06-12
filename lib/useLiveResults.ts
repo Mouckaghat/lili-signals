@@ -50,7 +50,7 @@ export function useLiveResults(): Record<string, FixtureResult> {
       async function poll() {
         if (!active) return;
         try {
-          const res = await fetch('/api/live-scores');
+          const res = await fetch('/api/kv-live-scores');
           if (!res.ok) return;
           const data = await res.json() as { scores?: Record<string, any> };
           const score = data.scores?.[key];
