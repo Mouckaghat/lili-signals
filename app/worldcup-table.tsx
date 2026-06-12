@@ -13,6 +13,7 @@ import { type FixtureResult } from '../lib/fixtureResultsData';
 import { useLiveResults } from '../lib/useLiveResults';
 import { GROUP_STANDINGS } from '../lib/standingsData';
 import FeatureIntro from '../components/FeatureIntro';
+import MatchTimelineSection from '../components/MatchTimelineSection';
 import { playerByPath } from '../lib/playerXI';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -343,6 +344,7 @@ export default function WorldCupTableScreen() {
       </View>
 
       <ScrollView style={st.scroll} contentContainerStyle={st.content}>
+        <MatchTimelineSection group={selectedGroup} />
         {displayGroups.map((g) => (
           <GroupTable key={g} group={g} liveResults={liveResults} />
         ))}

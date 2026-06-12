@@ -18,9 +18,11 @@ export interface StadiumInfo {
   groups: string[];
   specialMatch?: 'Opening' | 'Final';
   coords: [number, number]; // [lat, lon]
+  altitudeM: number;     // metres above sea level
+  tempJuneC: number;     // typical June temperature °C
 }
 
-// ─── 15 WC 2026 Venues ────────────────────────────────────────────────────────
+// ─── 16 WC 2026 Venues ───────────────────────────────────────────────────────
 
 export const STADIUMS: StadiumInfo[] = [
   {
@@ -39,6 +41,8 @@ export const STADIUMS: StadiumInfo[] = [
     groups: ['A', 'C', 'D', 'E', 'F', 'H', 'I', 'J'],
     specialMatch: 'Final',
     coords: [40.8135, -74.0745],
+    altitudeM: 5,
+    tempJuneC: 25,
     identity:
       "The Final stage. MetLife carries the weight of the entire tournament's closing chapter — the largest purpose-built NFL stadium on the East Coast becomes a global amphitheatre. Eight group-stage matches. One Final. Every major confederation passes through here. The New York market brings a media density and cultural intensity that amplifies every fixture held within these walls.",
   },
@@ -57,6 +61,8 @@ export const STADIUMS: StadiumInfo[] = [
     pressureIndex: 9,
     groups: ['A', 'B', 'C', 'D', 'G', 'I', 'J', 'K'],
     coords: [32.7480, -97.0930],
+    altitudeM: 189,
+    tempJuneC: 31,
     identity:
       "The Lone Star Cathedral. AT&T Stadium's retractable roof and its colossal suspended video screen create a sensory environment unlike any other venue in world football. In Texas, all football is religion — and this structure was built for ceremony. Lili consistently assigns elevated pressure coefficients to every team that arrives in Arlington.",
   },
@@ -76,6 +82,8 @@ export const STADIUMS: StadiumInfo[] = [
     groups: ['B', 'F', 'H'],
     specialMatch: 'Opening',
     coords: [19.3030, -99.1506],
+    altitudeM: 2240,
+    tempJuneC: 18,
     identity:
       "The most storied football cathedral in the Western Hemisphere. Azteca has witnessed Pelé's brilliance and Maradona's genius. At 2,240 metres altitude, with 87,000 voices compressed into a bowl that has never been silent, it applies a pressure coefficient no other venue in this tournament can replicate. The Opening match begins here — where history always begins.",
   },
@@ -94,6 +102,8 @@ export const STADIUMS: StadiumInfo[] = [
     pressureIndex: 8,
     groups: ['C', 'D', 'G', 'H'],
     coords: [39.0490, -94.4840],
+    altitudeM: 265,
+    tempJuneC: 27,
     identity:
       "Consistently ranked the loudest NFL stadium on the continent. Arrowhead's bowl design traps and amplifies crowd noise to physiologically disorienting levels — recorded peaks exceed 140 dB. For visiting teams unaccustomed to this atmospheric compression, Kansas City represents one of the tournament's most underestimated psychological tests.",
   },
@@ -112,6 +122,8 @@ export const STADIUMS: StadiumInfo[] = [
     pressureIndex: 7,
     groups: ['B', 'E', 'F', 'I', 'K'],
     coords: [33.7553, -84.4006],
+    altitudeM: 309,
+    tempJuneC: 27,
     identity:
       "Atlanta's retractable-roof arena is architecturally singular — a halo roof with eight moving petals designed to resemble a camera aperture opening. The interior creates a theatre of controlled atmosphere. Lili rates it for its visual intensity and contained crowd energy — a stadium that rewards technical football with a dramatic frame.",
   },
@@ -130,6 +142,8 @@ export const STADIUMS: StadiumInfo[] = [
     pressureIndex: 8,
     groups: ['A', 'B', 'D', 'G', 'H', 'K', 'L'],
     coords: [33.9535, -118.3392],
+    altitudeM: 52,
+    tempJuneC: 22,
     identity:
       "The most expensive stadium ever constructed. SoFi's translucent canopy and sunken field create a venue that feels simultaneously open and intimate. Los Angeles brings global media density and genuine football diaspora — the CA fanbase generates atmospheric pressure that surprises visiting teams. The Hollywood effect is real.",
   },
@@ -148,6 +162,8 @@ export const STADIUMS: StadiumInfo[] = [
     pressureIndex: 8,
     groups: ['A', 'C', 'K', 'L'],
     coords: [47.5952, -122.3316],
+    altitudeM: 4,
+    tempJuneC: 18,
     identity:
       "Seattle's enclosed stadium generates its own acoustic weather system. The partial roof creates a noise trap that once recorded 137.6 dB — at the time a world record for crowd noise. For visiting teams unaccustomed to this compression, Lumen Field is a disorienting environment. Lili flags it consistently as an upset-probability multiplier.",
   },
@@ -166,6 +182,8 @@ export const STADIUMS: StadiumInfo[] = [
     pressureIndex: 7,
     groups: ['E', 'F', 'J', 'L'],
     coords: [39.9009, -75.1674],
+    altitudeM: 10,
+    tempJuneC: 26,
     identity:
       "Philadelphia carries an edge that transfers to every major event held here. Lincoln Financial's compact bowl and the city's uncompromising fan culture create a particular atmosphere for European and South American teams unused to crowd hostility from a non-home fixture. Lili notes this as a venue where expected scorelines compress.",
   },
@@ -184,6 +202,8 @@ export const STADIUMS: StadiumInfo[] = [
     pressureIndex: 6,
     groups: ['B', 'G', 'I', 'J'],
     coords: [37.4033, -121.9694],
+    altitudeM: 17,
+    tempJuneC: 20,
     identity:
       "Silicon Valley's stadium sits within walking distance of Apple Park. Levi's brings the Bay Area's cosmopolitan diversity — a genuinely global crowd that creates a festival atmosphere rather than pure football tribalism. Lili rates it moderately on pressure but highly on spectacle. The stadium that believes technology and football belong together.",
   },
@@ -202,6 +222,8 @@ export const STADIUMS: StadiumInfo[] = [
     pressureIndex: 8,
     groups: ['A', 'D', 'F', 'H', 'K', 'L'],
     coords: [25.9580, -80.2389],
+    altitudeM: 2,
+    tempJuneC: 31,
     identity:
       "Miami's heat, its Latin pulse, its football diaspora. Hard Rock carries the energy of a city that contains multitudes — Caribbean passion, South American intensity, European expectation. For CONMEBOL teams especially, playing in Miami approaches a home fixture. Lili weights this crowd-advantage variable carefully in its probability engine.",
   },
@@ -220,8 +242,30 @@ export const STADIUMS: StadiumInfo[] = [
     pressureIndex: 7,
     groups: ['B', 'D', 'H', 'J', 'K', 'L'],
     coords: [42.0909, -71.2643],
+    altitudeM: 11,
+    tempJuneC: 23,
     identity:
       "New England's sporting cathedral carries the weight of multiple dynasties. Gillette's compact bowl and the potential for cold-weather conditions create variables that fundamentally alter match dynamics. Lili identifies it as one of the tournament's most tactically demanding environments — preparation matters more here than at any other USA venue.",
+  },
+  {
+    id: 'nrg',
+    name: 'NRG Stadium',
+    shortName: 'NRG',
+    city: 'Houston',
+    state: 'Texas',
+    country: 'USA',
+    flag: '🇺🇸',
+    capacity: 72_220,
+    opened: 2002,
+    surface: 'Grass',
+    atmosphereTag: 'Electric',
+    pressureIndex: 8,
+    groups: ['E', 'F', 'K'],
+    coords: [29.6847, -95.4107],
+    altitudeM: 12,
+    tempJuneC: 32,
+    identity:
+      "Houston in June is the tournament's most thermally demanding environment. NRG's retractable roof is used for NFL games but remains open for football — exposing players to Gulf Coast heat and humidity that statistically compress second-half performance margins. Lili weights heat-acclimatisation variables here more than at any other USA venue.",
   },
   {
     id: 'bc',
@@ -238,6 +282,8 @@ export const STADIUMS: StadiumInfo[] = [
     pressureIndex: 6,
     groups: ['C', 'G', 'I', 'L'],
     coords: [49.2767, -123.1116],
+    altitudeM: 1,
+    tempJuneC: 17,
     identity:
       "Vancouver's covered arena brings a unique sonic character — the retractable roof can either open to Pacific air or seal in crowd sound. As Canada's westernmost venue, BC Place carries a frontier energy. The city's multicultural football community creates unexpectedly intense atmospheres for global fixtures. A quiet surprise in the tournament roster.",
   },
@@ -256,6 +302,8 @@ export const STADIUMS: StadiumInfo[] = [
     pressureIndex: 5,
     groups: ['C'],
     coords: [43.6333, -79.4184],
+    altitudeM: 76,
+    tempJuneC: 22,
     identity:
       "The tournament's most intimate venue — but Toronto's density and football passion punch well above BMO's 45,000 capacity. Canada's largest city carries MLS heritage, global diaspora communities, and a newly emerged national football identity. Lili identifies BMO as a venue where upset potential is structurally underestimated by pre-match models.",
   },
@@ -274,6 +322,8 @@ export const STADIUMS: StadiumInfo[] = [
     pressureIndex: 7,
     groups: ['E', 'G', 'I'],
     coords: [25.6691, -100.2396],
+    altitudeM: 537,
+    tempJuneC: 29,
     identity:
       "Estadio BBVA is architecturally framed by Cerro de la Silla — the mountain becomes part of the backdrop, creating a stadium with no visual parallel in the tournament. Monterrey's industrial intensity translates directly into crowd character. Lili rates BBVA as one of the most underestimated atmospheric venues in the competition.",
   },
@@ -292,6 +342,8 @@ export const STADIUMS: StadiumInfo[] = [
     pressureIndex: 7,
     groups: ['E', 'F', 'J'],
     coords: [20.6765, -103.3920],
+    altitudeM: 1561,
+    tempJuneC: 22,
     identity:
       "Mexico's second city carries a football identity distinct from Mexico City's Azteca gravity. Guadalajara's culture is fierce, local, and proudly Jalisco. Estadio Akron's compact bowl concentrates that intensity. For European teams playing their first Mexican venue — the combination of altitude, heat and crowd creates a compound variable Lili weights significantly.",
   },
@@ -319,6 +371,7 @@ export const FIXTURE_STADIUM_ID: Record<string, string> = {
   "Levi's Stadium":         'levis',
   'Hard Rock Stadium':      'hardrock',
   'Gillette Stadium':       'gillette',
+  'NRG Stadium':            'nrg',
   'BC Place':               'bc',
   'BMO Field':              'bmo',
   'Estadio Azteca':         'azteca',
