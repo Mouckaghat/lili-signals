@@ -95,65 +95,51 @@ function MatchRow({ entry, i18n }: { entry: MatchEntry; i18n: I18n }) {
   const awayTeam = WC_TEAMS.find((t) => t.name === fixture.away);
   const stadium  = getStadium(FIXTURE_STADIUM_ID[fixture.stadium] ?? '');
 
-  // ── Centre meta string ──────────────────────────────────────────────────────
   const dateStr = fmtDate(fixture.date, i18n);
   const scored  = homeScore != null && awayScore != null;
+  const nameClr = kind === 'PLAYED' ? D.text2 : D.text1;
+  const timeClr = kind === 'LIVE' ? D.red : kind === 'NEXT' ? D.gold : D.text2;
 
-  const parts: string[] = [dateStr];
-  if (kind === 'PLAYED' && scored) parts.push(`${homeScore} – ${awayScore}`);
-  if (kind === 'LIVE'   && scored) parts.push(`🔴 ${homeScore} – ${awayScore}`);
+  const envParts: string[] = [];
   if (stadium) {
-    parts.push(stadium.shortName);
-    parts.push(`🌡 ${stadium.tempJuneC}°`);
-    parts.push(fmtAlt(stadium.altitudeM, i18n));
+    envParts.push(`🏟 ${stadium.shortName}, ${stadium.city}`);
+    envParts.push(`🌡 ${stadium.tempJuneC}°C`);
+    envParts.push(fmtAlt(stadium.altitudeM, i18n));
   }
-  const metaStr = parts.join('  ·  ');
 
   return (
     <View style={[row.wrap, { borderLeftColor: color, borderLeftWidth: 2 }]}>
-      {/* Home */}
-      <View style={row.teamLeft}>
-        <Text style={row.flag}>{homeTeam?.flag ?? '🏳'}</Text>
-        <Text style={row.nameLeft} numberOfLines={1}>{fixture.home}</Text>
-      </View>
+      {/* Match line: home · time [· score] · away */}
+      <Text style={row.matchLine} numberOfLines={2}>
+        <Text style={[row.team, { color: nameClr }]}>{homeTeam?.flag ?? '🏳'} {fixture.home}</Text>
+        <Text style={{ color: timeClr }}>{'  ·  '}</Text>
+        <Text style={{ color: timeClr }}>{dateStr}</Text>
+        {scored && kind === 'LIVE'   && <Text style={{ color: D.red,   fontWeight: '700' }}>{'  ·  🔴 '}{homeScore}{'–'}{awayScore}</Text>}
+        {scored && kind === 'PLAYED' && <Text style={{ color: D.text3, fontWeight: '700' }}>{'  ·  '}{homeScore}{'–'}{awayScore}</Text>}
+        <Text style={{ color: timeClr }}>{'  ·  '}</Text>
+        <Text style={[row.team, { color: nameClr }]}>{fixture.away} {awayTeam?.flag ?? '🏳'}</Text>
+      </Text>
 
-      {/* Centre */}
-      <View style={row.centre}>
-        <Text style={[row.meta, { color: kind === 'LIVE' ? D.red : kind === 'NEXT' ? D.gold : D.text2 }]}
-              numberOfLines={2}
-              textBreakStrategy="balanced"
-        >
-          {metaStr}
-        </Text>
-      </View>
-
-      {/* Away */}
-      <View style={row.teamRight}>
-        <Text style={row.nameRight} numberOfLines={1}>{fixture.away}</Text>
-        <Text style={row.flag}>{awayTeam?.flag ?? '🏳'}</Text>
-      </View>
+      {/* Environment line: stadium · temp · altitude */}
+      {envParts.length > 0 && (
+        <Text style={row.env} numberOfLines={1}>{envParts.join('  ·  ')}</Text>
+      )}
     </View>
   );
 }
 
 const row = StyleSheet.create({
   wrap: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 11,
+    paddingVertical: 10,
     paddingRight: 12,
     paddingLeft: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: D.border,
-    gap: 8,
+    gap: 3,
   },
-  teamLeft:  { flex: 3, flexDirection: 'row', alignItems: 'center', gap: 6 },
-  teamRight: { flex: 3, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', gap: 6 },
-  flag:      { fontSize: 18 },
-  nameLeft:  { fontSize: 12, fontWeight: '700', color: D.text1, flex: 1 },
-  nameRight: { fontSize: 12, fontWeight: '700', color: D.text1, flex: 1, textAlign: 'right' },
-  centre:    { flex: 4, alignItems: 'center' },
-  meta:      { fontSize: 10, textAlign: 'center', lineHeight: 15 },
+  matchLine: { fontSize: 12, lineHeight: 18 },
+  team:      { fontWeight: '700' },
+  env:       { fontSize: 10, color: D.text3, lineHeight: 15, paddingLeft: 2 },
 });
 
 // ─── Section ──────────────────────────────────────────────────────────────────
