@@ -55,6 +55,13 @@ const sh = StyleSheet.create({
 
 // ─── Scorer row ───────────────────────────────────────────────────────────────
 
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function fmtDob(dob: string): string {
+  const [, mm, dd] = dob.split('-');
+  return `${parseInt(dd, 10)} ${MONTHS[parseInt(mm, 10) - 1]} ${dob.slice(0, 4)}`;
+}
+
 function wcLabel(count: number): string {
   if (count === 1) return 'WC debut';
   if (count === 2) return '2nd WC';
@@ -63,15 +70,23 @@ function wcLabel(count: number): string {
 }
 
 function ScorerRow({ entry, rank, color }: { entry: ScorerEntry; rank: number; color: string }) {
-  const profileParts = [
-    entry.age != null       && `${entry.age}y`,
-    entry.club,
-    entry.league && entry.clubStanding
-      ? `${entry.league} · ${entry.clubStanding}`
-      : entry.league,
-    entry.wcCount != null   && wcLabel(entry.wcCount),
-    entry.caps    != null   && `${entry.caps} caps`,
+  const profileParts: string[] = [];
+
+  if (entry.dob) {
+    profileParts.push(`DOB (${fmtDob(entry.dob)}) · ${entry.age} years old`);
+  }
+  if (entry.club) {
+    const leagueStr = entry.leagueFlag
+      ? `${entry.leagueFlag} ${entry.league}`
+      : entry.league ?? '';
+    const rankStr = entry.clubRank != null ? ` · #${entry.clubRank}` : '';
+    profileParts.push(`Club: ${entry.club} · ${leagueStr}${rankStr}`);
+  }
+  const wcParts = [
+    entry.wcCount != null && wcLabel(entry.wcCount),
+    entry.caps    != null && `${entry.caps} caps`,
   ].filter(Boolean) as string[];
+  if (wcParts.length > 0) profileParts.push(wcParts.join(' · '));
 
   return (
     <View style={[rw.row, rank === 1 && rw.rowFirst]}>
@@ -81,9 +96,9 @@ function ScorerRow({ entry, rank, color }: { entry: ScorerEntry; rank: number; c
       <View style={rw.infoBlock}>
         <Text style={rw.name} numberOfLines={1}>{entry.name}</Text>
         <Text style={rw.detail}>{entry.teamFlag} {entry.team}</Text>
-        {profileParts.length > 0 && (
-          <Text style={rw.profile}>{profileParts.join(' · ')}</Text>
-        )}
+        {profileParts.map((line, i) => (
+          <Text key={i} style={rw.profile}>{line}</Text>
+        ))}
       </View>
       <View style={[rw.badge, { borderColor: `${color}30`, backgroundColor: `${color}10` }]}>
         <Text style={[rw.badgeVal, { color }]}>{entry.goals}</Text>

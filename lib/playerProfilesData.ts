@@ -4,10 +4,12 @@
 
 export interface PlayerProfile {
   name: string;         // must match scorer name in MATCH_EVENTS exactly
+  dob: string;          // YYYY-MM-DD
   age: number;          // as of June 2026
   club: string;
   league: string;
-  clubStanding?: string; // end of most recent completed season; omit if unknown
+  leagueFlag: string;   // country flag emoji for the league
+  clubRank?: number;    // final league table position (omit if unknown)
   wcCount: number;      // number of World Cups including 2026 (1 = debut)
   caps: number;
 }
@@ -16,48 +18,58 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
   // ── Mexico ────────────────────────────────────────────────────────────────────
   {
     name: 'Julián Quiñones',
+    dob: '1997-03-24',
     age: 29,
     club: 'Al-Qadsiah',
     league: 'Saudi Pro League',
-    clubStanding: '4th',
+    leagueFlag: '🇸🇦',
+    clubRank: 4,
     wcCount: 1,
     caps: 22,
   },
   {
     name: 'Raúl Jiménez',
+    dob: '1991-05-05',
     age: 35,
     club: 'Fulham',
     league: 'Premier League',
-    clubStanding: '11th',
+    leagueFlag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+    clubRank: 11,
     wcCount: 4,
     caps: 126,
   },
   // ── Czech Republic ────────────────────────────────────────────────────────────
   {
     name: 'Ladislav Krejčí',
+    dob: '1999-04-20',
     age: 27,
     club: 'Wolverhampton',
     league: 'Championship',
-    // clubStanding omitted — Wolves' 2025-26 Championship final position unconfirmed
+    leagueFlag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+    // clubRank omitted — 2025-26 Championship final position unconfirmed
     wcCount: 1,
     caps: 27,
   },
   // ── South Korea ───────────────────────────────────────────────────────────────
   {
     name: 'Hwang In-beom',
+    dob: '1996-09-20',
     age: 29,
     club: 'Feyenoord',
     league: 'Eredivisie',
-    clubStanding: '2nd',
+    leagueFlag: '🇳🇱',
+    clubRank: 2,
     wcCount: 2,
     caps: 73,
   },
   {
     name: 'Oh Hyeon-gyu',
+    dob: '2001-04-12',
     age: 25,
     club: 'Beşiktaş',
     league: 'Süper Lig',
-    clubStanding: '4th',
+    leagueFlag: '🇹🇷',
+    clubRank: 4,
     wcCount: 1,
     caps: 27,
   },

@@ -55,12 +55,14 @@ export default async function handler(_req: any, res: any) {
         teamFlag: getTeam(team)?.flag ?? '🏳',
         goals,
         ...(profile && {
-          age:          profile.age,
-          club:         profile.club,
-          league:       profile.league,
-          clubStanding: profile.clubStanding,
-          wcCount:      profile.wcCount,
-          caps:         profile.caps,
+          dob:         profile.dob,
+          age:         profile.age,
+          club:        profile.club,
+          league:      profile.league,
+          leagueFlag:  profile.leagueFlag,
+          clubRank:    profile.clubRank,
+          wcCount:     profile.wcCount,
+          caps:        profile.caps,
         }),
       };
     })
