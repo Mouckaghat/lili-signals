@@ -90,9 +90,9 @@ function buildFormationStats(lineups: MatchLineup[], teamFlagMap: Map<string, st
   const teamsByFormation: Record<string, Set<string>> = {};
 
   for (const lineup of lineups) {
-    if (!lineup.confirmed) continue;
     const result = FIXTURE_RESULTS[lineup.fixtureKey];
     if (!result || result.status !== 'FINISHED') continue;
+    // Once a game is FINISHED, baseline formations are valid historical data
 
     const [home, away] = lineup.fixtureKey.split('|');
     const hScore = result.homeScore ?? 0;
