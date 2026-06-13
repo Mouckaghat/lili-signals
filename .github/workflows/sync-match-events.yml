@@ -1,0 +1,70 @@
+name: Sync Match Events
+
+# ─── When this runs ───────────────────────────────────────────────────────────
+#
+# During match windows (June 11 – July 19, 2026):
+#   Every 5 minutes, all day — covers every kick-off window globally
+#
+# Outside match windows / rest of year:
+#   Once per hour — heartbeat, catches late events
+#
+# Manual trigger available at any time from the GitHub Actions tab.
+
+on:
+  schedule:
+    # ── June: Group Stage (June 11–30) — every 5 min all day ──
+    - cron: '*/5 * 11-30 6 *'
+
+    # ── July: Knockouts (July 1–19) — every 5 min all day ──
+    - cron: '*/5 * 1-19 7 *'
+
+    # ── Rest of year: hourly heartbeat ──
+    - cron: '0 * * 1-5,8-12 *'
+
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (preview only, no file write or commit)'
+        type: boolean
+        default: false
+
+jobs:
+  sync:
+    name: Sync match events → lib/matchEventsData.ts
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --prefer-offline
+
+      - name: Fetch & regenerate matchEventsData.ts
+        run: npx tsx scripts/sync-match-events.ts
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          # API_FOOTBALL_LEAGUE_ID: ${{ secrets.API_FOOTBALL_LEAGUE_ID }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+
+      - name: Commit updated matchEventsData.ts
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add lib/matchEventsData.ts
+          git diff --cached --quiet || git commit -m "chore: refresh match events"
+          git push
