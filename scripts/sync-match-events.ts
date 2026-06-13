@@ -63,6 +63,16 @@ const PLAYER_NAME_MAP: Record<string, string> = {
 };
 const normPlayer = (n: string) => PLAYER_NAME_MAP[n] ?? n;
 
+// ─── League-country → flag emoji (for auto-drafted profiles) ────────────────────
+const COUNTRY_FLAG: Record<string, string> = {
+  'Spain': '🇪🇸', 'England': '🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'Italy': '🇮🇹', 'Germany': '🇩🇪', 'France': '🇫🇷',
+  'Netherlands': '🇳🇱', 'Portugal': '🇵🇹', 'Belgium': '🇧🇪', 'Turkey': '🇹🇷', 'Türkiye': '🇹🇷',
+  'Saudi Arabia': '🇸🇦', 'Saudi-Arabia': '🇸🇦', 'Brazil': '🇧🇷', 'Argentina': '🇦🇷', 'USA': '🇺🇸',
+  'USA-MLS': '🇺🇸', 'Mexico': '🇲🇽', 'Croatia': '🇭🇷', 'Scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿', 'Switzerland': '🇨🇭',
+  'Austria': '🇦🇹', 'Greece': '🇬🇷', 'Japan': '🇯🇵', 'Qatar': '🇶🇦', 'Egypt': '🇪🇬',
+};
+const countryFlag = (c: string) => COUNTRY_FLAG[c] ?? '🏳';
+
 // ─── api-football types ─────────────────────────────────────────────────────────
 
 interface ApiFixtureLite {
@@ -73,10 +83,19 @@ interface ApiFixtureLite {
 interface ApiEvent {
   time:   { elapsed: number | null; extra: number | null };
   team:   { name: string };
-  player: { name: string | null };
+  player: { id: number | null; name: string | null };
   type:   string;   // 'Goal' | 'Card' | 'subst' | 'Var'
   detail: string;   // 'Normal Goal' | 'Own Goal' | 'Penalty' | 'Missed Penalty' | 'Yellow Card' | 'Red Card' | 'Second Yellow card'
   comments: string | null;
+}
+
+interface ApiPlayer {
+  player: { birth: { date: string | null }; age: number | null };
+  statistics: { team: { id: number; name: string }; league: { id: number; name: string; country: string } }[];
+}
+
+interface ApiStandings {
+  league: { standings: { rank: number; team: { id: number } }[][] };
 }
 
 const LIVE_STATUSES = new Set(['1H', 'HT', '2H', 'ET', 'BT', 'P', 'INT', 'LIVE']);
@@ -232,6 +251,53 @@ export const MATCH_EVENTS_LAST_UPDATED = '${updatedAt}';
 `;
 }
 
+// ─── Auto-drafted profiles for scorers missing from playerProfilesData.ts ───────
+// Objective fields (dob/age/club/league/leagueFlag/clubRank) come from
+// api-football; caps + wcCount are left as TODO for a human to confirm, so the
+// Scorer Quality Standard is never silently bent.
+
+async function draftProfile(name: string, playerId: number): Promise<string> {
+  let dob = '', age: number | '' = '', club = '', league = '', country = '';
+  let clubRank: number | undefined;
+
+  try {
+    const [pl] = await apiGet<ApiPlayer>(`players?id=${playerId}&season=${SEASON}`);
+    if (pl) {
+      dob     = pl.player?.birth?.date ?? '';
+      age     = pl.player?.age ?? '';
+      const st = pl.statistics?.[0];
+      club    = st?.team?.name ?? '';
+      league  = st?.league?.name ?? '';
+      country = st?.league?.country ?? '';
+      const leagueId = st?.league?.id, teamId = st?.team?.id;
+      if (leagueId && teamId) {
+        try {
+          const [stand] = await apiGet<ApiStandings>(`standings?league=${leagueId}&season=${SEASON}`);
+          const row = (stand?.league?.standings?.[0] ?? []).find((r) => r.team?.id === teamId);
+          if (row) clubRank = row.rank;
+        } catch { /* clubRank is optional */ }
+      }
+    }
+  } catch (err) {
+    console.warn(`   ⚠️  profile lookup failed for ${name}: ${err}`);
+  }
+
+  const rankLine = clubRank !== undefined
+    ? `    clubRank: ${clubRank},\n`
+    : `    // clubRank: ?, // optional — add if known\n`;
+
+  return `  {
+    name: '${name}',
+    dob: '${dob}',
+    age: ${age || 0},
+    club: '${club}',
+    league: '${league}',
+    leagueFlag: '${countryFlag(country)}',
+${rankLine}    wcCount: 0, // TODO: confirm number of World Cups (1 = debut)
+    caps: 0,    // TODO: confirm total international caps
+  },`;
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
@@ -262,10 +328,16 @@ async function main() {
   // 2. Events per fixture (preserve WC_FIXTURES order in output)
   const entries: MatchEvents[] = [];
   const order = new Map(WC_FIXTURES.map((f, i) => [f.id, i]));
+  const scorerIds = new Map<string, number>(); // curated name → api-football player id
 
   for (const p of played) {
     try {
       const events = await apiGet<ApiEvent>(`fixtures/events?fixture=${p.apiId}`);
+      for (const e of events) {
+        if (e.type === 'Goal' && e.detail !== 'Own Goal' && e.detail !== 'Missed Penalty' && e.player?.id && e.player?.name) {
+          scorerIds.set(normPlayer(e.player.name), e.player.id);
+        }
+      }
       const entry  = buildEntry(
         { id: p.wc!.id, home: p.wc!.home, away: p.wc!.away, date: p.wc!.date.slice(0, 10) },
         events,
@@ -286,18 +358,46 @@ async function main() {
     return; // SAFETY
   }
 
-  // 3. Quality check: scorers without a curated profile
+  // 3. Quality check: scorers without a curated profile → auto-draft + flag
   const profileNames = new Set(PLAYER_PROFILES.map((p) => p.name));
-  const missing = new Set<string>();
+  const missing: string[] = [];
   for (const m of entries) {
     for (const g of m.goals) {
-      if (g.type !== 'own-goal' && !profileNames.has(g.player)) missing.add(g.player);
+      if (g.type !== 'own-goal' && !profileNames.has(g.player) && !missing.includes(g.player)) {
+        missing.push(g.player);
+      }
     }
   }
-  if (missing.size) {
-    console.warn(`\n  ⚠️  ${missing.size} scorer(s) missing a profile in playerProfilesData.ts:`);
+
+  if (missing.length) {
+    console.warn(`\n  ⚠️  ${missing.length} scorer(s) missing a profile in playerProfilesData.ts:`);
     for (const n of missing) console.warn(`       • ${n}`);
-    console.warn('     Add profiles to keep the Scorer Quality Standard.\n');
+
+    const drafts: string[] = [];
+    for (const name of missing) {
+      const id = scorerIds.get(name);
+      drafts.push(id ? await draftProfile(name, id)
+                     : `  // ${name} — no api-football id found; add this profile by hand`);
+    }
+    const body = `### 🎯 Scorer profiles needed
+
+The match-events bot found **${missing.length} scorer(s)** with no entry in \`lib/playerProfilesData.ts\`.
+Objective fields are pre-filled from api-football — **confirm the two \`TODO\` fields (caps, World Cups)**, paste into \`lib/playerProfilesData.ts\`, and commit.
+
+\`\`\`ts
+${drafts.join('\n')}
+\`\`\`
+
+> If a name above isn't how you want it displayed, also add a bridge to \`PLAYER_NAME_MAP\` in \`scripts/sync-match-events.ts\`.
+_Auto-updated by sync-match-events. Closes automatically once every scorer has a profile._
+`;
+    const draftPath = process.env.MISSING_PROFILES_PATH ?? path.resolve(__dirname, '..', '.missing-profiles.md');
+    fs.writeFileSync(draftPath, body, 'utf8');
+    console.warn(`     → draft profiles written to ${draftPath}\n`);
+  }
+
+  if (process.env.GITHUB_OUTPUT) {
+    fs.appendFileSync(process.env.GITHUB_OUTPUT, `missing=${missing.length}\n`);
   }
 
   const totalGoals = entries.reduce((s, m) => s + m.goals.length, 0);
