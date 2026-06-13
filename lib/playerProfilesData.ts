@@ -143,6 +143,30 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     wcCount: 1,
     caps: 4,
   },
+  // ── Brazil ────────────────────────────────────────────────────────────────────
+  {
+    name: 'Vinícius Júnior',
+    dob: '2000-07-12',
+    age: 25,
+    club: 'Real Madrid',
+    league: 'La Liga',
+    leagueFlag: '🇪🇸',
+    clubRank: 2,
+    wcCount: 2,
+    caps: 50,
+  },
+  // ── Morocco ───────────────────────────────────────────────────────────────────
+  {
+    name: 'Ismaël Saïbari',
+    dob: '2001-01-28',
+    age: 25,
+    club: 'PSV Eindhoven',
+    league: 'Eredivisie',
+    leagueFlag: '🇳🇱',
+    clubRank: 1,
+    wcCount: 1,
+    caps: 32,
+  },
 ];
 
 export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-13';

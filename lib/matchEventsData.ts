@@ -68,7 +68,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     yellowCards: [],
     redCards: [],
   },
-  // ── GROUP C — Matchday 1 ─────────────────────────────────────────────────
+  // ── GROUP D — Matchday 1 ─────────────────────────────────────────────────
   {
     fixtureId: 'C1_USA_v_Paraguay',
     home: 'USA', away: 'Paraguay', date: '2026-06-12',
@@ -78,6 +78,18 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: 'Folarin Balogun',  team: 'USA',      minute: 45, minuteStoppage: 5, type: 'goal' },
       { player: 'Maurício',         team: 'Paraguay', minute: 73,                    type: 'goal' },
       { player: 'Giovanni Reyna',   team: 'USA',      minute: 90, minuteStoppage: 8, type: 'goal' },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
+  // ── GROUP C — Matchday 1 ─────────────────────────────────────────────────
+  // LIVE (2nd half) — partial, goals through ~kickoff+45'; refresh at full-time.
+  {
+    fixtureId: 'D1_Brazil_v_Morocco',
+    home: 'Brazil', away: 'Morocco', date: '2026-06-13',
+    goals: [
+      { player: 'Ismaël Saïbari',  team: 'Morocco', minute: 21, type: 'goal' },
+      { player: 'Vinícius Júnior', team: 'Brazil',  minute: 32, type: 'goal' },
     ],
     yellowCards: [],
     redCards: [],
