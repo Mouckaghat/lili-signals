@@ -1669,4 +1669,4 @@ export const MATCH_LINEUPS: MatchLineup[] = [
   }
 ];
 
-export const LINEUPS_LAST_UPDATED = '2026-06-13T08:29:54.659Z';
+export const LINEUPS_LAST_UPDATED = '2026-06-13T10:59:32.071Z';
