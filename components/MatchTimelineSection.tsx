@@ -70,6 +70,20 @@ function fmtAlt(m: number, i18n: I18n): string {
   return m < 100 ? i18n.tlSeaLevel : `⛰ ${m.toLocaleString()} m`;
 }
 
+// Short label for the viewer's own timezone (e.g. "CEST", "GMT-5"), so the
+// kickoff times below are self-documenting. Derived from the device clock —
+// never hardcoded — and falls back gracefully if Intl is unavailable.
+function localTzLabel(): string {
+  try {
+    const part = new Intl.DateTimeFormat('en-GB', { timeZoneName: 'short' })
+      .formatToParts(new Date())
+      .find((p) => p.type === 'timeZoneName');
+    return part?.value ?? '';
+  } catch {
+    return '';
+  }
+}
+
 // ─── Build entries ────────────────────────────────────────────────────────────
 
 function buildEntries(group: string | null, liveResults: Record<string, FixtureResult>): MatchEntry[] {
@@ -162,6 +176,7 @@ export default function MatchTimelineSection({ group }: { group: string | null }
   const liveResults = useLiveResults();
   const allLineups  = useLineups();
   const entries     = buildEntries(group, liveResults);
+  const tzLabel     = localTzLabel();
 
   const lineupByKey = new Map(allLineups.map((l) => [l.fixtureKey, l]));
 
@@ -170,7 +185,10 @@ export default function MatchTimelineSection({ group }: { group: string | null }
       {/* Header */}
       <View style={tl.header}>
         <Text style={tl.title}>{i18n.tlTitle}</Text>
-        <Text style={tl.sub}>{i18n.tlSub}</Text>
+        <Text style={tl.sub}>
+          {i18n.tlSub}
+          {tzLabel ? <Text style={tl.tz}>{'  ·  🕑 '}{tzLabel}</Text> : null}
+        </Text>
       </View>
 
       {/* Row list */}
@@ -193,6 +211,7 @@ const tl = StyleSheet.create({
   header:  { marginBottom: 10, gap: 2 },
   title:   { fontSize: 9, fontWeight: '800', color: D.text3, letterSpacing: 1.8 },
   sub:     { fontSize: 11, color: D.text2 },
+  tz:      { fontSize: 11, color: D.blue, fontWeight: '700' },
   list: {
     backgroundColor: D.surface,
     borderRadius: 14,
