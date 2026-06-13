@@ -6,7 +6,7 @@ import type { MatchLineup } from '../lib/lineupData';
 import { TEAM_FORMATIONS_BASELINE } from '../lib/teamFormationsBaseline';
 import { FIXTURE_RESULTS } from '../lib/fixtureResultsData';
 import type { FixtureResult } from '../lib/fixtureResultsData';
-import { WC_TEAMS } from '../lib/wcData';
+import { WC_TEAMS, TEAM_COACHES } from '../lib/wcData';
 import { useLanguage } from '../contexts/LanguageContext';
 import type { I18n } from '../lib/i18n';
 
@@ -68,6 +68,18 @@ function buildTeamFormationMap(lineups: MatchLineup[]): Map<string, string> {
   for (const [team, formations] of Object.entries(counts)) {
     const best = Object.entries(formations).sort((a, b) => b[1] - a[1])[0]?.[0];
     if (best) map.set(team, best);
+  }
+  return map;
+}
+
+function buildTeamCoachMap(lineups: MatchLineup[]): Map<string, string> {
+  // Start from curated static data; confirmed lineup sources override.
+  const map = new Map<string, string>(Object.entries(TEAM_COACHES));
+  for (const lineup of lineups) {
+    if (!lineup.confirmed) continue;
+    const [home, away] = lineup.fixtureKey.split('|');
+    if (lineup.home.coach) map.set(home, lineup.home.coach);
+    if (lineup.away.coach) map.set(away, lineup.away.coach);
   }
   return map;
 }
@@ -425,7 +437,7 @@ function buildPerformanceRanking(
     .sort((a, b) => b.pts !== a.pts ? b.pts - a.pts : (b.gf - b.ga) - (a.gf - a.ga));
 }
 
-function PerformanceRow({ entry, rank, formation }: { entry: PerfEntry; rank: number; formation?: string }) {
+function PerformanceRow({ entry, rank, formation, coach }: { entry: PerfEntry; rank: number; formation?: string; coach?: string }) {
   const medal = rank <= 3 ? ['①', '②', '③'][rank - 1] : `${rank}`;
   const rankColor = rank === 1 ? D.gold : rank === 2 ? D.text2 : rank === 3 ? '#CD7F32' : D.text3;
 
@@ -437,8 +449,11 @@ function PerformanceRow({ entry, rank, formation }: { entry: PerfEntry; rank: nu
         <Text style={{ color: D.text3 }}>{' // '}</Text>
         <Text style={rw.name}>{entry.flag} {entry.name}</Text>
         {formation ? <Text style={{ color: D.text3, fontSize: 10 }}>{' '}{formation}</Text> : null}
-        <Text style={{ color: D.text3 }}>{' // '}</Text>
-        <Text style={{ color: D.text3 }}>{'Games: '}{entry.games}</Text>
+        <Text style={{ color: D.text3 }}>{' // Coach: '}</Text>
+        {coach
+          ? <Text style={{ color: D.text1, fontWeight: '700' }}>{coach}</Text>
+          : <Text style={{ color: D.text3 }}>{'—'}</Text>}
+        <Text style={{ color: D.text3 }}>{' // Games: '}{entry.games}</Text>
         <Text style={{ color: D.text3 }}>{' // '}</Text>
         <Text style={{ color: D.red, fontWeight: '700' }}>{entry.gf}</Text>
         <Text style={{ color: D.text3 }}>{' (attack) - '}</Text>
@@ -566,6 +581,7 @@ export default function TournamentIntelligenceSection() {
   const { i18n }          = useLanguage();
   const lineups           = useLineups();
   const teamFormation     = buildTeamFormationMap(lineups);
+  const teamCoach         = buildTeamCoachMap(lineups);
   const [activeTab, setActiveTab] = useState<TabKey>('scorers');
 
   const teamFlagMap = new Map(WC_TEAMS.map((t) => [t.name, t.flag]));
@@ -626,7 +642,7 @@ export default function TournamentIntelligenceSection() {
               perfRanking.length === 0
                 ? <NoData i18n={i18n} />
                 : perfRanking.map((e, i) => (
-                    <PerformanceRow key={e.name} entry={e} rank={i + 1} formation={teamFormation.get(e.name)} />
+                    <PerformanceRow key={e.name} entry={e} rank={i + 1} formation={teamFormation.get(e.name)} coach={teamCoach.get(e.name)} />
                   ))
             )}
 

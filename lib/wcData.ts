@@ -52,6 +52,22 @@ export interface WCFixture {
   awayScore?: number;
 }
 
+// ─── Head coaches (curated — confirmed lineups override; expand as teams play) ─
+
+export const TEAM_COACHES: Record<string, string> = {
+  // Group A
+  'Czech Republic':       'Miroslav Koubek',
+  'Mexico':               'Javier Aguirre',
+  'South Africa':         'Hugo Broos',
+  'South Korea':          'Myung-Bo Hong',
+  // Group B
+  'Bosnia & Herzegovina': 'Sergej Barbarez',
+  'Canada':               'Jesse Marsch',
+  // Group C
+  'Paraguay':             'Gustavo Alfaro',
+  'USA':                  'Mauricio Pochettino',
+};
+
 // ─── 48 Teams ─────────────────────────────────────────────────────────────────
 
 export const WC_TEAMS: WCTeam[] = [
