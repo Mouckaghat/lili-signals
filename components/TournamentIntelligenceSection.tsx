@@ -434,17 +434,18 @@ function TeamRow({
 
       {open && canExpand && breakdownType === 'danger' && bd && (
         <View style={rw.expand}>
+          <Text style={rw.expandFormula}>(Goals/game × w3) + (Win% × w2) + (Avg margin × w1.5)</Text>
           <View style={rw.expandLine}>
             <Text style={rw.expandLabel}>Goals/game</Text>
-            <Text style={rw.expandVal}>{bd.goalRate} × 3 = <Text style={{ color: D.red, fontWeight: '700' }}>{bd.goalRateContrib}</Text></Text>
+            <Text style={rw.expandVal}>{bd.goalRate} avg  ×  w3  = <Text style={{ color: D.red, fontWeight: '700' }}>{bd.goalRateContrib}</Text></Text>
           </View>
           <View style={rw.expandLine}>
             <Text style={rw.expandLabel}>Win rate</Text>
-            <Text style={rw.expandVal}>{bd.winRate}% × 2 = <Text style={{ color: D.green, fontWeight: '700' }}>{bd.winRateContrib}</Text></Text>
+            <Text style={rw.expandVal}>{bd.winRate}% of pts  ×  w2  = <Text style={{ color: D.green, fontWeight: '700' }}>{bd.winRateContrib}</Text></Text>
           </View>
           <View style={rw.expandLine}>
-            <Text style={rw.expandLabel}>Margin</Text>
-            <Text style={rw.expandVal}>{bd.margin} × 1.5 = <Text style={{ color: D.blue, fontWeight: '700' }}>{bd.marginContrib}</Text></Text>
+            <Text style={rw.expandLabel}>Avg margin</Text>
+            <Text style={rw.expandVal}>{bd.margin} GD/game  ×  w1.5  = <Text style={{ color: D.blue, fontWeight: '700' }}>{bd.marginContrib}</Text></Text>
           </View>
           <View style={[rw.expandLine, rw.expandSep]}>
             <Text style={rw.expandLabel}>Danger index</Text>
@@ -507,7 +508,8 @@ const rw = StyleSheet.create({
   expandVal:   { fontSize: 10, color: D.text2 },
   expandSep:   { marginTop: 4, paddingTop: 5, borderTopWidth: 1, borderTopColor: D.border },
   expandTotal: { fontSize: 12, fontWeight: '800' },
-  expandHint:  { fontSize: 8, color: D.text3 },
+  expandHint:    { fontSize: 8, color: D.text3 },
+  expandFormula: { fontSize: 8, color: D.text3, fontStyle: 'italic', marginBottom: 4 },
   //
   rank:  { fontSize: 14, fontWeight: '800', width: 22, textAlign: 'center' },
   flag:  { fontSize: 18, width: 24 },
