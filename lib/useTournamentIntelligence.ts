@@ -1,12 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 
+export interface GoalDetail {
+  minute:   string; // e.g. "31'" or "45+5' OG"
+  date:     string; // e.g. "2026-06-12"
+  opponent: string; // e.g. "Paraguay"
+}
+
 export interface ScorerEntry {
   name: string;
   team: string;
   teamFlag: string;
   goals: number;
-  goalMinutes?: string[]; // e.g. ["31'", "45+5'"]
+  goalMinutes?: GoalDetail[];
   // Optional enrichment from playerProfilesData.ts (Lili-curated)
   dob?: string;
   age?: number;
@@ -19,11 +25,12 @@ export interface ScorerEntry {
 }
 
 export interface TeamRankEntry {
-  name: string;
-  flag: string;
-  value: number;
-  yellows?: number;
-  reds?: number;
+  name:      string;
+  flag:      string;
+  value:     number;
+  yellows?:  number;
+  reds?:     number;
+  breakdown?: Record<string, number>;
 }
 
 export interface TournamentIntelligence {

@@ -18,6 +18,22 @@ function liliSurprise(teamName: string, played: number, pts: number, gf: number,
   return Math.max(0, Math.round((ptsDelta + gdBonus) * 10) / 10);
 }
 
+function liliBreakdown(teamName: string, played: number, pts: number, gf: number, ga: number): Record<string, number> | null {
+  if (played === 0) return null;
+  const strength    = getTeam(teamName)?.strength ?? 65;
+  const actualPct   = pts / (played * 3);
+  const expectedPct = (strength - 50) / (92 - 50);
+  const ptsDelta    = Math.round((actualPct - expectedPct) * 10 * 10) / 10;
+  const gdBonus     = Math.round(((gf - ga) / played) * 0.4 * 10) / 10;
+  return {
+    strength,
+    actualPct:   Math.round(actualPct * 100),
+    expectedPct: Math.round(expectedPct * 100),
+    ptsDelta,
+    gdBonus,
+  };
+}
+
 // ─── Danger score ──────────────────────────────────────────────────────────
 function dangerScore(played: number, gf: number, ga: number, pts: number): number {
   if (played === 0) return 0;
@@ -27,6 +43,21 @@ function dangerScore(played: number, gf: number, ga: number, pts: number): numbe
   return Math.round((goalRate * 3 + winRate * 2 + margin * 1.5) * 10) / 10;
 }
 
+function dangerBreakdown(played: number, gf: number, ga: number, pts: number): Record<string, number> | null {
+  if (played === 0) return null;
+  const goalRate = Math.round((gf / played) * 10) / 10;
+  const winRate  = Math.round((pts / (played * 3)) * 100);
+  const margin   = Math.max(0, Math.round(((gf - ga) / played) * 10) / 10);
+  return {
+    goalRate,
+    goalRateContrib: Math.round(goalRate * 3 * 10) / 10,
+    winRate,
+    winRateContrib:  Math.round((winRate / 100) * 2 * 10) / 10,
+    margin,
+    marginContrib:   Math.round(margin * 1.5 * 10) / 10,
+  };
+}
+
 // ─── Handler ───────────────────────────────────────────────────────────────
 
 export default async function handler(_req: any, res: any) {
@@ -34,7 +65,8 @@ export default async function handler(_req: any, res: any) {
   res.setHeader('Cache-Control', 's-maxage=120, stale-while-revalidate=180');
 
   // ── Top scorers from curated match events ────────────────────────────────
-  const scorerMap: Record<string, { team: string; goals: number; minutes: string[] }> = {};
+  type GoalDetail = { minute: string; date: string; opponent: string };
+  const scorerMap: Record<string, { team: string; goals: number; minutes: GoalDetail[] }> = {};
   for (const match of MATCH_EVENTS) {
     for (const g of match.goals) {
       const team = g.type === 'own-goal'
@@ -43,10 +75,11 @@ export default async function handler(_req: any, res: any) {
       const minStr = g.minuteStoppage
         ? `${g.minute}+${g.minuteStoppage}'`
         : `${g.minute}'`;
-      const label = g.type === 'own-goal' ? `${minStr} OG` : minStr;
+      const label    = g.type === 'own-goal' ? `${minStr} OG` : minStr;
+      const opponent = g.team === match.home ? match.away : match.home;
       if (!scorerMap[g.player]) scorerMap[g.player] = { team, goals: 0, minutes: [] };
       scorerMap[g.player].goals++;
-      scorerMap[g.player].minutes.push(label);
+      scorerMap[g.player].minutes.push({ minute: label, date: match.date, opponent });
     }
   }
   const profileMap = new Map(PLAYER_PROFILES.map((p) => [p.name, p]));
@@ -130,12 +163,22 @@ export default async function handler(_req: any, res: any) {
     .map((t) => ({ name: t.name, flag: t.flag, value: t.yellows + t.reds * 3, yellows: t.yellows, reds: t.reds }));
 
   const mostDangerous = [...teamStats]
-    .map((t) => ({ name: t.name, flag: t.flag, value: dangerScore(t.played, t.gf, t.ga, t.pts) }))
+    .map((t) => ({
+      name:      t.name,
+      flag:      t.flag,
+      value:     dangerScore(t.played, t.gf, t.ga, t.pts),
+      breakdown: dangerBreakdown(t.played, t.gf, t.ga, t.pts),
+    }))
     .sort((a, b) => b.value - a.value)
     .slice(0, 7);
 
   const liliSurpriseRank = [...teamStats]
-    .map((t) => ({ name: t.name, flag: t.flag, value: liliSurprise(t.name, t.played, t.pts, t.gf, t.ga) }))
+    .map((t) => ({
+      name:      t.name,
+      flag:      t.flag,
+      value:     liliSurprise(t.name, t.played, t.pts, t.gf, t.ga),
+      breakdown: liliBreakdown(t.name, t.played, t.pts, t.gf, t.ga),
+    }))
     .sort((a, b) => b.value - a.value)
     .slice(0, 7);
 

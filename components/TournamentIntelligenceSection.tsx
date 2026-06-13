@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useTournamentIntelligence, type ScorerEntry, type TeamRankEntry } from '../lib/useTournamentIntelligence';
+import { useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, Animated, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useTournamentIntelligence, type GoalDetail, type ScorerEntry, type TeamRankEntry } from '../lib/useTournamentIntelligence';
 import { useLineups } from '../lib/useLineups';
 import type { MatchLineup } from '../lib/lineupData';
 import { TEAM_FORMATIONS_BASELINE } from '../lib/teamFormationsBaseline';
@@ -283,44 +283,110 @@ const sh = StyleSheet.create({
 
 // ─── Scorer row ───────────────────────────────────────────────────────────────
 
+function isBirthday(dob?: string): boolean {
+  if (!dob) return false;
+  const today = new Date();
+  const [, mm, dd] = dob.split('-');
+  return today.getMonth() + 1 === parseInt(mm, 10) && today.getDate() === parseInt(dd, 10);
+}
+
+function fmtDate(dateStr: string): string {
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const [, mm, dd] = dateStr.split('-');
+  return `${parseInt(dd, 10)} ${months[parseInt(mm, 10) - 1]}`;
+}
+
+function usePulse(count = 3, delay = 0) {
+  const scale = useRef(new Animated.Value(1)).current;
+  useEffect(() => {
+    const a = Animated.loop(
+      Animated.sequence([
+        Animated.timing(scale, { toValue: 1.06, duration: 650, useNativeDriver: true }),
+        Animated.timing(scale, { toValue: 1.0,  duration: 650, useNativeDriver: true }),
+      ]),
+      { iterations: count }
+    );
+    const t = setTimeout(() => a.start(), delay);
+    return () => { clearTimeout(t); a.stop(); };
+  }, []);
+  return scale;
+}
+
 function fmtDob(dob: string, months: string[]): string {
   const [, mm, dd] = dob.split('-');
   return `${parseInt(dd, 10)} ${months[parseInt(mm, 10) - 1]} ${dob.slice(0, 4)}`;
 }
 
 function ScorerRow({ entry, rank, color, i18n }: { entry: ScorerEntry; rank: number; color: string; i18n: I18n }) {
-  const parts = [
-    `${entry.teamFlag} ${entry.team}`,
-    entry.dob       && `${i18n.tiDob} (${fmtDob(entry.dob, i18n.monthsShort)}) · ${entry.age} ${i18n.tiYearsOld}`,
-    entry.club      && [
-      `${i18n.tiClub}: ${entry.club}`,
-      entry.leagueFlag ? `${entry.leagueFlag} ${entry.league}` : entry.league,
-      entry.clubRank != null && `#${entry.clubRank}`,
-    ].filter(Boolean).join(' · '),
-    entry.wcCount != null && i18n.tiWcLabels[(entry.wcCount ?? 1) - 1],
-    entry.caps    != null && `${entry.caps} ${i18n.tiCaps}`,
-  ].filter(Boolean) as string[];
+  const [open, setOpen] = useState<'profile' | 'goals' | null>(null);
+  const nameScale  = usePulse(3, 0);
+  const badgeScale = usePulse(3, 350);
 
-  const minutesStr = entry.goalMinutes?.join(' · ');
+  const toggle = (type: 'profile' | 'goals') =>
+    setOpen(prev => prev === type ? null : type);
+
+  const hasBirthday = isBirthday(entry.dob);
+  const wcLabel     = entry.wcCount != null ? i18n.tiWcLabels[(entry.wcCount ?? 1) - 1] : null;
+  const staticInfo  = [entry.team, wcLabel, entry.caps != null && `${entry.caps} ${i18n.tiCaps}`]
+    .filter(Boolean).join(' · ');
 
   return (
-    <View style={[rw.row, rank === 1 && rw.rowFirst]}>
-      <Text style={[rw.rank, { color: rank <= 3 ? color : D.text3 }]}>
-        {rank <= 3 ? ['①', '②', '③'][rank - 1] : `${rank}`}
-      </Text>
-      <View style={{ flex: 1, gap: 2 }}>
-        <Text style={rw.profile} numberOfLines={1}>
-          <Text style={rw.name}>{entry.name}</Text>
-          {parts.length > 0 && <Text>{' - '}{parts.join(' · ')}</Text>}
+    <View style={[rw.card, rank === 1 && rw.cardTop]}>
+      <View style={rw.rowInner}>
+        <Text style={[rw.rank, { color: rank <= 3 ? color : D.text3 }]}>
+          {rank <= 3 ? ['①', '②', '③'][rank - 1] : `${rank}`}
         </Text>
-        {minutesStr && (
-          <Text style={rw.minutes}>{minutesStr}</Text>
-        )}
+        <Text style={rw.flag}>{entry.teamFlag}</Text>
+        <View style={rw.nameBlock}>
+          <TouchableOpacity onPress={() => toggle('profile')} activeOpacity={0.8}>
+            <Animated.View style={{ transform: [{ scale: nameScale }] }}>
+              <Text style={rw.name}>
+                {entry.name}{hasBirthday ? ' 🎂' : ''}{' '}
+                <Text style={rw.expandHint}>{open === 'profile' ? '▲' : '▼'}</Text>
+              </Text>
+            </Animated.View>
+          </TouchableOpacity>
+          <Text style={rw.detail}>{staticInfo}</Text>
+        </View>
+        <TouchableOpacity onPress={() => toggle('goals')} activeOpacity={0.8}>
+          <Animated.View style={[rw.badge, { borderColor: `${color}30`, backgroundColor: `${color}10`, transform: [{ scale: badgeScale }] }]}>
+            <Text style={[rw.badgeVal, { color }]}>{entry.goals}</Text>
+            <Text style={rw.badgeLbl}>{i18n.tiGoals}</Text>
+            <Text style={rw.expandHint}>{open === 'goals' ? '▲' : '▼'}</Text>
+          </Animated.View>
+        </TouchableOpacity>
       </View>
-      <View style={[rw.badge, { borderColor: `${color}30`, backgroundColor: `${color}10` }]}>
-        <Text style={[rw.badgeVal, { color }]}>{entry.goals}</Text>
-        <Text style={rw.badgeLbl}>{i18n.tiGoals}</Text>
-      </View>
+
+      {open === 'profile' && (
+        <View style={rw.expand}>
+          {entry.dob && (
+            <View style={rw.expandLine}>
+              <Text style={rw.expandLabel}>Born</Text>
+              <Text style={rw.expandVal}>{fmtDob(entry.dob, i18n.monthsShort)} · {entry.age} yrs</Text>
+            </View>
+          )}
+          {entry.club && (
+            <View style={rw.expandLine}>
+              <Text style={rw.expandLabel}>Club</Text>
+              <Text style={rw.expandVal}>
+                {[entry.club, entry.leagueFlag ? `${entry.leagueFlag} ${entry.league}` : entry.league, entry.clubRank != null && `#${entry.clubRank}`].filter(Boolean).join(' · ')}
+              </Text>
+            </View>
+          )}
+        </View>
+      )}
+
+      {open === 'goals' && entry.goalMinutes && (
+        <View style={rw.expand}>
+          {(entry.goalMinutes as GoalDetail[]).map((g, i) => (
+            <View key={i} style={rw.expandLine}>
+              <Text style={rw.expandLabel}>{fmtDate(g.date)}</Text>
+              <Text style={rw.expandVal}>vs {g.opponent} · </Text>
+              <Text style={rw.minutes}>{g.minute}</Text>
+            </View>
+          ))}
+        </View>
+      )}
     </View>
   );
 }
@@ -328,33 +394,99 @@ function ScorerRow({ entry, rank, color, i18n }: { entry: ScorerEntry; rank: num
 // ─── Team row ─────────────────────────────────────────────────────────────────
 
 function TeamRow({
-  entry, rank, color, label, formation,
+  entry, rank, color, label, formation, breakdownType,
 }: {
   entry: TeamRankEntry;
   rank: number;
   color: string;
   label: string;
   formation?: string;
+  breakdownType?: 'danger' | 'lili';
 }) {
+  const [open, setOpen] = useState(false);
+  const badgeScale = usePulse(breakdownType ? 3 : 0);
+  const bd = entry.breakdown;
+  const canExpand = !!breakdownType && !!bd;
+
+  const badge = (
+    <Animated.View style={[rw.badge, { borderColor: `${color}30`, backgroundColor: `${color}10`, transform: [{ scale: badgeScale }] }]}>
+      <Text style={[rw.badgeVal, { color }]}>{entry.value}</Text>
+      <Text style={rw.badgeLbl}>{label}</Text>
+      {canExpand && <Text style={rw.expandHint}>{open ? '▲' : '▼'}</Text>}
+    </Animated.View>
+  );
+
   return (
-    <View style={[rw.row, rank === 1 && rw.rowFirst]}>
-      <Text style={[rw.rank, { color: rank <= 3 ? color : D.text3 }]}>
-        {rank <= 3 ? ['①', '②', '③'][rank - 1] : `${rank}`}
-      </Text>
-      <Text style={rw.flag}>{entry.flag}</Text>
-      <View style={rw.nameBlock}>
-        <Text style={rw.name} numberOfLines={1}>{entry.name}</Text>
-        {formation && <Text style={rw.formationTag}>{formation}</Text>}
+    <View style={[rw.card, rank === 1 && rw.cardTop]}>
+      <View style={rw.rowInner}>
+        <Text style={[rw.rank, { color: rank <= 3 ? color : D.text3 }]}>
+          {rank <= 3 ? ['①', '②', '③'][rank - 1] : `${rank}`}
+        </Text>
+        <Text style={rw.flag}>{entry.flag}</Text>
+        <View style={rw.nameBlock}>
+          <Text style={rw.name}>{entry.name}</Text>
+          {formation && <Text style={rw.formationTag}>{formation}</Text>}
+        </View>
+        {canExpand
+          ? <TouchableOpacity onPress={() => setOpen(o => !o)} activeOpacity={0.8}>{badge}</TouchableOpacity>
+          : badge}
       </View>
-      <View style={[rw.badge, { borderColor: `${color}30`, backgroundColor: `${color}10` }]}>
-        <Text style={[rw.badgeVal, { color }]}>{entry.value}</Text>
-        <Text style={rw.badgeLbl}>{label}</Text>
-      </View>
+
+      {open && canExpand && breakdownType === 'danger' && bd && (
+        <View style={rw.expand}>
+          <View style={rw.expandLine}>
+            <Text style={rw.expandLabel}>Goals/game</Text>
+            <Text style={rw.expandVal}>{bd.goalRate} × 3 = <Text style={{ color: D.red, fontWeight: '700' }}>{bd.goalRateContrib}</Text></Text>
+          </View>
+          <View style={rw.expandLine}>
+            <Text style={rw.expandLabel}>Win rate</Text>
+            <Text style={rw.expandVal}>{bd.winRate}% × 2 = <Text style={{ color: D.green, fontWeight: '700' }}>{bd.winRateContrib}</Text></Text>
+          </View>
+          <View style={rw.expandLine}>
+            <Text style={rw.expandLabel}>Margin</Text>
+            <Text style={rw.expandVal}>{bd.margin} × 1.5 = <Text style={{ color: D.blue, fontWeight: '700' }}>{bd.marginContrib}</Text></Text>
+          </View>
+          <View style={[rw.expandLine, rw.expandSep]}>
+            <Text style={rw.expandLabel}>Danger index</Text>
+            <Text style={[rw.expandTotal, { color }]}>{entry.value}</Text>
+          </View>
+        </View>
+      )}
+
+      {open && canExpand && breakdownType === 'lili' && bd && (
+        <View style={rw.expand}>
+          <View style={rw.expandLine}>
+            <Text style={rw.expandLabel}>Strength</Text>
+            <Text style={rw.expandVal}>Pre-tournament rating: <Text style={{ fontWeight: '700' }}>{bd.strength}</Text></Text>
+          </View>
+          <View style={rw.expandLine}>
+            <Text style={rw.expandLabel}>Expected</Text>
+            <Text style={rw.expandVal}>{bd.expectedPct}% points rate</Text>
+          </View>
+          <View style={rw.expandLine}>
+            <Text style={rw.expandLabel}>Actual</Text>
+            <Text style={rw.expandVal}>{bd.actualPct}% points rate</Text>
+          </View>
+          <View style={rw.expandLine}>
+            <Text style={rw.expandLabel}>Surprise</Text>
+            <Text style={[rw.expandVal, { color: D.signal, fontWeight: '700' }]}>+{bd.ptsDelta}</Text>
+          </View>
+          <View style={rw.expandLine}>
+            <Text style={rw.expandLabel}>GD bonus</Text>
+            <Text style={[rw.expandVal, { color: D.cyan, fontWeight: '700' }]}>+{bd.gdBonus}</Text>
+          </View>
+          <View style={[rw.expandLine, rw.expandSep]}>
+            <Text style={rw.expandLabel}>Lili index</Text>
+            <Text style={[rw.expandTotal, { color }]}>{entry.value}</Text>
+          </View>
+        </View>
+      )}
     </View>
   );
 }
 
 const rw = StyleSheet.create({
+  // Legacy — used by CardRow only
   row: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -364,6 +496,19 @@ const rw = StyleSheet.create({
     borderBottomColor: 'rgba(80,140,255,0.06)',
   },
   rowFirst: { paddingTop: 0 },
+  // Card layout — used by Scorer, Team, Performance rows
+  card:     { borderBottomWidth: 1, borderBottomColor: 'rgba(80,140,255,0.06)', paddingVertical: 9 },
+  cardTop:  { paddingTop: 0 },
+  rowInner: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  // Expand area (aligns with nameBlock start: rank22 + gap10 + flag24 + gap10 = 66)
+  expand:      { marginTop: 8, paddingLeft: 66, gap: 5 },
+  expandLine:  { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap' },
+  expandLabel: { fontSize: 9, fontWeight: '700', color: D.text3, minWidth: 80, marginRight: 6 },
+  expandVal:   { fontSize: 10, color: D.text2 },
+  expandSep:   { marginTop: 4, paddingTop: 5, borderTopWidth: 1, borderTopColor: D.border },
+  expandTotal: { fontSize: 12, fontWeight: '800' },
+  expandHint:  { fontSize: 8, color: D.text3 },
+  //
   rank:  { fontSize: 14, fontWeight: '800', width: 22, textAlign: 'center' },
   flag:  { fontSize: 18, width: 24 },
   nameBlock: { flex: 1, gap: 1 },
@@ -438,28 +583,55 @@ function buildPerformanceRanking(
 }
 
 function PerformanceRow({ entry, rank, formation, coach }: { entry: PerfEntry; rank: number; formation?: string; coach?: string }) {
-  const medal = rank <= 3 ? ['①', '②', '③'][rank - 1] : `${rank}`;
+  const [open, setOpen] = useState(false);
+  const badgeScale = usePulse(3);
+  const medal     = rank <= 3 ? ['①', '②', '③'][rank - 1] : `${rank}`;
   const rankColor = rank === 1 ? D.gold : rank === 2 ? D.text2 : rank === 3 ? '#CD7F32' : D.text3;
 
+  const staticInfo = [
+    formation,
+    coach && `Coach: ${coach}`,
+    `${entry.gf} scored · ${entry.ga} conceded`,
+  ].filter(Boolean).join(' · ');
+
   return (
-    <View style={[rw.row, rank === 1 && rw.rowFirst]}>
-      <Text style={[rw.rank, { color: rankColor }]}>{medal}</Text>
-      <Text style={[rw.profile, { flex: 1 }]} numberOfLines={1}>
-        <Text style={[rw.name, { color: D.gold }]}>{entry.pts} pts</Text>
-        <Text style={{ color: D.text3 }}>{' // '}</Text>
-        <Text style={rw.name}>{entry.flag} {entry.name}</Text>
-        {formation ? <Text style={{ color: D.text3, fontSize: 10 }}>{' '}{formation}</Text> : null}
-        <Text style={{ color: D.text3 }}>{' // Coach: '}</Text>
-        {coach
-          ? <Text style={{ color: D.text1, fontWeight: '700' }}>{coach}</Text>
-          : <Text style={{ color: D.text3 }}>{'—'}</Text>}
-        <Text style={{ color: D.text3 }}>{' // Games: '}{entry.games}</Text>
-        <Text style={{ color: D.text3 }}>{' // '}</Text>
-        <Text style={{ color: D.red, fontWeight: '700' }}>{entry.gf}</Text>
-        <Text style={{ color: D.text3 }}>{' (attack) - '}</Text>
-        <Text style={{ color: D.blue, fontWeight: '700' }}>{entry.ga}</Text>
-        <Text style={{ color: D.text3 }}>{' (defense)'}</Text>
-      </Text>
+    <View style={[rw.card, rank === 1 && rw.cardTop]}>
+      <View style={rw.rowInner}>
+        <Text style={[rw.rank, { color: rankColor }]}>{medal}</Text>
+        <Text style={rw.flag}>{entry.flag}</Text>
+        <View style={rw.nameBlock}>
+          <Text style={rw.name}>{entry.name}</Text>
+          <Text style={rw.detail} numberOfLines={1}>{staticInfo}</Text>
+        </View>
+        <TouchableOpacity onPress={() => setOpen(o => !o)} activeOpacity={0.8}>
+          <Animated.View style={[rw.badge, { borderColor: `${D.gold}30`, backgroundColor: `${D.gold}10`, transform: [{ scale: badgeScale }] }]}>
+            <Text style={[rw.badgeVal, { color: D.gold }]}>{entry.pts}</Text>
+            <Text style={rw.badgeLbl}>PTS</Text>
+            <Text style={rw.expandHint}>{open ? '▲' : '▼'}</Text>
+          </Animated.View>
+        </TouchableOpacity>
+      </View>
+
+      {open && (
+        <View style={rw.expand}>
+          <View style={rw.expandLine}>
+            <Text style={rw.expandLabel}>Wins</Text>
+            <Text style={rw.expandVal}>{entry.wins} × 3 = <Text style={{ color: D.green, fontWeight: '700' }}>{entry.wins * 3} pts</Text></Text>
+          </View>
+          <View style={rw.expandLine}>
+            <Text style={rw.expandLabel}>Draws</Text>
+            <Text style={rw.expandVal}>{entry.draws} × 1 = <Text style={{ fontWeight: '700' }}>{entry.draws} pts</Text></Text>
+          </View>
+          <View style={rw.expandLine}>
+            <Text style={rw.expandLabel}>Clean sheets</Text>
+            <Text style={rw.expandVal}>{entry.cleanSheets} × 1 = <Text style={{ color: D.cyan, fontWeight: '700' }}>{entry.cleanSheets} pts</Text></Text>
+          </View>
+          <View style={[rw.expandLine, rw.expandSep]}>
+            <Text style={rw.expandLabel}>Total</Text>
+            <Text style={[rw.expandTotal, { color: D.gold }]}>{entry.pts} pts</Text>
+          </View>
+        </View>
+      )}
     </View>
   );
 }
@@ -660,7 +832,7 @@ export default function TournamentIntelligenceSection() {
               data.mostDangerous.length === 0
                 ? <NoData i18n={i18n} />
                 : data.mostDangerous.map((e, i) => (
-                    <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label={i18n.tiScore} formation={teamFormation.get(e.name)} />
+                    <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label={i18n.tiScore} formation={teamFormation.get(e.name)} breakdownType="danger" />
                   ))
             )}
 
@@ -674,7 +846,7 @@ export default function TournamentIntelligenceSection() {
                 {data.liliSurpriseRank.length === 0
                   ? <NoData i18n={i18n} />
                   : data.liliSurpriseRank.map((e, i) => (
-                      <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label="INDEX" formation={teamFormation.get(e.name)} />
+                      <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label="INDEX" formation={teamFormation.get(e.name)} breakdownType="lili" />
                     ))
                 }
               </>
