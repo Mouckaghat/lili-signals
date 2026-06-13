@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ActivityIndicator, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useTournamentIntelligence, type ScorerEntry, type TeamRankEntry } from '../lib/useTournamentIntelligence';
 import { useLineups } from '../lib/useLineups';
 import type { MatchLineup } from '../lib/lineupData';
@@ -82,7 +82,8 @@ interface FormationStats {
   losses:    number;
   gf:        number;
   ga:        number;
-  teamFlags: string; // flag emojis of teams that used this formation
+  teamFlags: string;
+  teamNames: string[];
 }
 
 function buildFormationStats(lineups: MatchLineup[], teamFlagMap: Map<string, string>): FormationStats[] {
@@ -100,7 +101,7 @@ function buildFormationStats(lineups: MatchLineup[], teamFlagMap: Map<string, st
 
     const addResult = (formation: string, teamName: string, gf: number, ga: number) => {
       if (!formation || formation === '?') return;
-      if (!map[formation]) map[formation] = { formation, games: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, teamFlags: '' };
+      if (!map[formation]) map[formation] = { formation, games: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, teamFlags: '', teamNames: [] };
       if (!teamsByFormation[formation]) teamsByFormation[formation] = new Set();
       const s = map[formation];
       s.games++;
@@ -118,7 +119,9 @@ function buildFormationStats(lineups: MatchLineup[], teamFlagMap: Map<string, st
 
   for (const [formation, names] of Object.entries(teamsByFormation)) {
     if (map[formation]) {
-      map[formation].teamFlags = Array.from(names).map((n) => teamFlagMap.get(n) ?? '🏳').join('');
+      const namesArr = Array.from(names);
+      map[formation].teamFlags = namesArr.map((n) => teamFlagMap.get(n) ?? '🏳').join('');
+      map[formation].teamNames = namesArr;
     }
   }
 
@@ -135,6 +138,7 @@ function buildFormationStats(lineups: MatchLineup[], teamFlagMap: Map<string, st
 
 function TacticsTab({ lineups, teamFlagMap, i18n }: { lineups: MatchLineup[]; teamFlagMap: Map<string, string>; i18n: I18n }) {
   const stats = buildFormationStats(lineups, teamFlagMap);
+  const [hoveredFormation, setHoveredFormation] = useState<string | null>(null);
 
   if (stats.length === 0) {
     return (
@@ -145,43 +149,49 @@ function TacticsTab({ lineups, teamFlagMap, i18n }: { lineups: MatchLineup[]; te
     );
   }
 
-  const medals = ['①', '②', '③'];
-
   return (
     <View style={{ gap: 2 }}>
       {/* Column headers */}
       <View style={tc.headerRow}>
-        <Text style={[tc.col, tc.colFormation, tc.colHdr]}>{i18n.tacFormation}</Text>
-        <Text style={[tc.col, tc.colStat, tc.colHdr]}>{i18n.tacGames}</Text>
-        <Text style={[tc.col, tc.colStat, tc.colHdr, { color: D.green }]}>W</Text>
-        <Text style={[tc.col, tc.colStat, tc.colHdr, { color: D.text3 }]}>D</Text>
-        <Text style={[tc.col, tc.colStat, tc.colHdr, { color: D.red }]}>L</Text>
-        <Text style={[tc.col, tc.colRate, tc.colHdr]}>{i18n.tacWinRate}</Text>
+        <Text style={[tc.colRank, tc.colHdr]}>#</Text>
+        <Text style={[tc.colFormation, tc.colHdr]}>{i18n.tacFormation}</Text>
+        <Text style={[tc.colCountry, tc.colHdr]}>COUNTRY</Text>
+        <Text style={[tc.colStat, tc.colHdr]}>G</Text>
+        <Text style={[tc.colStat, tc.colHdr, { color: D.green }]}>W</Text>
+        <Text style={[tc.colStat, tc.colHdr, { color: D.text2 }]}>D</Text>
+        <Text style={[tc.colStat, tc.colHdr, { color: D.red }]}>L</Text>
+        <Text style={[tc.colRate, tc.colHdr]}>{i18n.tacWinRate}</Text>
       </View>
 
       {stats.map((s, i) => {
-        const pct     = Math.round((s.wins / s.games) * 100);
-        const isTop   = i < 3;
-        const barColor = i === 0 ? D.gold : i === 1 ? D.text2 : i === 2 ? '#CD7F32' : D.blue;
+        const pct = Math.round((s.wins / s.games) * 100);
+        const isHovered = hoveredFormation === s.formation;
 
         return (
-          <View key={s.formation} style={[tc.row, i === 0 && tc.rowFirst]}>
-            <Text style={[tc.col, tc.colFormation]}>
-              <Text style={{ color: isTop ? barColor : D.text3 }}>
-                {isTop ? medals[i] : `${i + 1}`}{' '}
-              </Text>
-              <Text style={[tc.formation, { color: isTop ? D.text1 : D.text2 }]}>{s.formation}</Text>
-              {s.teamFlags ? <Text style={tc.formationFlags}> {s.teamFlags}</Text> : null}
-            </Text>
-            <Text style={[tc.col, tc.colStat, { color: D.text3 }]}>{s.games}</Text>
-            <Text style={[tc.col, tc.colStat, { color: D.green,  fontWeight: '700' }]}>{s.wins}</Text>
-            <Text style={[tc.col, tc.colStat, { color: D.text3 }]}>{s.draws}</Text>
-            <Text style={[tc.col, tc.colStat, { color: D.red,    fontWeight: '700' }]}>{s.losses}</Text>
+          <View key={s.formation} style={tc.row}>
+            <Text style={tc.colRankText}>{i + 1}</Text>
+            <Text style={tc.formation}>{s.formation}</Text>
+            <Pressable
+              style={tc.colCountry}
+              onHoverIn={() => setHoveredFormation(s.formation)}
+              onHoverOut={() => setHoveredFormation(null)}
+            >
+              <Text style={tc.flags}>{s.teamFlags || '—'}</Text>
+              {isHovered && s.teamNames.length > 0 && (
+                <View style={tc.tooltip}>
+                  <Text style={tc.tooltipText}>{s.teamNames.join(' · ')}</Text>
+                </View>
+              )}
+            </Pressable>
+            <Text style={tc.colStat}>{s.games}</Text>
+            <Text style={[tc.colStat, { color: D.green, fontWeight: '700' }]}>{s.wins}</Text>
+            <Text style={tc.colStat}>{s.draws}</Text>
+            <Text style={[tc.colStat, { color: D.red, fontWeight: '700' }]}>{s.losses}</Text>
             <View style={tc.colRate}>
               <View style={tc.barBg}>
-                <View style={[tc.barFill, { width: `${pct}%` as any, backgroundColor: barColor }]} />
+                <View style={[tc.barFill, { width: `${pct}%` as any }]} />
               </View>
-              <Text style={[tc.pct, { color: isTop ? barColor : D.text2 }]}>{pct}%</Text>
+              <Text style={tc.pct}>{pct}%</Text>
             </View>
           </View>
         );
@@ -210,19 +220,34 @@ const tc = StyleSheet.create({
   empty:        { alignItems: 'center', paddingVertical: 28, gap: 6 },
   emptyIcon:    { fontSize: 28 },
   emptyText:    { fontSize: 12, color: D.text3, textAlign: 'center' },
-  headerRow:    { flexDirection: 'row', paddingBottom: 6, borderBottomWidth: 1, borderBottomColor: D.border, marginBottom: 4 },
-  row:          { flexDirection: 'row', alignItems: 'center', paddingVertical: 7, borderBottomWidth: 1, borderBottomColor: 'rgba(80,140,255,0.04)' },
-  rowFirst:     { paddingTop: 0 },
-  col:          { fontSize: 11 },
+  headerRow:    { flexDirection: 'row', alignItems: 'center', paddingBottom: 6, borderBottomWidth: 1, borderBottomColor: D.border, marginBottom: 4 },
+  row:          { flexDirection: 'row', alignItems: 'center', paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: 'rgba(80,140,255,0.04)' },
   colHdr:       { fontSize: 8, fontWeight: '800', color: D.text3, letterSpacing: 0.8 },
-  colFormation: { flex: 3 },
-  colStat:      { flex: 1, textAlign: 'center' },
+  colRank:      { width: 20, textAlign: 'center' },
+  colRankText:  { width: 20, textAlign: 'center', fontSize: 12, color: D.text2, fontWeight: '600' },
+  colFormation: { flex: 3, paddingRight: 12 },
+  colCountry:   { flex: 2, position: 'relative' },
+  colStat:      { flex: 1, textAlign: 'center', fontSize: 12, color: D.text2 },
   colRate:      { flex: 3, flexDirection: 'row', alignItems: 'center', gap: 6 },
-  formation:      { fontSize: 13, fontWeight: '700', letterSpacing: 0.5 },
-  formationFlags: { fontSize: 14 },
+  formation:    { flex: 3, fontSize: 13, fontWeight: '700', letterSpacing: 0.5, color: D.text1, paddingRight: 12 },
+  flags:        { fontSize: 15 },
+  tooltip: {
+    position: 'absolute',
+    bottom: 26,
+    left: 0,
+    backgroundColor: D.surface,
+    borderRadius: 5,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderWidth: 1,
+    borderColor: D.border,
+    zIndex: 100,
+    minWidth: 90,
+  },
+  tooltipText:  { fontSize: 10, color: D.text1, fontWeight: '600' },
   barBg:        { flex: 1, height: 5, borderRadius: 3, backgroundColor: 'rgba(80,140,255,0.10)', overflow: 'hidden' },
-  barFill:      { height: 5, borderRadius: 3 },
-  pct:          { fontSize: 10, fontWeight: '700', width: 30, textAlign: 'right' },
+  barFill:      { height: 5, borderRadius: 3, backgroundColor: D.blue },
+  pct:          { fontSize: 10, fontWeight: '700', width: 30, textAlign: 'right', color: D.text2 },
   legend:       { flexDirection: 'row', gap: 12, paddingTop: 10, justifyContent: 'flex-end' },
   legendItem:   { fontSize: 9, color: D.text3 },
 });
