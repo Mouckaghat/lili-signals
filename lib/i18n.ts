@@ -348,6 +348,11 @@ export interface I18n {
   tacNoData: string;
   tacConfirmed: string;
   tacPredicted: string;
+  // ── Tournament Intelligence breakdowns ─────────────────────────────────
+  tiExpandBorn: string; tiExpandVs: string;
+  tiPerfWins: string; tiPerfDraws: string; tiPerfClean: string; tiPerfTotal: string; tiPerfPts: string; tiPerfCoach: string;
+  tiDangerFormula: string; tiDangerGoalsGame: string; tiDangerAvg: string; tiDangerWinRate: string; tiDangerOfPts: string; tiDangerMargin: string; tiDangerGdGame: string; tiDangerIndex: string;
+  tiLiliStrength: string; tiLiliPreRating: string; tiLiliExpected: string; tiLiliPtsRate: string; tiLiliActual: string; tiLiliSurprise: string; tiLiliGdBonus: string; tiLiliIndex: string;
 }
 
 export const I18N: Record<LangCode, I18n> = {
@@ -568,6 +573,10 @@ export const I18N: Record<LangCode, I18n> = {
     tabTactics: 'TACTICS', tacTitle: 'TACTICAL ANALYSIS', tacSub: 'Formation win rates across the tournament',
     tacFormation: 'Formation', tacGames: 'GP', tacWinRate: 'Win rate',
     tacNoData: 'Lineups appear ~1h before kickoff', tacConfirmed: 'Confirmed', tacPredicted: 'Predicted',
+    tiExpandBorn: 'Born', tiExpandVs: 'vs',
+    tiPerfWins: 'Wins', tiPerfDraws: 'Draws', tiPerfClean: 'Clean sheets', tiPerfTotal: 'Total', tiPerfPts: 'pts', tiPerfCoach: 'Coach',
+    tiDangerFormula: '(Goals/game × w3) + (Win% × w2) + (Avg margin × w1.5)', tiDangerGoalsGame: 'Goals/game', tiDangerAvg: 'avg', tiDangerWinRate: 'Win rate', tiDangerOfPts: 'of pts', tiDangerMargin: 'Avg margin', tiDangerGdGame: 'GD/game', tiDangerIndex: 'Danger index',
+    tiLiliStrength: 'Strength', tiLiliPreRating: 'Pre-tournament rating', tiLiliExpected: 'Expected', tiLiliPtsRate: '% points rate', tiLiliActual: 'Actual', tiLiliSurprise: 'Surprise', tiLiliGdBonus: 'GD bonus', tiLiliIndex: 'Lili index',
   },
 
   FR: {
@@ -787,6 +796,10 @@ export const I18N: Record<LangCode, I18n> = {
     tabTactics: 'TACTIQUE', tacTitle: 'ANALYSE TACTIQUE', tacSub: 'Taux de victoire par formation dans le tournoi',
     tacFormation: 'Formation', tacGames: 'MJ', tacWinRate: 'Victoires',
     tacNoData: "Compos disponibles ~1h avant le coup d'envoi", tacConfirmed: 'Confirmée', tacPredicted: 'Probable',
+    tiExpandBorn: 'Né(e)', tiExpandVs: 'contre',
+    tiPerfWins: 'Victoires', tiPerfDraws: 'Nuls', tiPerfClean: 'Cages inviolées', tiPerfTotal: 'Total', tiPerfPts: 'pts', tiPerfCoach: 'Entraîneur',
+    tiDangerFormula: '(Buts/match × w3) + (% victoires × w2) + (Marge moy. × w1.5)', tiDangerGoalsGame: 'Buts/match', tiDangerAvg: 'moy.', tiDangerWinRate: 'Taux victoire', tiDangerOfPts: 'des pts', tiDangerMargin: 'Marge moy.', tiDangerGdGame: 'DB/match', tiDangerIndex: 'Indice danger',
+    tiLiliStrength: 'Force', tiLiliPreRating: 'Niveau pré-tournoi', tiLiliExpected: 'Attendu', tiLiliPtsRate: '% des points', tiLiliActual: 'Réel', tiLiliSurprise: 'Surprise', tiLiliGdBonus: 'Bonus diff. buts', tiLiliIndex: 'Indice Lili',
   },
 
   IT: {
@@ -1006,6 +1019,10 @@ export const I18N: Record<LangCode, I18n> = {
     tabTactics: 'TATTICA', tacTitle: 'ANALISI TATTICA', tacSub: 'Tasso di vittoria per modulo nel torneo',
     tacFormation: 'Modulo', tacGames: 'PG', tacWinRate: 'Vittorie',
     tacNoData: 'Formazioni disponibili ~1h prima del fischio', tacConfirmed: 'Confermata', tacPredicted: 'Probabile',
+    tiExpandBorn: 'Nato/a', tiExpandVs: 'vs',
+    tiPerfWins: 'Vittorie', tiPerfDraws: 'Pareggi', tiPerfClean: 'Clean sheet', tiPerfTotal: 'Totale', tiPerfPts: 'pti', tiPerfCoach: 'Allenatore',
+    tiDangerFormula: '(Gol/partita × w3) + (% vittorie × w2) + (Marg. medio × w1.5)', tiDangerGoalsGame: 'Gol/partita', tiDangerAvg: 'media', tiDangerWinRate: 'Tasso vittorie', tiDangerOfPts: 'dei pti', tiDangerMargin: 'Margine med.', tiDangerGdGame: 'GD/partita', tiDangerIndex: 'Indice pericolo',
+    tiLiliStrength: 'Forza', tiLiliPreRating: 'Valut. pre-torneo', tiLiliExpected: 'Atteso', tiLiliPtsRate: '% punti', tiLiliActual: 'Reale', tiLiliSurprise: 'Sorpresa', tiLiliGdBonus: 'Bonus GD', tiLiliIndex: 'Indice Lili',
   },
 
   DE: {
@@ -1225,6 +1242,10 @@ export const I18N: Record<LangCode, I18n> = {
     tabTactics: 'TAKTIK', tacTitle: 'TAKTISCHE ANALYSE', tacSub: 'Siegquoten nach Formation im Turnier',
     tacFormation: 'Formation', tacGames: 'Sp', tacWinRate: 'Siegrate',
     tacNoData: 'Aufstellungen ~1h vor Anpfiff verfügbar', tacConfirmed: 'Bestätigt', tacPredicted: 'Voraussichtlich',
+    tiExpandBorn: 'Geb.', tiExpandVs: 'vs',
+    tiPerfWins: 'Siege', tiPerfDraws: 'Unentschieden', tiPerfClean: 'Zu-Null', tiPerfTotal: 'Gesamt', tiPerfPts: 'Pkt.', tiPerfCoach: 'Trainer',
+    tiDangerFormula: '(Tore/Sp. × w3) + (Siegquote × w2) + (Avg. Diff × w1.5)', tiDangerGoalsGame: 'Tore/Spiel', tiDangerAvg: 'Avg.', tiDangerWinRate: 'Siegquote', tiDangerOfPts: 'der Pkt.', tiDangerMargin: 'Avg. Diff.', tiDangerGdGame: 'TD/Spiel', tiDangerIndex: 'Gefahrenindex',
+    tiLiliStrength: 'Stärke', tiLiliPreRating: 'Vorturnier-Stärke', tiLiliExpected: 'Erwartet', tiLiliPtsRate: '% Punkte', tiLiliActual: 'Tatsächlich', tiLiliSurprise: 'Überraschung', tiLiliGdBonus: 'TD-Bonus', tiLiliIndex: 'Lili-Index',
   },
 
   ES: {
@@ -1444,6 +1465,10 @@ export const I18N: Record<LangCode, I18n> = {
     tabTactics: 'TÁCTICA', tacTitle: 'ANÁLISIS TÁCTICO', tacSub: 'Tasa de victorias por formación en el torneo',
     tacFormation: 'Formación', tacGames: 'PJ', tacWinRate: 'Victorias',
     tacNoData: 'Alineaciones disponibles ~1h antes del partido', tacConfirmed: 'Confirmada', tacPredicted: 'Probable',
+    tiExpandBorn: 'Nac.', tiExpandVs: 'vs',
+    tiPerfWins: 'Victorias', tiPerfDraws: 'Empates', tiPerfClean: 'Portería imbatida', tiPerfTotal: 'Total', tiPerfPts: 'pts', tiPerfCoach: 'Entrenador',
+    tiDangerFormula: '(Goles/p × w3) + (% victorias × w2) + (Margen med × w1.5)', tiDangerGoalsGame: 'Goles/partido', tiDangerAvg: 'prom.', tiDangerWinRate: 'Tasa victoria', tiDangerOfPts: 'de pts', tiDangerMargin: 'Margen med.', tiDangerGdGame: 'GD/partido', tiDangerIndex: 'Índice peligro',
+    tiLiliStrength: 'Fortaleza', tiLiliPreRating: 'Valoración pre-torneo', tiLiliExpected: 'Esperado', tiLiliPtsRate: '% puntos', tiLiliActual: 'Real', tiLiliSurprise: 'Sorpresa', tiLiliGdBonus: 'Bonus GD', tiLiliIndex: 'Índice Lili',
   },
 
   RU: {
@@ -1663,6 +1688,10 @@ export const I18N: Record<LangCode, I18n> = {
     tabTactics: 'ТАКТИКА', tacTitle: 'ТАКТИЧЕСКИЙ АНАЛИЗ', tacSub: 'Процент побед по схемам на турнире',
     tacFormation: 'Схема', tacGames: 'И', tacWinRate: 'Победы',
     tacNoData: 'Составы появятся ~за 1ч до начала', tacConfirmed: 'Подтверждён', tacPredicted: 'Прогноз',
+    tiExpandBorn: 'Рождён', tiExpandVs: 'против',
+    tiPerfWins: 'Победы', tiPerfDraws: 'Ничьи', tiPerfClean: 'Сухих матчей', tiPerfTotal: 'Итого', tiPerfPts: 'оч.', tiPerfCoach: 'Тренер',
+    tiDangerFormula: '(Голов/игру × w3) + (% побед × w2) + (Сред. разность × w1.5)', tiDangerGoalsGame: 'Голов/игру', tiDangerAvg: 'сред.', tiDangerWinRate: '% побед', tiDangerOfPts: 'очков', tiDangerMargin: 'Сред. разность', tiDangerGdGame: 'РМ/игру', tiDangerIndex: 'Индекс угрозы',
+    tiLiliStrength: 'Уровень', tiLiliPreRating: 'Рейтинг до турнира', tiLiliExpected: 'Ожидаемо', tiLiliPtsRate: '% очков', tiLiliActual: 'Фактически', tiLiliSurprise: 'Сюрприз', tiLiliGdBonus: 'Бонус РМ', tiLiliIndex: 'Индекс Lili',
   },
 
   CN: {
@@ -1882,6 +1911,10 @@ export const I18N: Record<LangCode, I18n> = {
     tabTactics: '战术', tacTitle: '战术分析', tacSub: '本届锦标赛各阵型胜率统计',
     tacFormation: '阵型', tacGames: '场', tacWinRate: '胜率',
     tacNoData: '首发阵容将在开球前约1小时公布', tacConfirmed: '已确认', tacPredicted: '预测',
+    tiExpandBorn: '出生', tiExpandVs: '对',
+    tiPerfWins: '胜', tiPerfDraws: '平', tiPerfClean: '零失球', tiPerfTotal: '总计', tiPerfPts: '分', tiPerfCoach: '教练',
+    tiDangerFormula: '(进球/场 × w3) + (胜率 × w2) + (平均分差 × w1.5)', tiDangerGoalsGame: '进球/场', tiDangerAvg: '均', tiDangerWinRate: '胜率', tiDangerOfPts: '分中', tiDangerMargin: '平均分差', tiDangerGdGame: '分差/场', tiDangerIndex: '危险指数',
+    tiLiliStrength: '实力', tiLiliPreRating: '赛前评级', tiLiliExpected: '预期', tiLiliPtsRate: '%积分率', tiLiliActual: '实际', tiLiliSurprise: '惊喜', tiLiliGdBonus: '分差加成', tiLiliIndex: 'Lili指数',
   },
 
   JP: {
@@ -2101,6 +2134,10 @@ export const I18N: Record<LangCode, I18n> = {
     tabTactics: '戦術', tacTitle: '戦術分析', tacSub: 'トーナメントのフォーメーション勝率',
     tacFormation: 'フォーメーション', tacGames: '試合', tacWinRate: '勝率',
     tacNoData: '先発は試合開始約1時間前に公開', tacConfirmed: '確定', tacPredicted: '予想',
+    tiExpandBorn: '生年月日', tiExpandVs: '対',
+    tiPerfWins: '勝利', tiPerfDraws: '引分', tiPerfClean: '完封', tiPerfTotal: '合計', tiPerfPts: '点', tiPerfCoach: '監督',
+    tiDangerFormula: '(得点/試合 × w3) + (勝率 × w2) + (平均差 × w1.5)', tiDangerGoalsGame: '得点/試合', tiDangerAvg: '平均', tiDangerWinRate: '勝率', tiDangerOfPts: 'の点', tiDangerMargin: '平均差', tiDangerGdGame: '差/試合', tiDangerIndex: '危険指数',
+    tiLiliStrength: '強さ', tiLiliPreRating: '大会前評価', tiLiliExpected: '予想', tiLiliPtsRate: '%勝点率', tiLiliActual: '実績', tiLiliSurprise: 'サプライズ', tiLiliGdBonus: '得失差ボーナス', tiLiliIndex: 'Liliインデックス',
   },
 
   KR: {
@@ -2320,6 +2357,10 @@ export const I18N: Record<LangCode, I18n> = {
     tabTactics: '전술', tacTitle: '전술 분석', tacSub: '대회 포메이션별 승률',
     tacFormation: '포메이션', tacGames: '경기', tacWinRate: '승률',
     tacNoData: '선발 명단은 킥오프 ~1시간 전 공개', tacConfirmed: '확정', tacPredicted: '예상',
+    tiExpandBorn: '생년월일', tiExpandVs: '대',
+    tiPerfWins: '승리', tiPerfDraws: '무승부', tiPerfClean: '무실점', tiPerfTotal: '합계', tiPerfPts: '점', tiPerfCoach: '감독',
+    tiDangerFormula: '(득점/경기 × w3) + (승률 × w2) + (평균마진 × w1.5)', tiDangerGoalsGame: '득점/경기', tiDangerAvg: '평균', tiDangerWinRate: '승률', tiDangerOfPts: '의 점', tiDangerMargin: '평균마진', tiDangerGdGame: 'GD/경기', tiDangerIndex: '위험지수',
+    tiLiliStrength: '강도', tiLiliPreRating: '대회전 평가', tiLiliExpected: '예상', tiLiliPtsRate: '%승점률', tiLiliActual: '실제', tiLiliSurprise: '서프라이즈', tiLiliGdBonus: 'GD보너스', tiLiliIndex: 'Lili지수',
   },
 
   PT: {
@@ -2539,6 +2580,10 @@ export const I18N: Record<LangCode, I18n> = {
     tabTactics: 'TÁTICA', tacTitle: 'ANÁLISE TÁTICA', tacSub: 'Taxa de vitórias por formação no torneio',
     tacFormation: 'Formação', tacGames: 'PJ', tacWinRate: 'Vitórias',
     tacNoData: 'Escalações disponíveis ~1h antes do jogo', tacConfirmed: 'Confirmada', tacPredicted: 'Provável',
+    tiExpandBorn: 'Nasc.', tiExpandVs: 'vs',
+    tiPerfWins: 'Vitórias', tiPerfDraws: 'Empates', tiPerfClean: 'Baliza imbatida', tiPerfTotal: 'Total', tiPerfPts: 'pts', tiPerfCoach: 'Treinador',
+    tiDangerFormula: '(Gols/jogo × w3) + (% vitórias × w2) + (Margem méd × w1.5)', tiDangerGoalsGame: 'Gols/jogo', tiDangerAvg: 'méd.', tiDangerWinRate: 'Taxa vitória', tiDangerOfPts: 'de pts', tiDangerMargin: 'Margem méd.', tiDangerGdGame: 'GD/jogo', tiDangerIndex: 'Índice perigo',
+    tiLiliStrength: 'Força', tiLiliPreRating: 'Avaliação pré-torneio', tiLiliExpected: 'Esperado', tiLiliPtsRate: '% pontos', tiLiliActual: 'Real', tiLiliSurprise: 'Surpresa', tiLiliGdBonus: 'Bônus GD', tiLiliIndex: 'Índice Lili',
   },
 
   AR: {
@@ -2758,5 +2803,9 @@ export const I18N: Record<LangCode, I18n> = {
     tabTactics: 'تكتيك', tacTitle: 'التحليل التكتيكي', tacSub: 'معدل الفوز لكل تشكيل في البطولة',
     tacFormation: 'تشكيل', tacGames: 'م', tacWinRate: 'نسبة الفوز',
     tacNoData: 'التشكيلات متاحة قبل ~1 ساعة من الانطلاق', tacConfirmed: 'مؤكد', tacPredicted: 'متوقع',
+    tiExpandBorn: 'مولود', tiExpandVs: 'مقابل',
+    tiPerfWins: 'انتصارات', tiPerfDraws: 'تعادلات', tiPerfClean: 'شباك نظيفة', tiPerfTotal: 'المجموع', tiPerfPts: 'نقاط', tiPerfCoach: 'المدرب',
+    tiDangerFormula: '(أهداف/مباراة × w3) + (نسبة الفوز × w2) + (المتوسط × w1.5)', tiDangerGoalsGame: 'أهداف/مباراة', tiDangerAvg: 'متوسط', tiDangerWinRate: 'نسبة الفوز', tiDangerOfPts: 'من النقاط', tiDangerMargin: 'متوسط الفارق', tiDangerGdGame: 'GD/مباراة', tiDangerIndex: 'مؤشر الخطر',
+    tiLiliStrength: 'القوة', tiLiliPreRating: 'تقييم ما قبل البطولة', tiLiliExpected: 'المتوقع', tiLiliPtsRate: '% نقاط', tiLiliActual: 'الفعلي', tiLiliSurprise: 'مفاجأة', tiLiliGdBonus: 'مكافأة الفارق', tiLiliIndex: 'مؤشر ليلي',
   },
 };

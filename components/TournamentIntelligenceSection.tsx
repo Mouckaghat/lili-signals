@@ -361,13 +361,13 @@ function ScorerRow({ entry, rank, color, i18n }: { entry: ScorerEntry; rank: num
         <View style={rw.expand}>
           {entry.dob && (
             <View style={rw.expandLine}>
-              <Text style={rw.expandLabel}>Born</Text>
-              <Text style={rw.expandVal}>{fmtDob(entry.dob, i18n.monthsShort)} · {entry.age} yrs</Text>
+              <Text style={rw.expandLabel}>{i18n.tiExpandBorn}</Text>
+              <Text style={rw.expandVal}>{fmtDob(entry.dob, i18n.monthsShort)} · {entry.age} {i18n.tiYearsOld}</Text>
             </View>
           )}
           {entry.club && (
             <View style={rw.expandLine}>
-              <Text style={rw.expandLabel}>Club</Text>
+              <Text style={rw.expandLabel}>{i18n.tiClub}</Text>
               <Text style={rw.expandVal}>
                 {[entry.club, entry.leagueFlag ? `${entry.leagueFlag} ${entry.league}` : entry.league, entry.clubRank != null && `#${entry.clubRank}`].filter(Boolean).join(' · ')}
               </Text>
@@ -381,7 +381,7 @@ function ScorerRow({ entry, rank, color, i18n }: { entry: ScorerEntry; rank: num
           {(entry.goalMinutes as GoalDetail[]).map((g, i) => (
             <View key={i} style={rw.expandLine}>
               <Text style={rw.expandLabel}>{fmtDate(g.date)}</Text>
-              <Text style={rw.expandVal}>vs {g.opponent} · </Text>
+              <Text style={rw.expandVal}>{i18n.tiExpandVs} {g.opponent} · </Text>
               <Text style={rw.minutes}>{g.minute}</Text>
             </View>
           ))}
@@ -394,7 +394,7 @@ function ScorerRow({ entry, rank, color, i18n }: { entry: ScorerEntry; rank: num
 // ─── Team row ─────────────────────────────────────────────────────────────────
 
 function TeamRow({
-  entry, rank, color, label, formation, breakdownType,
+  entry, rank, color, label, formation, breakdownType, i18n,
 }: {
   entry: TeamRankEntry;
   rank: number;
@@ -402,6 +402,7 @@ function TeamRow({
   label: string;
   formation?: string;
   breakdownType?: 'danger' | 'lili';
+  i18n: I18n;
 }) {
   const [open, setOpen] = useState(false);
   const badgeScale = usePulse(breakdownType ? 3 : 0);
@@ -434,21 +435,21 @@ function TeamRow({
 
       {open && canExpand && breakdownType === 'danger' && bd && (
         <View style={rw.expand}>
-          <Text style={rw.expandFormula}>(Goals/game × w3) + (Win% × w2) + (Avg margin × w1.5)</Text>
+          <Text style={rw.expandFormula}>{i18n.tiDangerFormula}</Text>
           <View style={rw.expandLine}>
-            <Text style={rw.expandLabel}>Goals/game</Text>
-            <Text style={rw.expandVal}>{bd.goalRate} avg  ×  w3  = <Text style={{ color: D.red, fontWeight: '700' }}>{bd.goalRateContrib}</Text></Text>
+            <Text style={rw.expandLabel}>{i18n.tiDangerGoalsGame}</Text>
+            <Text style={rw.expandVal}>{bd.goalRate} {i18n.tiDangerAvg}  ×  w3  = <Text style={{ color: D.red, fontWeight: '700' }}>{bd.goalRateContrib}</Text></Text>
           </View>
           <View style={rw.expandLine}>
-            <Text style={rw.expandLabel}>Win rate</Text>
-            <Text style={rw.expandVal}>{bd.winRate}% of pts  ×  w2  = <Text style={{ color: D.green, fontWeight: '700' }}>{bd.winRateContrib}</Text></Text>
+            <Text style={rw.expandLabel}>{i18n.tiDangerWinRate}</Text>
+            <Text style={rw.expandVal}>{bd.winRate}% {i18n.tiDangerOfPts}  ×  w2  = <Text style={{ color: D.green, fontWeight: '700' }}>{bd.winRateContrib}</Text></Text>
           </View>
           <View style={rw.expandLine}>
-            <Text style={rw.expandLabel}>Avg margin</Text>
-            <Text style={rw.expandVal}>{bd.margin} GD/game  ×  w1.5  = <Text style={{ color: D.blue, fontWeight: '700' }}>{bd.marginContrib}</Text></Text>
+            <Text style={rw.expandLabel}>{i18n.tiDangerMargin}</Text>
+            <Text style={rw.expandVal}>{bd.margin} {i18n.tiDangerGdGame}  ×  w1.5  = <Text style={{ color: D.blue, fontWeight: '700' }}>{bd.marginContrib}</Text></Text>
           </View>
           <View style={[rw.expandLine, rw.expandSep]}>
-            <Text style={rw.expandLabel}>Danger index</Text>
+            <Text style={rw.expandLabel}>{i18n.tiDangerIndex}</Text>
             <Text style={[rw.expandTotal, { color }]}>{entry.value}</Text>
           </View>
         </View>
@@ -457,27 +458,27 @@ function TeamRow({
       {open && canExpand && breakdownType === 'lili' && bd && (
         <View style={rw.expand}>
           <View style={rw.expandLine}>
-            <Text style={rw.expandLabel}>Strength</Text>
-            <Text style={rw.expandVal}>Pre-tournament rating: <Text style={{ fontWeight: '700' }}>{bd.strength}</Text></Text>
+            <Text style={rw.expandLabel}>{i18n.tiLiliStrength}</Text>
+            <Text style={rw.expandVal}>{i18n.tiLiliPreRating}: <Text style={{ fontWeight: '700' }}>{bd.strength}</Text></Text>
           </View>
           <View style={rw.expandLine}>
-            <Text style={rw.expandLabel}>Expected</Text>
-            <Text style={rw.expandVal}>{bd.expectedPct}% points rate</Text>
+            <Text style={rw.expandLabel}>{i18n.tiLiliExpected}</Text>
+            <Text style={rw.expandVal}>{bd.expectedPct}{i18n.tiLiliPtsRate}</Text>
           </View>
           <View style={rw.expandLine}>
-            <Text style={rw.expandLabel}>Actual</Text>
-            <Text style={rw.expandVal}>{bd.actualPct}% points rate</Text>
+            <Text style={rw.expandLabel}>{i18n.tiLiliActual}</Text>
+            <Text style={rw.expandVal}>{bd.actualPct}{i18n.tiLiliPtsRate}</Text>
           </View>
           <View style={rw.expandLine}>
-            <Text style={rw.expandLabel}>Surprise</Text>
+            <Text style={rw.expandLabel}>{i18n.tiLiliSurprise}</Text>
             <Text style={[rw.expandVal, { color: D.signal, fontWeight: '700' }]}>+{bd.ptsDelta}</Text>
           </View>
           <View style={rw.expandLine}>
-            <Text style={rw.expandLabel}>GD bonus</Text>
+            <Text style={rw.expandLabel}>{i18n.tiLiliGdBonus}</Text>
             <Text style={[rw.expandVal, { color: D.cyan, fontWeight: '700' }]}>+{bd.gdBonus}</Text>
           </View>
           <View style={[rw.expandLine, rw.expandSep]}>
-            <Text style={rw.expandLabel}>Lili index</Text>
+            <Text style={rw.expandLabel}>{i18n.tiLiliIndex}</Text>
             <Text style={[rw.expandTotal, { color }]}>{entry.value}</Text>
           </View>
         </View>
@@ -584,7 +585,7 @@ function buildPerformanceRanking(
     .sort((a, b) => b.pts !== a.pts ? b.pts - a.pts : (b.gf - b.ga) - (a.gf - a.ga));
 }
 
-function PerformanceRow({ entry, rank, formation, coach }: { entry: PerfEntry; rank: number; formation?: string; coach?: string }) {
+function PerformanceRow({ entry, rank, formation, coach, i18n }: { entry: PerfEntry; rank: number; formation?: string; coach?: string; i18n: I18n }) {
   const [open, setOpen] = useState(false);
   const badgeScale = usePulse(3);
   const medal     = rank <= 3 ? ['①', '②', '③'][rank - 1] : `${rank}`;
@@ -592,7 +593,7 @@ function PerformanceRow({ entry, rank, formation, coach }: { entry: PerfEntry; r
 
   const staticInfo = [
     formation,
-    coach && `Coach: ${coach}`,
+    coach && `${i18n.tiPerfCoach}: ${coach}`,
     `${entry.gf} scored · ${entry.ga} conceded`,
   ].filter(Boolean).join(' · ');
 
@@ -617,20 +618,20 @@ function PerformanceRow({ entry, rank, formation, coach }: { entry: PerfEntry; r
       {open && (
         <View style={rw.expand}>
           <View style={rw.expandLine}>
-            <Text style={rw.expandLabel}>Wins</Text>
-            <Text style={rw.expandVal}>{entry.wins} × 3 = <Text style={{ color: D.green, fontWeight: '700' }}>{entry.wins * 3} pts</Text></Text>
+            <Text style={rw.expandLabel}>{i18n.tiPerfWins}</Text>
+            <Text style={rw.expandVal}>{entry.wins} × 3 = <Text style={{ color: D.green, fontWeight: '700' }}>{entry.wins * 3} {i18n.tiPerfPts}</Text></Text>
           </View>
           <View style={rw.expandLine}>
-            <Text style={rw.expandLabel}>Draws</Text>
-            <Text style={rw.expandVal}>{entry.draws} × 1 = <Text style={{ fontWeight: '700' }}>{entry.draws} pts</Text></Text>
+            <Text style={rw.expandLabel}>{i18n.tiPerfDraws}</Text>
+            <Text style={rw.expandVal}>{entry.draws} × 1 = <Text style={{ fontWeight: '700' }}>{entry.draws} {i18n.tiPerfPts}</Text></Text>
           </View>
           <View style={rw.expandLine}>
-            <Text style={rw.expandLabel}>Clean sheets</Text>
-            <Text style={rw.expandVal}>{entry.cleanSheets} × 1 = <Text style={{ color: D.cyan, fontWeight: '700' }}>{entry.cleanSheets} pts</Text></Text>
+            <Text style={rw.expandLabel}>{i18n.tiPerfClean}</Text>
+            <Text style={rw.expandVal}>{entry.cleanSheets} × 1 = <Text style={{ color: D.cyan, fontWeight: '700' }}>{entry.cleanSheets} {i18n.tiPerfPts}</Text></Text>
           </View>
           <View style={[rw.expandLine, rw.expandSep]}>
-            <Text style={rw.expandLabel}>Total</Text>
-            <Text style={[rw.expandTotal, { color: D.gold }]}>{entry.pts} pts</Text>
+            <Text style={rw.expandLabel}>{i18n.tiPerfTotal}</Text>
+            <Text style={[rw.expandTotal, { color: D.gold }]}>{entry.pts} {i18n.tiPerfPts}</Text>
           </View>
         </View>
       )}
@@ -816,7 +817,7 @@ export default function TournamentIntelligenceSection() {
               perfRanking.length === 0
                 ? <NoData i18n={i18n} />
                 : perfRanking.map((e, i) => (
-                    <PerformanceRow key={e.name} entry={e} rank={i + 1} formation={teamFormation.get(e.name)} coach={teamCoach.get(e.name)} />
+                    <PerformanceRow key={e.name} entry={e} rank={i + 1} formation={teamFormation.get(e.name)} coach={teamCoach.get(e.name)} i18n={i18n} />
                   ))
             )}
 
@@ -834,7 +835,7 @@ export default function TournamentIntelligenceSection() {
               data.mostDangerous.length === 0
                 ? <NoData i18n={i18n} />
                 : data.mostDangerous.map((e, i) => (
-                    <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label={i18n.tiScore} formation={teamFormation.get(e.name)} breakdownType="danger" />
+                    <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label={i18n.tiScore} formation={teamFormation.get(e.name)} breakdownType="danger" i18n={i18n} />
                   ))
             )}
 
@@ -848,7 +849,7 @@ export default function TournamentIntelligenceSection() {
                 {data.liliSurpriseRank.length === 0
                   ? <NoData i18n={i18n} />
                   : data.liliSurpriseRank.map((e, i) => (
-                      <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label="INDEX" formation={teamFormation.get(e.name)} breakdownType="lili" />
+                      <TeamRow key={e.name} entry={e} rank={i + 1} color={activeConfig.color} label="INDEX" formation={teamFormation.get(e.name)} breakdownType="lili" i18n={i18n} />
                     ))
                 }
               </>
