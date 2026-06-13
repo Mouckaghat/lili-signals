@@ -56,6 +56,31 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  // ── GROUP B — Matchday 1 ─────────────────────────────────────────────────
+  {
+    fixtureId: 'B1_Canada_v_Bosnia_Herzegovina',
+    home: 'Canada', away: 'Bosnia & Herzegovina', date: '2026-06-12',
+    goals: [
+      { player: 'Jovo Lukić',  team: 'Bosnia & Herzegovina', minute: 21, type: 'goal' },
+      { player: 'Cyle Larin',  team: 'Canada',               minute: 78, type: 'goal' },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
+  // ── GROUP C — Matchday 1 ─────────────────────────────────────────────────
+  {
+    fixtureId: 'C1_USA_v_Paraguay',
+    home: 'USA', away: 'Paraguay', date: '2026-06-12',
+    goals: [
+      { player: 'Damián Bobadilla', team: 'Paraguay', minute: 7,  type: 'own-goal' },
+      { player: 'Folarin Balogun',  team: 'USA',      minute: 31, type: 'goal'     },
+      { player: 'Folarin Balogun',  team: 'USA',      minute: 45, type: 'goal'     },
+      { player: 'Maurício',         team: 'Paraguay', minute: 73, type: 'goal'     },
+      { player: 'Giovanni Reyna',   team: 'USA',      minute: 90, type: 'goal'     },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-12';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-13';

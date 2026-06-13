@@ -76,28 +76,32 @@ function buildTeamFormationMap(lineups: MatchLineup[]): Map<string, string> {
 
 interface FormationStats {
   formation: string;
-  games:  number;
-  wins:   number;
-  draws:  number;
-  losses: number;
-  gf:     number;
-  ga:     number;
+  games:     number;
+  wins:      number;
+  draws:     number;
+  losses:    number;
+  gf:        number;
+  ga:        number;
+  teamFlags: string; // flag emojis of teams that used this formation
 }
 
-function buildFormationStats(lineups: MatchLineup[]): FormationStats[] {
+function buildFormationStats(lineups: MatchLineup[], teamFlagMap: Map<string, string>): FormationStats[] {
   const map: Record<string, FormationStats> = {};
+  const teamsByFormation: Record<string, Set<string>> = {};
 
   for (const lineup of lineups) {
     if (!lineup.confirmed) continue;
     const result = FIXTURE_RESULTS[lineup.fixtureKey];
     if (!result || result.status !== 'FINISHED') continue;
 
+    const [home, away] = lineup.fixtureKey.split('|');
     const hScore = result.homeScore ?? 0;
     const aScore = result.awayScore ?? 0;
 
-    const addResult = (formation: string, gf: number, ga: number) => {
+    const addResult = (formation: string, teamName: string, gf: number, ga: number) => {
       if (!formation || formation === '?') return;
-      if (!map[formation]) map[formation] = { formation, games: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0 };
+      if (!map[formation]) map[formation] = { formation, games: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0, teamFlags: '' };
+      if (!teamsByFormation[formation]) teamsByFormation[formation] = new Set();
       const s = map[formation];
       s.games++;
       s.gf += gf;
@@ -105,10 +109,17 @@ function buildFormationStats(lineups: MatchLineup[]): FormationStats[] {
       if (gf > ga) s.wins++;
       else if (gf === ga) s.draws++;
       else s.losses++;
+      teamsByFormation[formation].add(teamName);
     };
 
-    addResult(lineup.home.formation, hScore, aScore);
-    addResult(lineup.away.formation, aScore, hScore);
+    addResult(lineup.home.formation, home, hScore, aScore);
+    addResult(lineup.away.formation, away, aScore, hScore);
+  }
+
+  for (const [formation, names] of Object.entries(teamsByFormation)) {
+    if (map[formation]) {
+      map[formation].teamFlags = Array.from(names).map((n) => teamFlagMap.get(n) ?? '🏳').join('');
+    }
   }
 
   return Object.values(map)
@@ -122,8 +133,8 @@ function buildFormationStats(lineups: MatchLineup[]): FormationStats[] {
 
 // ─── Tactics tab UI ───────────────────────────────────────────────────────────
 
-function TacticsTab({ lineups, i18n }: { lineups: MatchLineup[]; i18n: I18n }) {
-  const stats = buildFormationStats(lineups);
+function TacticsTab({ lineups, teamFlagMap, i18n }: { lineups: MatchLineup[]; teamFlagMap: Map<string, string>; i18n: I18n }) {
+  const stats = buildFormationStats(lineups, teamFlagMap);
 
   if (stats.length === 0) {
     return (
@@ -160,12 +171,13 @@ function TacticsTab({ lineups, i18n }: { lineups: MatchLineup[]; i18n: I18n }) {
                 {isTop ? medals[i] : `${i + 1}`}{' '}
               </Text>
               <Text style={[tc.formation, { color: isTop ? D.text1 : D.text2 }]}>{s.formation}</Text>
+              {s.teamFlags ? <Text style={tc.formationFlags}> {s.teamFlags}</Text> : null}
             </Text>
             <Text style={[tc.col, tc.colStat, { color: D.text3 }]}>{s.games}</Text>
             <Text style={[tc.col, tc.colStat, { color: D.green,  fontWeight: '700' }]}>{s.wins}</Text>
             <Text style={[tc.col, tc.colStat, { color: D.text3 }]}>{s.draws}</Text>
             <Text style={[tc.col, tc.colStat, { color: D.red,    fontWeight: '700' }]}>{s.losses}</Text>
-            <View style={[tc.col, tc.colRate]}>
+            <View style={tc.colRate}>
               <View style={tc.barBg}>
                 <View style={[tc.barFill, { width: `${pct}%` as any, backgroundColor: barColor }]} />
               </View>
@@ -206,7 +218,8 @@ const tc = StyleSheet.create({
   colFormation: { flex: 3 },
   colStat:      { flex: 1, textAlign: 'center' },
   colRate:      { flex: 3, flexDirection: 'row', alignItems: 'center', gap: 6 },
-  formation:    { fontSize: 13, fontWeight: '700', letterSpacing: 0.5 },
+  formation:      { fontSize: 13, fontWeight: '700', letterSpacing: 0.5 },
+  formationFlags: { fontSize: 14 },
   barBg:        { flex: 1, height: 5, borderRadius: 3, backgroundColor: 'rgba(80,140,255,0.10)', overflow: 'hidden' },
   barFill:      { height: 5, borderRadius: 3 },
   pct:          { fontSize: 10, fontWeight: '700', width: 30, textAlign: 'right' },
@@ -335,6 +348,7 @@ interface PerfEntry {
   flag:        string;
   games:       number;
   wins:        number;
+  draws:       number;
   gf:          number;
   ga:          number;
   cleanSheets: number;
@@ -348,7 +362,7 @@ function buildPerformanceRanking(
   const map: Record<string, PerfEntry> = {};
 
   const get = (name: string): PerfEntry =>
-    (map[name] ??= { name, flag: flagMap.get(name) ?? '🏳', games: 0, wins: 0, gf: 0, ga: 0, cleanSheets: 0, pts: 0 });
+    (map[name] ??= { name, flag: flagMap.get(name) ?? '🏳', games: 0, wins: 0, draws: 0, gf: 0, ga: 0, cleanSheets: 0, pts: 0 });
 
   for (const [key, result] of Object.entries(results)) {
     if (result.status !== 'FINISHED') continue;
@@ -359,16 +373,18 @@ function buildPerformanceRanking(
     const h = get(home);
     h.games++; h.gf += hg; h.ga += ag;
     if (hg > ag) h.wins++;
+    else if (hg === ag) h.draws++;
     if (ag === 0) h.cleanSheets++;
 
     const a = get(away);
     a.games++; a.gf += ag; a.ga += hg;
     if (ag > hg) a.wins++;
+    else if (hg === ag) a.draws++;
     if (hg === 0) a.cleanSheets++;
   }
 
   for (const e of Object.values(map)) {
-    e.pts = e.wins * 3 + e.cleanSheets;
+    e.pts = e.wins * 3 + e.draws + e.cleanSheets;
   }
 
   return Object.values(map)
@@ -616,7 +632,7 @@ export default function TournamentIntelligenceSection() {
             )}
 
             {activeTab === 'tactics' && (
-              <TacticsTab lineups={lineups} i18n={i18n} />
+              <TacticsTab lineups={lineups} teamFlagMap={teamFlagMap} i18n={i18n} />
             )}
           </>
         )}
