@@ -39,7 +39,7 @@ function getTabs(i18n: I18n): Array<{ key: TabKey; label: string; icon: string; 
   return [
     { key: 'scorers',     label: i18n.tabScorers, icon: '⚽',  color: D.blue   },
     { key: 'performance', label: 'PERF',           icon: '📊',  color: D.orange },
-    { key: 'cards',       label: i18n.tabCards,    icon: '🟨',  color: D.yellow },
+    { key: 'cards',       label: i18n.tabCards,    icon: '🟨🟥', color: D.yellow },
     { key: 'danger',      label: i18n.tabDanger,   icon: '💀',  color: D.red    },
     { key: 'surprise',    label: i18n.tabLili,     icon: '✨',  color: D.signal },
     { key: 'tactics',     label: i18n.tabTactics,  icon: '🧩',  color: D.green  },
