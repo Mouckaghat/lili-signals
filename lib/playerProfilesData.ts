@@ -73,6 +73,76 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     wcCount: 1,
     caps: 27,
   },
+  // ── Bosnia & Herzegovina ──────────────────────────────────────────────────────
+  {
+    name: 'Jovo Lukić',
+    dob: '1998-11-28',
+    age: 27,
+    club: 'Universitatea Cluj',
+    league: 'Liga I',
+    leagueFlag: '🇷🇴',
+    clubRank: 3,
+    wcCount: 1,
+    caps: 4,
+  },
+  // ── Canada ────────────────────────────────────────────────────────────────────
+  {
+    name: 'Cyle Larin',
+    dob: '1995-04-17',
+    age: 31,
+    club: 'Mallorca',
+    league: 'La Liga',
+    leagueFlag: '🇪🇸',
+    clubRank: 18,
+    wcCount: 2,
+    caps: 91,
+  },
+  // ── USA ───────────────────────────────────────────────────────────────────────
+  {
+    name: 'Folarin Balogun',
+    dob: '2001-07-03',
+    age: 24,
+    club: 'AS Monaco',
+    league: 'Ligue 1',
+    leagueFlag: '🇫🇷',
+    clubRank: 7,
+    wcCount: 1,
+    caps: 28,
+  },
+  {
+    name: 'Giovanni Reyna',
+    dob: '2002-11-13',
+    age: 23,
+    club: 'Borussia Mönchengladbach',
+    league: 'Bundesliga',
+    leagueFlag: '🇩🇪',
+    clubRank: 12,
+    wcCount: 2,
+    caps: 39,
+  },
+  // ── Paraguay ──────────────────────────────────────────────────────────────────
+  {
+    name: 'Damián Bobadilla',
+    dob: '2001-07-11',
+    age: 24,
+    club: 'São Paulo',
+    league: 'Série A',
+    leagueFlag: '🇧🇷',
+    clubRank: 8,
+    wcCount: 1,
+    caps: 19,
+  },
+  {
+    name: 'Maurício',
+    dob: '2001-06-22',
+    age: 24,
+    club: 'Palmeiras',
+    league: 'Série A',
+    leagueFlag: '🇧🇷',
+    clubRank: 1,
+    wcCount: 1,
+    caps: 4,
+  },
 ];
 
-export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-12';
+export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-13';
