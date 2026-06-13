@@ -264,15 +264,22 @@ function ScorerRow({ entry, rank, color, i18n }: { entry: ScorerEntry; rank: num
     entry.caps    != null && `${entry.caps} ${i18n.tiCaps}`,
   ].filter(Boolean) as string[];
 
+  const minutesStr = entry.goalMinutes?.join(' · ');
+
   return (
     <View style={[rw.row, rank === 1 && rw.rowFirst]}>
       <Text style={[rw.rank, { color: rank <= 3 ? color : D.text3 }]}>
         {rank <= 3 ? ['①', '②', '③'][rank - 1] : `${rank}`}
       </Text>
-      <Text style={[rw.profile, { flex: 1 }]} numberOfLines={1}>
-        <Text style={rw.name}>{entry.name}</Text>
-        {parts.length > 0 && <Text>{' - '}{parts.join(' · ')}</Text>}
-      </Text>
+      <View style={{ flex: 1, gap: 2 }}>
+        <Text style={rw.profile} numberOfLines={1}>
+          <Text style={rw.name}>{entry.name}</Text>
+          {parts.length > 0 && <Text>{' - '}{parts.join(' · ')}</Text>}
+        </Text>
+        {minutesStr && (
+          <Text style={rw.minutes}>{minutesStr}</Text>
+        )}
+      </View>
       <View style={[rw.badge, { borderColor: `${color}30`, backgroundColor: `${color}10` }]}>
         <Text style={[rw.badgeVal, { color }]}>{entry.goals}</Text>
         <Text style={rw.badgeLbl}>{i18n.tiGoals}</Text>
@@ -328,6 +335,7 @@ const rw = StyleSheet.create({
   formationTag: { fontSize: 9, fontWeight: '600', color: D.text3, letterSpacing: 0.5 },
   detail:{ fontSize: 10, color: D.text3 },
   profile: { fontSize: 10, color: D.text3, lineHeight: 15, marginTop: 2 },
+  minutes: { fontSize: 9, color: D.cyan, fontWeight: '600', letterSpacing: 0.3 },
   badge: {
     alignItems: 'center',
     paddingHorizontal: 9,

@@ -4,10 +4,11 @@
 export type EventType = 'goal' | 'own-goal' | 'penalty';
 
 export interface GoalEvent {
-  player: string;
-  team:   string;
-  minute: number;
-  type:   EventType;
+  player:           string;
+  team:             string;
+  minute:           number;
+  minuteStoppage?:  number; // e.g. 5 for "45+5'"
+  type:             EventType;
 }
 
 export interface CardEvent {
@@ -73,10 +74,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: 'USA', away: 'Paraguay', date: '2026-06-12',
     goals: [
       { player: 'Damián Bobadilla', team: 'Paraguay', minute: 7,  type: 'own-goal' },
-      { player: 'Folarin Balogun',  team: 'USA',      minute: 31, type: 'goal'     },
-      { player: 'Folarin Balogun',  team: 'USA',      minute: 45, type: 'goal'     },
-      { player: 'Maurício',         team: 'Paraguay', minute: 73, type: 'goal'     },
-      { player: 'Giovanni Reyna',   team: 'USA',      minute: 90, type: 'goal'     },
+      { player: 'Folarin Balogun',  team: 'USA',      minute: 31,                    type: 'goal' },
+      { player: 'Folarin Balogun',  team: 'USA',      minute: 45, minuteStoppage: 5, type: 'goal' },
+      { player: 'Maurício',         team: 'Paraguay', minute: 73,                    type: 'goal' },
+      { player: 'Giovanni Reyna',   team: 'USA',      minute: 90, minuteStoppage: 8, type: 'goal' },
     ],
     yellowCards: [],
     redCards: [],

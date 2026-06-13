@@ -6,6 +6,7 @@ export interface ScorerEntry {
   team: string;
   teamFlag: string;
   goals: number;
+  goalMinutes?: string[]; // e.g. ["31'", "45+5'"]
   // Optional enrichment from playerProfilesData.ts (Lili-curated)
   dob?: string;
   age?: number;

@@ -34,26 +34,32 @@ export default async function handler(_req: any, res: any) {
   res.setHeader('Cache-Control', 's-maxage=120, stale-while-revalidate=180');
 
   // ── Top scorers from curated match events ────────────────────────────────
-  const scorerMap: Record<string, { team: string; goals: number }> = {};
+  const scorerMap: Record<string, { team: string; goals: number; minutes: string[] }> = {};
   for (const match of MATCH_EVENTS) {
     for (const g of match.goals) {
       const team = g.type === 'own-goal'
         ? (g.team === match.home ? match.away : match.home)
         : g.team;
-      if (!scorerMap[g.player]) scorerMap[g.player] = { team, goals: 0 };
+      const minStr = g.minuteStoppage
+        ? `${g.minute}+${g.minuteStoppage}'`
+        : `${g.minute}'`;
+      const label = g.type === 'own-goal' ? `${minStr} OG` : minStr;
+      if (!scorerMap[g.player]) scorerMap[g.player] = { team, goals: 0, minutes: [] };
       scorerMap[g.player].goals++;
+      scorerMap[g.player].minutes.push(label);
     }
   }
   const profileMap = new Map(PLAYER_PROFILES.map((p) => [p.name, p]));
 
   const topScorers = Object.entries(scorerMap)
-    .map(([name, { team, goals }]) => {
+    .map(([name, { team, goals, minutes }]) => {
       const profile = profileMap.get(name);
       return {
         name,
         team,
         teamFlag: getTeam(team)?.flag ?? '🏳',
         goals,
+        goalMinutes: minutes,
         ...(profile && {
           dob:         profile.dob,
           age:         profile.age,
