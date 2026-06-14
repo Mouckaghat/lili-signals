@@ -13,6 +13,7 @@ import { WC_FIXTURES, WC_TEAMS } from '../lib/wcData';
 import HomeEdgeModule from '../components/HomeEdgeModule';
 import PlayersModule from '../components/PlayersModule';
 import AttackZonesModule from '../components/AttackZonesModule';
+import OverviewModule from '../components/OverviewModule';
 
 // ─── Tokens ──────────────────────────────────────────────────────────────────
 const D = {
@@ -198,10 +199,11 @@ function Lg({ color, label }: { color: string; label: string }) {
   return <View style={mc.lg}><View style={[mc.lgDot, { backgroundColor: color }]} /><Text style={mc.lgTxt}>{label}</Text></View>;
 }
 
+const OVERVIEW = '📊 Overview';
 const HOME_EDGE = '🏟 Home Edge';
 const PLAYERS = '👤 Players';
 const ATTACK = '⚔️ Attack Zones';
-const TABS = ['Overview', 'Heatmap', HOME_EDGE, ATTACK, 'Shots', 'Pass Map', PLAYERS];
+const TABS = [OVERVIEW, 'Heatmap', HOME_EDGE, ATTACK, 'Shots', 'Pass Map', PLAYERS];
 
 // ─── Screen ────────────────────────────────────────────────────────────────────
 export default function MatchHeatmapScreen() {
@@ -211,7 +213,7 @@ export default function MatchHeatmapScreen() {
   const matches   = useLiveStats();
   const results   = useLiveResults();
   const lineups   = useLineups();
-  const [tab, setTab] = useState('Heatmap');
+  const [tab, setTab] = useState(OVERVIEW);
 
   const ordered = useMemo(() =>
     [...matches].sort((a, b) => (a.status === 'LIVE' ? -1 : 0) - (b.status === 'LIVE' ? -1 : 0) || b.date.localeCompare(a.date)),
@@ -390,6 +392,16 @@ export default function MatchHeatmapScreen() {
       <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
         {Header}{Picker}{Tabs}
         <AttackZonesModule match={active} />
+        {Footer}
+      </ScrollView>
+    );
+  }
+
+  if (tab === OVERVIEW) {
+    return (
+      <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
+        {Header}{Picker}{Tabs}
+        <OverviewModule match={active} />
         {Footer}
       </ScrollView>
     );
