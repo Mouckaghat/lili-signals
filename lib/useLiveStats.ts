@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 import { MATCH_STATS, type MatchStats, type TeamMatchStats } from './matchStatsData';
+import { WC_FIXTURES } from './wcData';
+
+// home|away → real WCFixture.id, so a LIVE game that isn't in the pre-baked
+// MATCH_STATS still gets its canonical fixtureId (e.g. E1_Germany_v_Cura_ao).
+// Without this, deep-links from the timeline's 🔥 flame wouldn't preselect it.
+const FIXTURE_ID_BY_KEY = new Map(WC_FIXTURES.map((f) => [`${f.home}|${f.away}`, f.id]));
 
 // Poll cadence for the live heatmap. Stats move slowly; 45s keeps it fresh
 // without hammering the rate limit.
@@ -38,7 +44,7 @@ export function useLiveStats(): MatchStats[] {
             const [home, away] = key.split('|');
             const base = byKey.get(key);
             byKey.set(key, {
-              fixtureId: base?.fixtureId ?? key,
+              fixtureId: base?.fixtureId ?? FIXTURE_ID_BY_KEY.get(key) ?? key,
               home, away,
               date: base?.date ?? '',
               status: live.status,

@@ -157,8 +157,10 @@ function MatchRow({ entry, lineup, i18n }: { entry: MatchEntry; lineup?: MatchLi
         <Text style={row.env} numberOfLines={1}>{envParts.join('  ·  ')}</Text>
       )}
 
-      {/* Heatmap shortcut — only for matches that have stats */}
-      {FIXTURES_WITH_HEAT.has(fixture.id) && (
+      {/* Heatmap shortcut — for matches with pre-baked stats AND any LIVE game
+          (live games get their heatmap from /api/match-stats at runtime, so the
+          flame must show even though the fixture isn't in the static set). */}
+      {(FIXTURES_WITH_HEAT.has(fixture.id) || kind === 'LIVE') && (
         <Pressable
           onPress={() => router.push({ pathname: '/match-heatmap', params: { fixtureId: fixture.id } } as any)}
           hitSlop={6}
