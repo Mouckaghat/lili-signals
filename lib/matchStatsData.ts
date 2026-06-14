@@ -81,6 +81,13 @@ export const MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Australia", possession: 0.28, totalShots: 9, shotsInsideBox: 6, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 5, xg: 0.77, passAccuracy: 0.75 },
     awayStats: { team: "Türkiye", possession: 0.72, totalShots: 30, shotsInsideBox: 14, shotsOutsideBox: 16, shotsOnGoal: 8, corners: 8, xg: 1.33, passAccuracy: 0.9 },
   },
+  {
+    fixtureId: "E1_Germany_v_Cura_ao",
+    home: "Germany", away: "Curaçao", date: "2026-06-14",
+    status: "LIVE", elapsed: 22,
+    homeStats: { team: "Germany", possession: 0.7, totalShots: 8, shotsInsideBox: 5, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 0, xg: 0.56, passAccuracy: 0.9 },
+    awayStats: { team: "Curaçao", possession: 0.3, totalShots: 1, shotsInsideBox: 0, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 0, xg: 0.02, passAccuracy: 0.8 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-14T16:00:26.327Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-14T17:23:56.300Z';
