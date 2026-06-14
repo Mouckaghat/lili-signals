@@ -125,6 +125,17 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "D1_Haiti_v_Scotland",
+    home: "Haiti", away: "Scotland", date: "2026-06-14",
+    goals: [
+      { player: "John McGinn", team: "Scotland", minute: 28, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Jean-Ricner Bellegarde", team: "Haiti", minute: 39, reason: "Tripping" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-14T00:26:42.182Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-14T01:59:38.474Z';
