@@ -86,10 +86,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "E1_Germany_v_Cura_ao",
     home: "Germany", away: "Curaçao", date: "2026-06-14",
-    status: "LIVE", elapsed: 45,
-    homeStats: { team: "Germany", possession: 0.71, totalShots: 15, shotsInsideBox: 11, shotsOutsideBox: 4, shotsOnGoal: 4, corners: 6, xg: 1.56, passAccuracy: 0.88, passes: 327, fouls: 7 },
-    awayStats: { team: "Curaçao", possession: 0.29, totalShots: 4, shotsInsideBox: 1, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 0, xg: 0.14, passAccuracy: 0.81, passes: 137, fouls: 5 },
+    status: "LIVE", elapsed: 86,
+    homeStats: { team: "Germany", possession: 0.68, totalShots: 24, shotsInsideBox: 19, shotsOutsideBox: 5, shotsOnGoal: 10, corners: 8, xg: 3.76, passAccuracy: 0.88, passes: 567, fouls: 17 },
+    awayStats: { team: "Curaçao", possession: 0.32, totalShots: 8, shotsInsideBox: 4, shotsOutsideBox: 4, shotsOnGoal: 2, corners: 0, xg: 0.4, passAccuracy: 0.82, passes: 269, fouls: 8 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-14T17:52:59.569Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-14T18:49:37.183Z';
