@@ -32,6 +32,7 @@ export default function RootLayout() {
             <Stack.Screen name="world-signals" options={{ title: 'World Signals', headerShown: false }} />
             <Stack.Screen name="alternate-timeline" options={{ title: 'Alternate Timeline', headerShown: false }} />
             <Stack.Screen name="group-drama" options={{ title: 'Group Drama Index', headerShown: false }} />
+            <Stack.Screen name="match-heatmap" options={{ title: 'Match Heatmaps' }} />
           </Stack>
           <BottomNavigationDock />
         </View>

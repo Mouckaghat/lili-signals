@@ -1,0 +1,64 @@
+name: Email Daily Recon Log
+
+# ─── What this does ─────────────────────────────────────────────────────────────
+#
+# Emails the latest RECON_LOG_*.md to the contact address once a day (and on
+# demand). Recon logs are committed to the repo root as RECON_LOG_YYYY-MM-DD.md.
+#
+# Required repository secrets (Settings → Secrets and variables → Actions):
+#   MAIL_SERVER    e.g. smtp.gmail.com   (or smtp.resend.com, smtp.sendgrid.net)
+#   MAIL_PORT      e.g. 465              (SSL) or 587 (STARTTLS)
+#   MAIL_USERNAME  SMTP username / sender address (for Gmail: the full address)
+#   MAIL_PASSWORD  SMTP password / app-password / API key
+#
+# Recipient is fixed to Contact@jura-technology.com below.
+
+on:
+  schedule:
+    - cron: '0 7 * * *'   # daily 07:00 UTC
+  workflow_dispatch:
+    inputs:
+      log_file:
+        description: 'Specific RECON_LOG_*.md to send (default: most recent)'
+        type: string
+        default: ''
+
+jobs:
+  email:
+    name: Send recon log
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Pick the recon log to send
+        id: pick
+        run: |
+          FILE="${{ github.event.inputs.log_file }}"
+          if [ -z "$FILE" ]; then
+            FILE=$(ls -1 RECON_LOG_*.md 2>/dev/null | sort | tail -n1)
+          fi
+          if [ -z "$FILE" ] || [ ! -f "$FILE" ]; then
+            echo "No recon log found — nothing to send."
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=true" >> "$GITHUB_OUTPUT"
+            echo "file=$FILE" >> "$GITHUB_OUTPUT"
+            echo "subject=Lili Signals — Recon Log ($(basename "$FILE" .md | sed 's/RECON_LOG_//'))" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Send email
+        if: steps.pick.outputs.found == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.MAIL_SERVER }}
+          server_port: ${{ secrets.MAIL_PORT }}
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: ${{ steps.pick.outputs.subject }}
+          to: Contact@jura-technology.com
+          from: Lili Signals Recon <${{ secrets.MAIL_USERNAME }}>
+          html_body: file://${{ steps.pick.outputs.file }}
+          convert_markdown: true
+          attachments: ${{ steps.pick.outputs.file }}

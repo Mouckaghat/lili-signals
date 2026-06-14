@@ -1,0 +1,59 @@
+name: Sync Live Match Stats
+
+# Match statistics (possession, shots, xG, corners) → lib/matchStatsData.ts,
+# the feed for the territory/pressure heatmap. Stats update through a match, so
+# this runs on a tight cadence during the tournament window. Requires the
+# API_FOOTBALL_KEY secret.
+
+on:
+  schedule:
+    # Group stage (June 11–30) and knockouts (July 1–19) — every 5 min.
+    - cron: '*/5 * 11-30 6 *'
+    - cron: '*/5 * 1-19 7 *'
+    # Off-season keep-warm: daily 06:10 UTC.
+    - cron: '10 6 * 1-5,8-12 *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (preview only)'
+        type: boolean
+        default: false
+
+jobs:
+  sync:
+    name: Sync stats → lib/matchStatsData.ts
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --prefer-offline
+
+      - name: Fetch & regenerate matchStatsData.ts
+        run: npx tsx scripts/sync-live-stats.ts
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+
+      - name: Commit updated matchStatsData.ts
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add lib/matchStatsData.ts
+          git diff --cached --quiet || git commit -m "chore: refresh live match stats [skip ci]"
+          git push
