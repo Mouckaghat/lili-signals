@@ -20,6 +20,8 @@ export interface TeamMatchStats {
   corners:         number;
   xg:              number;
   passAccuracy:    number; // 0..1
+  passes?:         number; // total passes attempted
+  fouls?:          number;
 }
 
 export interface HeatGrid {

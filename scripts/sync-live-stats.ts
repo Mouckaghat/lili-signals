@@ -93,6 +93,8 @@ function parseTeam(raw: ApiTeamStats): TeamMatchStats {
     corners:         num(s, 'Corner Kicks'),
     xg:              num(s, 'expected_goals'),
     passAccuracy:    pct(s, 'Passes %'),
+    passes:          num(s, 'Total passes'),
+    fouls:           num(s, 'Fouls'),
   };
 }
 
@@ -106,7 +108,8 @@ function entryBlock(m: MatchStats): string {
   const t = (s: TeamMatchStats) =>
     `{ team: ${JSON.stringify(s.team)}, possession: ${s.possession}, totalShots: ${s.totalShots}, ` +
     `shotsInsideBox: ${s.shotsInsideBox}, shotsOutsideBox: ${s.shotsOutsideBox}, ` +
-    `shotsOnGoal: ${s.shotsOnGoal}, corners: ${s.corners}, xg: ${s.xg}, passAccuracy: ${s.passAccuracy} }`;
+    `shotsOnGoal: ${s.shotsOnGoal}, corners: ${s.corners}, xg: ${s.xg}, passAccuracy: ${s.passAccuracy}, ` +
+    `passes: ${s.passes ?? 0}, fouls: ${s.fouls ?? 0} }`;
   return `  {
     fixtureId: ${JSON.stringify(m.fixtureId)},
     home: ${JSON.stringify(m.home)}, away: ${JSON.stringify(m.away)}, date: ${JSON.stringify(m.date)},
@@ -130,6 +133,8 @@ export interface TeamMatchStats {
   corners: number;
   xg: number;
   passAccuracy: number;    // 0..1
+  passes?: number;         // total passes attempted
+  fouls?: number;
 }
 
 export interface MatchStats {

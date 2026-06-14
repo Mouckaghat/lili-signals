@@ -11,6 +11,8 @@ export interface TeamMatchStats {
   corners: number;
   xg: number;
   passAccuracy: number;    // 0..1
+  passes?: number;         // total passes attempted
+  fouls?: number;
 }
 
 export interface MatchStats {
@@ -29,65 +31,65 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "A1_Mexico_v_South_Africa",
     home: "Mexico", away: "South Africa", date: "2026-06-11",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Mexico", possession: 0.61, totalShots: 16, shotsInsideBox: 9, shotsOutsideBox: 7, shotsOnGoal: 4, corners: 3, xg: 1.46, passAccuracy: 0.9 },
-    awayStats: { team: "South Africa", possession: 0.39, totalShots: 3, shotsInsideBox: 1, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 1, xg: 0.07, passAccuracy: 0.81 },
+    homeStats: { team: "Mexico", possession: 0.61, totalShots: 16, shotsInsideBox: 9, shotsOutsideBox: 7, shotsOnGoal: 4, corners: 3, xg: 1.46, passAccuracy: 0.9, passes: 520, fouls: 12 },
+    awayStats: { team: "South Africa", possession: 0.39, totalShots: 3, shotsInsideBox: 1, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 1, xg: 0.07, passAccuracy: 0.81, passes: 334, fouls: 11 },
   },
   {
     fixtureId: "A1_South_Korea_v_Czech_Republic",
     home: "South Korea", away: "Czech Republic", date: "2026-06-12",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "South Korea", possession: 0.62, totalShots: 15, shotsInsideBox: 10, shotsOutsideBox: 5, shotsOnGoal: 6, corners: 4, xg: 2.3, passAccuracy: 0.87 },
-    awayStats: { team: "Czech Republic", possession: 0.38, totalShots: 7, shotsInsideBox: 5, shotsOutsideBox: 2, shotsOnGoal: 4, corners: 5, xg: 0.83, passAccuracy: 0.7 },
+    homeStats: { team: "South Korea", possession: 0.62, totalShots: 15, shotsInsideBox: 10, shotsOutsideBox: 5, shotsOnGoal: 6, corners: 4, xg: 2.3, passAccuracy: 0.87, passes: 541, fouls: 9 },
+    awayStats: { team: "Czech Republic", possession: 0.38, totalShots: 7, shotsInsideBox: 5, shotsOutsideBox: 2, shotsOnGoal: 4, corners: 5, xg: 0.83, passAccuracy: 0.7, passes: 327, fouls: 16 },
   },
   {
     fixtureId: "B1_Canada_v_Bosnia_Herzegovina",
     home: "Canada", away: "Bosnia & Herzegovina", date: "2026-06-12",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Canada", possession: 0.61, totalShots: 13, shotsInsideBox: 10, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 9, xg: 1.23, passAccuracy: 0.74 },
-    awayStats: { team: "Bosnia & Herzegovina", possession: 0.39, totalShots: 8, shotsInsideBox: 5, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 4, xg: 0.96, passAccuracy: 0.63 },
+    homeStats: { team: "Canada", possession: 0.61, totalShots: 13, shotsInsideBox: 10, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 9, xg: 1.23, passAccuracy: 0.74, passes: 421, fouls: 10 },
+    awayStats: { team: "Bosnia & Herzegovina", possession: 0.39, totalShots: 8, shotsInsideBox: 5, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 4, xg: 0.96, passAccuracy: 0.63, passes: 271, fouls: 20 },
   },
   {
     fixtureId: "C1_USA_v_Paraguay",
     home: "USA", away: "Paraguay", date: "2026-06-13",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "USA", possession: 0.65, totalShots: 16, shotsInsideBox: 13, shotsOutsideBox: 3, shotsOnGoal: 6, corners: 3, xg: 1.27, passAccuracy: 0.85 },
-    awayStats: { team: "Paraguay", possession: 0.35, totalShots: 9, shotsInsideBox: 4, shotsOutsideBox: 5, shotsOnGoal: 1, corners: 1, xg: 0.51, passAccuracy: 0.72 },
+    homeStats: { team: "USA", possession: 0.65, totalShots: 16, shotsInsideBox: 13, shotsOutsideBox: 3, shotsOnGoal: 6, corners: 3, xg: 1.27, passAccuracy: 0.85, passes: 596, fouls: 13 },
+    awayStats: { team: "Paraguay", possession: 0.35, totalShots: 9, shotsInsideBox: 4, shotsOutsideBox: 5, shotsOnGoal: 1, corners: 1, xg: 0.51, passAccuracy: 0.72, passes: 320, fouls: 17 },
   },
   {
     fixtureId: "B1_Qatar_v_Switzerland",
     home: "Qatar", away: "Switzerland", date: "2026-06-13",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Qatar", possession: 0.32, totalShots: 7, shotsInsideBox: 5, shotsOutsideBox: 2, shotsOnGoal: 4, corners: 3, xg: 0.76, passAccuracy: 0.71 },
-    awayStats: { team: "Switzerland", possession: 0.68, totalShots: 26, shotsInsideBox: 18, shotsOutsideBox: 8, shotsOnGoal: 7, corners: 10, xg: 3.24, passAccuracy: 0.91 },
+    homeStats: { team: "Qatar", possession: 0.32, totalShots: 7, shotsInsideBox: 5, shotsOutsideBox: 2, shotsOnGoal: 4, corners: 3, xg: 0.76, passAccuracy: 0.71, passes: 275, fouls: 12 },
+    awayStats: { team: "Switzerland", possession: 0.68, totalShots: 26, shotsInsideBox: 18, shotsOutsideBox: 8, shotsOnGoal: 7, corners: 10, xg: 3.24, passAccuracy: 0.91, passes: 575, fouls: 11 },
   },
   {
     fixtureId: "D1_Brazil_v_Morocco",
     home: "Brazil", away: "Morocco", date: "2026-06-13",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Brazil", possession: 0.54, totalShots: 12, shotsInsideBox: 9, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 5, xg: 1.24, passAccuracy: 0.88 },
-    awayStats: { team: "Morocco", possession: 0.46, totalShots: 12, shotsInsideBox: 6, shotsOutsideBox: 6, shotsOnGoal: 2, corners: 0, xg: 1.28, passAccuracy: 0.87 },
+    homeStats: { team: "Brazil", possession: 0.54, totalShots: 12, shotsInsideBox: 9, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 5, xg: 1.24, passAccuracy: 0.88, passes: 501, fouls: 15 },
+    awayStats: { team: "Morocco", possession: 0.46, totalShots: 12, shotsInsideBox: 6, shotsOutsideBox: 6, shotsOnGoal: 2, corners: 0, xg: 1.28, passAccuracy: 0.87, passes: 432, fouls: 14 },
   },
   {
     fixtureId: "D1_Haiti_v_Scotland",
     home: "Haiti", away: "Scotland", date: "2026-06-14",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Haiti", possession: 0.54, totalShots: 15, shotsInsideBox: 8, shotsOutsideBox: 7, shotsOnGoal: 2, corners: 4, xg: 1.21, passAccuracy: 0.85 },
-    awayStats: { team: "Scotland", possession: 0.46, totalShots: 9, shotsInsideBox: 8, shotsOutsideBox: 1, shotsOnGoal: 2, corners: 3, xg: 1.07, passAccuracy: 0.82 },
+    homeStats: { team: "Haiti", possession: 0.54, totalShots: 15, shotsInsideBox: 8, shotsOutsideBox: 7, shotsOnGoal: 2, corners: 4, xg: 1.21, passAccuracy: 0.85, passes: 431, fouls: 23 },
+    awayStats: { team: "Scotland", possession: 0.46, totalShots: 9, shotsInsideBox: 8, shotsOutsideBox: 1, shotsOnGoal: 2, corners: 3, xg: 1.07, passAccuracy: 0.82, passes: 373, fouls: 21 },
   },
   {
     fixtureId: "C1_Australia_v_T_rkiye",
     home: "Australia", away: "Türkiye", date: "2026-06-14",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Australia", possession: 0.28, totalShots: 9, shotsInsideBox: 6, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 5, xg: 0.77, passAccuracy: 0.75 },
-    awayStats: { team: "Türkiye", possession: 0.72, totalShots: 30, shotsInsideBox: 14, shotsOutsideBox: 16, shotsOnGoal: 8, corners: 8, xg: 1.33, passAccuracy: 0.9 },
+    homeStats: { team: "Australia", possession: 0.28, totalShots: 9, shotsInsideBox: 6, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 5, xg: 0.77, passAccuracy: 0.75, passes: 270, fouls: 12 },
+    awayStats: { team: "Türkiye", possession: 0.72, totalShots: 30, shotsInsideBox: 14, shotsOutsideBox: 16, shotsOnGoal: 8, corners: 8, xg: 1.33, passAccuracy: 0.9, passes: 707, fouls: 4 },
   },
   {
     fixtureId: "E1_Germany_v_Cura_ao",
     home: "Germany", away: "Curaçao", date: "2026-06-14",
-    status: "LIVE", elapsed: 22,
-    homeStats: { team: "Germany", possession: 0.7, totalShots: 8, shotsInsideBox: 5, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 0, xg: 0.56, passAccuracy: 0.9 },
-    awayStats: { team: "Curaçao", possession: 0.3, totalShots: 1, shotsInsideBox: 0, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 0, xg: 0.02, passAccuracy: 0.8 },
+    status: "LIVE", elapsed: 45,
+    homeStats: { team: "Germany", possession: 0.71, totalShots: 15, shotsInsideBox: 11, shotsOutsideBox: 4, shotsOnGoal: 4, corners: 6, xg: 1.56, passAccuracy: 0.88, passes: 327, fouls: 7 },
+    awayStats: { team: "Curaçao", possession: 0.29, totalShots: 4, shotsInsideBox: 1, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 0, xg: 0.14, passAccuracy: 0.81, passes: 137, fouls: 5 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-14T17:23:56.300Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-14T17:52:59.569Z';

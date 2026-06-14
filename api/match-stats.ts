@@ -32,6 +32,8 @@ function parseTeam(raw: any) {
     corners:         num(s, 'Corner Kicks'),
     xg:              num(s, 'expected_goals'),
     passAccuracy:    num(s, 'Passes %') / 100,
+    passes:          num(s, 'Total passes'),
+    fouls:           num(s, 'Fouls'),
   };
 }
 
