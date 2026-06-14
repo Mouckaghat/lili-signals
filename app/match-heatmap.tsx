@@ -15,6 +15,7 @@ import PlayersModule from '../components/PlayersModule';
 import AttackZonesModule from '../components/AttackZonesModule';
 import OverviewModule from '../components/OverviewModule';
 import PassMapModule from '../components/PassMapModule';
+import ShotsModule from '../components/ShotsModule';
 
 // ─── Tokens ──────────────────────────────────────────────────────────────────
 const D = {
@@ -205,7 +206,8 @@ const HOME_EDGE = '🏟 Home Edge';
 const PLAYERS = '👤 Players';
 const ATTACK = '⚔️ Attack Zones';
 const PASSMAP = '🕸 Pass Map';
-const TABS = [OVERVIEW, 'Heatmap', HOME_EDGE, ATTACK, 'Shots', PASSMAP, PLAYERS];
+const SHOTS = '🎯 Shots';
+const TABS = [OVERVIEW, 'Heatmap', HOME_EDGE, ATTACK, SHOTS, PASSMAP, PLAYERS];
 
 // ─── Screen ────────────────────────────────────────────────────────────────────
 export default function MatchHeatmapScreen() {
@@ -414,6 +416,16 @@ export default function MatchHeatmapScreen() {
       <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
         {Header}{Picker}{Tabs}
         <PassMapModule match={active} />
+        {Footer}
+      </ScrollView>
+    );
+  }
+
+  if (tab === SHOTS) {
+    return (
+      <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
+        {Header}{Picker}{Tabs}
+        <ShotsModule match={active} />
         {Footer}
       </ScrollView>
     );
