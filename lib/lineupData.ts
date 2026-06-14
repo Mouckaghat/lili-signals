@@ -397,7 +397,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-14T16:55:28.137Z"
+    "updatedAt": "2026-06-14T18:10:40.217Z"
   },
   {
     "fixtureKey": "Austria|Jordan",
@@ -791,7 +791,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-14T16:55:27.432Z"
+    "updatedAt": "2026-06-14T18:10:39.397Z"
   },
   {
     "fixtureKey": "Canada|Bosnia & Herzegovina",
@@ -1121,7 +1121,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-14T16:55:26.353Z"
+    "updatedAt": "2026-06-14T18:10:38.198Z"
   },
   {
     "fixtureKey": "Canada|Qatar",
@@ -1383,14 +1383,14 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "Aleksandar Pavlović",
-          "number": 5,
+          "name": "Felix Nmecha",
+          "number": 23,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "Felix Nmecha",
-          "number": 23,
+          "name": "Aleksandar Pavlović",
+          "number": 5,
           "pos": "MF",
           "starter": true
         },
@@ -1512,7 +1512,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
       "coach": "Julian Nagelsmann"
     },
     "away": {
-      "formation": "4-2-3-1",
+      "formation": "4-3-1-2",
       "players": [
         {
           "name": "Eloy Room",
@@ -1557,8 +1557,8 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "Sontje Hansen",
-          "number": 12,
+          "name": "Juninho Bacuna",
+          "number": 7,
           "pos": "MF",
           "starter": true
         },
@@ -1569,14 +1569,14 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "Juninho Bacuna",
-          "number": 7,
-          "pos": "MF",
+          "name": "Jürgen Locadia",
+          "number": 9,
+          "pos": "FW",
           "starter": true
         },
         {
-          "name": "Jürgen Locadia",
-          "number": 9,
+          "name": "Sontje Hansen",
+          "number": 12,
           "pos": "FW",
           "starter": true
         },
@@ -1673,9 +1673,9 @@ export const MATCH_LINEUPS: MatchLineup[] = [
       ],
       "coach": "Dick Advocaat"
     },
-    "confirmed": false,
+    "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-14T16:55:28.489Z"
+    "updatedAt": "2026-06-14T18:10:36.982Z"
   },
   {
     "fixtureKey": "Germany|Ivory Coast",
@@ -2033,7 +2033,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-14T16:55:27.785Z"
+    "updatedAt": "2026-06-14T18:10:39.810Z"
   },
   {
     "fixtureKey": "Iran|New Zealand",
@@ -2447,7 +2447,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-14T16:55:25.647Z"
+    "updatedAt": "2026-06-14T18:10:37.383Z"
   },
   {
     "fixtureKey": "Mexico|South Korea",
@@ -2959,7 +2959,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-14T16:55:27.061Z"
+    "updatedAt": "2026-06-14T18:10:38.997Z"
   },
   {
     "fixtureKey": "Saudi Arabia|Uruguay",
@@ -3359,7 +3359,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-14T16:55:26.002Z"
+    "updatedAt": "2026-06-14T18:10:37.786Z"
   },
   {
     "fixtureKey": "Spain|Cape Verde Islands",
@@ -3857,7 +3857,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-14T16:55:26.708Z"
+    "updatedAt": "2026-06-14T18:10:38.597Z"
   },
   {
     "fixtureKey": "Uzbekistan|Colombia",
@@ -3875,4 +3875,4 @@ export const MATCH_LINEUPS: MatchLineup[] = [
   }
 ];
 
-export const LINEUPS_LAST_UPDATED = '2026-06-14T16:55:29.802Z';
+export const LINEUPS_LAST_UPDATED = '2026-06-14T18:10:41.690Z';
