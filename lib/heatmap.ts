@@ -85,12 +85,12 @@ export function buildHeatGrid(
   // Centre of gravity along the pitch length: more possession ⇒ camped higher,
   // plus a formation bias (high line pushes forward, low block sits deeper).
   const muX  = clamp01(0.30 + 0.55 * possession + 0.08 * push); // ~0.47 (deep) … ~0.78 (dominant)
-  const sigX = 0.24;
-  const sigTerrY = 0.30 + 0.06 * width;            // wing-back systems spread wider
+  const sigX = 0.19;                               // tighter ⇒ a pressure zone, not a full-pitch cloud
+  const sigTerrY = 0.28 + 0.06 * width;            // wing-back systems spread wider
 
   // Threat hotspot just outside the opponent box, sized by box shots + xG.
   const threat  = (s.shotsInsideBox || 0) * 0.6 + (s.xg || 0) * 2.0 + (s.shotsOnGoal || 0) * 0.4;
-  const boxAmp  = Math.min(threat / 6, 1.3);
+  const boxAmp  = Math.min(threat / 6, 1.7);
   const xBox    = 0.86;
   const sigBoxX = 0.07;
   const sigBoxY = 0.13 + 0.07 * outsideRat;        // wider band if shooting from distance
@@ -106,11 +106,14 @@ export function buildHeatGrid(
       const ax = (cx + 0.5) / cols; // attacking x: 0 own goal → 1 opp goal
       const ay = (cy + 0.5) / rows;
 
-      const territory = (0.45 + 0.55 * possession) * g(ax - muX, sigX) * g(ay - 0.5, sigTerrY);
+      // Final-third emphasis: forward zones weigh more, own-half / midfield less,
+      // so domination reads as attacking pressure rather than a central cloud.
+      const fwd       = 0.45 + 0.85 * ax;
+      const territory = (0.45 + 0.55 * possession) * fwd * g(ax - muX, sigX) * g(ay - 0.5, sigTerrY);
       const box       = boxAmp * g(ax - xBox, sigBoxX) * g(ay - 0.5, sigBoxY);
       const flanks    = (cornerW + 0.15 * width) * (g(ax - 0.90, 0.06) * g(ay - 0.15, 0.10)
                                                   + g(ax - 0.90, 0.06) * g(ay - 0.85, 0.10));
-      const v = territory + 0.9 * box + flanks;
+      const v = territory + 1.2 * box + flanks;
 
       const absCx = attackDir === 'ltr' ? cx : cols - 1 - cx;
       raw[cy * cols + absCx] = v;

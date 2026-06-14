@@ -61,10 +61,14 @@ function Stripes() {
 // Territory overlay: only meaningful zones glow; low activity stays transparent
 // so the pitch shows through. Continuous alpha + a web blur → smooth gradients
 // (Opta/StatsBomb feel) rather than visible blocks.
-const HEAT_THRESH = 0.30;   // below this → transparent (most of the pitch)
-const HEAT_MAXA   = 0.62;   // hottest zone opacity (field still visible under it)
+const HEAT_THRESH = 0.25;   // below this → transparent (most of the pitch)
+const HEAT_MAXA   = 0.70;   // hottest team zone opacity (field still visible under it)
 function HeatField({ homeGrid, awayGrid }: { homeGrid: HeatGrid; awayGrid: HeatGrid }) {
-  const hW = 0.35 + 0.65 * homeGrid.share, aW = 0.35 + 0.65 * awayGrid.share;
+  // Weight by ABSOLUTE activity (share), hard, so a dominant side fills its
+  // attacking third while a weak side collapses to a few isolated zones rather
+  // than flooding its half (each grid is normalised to its own max otherwise).
+  const W = (s: number) => Math.min(0.95, 0.05 + 1.12 * s);
+  const hW = W(homeGrid.share), aW = W(awayGrid.share);
   const rows = [];
   for (let cy = 0; cy < homeGrid.rows; cy++) {
     const cells = [];
@@ -77,8 +81,13 @@ function HeatField({ homeGrid, awayGrid }: { homeGrid: HeatGrid; awayGrid: HeatG
       if (total > HEAT_THRESH) {
         const ratio = Hw / total; // 1 = all home (blue), 0 = all away (red)
         const norm  = (total - HEAT_THRESH) / (1 - HEAT_THRESH);
-        const alpha = Math.min(HEAT_MAXA, 0.05 + Math.pow(norm, 1.5) * HEAT_MAXA);
-        const rgb   = ratio >= 0.5 ? mix(D.purple, D.blue, (ratio - 0.5) * 2) : mix(D.red, D.purple, ratio * 2);
+        // one-sidedness: 0 = perfectly contested, 1 = a team clearly owns it.
+        const dom   = Math.abs(ratio - 0.5) * 2;
+        // contested midfield fades; clearly-owned zones stay strong.
+        const alpha = Math.min(HEAT_MAXA, 0.05 + Math.pow(norm, 1.4) * HEAT_MAXA) * (0.5 + 0.5 * dom);
+        // steepen colour commitment so cells reach blue/red fast → narrow purple band.
+        const t     = Math.max(0, Math.min(1, 0.5 + (ratio - 0.5) * 1.8));
+        const rgb   = t >= 0.5 ? mix(D.purple, D.blue, (t - 0.5) * 2) : mix(D.red, D.purple, t * 2);
         bg = `rgba(${rgb},${alpha.toFixed(3)})`;
       }
       cells.push(<View key={cx} style={[hp.cell, bg ? { backgroundColor: bg } : null]} />);
