@@ -1,0 +1,230 @@
+import { useMemo, useState } from 'react';
+import { Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import { computePlayerLeaders, matchHero, startingXI, type ImpactRow } from '../lib/playerImpact';
+import type { MatchStats } from '../lib/matchStatsData';
+import { useLiveResults } from '../lib/useLiveResults';
+import { WC_TEAMS } from '../lib/wcData';
+
+const D = {
+  panel:  '#0A1322',
+  panel2: '#0F1C33',
+  border: 'rgba(86,140,224,0.16)',
+  blue:   '#2E7CFF',
+  red:    '#FF3B47',
+  gold:   '#F2C24B',
+  green:  '#33C26B',
+  purple: '#9A52FF',
+  text1:  '#F1F5FF',
+  text2:  '#8DA2C8',
+  text3:  '#52668C',
+};
+const flagOf = (t: string) => WC_TEAMS.find((x) => x.name === t)?.flag ?? '🏳';
+
+interface Sel { name: string; team: string }
+
+export default function PlayersModule({ match }: { match: MatchStats }) {
+  const { width } = useWindowDimensions();
+  const wide = width >= 860;
+  const results = useLiveResults();
+  const L = useMemo(() => computePlayerLeaders(results), [results]);
+  const hero = useMemo(() => matchHero(match.fixtureId, results), [match.fixtureId, results]);
+  const xi = useMemo(() => startingXI(match.fixtureId), [match.fixtureId]);
+
+  const [sel, setSel] = useState<Sel | null>(null);
+  const selected: Sel | null = sel ?? (L.spotlight ? { name: L.spotlight.row.name, team: L.spotlight.row.team } : null);
+  const selRow: ImpactRow | undefined = selected
+    ? L.impact.find((r) => r.name === selected.name && r.team === selected.team)
+    : undefined;
+  const topImpact = L.impact[0]?.impact || 1;
+
+  const Leaders = (
+    <View style={s.card}>
+      <Text style={s.cardTitle}>🏆 WORLD CUP LEADERS</Text>
+      <Text style={s.subhead}>Top Scorers</Text>
+      {L.topScorers.slice(0, 6).map((r, i) => (
+        <Pressable key={r.name + r.team} onPress={() => setSel({ name: r.name, team: r.team })} style={s.row}>
+          <Text style={s.rank}>{i + 1}</Text>
+          <Text style={s.pName} numberOfLines={1}>{r.flag} {r.name}</Text>
+          <Text style={s.pVal}>{r.goals}<Text style={s.pUnit}> G</Text></Text>
+        </Pressable>
+      ))}
+      {L.topScorers.length === 0 && <Text style={s.empty}>No goals yet.</Text>}
+
+      <Text style={[s.subhead, { marginTop: 10 }]}>🧤 Goalkeepers · Clean Sheets</Text>
+      {L.goalkeepers.slice(0, 4).map((r, i) => (
+        <Pressable key={r.name + r.team} onPress={() => setSel({ name: r.name, team: r.team })} style={s.row}>
+          <Text style={s.rank}>{i + 1}</Text>
+          <Text style={s.pName} numberOfLines={1}>{r.flag} {r.name}</Text>
+          <Text style={[s.pVal, { color: D.green }]}>{r.cleanSheets}<Text style={s.pUnit}> CS</Text></Text>
+        </Pressable>
+      ))}
+      {L.goalkeepers.length === 0 && <Text style={s.empty}>No clean sheets yet.</Text>}
+    </View>
+  );
+
+  const Contributors = xi && (
+    <View style={s.card}>
+      <Text style={s.cardTitle}>🧩 TEAM CONTRIBUTORS · {match.home} v {match.away}</Text>
+      <View style={wide ? s.xiCols : undefined}>
+        {([['home', xi.homeTeam, xi.home], ['away', xi.awayTeam, xi.away]] as const).map(([k, team, players]) => (
+          <View key={k} style={s.xiCol}>
+            <Text style={s.subhead}>{flagOf(team)} {team}</Text>
+            {players.map((p) => (
+              <Pressable key={p.name + p.number} onPress={() => setSel({ name: p.name, team })} style={s.xiRow}>
+                <Text style={s.xiNum}>{p.number}</Text>
+                <View style={{ flex: 1, minWidth: 0 }}>
+                  <Text style={s.xiName} numberOfLines={1}>{p.name}</Text>
+                  <View style={s.barTrack}><View style={[s.barFill, { width: `${Math.min(100, (p.impact / topImpact) * 100)}%` }]} /></View>
+                </View>
+                <Text style={s.xiPos}>{p.pos}</Text>
+                <Text style={[s.xiGoals, p.goals > 0 && { color: D.gold }]}>{p.goals ? `⚽${p.goals}` : '·'}</Text>
+              </Pressable>
+            ))}
+          </View>
+        ))}
+      </View>
+    </View>
+  );
+
+  const Spotlight = L.spotlight && (
+    <View style={[s.card, { borderColor: D.purple }]}>
+      <Text style={[s.cardTitle, { color: D.purple }]}>🔥 LILI SPOTLIGHT</Text>
+      <Text style={s.spotName}>{flagOf(L.spotlight.row.team)} {L.spotlight.row.name}</Text>
+      <View style={s.spotImpactRow}>
+        <Text style={s.spotImpactLabel}>Tournament Impact</Text>
+        <Text style={s.spotImpactVal}>{L.spotlight.row.impact}</Text>
+      </View>
+      <Text style={s.spotReason}>{L.spotlight.reason}</Text>
+    </View>
+  );
+
+  const Impact = (
+    <View style={s.card}>
+      <Text style={s.cardTitle}>🌍 WORLD CUP IMPACT</Text>
+      {L.impact.slice(0, 6).map((r, i) => (
+        <Pressable key={r.name + r.team} onPress={() => setSel({ name: r.name, team: r.team })} style={s.row}>
+          <Text style={s.rank}>{i + 1}</Text>
+          <Text style={s.pName} numberOfLines={1}>{r.flag} {r.name}</Text>
+          <View style={s.impactBarTrack}><View style={[s.impactBarFill, { width: `${(r.impact / topImpact) * 100}%` }]} /></View>
+          <Text style={[s.pVal, { width: 30 }]}>{r.impact}</Text>
+        </Pressable>
+      ))}
+      {L.impact.length === 0 && <Text style={s.empty}>No data yet.</Text>}
+    </View>
+  );
+
+  const Hero = (
+    <View style={s.card}>
+      <Text style={s.cardTitle}>⭐ MATCH HERO · {match.home} v {match.away}</Text>
+      {hero ? (
+        <>
+          <Text style={s.heroName}>{hero.flag} {hero.name} {hero.pos ? <Text style={s.heroPos}>· {hero.pos}</Text> : null}</Text>
+          <View style={s.heroStats}>
+            <HStat label="Goals" value={hero.goals} />
+            <HStat label="Clean Sheet" value={hero.cleanSheet ? 'Yes' : '—'} />
+            <HStat label="Team" value={hero.team} />
+          </View>
+          <Text style={s.heroLili}>🦞 {hero.cleanSheet
+            ? `${hero.name} kept a clean sheet and anchored the result.`
+            : `${hero.name} was decisive in front of goal — Lili's pick of the match.`}</Text>
+        </>
+      ) : <Text style={s.empty}>No standout yet for this match.</Text>}
+    </View>
+  );
+
+  const Details = (
+    <View style={s.card}>
+      <Text style={s.cardTitle}>👤 PLAYER DETAILS</Text>
+      {selected ? (
+        <>
+          <Text style={s.detName}>{flagOf(selected.team)} {selected.name}</Text>
+          <Text style={s.detTeam}>{selected.team}{selRow?.club ? ` · ${selRow.club}` : ''}{selRow?.age ? ` · ${selRow.age}y` : ''}</Text>
+          <View style={s.detGrid}>
+            <DStat label="Goals" value={selRow?.goals ?? 0} color={D.gold} />
+            <DStat label="Clean Sheets" value={selRow?.cleanSheets ?? 0} color={D.green} />
+            <DStat label="Impact" value={selRow?.impact ?? 0} color={D.blue} />
+          </View>
+          {(selRow?.yellows || selRow?.reds) ? (
+            <Text style={s.detDisc}>Discipline: {selRow?.yellows ?? 0}🟨  {selRow?.reds ?? 0}🟥</Text>
+          ) : null}
+        </>
+      ) : <Text style={s.empty}>Tap any player to see details.</Text>}
+    </View>
+  );
+
+  return (
+    <View style={s.wrap}>
+      <Text style={s.h1}>👤 PLAYERS</Text>
+      <Text style={s.h1sub}>Which players are driving this World Cup?</Text>
+      <View style={wide ? s.cols : undefined}>
+        <View style={wide ? s.left : undefined}>{Leaders}{Contributors}</View>
+        <View style={wide ? s.right : undefined}>{Spotlight}{Impact}{Hero}{Details}</View>
+      </View>
+      <Text style={s.foot}>Goals & cards from match events · clean sheets derived from lineups + results · Impact = goals + clean sheets − discipline. Assists, saves & ratings not yet tracked.</Text>
+    </View>
+  );
+}
+
+function HStat({ label, value }: { label: string; value: string | number }) {
+  return <View style={s.hstat}><Text style={s.hstatVal}>{value}</Text><Text style={s.hstatLabel}>{label}</Text></View>;
+}
+function DStat({ label, value, color }: { label: string; value: number; color: string }) {
+  return <View style={s.dstat}><Text style={[s.dstatVal, { color }]}>{value}</Text><Text style={s.dstatLabel}>{label}</Text></View>;
+}
+
+const s = StyleSheet.create({
+  wrap:   { padding: 14, gap: 10 },
+  h1:     { color: D.text1, fontSize: 20, fontWeight: '900', letterSpacing: 0.3 },
+  h1sub:  { color: D.text2, fontSize: 12, marginTop: -4, marginBottom: 4 },
+  cols:   { flexDirection: 'row', gap: 12, alignItems: 'flex-start' },
+  left:   { flex: 1.25, minWidth: 0, gap: 10 },
+  right:  { width: 320, gap: 10 },
+
+  card:      { backgroundColor: D.panel, borderRadius: 12, borderWidth: 1, borderColor: D.border, padding: 12 },
+  cardTitle: { color: D.text3, fontSize: 10, fontWeight: '800', letterSpacing: 0.8, marginBottom: 8 },
+  subhead:   { color: D.text2, fontSize: 11, fontWeight: '700', marginBottom: 4, marginTop: 2 },
+  empty:     { color: D.text3, fontSize: 11, paddingVertical: 6 },
+
+  row:    { flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 5, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: D.border },
+  rank:   { color: D.text3, fontSize: 11, fontWeight: '800', width: 16 },
+  pName:  { color: D.text1, fontSize: 12, fontWeight: '600', flex: 1 },
+  pVal:   { color: D.text1, fontSize: 13, fontWeight: '800', textAlign: 'right' },
+  pUnit:  { color: D.text3, fontSize: 10, fontWeight: '700' },
+
+  xiCols: { flexDirection: 'row', gap: 12 },
+  xiCol:  { flex: 1, minWidth: 0 },
+  xiRow:  { flexDirection: 'row', alignItems: 'center', gap: 6, paddingVertical: 3 },
+  xiNum:  { color: D.text3, fontSize: 10, fontWeight: '800', width: 18, textAlign: 'center' },
+  xiName: { color: D.text1, fontSize: 11, fontWeight: '600' },
+  xiPos:  { color: D.text3, fontSize: 9, fontWeight: '700', width: 22, textAlign: 'center' },
+  xiGoals:{ color: D.text3, fontSize: 11, width: 26, textAlign: 'right', fontWeight: '700' },
+  barTrack:{ height: 3, backgroundColor: D.panel2, borderRadius: 2, marginTop: 2, overflow: 'hidden' },
+  barFill: { height: 3, backgroundColor: D.blue, borderRadius: 2 },
+
+  spotName:     { color: D.text1, fontSize: 18, fontWeight: '900', marginBottom: 6 },
+  spotImpactRow:{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: D.panel2, borderRadius: 8, padding: 8, marginBottom: 8 },
+  spotImpactLabel:{ color: D.text2, fontSize: 12, fontWeight: '600' },
+  spotImpactVal:{ color: D.purple, fontSize: 22, fontWeight: '900' },
+  spotReason:   { color: D.text2, fontSize: 12, lineHeight: 17 },
+
+  impactBarTrack:{ flex: 1, height: 6, backgroundColor: D.panel2, borderRadius: 3, overflow: 'hidden' },
+  impactBarFill: { height: 6, backgroundColor: D.purple, borderRadius: 3 },
+
+  heroName: { color: D.text1, fontSize: 16, fontWeight: '900' },
+  heroPos:  { color: D.text3, fontSize: 12, fontWeight: '700' },
+  heroStats:{ flexDirection: 'row', gap: 8, marginTop: 8 },
+  hstat:    { flex: 1, backgroundColor: D.panel2, borderRadius: 8, paddingVertical: 8, alignItems: 'center' },
+  hstatVal: { color: D.text1, fontSize: 16, fontWeight: '900' },
+  hstatLabel:{ color: D.text2, fontSize: 9, marginTop: 1 },
+  heroLili: { color: D.text2, fontSize: 11, lineHeight: 16, marginTop: 8, fontStyle: 'italic' },
+
+  detName:  { color: D.text1, fontSize: 16, fontWeight: '900' },
+  detTeam:  { color: D.text2, fontSize: 11, marginTop: 1, marginBottom: 8 },
+  detGrid:  { flexDirection: 'row', gap: 8 },
+  dstat:    { flex: 1, backgroundColor: D.panel2, borderRadius: 8, paddingVertical: 10, alignItems: 'center' },
+  dstatVal: { fontSize: 20, fontWeight: '900' },
+  dstatLabel:{ color: D.text2, fontSize: 9, marginTop: 2 },
+  detDisc:  { color: D.text2, fontSize: 11, marginTop: 8 },
+
+  foot:   { color: D.text3, fontSize: 9, textAlign: 'center', fontStyle: 'italic', marginTop: 2 },
+});

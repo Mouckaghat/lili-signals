@@ -11,6 +11,7 @@ import { useLineups } from '../lib/useLineups';
 import { MATCH_EVENTS } from '../lib/matchEventsData';
 import { WC_FIXTURES, WC_TEAMS } from '../lib/wcData';
 import HomeEdgeModule from '../components/HomeEdgeModule';
+import PlayersModule from '../components/PlayersModule';
 
 // ─── Tokens ──────────────────────────────────────────────────────────────────
 const D = {
@@ -197,7 +198,8 @@ function Lg({ color, label }: { color: string; label: string }) {
 }
 
 const HOME_EDGE = '🏟 Home Edge';
-const TABS = ['Overview', 'Heatmap', HOME_EDGE, 'Attack Zones', 'Shots', 'Pass Map', 'Players'];
+const PLAYERS = '👤 Players';
+const TABS = ['Overview', 'Heatmap', HOME_EDGE, 'Attack Zones', 'Shots', 'Pass Map', PLAYERS];
 
 // ─── Screen ────────────────────────────────────────────────────────────────────
 export default function MatchHeatmapScreen() {
@@ -364,6 +366,18 @@ export default function MatchHeatmapScreen() {
       <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
         {Header}{Tabs}
         <HomeEdgeModule />
+        {Footer}
+      </ScrollView>
+    );
+  }
+
+  // Players is tournament-wide but uses the selected match for Hero/Contributors
+  // → keep the picker; own scrollable view.
+  if (tab === PLAYERS) {
+    return (
+      <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
+        {Header}{Picker}{Tabs}
+        <PlayersModule match={active} />
         {Footer}
       </ScrollView>
     );
