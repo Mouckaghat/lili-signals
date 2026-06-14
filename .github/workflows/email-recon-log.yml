@@ -3,7 +3,7 @@ name: Email Daily Recon Log
 # ─── What this does ─────────────────────────────────────────────────────────────
 #
 # Emails the latest RECON_LOG_*.md to the contact address once a day (and on
-# demand). Recon logs are committed to the repo root as RECON_LOG_YYYY-MM-DD.md.
+# demand). Recon logs live in action/ as action/RECON_LOG_YYYY-MM-DD.md.
 #
 # Required repository secrets (Settings → Secrets and variables → Actions):
 #   MAIL_SERVER    e.g. smtp.gmail.com   (or smtp.resend.com, smtp.sendgrid.net)
@@ -37,7 +37,7 @@ jobs:
         run: |
           FILE="${{ github.event.inputs.log_file }}"
           if [ -z "$FILE" ]; then
-            FILE=$(ls -1 RECON_LOG_*.md 2>/dev/null | sort | tail -n1)
+            FILE=$(ls -1 action/RECON_LOG_*.md 2>/dev/null | sort | tail -n1)
           fi
           if [ -z "$FILE" ] || [ ! -f "$FILE" ]; then
             echo "No recon log found — nothing to send."
