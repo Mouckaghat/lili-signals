@@ -88,7 +88,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     fixtureId: 'D1_Brazil_v_Morocco',
     home: 'Brazil', away: 'Morocco', date: '2026-06-13',
     goals: [
-      { player: 'Ismaël Saïbari',  team: 'Morocco', minute: 21, type: 'goal' },
+      { player: 'Ismael Saibari',  team: 'Morocco', minute: 21, type: 'goal' },
       { player: 'Vinícius Júnior', team: 'Brazil',  minute: 32, type: 'goal' },
     ],
     yellowCards: [],

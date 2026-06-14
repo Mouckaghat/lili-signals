@@ -55,11 +55,13 @@ const TEAM_NAME_MAP: Record<string, string> = {
 const normTeam = (n: string) => TEAM_NAME_MAP[n] ?? n;
 
 // ─── Player name normalisation (api-football → curated profile names) ───────────
-// The API spelling must match lib/playerProfilesData.ts exactly for enrichment to
-// work. Add bridges here whenever a scorer's API name differs from the profile.
+// Profiles are pre-built from the Wikipedia squad lists (sync-squads.ts), so the
+// canonical spelling is the Wikipedia one. The api-football spelling must map to
+// it exactly for enrichment to join. Add a bridge here whenever a scorer's
+// api-football name differs from the squad-list spelling.
 const PLAYER_NAME_MAP: Record<string, string> = {
   'Vinicius Junior': 'Vinícius Júnior',
-  'Ismael Saibari':  'Ismaël Saïbari',
+  'Ismaël Saïbari':  'Ismael Saibari',
 };
 const normPlayer = (n: string) => PLAYER_NAME_MAP[n] ?? n;
 
@@ -379,17 +381,20 @@ async function main() {
       drafts.push(id ? await draftProfile(name, id)
                      : `  // ${name} — no api-football id found; add this profile by hand`);
     }
-    const body = `### 🎯 Scorer profiles needed
+    const body = `### 🎯 Scorer profile not matched
 
-The match-events bot found **${missing.length} scorer(s)** with no entry in \`lib/playerProfilesData.ts\`.
-Objective fields are pre-filled from api-football — **confirm the two \`TODO\` fields (caps, World Cups)**, paste into \`lib/playerProfilesData.ts\`, and commit.
+The match-events bot saw **${missing.length} scorer(s)** whose name didn't match any squad profile in \`lib/playerProfilesData.ts\` (pre-built from the Wikipedia squad lists by \`sync-squads\`).
 
+**Almost always this is a spelling mismatch** between api-football and the squad list — fix it by adding a bridge to \`PLAYER_NAME_MAP\` in \`scripts/sync-match-events.ts\`:
+\`\`\`ts
+'<api-football spelling>': '<squad-list spelling>',
+\`\`\`
+
+If the player genuinely isn't in the parsed squad, here is an api-football draft to add to \`playerProfilesData.ts\` (confirm the \`TODO\` fields):
 \`\`\`ts
 ${drafts.join('\n')}
 \`\`\`
-
-> If a name above isn't how you want it displayed, also add a bridge to \`PLAYER_NAME_MAP\` in \`scripts/sync-match-events.ts\`.
-_Auto-updated by sync-match-events. Closes automatically once every scorer has a profile._
+_Auto-updated by sync-match-events. Closes automatically once every scorer matches a profile._
 `;
     const draftPath = process.env.MISSING_PROFILES_PATH ?? path.resolve(__dirname, '..', '.missing-profiles.md');
     fs.writeFileSync(draftPath, body, 'utf8');
