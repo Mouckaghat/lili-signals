@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useLocalSearchParams } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import MatchHeatmap from '../components/MatchHeatmap';
 import { useLiveStats } from '../lib/useLiveStats';
@@ -24,8 +25,11 @@ export default function MatchHeatmapScreen() {
       (a.status === 'LIVE' ? -1 : 0) - (b.status === 'LIVE' ? -1 : 0) || b.date.localeCompare(a.date)),
   [matches]);
 
+  // Optional ?fixtureId=... from a match card preselects that game; tapping a
+  // tab then overrides it.
+  const { fixtureId } = useLocalSearchParams<{ fixtureId?: string }>();
   const [selected, setSelected] = useState<string | null>(null);
-  const active = ordered.find((m) => m.fixtureId === selected) ?? ordered[0];
+  const active = ordered.find((m) => m.fixtureId === (selected ?? fixtureId)) ?? ordered[0];
 
   if (!active) {
     return (

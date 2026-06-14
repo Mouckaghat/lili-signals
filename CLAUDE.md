@@ -39,6 +39,18 @@ Symptom / Root cause / Fix / Lesson -->
 ### 2026-06-13 — api-football name/own-goal mismatches
 Symptom: live scoring mismatched on abbreviated player names and own goals. Fix: resolve abbreviated names + attribute own-goal to correct team (commit 6bd3db9, live-validated). Lesson: validate sync bots against the live feed before trusting output.
 
+### 2026-06-14 — Match Heatmap had no UI entry point
+**Symptom:** The `/match-heatmap` screen (shipped in recon #2) was registered in `app/_layout.tsx` but nothing in the app linked to it — only reachable by typing the URL.
+**Root cause:** Screen + route registered, but no nav button/drawer entry was ever wired in.
+**Fix:** Added a `🔥 Heatmap →` pill to each match row in `components/MatchTimelineSection.tsx` (shown on `worldcup-table`). It `router.push`es `{ pathname: '/match-heatmap', params: { fixtureId } }`; the screen reads `fixtureId` via `useLocalSearchParams` and preselects that game (`selected ?? fixtureId`, so a tab tap still overrides). Added `tlHeatmap` to all 11 i18n languages.
+**Lesson:** Only render a feature's entry point for data that exists — the button is gated by `FIXTURES_WITH_HEAT = new Set(MATCH_STATS.map(m => m.fixtureId))` (9 played/live games) so a tap never lands on the empty "No match stats yet" screen. The heatmap is a *model* from full-match aggregates (possession/shots/xG in `lib/heatmap.ts`), so it works for FINISHED matches too — that's its best use, not just live.
+
+### 2026-06-14 — Expo typed routes go stale after adding a screen
+**Symptom:** `tsc --noEmit` errored: `'/match-heatmap' is not assignable` to the generated route union, even though the route exists and works.
+**Root cause:** Expo Router's typed-route union is generated output that only refreshes on `expo start`; a screen added in a prior session left the types stale.
+**Fix:** Cast the nav call `as any` — the existing codebase convention (see `app/index.tsx:404`). Route is valid; types regenerate on next `expo start`.
+**Lesson:** A stale typed-route error on a route you know exists is not a real bug — cast `as any` per convention, don't restructure navigation.
+
 ## What's Working (Don't Touch)
 - Pre-built squad profiles (all 48 teams) so live scoring needs no lookup.
 - Scoring engine (`lib/scoring.ts`) and the generated WC data pipeline.

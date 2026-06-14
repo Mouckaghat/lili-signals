@@ -1,5 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { router } from 'expo-router';
 import { WC_FIXTURES, WC_TEAMS, type WCFixture } from '../lib/wcData';
+import { MATCH_STATS } from '../lib/matchStatsData';
 import type { FixtureResult } from '../lib/fixtureResultsData';
 import { useLiveResults } from '../lib/useLiveResults';
 import { useLineups } from '../lib/useLineups';
@@ -7,6 +9,10 @@ import type { MatchLineup } from '../lib/lineupData';
 import { FIXTURE_STADIUM_ID, getStadium } from '../lib/stadiumData';
 import { useLanguage } from '../contexts/LanguageContext';
 import type { I18n } from '../lib/i18n';
+
+// Fixtures we have territory/pressure stats for — only these get a Heatmap
+// button, so a tap never lands on an empty screen.
+const FIXTURES_WITH_HEAT = new Set(MATCH_STATS.map((m) => m.fixtureId));
 
 // ─── Design tokens ────────────────────────────────────────────────────────────
 
@@ -150,6 +156,17 @@ function MatchRow({ entry, lineup, i18n }: { entry: MatchEntry; lineup?: MatchLi
       {envParts.length > 0 && (
         <Text style={row.env} numberOfLines={1}>{envParts.join('  ·  ')}</Text>
       )}
+
+      {/* Heatmap shortcut — only for matches that have stats */}
+      {FIXTURES_WITH_HEAT.has(fixture.id) && (
+        <Pressable
+          onPress={() => router.push({ pathname: '/match-heatmap', params: { fixtureId: fixture.id } } as any)}
+          hitSlop={6}
+          style={({ pressed }) => [row.heatBtn, pressed && row.heatBtnPressed]}
+        >
+          <Text style={row.heatBtnText}>🔥 {i18n.tlHeatmap} →</Text>
+        </Pressable>
+      )}
     </View>
   );
 }
@@ -167,6 +184,11 @@ const row = StyleSheet.create({
   team:      { fontWeight: '700' },
   formation: { fontSize: 10, color: D.text3, fontWeight: '400' },
   env:       { fontSize: 10, color: D.text3, lineHeight: 15, paddingLeft: 2 },
+  heatBtn:   { alignSelf: 'flex-start', marginTop: 4, paddingVertical: 4, paddingHorizontal: 10,
+               borderRadius: 999, borderWidth: 1, borderColor: 'rgba(74,158,255,0.35)',
+               backgroundColor: 'rgba(74,158,255,0.10)' },
+  heatBtnPressed: { backgroundColor: 'rgba(74,158,255,0.22)' },
+  heatBtnText: { fontSize: 11, fontWeight: '700', color: D.blue },
 });
 
 // ─── Section ──────────────────────────────────────────────────────────────────
