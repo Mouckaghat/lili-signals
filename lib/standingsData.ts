@@ -40,8 +40,8 @@ export const GROUP_STANDINGS: GroupStanding[] = [
   { group: "E", team: "Ivory Coast", rank: 2, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
   { group: "E", team: "Ecuador", rank: 3, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
   { group: "E", team: "Curaçao", rank: 4, played: 1, won: 0, drawn: 0, lost: 1, gf: 1, ga: 7, gd: -6, pts: 0, status: 'AT-RISK' },
-  { group: "F", team: "Netherlands", rank: 1, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
-  { group: "F", team: "Japan", rank: 2, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
+  { group: "F", team: "Japan", rank: 1, played: 1, won: 0, drawn: 1, lost: 0, gf: 2, ga: 2, gd: 0, pts: 1, status: 'ALIVE' },
+  { group: "F", team: "Netherlands", rank: 2, played: 1, won: 0, drawn: 1, lost: 0, gf: 2, ga: 2, gd: 0, pts: 1, status: 'ALIVE' },
   { group: "F", team: "Sweden", rank: 3, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
   { group: "F", team: "Tunisia", rank: 4, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
   { group: "G", team: "Belgium", rank: 1, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
@@ -82,4 +82,4 @@ export const GROUP_STANDINGS: GroupStanding[] = [
   { group: "Stage", team: "Türkiye", rank: 12, played: 1, won: 0, drawn: 0, lost: 1, gf: 0, ga: 2, gd: -2, pts: 0, status: 'AT-RISK' },
 ];
 
-export const STANDINGS_LAST_UPDATED = '2026-06-14T20:17:04.698Z';
+export const STANDINGS_LAST_UPDATED = '2026-06-14T22:09:04.065Z';
