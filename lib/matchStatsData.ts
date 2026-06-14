@@ -97,6 +97,13 @@ export const MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Netherlands", possession: 0.6, totalShots: 10, shotsInsideBox: 10, shotsOutsideBox: 0, shotsOnGoal: 6, corners: 5, xg: 0.79, passAccuracy: 0.88, passes: 525, fouls: 7 },
     awayStats: { team: "Japan", possession: 0.4, totalShots: 10, shotsInsideBox: 6, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 4, xg: 0.54, passAccuracy: 0.84, passes: 342, fouls: 7 },
   },
+  {
+    fixtureId: "E1_Ivory_Coast_v_Ecuador",
+    home: "Ivory Coast", away: "Ecuador", date: "2026-06-14",
+    status: "LIVE", elapsed: 45,
+    homeStats: { team: "Ivory Coast", possession: 0.45, totalShots: 5, shotsInsideBox: 3, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 2, xg: 0.62, passAccuracy: 0.83, passes: 229, fouls: 7 },
+    awayStats: { team: "Ecuador", possession: 0.55, totalShots: 6, shotsInsideBox: 1, shotsOutsideBox: 5, shotsOnGoal: 0, corners: 0, xg: 0.54, passAccuracy: 0.88, passes: 279, fouls: 3 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-14T22:48:29.883Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-14T23:55:20.004Z';
