@@ -167,6 +167,20 @@ export const MATCH_EVENTS: MatchEvents[] = [
     yellowCards: [],
     redCards: [],
   },
+  {
+    fixtureId: "F1_Netherlands_v_Japan",
+    home: "Netherlands", away: "Japan", date: "2026-06-14",
+    goals: [
+      { player: "Virgil van Dijk", team: "Netherlands", minute: 51, type: "goal" },
+      { player: "Keito Nakamura", team: "Japan", minute: 57, type: "goal" },
+      { player: "Crysencio Summerville", team: "Netherlands", minute: 64, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Crysencio Summerville", team: "Netherlands", minute: 61, reason: "Tripping" },
+      { player: "Memphis Depay", team: "Netherlands", minute: 83 },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-14T20:15:48.157Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-14T21:42:37.270Z';
