@@ -71,8 +71,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     yellowCards: [
       { player: "Alistair Johnston", team: "Canada", minute: 11, reason: "Foul" },
-      { player: "Ermedin Demirović", team: "Bosnia & Herzegovina", minute: 44, reason: "Foul" },
       { player: "Jovo Lukić", team: "Bosnia & Herzegovina", minute: 45, reason: "Foul" },
+      { player: "Ermedin Demirović", team: "Bosnia & Herzegovina", minute: 45, reason: "Foul" },
       { player: "Luc de Fougerolles", team: "Canada", minute: 53, reason: "Foul" },
       { player: "Nikola Katić", team: "Bosnia & Herzegovina", minute: 90, reason: "Foul" },
     ],
@@ -84,17 +84,17 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Damián Bobadilla", team: "Paraguay", minute: 7, type: "own-goal" },
       { player: "Folarin Balogun", team: "USA", minute: 31, type: "goal" },
-      { player: "Folarin Balogun", team: "USA", minute: 45, minuteStoppage: 5, type: "goal" },
+      { player: "Folarin Balogun", team: "USA", minute: 45, type: "goal" },
       { player: "Maurício", team: "Paraguay", minute: 73, type: "goal" },
-      { player: "Giovanni Reyna", team: "USA", minute: 90, minuteStoppage: 8, type: "goal" },
+      { player: "Giovanni Reyna", team: "USA", minute: 90, type: "goal" },
     ],
     yellowCards: [
-      { player: "Juan José Cáceres", team: "Paraguay", minute: 10, reason: "Tripping" },
-      { player: "Miguel Almirón", team: "Paraguay", minute: 53, reason: "Diving" },
-      { player: "Tyler Adams", team: "USA", minute: 59, reason: "Roughing" },
-      { player: "Diego Gómez", team: "Paraguay", minute: 79, reason: "Holding" },
-      { player: "Álex Arce", team: "Paraguay", minute: 88, reason: "Roughing" },
-      { player: "Júnior Alonso", team: "Paraguay", minute: 90, reason: "Holding" },
+      { player: "Juan José Cáceres", team: "Paraguay", minute: 9, reason: "Foul" },
+      { player: "Miguel Almirón", team: "Paraguay", minute: 52, reason: "Simulation" },
+      { player: "Tyler Adams", team: "USA", minute: 59, reason: "Foul" },
+      { player: "Gustavo Gómez", team: "Paraguay", minute: 79, reason: "Foul" },
+      { player: "Álex Arce", team: "Paraguay", minute: 88, reason: "Foul" },
+      { player: "Júnior Alonso", team: "Paraguay", minute: 90, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -103,12 +103,12 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Qatar", away: "Switzerland", date: "2026-06-13",
     goals: [
       { player: "Breel Embolo", team: "Switzerland", minute: 17, type: "penalty" },
-      { player: "Miro Muheim", team: "Switzerland", minute: 90, minuteStoppage: 4, type: "own-goal" },
+      { player: "Boualem Khoukhi", team: "Qatar", minute: 90, minuteStoppage: 4, type: "goal" },
     ],
     yellowCards: [
-      { player: "Mahmud Abunada", team: "Qatar", minute: 16, reason: "Delay of game" },
-      { player: "Jassem Gaber", team: "Qatar", minute: 23, reason: "Roughing" },
-      { player: "Denis Zakaria", team: "Switzerland", minute: 42, reason: "Tripping" },
+      { player: "Mahmud Abunad", team: "Qatar", minute: 16, reason: "Time wasting" },
+      { player: "Jassem Gaber Abdulsallam", team: "Qatar", minute: 23, reason: "Foul" },
+      { player: "Denis Zakaria", team: "Switzerland", minute: 42, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -120,8 +120,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Vinícius Júnior", team: "Brazil", minute: 32, type: "goal" },
     ],
     yellowCards: [
-      { player: "Casemiro", team: "Brazil", minute: 37, reason: "Tripping" },
-      { player: "Roger Ibañez", team: "Brazil", minute: 43, reason: "Tripping" },
+      { player: "Casemiro", team: "Brazil", minute: 37, reason: "Foul" },
+      { player: "Roger Ibañez", team: "Brazil", minute: 43, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -133,9 +133,24 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     yellowCards: [
       { player: "Jean-Ricner Bellegarde", team: "Haiti", minute: 39, reason: "Tripping" },
+      { player: "Aaron Hickey", team: "Scotland", minute: 46, reason: "Holding" },
+      { player: "Findlay Curtis", team: "Scotland", minute: 90, reason: "Roughing" },
+      { player: "Kenny McLean", team: "Scotland", minute: 90, reason: "Roughing" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "C1_Australia_v_T_rkiye",
+    home: "Australia", away: "Türkiye", date: "2026-06-14",
+    goals: [
+      { player: "Nestory Irankunda", team: "Australia", minute: 27, type: "goal" },
+      { player: "Connor Metcalfe", team: "Australia", minute: 75, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Yunus Akgün", team: "Türkiye", minute: 86, reason: "Roughing" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-14T01:59:38.474Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-14T06:45:06.159Z';
