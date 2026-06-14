@@ -158,10 +158,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Felix Nmecha", team: "Germany", minute: 6, type: "goal" },
       { player: "Livano Comenencia", team: "Curaçao", minute: 21, type: "goal" },
       { player: "Nico Schlotterbeck", team: "Germany", minute: 38, type: "goal" },
+      { player: "Kai Havertz", team: "Germany", minute: 45, minuteStoppage: 5, type: "penalty" },
+      { player: "Jamal Musiala", team: "Germany", minute: 47, type: "goal" },
+      { player: "Nathaniel Brown", team: "Germany", minute: 68, type: "goal" },
+      { player: "Deniz Undav", team: "Germany", minute: 78, type: "goal" },
+      { player: "Kai Havertz", team: "Germany", minute: 88, type: "goal" },
     ],
     yellowCards: [],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-14T17:42:42.696Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-14T18:57:06.694Z';
