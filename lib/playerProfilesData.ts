@@ -3762,7 +3762,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Al Ain",
     league: "UAE Pro League",
     leagueFlag: "🇦🇪",
-    caps: 37,
+    caps: 27,
   },
   {
     name: "Brahim Díaz",
@@ -3792,7 +3792,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "RS Berkane",
     league: "Botola",
     leagueFlag: "🇲🇦",
-    caps: 53,
+    caps: 52,
   },
   {
     name: "Zakaria El Ouahdi",
@@ -3862,7 +3862,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Al Ahly",
     league: "Egyptian Premier League",
     leagueFlag: "🇪🇬",
-    caps: 19,
+    caps: 11,
   },
   {
     name: "Ayoub El Kaabi",
@@ -3872,7 +3872,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Olympiacos",
     league: "Super League Greece",
     leagueFlag: "🇬🇷",
-    caps: 71,
+    caps: 58,
   },
   {
     name: "Ayoube Amaimouni",
@@ -12549,4 +12549,4 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
   },
 ];
 
-export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-14T00:07:52.738Z';
+export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-14T09:39:40.621Z';
