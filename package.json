@@ -12,7 +12,8 @@
     "sync:live:dry": "DRY_RUN=true tsx scripts/sync-live-scores.ts",
     "sync:live:test2022": "DRY_RUN=true API_FOOTBALL_SEASON=2022 tsx scripts/sync-live-scores.ts",
     "build:wc-data": "tsx scripts/build-wc-data.ts",
-    "build": "expo export -p web"
+    "build": "expo export -p web",
+    "ship": "node scripts/recon-ship.mjs"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "2.2.0",

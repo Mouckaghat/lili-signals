@@ -35,3 +35,4 @@ expo-env.d.ts
 
 # local sync-match-events scratch (CI writes to runner.temp)
 .missing-profiles.md
+CLAUDE.local.md

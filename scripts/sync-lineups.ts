@@ -1,17 +1,18 @@
 /**
  * scripts/sync-lineups.ts
  *
- * Fetches team lineups and formations for WC 2026 matches and regenerates
- * lib/lineupData.ts. Goes online to hunt formation and lineup data; does
- * NOT wait for api-football which does not provide this reliably.
+ * Fetches team lineups, formations and coaches for WC 2026 matches and
+ * regenerates lib/lineupData.ts.
  *
- * Sources (in priority order):
- *   1. SofaScore public API (no key required)
- *      → Predicted lineups 24–48h before kickoff, confirmed ~75 min before
- *   2. Fotmob public API (no key required)
- *      → Independent source; cross-validates SofaScore predicted XIs
- *   3. Baseline fallback (lib/teamFormationsBaseline.ts)
- *      → Web-researched habitual formation per team; always available
+ * Source: api-football.com `/fixtures/lineups` — the same feed that powers
+ * results and match events. It returns formation, startXI, substitutes and
+ * the coach for every played fixture (and predicted XIs shortly before
+ * kickoff). The previous SofaScore/Fotmob path was abandoned: both now return
+ * HTTP 403 from CI/dev, so they produced zero real lineups.
+ *
+ * Priority per fixture:
+ *   1. api-football lineup (formation + XI + coach)   ← real data
+ *   2. Baseline fallback (lib/teamFormationsBaseline.ts) ← formation only, always present
  *
  * Usage:
  *   npx tsx scripts/sync-lineups.ts          # live write
@@ -29,13 +30,20 @@ import { TEAM_FORMATIONS_BASELINE } from '../lib/teamFormationsBaseline.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.resolve(__dirname, '..', '.env.local') });
+dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 
-const DRY_RUN  = process.env.DRY_RUN === 'true';
-const OUT_PATH = path.resolve(__dirname, '..', 'lib', 'lineupData.ts');
+// CI sets API_FOOTBALL_KEY (secret); locally the key lives in .env as API_KEY.
+const API_KEY   = process.env.API_FOOTBALL_KEY ?? process.env.API_KEY;
+const DRY_RUN   = process.env.DRY_RUN === 'true';
+const LEAGUE_ID = Number(process.env.API_FOOTBALL_LEAGUE_ID ?? 1);
+const SEASON    = Number(process.env.API_FOOTBALL_SEASON ?? 2026);
+const OUT_PATH  = path.resolve(__dirname, '..', 'lib', 'lineupData.ts');
+const API_BASE  = 'https://v3.football.api-sports.io';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-type Position = 'GK' | 'DF' | 'MF' | 'FW';
+type Position    = 'GK' | 'DF' | 'MF' | 'FW';
+type LineupSource = 'api-football' | 'baseline';
 
 interface LineupPlayer {
   name:    string;
@@ -55,18 +63,16 @@ interface MatchLineup {
   home:       TeamLineup;
   away:       TeamLineup;
   confirmed:  boolean;
-  source:     'sofascore' | 'fotmob' | 'baseline';
+  source:     LineupSource;
   updatedAt:  string;
 }
 
-// ─── Name normalisation ───────────────────────────────────────────────────────
+// ─── Team name normalisation (api-football → wcData.ts) ─────────────────────────
 
 const NAME_MAP: Record<string, string> = {
-  'USA':                      'USA',
   'United States':            'USA',
   'Korea Republic':           'South Korea',
   "Côte d'Ivoire":            'Ivory Coast',
-  'Ivory Coast':              'Ivory Coast',
   'Cape Verde':               'Cape Verde Islands',
   'DR Congo':                 'Congo DR',
   'IR Iran':                  'Iran',
@@ -76,12 +82,6 @@ const NAME_MAP: Record<string, string> = {
   'Bosnia':                   'Bosnia & Herzegovina',
   'Bosnia and Herzegovina':   'Bosnia & Herzegovina',
   'Bosnia-Herzegovina':       'Bosnia & Herzegovina',
-  // Fotmob variants
-  'Korea Republic':           'South Korea',
-  'Côte d\'Ivoire':           'Ivory Coast',
-  'Cape Verde Islands':       'Cape Verde Islands',
-  'Congo DR':                 'Congo DR',
-  'Türkiye':                  'Türkiye',
 };
 
 function normalise(name: string): string {
@@ -97,191 +97,65 @@ function normalisePos(raw: string): Position {
   return 'MF';
 }
 
-// ─── SofaScore ────────────────────────────────────────────────────────────────
+// ─── api-football ───────────────────────────────────────────────────────────────
 
-const SOFA_HEADERS = {
-  'User-Agent':      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-  'Accept':          'application/json',
-  'Accept-Language': 'en-US,en;q=0.9',
-  'Referer':         'https://www.sofascore.com/',
-  'Origin':          'https://www.sofascore.com',
-};
-
-async function sofaFetch<T>(endpoint: string): Promise<T | null> {
-  const url = `https://api.sofascore.com/api/v1${endpoint}`;
-  try {
-    const res = await fetch(url, { headers: SOFA_HEADERS });
-    if (!res.ok) {
-      if (res.status !== 404) console.warn(`  ⚠️  SofaScore ${endpoint} → HTTP ${res.status}`);
-      return null;
-    }
-    return await res.json() as T;
-  } catch (err) {
-    console.warn(`  ⚠️  SofaScore fetch error:`, err);
-    return null;
+async function apiGet<T>(query: string): Promise<T[]> {
+  if (!API_KEY) throw new Error('API_FOOTBALL_KEY (or API_KEY) not set');
+  const res = await fetch(`${API_BASE}/${query}`, {
+    headers: { 'x-apisports-key': API_KEY, 'x-rapidapi-host': 'v3.football.api-sports.io' },
+  });
+  if (!res.ok) throw new Error(`API HTTP ${res.status} for ${query}`);
+  const data = await res.json() as { errors?: unknown; response: T[] };
+  if (data.errors && Object.keys(data.errors as object).length > 0) {
+    throw new Error(`api-football error: ${JSON.stringify(data.errors)}`);
   }
+  return data.response ?? [];
 }
 
-interface SofaEvent {
-  id: number;
-  homeTeam: { id: number; name: string };
-  awayTeam: { id: number; name: string };
-  tournament: { name: string };
-  status: { type: string };
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+interface ApiFixtureLite {
+  fixture: { id: number; status: { short: string }; date: string };
+  teams:   { home: { name: string }; away: { name: string } };
 }
 
-function isWcEvent(e: SofaEvent): boolean {
-  const n = e.tournament?.name?.toLowerCase() ?? '';
-  return n.includes('world cup') || n.includes('coupe du monde') || n.includes('copa mundial');
+interface ApiLineupPlayer {
+  player: { id: number; name: string; number: number | null; pos: string | null };
 }
 
-async function sofaEventsForDate(date: string): Promise<SofaEvent[]> {
-  const data = await sofaFetch<{ events?: SofaEvent[] }>(`/sport/football/scheduled-events/${date}`);
-  return (data?.events ?? []).filter(isWcEvent);
+interface ApiLineup {
+  team:        { id: number; name: string };
+  formation:   string | null;
+  startXI:     ApiLineupPlayer[];
+  substitutes: ApiLineupPlayer[];
+  coach:       { id: number | null; name: string | null };
 }
 
-interface SofaLineupPlayer {
-  player:        { name: string };
-  jerseyNumber?: string | number;
-  positionName?: string;
-  position?:     string;
-  substitute?:   boolean;
+// Statuses for which a lineup is worth fetching: live/finished always have one,
+// and api-football publishes predicted XIs ~40 min before kickoff (NS within window).
+const PLAYED = new Set(['1H', 'HT', '2H', 'ET', 'BT', 'P', 'INT', 'LIVE', 'FT', 'AET', 'PEN']);
+const LOOKAHEAD_MS = 18 * 3_600_000;
+
+function shouldFetch(status: string, kickoff: string): boolean {
+  if (PLAYED.has(status)) return true;
+  const diff = new Date(kickoff).getTime() - Date.now();
+  return diff > -6 * 3_600_000 && diff < LOOKAHEAD_MS; // about to start
 }
 
-interface SofaTeamLineup {
-  formation?: string;
-  players?:   SofaLineupPlayer[];
-  supportStaff?: Array<{ staff: { name: string }; role: string }>;
-}
-
-interface SofaLineupResponse {
-  home?:      SofaTeamLineup;
-  away?:      SofaTeamLineup;
-  confirmed?: boolean;
-}
-
-function parseSofaTeam(raw: SofaTeamLineup): TeamLineup {
-  const players: LineupPlayer[] = (raw.players ?? []).map((p) => ({
+function parseApiTeam(raw: ApiLineup, teamName: string): TeamLineup {
+  const map = (p: ApiLineupPlayer, starter: boolean): LineupPlayer => ({
     name:    p.player.name,
-    number:  Number(p.jerseyNumber ?? 0),
-    pos:     normalisePos(p.positionName ?? p.position ?? 'M'),
-    starter: !(p.substitute ?? false),
-  }));
-  const coach = raw.supportStaff?.find((s) => s.role === 'manager')?.staff.name;
-  return { formation: raw.formation ?? '?', players, ...(coach ? { coach } : {}) };
-}
-
-async function fetchSofaLineup(eventId: number): Promise<SofaLineupResponse | null> {
-  return sofaFetch<SofaLineupResponse>(`/event/${eventId}/lineups`);
-}
-
-// ─── Fotmob ───────────────────────────────────────────────────────────────────
-
-const FOTMOB_HEADERS = {
-  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-  'Accept':     'application/json',
-};
-
-// Fotmob uses a World Cup tournament ID. WC 2026 Fotmob ID — try 77 (WC default) and 614 (WC 2026).
-const FOTMOB_WC_IDS = [614, 77];
-
-async function fotmobFetch<T>(url: string): Promise<T | null> {
-  try {
-    const res = await fetch(url, { headers: FOTMOB_HEADERS });
-    if (!res.ok) return null;
-    return await res.json() as T;
-  } catch {
-    return null;
-  }
-}
-
-interface FotmobMatch {
-  id:       number | string;
-  home:     { name: string; shortName?: string };
-  away:     { name: string; shortName?: string };
-  status:   { started?: boolean; finished?: boolean };
-  tournamentId?: number;
-}
-
-interface FotmobLineupPlayer {
-  name:         string;
-  shirt?:       number;
-  positionId?:  string;
-  isCaptain?:   boolean;
-  isSubstitute?: boolean;
-}
-
-interface FotmobTeamLineup {
-  lineup?:    FotmobLineupPlayer[][];
-  bench?:     FotmobLineupPlayer[];
-  formation?: string;
-  coachName?: string;
-}
-
-interface FotmobMatchDetails {
-  lineup?: {
-    homeTeam?: FotmobTeamLineup;
-    awayTeam?: FotmobTeamLineup;
-    confirmed?: boolean;
-  };
-}
-
-function parseFotmobPos(posId?: string): Position {
-  if (!posId) return 'MF';
-  const p = posId.toLowerCase();
-  if (p.includes('gk') || p === '1') return 'GK';
-  if (p.includes('cb') || p.includes('lb') || p.includes('rb') || p.includes('def')) return 'DF';
-  if (p.includes('fw') || p.includes('cf') || p.includes('ss') || p.includes('am')) return 'FW';
-  return 'MF';
-}
-
-function parseFotmobTeam(raw: FotmobTeamLineup, formation: string): TeamLineup {
-  const starters: LineupPlayer[] = (raw.lineup ?? []).flat().map((p) => ({
-    name:    p.name,
-    number:  p.shirt ?? 0,
-    pos:     parseFotmobPos(p.positionId),
-    starter: true,
-  }));
-  const bench: LineupPlayer[] = (raw.bench ?? []).map((p) => ({
-    name:    p.name,
-    number:  p.shirt ?? 0,
-    pos:     parseFotmobPos(p.positionId),
-    starter: false,
-  }));
-  return {
-    formation,
-    players: [...starters, ...bench],
-    ...(raw.coachName ? { coach: raw.coachName } : {}),
-  };
-}
-
-async function fetchFotmobLineup(matchId: string | number): Promise<{ home: TeamLineup; away: TeamLineup; confirmed: boolean } | null> {
-  const data = await fotmobFetch<FotmobMatchDetails>(`https://www.fotmob.com/api/matchDetails?matchId=${matchId}`);
-  const lu = data?.lineup;
-  if (!lu?.homeTeam?.formation || !lu?.awayTeam?.formation) return null;
-  return {
-    home:      parseFotmobTeam(lu.homeTeam, lu.homeTeam.formation),
-    away:      parseFotmobTeam(lu.awayTeam, lu.awayTeam.formation),
-    confirmed: lu.confirmed ?? false,
-  };
-}
-
-async function getFotmobMatchId(homeNorm: string, awayNorm: string, dateStr: string): Promise<string | null> {
-  for (const tid of FOTMOB_WC_IDS) {
-    const url  = `https://www.fotmob.com/api/matches?date=${dateStr.replace(/-/g, '')}&timezone=UTC`;
-    const data = await fotmobFetch<{ leagues?: Array<{ id: number; matches?: FotmobMatch[] }> }>(url);
-    if (!data?.leagues) continue;
-    for (const league of data.leagues) {
-      if (!FOTMOB_WC_IDS.includes(league.id)) continue;
-      const match = (league.matches ?? []).find((m) => {
-        const h = normalise(m.home?.name ?? '');
-        const a = normalise(m.away?.name ?? '');
-        return h === homeNorm && a === awayNorm;
-      });
-      if (match) return String(match.id);
-    }
-  }
-  return null;
+    number:  p.player.number ?? 0,
+    pos:     normalisePos(p.player.pos ?? 'M'),
+    starter,
+  });
+  const players = [
+    ...(raw.startXI ?? []).map((p) => map(p, true)),
+    ...(raw.substitutes ?? []).map((p) => map(p, false)),
+  ];
+  const formation = raw.formation ?? TEAM_FORMATIONS_BASELINE[teamName] ?? '4-3-3';
+  const coach = raw.coach?.name ?? undefined;
+  return { formation, players, ...(coach ? { coach } : {}) };
 }
 
 // ─── Baseline seeding ─────────────────────────────────────────────────────────
@@ -299,21 +173,6 @@ function makeBaselineEntry(home: string, away: string): MatchLineup {
     source:     'baseline',
     updatedAt:  new Date().toISOString(),
   };
-}
-
-// ─── Relevant fixture window ──────────────────────────────────────────────────
-// For web sources we look ±72h; baseline covers every fixture regardless.
-
-function getRelevantDates(): string[] {
-  const now   = Date.now();
-  const dates = new Set<string>();
-  for (const f of WC_FIXTURES) {
-    const diff = new Date(f.date).getTime() - now;
-    if (diff > -72 * 3_600_000 && diff < 72 * 3_600_000) {
-      dates.add(f.date.slice(0, 10));
-    }
-  }
-  return [...dates].sort();
 }
 
 // ─── Load existing data ───────────────────────────────────────────────────────
@@ -337,7 +196,7 @@ function generateFile(lineups: MatchLineup[], updatedAt: string): string {
   const serialised = JSON.stringify(lineups, null, 2);
   return `// Auto-generated by scripts/sync-lineups.ts — do not edit manually.
 // Refreshed every 30 min during the tournament via GitHub Actions.
-// Sources: SofaScore (primary) → Fotmob (secondary) → baseline (always present).
+// Source: api-football /fixtures/lineups (formation + XI + coach) → baseline fallback.
 
 export type Position = 'GK' | 'DF' | 'MF' | 'FW';
 
@@ -359,7 +218,7 @@ export interface MatchLineup {
   home: TeamLineup;
   away: TeamLineup;
   confirmed: boolean;
-  source: 'sofascore' | 'fotmob' | 'baseline';
+  source: 'api-football' | 'baseline';
   updatedAt: string;
 }
 
@@ -372,7 +231,7 @@ export const LINEUPS_LAST_UPDATED = '${updatedAt}';
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
-  console.log(`\n🎯  Syncing WC 2026 lineups [${DRY_RUN ? 'DRY RUN' : 'LIVE'}]\n`);
+  console.log(`\n🎯  Syncing WC 2026 lineups [${DRY_RUN ? 'DRY RUN' : 'LIVE'}] (league=${LEAGUE_ID}, season=${SEASON})\n`);
 
   const existing = loadExisting();
   const updated  = new Map<string, MatchLineup>(existing);
@@ -389,99 +248,68 @@ async function main() {
   }
   console.log(`     Seeded ${seeded} new fixtures from baseline (${updated.size} total)\n`);
 
-  // ── Step 1: SofaScore — confirmed/predicted lineups near match time ────────
-  const dates = getRelevantDates();
-  console.log(`  🌐  Step 1: SofaScore — dates: ${dates.join(', ') || '(none in ±72h window)'}`);
-  const fixtureByKey = new Map(WC_FIXTURES.map((f) => [`${f.home}|${f.away}`, f]));
-
-  let sofaHits = 0;
-  for (const date of dates) {
-    const events = await sofaEventsForDate(date);
-    console.log(`     ${date}: ${events.length} WC event(s)`);
-
-    for (const event of events) {
-      const home = normalise(event.homeTeam.name);
-      const away = normalise(event.awayTeam.name);
-      const key  = `${home}|${away}`;
-
-      if (!fixtureByKey.has(key)) {
-        console.log(`     ⚠️  Unknown fixture: ${event.homeTeam.name} vs ${event.awayTeam.name}`);
-        continue;
-      }
-
-      const raw = await fetchSofaLineup(event.id);
-      if (!raw?.home?.players?.length || !raw?.away?.players?.length) {
-        console.log(`     ·  ${key}: no players yet`);
-        continue;
-      }
-
-      const homeLineup = parseSofaTeam(raw.home);
-      const awayLineup = parseSofaTeam(raw.away);
-      if (homeLineup.formation === '?' && awayLineup.formation === '?') continue;
-
-      // If formation is missing from SofaScore, fall back to baseline.
-      if (homeLineup.formation === '?') homeLineup.formation = TEAM_FORMATIONS_BASELINE[home] ?? '4-3-3';
-      if (awayLineup.formation === '?') awayLineup.formation = TEAM_FORMATIONS_BASELINE[away] ?? '4-3-3';
-
-      updated.set(key, {
-        fixtureKey: key,
-        home:       homeLineup,
-        away:       awayLineup,
-        confirmed:  raw.confirmed ?? false,
-        source:     'sofascore',
-        updatedAt:  new Date().toISOString(),
-      });
-      sofaHits++;
-      console.log(`     ✓  ${key}: ${homeLineup.formation} vs ${awayLineup.formation} (${raw.confirmed ? 'confirmed' : 'predicted'})`);
-    }
+  // ── Step 1: api-football — real lineups (formation + XI + coach) ───────────
+  console.log('  ⚽  Step 1: api-football fixtures…');
+  let apiFixtures: ApiFixtureLite[];
+  try {
+    apiFixtures = await apiGet<ApiFixtureLite>(`fixtures?league=${LEAGUE_ID}&season=${SEASON}`);
+    console.log(`     ${apiFixtures.length} fixtures received`);
+  } catch (err) {
+    console.warn(`  ⚠️  Fixture fetch failed: ${err}`);
+    console.warn('     Leaving real lineups untouched; writing baseline-seeded file only.\n');
+    apiFixtures = [];
   }
 
-  // ── Step 2: Fotmob — cross-validate / fill gaps for near-match fixtures ───
-  console.log(`\n  📡  Step 2: Fotmob cross-check…`);
-  let fotmobHits = 0;
+  const wcByKey = new Map(WC_FIXTURES.map((f) => [`${f.home}|${f.away}`, f]));
 
-  for (const date of dates) {
-    for (const f of WC_FIXTURES.filter((x) => x.date.startsWith(date))) {
-      const key     = `${f.home}|${f.away}`;
-      const current = updated.get(key);
+  const targets = apiFixtures
+    .map((af) => ({
+      apiId:   af.fixture.id,
+      status:  af.fixture.status.short,
+      kickoff: af.fixture.date,
+      key:     `${normalise(af.teams.home.name)}|${normalise(af.teams.away.name)}`,
+    }))
+    .filter((x) => wcByKey.has(x.key) && shouldFetch(x.status, x.kickoff));
 
-      // Skip if already confirmed from SofaScore.
-      if (current?.source === 'sofascore' && current.confirmed) continue;
+  console.log(`     ${targets.length} fixture(s) eligible for a lineup pull\n`);
 
-      const matchId = await getFotmobMatchId(f.home, f.away, date);
-      if (!matchId) continue;
-
-      const lu = await fetchFotmobLineup(matchId);
-      if (!lu) continue;
-
-      // Prefer Fotmob if it provides a confirmed lineup over a predicted SofaScore one.
-      const prefer = !current || current.source === 'baseline' || (lu.confirmed && !current.confirmed);
-      if (!prefer) continue;
-
-      // Fill missing formation from baseline.
-      if (!lu.home.formation || lu.home.formation === '?') lu.home.formation = TEAM_FORMATIONS_BASELINE[f.home] ?? '4-3-3';
-      if (!lu.away.formation || lu.away.formation === '?') lu.away.formation = TEAM_FORMATIONS_BASELINE[f.away] ?? '4-3-3';
-
-      updated.set(key, {
-        fixtureKey: key,
-        home:       lu.home,
-        away:       lu.away,
-        confirmed:  lu.confirmed,
-        source:     'fotmob',
+  let hits = 0;
+  for (const t of targets) {
+    const wc = wcByKey.get(t.key)!;
+    try {
+      const raw = await apiGet<ApiLineup>(`fixtures/lineups?fixture=${t.apiId}`);
+      const homeRaw = raw.find((r) => normalise(r.team.name) === wc.home);
+      const awayRaw = raw.find((r) => normalise(r.team.name) === wc.away);
+      if (!homeRaw || !awayRaw || !homeRaw.startXI?.length || !awayRaw.startXI?.length) {
+        console.log(`     ·  ${t.key}: no lineup posted yet`);
+        await sleep(250);
+        continue;
+      }
+      const home = parseApiTeam(homeRaw, wc.home);
+      const away = parseApiTeam(awayRaw, wc.away);
+      updated.set(t.key, {
+        fixtureKey: t.key,
+        home,
+        away,
+        confirmed:  PLAYED.has(t.status), // posted lineups for played games are final
+        source:     'api-football',
         updatedAt:  new Date().toISOString(),
       });
-      fotmobHits++;
-      console.log(`     ✓  ${key}: ${lu.home.formation} vs ${lu.away.formation} (Fotmob${lu.confirmed ? ' confirmed' : ''})`);
+      hits++;
+      console.log(`     ✓  ${t.key}: ${home.formation} (${home.coach ?? 'coach?'}) vs ${away.formation} (${away.coach ?? 'coach?'})`);
+    } catch (err) {
+      console.warn(`     ⚠️  ${t.key}: ${err}`);
     }
+    await sleep(250); // be gentle on the rate limit
   }
 
   // ── Write ─────────────────────────────────────────────────────────────────
   const lineups = [...updated.values()].sort((a, b) => a.fixtureKey.localeCompare(b.fixtureKey));
-  console.log(`\n  📦  Total: ${lineups.length} fixtures — ${sofaHits} SofaScore, ${fotmobHits} Fotmob, rest baseline`);
+  console.log(`\n  📦  Total: ${lineups.length} fixtures — ${hits} from api-football, rest baseline`);
 
   if (DRY_RUN) { console.log('  DRY RUN — no file written.\n'); return; }
 
-  const now  = new Date().toISOString();
+  const now = new Date().toISOString();
   fs.writeFileSync(OUT_PATH, generateFile(lineups, now), 'utf8');
   console.log(`  ✓  Written to lib/lineupData.ts (${now})\n`);
 }
