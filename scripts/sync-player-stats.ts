@@ -80,7 +80,11 @@ function parseLine(fixtureId: string, team: string, name: string, st: ApiLine): 
   const total = n0(st.passes?.total);
   const accRaw = st.passes?.accuracy;
   const accNum = accRaw == null ? 0 : Number(accRaw) || 0;
-  const passAccPct = accNum <= 100 ? Math.round(accNum) : (total ? Math.round((accNum / total) * 100) : 0);
+  // api-football gives player passes.accuracy as a COUNT of accurate passes when
+  // it's ≤ total; otherwise it's already a percentage.
+  const passAccPct = total > 0
+    ? (accNum <= total ? Math.round((accNum / total) * 100) : Math.min(100, Math.round(accNum)))
+    : Math.min(100, Math.round(accNum));
   return {
     fixtureId, team, name,
     pos: POS[(st.games?.position ?? '').charAt(0)] ?? 'MF',
