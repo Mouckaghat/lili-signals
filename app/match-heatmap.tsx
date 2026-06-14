@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import { Platform, Pressable, ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { buildHeatGrid, type HeatGrid, type TeamMatchStats } from '../lib/heatmap';
@@ -20,18 +20,26 @@ const D = {
   blue:    '#2E7CFF',
   red:     '#FF3B47',
   purple:  '#9A52FF',
-  pitch:   '#081523',
-  line:    'rgba(255,255,255,0.42)',
-  lineSoft:'rgba(255,255,255,0.22)',
+  pitch:   '#07181E',
+  line:    'rgba(255,255,255,0.62)',
+  lineSoft:'rgba(255,255,255,0.34)',
   text1:   '#F1F5FF',
   text2:   '#8DA2C8',
   text3:   '#52668C',
 };
-const PITCH_COLS = 40, PITCH_ROWS = 25;
+const PITCH_COLS = 48, PITCH_ROWS = 29;
 
+function hexRgb(hex: string): [number, number, number] {
+  return [parseInt(hex.slice(1, 3), 16), parseInt(hex.slice(3, 5), 16), parseInt(hex.slice(5, 7), 16)];
+}
 function rgba(hex: string, a: number): string {
-  const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
+  const [r, g, b] = hexRgb(hex);
   return `rgba(${r},${g},${b},${a.toFixed(3)})`;
+}
+// linear blend between two hex colours → "r,g,b"
+function mix(c1: string, c2: string, t: number): string {
+  const a = hexRgb(c1), b = hexRgb(c2);
+  return `${Math.round(a[0] + (b[0] - a[0]) * t)},${Math.round(a[1] + (b[1] - a[1]) * t)},${Math.round(a[2] + (b[2] - a[2]) * t)}`;
 }
 const flagOf = (name: string) => WC_TEAMS.find((t) => t.name === name)?.flag ?? '🏳';
 const surname = (full: string) => { const p = full.trim().split(' '); return p.length > 1 ? p[p.length - 1] : full; };
@@ -41,12 +49,23 @@ function fmtDate(iso: string): string {
   return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
 }
 
-// ─── Composited heat: one crisp cell layer (blue / red / purple / dark) ─────────
-function HeatField({ homeGrid, awayGrid, hShare, aShare }: {
-  homeGrid: HeatGrid; awayGrid: HeatGrid; hShare: number; aShare: number;
-}) {
+// Subtle grass mowing-stripes so the field reads as a pitch under the heat.
+function Stripes() {
+  const bands = [];
+  for (let i = 0; i < 16; i++) {
+    bands.push(<View key={i} style={{ flex: 1, backgroundColor: i % 2 === 0 ? 'rgba(255,255,255,0.018)' : 'transparent' }} />);
+  }
+  return <View style={[StyleSheet.absoluteFill, { flexDirection: 'row' }]} pointerEvents="none">{bands}</View>;
+}
+
+// Territory overlay: only meaningful zones glow; low activity stays transparent
+// so the pitch shows through. Continuous alpha + a web blur → smooth gradients
+// (Opta/StatsBomb feel) rather than visible blocks.
+const HEAT_THRESH = 0.30;   // below this → transparent (most of the pitch)
+const HEAT_MAXA   = 0.62;   // hottest zone opacity (field still visible under it)
+function HeatField({ homeGrid, awayGrid }: { homeGrid: HeatGrid; awayGrid: HeatGrid }) {
+  const hW = 0.35 + 0.65 * homeGrid.share, aW = 0.35 + 0.65 * awayGrid.share;
   const rows = [];
-  const hW = 0.42 + 0.58 * hShare, aW = 0.42 + 0.58 * aShare;
   for (let cy = 0; cy < homeGrid.rows; cy++) {
     const cells = [];
     for (let cx = 0; cx < homeGrid.cols; cx++) {
@@ -55,14 +74,12 @@ function HeatField({ homeGrid, awayGrid, hShare, aShare }: {
       const Aw = awayGrid.cells[i] * aW;
       const total = Hw + Aw;
       let bg: string | undefined;
-      if (total >= 0.10) {
-        const ratio = Hw / total;
-        // contrast curve → peaks pop; quantize → readable blocks
-        let inten = Math.pow(Math.min(total, 1), 1.5);
-        inten = Math.round(inten * 5) / 5;
-        const alpha = 0.10 + 0.82 * inten;
-        const color = ratio > 0.60 ? D.blue : ratio < 0.40 ? D.red : D.purple;
-        bg = rgba(color, alpha);
+      if (total > HEAT_THRESH) {
+        const ratio = Hw / total; // 1 = all home (blue), 0 = all away (red)
+        const norm  = (total - HEAT_THRESH) / (1 - HEAT_THRESH);
+        const alpha = Math.min(HEAT_MAXA, 0.05 + Math.pow(norm, 1.5) * HEAT_MAXA);
+        const rgb   = ratio >= 0.5 ? mix(D.purple, D.blue, (ratio - 0.5) * 2) : mix(D.red, D.purple, ratio * 2);
+        bg = `rgba(${rgb},${alpha.toFixed(3)})`;
       }
       cells.push(<View key={cx} style={[hp.cell, bg ? { backgroundColor: bg } : null]} />);
     }
@@ -77,6 +94,8 @@ function Pitch({ home, away, homeName, awayName, homeFormation, awayFormation, f
 }) {
   const homeGrid = useMemo(() => buildHeatGrid(home, 'ltr', PITCH_COLS, PITCH_ROWS, homeFormation), [home, homeFormation]);
   const awayGrid = useMemo(() => buildHeatGrid(away, 'rtl', PITCH_COLS, PITCH_ROWS, awayFormation), [away, awayFormation]);
+  // Smooth the heat on web (markings render after, so they stay sharp).
+  const blur = Platform.OS === 'web' ? ({ filter: 'blur(6px)' } as any) : null;
   return (
     <View style={[fill ? { flex: 1 } : null, { minHeight: 0 }]}>
       <View style={hp.attackRow}>
@@ -84,8 +103,11 @@ function Pitch({ home, away, homeName, awayName, homeFormation, awayFormation, f
         <Text style={[hp.attackLabel, { color: D.red }]}>← {awayName.toUpperCase()} ATTACK</Text>
       </View>
       <View style={[hp.pitch, fill ? { flex: 1 } : { aspectRatio: 16 / 9 }]}>
-        <HeatField homeGrid={homeGrid} awayGrid={awayGrid} hShare={homeGrid.share} aShare={awayGrid.share} />
-        {/* markings (crisp, above heat) */}
+        <Stripes />
+        <View style={[StyleSheet.absoluteFill, blur]} pointerEvents="none">
+          <HeatField homeGrid={homeGrid} awayGrid={awayGrid} />
+        </View>
+        {/* markings — sharp & bright, above the heat */}
         <View style={hp.halfway} />
         <View style={hp.centerCircle} />
         <View style={hp.spot} />
