@@ -93,10 +93,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "F1_Netherlands_v_Japan",
     home: "Netherlands", away: "Japan", date: "2026-06-14",
-    status: "LIVE", elapsed: 11,
-    homeStats: { team: "Netherlands", possession: 0.77, totalShots: 1, shotsInsideBox: 1, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 1, xg: 0.06, passAccuracy: 0.89, passes: 55, fouls: 2 },
-    awayStats: { team: "Japan", possession: 0.23, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.8, passes: 15, fouls: 0 },
+    status: "LIVE", elapsed: 79,
+    homeStats: { team: "Netherlands", possession: 0.67, totalShots: 8, shotsInsideBox: 8, shotsOutsideBox: 0, shotsOnGoal: 6, corners: 5, xg: 0.61, passAccuracy: 0.89, passes: 458, fouls: 4 },
+    awayStats: { team: "Japan", possession: 0.33, totalShots: 6, shotsInsideBox: 2, shotsOutsideBox: 4, shotsOnGoal: 1, corners: 2, xg: 0.21, passAccuracy: 0.83, passes: 218, fouls: 6 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-14T20:11:17.522Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-14T21:38:11.363Z';
