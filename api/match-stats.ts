@@ -39,7 +39,7 @@ export default async function handler(req: any, res: any) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Cache-Control', 's-maxage=30, stale-while-revalidate=60');
 
-  const API_KEY   = process.env.API_FOOTBALL_KEY;
+  const API_KEY   = process.env.API_FOOTBALL_KEY ?? process.env.API_KEY;
   const LEAGUE_ID = process.env.API_FOOTBALL_LEAGUE_ID ?? '1';
   const BASE      = 'https://v3.football.api-sports.io';
   const headers   = { 'x-apisports-key': API_KEY ?? '', 'x-rapidapi-host': 'v3.football.api-sports.io' };
