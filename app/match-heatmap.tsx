@@ -12,6 +12,7 @@ import { MATCH_EVENTS } from '../lib/matchEventsData';
 import { WC_FIXTURES, WC_TEAMS } from '../lib/wcData';
 import HomeEdgeModule from '../components/HomeEdgeModule';
 import PlayersModule from '../components/PlayersModule';
+import AttackZonesModule from '../components/AttackZonesModule';
 
 // ─── Tokens ──────────────────────────────────────────────────────────────────
 const D = {
@@ -199,7 +200,8 @@ function Lg({ color, label }: { color: string; label: string }) {
 
 const HOME_EDGE = '🏟 Home Edge';
 const PLAYERS = '👤 Players';
-const TABS = ['Overview', 'Heatmap', HOME_EDGE, 'Attack Zones', 'Shots', 'Pass Map', PLAYERS];
+const ATTACK = '⚔️ Attack Zones';
+const TABS = ['Overview', 'Heatmap', HOME_EDGE, ATTACK, 'Shots', 'Pass Map', PLAYERS];
 
 // ─── Screen ────────────────────────────────────────────────────────────────────
 export default function MatchHeatmapScreen() {
@@ -378,6 +380,16 @@ export default function MatchHeatmapScreen() {
       <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
         {Header}{Picker}{Tabs}
         <PlayersModule match={active} />
+        {Footer}
+      </ScrollView>
+    );
+  }
+
+  if (tab === ATTACK) {
+    return (
+      <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
+        {Header}{Picker}{Tabs}
+        <AttackZonesModule match={active} />
         {Footer}
       </ScrollView>
     );
