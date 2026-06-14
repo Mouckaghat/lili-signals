@@ -183,6 +183,17 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "E1_Ivory_Coast_v_Ecuador",
+    home: "Ivory Coast", away: "Ecuador", date: "2026-06-14",
+    goals: [],
+    yellowCards: [
+      { player: "Seko Fofana", team: "Ivory Coast", minute: 28, reason: "Roughing" },
+      { player: "Franck Kessié", team: "Ivory Coast", minute: 38, reason: "Tripping" },
+      { player: "Guéla Doué", team: "Ivory Coast", minute: 40, reason: "Tripping" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-14T22:50:56.321Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-14T23:56:34.248Z';
