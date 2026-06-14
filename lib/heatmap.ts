@@ -34,8 +34,29 @@ export const HEAT_COLS = 18;
 export const HEAT_ROWS = 11;
 
 const clamp01 = (n: number) => (n < 0 ? 0 : n > 1 ? 1 : n);
+const clamp = (lo: number, hi: number, n: number) => (n < lo ? lo : n > hi ? hi : n);
 // 1-D gaussian kernel
 const g = (d: number, sigma: number) => Math.exp(-(d * d) / (2 * sigma * sigma));
+
+/**
+ * Positional prior from the starting formation (e.g. "4-3-3", "5-4-1").
+ * We have no tracking data, so the formation is the only honest signal of a
+ * side's *shape*: how high its line sits and how wide it plays. Returns neutral
+ * (0,0) for missing/unparseable input so the model is unchanged without it.
+ *   push  : −1 (deep block) … +1 (high line), from forwards-minus-defenders
+ *   width : 0 (back-four, normal) … 1 (back-three/five ⇒ wing-backs ⇒ wider)
+ */
+export function formationShape(formation?: string): { push: number; width: number } {
+  if (!formation) return { push: 0, width: 0 };
+  const bands = formation.split(/[^0-9]+/).map(Number).filter((n) => Number.isFinite(n) && n > 0);
+  const total = bands.reduce((a, b) => a + b, 0);
+  if (bands.length < 2 || total < 7 || total > 10) return { push: 0, width: 0 };
+  const def = bands[0];
+  const fwd = bands[bands.length - 1];
+  const push  = clamp(-1, 1, ((fwd - def) / total) * 2.5);
+  const width = def <= 3 ? 1 : 0;
+  return { push, width };
+}
 
 /**
  * Build a normalised territory grid for one team.
@@ -48,14 +69,22 @@ export function buildHeatGrid(
   attackDir: 'ltr' | 'rtl',
   cols = HEAT_COLS,
   rows = HEAT_ROWS,
+  formation?: string,
 ): HeatGrid {
   const possession = clamp01(s.possession || 0);
   const shots      = Math.max(1, s.totalShots || 0);
   const outsideRat = clamp01((s.shotsOutsideBox || 0) / shots);
 
-  // Centre of gravity along the pitch length: more possession ⇒ camped higher.
-  const muX  = 0.30 + 0.60 * possession;          // ~0.47 (deep) … ~0.78 (dominant)
+  // Starting shape: nudges the line height and width. Possession still
+  // dominates (it's live truth); formation mainly shapes the early minutes
+  // before shots/xG accumulate, and separates a high press from a low block.
+  const { push, width } = formationShape(formation);
+
+  // Centre of gravity along the pitch length: more possession ⇒ camped higher,
+  // plus a formation bias (high line pushes forward, low block sits deeper).
+  const muX  = clamp01(0.30 + 0.55 * possession + 0.08 * push); // ~0.47 (deep) … ~0.78 (dominant)
   const sigX = 0.24;
+  const sigTerrY = 0.30 + 0.06 * width;            // wing-back systems spread wider
 
   // Threat hotspot just outside the opponent box, sized by box shots + xG.
   const threat  = (s.shotsInsideBox || 0) * 0.6 + (s.xg || 0) * 2.0 + (s.shotsOnGoal || 0) * 0.4;
@@ -75,10 +104,10 @@ export function buildHeatGrid(
       const ax = (cx + 0.5) / cols; // attacking x: 0 own goal → 1 opp goal
       const ay = (cy + 0.5) / rows;
 
-      const territory = (0.45 + 0.55 * possession) * g(ax - muX, sigX) * g(ay - 0.5, 0.30);
+      const territory = (0.45 + 0.55 * possession) * g(ax - muX, sigX) * g(ay - 0.5, sigTerrY);
       const box       = boxAmp * g(ax - xBox, sigBoxX) * g(ay - 0.5, sigBoxY);
-      const flanks    = cornerW * (g(ax - 0.90, 0.06) * g(ay - 0.15, 0.10)
-                                 + g(ax - 0.90, 0.06) * g(ay - 0.85, 0.10));
+      const flanks    = (cornerW + 0.15 * width) * (g(ax - 0.90, 0.06) * g(ay - 0.15, 0.10)
+                                                  + g(ax - 0.90, 0.06) * g(ay - 0.85, 0.10));
       const v = territory + 0.9 * box + flanks;
 
       const absCx = attackDir === 'ltr' ? cx : cols - 1 - cx;

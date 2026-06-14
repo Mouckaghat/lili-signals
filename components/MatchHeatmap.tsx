@@ -41,8 +41,8 @@ function HeatLayer({ grid, color }: { grid: HeatGrid; color: string }) {
   return <View style={StyleSheet.absoluteFill}>{rows}</View>;
 }
 
-function Pitch({ stats, attackDir, color }: { stats: TeamMatchStats; attackDir: 'ltr' | 'rtl'; color: string }) {
-  const grid = useMemo(() => buildHeatGrid(stats, attackDir), [stats, attackDir]);
+function Pitch({ stats, attackDir, color, formation }: { stats: TeamMatchStats; attackDir: 'ltr' | 'rtl'; color: string; formation?: string }) {
+  const grid = useMemo(() => buildHeatGrid(stats, attackDir, undefined, undefined, formation), [stats, attackDir, formation]);
   return (
     <View style={styles.pitch}>
       <HeatLayer grid={grid} color={color} />
@@ -56,11 +56,11 @@ function Pitch({ stats, attackDir, color }: { stats: TeamMatchStats; attackDir: 
 
 // ─── Team stat header ───────────────────────────────────────────────────────────
 
-function StatHeader({ s, color, dir }: { s: TeamMatchStats; color: string; dir: '→' | '←' }) {
+function StatHeader({ s, color, dir, formation }: { s: TeamMatchStats; color: string; dir: '→' | '←'; formation?: string }) {
   return (
     <View style={styles.header}>
       <View style={[styles.dot, { backgroundColor: color }]} />
-      <Text style={styles.team}>{s.team} {dir}</Text>
+      <Text style={styles.team}>{s.team} {dir}{formation ? `  ·  ${formation}` : ''}</Text>
       <Text style={styles.stat}>{Math.round(s.possession * 100)}% poss</Text>
       <Text style={styles.stat}>{s.totalShots} shots</Text>
       <Text style={styles.stat}>xG {s.xg.toFixed(2)}</Text>
@@ -70,21 +70,22 @@ function StatHeader({ s, color, dir }: { s: TeamMatchStats; color: string; dir: 
 
 // ─── Public component ────────────────────────────────────────────────────────────
 
-export default function MatchHeatmap({ match }: { match: MatchStats }) {
+export default function MatchHeatmap({ match, homeFormation, awayFormation }: { match: MatchStats; homeFormation?: string; awayFormation?: string }) {
+  const fmtNote = homeFormation || awayFormation ? ' Starting formation shapes the territory.' : '';
   return (
     <View style={styles.card}>
       <Text style={styles.title}>
         Territory heatmap{match.status === 'LIVE' ? `  ·  LIVE ${match.elapsed ?? ''}'` : ''}
       </Text>
-      <Text style={styles.caption}>Modelled from live match stats — possession, shots, xG. Not player tracking.</Text>
+      <Text style={styles.caption}>Modelled from match stats — possession, shots, xG.{fmtNote} Not player tracking.</Text>
 
-      <StatHeader s={match.homeStats} color={D.blue} dir="→" />
-      <Pitch stats={match.homeStats} attackDir="ltr" color={D.blue} />
+      <StatHeader s={match.homeStats} color={D.blue} dir="→" formation={homeFormation} />
+      <Pitch stats={match.homeStats} attackDir="ltr" color={D.blue} formation={homeFormation} />
 
       <View style={{ height: 14 }} />
 
-      <StatHeader s={match.awayStats} color={D.red} dir="←" />
-      <Pitch stats={match.awayStats} attackDir="rtl" color={D.red} />
+      <StatHeader s={match.awayStats} color={D.red} dir="←" formation={awayFormation} />
+      <Pitch stats={match.awayStats} attackDir="rtl" color={D.red} formation={awayFormation} />
     </View>
   );
 }
