@@ -105,8 +105,10 @@ export default async function handler(_req: any, res: any) {
         }),
       };
     })
-    .sort((a, b) => b.goals - a.goals)
-    .slice(0, 10);
+    // Full Golden Boot race — do NOT truncate. With most players tied on one
+    // goal early on, a top-N cut silently hides legitimate scorers (e.g. the
+    // Qatar/Switzerland goals fell below a former top-10 limit).
+    .sort((a, b) => b.goals - a.goals);
 
   // ── Cards from curated match events ─────────────────────────────────────
   const teamYellows: Record<string, number> = {};
