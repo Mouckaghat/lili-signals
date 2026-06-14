@@ -151,6 +151,17 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "E1_Germany_v_Cura_ao",
+    home: "Germany", away: "Curaçao", date: "2026-06-14",
+    goals: [
+      { player: "Felix Nmecha", team: "Germany", minute: 6, type: "goal" },
+      { player: "Livano Comenencia", team: "Curaçao", minute: 21, type: "goal" },
+      { player: "Nico Schlotterbeck", team: "Germany", minute: 38, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-14T16:08:00.955Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-14T17:42:42.696Z';
