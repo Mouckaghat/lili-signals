@@ -41,12 +41,19 @@ function HeatLayer({ grid, color }: { grid: HeatGrid; color: string }) {
   return <View style={StyleSheet.absoluteFill}>{rows}</View>;
 }
 
-function Pitch({ stats, attackDir, color, formation }: { stats: TeamMatchStats; attackDir: 'ltr' | 'rtl'; color: string; formation?: string }) {
-  const grid = useMemo(() => buildHeatGrid(stats, attackDir, undefined, undefined, formation), [stats, attackDir, formation]);
+// Both teams composited on a single pitch: home (blue) attacks left→right,
+// away (red) right→left. Where they overlap (contested midfield) the colours
+// blend toward purple.
+function CombinedPitch({ home, away, homeFormation, awayFormation }: {
+  home: TeamMatchStats; away: TeamMatchStats; homeFormation?: string; awayFormation?: string;
+}) {
+  const homeGrid = useMemo(() => buildHeatGrid(home, 'ltr', undefined, undefined, homeFormation), [home, homeFormation]);
+  const awayGrid = useMemo(() => buildHeatGrid(away, 'rtl', undefined, undefined, awayFormation), [away, awayFormation]);
   return (
     <View style={styles.pitch}>
-      <HeatLayer grid={grid} color={color} />
-      {/* pitch markings */}
+      <HeatLayer grid={homeGrid} color={D.blue} />
+      <HeatLayer grid={awayGrid} color={D.red} />
+      {/* pitch markings on top */}
       <View style={styles.halfway} />
       <View style={[styles.box, styles.boxLeft]} />
       <View style={[styles.box, styles.boxRight]} />
@@ -77,15 +84,19 @@ export default function MatchHeatmap({ match, homeFormation, awayFormation }: { 
       <Text style={styles.title}>
         Territory heatmap{match.status === 'LIVE' ? `  ·  LIVE ${match.elapsed ?? ''}'` : ''}
       </Text>
-      <Text style={styles.caption}>Modelled from match stats — possession, shots, xG.{fmtNote} Not player tracking.</Text>
+      <Text style={styles.caption}>Both teams on one pitch — blue attacks →, red ←; purple = contested.{fmtNote} Modelled from possession, shots, xG — not player tracking.</Text>
 
       <StatHeader s={match.homeStats} color={D.blue} dir="→" formation={homeFormation} />
-      <Pitch stats={match.homeStats} attackDir="ltr" color={D.blue} formation={homeFormation} />
-
-      <View style={{ height: 14 }} />
-
       <StatHeader s={match.awayStats} color={D.red} dir="←" formation={awayFormation} />
-      <Pitch stats={match.awayStats} attackDir="rtl" color={D.red} formation={awayFormation} />
+
+      <View style={{ height: 8 }} />
+
+      <CombinedPitch
+        home={match.homeStats}
+        away={match.awayStats}
+        homeFormation={homeFormation}
+        awayFormation={awayFormation}
+      />
     </View>
   );
 }
