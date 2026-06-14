@@ -32,3 +32,6 @@ expo-env.d.ts
 *.pem
 .vercel
 .env*
+
+# local sync-match-events scratch (CI writes to runner.temp)
+.missing-profiles.md

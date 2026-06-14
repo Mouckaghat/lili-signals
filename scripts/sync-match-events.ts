@@ -29,8 +29,10 @@ import { PLAYER_PROFILES } from '../lib/playerProfilesData.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.resolve(__dirname, '..', '.env.local') });
+dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 
-const API_KEY   = process.env.API_FOOTBALL_KEY;
+// CI sets API_FOOTBALL_KEY (secret); locally the key lives in .env as API_KEY.
+const API_KEY   = process.env.API_FOOTBALL_KEY ?? process.env.API_KEY;
 const DRY_RUN   = process.env.DRY_RUN === 'true';
 const LEAGUE_ID = Number(process.env.API_FOOTBALL_LEAGUE_ID ?? 1);
 const SEASON    = Number(process.env.API_FOOTBALL_SEASON ?? 2026);
@@ -64,6 +66,52 @@ const PLAYER_NAME_MAP: Record<string, string> = {
   'Ismaël Saïbari':  'Ismael Saibari',
 };
 const normPlayer = (n: string) => PLAYER_NAME_MAP[n] ?? n;
+
+// ─── Resolve api-football names → canonical squad-profile names ──────────────────
+// api-football reports goals with ABBREVIATED names ("I. Saibari", "F. Balogun").
+// The pre-built squad DB (sync-squads) has full names with diacritics. We match
+// within the scorer's own national squad by surname + first initial, folding
+// diacritics — so "I. Saibari" (Morocco) resolves to "Ismael Saibari".
+const fold = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+
+interface Cand { name: string; norm: string; surname: string; initial: string }
+const SQUAD_BY_NATION = new Map<string, Cand[]>();
+for (const p of PLAYER_PROFILES) {
+  const norm = fold(p.name);
+  const parts = norm.split(/\s+/);
+  const cand: Cand = { name: p.name, norm, surname: parts[parts.length - 1], initial: parts[0]?.[0] ?? '' };
+  const arr = SQUAD_BY_NATION.get(p.nation ?? '') ?? [];
+  arr.push(cand);
+  SQUAD_BY_NATION.set(p.nation ?? '', arr);
+}
+
+function resolveName(apiName: string, nation: string): string {
+  if (!apiName) return apiName;
+  if (PLAYER_NAME_MAP[apiName]) return PLAYER_NAME_MAP[apiName];
+  const cands = SQUAD_BY_NATION.get(nation) ?? [];
+  const n = fold(apiName);
+
+  // 1) exact normalised full-name match
+  const exact = cands.find((c) => c.norm === n);
+  if (exact) return exact.name;
+
+  // 2) "I. Surname" → initial + surname within the squad
+  const m = apiName.match(/^([A-Za-z])\.\s*(.+)$/);
+  if (m) {
+    const ini = fold(m[1]);
+    const sur = fold(m[2]).split(/\s+/).pop()!;
+    const hits = cands.filter((c) => c.initial === ini && c.surname === sur);
+    if (hits.length === 1) return hits[0].name;
+  }
+
+  // 3) unique surname within the squad (single-token api names)
+  const sur = n.split(/\s+/).pop()!;
+  const bySurname = cands.filter((c) => c.surname === sur);
+  if (bySurname.length === 1) return bySurname[0].name;
+
+  // give up — keep raw; it surfaces in the missing-profile issue for a bridge
+  return apiName;
+}
 
 // ─── League-country → flag emoji (for auto-drafted profiles) ────────────────────
 const COUNTRY_FLAG: Record<string, string> = {
@@ -141,23 +189,29 @@ function buildEntry(
   const yellows: CardEvent[] = [];
   const reds: CardEvent[]    = [];
 
+  const opponentOf = (t: string) => (t === fixture.home ? fixture.away : fixture.home);
+
   for (const e of events) {
-    const minute = e.time?.elapsed ?? undefined;
-    const team   = normTeam(e.team?.name ?? '');
-    const player = normPlayer(e.player?.name ?? '');
-    if (!player) continue;
+    const minute  = e.time?.elapsed ?? undefined;
+    const apiTeam = normTeam(e.team?.name ?? '');
 
     if (e.type === 'Goal') {
       if (e.detail === 'Missed Penalty') continue; // not a goal
       const type: EventType = e.detail === 'Own Goal' ? 'own-goal'
         : e.detail === 'Penalty' ? 'penalty' : 'goal';
-      // For own goals, api-football reports the conceding player's own team here,
-      // which matches how lib/api credits the opponent (it flips team for own-goal).
-      const g: GoalEvent = { player, team, minute: minute ?? 0, type };
+      // api-football reports an own goal under the BENEFITING team. lib/api expects
+      // the scorer's OWN team (it flips to credit the opponent), so flip it here and
+      // resolve the scorer's name within their own squad.
+      const scorerTeam = type === 'own-goal' ? opponentOf(apiTeam) : apiTeam;
+      const player = resolveName(e.player?.name ?? '', scorerTeam);
+      if (!player) continue;
+      const g: GoalEvent = { player, team: scorerTeam, minute: minute ?? 0, type };
       if (e.time?.extra) g.minuteStoppage = e.time.extra;
       goals.push(g);
     } else if (e.type === 'Card') {
-      const card: CardEvent = { player, team };
+      const player = resolveName(e.player?.name ?? '', apiTeam);
+      if (!player) continue;
+      const card: CardEvent = { player, team: apiTeam };
       if (minute !== undefined) card.minute = minute;
       if (e.comments) card.reason = e.comments;
       if (e.detail === 'Yellow Card') yellows.push(card);
@@ -337,7 +391,7 @@ async function main() {
       const events = await apiGet<ApiEvent>(`fixtures/events?fixture=${p.apiId}`);
       for (const e of events) {
         if (e.type === 'Goal' && e.detail !== 'Own Goal' && e.detail !== 'Missed Penalty' && e.player?.id && e.player?.name) {
-          scorerIds.set(normPlayer(e.player.name), e.player.id);
+          scorerIds.set(resolveName(e.player.name, normTeam(e.team?.name ?? '')), e.player.id);
         }
       }
       const entry  = buildEntry(
