@@ -10,6 +10,7 @@ import { useLiveResults } from '../lib/useLiveResults';
 import { useLineups } from '../lib/useLineups';
 import { MATCH_EVENTS } from '../lib/matchEventsData';
 import { WC_FIXTURES, WC_TEAMS } from '../lib/wcData';
+import HomeEdgeModule from '../components/HomeEdgeModule';
 
 // ─── Tokens ──────────────────────────────────────────────────────────────────
 const D = {
@@ -195,7 +196,8 @@ function Lg({ color, label }: { color: string; label: string }) {
   return <View style={mc.lg}><View style={[mc.lgDot, { backgroundColor: color }]} /><Text style={mc.lgTxt}>{label}</Text></View>;
 }
 
-const TABS = ['Overview', 'Heatmap', 'Attack Zones', 'Shots', 'Pass Map', 'Players'];
+const HOME_EDGE = '🏟 Home Edge';
+const TABS = ['Overview', 'Heatmap', HOME_EDGE, 'Attack Zones', 'Shots', 'Pass Map', 'Players'];
 
 // ─── Screen ────────────────────────────────────────────────────────────────────
 export default function MatchHeatmapScreen() {
@@ -354,6 +356,18 @@ export default function MatchHeatmapScreen() {
       <View style={{ marginTop: 12 }}>{RailContent}</View>
     </View>
   );
+
+  // Home Edge is a tournament-wide module (not per-match) → its own scrollable
+  // view, no match picker, no pitch.
+  if (tab === HOME_EDGE) {
+    return (
+      <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
+        {Header}{Tabs}
+        <HomeEdgeModule />
+        {Footer}
+      </ScrollView>
+    );
+  }
 
   // Desktop: fixed one-viewport layout, no page scroll. Mobile: stacked scroll.
   if (wide) {

@@ -3,6 +3,7 @@
 
 import { getGroupTeams, getTeam, getTeamFixtures, WC_TEAMS, type WCTeam } from './wcData';
 import { I18N, type I18n } from './i18n';
+import { homeEdgePoints } from './homeEdge';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -126,12 +127,20 @@ export function buildMatchPredictions(teamName: string): MatchPrediction[] {
   const team = getTeam(teamName);
   if (!team) return [];
 
+  // Dynamic Home Edge: a capped (+0..5) strength bonus for the HOME side,
+  // learned from the tournament's observed home-win rate. Helps close matches;
+  // hard-capped so it can never manufacture a miracle win.
+  const edge = homeEdgePoints();
+
   const fixtures = getTeamFixtures(teamName);
   return fixtures.map((f) => {
     const opponentName = f.home === teamName ? f.away : f.home;
     const opponent = getTeam(opponentName);
+    const isHome = f.home === teamName;
+    const myStrength  = team.strength + (isHome ? edge : 0);
+    const oppStrength = (opponent?.strength ?? 0) + (isHome ? 0 : edge);
     const [w, d, l] = opponent
-      ? matchProbs(team.strength, opponent.strength)
+      ? matchProbs(myStrength, oppStrength)
       : [0.33, 0.34, 0.33];
 
     return {
