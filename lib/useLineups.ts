@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Platform } from 'react-native';
 import { MATCH_LINEUPS, type MatchLineup } from './lineupData';
+import { apiUrl, LIVE_API_ENABLED } from './apiBase';
 
 const REFRESH_INTERVAL_MS = 5 * 60_000; // 5 min — lineup changes are infrequent
 
@@ -8,13 +8,13 @@ export function useLineups(): MatchLineup[] {
   const [lineups, setLineups] = useState<MatchLineup[]>(MATCH_LINEUPS);
 
   useEffect(() => {
-    if (Platform.OS !== 'web') return;
+    if (!LIVE_API_ENABLED) return;
 
     let active = true;
 
     async function refresh() {
       try {
-        const res = await fetch('/api/lineups');
+        const res = await fetch(apiUrl('/api/lineups'));
         if (!res.ok) return;
         const data = await res.json() as { lineups?: MatchLineup[] };
         if (active && data.lineups) setLineups(data.lineups);

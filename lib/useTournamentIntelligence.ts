@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Platform } from 'react-native';
+import { apiUrl, LIVE_API_ENABLED } from './apiBase';
 
 export interface GoalDetail {
   minute:   string; // e.g. "31'" or "45+5' OG"
@@ -62,13 +62,13 @@ export function useTournamentIntelligence(): { data: TournamentIntelligence; loa
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (Platform.OS !== 'web') { setLoading(false); return; }
+    if (!LIVE_API_ENABLED) { setLoading(false); return; }
 
     let active = true;
 
     async function refresh() {
       try {
-        const res = await fetch('/api/tournament-intelligence');
+        const res = await fetch(apiUrl('/api/tournament-intelligence'));
         if (!res.ok) { if (active) setLoading(false); return; }
         const json = await res.json() as TournamentIntelligence;
         if (active) { setData(json); setLoading(false); }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Platform } from 'react-native';
 import { MATCH_STATS, type MatchStats, type TeamMatchStats } from './matchStatsData';
 import { WC_FIXTURES } from './wcData';
+import { apiUrl, LIVE_API_ENABLED } from './apiBase';
 
 // home|away → real WCFixture.id, so a LIVE game that isn't in the pre-baked
 // MATCH_STATS still gets its canonical fixtureId (e.g. E1_Germany_v_Cura_ao).
@@ -21,19 +21,19 @@ interface LivePayload {
 
 /**
  * Returns the committed match stats, with any LIVE fixtures overlaid from
- * /api/match-stats (web only). On native / no network it just returns the
- * pre-built data, so the screen always works.
+ * /api/match-stats (web + native). On a build with no API origin / no network
+ * it just returns the pre-built data, so the screen always works.
  */
 export function useLiveStats(): MatchStats[] {
   const [stats, setStats] = useState<MatchStats[]>(MATCH_STATS);
 
   useEffect(() => {
-    if (Platform.OS !== 'web') return;
+    if (!LIVE_API_ENABLED) return;
     let active = true;
 
     async function refresh() {
       try {
-        const res = await fetch('/api/match-stats');
+        const res = await fetch(apiUrl('/api/match-stats'));
         if (!res.ok) return;
         const data = await res.json() as { stats?: Record<string, LivePayload> };
         if (!active || !data.stats) return;
