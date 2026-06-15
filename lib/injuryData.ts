@@ -8,4 +8,4 @@ export const INJURED_PLAYERS: Record<string, InjuredPlayer[]> = {
 
 };
 
-export const INJURY_LAST_UPDATED = '2026-06-15T02:37:26.313Z';
+export const INJURY_LAST_UPDATED = '2026-06-15T09:50:57.929Z';
