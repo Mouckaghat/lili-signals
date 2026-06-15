@@ -26,6 +26,7 @@ export const FIXTURE_RESULTS: Record<string, FixtureResult> = {
   "Ivory Coast|Ecuador": { status: 'FINISHED', homeScore: 1, awayScore: 0, winner: 'Ivory Coast' },
   "Sweden|Tunisia": { status: 'FINISHED', homeScore: 5, awayScore: 1, winner: 'Sweden' },
   "Spain|Cape Verde Islands": { status: 'FINISHED', homeScore: 0, awayScore: 0, winner: null },
+  "Belgium|Egypt": { status: 'FINISHED', homeScore: 1, awayScore: 1, winner: null },
 };
 
-export const FIXTURE_RESULTS_LAST_UPDATED = '2026-06-15T18:58:19.249Z';
+export const FIXTURE_RESULTS_LAST_UPDATED = '2026-06-15T21:37:40.744Z';
