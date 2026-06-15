@@ -15,6 +15,20 @@ export interface MarketOdds {
 }
 
 export const MARKET_ODDS: MarketOdds[] = [
+  { fixtureId: "A1_Mexico_v_South_Africa", home: "Mexico", away: "South Africa", market: { home: 0.6705, draw: 0.2158, away: 0.1137 }, model: null, advice: null, bookmakers: 14 },
+  { fixtureId: "A1_South_Korea_v_Czech_Republic", home: "South Korea", away: "Czech Republic", market: { home: 0.3649, draw: 0.3123, away: 0.3228 }, model: null, advice: null, bookmakers: 14 },
+  { fixtureId: "B1_Canada_v_Bosnia_Herzegovina", home: "Canada", away: "Bosnia & Herzegovina", market: { home: 0.5200, draw: 0.2755, away: 0.2045 }, model: null, advice: null, bookmakers: 14 },
+  { fixtureId: "C1_USA_v_Paraguay", home: "USA", away: "Paraguay", market: { home: 0.4594, draw: 0.2959, away: 0.2448 }, model: { home: 0.5000, draw: 0.5000, away: 0.0000 }, advice: "Double chance : USA or draw", bookmakers: 14 },
+  { fixtureId: "B1_Qatar_v_Switzerland", home: "Qatar", away: "Switzerland", market: { home: 0.0679, draw: 0.1421, away: 0.7901 }, model: { home: 0.5000, draw: 0.5000, away: 0.0000 }, advice: "Double chance : Qatar or draw", bookmakers: 14 },
+  { fixtureId: "D1_Brazil_v_Morocco", home: "Brazil", away: "Morocco", market: { home: 0.5720, draw: 0.2526, away: 0.1754 }, model: { home: 0.0000, draw: 0.5000, away: 0.5000 }, advice: "Double chance : draw or Morocco", bookmakers: 14 },
+  { fixtureId: "D1_Haiti_v_Scotland", home: "Haiti", away: "Scotland", market: { home: 0.1592, draw: 0.2152, away: 0.6256 }, model: null, advice: null, bookmakers: 14 },
+  { fixtureId: "C1_Australia_v_T_rkiye", home: "Australia", away: "Türkiye", market: { home: 0.1841, draw: 0.2578, away: 0.5581 }, model: null, advice: null, bookmakers: 14 },
+  { fixtureId: "E1_Germany_v_Cura_ao", home: "Germany", away: "Curaçao", market: { home: 0.9266, draw: 0.0502, away: 0.0232 }, model: null, advice: null, bookmakers: 14 },
+  { fixtureId: "F1_Netherlands_v_Japan", home: "Netherlands", away: "Japan", market: { home: 0.4619, draw: 0.2776, away: 0.2605 }, model: { home: 0.5000, draw: 0.5000, away: 0.0000 }, advice: "Double chance : Netherlands or draw", bookmakers: 14 },
+  { fixtureId: "E1_Ivory_Coast_v_Ecuador", home: "Ivory Coast", away: "Ecuador", market: { home: 0.2918, draw: 0.3324, away: 0.3758 }, model: null, advice: null, bookmakers: 14 },
+  { fixtureId: "F1_Sweden_v_Tunisia", home: "Sweden", away: "Tunisia", market: { home: 0.5004, draw: 0.2821, away: 0.2175 }, model: null, advice: null, bookmakers: 14 },
+  { fixtureId: "G1_Spain_v_Cape_Verde_Islands", home: "Spain", away: "Cape Verde Islands", market: { home: 0.8866, draw: 0.0797, away: 0.0337 }, model: null, advice: null, bookmakers: 14 },
+  { fixtureId: "H1_Belgium_v_Egypt", home: "Belgium", away: "Egypt", market: { home: 0.6053, draw: 0.2355, away: 0.1592 }, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Double chance : Belgium or draw", bookmakers: 14 },
   { fixtureId: "G1_Saudi_Arabia_v_Uruguay", home: "Saudi Arabia", away: "Uruguay", market: { home: 0.1167, draw: 0.2196, away: 0.6637 }, model: { home: 0.0000, draw: 0.5000, away: 0.5000 }, advice: "Double chance : draw or Uruguay", bookmakers: 14 },
   { fixtureId: "H1_Iran_v_New_Zealand", home: "Iran", away: "New Zealand", market: { home: 0.5319, draw: 0.2724, away: 0.1957 }, model: null, advice: null, bookmakers: 14 },
   { fixtureId: "I1_France_v_Senegal", home: "France", away: "Senegal", market: { home: 0.6481, draw: 0.2182, away: 0.1338 }, model: null, advice: null, bookmakers: 14 },
@@ -75,4 +89,4 @@ export const MARKET_ODDS: MarketOdds[] = [
   { fixtureId: "J3_Jordan_v_Argentina", home: "Jordan", away: "Argentina", market: { home: 0.0658, draw: 0.1390, away: 0.7951 }, model: null, advice: null, bookmakers: 12 },
 ];
 
-export const MARKET_ODDS_LAST_UPDATED = '2026-06-15T21:41:39.015Z';
+export const MARKET_ODDS_LAST_UPDATED = '2026-06-15T22:02:48.484Z';

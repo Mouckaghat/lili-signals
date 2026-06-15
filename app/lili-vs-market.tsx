@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { buildComparisons, type MatchComparison, type Outcome, type ProbRow } from '../lib/marketComparison';
+import { buildTrackRecord, type TrackRecord } from '../lib/trackRecord';
 import { WC_TEAMS } from '../lib/wcData';
 import { useLanguage } from '../contexts/LanguageContext';
 import { MARKET_I18N, mktT } from '../lib/marketI18n';
@@ -53,6 +54,33 @@ function ProbBar({ label, row, fav, accent }: { label: string; row: ProbRow; fav
   );
 }
 
+// Track record: how each source's pre-match favourite fared on finished games.
+function TrackRecordCard({ track, t }: { track: TrackRecord; t: typeof MARKET_I18N['EN'] }) {
+  const hl = track.highlight;
+  const Row = ({ emoji, label, rec, color }: { emoji: string; label: string; rec: { correct: number; total: number }; color: string }) => (
+    <View style={s.trRow}>
+      <Text style={s.trLabel}>{emoji} <Text style={{ color }}>{label}</Text></Text>
+      <Text style={s.trScore}>{rec.correct} / {rec.total}</Text>
+    </View>
+  );
+  return (
+    <View style={s.trCard}>
+      <View style={s.trHead}>
+        <Text style={s.trTitle}>🎯 {t.track}</Text>
+        <Text style={s.trCount}>{mktT(t.finished, { n: track.lili.total })}</Text>
+      </View>
+      <Row emoji="🤖" label={t.lili} rec={track.lili} color={D.green} />
+      <Row emoji="💰" label={t.market} rec={track.market} color={D.text1} />
+      {track.model.total > 0 && <Row emoji="📊" label={t.model} rec={track.model} color={D.orange} />}
+      {hl && (
+        <Text style={s.trHighlight}>
+          ▸ <Text style={{ color: D.green, fontWeight: '700' }}>{t.sharp}</Text>: {flag(hl.home)} {hl.home} {hl.homeScore}–{hl.awayScore} {hl.away} {flag(hl.away)} · {mktT(t.marketBacked, { team: hl.marketPick === 'home' ? hl.home : hl.marketPick === 'away' ? hl.away : t.drawShort })}
+        </Text>
+      )}
+    </View>
+  );
+}
+
 function MatchCard({ c, t, groupLabel }: { c: MatchComparison; t: typeof MARKET_I18N['EN']; groupLabel: string }) {
   const d = new Date(c.date);
   const when = d.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' });
@@ -96,6 +124,7 @@ export default function LiliVsMarketScreen() {
   const { lang, i18n } = useLanguage();
   const t = MARKET_I18N[lang] ?? MARKET_I18N.EN;
   const comparisons = useMemo(() => buildComparisons(), []);
+  const track = useMemo(() => buildTrackRecord(), []);
 
   return (
     <>
@@ -103,6 +132,8 @@ export default function LiliVsMarketScreen() {
       <SafeAreaView style={s.safe} edges={['bottom']}>
         <ScrollView contentContainerStyle={s.content}>
           <Text style={s.intro}>{t.intro}</Text>
+
+          {track.lili.total > 0 && <TrackRecordCard track={track} t={t} />}
 
           {comparisons.length === 0
             ? <Text style={s.empty}>{t.empty}</Text>
@@ -118,6 +149,15 @@ const s = StyleSheet.create({
   content:  { padding: 14, paddingBottom: 40, gap: 12 },
   intro:    { fontSize: 12.5, lineHeight: 18, color: D.text2, marginBottom: 2 },
   empty:    { fontSize: 13, color: D.text3, textAlign: 'center', marginTop: 40 },
+
+  trCard:   { backgroundColor: 'rgba(52,211,153,0.06)', borderRadius: 14, borderWidth: 1, borderColor: 'rgba(52,211,153,0.22)', padding: 14, gap: 6 },
+  trHead:   { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 },
+  trTitle:  { fontSize: 13.5, fontWeight: '800', color: D.text1 },
+  trCount:  { fontSize: 11, color: D.text2 },
+  trRow:    { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  trLabel:  { fontSize: 12.5, fontWeight: '600', color: D.text2 },
+  trScore:  { fontSize: 13, fontWeight: '800', color: D.text1, fontVariant: ['tabular-nums'] },
+  trHighlight: { fontSize: 11, color: D.text2, lineHeight: 16, marginTop: 4 },
 
   card:     { backgroundColor: D.card, borderRadius: 14, borderWidth: 1, borderColor: D.border, padding: 14, gap: 8 },
   cardHead: { flexDirection: 'row', alignItems: 'center' },

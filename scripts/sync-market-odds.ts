@@ -46,8 +46,11 @@ const TEAM_NAME_MAP: Record<string, string> = {
   'Bosnia': 'Bosnia & Herzegovina', 'Bosnia-Herzegovina': 'Bosnia & Herzegovina',
 };
 const normTeam = (n: string) => TEAM_NAME_MAP[n] ?? n;
-// Odds/predictions are pre-match signals; we want anything not yet finished.
-const DONE = new Set(['FT', 'AET', 'PEN']);
+// Odds freeze at kickoff, so a FINISHED fixture's /odds returns the closing
+// line — exactly "what the market predicted". We capture every fixture (upcoming,
+// live and finished) so the "Lili vs The Market" screen can both preview future
+// games and score past ones (track record). Re-pulling static finished-game odds
+// each run is a small, deliberate cost in exchange for a complete, self-healing file.
 
 interface ApiFixture { fixture: { id: number; status: { short: string } }; teams: { home: { name: string }; away: { name: string } } }
 interface OddsValue { value: string; odd: string }
@@ -164,11 +167,11 @@ async function main() {
   const wcByKey = new Map(WC_FIXTURES.map((f) => [`${f.home}|${f.away}`, f]));
   const order   = new Map(WC_FIXTURES.map((f, i) => [f.id, i]));
 
-  // Upcoming/live only — odds and predictions are pre-match signals.
+  // Every matched WC fixture — upcoming, live AND finished (closing line).
   const targets = fixtures
     .map((f) => ({ apiId: f.fixture.id, short: f.fixture.status.short, wc: wcByKey.get(`${normTeam(f.teams.home.name)}|${normTeam(f.teams.away.name)}`) }))
-    .filter((x) => x.wc && !DONE.has(x.short));
-  console.log(`  ✓  ${targets.length} upcoming/live fixtures to price`);
+    .filter((x) => x.wc);
+  console.log(`  ✓  ${targets.length} fixtures to price (incl. finished closing lines)`);
 
   const rows: MarketOdds[] = [];
   for (const t of targets) {
