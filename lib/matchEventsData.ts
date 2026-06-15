@@ -228,13 +228,16 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Belgium", away: "Egypt", date: "2026-06-15",
     goals: [
       { player: "Emam Ashour", team: "Egypt", minute: 19, type: "goal" },
+      { player: "Mohamed Hany", team: "Egypt", minute: 66, type: "own-goal" },
     ],
     yellowCards: [
       { player: "Marwan Attia", team: "Egypt", minute: 13, reason: "Tripping" },
       { player: "Timothy Castagne", team: "Belgium", minute: 14, reason: "Holding" },
+      { player: "Ahmed Fatouh", team: "Egypt", minute: 34, reason: "Tripping" },
+      { player: "Maxim De Cuyper", team: "Belgium", minute: 75, reason: "Holding" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-15T19:30:56.589Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-15T22:01:48.409Z';
