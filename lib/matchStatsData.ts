@@ -100,10 +100,17 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "E1_Ivory_Coast_v_Ecuador",
     home: "Ivory Coast", away: "Ecuador", date: "2026-06-14",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Ivory Coast", possession: 0.45, totalShots: 6, shotsInsideBox: 3, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 2, xg: 0.73, passAccuracy: 0.83, passes: 233, fouls: 8 },
+    awayStats: { team: "Ecuador", possession: 0.55, totalShots: 6, shotsInsideBox: 1, shotsOutsideBox: 5, shotsOnGoal: 0, corners: 0, xg: 0.54, passAccuracy: 0.87, passes: 285, fouls: 3 },
+  },
+  {
+    fixtureId: "F1_Sweden_v_Tunisia",
+    home: "Sweden", away: "Tunisia", date: "2026-06-15",
     status: "LIVE", elapsed: 45,
-    homeStats: { team: "Ivory Coast", possession: 0.45, totalShots: 5, shotsInsideBox: 3, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 2, xg: 0.62, passAccuracy: 0.83, passes: 229, fouls: 7 },
-    awayStats: { team: "Ecuador", possession: 0.55, totalShots: 6, shotsInsideBox: 1, shotsOutsideBox: 5, shotsOnGoal: 0, corners: 0, xg: 0.54, passAccuracy: 0.88, passes: 279, fouls: 3 },
+    homeStats: { team: "Sweden", possession: 0.58, totalShots: 5, shotsInsideBox: 3, shotsOutsideBox: 2, shotsOnGoal: 3, corners: 2, xg: 0.35, passAccuracy: 0.81, passes: 210, fouls: 4 },
+    awayStats: { team: "Tunisia", possession: 0.42, totalShots: 3, shotsInsideBox: 1, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 0, xg: 0.09, passAccuracy: 0.73, passes: 147, fouls: 3 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-14T23:55:20.004Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-15T02:48:39.147Z';
