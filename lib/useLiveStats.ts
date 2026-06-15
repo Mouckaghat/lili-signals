@@ -8,9 +8,10 @@ import { apiUrl, LIVE_API_ENABLED } from './apiBase';
 // Without this, deep-links from the timeline's 🔥 flame wouldn't preselect it.
 const FIXTURE_ID_BY_KEY = new Map(WC_FIXTURES.map((f) => [`${f.home}|${f.away}`, f.id]));
 
-// Poll cadence for the live heatmap. Stats move slowly; 45s keeps it fresh
-// without hammering the rate limit.
-const POLL_MS = 45_000;
+// Poll cadence for the live heatmap, aligned to the /api/match-stats edge cache
+// (s-maxage=15). Polling at the cache TTL picks up each refresh once without
+// extra upstream cost — repeat hits inside a window are served from the edge.
+const POLL_MS = 15_000;
 
 interface LivePayload {
   status: 'LIVE' | 'FINISHED';

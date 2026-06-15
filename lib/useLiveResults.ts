@@ -3,8 +3,9 @@ import { FIXTURE_RESULTS, type FixtureResult } from './fixtureResultsData';
 import { WC_FIXTURES } from './wcData';
 import { apiUrl, LIVE_API_ENABLED } from './apiBase';
 
-// Slow baseline: api-football via GitHub Actions + client poll
-const BASELINE_INTERVAL_MS = 60_000;
+// Baseline: api-football via /api/fixture-results (edge-cached at s-maxage=15).
+// Poll at ~20s so goals surface fast; the ESPN fast-bot below overlays at 30s.
+const BASELINE_INTERVAL_MS = 20_000;
 
 // Fast bot: ESPN scraper, one interval per live game
 const BOT_INTERVAL_MS  = 30_000;

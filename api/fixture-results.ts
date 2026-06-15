@@ -22,7 +22,10 @@ function mapStatus(short: string): 'SCHEDULED' | 'LIVE' | 'FINISHED' {
 
 export default async function handler(req: any, res: any) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Cache-Control', 's-maxage=30, stale-while-revalidate=60');
+  // 15s edge cache: this is the api-football-backed live score source, so a
+  // tight TTL surfaces goals fast. One upstream call per miss (all fixtures in
+  // one request), shared across all clients via the edge cache.
+  res.setHeader('Cache-Control', 's-maxage=15, stale-while-revalidate=30');
 
   const API_KEY   = process.env.API_FOOTBALL_KEY ?? process.env.API_KEY;
   const LEAGUE_ID = process.env.API_FOOTBALL_LEAGUE_ID ?? '1';

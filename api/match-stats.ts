@@ -39,7 +39,11 @@ function parseTeam(raw: any) {
 
 export default async function handler(req: any, res: any) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Cache-Control', 's-maxage=30, stale-while-revalidate=60');
+  // 15s edge cache: live possession/shots/xG move minute-to-minute, so a tight
+  // TTL keeps the heatmap fresh. All clients (web + native) share this edge
+  // cache, so upstream api-football volume is bounded by miss-rate × regions ×
+  // live fixtures — not by user count.
+  res.setHeader('Cache-Control', 's-maxage=15, stale-while-revalidate=30');
 
   const API_KEY   = process.env.API_FOOTBALL_KEY ?? process.env.API_KEY;
   const LEAGUE_ID = process.env.API_FOOTBALL_LEAGUE_ID ?? '1';
