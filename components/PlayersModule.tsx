@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
-import { computePlayerLeaders, matchHero, startingXI, type ImpactRow } from '../lib/playerImpact';
+import { computePlayerLeaders, matchHero, matchSquads, startingXI, type ImpactRow } from '../lib/playerImpact';
 import type { MatchStats } from '../lib/matchStatsData';
 import { useLiveResults } from '../lib/useLiveResults';
 import { WC_TEAMS } from '../lib/wcData';
@@ -30,6 +30,8 @@ export default function PlayersModule({ match }: { match: MatchStats }) {
   const L = useMemo(() => computePlayerLeaders(results), [results]);
   const hero = useMemo(() => matchHero(match.fixtureId, results), [match.fixtureId, results]);
   const xi = useMemo(() => startingXI(match.fixtureId), [match.fixtureId]);
+  // No confirmed XI yet → fall back to the real squad pool (honest names early).
+  const squads = useMemo(() => (xi ? null : matchSquads(match.fixtureId)), [match.fixtureId, xi]);
 
   const [sel, setSel] = useState<Sel | null>(null);
   const selected: Sel | null = sel ?? (L.spotlight ? { name: L.spotlight.row.name, team: L.spotlight.row.team } : null);
@@ -88,6 +90,30 @@ export default function PlayersModule({ match }: { match: MatchStats }) {
                 <Text style={s.xiPos}>{p.pos}</Text>
                 <Text style={s.xiGA}>{p.goals ? `⚽${p.goals}` : ''}{p.assists ? ` 🅰${p.assists}` : ''}</Text>
                 <Text style={[s.xiRating, { color: ratingColor(p.rating) }]}>{p.rating != null ? p.rating.toFixed(1) : '–'}</Text>
+              </Pressable>
+            ))}
+          </View>
+        ))}
+      </View>
+    </View>
+  );
+
+  // Shown only before a lineup is posted: real squad pool, not a predicted XI.
+  const Squad = !xi && squads && (
+    <View style={s.card}>
+      <Text style={s.cardTitle}>📋 SQUADS · {match.home} v {match.away}</Text>
+      <Text style={s.squadNote}>Full squad pool — starting XI confirms ~40 min before kickoff. Ranked by caps.</Text>
+      <View style={wide ? s.xiCols : undefined}>
+        {([['home', squads.homeTeam, squads.home], ['away', squads.awayTeam, squads.away]] as const).map(([k, team, players]) => (
+          <View key={k} style={s.xiCol}>
+            <Text style={s.subhead}>{flagOf(team)} {team}</Text>
+            {players.map((p) => (
+              <Pressable key={p.name} onPress={() => setSel({ name: p.name, team })} style={s.xiRow}>
+                <View style={{ flex: 1, minWidth: 0 }}>
+                  <Text style={s.xiName} numberOfLines={1}>{p.name}</Text>
+                  {p.club ? <Text style={s.squadClub} numberOfLines={1}>{p.club}</Text> : null}
+                </View>
+                <Text style={s.squadCaps}>{p.caps}<Text style={s.pUnit}> caps</Text></Text>
               </Pressable>
             ))}
           </View>
@@ -173,7 +199,7 @@ export default function PlayersModule({ match }: { match: MatchStats }) {
       <Text style={s.h1}>👤 PLAYERS</Text>
       <Text style={s.h1sub}>Which players are driving this World Cup?</Text>
       <View style={wide ? s.cols : undefined}>
-        <View style={wide ? s.left : undefined}>{Leaders}{Contributors}</View>
+        <View style={wide ? s.left : undefined}>{Leaders}{Contributors}{Squad}</View>
         <View style={wide ? s.right : undefined}>{Spotlight}{Impact}{Hero}{Details}</View>
       </View>
       <Text style={s.foot}>Goals & cards from match events · assists, saves, ratings, tackles from player match stats · clean sheets derived · Impact = goals + assists + clean sheets + saves − discipline.</Text>
@@ -227,6 +253,10 @@ const s = StyleSheet.create({
   xiRating:{ fontSize: 11, fontWeight: '800', width: 28, textAlign: 'right' },
   barTrack:{ height: 3, backgroundColor: D.panel2, borderRadius: 2, marginTop: 2, overflow: 'hidden' },
   barFill: { height: 3, backgroundColor: D.blue, borderRadius: 2 },
+
+  squadNote: { color: D.text3, fontSize: 10, marginTop: -4, marginBottom: 8, lineHeight: 14 },
+  squadClub: { color: D.text3, fontSize: 9, fontWeight: '600' },
+  squadCaps: { color: D.text2, fontSize: 11, fontWeight: '800', textAlign: 'right' },
 
   spotName:     { color: D.text1, fontSize: 18, fontWeight: '900', marginBottom: 6 },
   spotImpactRow:{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', backgroundColor: D.panel2, borderRadius: 8, padding: 8, marginBottom: 8 },

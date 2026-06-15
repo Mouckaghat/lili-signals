@@ -184,3 +184,22 @@ export function startingXI(fixtureId: string): { home: XIPlayer[]; away: XIPlaye
 
   return { home: build(lu.home.players, f.home), away: build(lu.away.players, f.away), homeTeam: f.home, awayTeam: f.away };
 }
+
+// ── Pre-match squad fallback ─────────────────────────────────────────────────────
+// Honest names-before-kickoff: the real committed squad (lib/playerProfilesData),
+// ranked by caps. We have NO positions in profiles and no posted XI yet, so this
+// is explicitly the squad pool — NOT a predicted starting XI. The confirmed XI
+// (startingXI) takes over once api-football posts it (~40 min before kickoff).
+export interface SquadMember { name: string; team: string; flag: string; club?: string; caps: number }
+export function matchSquads(fixtureId: string): { home: SquadMember[]; away: SquadMember[]; homeTeam: string; awayTeam: string } | null {
+  const f = WC_FIXTURES.find((x) => x.id === fixtureId);
+  if (!f) return null;
+  const squadOf = (team: string): SquadMember[] =>
+    PLAYER_PROFILES
+      .filter((p) => p.nation === team)
+      .sort((a, b) => b.caps - a.caps)
+      .map((p) => ({ name: p.name, team, flag: flagOf(team), club: p.club, caps: p.caps }));
+  const home = squadOf(f.home), away = squadOf(f.away);
+  if (!home.length && !away.length) return null;
+  return { home, away, homeTeam: f.home, awayTeam: f.away };
+}
