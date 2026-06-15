@@ -186,14 +186,31 @@ export const MATCH_EVENTS: MatchEvents[] = [
   {
     fixtureId: "E1_Ivory_Coast_v_Ecuador",
     home: "Ivory Coast", away: "Ecuador", date: "2026-06-14",
-    goals: [],
+    goals: [
+      { player: "Amad Diallo", team: "Ivory Coast", minute: 90, type: "goal" },
+    ],
     yellowCards: [
       { player: "Seko Fofana", team: "Ivory Coast", minute: 28, reason: "Roughing" },
       { player: "Franck Kessié", team: "Ivory Coast", minute: 38, reason: "Tripping" },
       { player: "Guéla Doué", team: "Ivory Coast", minute: 40, reason: "Tripping" },
+      { player: "Jackson Porozo", team: "Ecuador", minute: 73, reason: "Holding" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "F1_Sweden_v_Tunisia",
+    home: "Sweden", away: "Tunisia", date: "2026-06-15",
+    goals: [
+      { player: "Yasin Ayari", team: "Sweden", minute: 7, type: "goal" },
+      { player: "Alexander Isak", team: "Sweden", minute: 30, type: "goal" },
+      { player: "Omar Rekik", team: "Tunisia", minute: 43, type: "goal" },
+      { player: "Viktor Gyökeres", team: "Sweden", minute: 59, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Rani Khedira", team: "Tunisia", minute: 54, reason: "Tripping" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-14T23:56:34.248Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-15T03:35:24.081Z';
