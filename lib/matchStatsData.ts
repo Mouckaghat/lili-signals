@@ -125,6 +125,13 @@ export const MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Belgium", possession: 0.54, totalShots: 15, shotsInsideBox: 9, shotsOutsideBox: 6, shotsOnGoal: 3, corners: 2, xg: 1.32, passAccuracy: 0.86, passes: 452, fouls: 15 },
     awayStats: { team: "Egypt", possession: 0.46, totalShots: 14, shotsInsideBox: 10, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 7, xg: 1.07, passAccuracy: 0.81, passes: 397, fouls: 15 },
   },
+  {
+    fixtureId: "G1_Saudi_Arabia_v_Uruguay",
+    home: "Saudi Arabia", away: "Uruguay", date: "2026-06-15",
+    status: "LIVE", elapsed: 59,
+    homeStats: { team: "Saudi Arabia", possession: 0.37, totalShots: 5, shotsInsideBox: 3, shotsOutsideBox: 2, shotsOnGoal: 3, corners: 4, xg: 0.93, passAccuracy: 0.75, passes: 227, fouls: 5 },
+    awayStats: { team: "Uruguay", possession: 0.63, totalShots: 9, shotsInsideBox: 7, shotsOutsideBox: 2, shotsOnGoal: 3, corners: 4, xg: 0.55, passAccuracy: 0.87, passes: 381, fouls: 5 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-15T21:41:24.619Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-15T23:24:23.120Z';
