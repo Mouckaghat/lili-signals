@@ -1,0 +1,75 @@
+name: Data Health Watchdog
+
+# Sole purpose: a constant check that we have the RIGHT DATA AT THE RIGHT TIME.
+# scripts/check-data-health.ts compares the schedule (WC_FIXTURES) against the
+# committed feeds (match stats freshness + heatmap coverage, results, lineups).
+#
+# On a problem it AUTO-HEALS first (re-runs the relevant sync bots and commits
+# via the rebase-retry push), then re-checks. If the problem persists it FAILS
+# the run — GitHub's built-in notification then emails the repo owner. No SMTP
+# secret needed. Requires the API_FOOTBALL_KEY secret (for the heal step).
+
+on:
+  schedule:
+    - cron: '*/10 * 11-30 6 *'   # group stage (June 11–30) — every 10 min
+    - cron: '*/10 * 1-19 7 *'    # knockouts (July 1–19) — every 10 min
+    - cron: '0 6 * 1-5,8-12 *'   # off-season keep-warm: daily 06:00 UTC
+  workflow_dispatch:
+
+jobs:
+  health:
+    name: Check data freshness & coverage
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --prefer-offline
+
+      - name: Health check
+        id: check
+        continue-on-error: true
+        run: npx tsx scripts/check-data-health.ts
+
+      - name: Auto-heal — re-run the stale sync bots
+        if: steps.check.outputs.heal != ''
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+        run: |
+          echo "Healing feeds: ${{ steps.check.outputs.heal }}"
+          if [[ "${{ steps.check.outputs.heal }}" == *stats*   ]]; then npx tsx scripts/sync-live-stats.ts      || true; fi
+          if [[ "${{ steps.check.outputs.heal }}" == *lineups* ]]; then npx tsx scripts/sync-lineups.ts         || true; fi
+          if [[ "${{ steps.check.outputs.heal }}" == *results* ]]; then npx tsx scripts/sync-fixture-results.ts || true; fi
+
+      - name: Commit healed data
+        if: steps.check.outputs.heal != ''
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add lib/matchStatsData.ts lib/lineupData.ts lib/fixtureResultsData.ts
+          if git diff --cached --quiet; then
+            echo "No file changes from heal."
+          else
+            git commit -m "fix: auto-heal stale data via health watchdog [skip ci]"
+            bash scripts/git-push-retry.sh
+          fi
+
+      # Re-check WITHOUT continue-on-error: if a critical issue survived the heal,
+      # this fails the run and GitHub emails the owner.
+      - name: Verify after heal
+        if: steps.check.outcome == 'failure'
+        run: npx tsx scripts/check-data-health.ts
