@@ -29,4 +29,4 @@ export const FIXTURE_RESULTS: Record<string, FixtureResult> = {
   "Belgium|Egypt": { status: 'FINISHED', homeScore: 1, awayScore: 1, winner: null },
 };
 
-export const FIXTURE_RESULTS_LAST_UPDATED = '2026-06-15T21:37:40.744Z';
+export const FIXTURE_RESULTS_LAST_UPDATED = '2026-06-15T21:48:13.279Z';
