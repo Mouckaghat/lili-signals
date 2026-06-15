@@ -118,6 +118,13 @@ export const MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Spain", possession: 0.74, totalShots: 27, shotsInsideBox: 16, shotsOutsideBox: 11, shotsOnGoal: 7, corners: 11, xg: 2.29, passAccuracy: 0.92, passes: 801, fouls: 10 },
     awayStats: { team: "Cape Verde Islands", possession: 0.26, totalShots: 6, shotsInsideBox: 2, shotsOutsideBox: 4, shotsOnGoal: 1, corners: 1, xg: 0.3, passAccuracy: 0.73, passes: 279, fouls: 1 },
   },
+  {
+    fixtureId: "H1_Belgium_v_Egypt",
+    home: "Belgium", away: "Egypt", date: "2026-06-15",
+    status: "LIVE", elapsed: 12,
+    homeStats: { team: "Belgium", possession: 0.38, totalShots: 2, shotsInsideBox: 0, shotsOutsideBox: 2, shotsOnGoal: 0, corners: 0, xg: 0.08, passAccuracy: 0.89, passes: 36, fouls: 2 },
+    awayStats: { team: "Egypt", possession: 0.62, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.85, passes: 59, fouls: 1 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-15T18:57:33.908Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-15T19:12:19.569Z';
