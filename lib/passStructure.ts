@@ -48,8 +48,14 @@ function teamMatchStats(fixtureId: string, team: string): TeamMatchStats | null 
   return m.home === team ? m.homeStats : m.away === team ? m.awayStats : null;
 }
 
-export function passStructure(fixtureId: string, team: string): PassStructure | null {
-  const s = teamMatchStats(fixtureId, team);
+// `liveStats` is the team's stats from the live `MatchStats` object the screen
+// already holds. We use it as a fallback so a LIVE game that isn't baked into
+// the static MATCH_STATS yet (e.g. a matchday-1 game still in progress) still
+// renders its team-level passing structure instead of going blank. Per-player
+// nodes still come only from PLAYER_MATCH_STATS — no per-player live feed — so
+// they appear once the match is finalised and synced.
+export function passStructure(fixtureId: string, team: string, liveStats?: TeamMatchStats): PassStructure | null {
+  const s = teamMatchStats(fixtureId, team) ?? liveStats ?? null;
   if (!s) return null;
   const rows = PLAYER_MATCH_STATS.filter((p) => p.fixtureId === fixtureId && p.team === team && (p.minutes > 0 || p.passes > 0));
   const maxP = Math.max(1, ...rows.map((p) => p.passes));

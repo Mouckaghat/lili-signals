@@ -51,6 +51,30 @@ Symptom: live scoring mismatched on abbreviated player names and own goals. Fix:
 **Fix:** Cast the nav call `as any` — the existing codebase convention (see `app/index.tsx:404`). Route is valid; types regenerate on next `expo start`.
 **Lesson:** A stale typed-route error on a route you know exists is not a real bug — cast `as any` per convention, don't restructure navigation.
 
+### 2026-06-15 — Pass Map blank for a live, not-yet-baked match (Sweden v Tunisia)
+**Symptom:** The 🕸 Pass Map tab showed "No passing data for this match yet" for Sweden v Tunisia, while every other tab (Overview, Heatmap, Shots…) rendered fine for the same game.
+**Root cause:** Pass Map was the *only* tab that re-derived team stats from the pre-baked static `MATCH_STATS`/`PLAYER_MATCH_STATS` by `fixtureId` (`passStructure(match.fixtureId, team)`), instead of using the live `match` object the screen already holds. A matchday-1 game still in progress isn't baked into `matchStatsData.ts` yet — it only exists as a live overlay from `/api/match-stats` (web) — so the static lookup missed and `passStructure` returned `null`.
+**Fix:** Added an optional `liveStats?: TeamMatchStats` fallback to `passStructure` (`teamMatchStats(...) ?? liveStats ?? null`); `PassMapModule` now passes `side === 'home' ? match.homeStats : match.awayStats`. Team-level cards now render from the live feed. Per-player nodes still come only from `PLAYER_MATCH_STATS` (no per-player live feed — stay honest), so the pitch shows a note ("Per-player passing map appears once the match is finalised") instead of a blank screen.
+**Lesson:** When a component is handed a live `match`/data object, use it directly — don't re-look-up the same entity from static files by id, or you go blank for anything not yet synced. Check whether sibling tabs/components already do it the right way.
+
+### 2026-06-15 — Heatmap 7-tab bar overflowed off-screen on mobile
+**Symptom:** On a phone, only the first ~4.5 heatmap tabs (Overview…part of Shots) were reachable; Pass Map and Players were cut off with no way to reach them.
+**Root cause:** The tab bar was a fixed `<View flexDirection:'row'>` — fine on a wide laptop, but it overflowed the narrow viewport with no scroll.
+**Fix:** Converted it to a horizontal `ScrollView` (the *exact* pattern the match picker right above it already uses: `horizontal showsHorizontalScrollIndicator={false}`, `flexGrow:0`, bottom border moved to the scroll-container style so the divider still spans full width).
+**Lesson:** For a row of chips/tabs that can outgrow the screen, copy the existing horizontal-`ScrollView` picker pattern in the same file rather than inventing layout — consistency + already-proven on mobile.
+
+## Match Heatmap — Tab Architecture (`app/match-heatmap.tsx`)
+The screen is the in-app "Lili match timeline" intel hub. It has **7 tabs** (the `TABS` array), each rendered by its own component and backed by an honest model in `lib/`:
+1. **📊 Overview** — `OverviewModule` ← `lib/matchOverview.ts` · "why did this team win & what does it mean for the WC?": stat pairs, control %, verdict, drivers, events, standings/qualification impact.
+2. **Heatmap** — `Pitch` + `Momentum` ← `lib/heatmap.ts` + `lib/matchMomentum.ts` · territory/pressure map *modelled* from possession, shots in/out box, on-goal, corners, xG + formation prior (NOT optical tracking). Blue=home, red=away, purple=contested.
+3. **🏟 Home Edge** — `HomeEdgeModule` ← `lib/homeEdge.ts` · **tournament-wide** (no picker/pitch): does being the home side confer an edge this tournament? Impact % mirrors the sim's win-prob change.
+4. **⚔️ Attack Zones** — `AttackZonesModule` ← `lib/attackZones.ts` · "where does this team create danger?": only bands we truly have — inside box, from distance, wide/corners. No invented left/right split.
+5. **🎯 Shots** — `ShotsModule` ← `lib/shotsModel.ts` · shot splits, conversion, xG, Danger Index, finishing efficiency, GK saves vs xGA. Plotted by **area**, never fake coordinates.
+6. **🕸 Pass Map** — `PassMapModule` ← `lib/passStructure.ts` · real per-player passes/accuracy + possession, laid out by formation role. **No fabricated who→whom links.** Connectivity Score, Team Style.
+7. **👤 Players** — `PlayersModule` ← `lib/playerImpact.ts` · **tournament-wide** (uses selected match for hero/contributors): goals, assists, saves, ratings, clean sheets.
+
+**Unifying principle (the whole point of these tabs):** every panel is an honest *model* from real api-football aggregates / committed data — we have NO player tracking or shot/pass coordinates, so we never fabricate positions, pixel-exact locations, or pass-pair lines. Each `lib/` model's header comment states exactly what real signal it's allowed to use. Preserve this when extending any tab.
+
 ## What's Working (Don't Touch)
 - Pre-built squad profiles (all 48 teams) so live scoring needs no lookup.
 - Scoring engine (`lib/scoring.ts`) and the generated WC data pipeline.

@@ -126,6 +126,10 @@ function MatchRow({ entry, lineup, i18n }: { entry: MatchEntry; lineup?: MatchLi
   const nameClr = kind === 'PLAYED' ? D.text2 : D.text1;
   const timeClr = kind === 'LIVE' ? D.red : kind === 'NEXT' ? D.gold : D.text2;
 
+  // Group tag — so a reader who scrolls straight here knows which group each
+  // side is in. Single letter → "Group A"; anything else (knockout) shown as-is.
+  const groupLabel = /^[A-L]$/.test(fixture.group) ? `${i18n.group} ${fixture.group}` : fixture.group;
+
   const envParts: string[] = [];
   if (stadium) {
     envParts.push(`🏟 ${stadium.shortName}, ${stadium.city}`);
@@ -152,10 +156,11 @@ function MatchRow({ entry, lineup, i18n }: { entry: MatchEntry; lineup?: MatchLi
         {scored && kind === 'PLAYED' && <Text style={{ color: D.text3, fontWeight: '700' }}>{'  ·  '}{homeScore}{'–'}{awayScore}</Text>}
       </Text>
 
-      {/* Environment line: stadium · temp · altitude */}
-      {envParts.length > 0 && (
-        <Text style={row.env} numberOfLines={1}>{envParts.join('  ·  ')}</Text>
-      )}
+      {/* Environment line: group · stadium · temp · altitude */}
+      <Text style={row.env} numberOfLines={1}>
+        <Text style={row.group}>{groupLabel}</Text>
+        {envParts.length > 0 && <Text>{'  ·  '}{envParts.join('  ·  ')}</Text>}
+      </Text>
 
       {/* Heatmap shortcut — for matches with pre-baked stats AND any LIVE game
           (live games get their heatmap from /api/match-stats at runtime, so the
@@ -186,6 +191,7 @@ const row = StyleSheet.create({
   team:      { fontWeight: '700' },
   formation: { fontSize: 10, color: D.text3, fontWeight: '400' },
   env:       { fontSize: 10, color: D.text3, lineHeight: 15, paddingLeft: 2 },
+  group:     { fontSize: 10, color: D.blue, fontWeight: '700' },
   heatBtn:   { alignSelf: 'flex-start', marginTop: 4, paddingVertical: 4, paddingHorizontal: 10,
                borderRadius: 999, borderWidth: 1, borderColor: 'rgba(74,158,255,0.35)',
                backgroundColor: 'rgba(74,158,255,0.10)' },

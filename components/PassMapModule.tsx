@@ -29,7 +29,8 @@ export default function PassMapModule({ match }: { match: MatchStats }) {
   const team = side === 'home' ? match.home : match.away;
   const accent = side === 'home' ? D.blue : D.red;
 
-  const ps = useMemo(() => passStructure(match.fixtureId, team), [match.fixtureId, team]);
+  const liveStats = side === 'home' ? match.homeStats : match.awayStats;
+  const ps = useMemo(() => passStructure(match.fixtureId, team, liveStats), [match.fixtureId, team, liveStats]);
   const ranking = useMemo(() => passRanking(), []);
   const clash = useMemo(() => passClash(team), [team]);
 
@@ -54,11 +55,16 @@ export default function PassMapModule({ match }: { match: MatchStats }) {
     </View>
   );
 
+  const hasNodes = (ps?.players.length ?? 0) > 0;
+
   const Map = (
     <View style={s.card}>
       <Text style={s.cardTitle}>🕸 PASSING STRUCTURE · involvement by pass volume</Text>
       <View style={s.pitch}>
         <View style={s.halfway} /><View style={s.circle} />
+        {!hasNodes && (
+          <Text style={s.pitchEmpty}>Per-player passing map appears once the match is finalised. Team-level structure shown below.</Text>
+        )}
         <View style={s.formation}>
           {ORDER.map((pos) => (
             <View key={pos} style={s.col}>
@@ -187,6 +193,7 @@ const s = StyleSheet.create({
   dotNum:   { color: '#fff', fontSize: 9, fontWeight: '800' },
   nodeName: { color: D.text2, fontSize: 8, marginTop: 1, maxWidth: 60, textAlign: 'center' },
   pitchNote:{ color: D.text3, fontSize: 9, marginTop: 6, fontStyle: 'italic' },
+  pitchEmpty:{ position: 'absolute', alignSelf: 'center', top: '50%', marginTop: -14, paddingHorizontal: 24, color: D.text2, fontSize: 11, textAlign: 'center', zIndex: 2 },
 
   connRow:  { flexDirection: 'row', alignItems: 'center', gap: 12 },
   connNum:  { fontSize: 30, fontWeight: '900', width: 56, textAlign: 'center' },

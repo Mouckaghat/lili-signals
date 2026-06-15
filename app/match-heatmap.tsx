@@ -302,13 +302,18 @@ export default function MatchHeatmapScreen() {
   );
 
   const Tabs = (
-    <View style={st.tabBar}>
+    <ScrollView
+      horizontal
+      showsHorizontalScrollIndicator={false}
+      style={st.tabBarScroll}
+      contentContainerStyle={st.tabBar}
+    >
       {TABS.map((t) => (
         <Pressable key={t} onPress={() => setTab(t)} style={[st.tab, tab === t && st.tabOn]}>
           <Text style={[st.tabText, tab === t && st.tabTextOn]}>{t}</Text>
         </Pressable>
       ))}
-    </View>
+    </ScrollView>
   );
 
   const RailContent = (
@@ -538,7 +543,8 @@ const st = StyleSheet.create({
   pickTextOn:{ color: D.text1 },
   liveDot:   { width: 6, height: 6, borderRadius: 3, backgroundColor: D.red },
 
-  tabBar:    { flexDirection: 'row', gap: 2, paddingHorizontal: 12, borderBottomWidth: 1, borderBottomColor: D.border },
+  tabBarScroll:{ flexGrow: 0, borderBottomWidth: 1, borderBottomColor: D.border },
+  tabBar:    { flexDirection: 'row', gap: 2, paddingHorizontal: 12 },
   tab:       { paddingHorizontal: 9, paddingVertical: 7 },
   tabOn:     { borderBottomWidth: 2, borderBottomColor: D.purple },
   tabText:   { color: D.text3, fontSize: 11, fontWeight: '600' },
