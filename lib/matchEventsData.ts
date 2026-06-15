@@ -238,6 +238,18 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "G1_Saudi_Arabia_v_Uruguay",
+    home: "Saudi Arabia", away: "Uruguay", date: "2026-06-15",
+    goals: [
+      { player: "A. Al Amri", team: "Saudi Arabia", minute: 41, type: "goal" },
+      { player: "Maximiliano Araújo", team: "Uruguay", minute: 80, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "A. Al Amri", team: "Saudi Arabia", minute: 44, reason: "Roughing" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-15T22:01:48.409Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-15T23:53:56.411Z';
