@@ -89,10 +89,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Giovanni Reyna", team: "USA", minute: 90, type: "goal" },
     ],
     yellowCards: [
-      { player: "Juan José Cáceres", team: "Paraguay", minute: 9, reason: "Foul" },
-      { player: "Miguel Almirón", team: "Paraguay", minute: 52, reason: "Simulation" },
+      { player: "Juan José Cáceres", team: "Paraguay", minute: 10, reason: "Foul" },
+      { player: "Miguel Almirón", team: "Paraguay", minute: 53, reason: "Simulation" },
       { player: "Tyler Adams", team: "USA", minute: 59, reason: "Foul" },
-      { player: "Gustavo Gómez", team: "Paraguay", minute: 79, reason: "Foul" },
+      { player: "Diego Gómez", team: "Paraguay", minute: 79, reason: "Foul" },
       { player: "Álex Arce", team: "Paraguay", minute: 88, reason: "Foul" },
       { player: "Júnior Alonso", team: "Paraguay", minute: 90, reason: "Foul" },
     ],
@@ -103,10 +103,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Qatar", away: "Switzerland", date: "2026-06-13",
     goals: [
       { player: "Breel Embolo", team: "Switzerland", minute: 17, type: "penalty" },
-      { player: "Boualem Khoukhi", team: "Qatar", minute: 90, minuteStoppage: 4, type: "goal" },
+      { player: "Miro Muheim", team: "Switzerland", minute: 90, type: "own-goal" },
     ],
     yellowCards: [
-      { player: "Mahmud Abunad", team: "Qatar", minute: 16, reason: "Time wasting" },
+      { player: "Mahmud Abunada", team: "Qatar", minute: 16, reason: "Time wasting" },
       { player: "Jassem Gaber Abdulsallam", team: "Qatar", minute: 23, reason: "Foul" },
       { player: "Denis Zakaria", team: "Switzerland", minute: 42, reason: "Foul" },
     ],
@@ -132,10 +132,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "John McGinn", team: "Scotland", minute: 28, type: "goal" },
     ],
     yellowCards: [
-      { player: "Jean-Ricner Bellegarde", team: "Haiti", minute: 39, reason: "Tripping" },
-      { player: "Aaron Hickey", team: "Scotland", minute: 46, reason: "Holding" },
-      { player: "Findlay Curtis", team: "Scotland", minute: 90, reason: "Roughing" },
-      { player: "Kenny McLean", team: "Scotland", minute: 90, reason: "Roughing" },
+      { player: "Jean-Ricner Bellegarde", team: "Haiti", minute: 39, reason: "Foul" },
+      { player: "Aaron Hickey", team: "Scotland", minute: 47, reason: "Foul" },
+      { player: "Kenny McLean", team: "Scotland", minute: 90, reason: "Foul" },
+      { player: "Findlay Curtis", team: "Scotland", minute: 90, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -147,7 +147,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Connor Metcalfe", team: "Australia", minute: 75, type: "goal" },
     ],
     yellowCards: [
-      { player: "Yunus Akgün", team: "Türkiye", minute: 86, reason: "Roughing" },
+      { player: "Yunus Akgün", team: "Türkiye", minute: 86, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -174,12 +174,12 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Virgil van Dijk", team: "Netherlands", minute: 51, type: "goal" },
       { player: "Keito Nakamura", team: "Japan", minute: 57, type: "goal" },
       { player: "Crysencio Summerville", team: "Netherlands", minute: 64, type: "goal" },
-      { player: "Daichi Kamada", team: "Japan", minute: 88, type: "goal" },
+      { player: "Daichi Kamada", team: "Japan", minute: 89, type: "goal" },
     ],
     yellowCards: [
-      { player: "Crysencio Summerville", team: "Netherlands", minute: 61, reason: "Tripping" },
-      { player: "Memphis Depay", team: "Netherlands", minute: 83, reason: "Roughing" },
-      { player: "Micky van de Ven", team: "Netherlands", minute: 90, reason: "Holding" },
+      { player: "Crysencio Summerville", team: "Netherlands", minute: 61, reason: "Foul" },
+      { player: "Memphis Depay", team: "Netherlands", minute: 83, reason: "Foul" },
+      { player: "Micky van de Ven", team: "Netherlands", minute: 90, reason: "Professional foul" },
     ],
     redCards: [],
   },
@@ -205,6 +205,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Alexander Isak", team: "Sweden", minute: 30, type: "goal" },
       { player: "Omar Rekik", team: "Tunisia", minute: 43, type: "goal" },
       { player: "Viktor Gyökeres", team: "Sweden", minute: 59, type: "goal" },
+      { player: "Mattias Svanberg", team: "Sweden", minute: 84, type: "goal" },
+      { player: "Yasin Ayari", team: "Sweden", minute: 90, minuteStoppage: 6, type: "goal" },
     ],
     yellowCards: [
       { player: "Rani Khedira", team: "Tunisia", minute: 54, reason: "Tripping" },
@@ -213,4 +215,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-15T03:35:24.081Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-15T09:46:06.817Z';
