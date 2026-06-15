@@ -115,9 +115,9 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "G1_Spain_v_Cape_Verde_Islands",
     home: "Spain", away: "Cape Verde Islands", date: "2026-06-15",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Spain", possession: 0.74, totalShots: 25, shotsInsideBox: 14, shotsOutsideBox: 11, shotsOnGoal: 7, corners: 10, xg: 2.16, passAccuracy: 0.92, passes: 796, fouls: 10 },
-    awayStats: { team: "Cape Verde Islands", possession: 0.26, totalShots: 6, shotsInsideBox: 2, shotsOutsideBox: 4, shotsOnGoal: 1, corners: 1, xg: 0.28, passAccuracy: 0.74, passes: 278, fouls: 1 },
+    homeStats: { team: "Spain", possession: 0.74, totalShots: 27, shotsInsideBox: 16, shotsOutsideBox: 11, shotsOnGoal: 7, corners: 11, xg: 2.29, passAccuracy: 0.92, passes: 801, fouls: 10 },
+    awayStats: { team: "Cape Verde Islands", possession: 0.26, totalShots: 6, shotsInsideBox: 2, shotsOutsideBox: 4, shotsOnGoal: 1, corners: 1, xg: 0.3, passAccuracy: 0.73, passes: 279, fouls: 1 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-15T18:28:35.833Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-15T18:57:33.908Z';
