@@ -28,4 +28,4 @@ export const FIXTURE_RESULTS: Record<string, FixtureResult> = {
   "Spain|Cape Verde Islands": { status: 'FINISHED', homeScore: 0, awayScore: 0, winner: null },
 };
 
-export const FIXTURE_RESULTS_LAST_UPDATED = '2026-06-15T18:43:47.586Z';
+export const FIXTURE_RESULTS_LAST_UPDATED = '2026-06-15T18:58:19.249Z';
