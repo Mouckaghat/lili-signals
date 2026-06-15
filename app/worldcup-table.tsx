@@ -1,4 +1,4 @@
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { useState } from 'react';
 import {
   ScrollView,
@@ -16,6 +16,7 @@ import FeatureIntro from '../components/FeatureIntro';
 import MatchTimelineSection from '../components/MatchTimelineSection';
 import { playerByPath } from '../lib/playerXI';
 import { useLanguage } from '../contexts/LanguageContext';
+import { MARKET_I18N } from '../lib/marketI18n';
 
 // ─── Live result overlay ──────────────────────────────────────────────────────
 
@@ -293,7 +294,8 @@ const GROUPS = 'ABCDEFGHIJKL'.split('');
 
 export default function WorldCupTableScreen() {
   const [launched, setLaunched] = useState(false);
-  const { i18n } = useLanguage();
+  const { i18n, lang } = useLanguage();
+  const router = useRouter();
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
   const liveResults = useLiveResults();
 
@@ -342,6 +344,12 @@ export default function WorldCupTableScreen() {
           <Text style={st.bannerSub}>{i18n.wcBannerSub}</Text>
         </View>
       </View>
+
+      {/* Entry point: Lili vs The Market (pre-match odds vs Lili's model) */}
+      <TouchableOpacity style={st.marketLink} onPress={() => router.push('/lili-vs-market' as any)} activeOpacity={0.8}>
+        <Text style={st.marketLinkText}>📈  {(MARKET_I18N[lang] ?? MARKET_I18N.EN).title}</Text>
+        <Text style={st.marketLinkArrow}>→</Text>
+      </TouchableOpacity>
 
       <ScrollView style={st.scroll} contentContainerStyle={st.content}>
         {displayGroups.map((g) => (
@@ -477,6 +485,21 @@ const st = StyleSheet.create({
   bannerEmoji: { fontSize: 28 },
   bannerTitle: { fontSize: 14, fontWeight: '700', color: '#EEF2FF' },
   bannerSub: { fontSize: 11, color: '#7A90B8', marginTop: 2 },
+  marketLink: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginHorizontal: 16,
+    marginTop: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 11,
+    borderRadius: 12,
+    backgroundColor: 'rgba(52,211,153,0.08)',
+    borderWidth: 1,
+    borderColor: 'rgba(52,211,153,0.28)',
+  },
+  marketLinkText: { fontSize: 13, fontWeight: '700', color: '#34D399' },
+  marketLinkArrow: { fontSize: 15, fontWeight: '700', color: '#34D399' },
   scroll: { flex: 1 },
   content: { padding: 16, paddingBottom: 48 },
   footNote: {

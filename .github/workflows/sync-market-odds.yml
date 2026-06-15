@@ -1,0 +1,59 @@
+name: Sync Market Odds
+
+# Pre-match bookmaker odds (/odds) + api-football model prediction (/predictions)
+# → lib/marketOddsData.ts, the feed for the "Lili vs The Market" screen
+# (app/lili-vs-market.tsx). Odds drift slowly pre-kickoff, so a 30-min cadence is
+# plenty. Requires the API_FOOTBALL_KEY secret.
+
+on:
+  schedule:
+    # Group stage (June 11–30) and knockouts (July 1–19) — every 30 min.
+    - cron: '*/30 * 11-30 6 *'
+    - cron: '*/30 * 1-19 7 *'
+    # Off-season keep-warm: daily 06:20 UTC.
+    - cron: '20 6 * 1-5,8-12 *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (preview only)'
+        type: boolean
+        default: false
+
+jobs:
+  sync:
+    name: Sync market odds → lib/marketOddsData.ts
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --prefer-offline
+
+      - name: Fetch & regenerate marketOddsData.ts
+        run: npx tsx scripts/sync-market-odds.ts
+        env:
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+
+      - name: Commit updated marketOddsData.ts
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add lib/marketOddsData.ts
+          git diff --cached --quiet || git commit -m "chore: refresh market odds [skip ci]"
+          bash scripts/git-push-retry.sh
