@@ -213,6 +213,28 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "G1_Spain_v_Cape_Verde_Islands",
+    home: "Spain", away: "Cape Verde Islands", date: "2026-06-15",
+    goals: [],
+    yellowCards: [
+      { player: "Sidny Lopes Cabral", team: "Cape Verde Islands", minute: 16, reason: "Roughing" },
+      { player: "Pedri", team: "Spain", minute: 90, reason: "Holding" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "H1_Belgium_v_Egypt",
+    home: "Belgium", away: "Egypt", date: "2026-06-15",
+    goals: [
+      { player: "Emam Ashour", team: "Egypt", minute: 19, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Marwan Attia", team: "Egypt", minute: 13, reason: "Tripping" },
+      { player: "Timothy Castagne", team: "Belgium", minute: 14, reason: "Holding" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-15T15:32:44.199Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-15T19:30:56.589Z';
