@@ -52,22 +52,22 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "C1_USA_v_Paraguay",
     home: "USA", away: "Paraguay", date: "2026-06-13",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "USA", possession: 0.65, totalShots: 16, shotsInsideBox: 13, shotsOutsideBox: 3, shotsOnGoal: 6, corners: 3, xg: 1.27, passAccuracy: 0.85, passes: 596, fouls: 13 },
-    awayStats: { team: "Paraguay", possession: 0.35, totalShots: 9, shotsInsideBox: 4, shotsOutsideBox: 5, shotsOnGoal: 1, corners: 1, xg: 0.51, passAccuracy: 0.72, passes: 320, fouls: 17 },
+    homeStats: { team: "USA", possession: 0.65, totalShots: 16, shotsInsideBox: 13, shotsOutsideBox: 3, shotsOnGoal: 6, corners: 3, xg: 1.42, passAccuracy: 0.85, passes: 598, fouls: 13 },
+    awayStats: { team: "Paraguay", possession: 0.35, totalShots: 9, shotsInsideBox: 4, shotsOutsideBox: 5, shotsOnGoal: 1, corners: 1, xg: 0.54, passAccuracy: 0.73, passes: 319, fouls: 17 },
   },
   {
     fixtureId: "B1_Qatar_v_Switzerland",
     home: "Qatar", away: "Switzerland", date: "2026-06-13",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Qatar", possession: 0.32, totalShots: 7, shotsInsideBox: 5, shotsOutsideBox: 2, shotsOnGoal: 4, corners: 3, xg: 0.76, passAccuracy: 0.71, passes: 275, fouls: 12 },
-    awayStats: { team: "Switzerland", possession: 0.68, totalShots: 26, shotsInsideBox: 18, shotsOutsideBox: 8, shotsOnGoal: 7, corners: 10, xg: 3.24, passAccuracy: 0.91, passes: 575, fouls: 11 },
+    homeStats: { team: "Qatar", possession: 0.32, totalShots: 6, shotsInsideBox: 4, shotsOutsideBox: 2, shotsOnGoal: 3, corners: 3, xg: 0.6, passAccuracy: 0.72, passes: 278, fouls: 12 },
+    awayStats: { team: "Switzerland", possession: 0.68, totalShots: 26, shotsInsideBox: 18, shotsOutsideBox: 8, shotsOnGoal: 7, corners: 10, xg: 3.2, passAccuracy: 0.91, passes: 576, fouls: 11 },
   },
   {
     fixtureId: "D1_Brazil_v_Morocco",
     home: "Brazil", away: "Morocco", date: "2026-06-13",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Brazil", possession: 0.54, totalShots: 12, shotsInsideBox: 9, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 5, xg: 1.24, passAccuracy: 0.88, passes: 501, fouls: 15 },
-    awayStats: { team: "Morocco", possession: 0.46, totalShots: 12, shotsInsideBox: 6, shotsOutsideBox: 6, shotsOnGoal: 2, corners: 0, xg: 1.28, passAccuracy: 0.87, passes: 432, fouls: 14 },
+    homeStats: { team: "Brazil", possession: 0.51, totalShots: 12, shotsInsideBox: 9, shotsOutsideBox: 3, shotsOnGoal: 5, corners: 6, xg: 1.26, passAccuracy: 0.87, passes: 514, fouls: 16 },
+    awayStats: { team: "Morocco", possession: 0.49, totalShots: 14, shotsInsideBox: 7, shotsOutsideBox: 7, shotsOnGoal: 3, corners: 2, xg: 1.37, passAccuracy: 0.86, passes: 486, fouls: 14 },
   },
   {
     fixtureId: "D1_Haiti_v_Scotland",
@@ -101,16 +101,16 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "E1_Ivory_Coast_v_Ecuador",
     home: "Ivory Coast", away: "Ecuador", date: "2026-06-14",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Ivory Coast", possession: 0.45, totalShots: 6, shotsInsideBox: 3, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 2, xg: 0.73, passAccuracy: 0.83, passes: 233, fouls: 8 },
-    awayStats: { team: "Ecuador", possession: 0.55, totalShots: 6, shotsInsideBox: 1, shotsOutsideBox: 5, shotsOnGoal: 0, corners: 0, xg: 0.54, passAccuracy: 0.87, passes: 285, fouls: 3 },
+    homeStats: { team: "Ivory Coast", possession: 0.48, totalShots: 15, shotsInsideBox: 8, shotsOutsideBox: 7, shotsOnGoal: 4, corners: 3, xg: 1.52, passAccuracy: 0.84, passes: 470, fouls: 10 },
+    awayStats: { team: "Ecuador", possession: 0.52, totalShots: 12, shotsInsideBox: 5, shotsOutsideBox: 7, shotsOnGoal: 1, corners: 5, xg: 1.01, passAccuracy: 0.85, passes: 492, fouls: 13 },
   },
   {
     fixtureId: "F1_Sweden_v_Tunisia",
     home: "Sweden", away: "Tunisia", date: "2026-06-15",
-    status: "LIVE", elapsed: 45,
-    homeStats: { team: "Sweden", possession: 0.58, totalShots: 5, shotsInsideBox: 3, shotsOutsideBox: 2, shotsOnGoal: 3, corners: 2, xg: 0.35, passAccuracy: 0.81, passes: 210, fouls: 4 },
-    awayStats: { team: "Tunisia", possession: 0.42, totalShots: 3, shotsInsideBox: 1, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 0, xg: 0.09, passAccuracy: 0.73, passes: 147, fouls: 3 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Sweden", possession: 0.49, totalShots: 13, shotsInsideBox: 9, shotsOutsideBox: 4, shotsOnGoal: 7, corners: 4, xg: 1.36, passAccuracy: 0.79, passes: 353, fouls: 10 },
+    awayStats: { team: "Tunisia", possession: 0.51, totalShots: 6, shotsInsideBox: 2, shotsOutsideBox: 4, shotsOnGoal: 2, corners: 2, xg: 0.28, passAccuracy: 0.79, passes: 364, fouls: 8 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-15T02:48:39.147Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-15T08:43:44.423Z';
