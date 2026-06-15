@@ -54,10 +54,17 @@ The `Sync Live Match Stats` GitHub Action reported **"Failed in 32 seconds."** S
 - Health check run live (2026-06-15 18:39 UTC): 72 fixtures checked, 0 critical, **1 warning correctly surfaced** — "Spain v Cape Verde Islands: finished but no recorded result" (feed flagged for heal: `results`). The watchdog detected a genuine residual gap on its first run, confirming the schedule↔data wiring works.
 - Containment backfill (recon #13) already verified Spain v Cape Verde's stats/heatmap are restored.
 
+## D6b — Follow-on finding (during validation)
+While validating the watchdog, its `results` warning prompted a local run of `sync-fixture-results.ts`, which exposed a **separate latent landmine** in that script (recon #15):
+- It read only `API_FOOTBALL_KEY` (no `API_KEY` fallback) and loaded only `.env.local` (not `.env`) — inconsistent with `sync-live-stats.ts`, so it couldn't run locally.
+- **Critically, on fetch failure it wrote an *empty* results file** rather than leaving the curated data untouched — i.e. a transient API/secret failure in CI would have *wiped every recorded result*.
+- Fixed: added the `API_KEY` fallback + `.env` load, and made it leave the file untouched on fetch failure **and** when the result map is empty (matching the defensive pattern in `sync-live-stats.ts`). Re-ran live: 13 finished results written, Spain v Cape Verde (0–0) recorded, **health check now 0 critical / 0 warning**.
+
 ## D7 — Prevent recurrence
 1. **Retry-by-default:** all current and future sync bots use `scripts/git-push-retry.sh`; a lost race is now a non-event. New sync workflows must call it, never a bare `git push`.
 2. **Standing monitor:** `data-health.yml` is the "constant check" — it will catch any future staleness (including feeds not yet covered) and self-heal or alert, instead of waiting for a user to spot a broken screen.
-3. **Open / recommended:** consider a shared `concurrency` group only if rebase-retry proves insufficient (rejected as primary fix because GitHub would drop queued runs — bad for a 5-min live feed). Extend the health check with lineup-confirmation and standings freshness if those feeds later show gaps.
+3. **Defensive-write standard:** a sync bot must NEVER overwrite curated data with empty/partial output on failure — leave the committed file untouched (as `sync-live-stats` and now `sync-fixture-results` do). **Open audit:** apply the same review to `sync-standings`, `sync-match-events`, `sync-squads`, `sync-lineups`, `sync-injuries` for the same destructive-on-failure pattern.
+4. **Open / recommended:** consider a shared `concurrency` group only if rebase-retry proves insufficient (rejected as primary fix because GitHub would drop queued runs — bad for a 5-min live feed). Extend the health check with lineup-confirmation and standings freshness if those feeds later show gaps.
 
 ## D8 — Closure
 - Root cause addressed at both layers: pushes no longer fail on contention, and a monitor now guarantees "right data at the right time" with auto-heal + alert.

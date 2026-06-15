@@ -22,8 +22,9 @@ import { WC_FIXTURES } from '../lib/wcData.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.resolve(__dirname, '..', '.env.local') });
+dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 
-const API_KEY   = process.env.API_FOOTBALL_KEY;
+const API_KEY   = process.env.API_FOOTBALL_KEY ?? process.env.API_KEY;
 const DRY_RUN   = process.env.DRY_RUN === 'true';
 const LEAGUE_ID = Number(process.env.API_FOOTBALL_LEAGUE_ID ?? 1);
 const SEASON    = Number(process.env.API_FOOTBALL_SEASON ?? 2026);
@@ -199,7 +200,8 @@ async function main() {
     apiFixtures = await fetchFixtures();
     console.log(`  ✓  ${apiFixtures.length} fixtures received from API`);
   } catch (err) {
-    console.warn(`  ⚠️  Fetch failed: ${err}. Writing empty results file.`);
+    console.warn(`  ⚠️  Fetch failed: ${err}. Leaving lib/fixtureResultsData.ts untouched.`);
+    return;
   }
 
   const results = buildMap(apiFixtures);
@@ -213,6 +215,13 @@ async function main() {
       console.log(`     ${r.status.padEnd(10)} ${key.padEnd(40)} ${r.homeScore ?? '?'} – ${r.awayScore ?? '?'}  ${r.winner ?? ''}`);
     }
     console.log('\n  DRY RUN — no file written.\n');
+    return;
+  }
+
+  // Never overwrite curated results with an empty map (e.g. transient API hiccup
+  // that still returned 200 but no rows) — leave the committed file untouched.
+  if (results.size === 0) {
+    console.warn('  ⚠️  No results built — leaving lib/fixtureResultsData.ts untouched.');
     return;
   }
 
