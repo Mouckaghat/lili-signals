@@ -397,7 +397,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-15T07:31:12.456Z"
+    "updatedAt": "2026-06-15T13:53:10.069Z"
   },
   {
     "fixtureKey": "Austria|Jordan",
@@ -791,7 +791,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-15T07:31:11.738Z"
+    "updatedAt": "2026-06-15T13:53:09.264Z"
   },
   {
     "fixtureKey": "Canada|Bosnia & Herzegovina",
@@ -1121,7 +1121,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-15T07:31:10.559Z"
+    "updatedAt": "2026-06-15T13:53:08.060Z"
   },
   {
     "fixtureKey": "Canada|Qatar",
@@ -1675,7 +1675,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-15T07:31:12.813Z"
+    "updatedAt": "2026-06-15T13:53:10.476Z"
   },
   {
     "fixtureKey": "Germany|Ivory Coast",
@@ -2033,7 +2033,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-15T07:31:12.094Z"
+    "updatedAt": "2026-06-15T13:53:09.663Z"
   },
   {
     "fixtureKey": "Iran|New Zealand",
@@ -2135,6 +2135,36 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
+          "name": "Amad Diallo",
+          "number": 15,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Ange-Yoan Bonny",
+          "number": 9,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Ibrahim Sangaré",
+          "number": 18,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Christ Inao Oulaï",
+          "number": 26,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Odilon Kossounou",
+          "number": 7,
+          "pos": "DF",
+          "starter": false
+        },
+        {
           "name": "Mohamed Koné",
           "number": 16,
           "pos": "GK",
@@ -2159,21 +2189,9 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "Odilon Kossounou",
-          "number": 7,
-          "pos": "DF",
-          "starter": false
-        },
-        {
           "name": "Evan Ndicka",
           "number": 21,
           "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "Ibrahim Sangaré",
-          "number": 18,
-          "pos": "MF",
           "starter": false
         },
         {
@@ -2183,21 +2201,9 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "Amad Diallo",
-          "number": 15,
-          "pos": "FW",
-          "starter": false
-        },
-        {
           "name": "Simon Adingra",
           "number": 10,
           "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "Christ Inao Oulaï",
-          "number": 26,
-          "pos": "MF",
           "starter": false
         },
         {
@@ -2213,12 +2219,6 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "Ange-Yoan Bonny",
-          "number": 9,
-          "pos": "FW",
-          "starter": false
-        },
-        {
           "name": "Oumar Diakité",
           "number": 14,
           "pos": "FW",
@@ -2228,7 +2228,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
       "coach": "Emerse Fae"
     },
     "away": {
-      "formation": "3-4-3",
+      "formation": "4-4-2",
       "players": [
         {
           "name": "Hernán Galíndez",
@@ -2255,6 +2255,12 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
+          "name": "Piero Hincapié",
+          "number": 3,
+          "pos": "DF",
+          "starter": true
+        },
+        {
           "name": "John Yeboah",
           "number": 9,
           "pos": "MF",
@@ -2273,8 +2279,8 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "Piero Hincapié",
-          "number": 3,
+          "name": "Alan Minda",
+          "number": 14,
           "pos": "MF",
           "starter": true
         },
@@ -2291,10 +2297,28 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "Alan Minda",
-          "number": 14,
+          "name": "Nilson Angulo",
+          "number": 20,
           "pos": "FW",
-          "starter": true
+          "starter": false
+        },
+        {
+          "name": "Jackson Porozo",
+          "number": 25,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Ángelo Preciado",
+          "number": 17,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Kevin Rodriguez",
+          "number": 11,
+          "pos": "FW",
+          "starter": false
         },
         {
           "name": "Gonzalo Valle",
@@ -2315,21 +2339,9 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "Jackson Porozo",
-          "number": 25,
-          "pos": "DF",
-          "starter": false
-        },
-        {
           "name": "Félix Torres",
           "number": 2,
           "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "Nilson Angulo",
-          "number": 20,
-          "pos": "FW",
           "starter": false
         },
         {
@@ -2348,12 +2360,6 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "name": "Jordy Alcivar",
           "number": 5,
           "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "Ángelo Preciado",
-          "number": 17,
-          "pos": "DF",
           "starter": false
         },
         {
@@ -2379,19 +2385,13 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "number": 24,
           "pos": "FW",
           "starter": false
-        },
-        {
-          "name": "Kevin Rodriguez",
-          "number": 11,
-          "pos": "FW",
-          "starter": false
         }
       ],
       "coach": "Sebastian Beccacece"
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-15T07:31:13.519Z"
+    "updatedAt": "2026-06-15T13:53:11.273Z"
   },
   {
     "fixtureKey": "Japan|Sweden",
@@ -2763,7 +2763,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-15T07:31:09.848Z"
+    "updatedAt": "2026-06-15T13:53:07.255Z"
   },
   {
     "fixtureKey": "Mexico|South Korea",
@@ -3121,7 +3121,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-15T07:31:13.165Z"
+    "updatedAt": "2026-06-15T13:53:10.874Z"
   },
   {
     "fixtureKey": "Netherlands|Sweden",
@@ -3591,7 +3591,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-15T07:31:11.384Z"
+    "updatedAt": "2026-06-15T13:53:08.864Z"
   },
   {
     "fixtureKey": "Saudi Arabia|Uruguay",
@@ -3991,7 +3991,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-15T07:31:10.202Z"
+    "updatedAt": "2026-06-15T13:53:07.659Z"
   },
   {
     "fixtureKey": "Spain|Cape Verde Islands",
@@ -4349,7 +4349,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-15T07:31:13.874Z"
+    "updatedAt": "2026-06-15T13:53:11.679Z"
   },
   {
     "fixtureKey": "Switzerland|Bosnia & Herzegovina",
@@ -4805,7 +4805,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-15T07:31:11.030Z"
+    "updatedAt": "2026-06-15T13:53:08.464Z"
   },
   {
     "fixtureKey": "Uzbekistan|Colombia",
@@ -4823,4 +4823,4 @@ export const MATCH_LINEUPS: MatchLineup[] = [
   }
 ];
 
-export const LINEUPS_LAST_UPDATED = '2026-06-15T07:31:15.579Z';
+export const LINEUPS_LAST_UPDATED = '2026-06-15T13:53:13.540Z';
