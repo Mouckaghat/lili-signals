@@ -5037,7 +5037,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Porto",
     league: "Primeira Liga",
     leagueFlag: "🇵🇹",
-    caps: 32,
+    caps: 33,
   },
   {
     name: "Odilon Kossounou",
@@ -5047,7 +5047,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Atalanta",
     league: "Serie A",
     leagueFlag: "🇮🇹",
-    caps: 35,
+    caps: 36,
   },
   {
     name: "Franck Kessié",
@@ -5057,7 +5057,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Al-Ahli",
     league: "Saudi Pro League",
     leagueFlag: "🇸🇦",
-    caps: 103,
+    caps: 102,
   },
   {
     name: "Ange-Yoan Bonny",
@@ -5117,7 +5117,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Cercle Brugge",
     league: "Pro League",
     leagueFlag: "🇧🇪",
-    caps: 29,
+    caps: 30,
   },
   {
     name: "Amad Diallo",
@@ -5157,7 +5157,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Nottingham Forest",
     league: "Premier League",
     leagueFlag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-    caps: 58,
+    caps: 57,
   },
   {
     name: "Nicolas Pépé",
@@ -5167,7 +5167,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Villarreal",
     league: "La Liga",
     leagueFlag: "🇪🇸",
-    caps: 55,
+    caps: 56,
   },
   {
     name: "Emmanuel Agbadou",
@@ -12549,4 +12549,4 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
   },
 ];
 
-export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-14T09:39:40.621Z';
+export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-15T12:22:11.806Z';
