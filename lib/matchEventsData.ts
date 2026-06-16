@@ -133,7 +133,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     yellowCards: [
       { player: "Jean-Ricner Bellegarde", team: "Haiti", minute: 39, reason: "Foul" },
-      { player: "Aaron Hickey", team: "Scotland", minute: 47, reason: "Foul" },
+      { player: "Aaron Hickey", team: "Scotland", minute: 46, reason: "Foul" },
       { player: "Kenny McLean", team: "Scotland", minute: 90, reason: "Foul" },
       { player: "Findlay Curtis", team: "Scotland", minute: 90, reason: "Foul" },
     ],
@@ -158,7 +158,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Felix Nmecha", team: "Germany", minute: 6, type: "goal" },
       { player: "Livano Comenencia", team: "Curaçao", minute: 21, type: "goal" },
       { player: "Nico Schlotterbeck", team: "Germany", minute: 38, type: "goal" },
-      { player: "Kai Havertz", team: "Germany", minute: 45, minuteStoppage: 5, type: "penalty" },
+      { player: "Kai Havertz", team: "Germany", minute: 45, type: "penalty" },
       { player: "Jamal Musiala", team: "Germany", minute: 47, type: "goal" },
       { player: "Nathaniel Brown", team: "Germany", minute: 68, type: "goal" },
       { player: "Deniz Undav", team: "Germany", minute: 78, type: "goal" },
@@ -179,7 +179,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     yellowCards: [
       { player: "Crysencio Summerville", team: "Netherlands", minute: 61, reason: "Foul" },
       { player: "Memphis Depay", team: "Netherlands", minute: 83, reason: "Foul" },
-      { player: "Micky van de Ven", team: "Netherlands", minute: 90, reason: "Professional foul" },
+      { player: "Micky van de Ven", team: "Netherlands", minute: 90, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -190,10 +190,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Amad Diallo", team: "Ivory Coast", minute: 90, type: "goal" },
     ],
     yellowCards: [
-      { player: "Seko Fofana", team: "Ivory Coast", minute: 28, reason: "Roughing" },
-      { player: "Franck Kessié", team: "Ivory Coast", minute: 38, reason: "Tripping" },
-      { player: "Guéla Doué", team: "Ivory Coast", minute: 40, reason: "Tripping" },
-      { player: "Jackson Porozo", team: "Ecuador", minute: 73, reason: "Holding" },
+      { player: "Seko Fofana", team: "Ivory Coast", minute: 28, reason: "Foul" },
+      { player: "Franck Kessié", team: "Ivory Coast", minute: 38, reason: "Foul" },
+      { player: "Guéla Doué", team: "Ivory Coast", minute: 40, reason: "Foul" },
+      { player: "Jackson Porozo", team: "Ecuador", minute: 73, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -206,10 +206,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Omar Rekik", team: "Tunisia", minute: 43, type: "goal" },
       { player: "Viktor Gyökeres", team: "Sweden", minute: 59, type: "goal" },
       { player: "Mattias Svanberg", team: "Sweden", minute: 84, type: "goal" },
-      { player: "Yasin Ayari", team: "Sweden", minute: 90, minuteStoppage: 6, type: "goal" },
+      { player: "Yasin Ayari", team: "Sweden", minute: 90, type: "goal" },
     ],
     yellowCards: [
-      { player: "Rani Khedira", team: "Tunisia", minute: 54, reason: "Tripping" },
+      { player: "Rani Khedira", team: "Tunisia", minute: 54, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -218,8 +218,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Spain", away: "Cape Verde Islands", date: "2026-06-15",
     goals: [],
     yellowCards: [
-      { player: "Sidny Lopes Cabral", team: "Cape Verde Islands", minute: 16, reason: "Roughing" },
-      { player: "Pedri", team: "Spain", minute: 90, reason: "Holding" },
+      { player: "Sidny Lopes Cabral", team: "Cape Verde Islands", minute: 16, reason: "Foul" },
+      { player: "Pedri", team: "Spain", minute: 90, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -231,10 +231,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Mohamed Hany", team: "Egypt", minute: 66, type: "own-goal" },
     ],
     yellowCards: [
-      { player: "Marwan Attia", team: "Egypt", minute: 13, reason: "Tripping" },
-      { player: "Timothy Castagne", team: "Belgium", minute: 14, reason: "Holding" },
-      { player: "Ahmed Fatouh", team: "Egypt", minute: 34, reason: "Tripping" },
-      { player: "Maxim De Cuyper", team: "Belgium", minute: 75, reason: "Holding" },
+      { player: "Marwan Attia", team: "Egypt", minute: 13, reason: "Foul" },
+      { player: "Timothy Castagne", team: "Belgium", minute: 14, reason: "Foul" },
+      { player: "Ahmed Fatouh", team: "Egypt", minute: 34, reason: "Foul" },
+      { player: "Maxim De Cuyper", team: "Belgium", minute: 75, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -242,11 +242,11 @@ export const MATCH_EVENTS: MatchEvents[] = [
     fixtureId: "G1_Saudi_Arabia_v_Uruguay",
     home: "Saudi Arabia", away: "Uruguay", date: "2026-06-15",
     goals: [
-      { player: "A. Al Amri", team: "Saudi Arabia", minute: 41, type: "goal" },
+      { player: "Abdulelah Al-Amri", team: "Saudi Arabia", minute: 41, type: "goal" },
       { player: "Maximiliano Araújo", team: "Uruguay", minute: 80, type: "goal" },
     ],
     yellowCards: [
-      { player: "A. Al Amri", team: "Saudi Arabia", minute: 44, reason: "Roughing" },
+      { player: "Abdulelah Al-Amri", team: "Saudi Arabia", minute: 44, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -257,10 +257,13 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Elijah Just", team: "New Zealand", minute: 7, type: "goal" },
       { player: "Ramin Rezaeian", team: "Iran", minute: 32, type: "goal" },
       { player: "Elijah Just", team: "New Zealand", minute: 54, type: "goal" },
+      { player: "Mohammad Mohebi", team: "Iran", minute: 64, type: "goal" },
     ],
-    yellowCards: [],
+    yellowCards: [
+      { player: "Ehsan Hajsafi", team: "Iran", minute: 89, reason: "Tripping" },
+    ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-16T02:29:35.141Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-16T08:28:04.873Z';
