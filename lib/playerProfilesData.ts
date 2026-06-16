@@ -7938,7 +7938,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Olympiacos",
     league: "Super League Greece",
     leagueFlag: "🇬🇷",
-    caps: 105,
+    caps: 106,
   },
   {
     name: "Mehdi Ghayedi",
@@ -8172,14 +8172,14 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     caps: 32,
   },
   {
-    name: "Matthew Garbett",
+    name: "Logan Rogerson",
     nation: "New Zealand",
-    dob: "2002-04-13",
-    age: 24,
-    club: "Peterborough United",
-    league: "Premier League",
-    leagueFlag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-    caps: 37,
+    dob: "1998-05-28",
+    age: 28,
+    club: "Auckland FC",
+    league: "",
+    leagueFlag: "🇳🇿",
+    caps: 18,
   },
   {
     name: "Marko Stamenić",
@@ -12549,4 +12549,4 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
   },
 ];
 
-export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-15T12:22:11.806Z';
+export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-16T11:17:35.846Z';
