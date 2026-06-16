@@ -31,8 +31,8 @@ export const MARKET_ODDS: MarketOdds[] = [
   { fixtureId: "H1_Belgium_v_Egypt", home: "Belgium", away: "Egypt", market: { home: 0.6053, draw: 0.2355, away: 0.1592 }, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Double chance : Belgium or draw", bookmakers: 14 },
   { fixtureId: "G1_Saudi_Arabia_v_Uruguay", home: "Saudi Arabia", away: "Uruguay", market: { home: 0.1195, draw: 0.2213, away: 0.6592 }, model: { home: 0.0000, draw: 0.5000, away: 0.5000 }, advice: "Double chance : draw or Uruguay", bookmakers: 14 },
   { fixtureId: "H1_Iran_v_New_Zealand", home: "Iran", away: "New Zealand", market: { home: 0.5240, draw: 0.2740, away: 0.2020 }, model: null, advice: null, bookmakers: 14 },
-  { fixtureId: "I1_France_v_Senegal", home: "France", away: "Senegal", market: { home: 0.6453, draw: 0.2164, away: 0.1383 }, model: null, advice: null, bookmakers: 14 },
-  { fixtureId: "I1_Iraq_v_Norway", home: "Iraq", away: "Norway", market: { home: 0.0702, draw: 0.1459, away: 0.7839 }, model: null, advice: null, bookmakers: 14 },
+  { fixtureId: "I1_France_v_Senegal", home: "France", away: "Senegal", market: { home: 0.6485, draw: 0.2134, away: 0.1381 }, model: null, advice: null, bookmakers: 14 },
+  { fixtureId: "I1_Iraq_v_Norway", home: "Iraq", away: "Norway", market: { home: 0.0704, draw: 0.1470, away: 0.7826 }, model: null, advice: null, bookmakers: 14 },
   { fixtureId: "J1_Argentina_v_Algeria", home: "Argentina", away: "Algeria", market: { home: 0.6675, draw: 0.2143, away: 0.1182 }, model: null, advice: null, bookmakers: 14 },
   { fixtureId: "J1_Austria_v_Jordan", home: "Austria", away: "Jordan", market: { home: 0.7008, draw: 0.1900, away: 0.1092 }, model: null, advice: null, bookmakers: 14 },
   { fixtureId: "K1_Portugal_v_Congo_DR", home: "Portugal", away: "Congo DR", market: { home: 0.7357, draw: 0.1739, away: 0.0904 }, model: null, advice: null, bookmakers: 14 },
@@ -89,4 +89,4 @@ export const MARKET_ODDS: MarketOdds[] = [
   { fixtureId: "J3_Jordan_v_Argentina", home: "Jordan", away: "Argentina", market: { home: 0.0657, draw: 0.1390, away: 0.7952 }, model: null, advice: null, bookmakers: 12 },
 ];
 
-export const MARKET_ODDS_LAST_UPDATED = '2026-06-16T19:04:31.581Z';
+export const MARKET_ODDS_LAST_UPDATED = '2026-06-16T22:02:19.555Z';
