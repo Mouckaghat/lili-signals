@@ -524,4 +524,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "H1_Iran_v_New_Zealand", team: "New Zealand", name: "Jesse Randall", pos: "FW", minutes: 1, rating: null, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 0, passAccPct: 0, tackles: 0, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-06-16T12:23:47.835Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-06-16T17:32:52.590Z';
