@@ -139,6 +139,13 @@ export const MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Iran", possession: 0.48, totalShots: 17, shotsInsideBox: 10, shotsOutsideBox: 7, shotsOnGoal: 4, corners: 4, xg: 1.5, passAccuracy: 0.77, passes: 405, fouls: 10 },
     awayStats: { team: "New Zealand", possession: 0.52, totalShots: 14, shotsInsideBox: 10, shotsOutsideBox: 4, shotsOnGoal: 8, corners: 1, xg: 1.24, passAccuracy: 0.85, passes: 446, fouls: 8 },
   },
+  {
+    fixtureId: "I1_France_v_Senegal",
+    home: "France", away: "Senegal", date: "2026-06-16",
+    status: "LIVE", elapsed: 63,
+    homeStats: { team: "France", possession: 0.55, totalShots: 4, shotsInsideBox: 2, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 5, xg: 0.81, passAccuracy: 0.87, passes: 402, fouls: 3 },
+    awayStats: { team: "Senegal", possession: 0.45, totalShots: 5, shotsInsideBox: 3, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 2, xg: 0.44, passAccuracy: 0.85, passes: 330, fouls: 6 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-16T17:32:41.731Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-16T20:27:28.127Z';
