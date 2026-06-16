@@ -73,8 +73,8 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "D1_Haiti_v_Scotland",
     home: "Haiti", away: "Scotland", date: "2026-06-14",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Haiti", possession: 0.54, totalShots: 15, shotsInsideBox: 8, shotsOutsideBox: 7, shotsOnGoal: 2, corners: 4, xg: 1.21, passAccuracy: 0.85, passes: 431, fouls: 23 },
-    awayStats: { team: "Scotland", possession: 0.46, totalShots: 9, shotsInsideBox: 8, shotsOutsideBox: 1, shotsOnGoal: 2, corners: 3, xg: 1.07, passAccuracy: 0.82, passes: 373, fouls: 21 },
+    homeStats: { team: "Haiti", possession: 0.54, totalShots: 15, shotsInsideBox: 8, shotsOutsideBox: 7, shotsOnGoal: 2, corners: 4, xg: 1.05, passAccuracy: 0.85, passes: 431, fouls: 23 },
+    awayStats: { team: "Scotland", possession: 0.46, totalShots: 9, shotsInsideBox: 8, shotsOutsideBox: 1, shotsOnGoal: 2, corners: 3, xg: 1.05, passAccuracy: 0.82, passes: 374, fouls: 21 },
   },
   {
     fixtureId: "C1_Australia_v_T_rkiye",
@@ -87,15 +87,15 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "E1_Germany_v_Cura_ao",
     home: "Germany", away: "Curaçao", date: "2026-06-14",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Germany", possession: 0.65, totalShots: 27, shotsInsideBox: 22, shotsOutsideBox: 5, shotsOnGoal: 12, corners: 8, xg: 3.91, passAccuracy: 0.87, passes: 633, fouls: 18 },
-    awayStats: { team: "Curaçao", possession: 0.35, totalShots: 8, shotsInsideBox: 4, shotsOutsideBox: 4, shotsOnGoal: 2, corners: 1, xg: 0.4, passAccuracy: 0.82, passes: 336, fouls: 11 },
+    homeStats: { team: "Germany", possession: 0.65, totalShots: 26, shotsInsideBox: 21, shotsOutsideBox: 5, shotsOnGoal: 12, corners: 8, xg: 4.22, passAccuracy: 0.87, passes: 637, fouls: 18 },
+    awayStats: { team: "Curaçao", possession: 0.35, totalShots: 8, shotsInsideBox: 4, shotsOutsideBox: 4, shotsOnGoal: 2, corners: 1, xg: 0.41, passAccuracy: 0.82, passes: 343, fouls: 11 },
   },
   {
     fixtureId: "F1_Netherlands_v_Japan",
     home: "Netherlands", away: "Japan", date: "2026-06-14",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Netherlands", possession: 0.6, totalShots: 10, shotsInsideBox: 10, shotsOutsideBox: 0, shotsOnGoal: 6, corners: 5, xg: 0.79, passAccuracy: 0.88, passes: 525, fouls: 7 },
-    awayStats: { team: "Japan", possession: 0.4, totalShots: 10, shotsInsideBox: 6, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 4, xg: 0.54, passAccuracy: 0.84, passes: 342, fouls: 7 },
+    homeStats: { team: "Netherlands", possession: 0.6, totalShots: 10, shotsInsideBox: 10, shotsOutsideBox: 0, shotsOnGoal: 6, corners: 5, xg: 0.78, passAccuracy: 0.88, passes: 524, fouls: 7 },
+    awayStats: { team: "Japan", possession: 0.4, totalShots: 10, shotsInsideBox: 6, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 4, xg: 0.59, passAccuracy: 0.84, passes: 341, fouls: 7 },
   },
   {
     fixtureId: "E1_Ivory_Coast_v_Ecuador",
@@ -135,10 +135,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "H1_Iran_v_New_Zealand",
     home: "Iran", away: "New Zealand", date: "2026-06-16",
-    status: "LIVE", elapsed: 45,
-    homeStats: { team: "Iran", possession: 0.48, totalShots: 7, shotsInsideBox: 5, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 0, xg: 0.79, passAccuracy: 0.81, passes: 230, fouls: 2 },
-    awayStats: { team: "New Zealand", possession: 0.52, totalShots: 9, shotsInsideBox: 6, shotsOutsideBox: 3, shotsOnGoal: 5, corners: 1, xg: 0.5, passAccuracy: 0.88, passes: 246, fouls: 3 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Iran", possession: 0.48, totalShots: 17, shotsInsideBox: 10, shotsOutsideBox: 7, shotsOnGoal: 4, corners: 4, xg: 1.5, passAccuracy: 0.77, passes: 405, fouls: 10 },
+    awayStats: { team: "New Zealand", possession: 0.52, totalShots: 14, shotsInsideBox: 10, shotsOutsideBox: 4, shotsOnGoal: 8, corners: 1, xg: 1.24, passAccuracy: 0.85, passes: 446, fouls: 8 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-16T02:04:51.570Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-16T07:37:42.005Z';
