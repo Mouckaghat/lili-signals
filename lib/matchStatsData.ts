@@ -142,10 +142,17 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "I1_France_v_Senegal",
     home: "France", away: "Senegal", date: "2026-06-16",
-    status: "LIVE", elapsed: 63,
-    homeStats: { team: "France", possession: 0.55, totalShots: 4, shotsInsideBox: 2, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 5, xg: 0.81, passAccuracy: 0.87, passes: 402, fouls: 3 },
-    awayStats: { team: "Senegal", possession: 0.45, totalShots: 5, shotsInsideBox: 3, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 2, xg: 0.44, passAccuracy: 0.85, passes: 330, fouls: 6 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "France", possession: 0.54, totalShots: 11, shotsInsideBox: 7, shotsOutsideBox: 4, shotsOnGoal: 8, corners: 6, xg: 1.89, passAccuracy: 0.88, passes: 576, fouls: 5 },
+    awayStats: { team: "Senegal", possession: 0.46, totalShots: 6, shotsInsideBox: 4, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 4, xg: 0.5, passAccuracy: 0.86, passes: 497, fouls: 9 },
+  },
+  {
+    fixtureId: "I1_Iraq_v_Norway",
+    home: "Iraq", away: "Norway", date: "2026-06-16",
+    status: "LIVE", elapsed: 29,
+    homeStats: { team: "Iraq", possession: 0.4, totalShots: 2, shotsInsideBox: 2, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0.12, passAccuracy: 0.73, passes: 93, fouls: 3 },
+    awayStats: { team: "Norway", possession: 0.6, totalShots: 2, shotsInsideBox: 2, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 1, xg: 0.25, passAccuracy: 0.86, passes: 145, fouls: 4 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-16T20:27:28.127Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-16T22:29:29.706Z';
