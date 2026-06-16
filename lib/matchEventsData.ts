@@ -276,6 +276,17 @@ export const MATCH_EVENTS: MatchEvents[] = [
     yellowCards: [],
     redCards: [],
   },
+  {
+    fixtureId: "I1_Iraq_v_Norway",
+    home: "Iraq", away: "Norway", date: "2026-06-16",
+    goals: [
+      { player: "Erling Haaland", team: "Norway", minute: 29, type: "goal" },
+      { player: "Aymen Hussein", team: "Iraq", minute: 39, type: "goal" },
+      { player: "Erling Haaland", team: "Norway", minute: 43, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-16T21:17:27.076Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-16T22:58:22.623Z';
