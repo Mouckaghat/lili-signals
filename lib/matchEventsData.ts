@@ -264,6 +264,18 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "I1_France_v_Senegal",
+    home: "France", away: "Senegal", date: "2026-06-16",
+    goals: [
+      { player: "Kylian Mbappé", team: "France", minute: 66, type: "goal" },
+      { player: "Bradley Barcola", team: "France", minute: 82, type: "goal" },
+      { player: "Ibrahim Mbaye", team: "Senegal", minute: 90, minuteStoppage: 5, type: "goal" },
+      { player: "Kylian Mbappé", team: "France", minute: 90, minuteStoppage: 6, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-16T18:09:45.253Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-16T21:17:27.076Z';
