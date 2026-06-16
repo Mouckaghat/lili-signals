@@ -80,8 +80,8 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "C1_Australia_v_T_rkiye",
     home: "Australia", away: "Türkiye", date: "2026-06-14",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Australia", possession: 0.28, totalShots: 9, shotsInsideBox: 6, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 5, xg: 0.77, passAccuracy: 0.75, passes: 270, fouls: 12 },
-    awayStats: { team: "Türkiye", possession: 0.72, totalShots: 30, shotsInsideBox: 14, shotsOutsideBox: 16, shotsOnGoal: 8, corners: 8, xg: 1.33, passAccuracy: 0.9, passes: 707, fouls: 4 },
+    homeStats: { team: "Australia", possession: 0.28, totalShots: 9, shotsInsideBox: 6, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 5, xg: 1.18, passAccuracy: 0.74, passes: 271, fouls: 12 },
+    awayStats: { team: "Türkiye", possession: 0.72, totalShots: 30, shotsInsideBox: 14, shotsOutsideBox: 16, shotsOnGoal: 8, corners: 8, xg: 1.36, passAccuracy: 0.9, passes: 704, fouls: 4 },
   },
   {
     fixtureId: "E1_Germany_v_Cura_ao",
@@ -129,8 +129,8 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "G1_Saudi_Arabia_v_Uruguay",
     home: "Saudi Arabia", away: "Uruguay", date: "2026-06-15",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Saudi Arabia", possession: 0.35, totalShots: 7, shotsInsideBox: 4, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 4, xg: 0.99, passAccuracy: 0.73, passes: 316, fouls: 11 },
-    awayStats: { team: "Uruguay", possession: 0.65, totalShots: 24, shotsInsideBox: 15, shotsOutsideBox: 9, shotsOnGoal: 9, corners: 10, xg: 1.48, passAccuracy: 0.88, passes: 571, fouls: 6 },
+    homeStats: { team: "Saudi Arabia", possession: 0.33, totalShots: 7, shotsInsideBox: 4, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 4, xg: 0.66, passAccuracy: 0.73, passes: 322, fouls: 11 },
+    awayStats: { team: "Uruguay", possession: 0.67, totalShots: 27, shotsInsideBox: 16, shotsOutsideBox: 11, shotsOnGoal: 10, corners: 14, xg: 1.72, passAccuracy: 0.88, passes: 612, fouls: 6 },
   },
   {
     fixtureId: "H1_Iran_v_New_Zealand",
@@ -141,4 +141,4 @@ export const MATCH_STATS: MatchStats[] = [
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-16T07:37:42.005Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-16T12:28:48.591Z';
