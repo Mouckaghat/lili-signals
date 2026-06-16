@@ -250,6 +250,17 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "H1_Iran_v_New_Zealand",
+    home: "Iran", away: "New Zealand", date: "2026-06-16",
+    goals: [
+      { player: "Elijah Just", team: "New Zealand", minute: 7, type: "goal" },
+      { player: "Ramin Rezaeian", team: "Iran", minute: 32, type: "goal" },
+      { player: "Elijah Just", team: "New Zealand", minute: 54, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-15T23:53:56.411Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-16T02:29:35.141Z';
