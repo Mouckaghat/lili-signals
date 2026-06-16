@@ -128,10 +128,17 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "G1_Saudi_Arabia_v_Uruguay",
     home: "Saudi Arabia", away: "Uruguay", date: "2026-06-15",
-    status: "LIVE", elapsed: 59,
-    homeStats: { team: "Saudi Arabia", possession: 0.37, totalShots: 5, shotsInsideBox: 3, shotsOutsideBox: 2, shotsOnGoal: 3, corners: 4, xg: 0.93, passAccuracy: 0.75, passes: 227, fouls: 5 },
-    awayStats: { team: "Uruguay", possession: 0.63, totalShots: 9, shotsInsideBox: 7, shotsOutsideBox: 2, shotsOnGoal: 3, corners: 4, xg: 0.55, passAccuracy: 0.87, passes: 381, fouls: 5 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Saudi Arabia", possession: 0.35, totalShots: 7, shotsInsideBox: 4, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 4, xg: 0.99, passAccuracy: 0.73, passes: 316, fouls: 11 },
+    awayStats: { team: "Uruguay", possession: 0.65, totalShots: 24, shotsInsideBox: 15, shotsOutsideBox: 9, shotsOnGoal: 9, corners: 10, xg: 1.48, passAccuracy: 0.88, passes: 571, fouls: 6 },
+  },
+  {
+    fixtureId: "H1_Iran_v_New_Zealand",
+    home: "Iran", away: "New Zealand", date: "2026-06-16",
+    status: "LIVE", elapsed: 45,
+    homeStats: { team: "Iran", possession: 0.48, totalShots: 7, shotsInsideBox: 5, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 0, xg: 0.79, passAccuracy: 0.81, passes: 230, fouls: 2 },
+    awayStats: { team: "New Zealand", possession: 0.52, totalShots: 9, shotsInsideBox: 6, shotsOutsideBox: 3, shotsOnGoal: 5, corners: 1, xg: 0.5, passAccuracy: 0.88, passes: 246, fouls: 3 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-15T23:24:23.120Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-16T02:04:51.570Z';
