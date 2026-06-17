@@ -122,8 +122,8 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "H1_Belgium_v_Egypt",
     home: "Belgium", away: "Egypt", date: "2026-06-15",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Belgium", possession: 0.54, totalShots: 15, shotsInsideBox: 9, shotsOutsideBox: 6, shotsOnGoal: 3, corners: 2, xg: 1.32, passAccuracy: 0.86, passes: 452, fouls: 15 },
-    awayStats: { team: "Egypt", possession: 0.46, totalShots: 14, shotsInsideBox: 10, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 7, xg: 1.07, passAccuracy: 0.81, passes: 397, fouls: 15 },
+    homeStats: { team: "Belgium", possession: 0.54, totalShots: 15, shotsInsideBox: 9, shotsOutsideBox: 6, shotsOnGoal: 3, corners: 2, xg: 1.35, passAccuracy: 0.86, passes: 455, fouls: 15 },
+    awayStats: { team: "Egypt", possession: 0.46, totalShots: 14, shotsInsideBox: 10, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 7, xg: 1.08, passAccuracy: 0.81, passes: 398, fouls: 15 },
   },
   {
     fixtureId: "G1_Saudi_Arabia_v_Uruguay",
@@ -160,6 +160,13 @@ export const MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Argentina", possession: 0.48, totalShots: 10, shotsInsideBox: 4, shotsOutsideBox: 6, shotsOnGoal: 6, corners: 2, xg: 1.23, passAccuracy: 0.9, passes: 561, fouls: 13 },
     awayStats: { team: "Algeria", possession: 0.52, totalShots: 7, shotsInsideBox: 3, shotsOutsideBox: 4, shotsOnGoal: 0, corners: 2, xg: 0.31, passAccuracy: 0.92, passes: 607, fouls: 8 },
   },
+  {
+    fixtureId: "J1_Austria_v_Jordan",
+    home: "Austria", away: "Jordan", date: "2026-06-17",
+    status: "LIVE", elapsed: 47,
+    homeStats: { team: "Austria", possession: 0.64, totalShots: 6, shotsInsideBox: 2, shotsOutsideBox: 4, shotsOnGoal: 1, corners: 1, xg: 0.27, passAccuracy: 0.86, passes: 295, fouls: 7 },
+    awayStats: { team: "Jordan", possession: 0.36, totalShots: 8, shotsInsideBox: 5, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 3, xg: 0.39, passAccuracy: 0.76, passes: 161, fouls: 3 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-17T03:37:14.344Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-17T05:12:02.413Z';
