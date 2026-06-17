@@ -316,6 +316,21 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "K1_Portugal_v_Congo_DR",
+    home: "Portugal", away: "Congo DR", date: "2026-06-17",
+    goals: [
+      { player: "João Neves", team: "Portugal", minute: 6, type: "goal" },
+      { player: "Yoane Wissa", team: "Congo DR", minute: 45, minuteStoppage: 5, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Bernardo Silva", team: "Portugal", minute: 13, reason: "Tripping" },
+      { player: "Chancel Mbemba", team: "Congo DR", minute: 32, reason: "Roughing" },
+      { player: "Nélson Semedo", team: "Portugal", minute: 88, reason: "Holding" },
+      { player: "Tomás Araújo", team: "Portugal", minute: 90, reason: "Roughing" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-17T16:54:58.925Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-17T19:17:06.048Z';
