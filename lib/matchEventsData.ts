@@ -340,10 +340,11 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Harry Kane", team: "England", minute: 42, type: "goal" },
       { player: "Petar Musa", team: "Croatia", minute: 45, minuteStoppage: 5, type: "goal" },
       { player: "Jude Bellingham", team: "England", minute: 47, type: "goal" },
+      { player: "Marcus Rashford", team: "England", minute: 85, type: "goal" },
     ],
     yellowCards: [],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-17T21:24:10.677Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-17T22:55:43.302Z';
