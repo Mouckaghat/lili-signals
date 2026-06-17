@@ -369,7 +369,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:07.066Z"
+    "updatedAt": "2026-06-17T21:04:09.802Z"
   },
   {
     "fixtureKey": "Argentina|Austria",
@@ -713,7 +713,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:02.494Z"
+    "updatedAt": "2026-06-17T21:04:05.810Z"
   },
   {
     "fixtureKey": "Austria|Jordan",
@@ -1043,7 +1043,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:07.473Z"
+    "updatedAt": "2026-06-17T21:04:10.164Z"
   },
   {
     "fixtureKey": "Belgium|Egypt",
@@ -1367,7 +1367,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:04.990Z"
+    "updatedAt": "2026-06-17T21:04:07.986Z"
   },
   {
     "fixtureKey": "Belgium|Iran",
@@ -1733,7 +1733,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:01.646Z"
+    "updatedAt": "2026-06-17T21:04:05.080Z"
   },
   {
     "fixtureKey": "Canada|Bosnia & Herzegovina",
@@ -2063,7 +2063,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:00.402Z"
+    "updatedAt": "2026-06-17T21:04:03.992Z"
   },
   {
     "fixtureKey": "Canada|Qatar",
@@ -2431,8 +2431,8 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "Petar Sučić",
-          "number": 17,
+          "name": "Mario Pašalić",
+          "number": 15,
           "pos": "MF",
           "starter": true
         },
@@ -2443,8 +2443,8 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "Mario Pašalić",
-          "number": 15,
+          "name": "Petar Sučić",
+          "number": 17,
           "pos": "FW",
           "starter": true
         },
@@ -2553,9 +2553,9 @@ export const MATCH_LINEUPS: MatchLineup[] = [
       ],
       "coach": "Zlatko Dalic"
     },
-    "confirmed": false,
+    "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:08.292Z"
+    "updatedAt": "2026-06-17T21:04:02.848Z"
   },
   {
     "fixtureKey": "England|Ghana",
@@ -2913,7 +2913,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:06.248Z"
+    "updatedAt": "2026-06-17T21:04:09.078Z"
   },
   {
     "fixtureKey": "Germany|Curaçao",
@@ -3243,7 +3243,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:02.905Z"
+    "updatedAt": "2026-06-17T21:04:06.172Z"
   },
   {
     "fixtureKey": "Germany|Ivory Coast",
@@ -3601,7 +3601,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:02.077Z"
+    "updatedAt": "2026-06-17T21:04:05.445Z"
   },
   {
     "fixtureKey": "Iran|New Zealand",
@@ -3924,7 +3924,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:05.836Z"
+    "updatedAt": "2026-06-17T21:04:08.716Z"
   },
   {
     "fixtureKey": "Iraq|Norway",
@@ -4254,7 +4254,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:06.658Z"
+    "updatedAt": "2026-06-17T21:04:09.441Z"
   },
   {
     "fixtureKey": "Ivory Coast|Ecuador",
@@ -4584,7 +4584,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:03.735Z"
+    "updatedAt": "2026-06-17T21:04:06.897Z"
   },
   {
     "fixtureKey": "Japan|Sweden",
@@ -4956,7 +4956,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:33:59.531Z"
+    "updatedAt": "2026-06-17T21:04:03.215Z"
   },
   {
     "fixtureKey": "Mexico|South Korea",
@@ -5314,7 +5314,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:03.330Z"
+    "updatedAt": "2026-06-17T21:04:06.534Z"
   },
   {
     "fixtureKey": "Netherlands|Sweden",
@@ -5506,14 +5506,20 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
+          "name": "Rafael Leão",
+          "number": 17,
+          "pos": "FW",
+          "starter": false
+        },
+        {
           "name": "Nélson Semedo",
           "number": 2,
           "pos": "DF",
           "starter": false
         },
         {
-          "name": "Rafael Leão",
-          "number": 17,
+          "name": "Gonçalo Ramos",
+          "number": 9,
           "pos": "FW",
           "starter": false
         },
@@ -5574,12 +5580,6 @@ export const MATCH_LINEUPS: MatchLineup[] = [
         {
           "name": "Gonçalo Guedes",
           "number": 19,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "Gonçalo Ramos",
-          "number": 9,
           "pos": "FW",
           "starter": false
         },
@@ -5668,6 +5668,30 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
+          "name": "Joris Kayembe",
+          "number": 12,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Charles Pickel",
+          "number": 18,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Gedeon Kalulu",
+          "number": 24,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Simon Banza",
+          "number": 23,
+          "pos": "FW",
+          "starter": false
+        },
+        {
           "name": "Timothy Fayulu",
           "number": 16,
           "pos": "GK",
@@ -5686,18 +5710,6 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "Joris Kayembe",
-          "number": 12,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "Gedeon Kalulu",
-          "number": 24,
-          "pos": "DF",
-          "starter": false
-        },
-        {
           "name": "Nathanaël Mbuku",
           "number": 7,
           "pos": "FW",
@@ -5712,12 +5724,6 @@ export const MATCH_LINEUPS: MatchLineup[] = [
         {
           "name": "Aaron Tshibola",
           "number": 15,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "Charles Pickel",
-          "number": 18,
           "pos": "MF",
           "starter": false
         },
@@ -5744,19 +5750,13 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "number": 19,
           "pos": "FW",
           "starter": false
-        },
-        {
-          "name": "Simon Banza",
-          "number": 23,
-          "pos": "FW",
-          "starter": false
         }
       ],
       "coach": "Sebastien Desabre"
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:07.880Z"
+    "updatedAt": "2026-06-17T21:04:10.533Z"
   },
   {
     "fixtureKey": "Portugal|Uzbekistan",
@@ -6100,7 +6100,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:01.238Z"
+    "updatedAt": "2026-06-17T21:04:04.714Z"
   },
   {
     "fixtureKey": "Saudi Arabia|Uruguay",
@@ -6418,7 +6418,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:05.428Z"
+    "updatedAt": "2026-06-17T21:04:08.351Z"
   },
   {
     "fixtureKey": "Scotland|Brazil",
@@ -6804,7 +6804,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:33:59.940Z"
+    "updatedAt": "2026-06-17T21:04:03.586Z"
   },
   {
     "fixtureKey": "Spain|Cape Verde Islands",
@@ -7134,7 +7134,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:04.582Z"
+    "updatedAt": "2026-06-17T21:04:07.625Z"
   },
   {
     "fixtureKey": "Spain|Saudi Arabia",
@@ -7478,7 +7478,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:04.145Z"
+    "updatedAt": "2026-06-17T21:04:07.265Z"
   },
   {
     "fixtureKey": "Switzerland|Bosnia & Herzegovina",
@@ -7934,7 +7934,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T19:34:00.822Z"
+    "updatedAt": "2026-06-17T21:04:04.354Z"
   },
   {
     "fixtureKey": "Uzbekistan|Colombia",
@@ -7952,4 +7952,4 @@ export const MATCH_LINEUPS: MatchLineup[] = [
   }
 ];
 
-export const LINEUPS_LAST_UPDATED = '2026-06-17T19:34:09.372Z';
+export const LINEUPS_LAST_UPDATED = '2026-06-17T21:04:11.519Z';
