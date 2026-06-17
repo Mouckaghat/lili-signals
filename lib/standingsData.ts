@@ -57,8 +57,8 @@ export const GROUP_STANDINGS: GroupStanding[] = [
   { group: "I", team: "Senegal", rank: 3, played: 1, won: 0, drawn: 0, lost: 1, gf: 1, ga: 3, gd: -2, pts: 0, status: 'AT-RISK' },
   { group: "I", team: "Iraq", rank: 4, played: 1, won: 0, drawn: 0, lost: 1, gf: 1, ga: 4, gd: -3, pts: 0, status: 'AT-RISK' },
   { group: "J", team: "Argentina", rank: 1, played: 1, won: 1, drawn: 0, lost: 0, gf: 3, ga: 0, gd: 3, pts: 3, status: 'ALIVE' },
-  { group: "J", team: "Austria", rank: 2, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
-  { group: "J", team: "Jordan", rank: 3, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
+  { group: "J", team: "Austria", rank: 2, played: 1, won: 1, drawn: 0, lost: 0, gf: 3, ga: 1, gd: 2, pts: 3, status: 'ALIVE' },
+  { group: "J", team: "Jordan", rank: 3, played: 1, won: 0, drawn: 0, lost: 1, gf: 1, ga: 3, gd: -2, pts: 0, status: 'AT-RISK' },
   { group: "J", team: "Algeria", rank: 4, played: 1, won: 0, drawn: 0, lost: 1, gf: 0, ga: 3, gd: -3, pts: 0, status: 'AT-RISK' },
   { group: "K", team: "Portugal", rank: 1, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
   { group: "K", team: "Congo DR", rank: 2, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
@@ -73,13 +73,13 @@ export const GROUP_STANDINGS: GroupStanding[] = [
   { group: "Stage", team: "Belgium", rank: 3, played: 1, won: 0, drawn: 1, lost: 0, gf: 1, ga: 1, gd: 0, pts: 1, status: 'AT-RISK' },
   { group: "Stage", team: "Qatar", rank: 4, played: 1, won: 0, drawn: 1, lost: 0, gf: 1, ga: 1, gd: 0, pts: 1, status: 'AT-RISK' },
   { group: "Stage", team: "Spain", rank: 5, played: 1, won: 0, drawn: 1, lost: 0, gf: 0, ga: 0, gd: 0, pts: 1, status: 'AT-RISK' },
-  { group: "Stage", team: "Jordan", rank: 6, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
-  { group: "Stage", team: "Uzbekistan", rank: 7, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
-  { group: "Stage", team: "Ghana", rank: 8, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
-  { group: "Stage", team: "Czech Republic", rank: 9, played: 1, won: 0, drawn: 0, lost: 1, gf: 1, ga: 2, gd: -1, pts: 0, status: 'AT-RISK' },
-  { group: "Stage", team: "Ecuador", rank: 10, played: 1, won: 0, drawn: 0, lost: 1, gf: 0, ga: 1, gd: -1, pts: 0, status: 'AT-RISK' },
-  { group: "Stage", team: "Senegal", rank: 11, played: 1, won: 0, drawn: 0, lost: 1, gf: 1, ga: 3, gd: -2, pts: 0, status: 'AT-RISK' },
+  { group: "Stage", team: "Uzbekistan", rank: 6, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
+  { group: "Stage", team: "Ghana", rank: 7, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, gd: 0, pts: 0, status: 'UPCOMING' },
+  { group: "Stage", team: "Czech Republic", rank: 8, played: 1, won: 0, drawn: 0, lost: 1, gf: 1, ga: 2, gd: -1, pts: 0, status: 'AT-RISK' },
+  { group: "Stage", team: "Ecuador", rank: 9, played: 1, won: 0, drawn: 0, lost: 1, gf: 0, ga: 1, gd: -1, pts: 0, status: 'AT-RISK' },
+  { group: "Stage", team: "Senegal", rank: 10, played: 1, won: 0, drawn: 0, lost: 1, gf: 1, ga: 3, gd: -2, pts: 0, status: 'AT-RISK' },
+  { group: "Stage", team: "Jordan", rank: 11, played: 1, won: 0, drawn: 0, lost: 1, gf: 1, ga: 3, gd: -2, pts: 0, status: 'AT-RISK' },
   { group: "Stage", team: "Türkiye", rank: 12, played: 1, won: 0, drawn: 0, lost: 1, gf: 0, ga: 2, gd: -2, pts: 0, status: 'AT-RISK' },
 ];
 
-export const STANDINGS_LAST_UPDATED = '2026-06-17T06:10:53.616Z';
+export const STANDINGS_LAST_UPDATED = '2026-06-17T11:47:16.217Z';
