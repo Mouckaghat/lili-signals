@@ -149,10 +149,17 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "I1_Iraq_v_Norway",
     home: "Iraq", away: "Norway", date: "2026-06-16",
-    status: "LIVE", elapsed: 90,
-    homeStats: { team: "Iraq", possession: 0.37, totalShots: 11, shotsInsideBox: 8, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 2, xg: 0.77, passAccuracy: 0.8, passes: 300, fouls: 10 },
-    awayStats: { team: "Norway", possession: 0.63, totalShots: 12, shotsInsideBox: 11, shotsOutsideBox: 1, shotsOnGoal: 5, corners: 5, xg: 2.47, passAccuracy: 0.89, passes: 518, fouls: 12 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Iraq", possession: 0.39, totalShots: 11, shotsInsideBox: 8, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 2, xg: 0.77, passAccuracy: 0.81, passes: 332, fouls: 11 },
+    awayStats: { team: "Norway", possession: 0.61, totalShots: 12, shotsInsideBox: 11, shotsOutsideBox: 1, shotsOnGoal: 5, corners: 5, xg: 2.53, passAccuracy: 0.89, passes: 530, fouls: 13 },
+  },
+  {
+    fixtureId: "J1_Argentina_v_Algeria",
+    home: "Argentina", away: "Algeria", date: "2026-06-17",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Argentina", possession: 0.48, totalShots: 10, shotsInsideBox: 4, shotsOutsideBox: 6, shotsOnGoal: 6, corners: 2, xg: 1.23, passAccuracy: 0.9, passes: 561, fouls: 13 },
+    awayStats: { team: "Algeria", possession: 0.52, totalShots: 7, shotsInsideBox: 3, shotsOutsideBox: 4, shotsOnGoal: 0, corners: 2, xg: 0.31, passAccuracy: 0.92, passes: 607, fouls: 8 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-16T23:57:14.266Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-17T03:37:14.344Z';
