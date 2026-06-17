@@ -1604,7 +1604,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Al-Sadd",
     league: "Qatar Stars League",
     leagueFlag: "🇶🇦",
-    caps: 99,
+    caps: 105,
   },
   {
     name: "Lucas Mendes",
@@ -3762,7 +3762,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Al Ain",
     league: "UAE Pro League",
     leagueFlag: "🇦🇪",
-    caps: 27,
+    caps: 37,
   },
   {
     name: "Brahim Díaz",
@@ -3782,7 +3782,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "PSV Eindhoven",
     league: "Eredivisie",
     leagueFlag: "🇳🇱",
-    caps: 31,
+    caps: 30,
   },
   {
     name: "Munir Mohamedi",
@@ -3832,7 +3832,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Strasbourg",
     league: "Ligue 1",
     leagueFlag: "🇫🇷",
-    caps: 5,
+    caps: 4,
   },
   {
     name: "Amine Sbaï",
@@ -3862,7 +3862,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Al Ahly",
     league: "Egyptian Premier League",
     leagueFlag: "🇪🇬",
-    caps: 11,
+    caps: 18,
   },
   {
     name: "Ayoub El Kaabi",
@@ -3872,7 +3872,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Olympiacos",
     league: "Super League Greece",
     leagueFlag: "🇬🇷",
-    caps: 58,
+    caps: 71,
   },
   {
     name: "Ayoube Amaimouni",
@@ -6315,7 +6315,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     caps: 32,
   },
   {
-    name: "Roberto Lopes",
+    name: "Pico",
     nation: "Cape Verde Islands",
     dob: "1992-06-17",
     age: 33,
@@ -11334,14 +11334,14 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     caps: 72,
   },
   {
-    name: "Jaloliddin Masharipov",
+    name: "Ruslanbek Jiyanov",
     nation: "Uzbekistan",
-    dob: "1993-09-01",
-    age: 32,
-    club: "Esteghlal",
-    league: "Persian Gulf Pro League",
-    leagueFlag: "🇮🇷",
-    caps: 74,
+    dob: "2001-06-05",
+    age: 25,
+    club: "Navbahor Namangan",
+    league: "Uzbekistan Super League",
+    leagueFlag: "🇺🇿",
+    caps: 5,
   },
   {
     name: "Oston Urunov",
@@ -11876,14 +11876,14 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     caps: 72,
   },
   {
-    name: "Tino Livramento",
+    name: "Trevoh Chalobah",
     nation: "England",
-    dob: "2002-11-12",
-    age: 23,
-    club: "Newcastle United",
+    dob: "1999-07-05",
+    age: 26,
+    club: "Chelsea",
     league: "Premier League",
     leagueFlag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-    caps: 6,
+    caps: 1,
   },
   {
     name: "Dean Henderson",
@@ -12549,4 +12549,4 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
   },
 ];
 
-export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-16T11:17:35.846Z';
+export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-17T11:03:02.438Z';
