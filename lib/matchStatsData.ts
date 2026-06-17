@@ -108,15 +108,15 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "F1_Sweden_v_Tunisia",
     home: "Sweden", away: "Tunisia", date: "2026-06-15",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Sweden", possession: 0.49, totalShots: 13, shotsInsideBox: 9, shotsOutsideBox: 4, shotsOnGoal: 7, corners: 4, xg: 1.36, passAccuracy: 0.79, passes: 353, fouls: 10 },
-    awayStats: { team: "Tunisia", possession: 0.51, totalShots: 6, shotsInsideBox: 2, shotsOutsideBox: 4, shotsOnGoal: 2, corners: 2, xg: 0.28, passAccuracy: 0.79, passes: 364, fouls: 8 },
+    homeStats: { team: "Sweden", possession: 0.49, totalShots: 13, shotsInsideBox: 9, shotsOutsideBox: 4, shotsOnGoal: 7, corners: 4, xg: 1.33, passAccuracy: 0.78, passes: 356, fouls: 10 },
+    awayStats: { team: "Tunisia", possession: 0.51, totalShots: 6, shotsInsideBox: 2, shotsOutsideBox: 4, shotsOnGoal: 2, corners: 2, xg: 0.28, passAccuracy: 0.79, passes: 371, fouls: 8 },
   },
   {
     fixtureId: "G1_Spain_v_Cape_Verde_Islands",
     home: "Spain", away: "Cape Verde Islands", date: "2026-06-15",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Spain", possession: 0.74, totalShots: 27, shotsInsideBox: 16, shotsOutsideBox: 11, shotsOnGoal: 7, corners: 11, xg: 2.29, passAccuracy: 0.92, passes: 801, fouls: 10 },
-    awayStats: { team: "Cape Verde Islands", possession: 0.26, totalShots: 6, shotsInsideBox: 2, shotsOutsideBox: 4, shotsOnGoal: 1, corners: 1, xg: 0.3, passAccuracy: 0.73, passes: 279, fouls: 1 },
+    homeStats: { team: "Spain", possession: 0.74, totalShots: 27, shotsInsideBox: 16, shotsOutsideBox: 11, shotsOnGoal: 7, corners: 11, xg: 2.1, passAccuracy: 0.92, passes: 800, fouls: 10 },
+    awayStats: { team: "Cape Verde Islands", possession: 0.26, totalShots: 6, shotsInsideBox: 2, shotsOutsideBox: 4, shotsOnGoal: 1, corners: 1, xg: 0.2, passAccuracy: 0.74, passes: 278, fouls: 1 },
   },
   {
     fixtureId: "H1_Belgium_v_Egypt",
@@ -143,15 +143,15 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "I1_France_v_Senegal",
     home: "France", away: "Senegal", date: "2026-06-16",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "France", possession: 0.54, totalShots: 11, shotsInsideBox: 7, shotsOutsideBox: 4, shotsOnGoal: 8, corners: 6, xg: 1.89, passAccuracy: 0.88, passes: 576, fouls: 5 },
-    awayStats: { team: "Senegal", possession: 0.46, totalShots: 6, shotsInsideBox: 4, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 4, xg: 0.5, passAccuracy: 0.86, passes: 497, fouls: 9 },
+    homeStats: { team: "France", possession: 0.53, totalShots: 11, shotsInsideBox: 7, shotsOutsideBox: 4, shotsOnGoal: 8, corners: 6, xg: 1.79, passAccuracy: 0.88, passes: 575, fouls: 5 },
+    awayStats: { team: "Senegal", possession: 0.47, totalShots: 6, shotsInsideBox: 4, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 4, xg: 0.53, passAccuracy: 0.86, passes: 502, fouls: 9 },
   },
   {
     fixtureId: "I1_Iraq_v_Norway",
     home: "Iraq", away: "Norway", date: "2026-06-16",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Iraq", possession: 0.39, totalShots: 11, shotsInsideBox: 8, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 2, xg: 0.77, passAccuracy: 0.81, passes: 332, fouls: 11 },
-    awayStats: { team: "Norway", possession: 0.61, totalShots: 12, shotsInsideBox: 11, shotsOutsideBox: 1, shotsOnGoal: 5, corners: 5, xg: 2.53, passAccuracy: 0.89, passes: 530, fouls: 13 },
+    homeStats: { team: "Iraq", possession: 0.39, totalShots: 11, shotsInsideBox: 8, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 2, xg: 0.8, passAccuracy: 0.81, passes: 334, fouls: 12 },
+    awayStats: { team: "Norway", possession: 0.61, totalShots: 12, shotsInsideBox: 11, shotsOutsideBox: 1, shotsOnGoal: 5, corners: 5, xg: 2.52, passAccuracy: 0.89, passes: 537, fouls: 13 },
   },
   {
     fixtureId: "J1_Argentina_v_Algeria",
@@ -163,10 +163,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "J1_Austria_v_Jordan",
     home: "Austria", away: "Jordan", date: "2026-06-17",
-    status: "LIVE", elapsed: 47,
-    homeStats: { team: "Austria", possession: 0.64, totalShots: 6, shotsInsideBox: 2, shotsOutsideBox: 4, shotsOnGoal: 1, corners: 1, xg: 0.27, passAccuracy: 0.86, passes: 295, fouls: 7 },
-    awayStats: { team: "Jordan", possession: 0.36, totalShots: 8, shotsInsideBox: 5, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 3, xg: 0.39, passAccuracy: 0.76, passes: 161, fouls: 3 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Austria", possession: 0.63, totalShots: 11, shotsInsideBox: 6, shotsOutsideBox: 5, shotsOnGoal: 4, corners: 4, xg: 1.66, passAccuracy: 0.84, passes: 580, fouls: 12 },
+    awayStats: { team: "Jordan", possession: 0.37, totalShots: 11, shotsInsideBox: 7, shotsOutsideBox: 4, shotsOnGoal: 4, corners: 3, xg: 0.53, passAccuracy: 0.73, passes: 330, fouls: 7 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-17T05:12:02.413Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-17T08:50:18.496Z';
