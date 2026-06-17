@@ -177,10 +177,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "L1_England_v_Croatia",
     home: "England", away: "Croatia", date: "2026-06-17",
-    status: "LIVE", elapsed: 45,
-    homeStats: { team: "England", possession: 0.48, totalShots: 9, shotsInsideBox: 7, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 3, xg: 1.36, passAccuracy: 0.83, passes: 218, fouls: 6 },
-    awayStats: { team: "Croatia", possession: 0.52, totalShots: 3, shotsInsideBox: 1, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 1, xg: 0.23, passAccuracy: 0.87, passes: 232, fouls: 5 },
+    status: "LIVE", elapsed: 69,
+    homeStats: { team: "England", possession: 0.53, totalShots: 18, shotsInsideBox: 16, shotsOutsideBox: 2, shotsOnGoal: 10, corners: 8, xg: 2.4, passAccuracy: 0.85, passes: 324, fouls: 8 },
+    awayStats: { team: "Croatia", possession: 0.47, totalShots: 4, shotsInsideBox: 2, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 1, xg: 0.41, passAccuracy: 0.84, passes: 290, fouls: 7 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-17T20:56:32.360Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-17T21:33:32.805Z';
