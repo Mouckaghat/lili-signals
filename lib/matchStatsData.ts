@@ -170,10 +170,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "K1_Portugal_v_Congo_DR",
     home: "Portugal", away: "Congo DR", date: "2026-06-17",
-    status: "LIVE", elapsed: 20,
-    homeStats: { team: "Portugal", possession: 0.77, totalShots: 1, shotsInsideBox: 1, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 0, xg: 0.05, passAccuracy: 0.96, passes: 151, fouls: 2 },
-    awayStats: { team: "Congo DR", possession: 0.23, totalShots: 2, shotsInsideBox: 0, shotsOutsideBox: 2, shotsOnGoal: 0, corners: 1, xg: 0.05, passAccuracy: 0.87, passes: 46, fouls: 0 },
+    status: "LIVE", elapsed: 78,
+    homeStats: { team: "Portugal", possession: 0.78, totalShots: 3, shotsInsideBox: 2, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 3, xg: 0.24, passAccuracy: 0.94, passes: 662, fouls: 5 },
+    awayStats: { team: "Congo DR", possession: 0.22, totalShots: 7, shotsInsideBox: 2, shotsOutsideBox: 5, shotsOnGoal: 2, corners: 4, xg: 0.69, passAccuracy: 0.82, passes: 179, fouls: 10 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-17T17:20:38.967Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-17T18:42:05.179Z';
