@@ -283,10 +283,14 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Erling Haaland", team: "Norway", minute: 29, type: "goal" },
       { player: "Aymen Hussein", team: "Iraq", minute: 39, type: "goal" },
       { player: "Erling Haaland", team: "Norway", minute: 43, type: "goal" },
+      { player: "L. Ostigard", team: "Norway", minute: 76, type: "goal" },
+      { player: "Aymen Hussein", team: "Iraq", minute: 90, minuteStoppage: 6, type: "own-goal" },
     ],
-    yellowCards: [],
+    yellowCards: [
+      { player: "Zaid Tahseen", team: "Iraq", minute: 86, reason: "Holding" },
+    ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-16T22:58:22.623Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-17T00:16:14.327Z';
