@@ -369,7 +369,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:50.568Z"
+    "updatedAt": "2026-06-17T16:11:50.563Z"
   },
   {
     "fixtureKey": "Argentina|Austria",
@@ -713,7 +713,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:46.709Z"
+    "updatedAt": "2026-06-17T16:11:46.486Z"
   },
   {
     "fixtureKey": "Austria|Jordan",
@@ -1043,7 +1043,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:50.916Z"
+    "updatedAt": "2026-06-17T16:11:50.917Z"
   },
   {
     "fixtureKey": "Belgium|Egypt",
@@ -1367,7 +1367,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:48.804Z"
+    "updatedAt": "2026-06-17T16:11:48.769Z"
   },
   {
     "fixtureKey": "Belgium|Iran",
@@ -1733,7 +1733,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:45.999Z"
+    "updatedAt": "2026-06-17T16:11:45.770Z"
   },
   {
     "fixtureKey": "Canada|Bosnia & Herzegovina",
@@ -2063,7 +2063,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:44.943Z"
+    "updatedAt": "2026-06-17T16:11:44.666Z"
   },
   {
     "fixtureKey": "Canada|Qatar",
@@ -2603,7 +2603,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:49.866Z"
+    "updatedAt": "2026-06-17T16:11:49.854Z"
   },
   {
     "fixtureKey": "Germany|Curaçao",
@@ -2933,7 +2933,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:47.060Z"
+    "updatedAt": "2026-06-17T16:11:46.843Z"
   },
   {
     "fixtureKey": "Germany|Ivory Coast",
@@ -3291,7 +3291,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:46.351Z"
+    "updatedAt": "2026-06-17T16:11:46.126Z"
   },
   {
     "fixtureKey": "Iran|New Zealand",
@@ -3614,7 +3614,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:49.504Z"
+    "updatedAt": "2026-06-17T16:11:49.492Z"
   },
   {
     "fixtureKey": "Iraq|Norway",
@@ -3944,7 +3944,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:50.216Z"
+    "updatedAt": "2026-06-17T16:11:50.208Z"
   },
   {
     "fixtureKey": "Ivory Coast|Ecuador",
@@ -4274,7 +4274,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:47.758Z"
+    "updatedAt": "2026-06-17T16:11:47.700Z"
   },
   {
     "fixtureKey": "Japan|Sweden",
@@ -4646,7 +4646,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:44.243Z"
+    "updatedAt": "2026-06-17T16:11:43.951Z"
   },
   {
     "fixtureKey": "Mexico|South Korea",
@@ -5004,7 +5004,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:47.408Z"
+    "updatedAt": "2026-06-17T16:11:47.344Z"
   },
   {
     "fixtureKey": "Netherlands|Sweden",
@@ -5122,15 +5122,331 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     "fixtureKey": "Portugal|Congo DR",
     "home": {
       "formation": "4-2-3-1",
-      "players": []
+      "players": [
+        {
+          "name": "Diogo Costa",
+          "number": 1,
+          "pos": "GK",
+          "starter": true
+        },
+        {
+          "name": "João Cancelo",
+          "number": 20,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Tomás Araújo",
+          "number": 4,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Renato Veiga",
+          "number": 13,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Nuno Mendes",
+          "number": 25,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "João Neves",
+          "number": 15,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Vitinha",
+          "number": 23,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Bernardo Silva",
+          "number": 10,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Bruno Fernandes",
+          "number": 8,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Pedro Neto",
+          "number": 18,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Cristiano Ronaldo",
+          "number": 7,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "José Sá",
+          "number": 12,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Rui Silva",
+          "number": 22,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Nélson Semedo",
+          "number": 2,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Rúben Dias",
+          "number": 3,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Diogo Dalot",
+          "number": 5,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Gonçalo Inácio",
+          "number": 14,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Matheus Nunes",
+          "number": 6,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Samú Costa",
+          "number": 24,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Rúben Neves",
+          "number": 21,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Francisco Trincão",
+          "number": 16,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Gonçalo Guedes",
+          "number": 19,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Gonçalo Ramos",
+          "number": 9,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "João Félix",
+          "number": 11,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Rafael Leão",
+          "number": 17,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Francisco Conceição",
+          "number": 26,
+          "pos": "FW",
+          "starter": false
+        }
+      ],
+      "coach": "Roberto Martinez"
     },
     "away": {
-      "formation": "4-3-3",
-      "players": []
+      "formation": "5-3-2",
+      "players": [
+        {
+          "name": "Lionel Mpasi Nzau",
+          "number": 1,
+          "pos": "GK",
+          "starter": true
+        },
+        {
+          "name": "Aaron Wan-Bissaka",
+          "number": 2,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Chancel Mbemba",
+          "number": 22,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Axel Tuanzebe",
+          "number": 4,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Steve Kapuadi",
+          "number": 3,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Arthur Masuaku",
+          "number": 26,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Samuel Moutoussamy",
+          "number": 8,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Ngal'ayel Mukau",
+          "number": 6,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Edo Kayembe",
+          "number": 25,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Cédric Bakambu",
+          "number": 17,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Yoane Wissa",
+          "number": 20,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Timothy Fayulu",
+          "number": 16,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Matthieu Epolo",
+          "number": 21,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Dylan Batubinsika",
+          "number": 5,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Joris Kayembe",
+          "number": 12,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Gedeon Kalulu",
+          "number": 24,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Nathanaël Mbuku",
+          "number": 7,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Théo Bongonda",
+          "number": 10,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Noah Sadiki",
+          "number": 14,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Aaron Tshibola",
+          "number": 15,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Charles Pickel",
+          "number": 18,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Brian Cipenga",
+          "number": 9,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Gaël Kakuta",
+          "number": 11,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Meschak Elia",
+          "number": 13,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Fiston Mayele",
+          "number": 19,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Simon Banza",
+          "number": 23,
+          "pos": "FW",
+          "starter": false
+        }
+      ],
+      "coach": "Sebastien Desabre"
     },
     "confirmed": false,
-    "source": "baseline",
-    "updatedAt": "2026-06-12T16:43:43.362Z"
+    "source": "api-football",
+    "updatedAt": "2026-06-17T16:11:51.281Z"
   },
   {
     "fixtureKey": "Portugal|Uzbekistan",
@@ -5474,7 +5790,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:45.648Z"
+    "updatedAt": "2026-06-17T16:11:45.415Z"
   },
   {
     "fixtureKey": "Saudi Arabia|Uruguay",
@@ -5792,7 +6108,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:49.154Z"
+    "updatedAt": "2026-06-17T16:11:49.125Z"
   },
   {
     "fixtureKey": "Scotland|Brazil",
@@ -6178,7 +6494,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:44.594Z"
+    "updatedAt": "2026-06-17T16:11:44.308Z"
   },
   {
     "fixtureKey": "Spain|Cape Verde Islands",
@@ -6508,7 +6824,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:48.455Z"
+    "updatedAt": "2026-06-17T16:11:48.413Z"
   },
   {
     "fixtureKey": "Spain|Saudi Arabia",
@@ -6852,7 +7168,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:48.107Z"
+    "updatedAt": "2026-06-17T16:11:48.056Z"
   },
   {
     "fixtureKey": "Switzerland|Bosnia & Herzegovina",
@@ -7308,7 +7624,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-17T12:14:45.292Z"
+    "updatedAt": "2026-06-17T16:11:45.056Z"
   },
   {
     "fixtureKey": "Uzbekistan|Colombia",
@@ -7326,4 +7642,4 @@ export const MATCH_LINEUPS: MatchLineup[] = [
   }
 ];
 
-export const LINEUPS_LAST_UPDATED = '2026-06-17T12:14:52.576Z';
+export const LINEUPS_LAST_UPDATED = '2026-06-17T16:11:52.617Z';
