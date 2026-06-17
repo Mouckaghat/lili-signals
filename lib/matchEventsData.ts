@@ -242,7 +242,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     fixtureId: "G1_Saudi_Arabia_v_Uruguay",
     home: "Saudi Arabia", away: "Uruguay", date: "2026-06-15",
     goals: [
-      { player: "Abdulelah Al-Amri", team: "Saudi Arabia", minute: 41, type: "goal" },
+      { player: "A. Al Amri", team: "Saudi Arabia", minute: 41, type: "goal" },
       { player: "Maximiliano Araújo", team: "Uruguay", minute: 80, type: "goal" },
     ],
     yellowCards: [
@@ -283,7 +283,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Erling Haaland", team: "Norway", minute: 29, type: "goal" },
       { player: "Aymen Hussein", team: "Iraq", minute: 39, type: "goal" },
       { player: "Erling Haaland", team: "Norway", minute: 43, type: "goal" },
-      { player: "Leo Østigård", team: "Norway", minute: 77, type: "goal" },
+      { player: "Leo Østigård", team: "Norway", minute: 76, type: "goal" },
+      { player: "Aymen Hussein", team: "Iraq", minute: 90, minuteStoppage: 6, type: "own-goal" },
     ],
     yellowCards: [
       { player: "Zaid Tahseen", team: "Iraq", minute: 86, reason: "Foul" },
@@ -305,12 +306,16 @@ export const MATCH_EVENTS: MatchEvents[] = [
     fixtureId: "J1_Austria_v_Jordan",
     home: "Austria", away: "Jordan", date: "2026-06-17",
     goals: [
-      { player: "Romano Schmid", team: "Austria", minute: 20, type: "goal" },
+      { player: "Romano Schmid", team: "Austria", minute: 21, type: "goal" },
       { player: "Ali Olwan", team: "Jordan", minute: 50, type: "goal" },
+      { player: "Y. Al Arab", team: "Jordan", minute: 76, type: "own-goal" },
+      { player: "Marko Arnautović", team: "Austria", minute: 90, minuteStoppage: 12, type: "penalty" },
     ],
-    yellowCards: [],
+    yellowCards: [
+      { player: "Marcel Sabitzer", team: "Austria", minute: 77, reason: "Unsportsmanlike conduct" },
+    ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-17T05:19:17.629Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-17T10:09:33.066Z';
