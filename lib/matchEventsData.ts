@@ -331,6 +331,19 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "L1_England_v_Croatia",
+    home: "England", away: "Croatia", date: "2026-06-17",
+    goals: [
+      { player: "Harry Kane", team: "England", minute: 12, type: "penalty" },
+      { player: "Martin Baturina", team: "Croatia", minute: 36, type: "goal" },
+      { player: "Harry Kane", team: "England", minute: 42, type: "goal" },
+      { player: "Petar Musa", team: "Croatia", minute: 45, minuteStoppage: 5, type: "goal" },
+      { player: "Jude Bellingham", team: "England", minute: 47, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-17T19:17:06.048Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-17T21:24:10.677Z';
