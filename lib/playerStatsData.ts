@@ -649,4 +649,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "J1_Austria_v_Jordan", team: "Jordan", name: "Ali Al Azaizah", pos: "FW", minutes: 14, rating: 6.7, goals: 0, assists: 0, saves: 0, shots: 1, shotsOn: 0, passes: 1, passAccPct: 100, tackles: 0, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-06-17T10:08:47.983Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-06-17T14:01:47.795Z';
