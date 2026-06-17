@@ -227,7 +227,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     fixtureId: "H1_Belgium_v_Egypt",
     home: "Belgium", away: "Egypt", date: "2026-06-15",
     goals: [
-      { player: "Emam Ashour", team: "Egypt", minute: 19, type: "goal" },
+      { player: "Emam Ashour", team: "Egypt", minute: 20, type: "goal" },
       { player: "Mohamed Hany", team: "Egypt", minute: 66, type: "own-goal" },
     ],
     yellowCards: [
@@ -260,7 +260,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Mohammad Mohebi", team: "Iran", minute: 64, type: "goal" },
     ],
     yellowCards: [
-      { player: "Ehsan Hajsafi", team: "Iran", minute: 89, reason: "Tripping" },
+      { player: "Ehsan Hajsafi", team: "Iran", minute: 89, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -283,14 +283,34 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Erling Haaland", team: "Norway", minute: 29, type: "goal" },
       { player: "Aymen Hussein", team: "Iraq", minute: 39, type: "goal" },
       { player: "Erling Haaland", team: "Norway", minute: 43, type: "goal" },
-      { player: "L. Ostigard", team: "Norway", minute: 76, type: "goal" },
-      { player: "Aymen Hussein", team: "Iraq", minute: 90, minuteStoppage: 6, type: "own-goal" },
+      { player: "Leo Østigård", team: "Norway", minute: 77, type: "goal" },
     ],
     yellowCards: [
-      { player: "Zaid Tahseen", team: "Iraq", minute: 86, reason: "Holding" },
+      { player: "Zaid Tahseen", team: "Iraq", minute: 86, reason: "Foul" },
     ],
+    redCards: [],
+  },
+  {
+    fixtureId: "J1_Argentina_v_Algeria",
+    home: "Argentina", away: "Algeria", date: "2026-06-17",
+    goals: [
+      { player: "Lionel Messi", team: "Argentina", minute: 17, type: "goal" },
+      { player: "Lionel Messi", team: "Argentina", minute: 60, type: "goal" },
+      { player: "Lionel Messi", team: "Argentina", minute: 76, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
+  {
+    fixtureId: "J1_Austria_v_Jordan",
+    home: "Austria", away: "Jordan", date: "2026-06-17",
+    goals: [
+      { player: "Romano Schmid", team: "Austria", minute: 20, type: "goal" },
+      { player: "Ali Olwan", team: "Jordan", minute: 50, type: "goal" },
+    ],
+    yellowCards: [],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-17T00:16:14.327Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-17T05:19:17.629Z';
