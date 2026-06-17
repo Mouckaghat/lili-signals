@@ -181,6 +181,13 @@ export const MATCH_STATS: MatchStats[] = [
     homeStats: { team: "England", possession: 0.52, totalShots: 22, shotsInsideBox: 20, shotsOutsideBox: 2, shotsOnGoal: 11, corners: 8, xg: 2.8, passAccuracy: 0.86, passes: 473, fouls: 10 },
     awayStats: { team: "Croatia", possession: 0.48, totalShots: 10, shotsInsideBox: 4, shotsOutsideBox: 6, shotsOnGoal: 5, corners: 2, xg: 0.71, passAccuracy: 0.86, passes: 442, fouls: 12 },
   },
+  {
+    fixtureId: "L1_Ghana_v_Panama",
+    home: "Ghana", away: "Panama", date: "2026-06-17",
+    status: "LIVE", elapsed: 6,
+    homeStats: { team: "Ghana", possession: 0.3, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.64, passes: 11, fouls: 0 },
+    awayStats: { team: "Panama", possession: 0.7, totalShots: 1, shotsInsideBox: 1, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 0, xg: 0.06, passAccuracy: 0.88, passes: 25, fouls: 0 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-17T22:42:56.714Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-17T23:07:11.758Z';
