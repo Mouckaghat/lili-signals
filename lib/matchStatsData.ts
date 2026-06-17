@@ -167,6 +167,13 @@ export const MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Austria", possession: 0.63, totalShots: 11, shotsInsideBox: 6, shotsOutsideBox: 5, shotsOnGoal: 4, corners: 4, xg: 1.66, passAccuracy: 0.84, passes: 580, fouls: 12 },
     awayStats: { team: "Jordan", possession: 0.37, totalShots: 11, shotsInsideBox: 7, shotsOutsideBox: 4, shotsOnGoal: 4, corners: 3, xg: 0.53, passAccuracy: 0.73, passes: 330, fouls: 7 },
   },
+  {
+    fixtureId: "K1_Portugal_v_Congo_DR",
+    home: "Portugal", away: "Congo DR", date: "2026-06-17",
+    status: "LIVE", elapsed: 20,
+    homeStats: { team: "Portugal", possession: 0.77, totalShots: 1, shotsInsideBox: 1, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 0, xg: 0.05, passAccuracy: 0.96, passes: 151, fouls: 2 },
+    awayStats: { team: "Congo DR", possession: 0.23, totalShots: 2, shotsInsideBox: 0, shotsOutsideBox: 2, shotsOnGoal: 0, corners: 1, xg: 0.05, passAccuracy: 0.87, passes: 46, fouls: 0 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-17T16:28:47.998Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-17T17:20:38.967Z';
