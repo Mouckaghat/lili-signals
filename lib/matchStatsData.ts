@@ -170,10 +170,17 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "K1_Portugal_v_Congo_DR",
     home: "Portugal", away: "Congo DR", date: "2026-06-17",
-    status: "LIVE", elapsed: 78,
-    homeStats: { team: "Portugal", possession: 0.78, totalShots: 3, shotsInsideBox: 2, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 3, xg: 0.24, passAccuracy: 0.94, passes: 662, fouls: 5 },
-    awayStats: { team: "Congo DR", possession: 0.22, totalShots: 7, shotsInsideBox: 2, shotsOutsideBox: 5, shotsOnGoal: 2, corners: 4, xg: 0.69, passAccuracy: 0.82, passes: 179, fouls: 10 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Portugal", possession: 0.75, totalShots: 7, shotsInsideBox: 5, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 5, xg: 0.69, passAccuracy: 0.92, passes: 783, fouls: 9 },
+    awayStats: { team: "Congo DR", possession: 0.25, totalShots: 8, shotsInsideBox: 2, shotsOutsideBox: 6, shotsOnGoal: 2, corners: 4, xg: 0.82, passAccuracy: 0.78, passes: 251, fouls: 10 },
+  },
+  {
+    fixtureId: "L1_England_v_Croatia",
+    home: "England", away: "Croatia", date: "2026-06-17",
+    status: "LIVE", elapsed: 45,
+    homeStats: { team: "England", possession: 0.48, totalShots: 9, shotsInsideBox: 7, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 3, xg: 1.36, passAccuracy: 0.83, passes: 218, fouls: 6 },
+    awayStats: { team: "Croatia", possession: 0.52, totalShots: 3, shotsInsideBox: 1, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 1, xg: 0.23, passAccuracy: 0.87, passes: 232, fouls: 5 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-17T18:42:05.179Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-17T20:56:32.360Z';
