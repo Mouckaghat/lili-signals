@@ -775,4 +775,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "K1_Uzbekistan_v_Colombia", team: "Colombia", name: "Andrés Gómez", pos: "FW", minutes: 8, rating: 6.7, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 0, passAccPct: 0, tackles: 1, interceptions: 1 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-06-18T11:01:08.964Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-06-18T14:19:49.600Z';
