@@ -406,6 +406,21 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Tarik Muharemović", team: "Bosnia & Herzegovina", minute: 80, reason: "Tripping" },
     ],
   },
+  {
+    fixtureId: "B2_Canada_v_Qatar",
+    home: "Canada", away: "Qatar", date: "2026-06-18",
+    goals: [
+      { player: "Cyle Larin", team: "Canada", minute: 16, type: "goal" },
+      { player: "Jonathan David", team: "Canada", minute: 29, type: "goal" },
+      { player: "Jonathan David", team: "Canada", minute: 45, minuteStoppage: 3, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Derek Cornelius", team: "Canada", minute: 9, reason: "Tripping" },
+    ],
+    redCards: [
+      { player: "H. Al Amin", team: "Qatar", minute: 33, reason: "Foul" },
+    ],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-18T21:05:20.869Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-18T23:01:20.008Z';
