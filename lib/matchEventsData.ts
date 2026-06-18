@@ -387,6 +387,25 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "B2_Switzerland_v_Bosnia_Herzegovina",
+    home: "Switzerland", away: "Bosnia & Herzegovina", date: "2026-06-18",
+    goals: [
+      { player: "Johan Manzambi", team: "Switzerland", minute: 74, type: "goal" },
+      { player: "Rubén Vargas", team: "Switzerland", minute: 84, type: "goal" },
+      { player: "Johan Manzambi", team: "Switzerland", minute: 90, type: "goal" },
+      { player: "Ermin Mahmić", team: "Bosnia & Herzegovina", minute: 90, minuteStoppage: 3, type: "goal" },
+      { player: "Granit Xhaka", team: "Switzerland", minute: 90, minuteStoppage: 7, type: "penalty" },
+    ],
+    yellowCards: [
+      { player: "Amar Dedić", team: "Bosnia & Herzegovina", minute: 59, reason: "Holding" },
+      { player: "Edin Džeko", team: "Bosnia & Herzegovina", minute: 61, reason: "Roughing" },
+      { player: "Nico Elvedi", team: "Switzerland", minute: 65, reason: "Roughing" },
+    ],
+    redCards: [
+      { player: "Tarik Muharemović", team: "Bosnia & Herzegovina", minute: 80, reason: "Tripping" },
+    ],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-18T18:32:34.463Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-18T21:05:20.869Z';
