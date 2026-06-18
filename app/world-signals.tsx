@@ -8,9 +8,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { computeWorldSignals, type SignalIntercept, type PulseTeam, type NarrativeArc, type RegionSignal } from '../lib/worldSignals';
 import { WORLD_SIGNALS_I18N } from '../lib/worldSignalsI18n';
-import { INJURED_PLAYERS, INJURY_LAST_UPDATED } from '../lib/injuryData';
 import { GROUP_STANDINGS } from '../lib/standingsData';
-import { WC_TEAMS } from '../lib/wcData';
 import FeatureIntro from '../components/FeatureIntro';
 import { playerByPath } from '../lib/playerXI';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -299,84 +297,6 @@ const sh = StyleSheet.create({
   sub:   { fontSize: 11, color: D.text2 },
 });
 
-// ─── Injury bulletin ─────────────────────────────────────────────────────────
-
-const SEVERITY_COLOR = { OUT: '#FF5B5B', DOUBTFUL: '#FF9F0A', SUSPENDED: '#D4A520' } as const;
-
-function InjuryBulletin() {
-  const { i18n } = useLanguage();
-  const injuredTeams = WC_TEAMS.filter((t) => (INJURED_PLAYERS[t.name]?.length ?? 0) > 0);
-
-  const severityLabel = (s: 'OUT' | 'DOUBTFUL' | 'SUSPENDED') =>
-    ({ OUT: i18n.injuryOut, DOUBTFUL: i18n.injuryDoubtful, SUSPENDED: i18n.injurySuspended }[s]);
-
-  return (
-    <View style={ij.card}>
-      {injuredTeams.length === 0 ? (
-        <View style={ij.clean}>
-          <Text style={ij.cleanIcon}>✓</Text>
-          <Text style={ij.cleanText}>{i18n.injuryClean}</Text>
-        </View>
-      ) : (
-        injuredTeams.map((team) => {
-          const players = INJURED_PLAYERS[team.name]!;
-          return (
-            <View key={team.name} style={ij.teamBlock}>
-              <View style={ij.teamHeader}>
-                <Text style={ij.teamFlag}>{team.flag}</Text>
-                <Text style={ij.teamName}>{team.name}</Text>
-              </View>
-              {players.map((p, idx) => (
-                <View key={idx} style={ij.playerRow}>
-                  <View style={ij.playerLeft}>
-                    <Text style={ij.playerName}>{p.name}</Text>
-                    <Text style={ij.playerReason}>{p.reason}</Text>
-                  </View>
-                  <View style={ij.playerRight}>
-                    <View style={[ij.badge, { backgroundColor: `${SEVERITY_COLOR[p.severity]}20` }]}>
-                      <Text style={[ij.badgeText, { color: SEVERITY_COLOR[p.severity] }]}>
-                        {severityLabel(p.severity)}
-                      </Text>
-                    </View>
-                    <Text style={ij.returnText}>
-                      {p.returnDate
-                        ? i18n.injuryReturn.replace('{date}', p.returnDate)
-                        : i18n.injuryNoReturn}
-                    </Text>
-                  </View>
-                </View>
-              ))}
-            </View>
-          );
-        })
-      )}
-      {Boolean(INJURY_LAST_UPDATED) && (
-        <Text style={ij.updated}>↻ {INJURY_LAST_UPDATED}</Text>
-      )}
-    </View>
-  );
-}
-
-const ij = StyleSheet.create({
-  card:       { backgroundColor: D.card, borderRadius: 14, borderWidth: 1, borderColor: `${D.red}25`, overflow: 'hidden' },
-  clean:      { flexDirection: 'row', alignItems: 'center', gap: 10, padding: 16 },
-  cleanIcon:  { fontSize: 18, color: D.green },
-  cleanText:  { fontSize: 13, color: D.green, fontWeight: '600' },
-  teamBlock:  { paddingHorizontal: 14, paddingTop: 12, paddingBottom: 4, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: D.border },
-  teamHeader: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 8 },
-  teamFlag:   { fontSize: 20 },
-  teamName:   { fontSize: 13, fontWeight: '700', color: D.text1 },
-  playerRow:  { flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', paddingVertical: 6, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: D.border },
-  playerLeft: { flex: 1, gap: 2 },
-  playerName: { fontSize: 12, fontWeight: '600', color: D.text1 },
-  playerReason:{ fontSize: 11, color: D.text2 },
-  playerRight:{ alignItems: 'flex-end', gap: 4 },
-  badge:      { paddingHorizontal: 8, paddingVertical: 3, borderRadius: 6 },
-  badgeText:  { fontSize: 10, fontWeight: '800', letterSpacing: 0.5 },
-  returnText: { fontSize: 10, color: D.text3 },
-  updated:    { fontSize: 10, color: D.text3, textAlign: 'right', padding: 10 },
-});
-
 // ─── Main screen ──────────────────────────────────────────────────────────────
 
 export default function WorldSignalsScreen() {
@@ -517,15 +437,6 @@ export default function WorldSignalsScreen() {
               ))}
             </View>
           </View>
-        </View>
-
-        {/* Injury Bulletin */}
-        <View style={ms.section}>
-          <SectionHeader
-            title={i18n.injuryBulletin.toUpperCase()}
-            sub={i18n.injuryBulletin}
-          />
-          <InjuryBulletin />
         </View>
 
         {/* Footer */}
