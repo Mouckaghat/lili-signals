@@ -212,10 +212,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "B2_Canada_v_Qatar",
     home: "Canada", away: "Qatar", date: "2026-06-18",
-    status: "LIVE", elapsed: 10,
-    homeStats: { team: "Canada", possession: 0.73, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.9, passes: 48, fouls: 0 },
-    awayStats: { team: "Qatar", possession: 0.27, totalShots: 1, shotsInsideBox: 1, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0.14, passAccuracy: 0.56, passes: 18, fouls: 0 },
+    status: "LIVE", elapsed: 45,
+    homeStats: { team: "Canada", possession: 0.67, totalShots: 14, shotsInsideBox: 11, shotsOutsideBox: 3, shotsOnGoal: 8, corners: 5, xg: 2.42, passAccuracy: 0.88, passes: 251, fouls: 3 },
+    awayStats: { team: "Qatar", possession: 0.33, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 1, xg: 0.18, passAccuracy: 0.72, passes: 130, fouls: 5 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-18T22:11:09.725Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-18T23:01:09.543Z';
