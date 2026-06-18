@@ -19,8 +19,10 @@ import { WC_TEAMS } from '../lib/wcData.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.resolve(__dirname, '..', '.env.local') });
+dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 
-const API_KEY   = process.env.API_FOOTBALL_KEY;
+// CI sets API_FOOTBALL_KEY (secret); locally the key lives in .env as API_KEY.
+const API_KEY   = process.env.API_FOOTBALL_KEY ?? process.env.API_KEY;
 const DRY_RUN   = process.env.DRY_RUN === 'true';
 const LEAGUE_ID = Number(process.env.API_FOOTBALL_LEAGUE_ID ?? 1);
 const SEASON    = Number(process.env.API_FOOTBALL_SEASON ?? 2026);

@@ -13,9 +13,13 @@ name: Email Daily Recon Log
 #
 # Recipient is fixed to Contact@jura-technology.com below.
 
+# NOTE: daily schedule disabled 2026-06-18 — SMTP secrets (MAIL_*) were never set,
+# so every scheduled run failed in ~5s at the send step and emailed a failure notice.
+# Manual-only now: re-enable the `schedule:` block once MAIL_SERVER/MAIL_PORT/
+# MAIL_USERNAME/MAIL_PASSWORD repo secrets exist.
 on:
-  schedule:
-    - cron: '0 7 * * *'   # daily 07:00 UTC
+  # schedule:
+  #   - cron: '0 7 * * *'   # daily 07:00 UTC
   workflow_dispatch:
     inputs:
       log_file:
