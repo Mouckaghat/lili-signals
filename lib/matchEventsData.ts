@@ -373,6 +373,20 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "A2_Czech_Republic_v_South_Africa",
+    home: "Czech Republic", away: "South Africa", date: "2026-06-18",
+    goals: [
+      { player: "Michal Sadílek", team: "Czech Republic", minute: 6, type: "goal" },
+      { player: "Teboho Mokoena", team: "South Africa", minute: 83, type: "penalty" },
+    ],
+    yellowCards: [
+      { player: "Teboho Mokoena", team: "South Africa", minute: 33 },
+      { player: "Thalente Mbatha", team: "South Africa", minute: 40, reason: "Roughing" },
+      { player: "Ladislav Krejčí", team: "Czech Republic", minute: 75, reason: "Tripping" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-18T16:02:19.232Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-18T18:32:34.463Z';
