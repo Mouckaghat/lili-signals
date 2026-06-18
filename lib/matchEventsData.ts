@@ -324,10 +324,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Yoane Wissa", team: "Congo DR", minute: 45, minuteStoppage: 5, type: "goal" },
     ],
     yellowCards: [
-      { player: "Bernardo Silva", team: "Portugal", minute: 13, reason: "Tripping" },
-      { player: "Chancel Mbemba", team: "Congo DR", minute: 32, reason: "Roughing" },
-      { player: "Nélson Semedo", team: "Portugal", minute: 88, reason: "Holding" },
-      { player: "Tomás Araújo", team: "Portugal", minute: 90, reason: "Roughing" },
+      { player: "Bernardo Silva", team: "Portugal", minute: 13, reason: "Foul" },
+      { player: "Chancel Mbemba", team: "Congo DR", minute: 32, reason: "Foul" },
+      { player: "Nélson Semedo", team: "Portugal", minute: 88, reason: "Foul" },
+      { player: "Tomás Araújo", team: "Portugal", minute: 90, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -348,12 +348,31 @@ export const MATCH_EVENTS: MatchEvents[] = [
   {
     fixtureId: "L1_Ghana_v_Panama",
     home: "Ghana", away: "Panama", date: "2026-06-17",
-    goals: [],
+    goals: [
+      { player: "Caleb Yirenkyi", team: "Ghana", minute: 90, minuteStoppage: 5, type: "goal" },
+    ],
     yellowCards: [
       { player: "Caleb Yirenkyi", team: "Ghana", minute: 16, reason: "Holding" },
+      { player: "César Blackman", team: "Panama", minute: 72, reason: "Holding" },
+      { player: "Carlos Harvey", team: "Panama", minute: 90, reason: "Roughing" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "K1_Uzbekistan_v_Colombia",
+    home: "Uzbekistan", away: "Colombia", date: "2026-06-18",
+    goals: [
+      { player: "Daniel Muñoz", team: "Colombia", minute: 40, type: "goal" },
+      { player: "Abbosbek Fayzullaev", team: "Uzbekistan", minute: 60, type: "goal" },
+      { player: "Luis Díaz", team: "Colombia", minute: 65, type: "goal" },
+      { player: "Jaminton Campaz", team: "Colombia", minute: 90, minuteStoppage: 9, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Johan Mojica", team: "Colombia", minute: 7, reason: "Tripping" },
+      { player: "Abdukodir Khusanov", team: "Uzbekistan", minute: 34, reason: "Tripping" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-18T00:08:54.484Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-18T04:59:29.053Z';
