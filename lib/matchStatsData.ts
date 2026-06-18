@@ -198,10 +198,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "A2_Czech_Republic_v_South_Africa",
     home: "Czech Republic", away: "South Africa", date: "2026-06-18",
-    status: "LIVE", elapsed: 73,
-    homeStats: { team: "Czech Republic", possession: 0.39, totalShots: 11, shotsInsideBox: 9, shotsOutsideBox: 2, shotsOnGoal: 3, corners: 4, xg: 0.88, passAccuracy: 0.82, passes: 257, fouls: 9 },
-    awayStats: { team: "South Africa", possession: 0.61, totalShots: 8, shotsInsideBox: 2, shotsOutsideBox: 6, shotsOnGoal: 0, corners: 4, xg: 0.26, passAccuracy: 0.9, passes: 410, fouls: 8 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Czech Republic", possession: 0.39, totalShots: 14, shotsInsideBox: 11, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 5, xg: 0.94, passAccuracy: 0.8, passes: 336, fouls: 12 },
+    awayStats: { team: "South Africa", possession: 0.61, totalShots: 15, shotsInsideBox: 5, shotsOutsideBox: 10, shotsOnGoal: 4, corners: 4, xg: 1.18, passAccuracy: 0.9, passes: 548, fouls: 10 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-18T17:34:23.897Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-18T18:32:12.029Z';
