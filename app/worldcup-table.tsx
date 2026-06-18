@@ -205,9 +205,16 @@ function getApiStandings(group: string): StandingEntry[] {
 
 function GroupTable({ group, liveResults }: { group: string; liveResults: LiveResults }) {
   const { i18n } = useLanguage();
-  const entries = GROUP_STANDINGS.some((s) => s.played > 0)
-    ? getApiStandings(group)
-    : computeStandings(group, liveResults);
+  // Prefer the table computed from LIVE results — it rides the fresh
+  // /api/fixture-results overlay (~15-20s), so Group A moves the instant a
+  // result does, with no git-bot commit + Vercel redeploy in the loop. The
+  // baked GROUP_STANDINGS (refreshed every ~4h, deploy-gated) is only used when
+  // it somehow reflects more played games than the live feed (defensive — e.g.
+  // a result api-football has in /standings but not yet in /fixtures).
+  const live  = computeStandings(group, liveResults);
+  const baked = getApiStandings(group);
+  const played = (rows: StandingEntry[]) => rows.reduce((n, e) => n + e.played, 0);
+  const entries = played(live) >= played(baked) ? live : baked;
   const groupTeams = getGroupTeams(group);
 
   return (
