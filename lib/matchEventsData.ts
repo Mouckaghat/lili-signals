@@ -375,4 +375,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-18T09:16:31.370Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-18T12:32:59.151Z';
