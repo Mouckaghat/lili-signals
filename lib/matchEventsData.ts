@@ -270,8 +270,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Kylian Mbappé", team: "France", minute: 66, type: "goal" },
       { player: "Bradley Barcola", team: "France", minute: 82, type: "goal" },
-      { player: "Ibrahim Mbaye", team: "Senegal", minute: 90, minuteStoppage: 5, type: "goal" },
-      { player: "Kylian Mbappé", team: "France", minute: 90, minuteStoppage: 6, type: "goal" },
+      { player: "Ibrahim Mbaye", team: "Senegal", minute: 90, type: "goal" },
+      { player: "Kylian Mbappé", team: "France", minute: 90, type: "goal" },
     ],
     yellowCards: [],
     redCards: [],
@@ -283,8 +283,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Erling Haaland", team: "Norway", minute: 29, type: "goal" },
       { player: "Aymen Hussein", team: "Iraq", minute: 39, type: "goal" },
       { player: "Erling Haaland", team: "Norway", minute: 43, type: "goal" },
-      { player: "Leo Østigård", team: "Norway", minute: 76, type: "goal" },
-      { player: "Aymen Hussein", team: "Iraq", minute: 90, minuteStoppage: 6, type: "own-goal" },
+      { player: "L. Ostigard", team: "Norway", minute: 76, type: "goal" },
+      { player: "Aymen Hussein", team: "Iraq", minute: 90, type: "own-goal" },
     ],
     yellowCards: [
       { player: "Zaid Tahseen", team: "Iraq", minute: 86, reason: "Foul" },
@@ -309,10 +309,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Romano Schmid", team: "Austria", minute: 21, type: "goal" },
       { player: "Ali Olwan", team: "Jordan", minute: 50, type: "goal" },
       { player: "Y. Al Arab", team: "Jordan", minute: 76, type: "own-goal" },
-      { player: "Marko Arnautović", team: "Austria", minute: 90, minuteStoppage: 12, type: "penalty" },
+      { player: "Marko Arnautović", team: "Austria", minute: 90, type: "penalty" },
     ],
     yellowCards: [
-      { player: "Marcel Sabitzer", team: "Austria", minute: 77, reason: "Unsportsmanlike conduct" },
+      { player: "Marcel Sabitzer", team: "Austria", minute: 77, reason: "Unsporting behaviour" },
     ],
     redCards: [],
   },
@@ -375,4 +375,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-18T04:59:29.053Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-18T09:16:31.370Z';
