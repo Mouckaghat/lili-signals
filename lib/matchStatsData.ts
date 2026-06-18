@@ -205,10 +205,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "B2_Switzerland_v_Bosnia_Herzegovina",
     home: "Switzerland", away: "Bosnia & Herzegovina", date: "2026-06-18",
-    status: "LIVE", elapsed: 45,
-    homeStats: { team: "Switzerland", possession: 0.69, totalShots: 4, shotsInsideBox: 1, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 4, xg: 0.06, passAccuracy: 0.89, passes: 332, fouls: 3 },
-    awayStats: { team: "Bosnia & Herzegovina", possession: 0.31, totalShots: 3, shotsInsideBox: 2, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 2, xg: 0.18, passAccuracy: 0.77, passes: 149, fouls: 8 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Switzerland", possession: 0.62, totalShots: 12, shotsInsideBox: 8, shotsOutsideBox: 4, shotsOnGoal: 6, corners: 7, xg: 1.2, passAccuracy: 0.88, passes: 581, fouls: 7 },
+    awayStats: { team: "Bosnia & Herzegovina", possession: 0.38, totalShots: 5, shotsInsideBox: 3, shotsOutsideBox: 2, shotsOnGoal: 3, corners: 3, xg: 0.24, passAccuracy: 0.81, passes: 353, fouls: 16 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-18T19:54:18.899Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-18T21:04:59.581Z';
