@@ -199,9 +199,16 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "A2_Czech_Republic_v_South_Africa",
     home: "Czech Republic", away: "South Africa", date: "2026-06-18",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Czech Republic", possession: 0.39, totalShots: 14, shotsInsideBox: 11, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 5, xg: 0.94, passAccuracy: 0.8, passes: 336, fouls: 12 },
-    awayStats: { team: "South Africa", possession: 0.61, totalShots: 15, shotsInsideBox: 5, shotsOutsideBox: 10, shotsOnGoal: 4, corners: 4, xg: 1.18, passAccuracy: 0.9, passes: 548, fouls: 10 },
+    homeStats: { team: "Czech Republic", possession: 0.38, totalShots: 14, shotsInsideBox: 11, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 5, xg: 1.02, passAccuracy: 0.8, passes: 339, fouls: 12 },
+    awayStats: { team: "South Africa", possession: 0.62, totalShots: 17, shotsInsideBox: 6, shotsOutsideBox: 11, shotsOnGoal: 4, corners: 5, xg: 1.37, passAccuracy: 0.9, passes: 563, fouls: 10 },
+  },
+  {
+    fixtureId: "B2_Switzerland_v_Bosnia_Herzegovina",
+    home: "Switzerland", away: "Bosnia & Herzegovina", date: "2026-06-18",
+    status: "LIVE", elapsed: 45,
+    homeStats: { team: "Switzerland", possession: 0.69, totalShots: 4, shotsInsideBox: 1, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 4, xg: 0.06, passAccuracy: 0.89, passes: 332, fouls: 3 },
+    awayStats: { team: "Bosnia & Herzegovina", possession: 0.31, totalShots: 3, shotsInsideBox: 2, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 2, xg: 0.18, passAccuracy: 0.77, passes: 149, fouls: 8 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-18T18:32:12.029Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-18T19:54:18.899Z';
