@@ -1,10 +1,21 @@
+// api-football names → wcData.ts names (WC_FIXTURES home/away). MUST stay in
+// sync with scripts/sync-fixture-results.ts — a name missing here means the live
+// overlay is keyed under the api-football name (e.g. "Czechia") and never
+// matches the app's fixture key ("Czech Republic"), so the stale baked score
+// shows instead of the live one. (Bug: Czechia 1-1 SA showed as 1-0, 2026-06-18.)
 const TEAM_NAME_MAP: Record<string, string> = {
-  'Korea Republic': 'South Korea',
-  "Côte d'Ivoire":  'Ivory Coast',
-  'United States':  'USA',
-  'IR Iran':        'Iran',
-  'DR Congo':       'Congo DR',
-  'Congo DR':       'Congo DR',
+  'Korea Republic':     'South Korea',
+  'IR Iran':            'Iran',
+  "Côte d'Ivoire":      'Ivory Coast',
+  'Cape Verde':         'Cape Verde Islands',
+  'DR Congo':           'Congo DR',
+  'Congo DR':           'Congo DR',
+  'United States':      'USA',
+  'Curacao':            'Curaçao',
+  'Turkey':             'Türkiye',
+  'Czechia':            'Czech Republic',
+  'Bosnia':             'Bosnia & Herzegovina',
+  'Bosnia-Herzegovina': 'Bosnia & Herzegovina',
 };
 
 function normalise(name: string): string {
