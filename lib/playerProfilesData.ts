@@ -7928,7 +7928,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Rostov",
     league: "Russian Premier League",
     leagueFlag: "🇷🇺",
-    caps: 36,
+    caps: 37,
   },
   {
     name: "Mehdi Taremi",
@@ -7938,7 +7938,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Olympiacos",
     league: "Super League Greece",
     leagueFlag: "🇬🇷",
-    caps: 106,
+    caps: 105,
   },
   {
     name: "Mehdi Ghayedi",
@@ -8001,7 +8001,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     caps: 40,
   },
   {
-    name: "Mehdi Torabi",
+    name: "Mahdi Torabi",
     nation: "Iran",
     dob: "1994-09-10",
     age: 31,
@@ -8011,7 +8011,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     caps: 52,
   },
   {
-    name: "Aria Yousefi",
+    name: "Arya Yousefi",
     nation: "Iran",
     dob: "2002-04-22",
     age: 24,
@@ -8038,7 +8038,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Foolad",
     league: "Persian Gulf Pro League",
     leagueFlag: "🇮🇷",
-    caps: 17,
+    caps: 18,
   },
   {
     name: "Shahriyar Moghanlou",
@@ -12549,4 +12549,4 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
   },
 ];
 
-export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-17T11:03:02.438Z';
+export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-18T10:25:21.627Z';
