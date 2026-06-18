@@ -345,6 +345,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
     yellowCards: [],
     redCards: [],
   },
+  {
+    fixtureId: "L1_Ghana_v_Panama",
+    home: "Ghana", away: "Panama", date: "2026-06-17",
+    goals: [],
+    yellowCards: [
+      { player: "Caleb Yirenkyi", team: "Ghana", minute: 16, reason: "Holding" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-17T22:55:43.302Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-18T00:08:54.484Z';
