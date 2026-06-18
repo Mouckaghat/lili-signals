@@ -184,10 +184,17 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "L1_Ghana_v_Panama",
     home: "Ghana", away: "Panama", date: "2026-06-17",
-    status: "LIVE", elapsed: 45,
-    homeStats: { team: "Ghana", possession: 0.35, totalShots: 1, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0.02, passAccuracy: 0.81, passes: 163, fouls: 3 },
-    awayStats: { team: "Panama", possession: 0.65, totalShots: 3, shotsInsideBox: 3, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 0, xg: 0.13, passAccuracy: 0.88, passes: 299, fouls: 5 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Ghana", possession: 0.36, totalShots: 1, shotsInsideBox: 1, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0.03, passAccuracy: 0.82, passes: 172, fouls: 3 },
+    awayStats: { team: "Panama", possession: 0.64, totalShots: 3, shotsInsideBox: 3, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 0, xg: 0.13, passAccuracy: 0.88, passes: 315, fouls: 6 },
+  },
+  {
+    fixtureId: "K1_Uzbekistan_v_Colombia",
+    home: "Uzbekistan", away: "Colombia", date: "2026-06-18",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Uzbekistan", possession: 0.39, totalShots: 8, shotsInsideBox: 4, shotsOutsideBox: 4, shotsOnGoal: 2, corners: 3, xg: 1.14, passAccuracy: 0.76, passes: 318, fouls: 14 },
+    awayStats: { team: "Colombia", possession: 0.61, totalShots: 15, shotsInsideBox: 10, shotsOutsideBox: 5, shotsOnGoal: 4, corners: 4, xg: 1.61, passAccuracy: 0.86, passes: 520, fouls: 11 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-18T00:03:38.859Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-18T04:55:04.790Z';
