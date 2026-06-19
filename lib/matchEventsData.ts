@@ -312,7 +312,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Marko Arnautović", team: "Austria", minute: 90, type: "penalty" },
     ],
     yellowCards: [
-      { player: "Marcel Sabitzer", team: "Austria", minute: 77, reason: "Unsporting behaviour" },
+      { player: "Marcel Sabitzer", team: "Austria", minute: 77, reason: "Argument" },
     ],
     redCards: [],
   },
@@ -440,4 +440,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-19T06:55:05.678Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-19T11:14:01.305Z';
