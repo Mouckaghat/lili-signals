@@ -3,6 +3,7 @@ import { Platform, Pressable, ScrollView, StyleSheet, Text, useWindowDimensions,
 import { useLocalSearchParams } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { buildHeatGrid, type HeatGrid, type TeamMatchStats } from '../lib/heatmap';
+import { forecastMatch } from '../lib/heatmapForecast';
 import { buildMomentum, type MomentumEvent } from '../lib/matchMomentum';
 import type { MatchStats } from '../lib/matchStatsData';
 import { useLiveStats } from '../lib/useLiveStats';
@@ -225,11 +226,44 @@ export default function MatchHeatmapScreen() {
 
   const { fixtureId } = useLocalSearchParams<{ fixtureId?: string }>();
   const [selected, setSelected] = useState<string | null>(null);
-  const active = ordered.find((m) => m.fixtureId === (selected ?? fixtureId)) ?? ordered[0];
+  const requestedId = selected ?? fixtureId;
+  const liveActive = ordered.find((m) => m.fixtureId === requestedId);
+
+  // Pre-kickoff: the requested fixture has no live stats yet. If it's a real
+  // upcoming fixture, show Lili's FORECAST heatmap (predicted pressure) rather
+  // than a dead end — it morphs into the live model the moment the game starts.
+  const forecast = useMemo(
+    () => (requestedId && !liveActive ? forecastMatch(requestedId) : null),
+    [requestedId, liveActive],
+  );
+
+  // Resolve which match to show. If a specific fixture was requested (deep-link
+  // from the timeline), ALWAYS anchor to it — live stats if available, else its
+  // forecast. Only when NO fixture was requested do we default to the most
+  // relevant live/recent game. This is the fix for the screen silently showing
+  // an unrelated game (e.g. "Mexico v South Korea") when the tapped fixture
+  // isn't in the live feed yet.
+  const forecastActive: MatchStats | null = forecast ? {
+    fixtureId: forecast.fixtureId, home: forecast.home, away: forecast.away,
+    date: forecast.date, status: 'LIVE', elapsed: null,
+    homeStats: forecast.homeStats, awayStats: forecast.awayStats,
+  } : null;
+  const active: MatchStats | null = liveActive
+    ?? forecastActive
+    ?? (requestedId ? null : ordered[0] ?? null);
 
   if (!active) {
-    return <View style={[st.screen, st.empty]}><Text style={st.emptyText}>No match stats yet. Heatmaps appear once a game kicks off.</Text></View>;
+    const name = requestedId ? WC_FIXTURES.find((f) => f.id === requestedId) : undefined;
+    return (
+      <View style={[st.screen, st.empty]}>
+        <Text style={st.emptyText}>
+          {name ? `${name.home} v ${name.away} hasn't kicked off yet — the heatmap appears at kickoff.`
+                : 'No match stats yet. Heatmaps appear once a game kicks off.'}
+        </Text>
+      </View>
+    );
   }
+  const isForecast = !!forecast && active.fixtureId === forecast.fixtureId;
 
   const fixture = WC_FIXTURES.find((f) => f.id === active.fixtureId);
   const lineup  = lineups.find((l) => l.fixtureKey === `${active.home}|${active.away}`);
@@ -249,7 +283,7 @@ export default function MatchHeatmapScreen() {
     ...ev.yellowCards.map((c) => ({ minute: c.minute ?? 0, side: (c.team === active.home ? 'home' : 'away') as 'home' | 'away', kind: 'yellow' as const, icon: '🟨' })),
   ].sort((x, y) => x.minute - y.minute) : [];
 
-  const statusLine = active.status === 'LIVE' ? `LIVE ${active.elapsed ?? ''}'` : 'FULL TIME';
+  const statusLine = isForecast ? 'FORECAST' : active.status === 'LIVE' ? `LIVE ${active.elapsed ?? ''}'` : 'FULL TIME';
   const res = results[`${active.home}|${active.away}`];
   const scoreText = res && res.homeScore != null && res.awayScore != null ? `${res.homeScore} – ${res.awayScore}` : 'vs';
 
@@ -260,9 +294,21 @@ export default function MatchHeatmapScreen() {
   const subShots = hTerr >= aTerr ? a.totalShots : h.totalShots;
   const domPoss  = Math.round((hTerr >= aTerr ? h.possession : a.possession) * 100);
   const margin   = Math.abs(hTerr - aTerr);
-  const headline = margin >= 24 ? `${dom} dominated` : margin >= 10 ? `${dom} edged it` : 'Even territorial battle';
-  const explain  = `${domPoss}% of the ball and ${domShots} shots to ${subShots}.`;
-  const conseq   = margin >= 10 ? `${sub} rarely progressed beyond the middle third.` : 'Both sides traded control across the pitch.';
+  let headline = margin >= 24 ? `${dom} dominated` : margin >= 10 ? `${dom} edged it` : 'Even territorial battle';
+  let explain  = `${domPoss}% of the ball and ${domShots} shots to ${subShots}.`;
+  let conseq   = margin >= 10 ? `${sub} rarely progressed beyond the middle third.` : 'Both sides traded control across the pitch.';
+
+  // Forecast wording — predicted, not past tense; led by Lili's win probability.
+  if (isForecast && forecast) {
+    const hw = Math.round(forecast.homeWin * 100);
+    const dw = Math.round(forecast.draw * 100);
+    const aw = Math.round(forecast.awayWin * 100);
+    const tight = Math.abs(forecast.homeWin - forecast.awayWin) < 0.08;
+    const fav = forecast.homeWin >= forecast.awayWin ? active.home : active.away;
+    headline = tight ? 'Too close to call' : `${fav} favoured`;
+    explain  = `Lili's odds: ${active.home} ${hw}% · draw ${dw}% · ${active.away} ${aw}%.`;
+    conseq   = `Expecting ${dom} to see more of the ball (${domPoss}% projected) and press higher up the pitch.`;
+  }
 
   const Header = (
     <View style={st.header}>
@@ -353,6 +399,32 @@ export default function MatchHeatmapScreen() {
   );
 
   const Footer = <Text style={st.foot}>Heatmap & momentum modelled from possession, shots & xG — not player tracking · Data by Lili Signals</Text>;
+
+  // Pre-kickoff forecast view: predicted pressure on the same pitch, clearly
+  // labelled as a forecast. No momentum/score yet — those begin at kickoff.
+  if (isForecast && forecast) {
+    const basisLine =
+      forecast.basis === 'form'     ? "Modelled from both teams' tournament form so far"
+      : forecast.basis === 'mixed'  ? "Modelled from current form and Lili's strength ratings"
+      :                               "Modelled from Lili's strength ratings (no matches played yet)";
+    return (
+      <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
+        {Header}
+        <View style={st.fcBanner}>
+          <Text style={st.fcBannerTitle}>🔮 LILI'S FORECAST · PREDICTED PRESSURE</Text>
+          <Text style={st.fcBannerSub}>{basisLine}. The live heatmap takes over the moment the match kicks off.</Text>
+        </View>
+        <View style={st.narrowBody}>
+          <Pitch home={h} away={a} homeName={active.home} awayName={active.away} homeFormation={homeFormation} awayFormation={awayFormation} fill={false} />
+          <View style={st.fcNote}>
+            <Text style={st.fcNoteText}>Momentum, score & live stats begin at kickoff. Values shown are Lili's pre-match expectation — a model, not measured data.</Text>
+          </View>
+          <View style={{ marginTop: 12 }}>{RailContent}</View>
+        </View>
+        {Footer}
+      </ScrollView>
+    );
+  }
 
   const Main = tab !== 'Heatmap' ? (
     <View style={st.soon}><Text style={st.soonText}>🔧  {tab} — on the roadmap, coming soon.</Text></View>
@@ -558,6 +630,13 @@ const st = StyleSheet.create({
 
   soon:      { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 40 },
   soonText:  { color: D.text2, fontSize: 14 },
+
+  fcBanner:      { marginHorizontal: 14, marginTop: 10, paddingHorizontal: 12, paddingVertical: 8, borderRadius: 10,
+                   borderWidth: 1, borderColor: 'rgba(154,82,255,0.45)', backgroundColor: 'rgba(154,82,255,0.12)' },
+  fcBannerTitle: { color: D.purple, fontSize: 11, fontWeight: '900', letterSpacing: 0.5 },
+  fcBannerSub:   { color: D.text2, fontSize: 10, marginTop: 2, lineHeight: 14 },
+  fcNote:        { marginTop: 8, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 8, backgroundColor: D.panel, borderWidth: 1, borderColor: D.border },
+  fcNoteText:    { color: D.text3, fontSize: 10, lineHeight: 14, fontStyle: 'italic' },
 
   foot:      { color: D.text3, fontSize: 9, textAlign: 'center', paddingHorizontal: 16, paddingVertical: 5, fontStyle: 'italic' },
 });

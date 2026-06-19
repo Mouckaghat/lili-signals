@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { WC_FIXTURES, WC_TEAMS, type WCFixture } from '../lib/wcData';
@@ -90,6 +91,22 @@ function localTzLabel(): string {
   }
 }
 
+// ─── Heatmap teaser countdown ─────────────────────────────────────────────────
+// As kickoff nears, an upcoming match's row shows a "Heatmap in …" teaser that
+// builds anticipation for the forecast → live heatmap. Tapping it opens the
+// forecast straight away. Outside this window, upcoming rows show nothing extra.
+const HEAT_WARMUP_MS = 3 * 60 * 60 * 1000; // ≤3h out → "live at kickoff"
+const HEAT_COUNT_MS  = 60 * 60 * 1000;     // ≤1h out → minutes countdown
+const HEAT_TICK_MS   = 10 * 60 * 1000;     // ≤10m out → ticking m:ss (urgent)
+
+function fmtCountdown(diffMs: number): string {
+  const totalSec = Math.max(0, Math.floor(diffMs / 1000));
+  const m = Math.floor(totalSec / 60);
+  const s = totalSec % 60;
+  if (diffMs > HEAT_TICK_MS) return `${m}m`;      // ≥10 min → whole minutes
+  return `${m}:${String(s).padStart(2, '0')}`;    // <10 min → ticking m:ss
+}
+
 // ─── Build entries ────────────────────────────────────────────────────────────
 
 function buildEntries(group: string | null, liveResults: Record<string, FixtureResult>): MatchEntry[] {
@@ -114,7 +131,7 @@ function buildEntries(group: string | null, liveResults: Record<string, FixtureR
 
 // ─── Match row ────────────────────────────────────────────────────────────────
 
-function MatchRow({ entry, lineup, i18n }: { entry: MatchEntry; lineup?: MatchLineup; i18n: I18n }) {
+function MatchRow({ entry, lineup, i18n, now }: { entry: MatchEntry; lineup?: MatchLineup; i18n: I18n; now: number }) {
   const { fixture, kind, homeScore, awayScore } = entry;
   const color    = KIND_COLOR[kind];
   const homeTeam = WC_TEAMS.find((t) => t.name === fixture.home);
@@ -136,6 +153,14 @@ function MatchRow({ entry, lineup, i18n }: { entry: MatchEntry; lineup?: MatchLi
     envParts.push(`🌡 ${stadium.tempJuneC}°C`);
     envParts.push(fmtAlt(stadium.altitudeM, i18n));
   }
+
+  // Heatmap entry point: live/finished games with stats get the model; an
+  // upcoming game inside the warm-up window gets the countdown teaser → forecast.
+  const toKO         = new Date(fixture.date).getTime() - now;
+  const showLivePill = FIXTURES_WITH_HEAT.has(fixture.id) || kind === 'LIVE';
+  const showTeaser   = !showLivePill && toKO > 0 && toKO <= HEAT_WARMUP_MS;
+  const urgent       = toKO <= HEAT_TICK_MS;
+  const openHeatmap  = () => router.push({ pathname: '/match-heatmap', params: { fixtureId: fixture.id } } as any);
 
   return (
     <View style={[row.wrap, { borderLeftColor: color, borderLeftWidth: 2 }]}>
@@ -165,15 +190,25 @@ function MatchRow({ entry, lineup, i18n }: { entry: MatchEntry; lineup?: MatchLi
       {/* Heatmap shortcut — for matches with pre-baked stats AND any LIVE game
           (live games get their heatmap from /api/match-stats at runtime, so the
           flame must show even though the fixture isn't in the static set). */}
-      {(FIXTURES_WITH_HEAT.has(fixture.id) || kind === 'LIVE') && (
+      {showLivePill ? (
         <Pressable
-          onPress={() => router.push({ pathname: '/match-heatmap', params: { fixtureId: fixture.id } } as any)}
+          onPress={openHeatmap}
           hitSlop={6}
           style={({ pressed }) => [row.heatBtn, pressed && row.heatBtnPressed]}
         >
           <Text style={row.heatBtnText}>🔥 {i18n.tlHeatmap} →</Text>
         </Pressable>
-      )}
+      ) : showTeaser ? (
+        <Pressable
+          onPress={openHeatmap}
+          hitSlop={6}
+          style={({ pressed }) => [row.heatBtn, row.heatBtnTeaser, urgent && row.heatBtnUrgent, pressed && row.heatBtnPressed]}
+        >
+          <Text style={[row.heatBtnText, row.heatBtnTeaserText, urgent && row.heatBtnUrgentText]}>
+            🔥 {toKO <= HEAT_COUNT_MS ? `${i18n.tlHeatmapSoon} ${fmtCountdown(toKO)}` : i18n.tlHeatmapAtKO}
+          </Text>
+        </Pressable>
+      ) : null}
     </View>
   );
 }
@@ -197,6 +232,11 @@ const row = StyleSheet.create({
                backgroundColor: 'rgba(74,158,255,0.10)' },
   heatBtnPressed: { backgroundColor: 'rgba(74,158,255,0.22)' },
   heatBtnText: { fontSize: 11, fontWeight: '700', color: D.blue },
+  // Teaser (gold = anticipation), escalating to red in the final 10 minutes.
+  heatBtnTeaser:     { borderColor: 'rgba(212,165,32,0.45)', backgroundColor: 'rgba(212,165,32,0.10)' },
+  heatBtnTeaserText: { color: D.gold },
+  heatBtnUrgent:     { borderColor: 'rgba(255,59,48,0.55)', backgroundColor: 'rgba(255,59,48,0.12)' },
+  heatBtnUrgentText: { color: D.red },
 });
 
 // ─── Section ──────────────────────────────────────────────────────────────────
@@ -207,6 +247,13 @@ export default function MatchTimelineSection({ group }: { group: string | null }
   const allLineups  = useLineups();
   const entries     = buildEntries(group, liveResults);
   const tzLabel     = localTzLabel();
+
+  // Tick every second so the heatmap teaser countdowns stay live.
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, []);
 
   const lineupByKey = new Map(allLineups.map((l) => [l.fixtureKey, l]));
 
@@ -229,6 +276,7 @@ export default function MatchTimelineSection({ group }: { group: string | null }
             entry={entry}
             lineup={lineupByKey.get(`${entry.fixture.home}|${entry.fixture.away}`)}
             i18n={i18n}
+            now={now}
           />
         ))}
       </View>
