@@ -212,10 +212,17 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "B2_Canada_v_Qatar",
     home: "Canada", away: "Qatar", date: "2026-06-18",
-    status: "LIVE", elapsed: 90,
+    status: "FINISHED", elapsed: null,
     homeStats: { team: "Canada", possession: 0.79, totalShots: 30, shotsInsideBox: 19, shotsOutsideBox: 11, shotsOnGoal: 10, corners: 18, xg: 4.11, passAccuracy: 0.91, passes: 552, fouls: 8 },
     awayStats: { team: "Qatar", possession: 0.21, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 1, xg: 0.18, passAccuracy: 0.64, passes: 162, fouls: 10 },
   },
+  {
+    fixtureId: "A2_Mexico_v_South_Korea",
+    home: "Mexico", away: "South Korea", date: "2026-06-19",
+    status: "LIVE", elapsed: 45,
+    homeStats: { team: "Mexico", possession: 0.51, totalShots: 3, shotsInsideBox: 1, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 0, xg: 0.11, passAccuracy: 0.86, passes: 244, fouls: 2 },
+    awayStats: { team: "South Korea", possession: 0.49, totalShots: 1, shotsInsideBox: 1, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0.09, passAccuracy: 0.84, passes: 239, fouls: 4 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-19T00:01:55.971Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-19T01:47:18.656Z';
