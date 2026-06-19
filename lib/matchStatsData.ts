@@ -233,10 +233,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "D2_Scotland_v_Morocco",
     home: "Scotland", away: "Morocco", date: "2026-06-19",
-    status: "LIVE", elapsed: 16,
-    homeStats: { team: "Scotland", possession: 0.22, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.74, passes: 35, fouls: 1 },
-    awayStats: { team: "Morocco", possession: 0.78, totalShots: 1, shotsInsideBox: 1, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 1, xg: 0.13, passAccuracy: 0.94, passes: 125, fouls: 0 },
+    status: "LIVE", elapsed: 36,
+    homeStats: { team: "Scotland", possession: 0.37, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.87, passes: 142, fouls: 4 },
+    awayStats: { team: "Morocco", possession: 0.63, totalShots: 3, shotsInsideBox: 2, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 3, xg: 0.19, passAccuracy: 0.92, passes: 247, fouls: 2 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-19T22:15:56.042Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-19T22:35:38.803Z';
