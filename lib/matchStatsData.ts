@@ -223,6 +223,13 @@ export const MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Mexico", possession: 0.42, totalShots: 8, shotsInsideBox: 5, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 0, xg: 0.48, passAccuracy: 0.82, passes: 429, fouls: 9 },
     awayStats: { team: "South Korea", possession: 0.58, totalShots: 9, shotsInsideBox: 6, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 2, xg: 0.69, passAccuracy: 0.84, passes: 579, fouls: 7 },
   },
+  {
+    fixtureId: "C2_USA_v_Australia",
+    home: "USA", away: "Australia", date: "2026-06-19",
+    status: "LIVE", elapsed: 45,
+    homeStats: { team: "USA", possession: 0.71, totalShots: 8, shotsInsideBox: 7, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 3, xg: 1.17, passAccuracy: 0.89, passes: 286, fouls: 8 },
+    awayStats: { team: "Australia", possession: 0.29, totalShots: 2, shotsInsideBox: 2, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 2, xg: 0.12, passAccuracy: 0.63, passes: 115, fouls: 8 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-19T18:22:39.907Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-19T20:08:30.745Z';
