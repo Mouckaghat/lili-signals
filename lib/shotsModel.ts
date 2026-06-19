@@ -8,6 +8,7 @@ import { PLAYER_MATCH_STATS } from './playerStatsData';
 import { FIXTURE_RESULTS, type FixtureResult } from './fixtureResultsData';
 import { WC_TEAMS } from './wcData';
 import { nextOpponent } from './attackZones';
+import { HEATMAP_I18N, hmT, type HeatmapI18n } from './heatmapI18n';
 
 const flagOf = (t: string) => WC_TEAMS.find((x) => x.name === t)?.flag ?? '🏳';
 const clamp = (lo: number, hi: number, n: number) => (n < lo ? lo : n > hi ? hi : n);
@@ -35,12 +36,12 @@ function gkSaves(fixtureId: string, team: string): number {
   return PLAYER_MATCH_STATS.filter((p) => p.fixtureId === fixtureId && p.team === team && p.pos === 'GK')
     .reduce((n, p) => n + (p.saves || 0), 0);
 }
-function gkLine(saves: number, xga: number, conceded: number): GkLine {
+function gkLine(saves: number, xga: number, conceded: number, L: HeatmapI18n): GkLine {
   const prevented = +(xga - conceded).toFixed(1);
   const index = Math.round(clamp(35, 99, 58 + prevented * 12 + saves * 1.5));
-  const out = prevented >= 1.5 ? { label: 'Goalkeeper Heroics', icon: '🧤' }
-    : prevented <= -1 ? { label: 'Beaten Too Often', icon: '🩹' }
-    : { label: 'Solid Display', icon: '🧱' };
+  const out = prevented >= 1.5 ? { label: L.gkHeroics, icon: '🧤' }
+    : prevented <= -1 ? { label: L.gkBeaten, icon: '🩹' }
+    : { label: L.gkSolid, icon: '🧱' };
   return { saves, xga, conceded, prevented, index, ...out };
 }
 
@@ -55,18 +56,25 @@ function teamLine(team: string, s: TeamMatchStats, goals: number): ShotTeam {
   };
 }
 
-export function shotsMatch(fixtureId: string, results: Record<string, FixtureResult> = FIXTURE_RESULTS): ShotsMatch | null {
+export function shotsMatch(fixtureId: string, results: Record<string, FixtureResult> = FIXTURE_RESULTS, L: HeatmapI18n = HEATMAP_I18N.EN): ShotsMatch | null {
   const m = MATCH_STATS.find((x) => x.fixtureId === fixtureId);
   if (!m) return null;
   const r = results[`${m.home}|${m.away}`];
   const hg = r?.homeScore ?? 0, ag = r?.awayScore ?? 0;
   const home = teamLine(m.home, m.homeStats, hg);
   const away = teamLine(m.away, m.awayStats, ag);
-  const gkHome = gkLine(gkSaves(fixtureId, m.home), m.awayStats.xg || 0, ag); // home GK faces away xG, concedes away goals
-  const gkAway = gkLine(gkSaves(fixtureId, m.away), m.homeStats.xg || 0, hg);
+  const gkHome = gkLine(gkSaves(fixtureId, m.home), m.awayStats.xg || 0, ag, L); // home GK faces away xG, concedes away goals
+  const gkAway = gkLine(gkSaves(fixtureId, m.away), m.homeStats.xg || 0, hg, L);
 
   const [dom, sub] = home.danger >= away.danger ? [home, away] : [away, home];
-  const lili = `${dom.team} created the better chances — ${dom.shots} shots (${dom.sot} on target, ${dom.xg.toFixed(1)} xG) to ${sub.shots}. Most attempts came from inside the box (${dom.inside} of ${dom.shots}). ${dom.effIcon === '🔥' ? `${dom.team} finished clinically, beating their xG.` : dom.effIcon === '❄' ? `${dom.team} were wasteful in front of goal.` : 'Finishing matched the chance quality.'} The scoreline ${dom.goals > sub.goals ? `reflects ${dom.team}'s attacking edge.` : 'didn\'t fully reflect the balance of chances.'}`;
+  const finClause = dom.effIcon === '🔥' ? hmT(L.shClinical, { dom: dom.team })
+    : dom.effIcon === '❄' ? hmT(L.shWasteful, { dom: dom.team })
+    : L.shMatched;
+  const scoreSentence = dom.goals > sub.goals ? hmT(L.shScoreEdge, { dom: dom.team }) : L.shScoreFlattered;
+  const lili = hmT(L.shLili, {
+    dom: dom.team, shots: dom.shots, sot: dom.sot, xg: dom.xg.toFixed(1), sub: sub.shots,
+    inside: dom.inside, finClause, scoreSentence,
+  });
 
   return { home, away, gkHome, gkAway, lili };
 }

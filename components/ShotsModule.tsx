@@ -4,6 +4,8 @@ import { shotsMatch, shotRankings, shotFuture, type ShotsMatch, type ShotTeam, t
 import type { MatchStats } from '../lib/matchStatsData';
 import { useLiveResults } from '../lib/useLiveResults';
 import { WC_TEAMS } from '../lib/wcData';
+import { useLanguage } from '../contexts/LanguageContext';
+import { HEATMAP_I18N } from '../lib/heatmapI18n';
 
 const D = {
   panel:  '#0A1322',
@@ -36,7 +38,8 @@ export default function ShotsModule({ match }: { match: MatchStats }) {
   const { width } = useWindowDimensions();
   const wide = width >= 860;
   const results = useLiveResults();
-  const m: ShotsMatch | null = useMemo(() => shotsMatch(match.fixtureId, results), [match.fixtureId, results]);
+  const { lang } = useLanguage();
+  const m: ShotsMatch | null = useMemo(() => shotsMatch(match.fixtureId, results, HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN), [match.fixtureId, results, lang]);
   const rank = useMemo(() => shotRankings(results), [results]);
   const fut = useMemo(() => shotFuture(match.home, results), [match.home, results]);
 

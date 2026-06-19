@@ -4,6 +4,8 @@ import { dangerProfile, liliSummary, tournamentAttack, nextOpponent, teamAggrega
 import type { MatchStats } from '../lib/matchStatsData';
 import { useLiveResults } from '../lib/useLiveResults';
 import { WC_TEAMS } from '../lib/wcData';
+import { useLanguage } from '../contexts/LanguageContext';
+import { HEATMAP_I18N } from '../lib/heatmapI18n';
 
 const D = {
   panel:  '#0A1322',
@@ -43,7 +45,8 @@ export default function AttackZonesModule({ match }: { match: MatchStats }) {
   const h = useMemo(() => dangerProfile(match.homeStats), [match.homeStats]);
   const a = useMemo(() => dangerProfile(match.awayStats), [match.awayStats]);
   const rank = useMemo(() => tournamentAttack(results), [results]);
-  const summary = liliSummary(match.home, match.away, h, a);
+  const { lang } = useLanguage();
+  const summary = liliSummary(match.home, match.away, h, a, HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN);
 
   const mx = (x: number, y: number) => Math.max(x, y, 1);
   const nInsideH = h.inside / mx(h.inside, a.inside), nInsideA = a.inside / mx(h.inside, a.inside);

@@ -52,6 +52,21 @@ export interface HeatmapI18n {
   fcBasisStrength: string;
   fcBannerTail: string;
   fcNote: string;
+  // ── Shots tab ──
+  gkHeroics: string;
+  gkBeaten: string;
+  gkSolid: string;
+  shLili: string;        // {dom} {shots} {sot} {xg} {sub} {inside} {finClause} {scoreSentence}
+  shClinical: string;    // {dom}
+  shWasteful: string;    // {dom}
+  shMatched: string;
+  shScoreEdge: string;   // {dom}
+  shScoreFlattered: string;
+  // ── Attack Zones tab ──
+  bandBox: string;
+  bandRange: string;
+  bandWide: string;
+  azLili: string;        // {dom} {dDanger} {sDanger} {band} {boxPct} {sub}
 }
 
 export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
@@ -79,6 +94,12 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     fcBasisStrength: "Modelled from Lili's strength ratings (no matches played yet)",
     fcBannerTail: 'The live heatmap takes over the moment the match kicks off.',
     fcNote: "Momentum, score & live stats begin at kickoff. Values shown are Lili's pre-match expectation — a model, not measured data.",
+    gkHeroics: 'Goalkeeper Heroics', gkBeaten: 'Beaten Too Often', gkSolid: 'Solid Display',
+    shLili: '{dom} created the better chances — {shots} shots ({sot} on target, {xg} xG) to {sub}. Most attempts came from inside the box ({inside} of {shots}). {finClause} {scoreSentence}',
+    shClinical: '{dom} finished clinically, beating their xG.', shWasteful: '{dom} were wasteful in front of goal.', shMatched: 'Finishing matched the chance quality.',
+    shScoreEdge: "The scoreline reflects {dom}'s attacking edge.", shScoreFlattered: "The scoreline didn't fully reflect the balance of chances.",
+    bandBox: 'inside the penalty area', bandRange: 'from distance', bandWide: 'wide areas and set pieces',
+    azLili: '{dom} created the most danger — {dDanger} dangerous attacks to {sDanger}, mostly {band} ({boxPct}% of shots from inside the box). {sub} rarely reached dangerous areas and relied on isolated chances.',
   },
   FR: {
     statPossession: 'Possession', statShots: 'Tirs', statSoT: 'Tirs cadrés', statCorners: 'Corners', statPasses: 'Passes', statPassAcc: 'Précision passes', statXg: 'Buts attendus',
@@ -104,6 +125,12 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     fcBasisStrength: 'Modélisé d’après les notes de force de Lili (aucun match joué)',
     fcBannerTail: 'La carte en direct prend le relais dès le coup d’envoi.',
     fcNote: 'Le momentum, le score et les stats en direct démarrent au coup d’envoi. Les valeurs affichées sont l’estimation d’avant-match de Lili — un modèle, pas des données mesurées.',
+    gkHeroics: 'Gardien héroïque', gkBeaten: 'Trop souvent battu', gkSolid: 'Prestation solide',
+    shLili: '{dom} s’est créé les meilleures occasions — {shots} tirs ({sot} cadrés, {xg} xG) contre {sub}. La plupart venaient de la surface ({inside} sur {shots}). {finClause} {scoreSentence}',
+    shClinical: '{dom} a fait preuve d’efficacité, dépassant son xG.', shWasteful: '{dom} a manqué de réalisme devant le but.', shMatched: 'La finition était à la hauteur des occasions.',
+    shScoreEdge: 'Le score reflète l’avantage offensif de {dom}.', shScoreFlattered: 'Le score ne reflète pas vraiment l’équilibre des occasions.',
+    bandBox: 'dans la surface', bandRange: 'de loin', bandWide: 'des côtés et sur coups de pied arrêtés',
+    azLili: '{dom} a créé le plus de danger — {dDanger} attaques dangereuses contre {sDanger}, surtout {band} ({boxPct} % des tirs depuis la surface). {sub} a rarement atteint les zones dangereuses et s’est appuyé sur des occasions isolées.',
   },
   IT: {
     statPossession: 'Possesso', statShots: 'Tiri', statSoT: 'Tiri in porta', statCorners: 'Calci d’angolo', statPasses: 'Passaggi', statPassAcc: 'Precisione passaggi', statXg: 'Gol attesi',
@@ -129,6 +156,12 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     fcBasisStrength: 'Modellato sulle valutazioni di forza di Lili (nessuna partita giocata)',
     fcBannerTail: 'La mappa live prende il posto al fischio d’inizio.',
     fcNote: 'Momentum, punteggio e statistiche live partono al calcio d’inizio. I valori mostrati sono la previsione pre-partita di Lili — un modello, non dati misurati.',
+    gkHeroics: 'Portiere decisivo', gkBeaten: 'Battuto troppo spesso', gkSolid: 'Prova solida',
+    shLili: '{dom} ha creato le occasioni migliori — {shots} tiri ({sot} in porta, {xg} xG) contro {sub}. La maggior parte dall’area ({inside} su {shots}). {finClause} {scoreSentence}',
+    shClinical: '{dom} è stato cinico, superando il proprio xG.', shWasteful: '{dom} è stato sprecone sotto porta.', shMatched: 'La finalizzazione è stata pari alle occasioni.',
+    shScoreEdge: 'Il risultato riflette la superiorità offensiva di {dom}.', shScoreFlattered: 'Il risultato non riflette del tutto l’equilibrio delle occasioni.',
+    bandBox: 'in area di rigore', bandRange: 'dalla distanza', bandWide: 'dalle fasce e sui calci piazzati',
+    azLili: '{dom} ha creato più pericolo — {dDanger} attacchi pericolosi contro {sDanger}, soprattutto {band} ({boxPct}% dei tiri dall’area). {sub} ha raramente raggiunto le zone pericolose, affidandosi a occasioni isolate.',
   },
   DE: {
     statPossession: 'Ballbesitz', statShots: 'Schüsse', statSoT: 'Schüsse aufs Tor', statCorners: 'Ecken', statPasses: 'Pässe', statPassAcc: 'Passquote', statXg: 'Erwartete Tore',
@@ -154,6 +187,12 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     fcBasisStrength: 'Modelliert aus Lilis Stärkewerten (noch kein Spiel gespielt)',
     fcBannerTail: 'Die Live-Heatmap übernimmt mit dem Anpfiff.',
     fcNote: 'Momentum, Ergebnis und Live-Statistiken starten mit dem Anpfiff. Die gezeigten Werte sind Lilis Vorhersage vor dem Spiel — ein Modell, keine gemessenen Daten.',
+    gkHeroics: 'Torwart-Glanzleistung', gkBeaten: 'Zu oft bezwungen', gkSolid: 'Solide Leistung',
+    shLili: '{dom} hatte die besseren Chancen — {shots} Schüsse ({sot} aufs Tor, {xg} xG) gegen {sub}. Die meisten kamen aus dem Strafraum ({inside} von {shots}). {finClause} {scoreSentence}',
+    shClinical: '{dom} war eiskalt und übertraf den xG-Wert.', shWasteful: '{dom} ließ vor dem Tor zu viel liegen.', shMatched: 'Die Chancenverwertung entsprach der Chancenqualität.',
+    shScoreEdge: 'Das Ergebnis spiegelt die Offensivüberlegenheit von {dom} wider.', shScoreFlattered: 'Das Ergebnis spiegelt die Chancenverteilung nicht ganz wider.',
+    bandBox: 'im Strafraum', bandRange: 'aus der Distanz', bandWide: 'über die Flügel und Standards',
+    azLili: '{dom} erzeugte die größte Gefahr — {dDanger} gefährliche Angriffe gegen {sDanger}, meist {band} ({boxPct} % der Schüsse aus dem Strafraum). {sub} erreichte selten gefährliche Zonen und war auf Einzelaktionen angewiesen.',
   },
   ES: {
     statPossession: 'Posesión', statShots: 'Tiros', statSoT: 'Tiros a puerta', statCorners: 'Córners', statPasses: 'Pases', statPassAcc: 'Precisión de pase', statXg: 'Goles esperados',
@@ -179,6 +218,12 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     fcBasisStrength: 'Modelado a partir de las valoraciones de Lili (sin partidos jugados)',
     fcBannerTail: 'El mapa en vivo toma el relevo en cuanto arranca el partido.',
     fcNote: 'El momentum, el marcador y las estadísticas en vivo empiezan con el saque inicial. Los valores mostrados son la previsión de Lili antes del partido — un modelo, no datos medidos.',
+    gkHeroics: 'Portero providencial', gkBeaten: 'Batido demasiado', gkSolid: 'Actuación sólida',
+    shLili: '{dom} creó las mejores ocasiones — {shots} tiros ({sot} a puerta, {xg} xG) por {sub}. La mayoría desde el área ({inside} de {shots}). {finClause} {scoreSentence}',
+    shClinical: '{dom} estuvo acertado y superó su xG.', shWasteful: '{dom} estuvo impreciso de cara a puerta.', shMatched: 'La definición estuvo a la altura de las ocasiones.',
+    shScoreEdge: 'El marcador refleja la superioridad ofensiva de {dom}.', shScoreFlattered: 'El marcador no refleja del todo el equilibrio de ocasiones.',
+    bandBox: 'dentro del área', bandRange: 'desde lejos', bandWide: 'por las bandas y a balón parado',
+    azLili: '{dom} generó el mayor peligro — {dDanger} ataques peligrosos por {sDanger}, sobre todo {band} ({boxPct} % de los tiros desde el área). {sub} rara vez llegó a zonas de peligro y dependió de ocasiones aisladas.',
   },
   RU: {
     statPossession: 'Владение', statShots: 'Удары', statSoT: 'Удары в створ', statCorners: 'Угловые', statPasses: 'Передачи', statPassAcc: 'Точность передач', statXg: 'Ожидаемые голы',
@@ -204,6 +249,12 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     fcBasisStrength: 'Смоделировано по рейтингам силы Лили (матчей ещё не было)',
     fcBannerTail: 'Живая карта включается сразу после стартового свистка.',
     fcNote: 'Моментум, счёт и статистика в реальном времени стартуют с началом матча. Показанные значения — предматчевый прогноз Лили, модель, а не измеренные данные.',
+    gkHeroics: 'Подвиги вратаря', gkBeaten: 'Пропускал слишком часто', gkSolid: 'Надёжная игра',
+    shLili: '{dom} создал моменты опаснее — {shots} ударов ({sot} в створ, {xg} xG) против {sub}. Большинство из штрафной ({inside} из {shots}). {finClause} {scoreSentence}',
+    shClinical: '{dom} реализовал хладнокровно, превзойдя свой xG.', shWasteful: '{dom} был расточителен у ворот.', shMatched: 'Реализация соответствовала качеству моментов.',
+    shScoreEdge: 'Счёт отражает атакующее преимущество {dom}.', shScoreFlattered: 'Счёт не вполне отражает баланс моментов.',
+    bandBox: 'из штрафной', bandRange: 'издали', bandWide: 'с флангов и со стандартов',
+    azLili: '{dom} создал больше всего опасности — {dDanger} опасных атак против {sDanger}, в основном {band} ({boxPct}% ударов из штрафной). {sub} редко доходил до опасных зон и полагался на отдельные моменты.',
   },
   CN: {
     statPossession: '控球', statShots: '射门', statSoT: '射正', statCorners: '角球', statPasses: '传球', statPassAcc: '传球成功率', statXg: '预期进球',
@@ -229,6 +280,12 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     fcBasisStrength: '根据莉莉的实力评分建模（尚未进行比赛）',
     fcBannerTail: '开球后即切换为实时热力图。',
     fcNote: '势头、比分和实时数据将在开球后开始。所示数值为莉莉的赛前预测——一个模型，而非实测数据。',
+    gkHeroics: '门将神勇', gkBeaten: '失球过多', gkSolid: '表现稳健',
+    shLili: '{dom} 创造了更好的机会——{shots} 次射门（{sot} 次射正，{xg} xG）对 {sub} 次。多数来自禁区内（{shots} 次中 {inside} 次）。{finClause} {scoreSentence}',
+    shClinical: '{dom} 把握机会高效，超出其 xG。', shWasteful: '{dom} 在门前浪费了机会。', shMatched: '终结质量与机会质量相符。',
+    shScoreEdge: '比分反映了 {dom} 的进攻优势。', shScoreFlattered: '比分并未完全反映机会的均衡。',
+    bandBox: '禁区内', bandRange: '远射', bandWide: '边路与定位球',
+    azLili: '{dom} 制造了最多威胁——{dDanger} 次危险进攻对 {sDanger} 次，多数来自{band}（{boxPct}% 的射门来自禁区内）。{sub} 很少进入危险区域，只能依靠零星机会。',
   },
   JP: {
     statPossession: 'ポゼッション', statShots: 'シュート', statSoT: '枠内シュート', statCorners: 'コーナー', statPasses: 'パス', statPassAcc: 'パス成功率', statXg: '期待値ゴール',
@@ -254,6 +311,12 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     fcBasisStrength: 'リリの戦力評価からモデル化（試合未消化）',
     fcBannerTail: 'キックオフと同時にライブのヒートマップに切り替わります。',
     fcNote: '勢い・スコア・ライブ統計はキックオフから始まります。表示値はリリの試合前予想であり、実測データではなくモデルです。',
+    gkHeroics: 'GKの好守', gkBeaten: '失点が多い', gkSolid: '安定した出来',
+    shLili: '{dom} がより良い機会を作った——{shots} 本のシュート（枠内 {sot} 本、{xg} xG）対 {sub} 本。多くはエリア内から（{shots} 本中 {inside} 本）。{finClause} {scoreSentence}',
+    shClinical: '{dom} は xG を上回る効率で決め切った。', shWasteful: '{dom} はゴール前で決定力を欠いた。', shMatched: '決定力は機会の質に見合っていた。',
+    shScoreEdge: 'スコアは {dom} の攻撃面での優位を反映している。', shScoreFlattered: 'スコアは機会の均衡を十分には反映していない。',
+    bandBox: 'ペナルティエリア内から', bandRange: '遠目から', bandWide: 'サイドとセットプレーから',
+    azLili: '{dom} が最も多くの脅威を作った——危険な攻撃 {dDanger} 回対 {sDanger} 回、主に{band}（シュートの {boxPct}% がエリア内から）。{sub} は危険地帯にほとんど到達できず、単発の機会に頼った。',
   },
   KR: {
     statPossession: '점유율', statShots: '슈팅', statSoT: '유효 슈팅', statCorners: '코너킥', statPasses: '패스', statPassAcc: '패스 성공률', statXg: '기대 득점',
@@ -279,6 +342,12 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     fcBasisStrength: '릴리의 전력 평가를 바탕으로 모델링(경기 미진행)',
     fcBannerTail: '킥오프와 동시에 라이브 히트맵으로 전환됩니다.',
     fcNote: '모멘텀·스코어·라이브 통계는 킥오프부터 시작됩니다. 표시된 값은 릴리의 경기 전 예측으로, 실측이 아닌 모델입니다.',
+    gkHeroics: '골키퍼 선방', gkBeaten: '실점 과다', gkSolid: '안정적인 활약',
+    shLili: '{dom}이(가) 더 좋은 기회를 만듦 — 슈팅 {shots}회(유효 {sot}회, {xg} xG) 대 {sub}회. 대부분 박스 안에서({shots}회 중 {inside}회). {finClause} {scoreSentence}',
+    shClinical: '{dom}은(는) xG를 웃도는 결정력을 보였다.', shWasteful: '{dom}은(는) 골 앞에서 기회를 낭비했다.', shMatched: '마무리가 기회의 질에 부합했다.',
+    shScoreEdge: '스코어는 {dom}의 공격 우위를 반영한다.', shScoreFlattered: '스코어는 기회의 균형을 충분히 반영하지 못했다.',
+    bandBox: '박스 안에서', bandRange: '중거리에서', bandWide: '측면과 세트피스에서',
+    azLili: '{dom}이(가) 가장 큰 위협을 만듦 — 위협적인 공격 {dDanger}회 대 {sDanger}회, 주로 {band}(슈팅의 {boxPct}%가 박스 안에서). {sub}은(는) 위험 지역에 거의 도달하지 못하고 단발성 기회에 의존했다.',
   },
   PT: {
     statPossession: 'Posse de bola', statShots: 'Remates', statSoT: 'Remates à baliza', statCorners: 'Cantos', statPasses: 'Passes', statPassAcc: 'Precisão de passe', statXg: 'Golos esperados',
@@ -304,6 +373,12 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     fcBasisStrength: 'Modelado pelas notas de força da Lili (sem jogos disputados)',
     fcBannerTail: 'O mapa ao vivo assume no momento do pontapé de saída.',
     fcNote: 'Momentum, resultado e estatísticas ao vivo começam no pontapé de saída. Os valores mostrados são a previsão pré-jogo da Lili — um modelo, não dados medidos.',
+    gkHeroics: 'Guarda-redes decisivo', gkBeaten: 'Batido vezes demais', gkSolid: 'Exibição sólida',
+    shLili: '{dom} criou as melhores ocasiões — {shots} remates ({sot} à baliza, {xg} xG) contra {sub}. A maioria dentro da área ({inside} de {shots}). {finClause} {scoreSentence}',
+    shClinical: '{dom} foi eficaz e superou o seu xG.', shWasteful: '{dom} foi perdulário à frente da baliza.', shMatched: 'A finalização correspondeu à qualidade das ocasiões.',
+    shScoreEdge: 'O resultado reflete a superioridade ofensiva de {dom}.', shScoreFlattered: 'O resultado não reflete totalmente o equilíbrio de ocasiões.',
+    bandBox: 'dentro da área', bandRange: 'de longe', bandWide: 'pelas alas e em bolas paradas',
+    azLili: '{dom} criou o maior perigo — {dDanger} ataques perigosos contra {sDanger}, sobretudo {band} ({boxPct}% dos remates dentro da área). {sub} raramente chegou a zonas perigosas e dependeu de ocasiões isoladas.',
   },
   AR: {
     statPossession: 'الاستحواذ', statShots: 'التسديدات', statSoT: 'تسديدات على المرمى', statCorners: 'الركنيات', statPasses: 'التمريرات', statPassAcc: 'دقة التمرير', statXg: 'الأهداف المتوقعة',
@@ -329,6 +404,12 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     fcBasisStrength: 'مبني على تقييمات قوة ليلي (لم تُلعب مباريات بعد)',
     fcBannerTail: 'تتولّى الخريطة المباشرة فور انطلاق المباراة.',
     fcNote: 'يبدأ الزخم والنتيجة والإحصاءات المباشرة عند انطلاق المباراة. القيم المعروضة هي توقّع ليلي قبل المباراة — نموذج وليست بيانات مقيسة.',
+    gkHeroics: 'تألّق حارس المرمى', gkBeaten: 'استقبل أهدافًا كثيرة', gkSolid: 'أداء ثابت',
+    shLili: 'صنع {dom} الفرص الأفضل — {shots} تسديدة ({sot} على المرمى، {xg} xG) مقابل {sub}. جاء معظمها من داخل المنطقة ({inside} من {shots}). {finClause} {scoreSentence}',
+    shClinical: 'أنهى {dom} بفاعلية متجاوزًا قيمته المتوقّعة xG.', shWasteful: 'أهدر {dom} الفرص أمام المرمى.', shMatched: 'جاء التهديف موازيًا لجودة الفرص.',
+    shScoreEdge: 'تعكس النتيجة الأفضلية الهجومية لـ {dom}.', shScoreFlattered: 'لا تعكس النتيجة تمامًا توازن الفرص.',
+    bandBox: 'داخل منطقة الجزاء', bandRange: 'من بعيد', bandWide: 'من الأطراف والكرات الثابتة',
+    azLili: 'صنع {dom} أكبر قدر من الخطورة — {dDanger} هجمة خطيرة مقابل {sDanger}، معظمها {band} ({boxPct}% من التسديدات من داخل المنطقة). نادرًا ما بلغ {sub} المناطق الخطيرة واعتمد على فرص متفرّقة.',
   },
 };
 

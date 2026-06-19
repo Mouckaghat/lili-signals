@@ -7,6 +7,7 @@
 import { MATCH_STATS, type TeamMatchStats } from './matchStatsData';
 import { FIXTURE_RESULTS, type FixtureResult } from './fixtureResultsData';
 import { WC_FIXTURES, WC_TEAMS } from './wcData';
+import { HEATMAP_I18N, hmT, type HeatmapI18n } from './heatmapI18n';
 
 const flagOf = (team: string) => WC_TEAMS.find((t) => t.name === team)?.flag ?? '🏳';
 
@@ -37,11 +38,14 @@ export function dangerProfile(s: TeamMatchStats): DangerProfile {
   return { inside, outside, wide, sot, xg, total, dangerous, boxShare: inside / total, primary };
 }
 
-const BAND_LABEL: Record<Band, string> = { box: 'inside the penalty area', range: 'from distance', wide: 'wide areas and set pieces' };
+const bandLabel = (b: Band, L: HeatmapI18n): string => (b === 'box' ? L.bandBox : b === 'range' ? L.bandRange : L.bandWide);
 
-export function liliSummary(home: string, away: string, h: DangerProfile, a: DangerProfile): string {
+export function liliSummary(home: string, away: string, h: DangerProfile, a: DangerProfile, L: HeatmapI18n = HEATMAP_I18N.EN): string {
   const [dom, sub, dp, sp] = h.dangerous >= a.dangerous ? [home, away, h, a] : [away, home, a, h];
-  return `${dom} created the most danger — ${dp.dangerous} dangerous attacks to ${sp.dangerous}, mostly ${BAND_LABEL[dp.primary]} (${Math.round(dp.boxShare * 100)}% of shots from inside the box). ${sub} rarely reached dangerous areas and relied on isolated chances.`;
+  return hmT(L.azLili, {
+    dom, dDanger: dp.dangerous, sDanger: sp.dangerous,
+    band: bandLabel(dp.primary, L), boxPct: Math.round(dp.boxShare * 100), sub,
+  });
 }
 
 // ── Tournament aggregate ─────────────────────────────────────────────────────
