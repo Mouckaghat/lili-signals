@@ -157,8 +157,8 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "J1_Argentina_v_Algeria",
     home: "Argentina", away: "Algeria", date: "2026-06-17",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Argentina", possession: 0.48, totalShots: 10, shotsInsideBox: 4, shotsOutsideBox: 6, shotsOnGoal: 6, corners: 2, xg: 1.23, passAccuracy: 0.9, passes: 561, fouls: 13 },
-    awayStats: { team: "Algeria", possession: 0.52, totalShots: 7, shotsInsideBox: 3, shotsOutsideBox: 4, shotsOnGoal: 0, corners: 2, xg: 0.31, passAccuracy: 0.92, passes: 607, fouls: 8 },
+    homeStats: { team: "Argentina", possession: 0.48, totalShots: 10, shotsInsideBox: 4, shotsOutsideBox: 6, shotsOnGoal: 6, corners: 2, xg: 1.47, passAccuracy: 0.9, passes: 561, fouls: 13 },
+    awayStats: { team: "Algeria", possession: 0.52, totalShots: 7, shotsInsideBox: 3, shotsOutsideBox: 4, shotsOnGoal: 0, corners: 2, xg: 0.3, passAccuracy: 0.92, passes: 609, fouls: 8 },
   },
   {
     fixtureId: "J1_Austria_v_Jordan",
@@ -171,15 +171,15 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "K1_Portugal_v_Congo_DR",
     home: "Portugal", away: "Congo DR", date: "2026-06-17",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Portugal", possession: 0.75, totalShots: 7, shotsInsideBox: 5, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 5, xg: 0.69, passAccuracy: 0.92, passes: 783, fouls: 9 },
-    awayStats: { team: "Congo DR", possession: 0.25, totalShots: 8, shotsInsideBox: 2, shotsOutsideBox: 6, shotsOnGoal: 2, corners: 4, xg: 0.82, passAccuracy: 0.78, passes: 251, fouls: 10 },
+    homeStats: { team: "Portugal", possession: 0.75, totalShots: 7, shotsInsideBox: 5, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 5, xg: 0.65, passAccuracy: 0.92, passes: 783, fouls: 9 },
+    awayStats: { team: "Congo DR", possession: 0.25, totalShots: 8, shotsInsideBox: 2, shotsOutsideBox: 6, shotsOnGoal: 2, corners: 4, xg: 0.87, passAccuracy: 0.78, passes: 249, fouls: 10 },
   },
   {
     fixtureId: "L1_England_v_Croatia",
     home: "England", away: "Croatia", date: "2026-06-17",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "England", possession: 0.52, totalShots: 22, shotsInsideBox: 20, shotsOutsideBox: 2, shotsOnGoal: 11, corners: 8, xg: 2.8, passAccuracy: 0.86, passes: 473, fouls: 10 },
-    awayStats: { team: "Croatia", possession: 0.48, totalShots: 10, shotsInsideBox: 4, shotsOutsideBox: 6, shotsOnGoal: 5, corners: 2, xg: 0.71, passAccuracy: 0.86, passes: 442, fouls: 12 },
+    homeStats: { team: "England", possession: 0.52, totalShots: 22, shotsInsideBox: 20, shotsOutsideBox: 2, shotsOnGoal: 11, corners: 8, xg: 3.2, passAccuracy: 0.86, passes: 474, fouls: 10 },
+    awayStats: { team: "Croatia", possession: 0.48, totalShots: 10, shotsInsideBox: 4, shotsOutsideBox: 6, shotsOnGoal: 5, corners: 2, xg: 0.7, passAccuracy: 0.86, passes: 443, fouls: 12 },
   },
   {
     fixtureId: "L1_Ghana_v_Panama",
@@ -219,10 +219,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "A2_Mexico_v_South_Korea",
     home: "Mexico", away: "South Korea", date: "2026-06-19",
-    status: "LIVE", elapsed: 45,
-    homeStats: { team: "Mexico", possession: 0.51, totalShots: 3, shotsInsideBox: 1, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 0, xg: 0.11, passAccuracy: 0.86, passes: 244, fouls: 2 },
-    awayStats: { team: "South Korea", possession: 0.49, totalShots: 1, shotsInsideBox: 1, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0.09, passAccuracy: 0.84, passes: 239, fouls: 4 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Mexico", possession: 0.42, totalShots: 8, shotsInsideBox: 5, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 0, xg: 0.48, passAccuracy: 0.82, passes: 429, fouls: 9 },
+    awayStats: { team: "South Korea", possession: 0.58, totalShots: 9, shotsInsideBox: 6, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 2, xg: 0.69, passAccuracy: 0.84, passes: 579, fouls: 7 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-19T01:47:18.656Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-19T06:51:51.521Z';
