@@ -464,9 +464,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     yellowCards: [
       { player: "Issa Diop", team: "Morocco", minute: 23, reason: "Holding" },
+      { player: "Andy Robertson", team: "Scotland", minute: 65, reason: "Holding" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-19T22:33:11.012Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-19T23:41:55.122Z';
