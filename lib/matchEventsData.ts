@@ -321,7 +321,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Portugal", away: "Congo DR", date: "2026-06-17",
     goals: [
       { player: "João Neves", team: "Portugal", minute: 6, type: "goal" },
-      { player: "Yoane Wissa", team: "Congo DR", minute: 45, minuteStoppage: 5, type: "goal" },
+      { player: "Yoane Wissa", team: "Congo DR", minute: 45, type: "goal" },
     ],
     yellowCards: [
       { player: "Bernardo Silva", team: "Portugal", minute: 13, reason: "Foul" },
@@ -338,7 +338,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Harry Kane", team: "England", minute: 12, type: "penalty" },
       { player: "Martin Baturina", team: "Croatia", minute: 36, type: "goal" },
       { player: "Harry Kane", team: "England", minute: 42, type: "goal" },
-      { player: "Petar Musa", team: "Croatia", minute: 45, minuteStoppage: 5, type: "goal" },
+      { player: "Petar Musa", team: "Croatia", minute: 45, type: "goal" },
       { player: "Jude Bellingham", team: "England", minute: 47, type: "goal" },
       { player: "Marcus Rashford", team: "England", minute: 85, type: "goal" },
     ],
@@ -349,12 +349,12 @@ export const MATCH_EVENTS: MatchEvents[] = [
     fixtureId: "L1_Ghana_v_Panama",
     home: "Ghana", away: "Panama", date: "2026-06-17",
     goals: [
-      { player: "Caleb Yirenkyi", team: "Ghana", minute: 90, minuteStoppage: 5, type: "goal" },
+      { player: "Caleb Yirenkyi", team: "Ghana", minute: 90, type: "goal" },
     ],
     yellowCards: [
-      { player: "Caleb Yirenkyi", team: "Ghana", minute: 16, reason: "Holding" },
-      { player: "César Blackman", team: "Panama", minute: 72, reason: "Holding" },
-      { player: "Carlos Harvey", team: "Panama", minute: 90, reason: "Roughing" },
+      { player: "Caleb Yirenkyi", team: "Ghana", minute: 16, reason: "Foul" },
+      { player: "César Blackman", team: "Panama", minute: 72, reason: "Foul" },
+      { player: "Carlos Harvey", team: "Panama", minute: 90, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -365,11 +365,11 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Daniel Muñoz", team: "Colombia", minute: 40, type: "goal" },
       { player: "Abbosbek Fayzullaev", team: "Uzbekistan", minute: 60, type: "goal" },
       { player: "Luis Díaz", team: "Colombia", minute: 65, type: "goal" },
-      { player: "Jaminton Campaz", team: "Colombia", minute: 90, minuteStoppage: 9, type: "goal" },
+      { player: "Jaminton Campaz", team: "Colombia", minute: 90, type: "goal" },
     ],
     yellowCards: [
-      { player: "Johan Mojica", team: "Colombia", minute: 7, reason: "Tripping" },
-      { player: "Abdukodir Khusanov", team: "Uzbekistan", minute: 34, reason: "Tripping" },
+      { player: "Johan Mojica", team: "Colombia", minute: 7, reason: "Foul" },
+      { player: "Abdukodir Khusanov", team: "Uzbekistan", minute: 34, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -381,9 +381,9 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Teboho Mokoena", team: "South Africa", minute: 83, type: "penalty" },
     ],
     yellowCards: [
-      { player: "Teboho Mokoena", team: "South Africa", minute: 33 },
-      { player: "Thalente Mbatha", team: "South Africa", minute: 40, reason: "Roughing" },
-      { player: "Ladislav Krejčí", team: "Czech Republic", minute: 75, reason: "Tripping" },
+      { player: "Teboho Mokoena", team: "South Africa", minute: 33, reason: "Foul" },
+      { player: "Thalente Mbatha", team: "South Africa", minute: 40, reason: "Foul" },
+      { player: "Ladislav Krejčí", team: "Czech Republic", minute: 75, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -398,12 +398,12 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Granit Xhaka", team: "Switzerland", minute: 90, minuteStoppage: 7, type: "penalty" },
     ],
     yellowCards: [
-      { player: "Amar Dedić", team: "Bosnia & Herzegovina", minute: 59, reason: "Holding" },
-      { player: "Edin Džeko", team: "Bosnia & Herzegovina", minute: 61, reason: "Roughing" },
-      { player: "Nico Elvedi", team: "Switzerland", minute: 65, reason: "Roughing" },
+      { player: "Amar Dedić", team: "Bosnia & Herzegovina", minute: 59, reason: "Foul" },
+      { player: "Edin Džeko", team: "Bosnia & Herzegovina", minute: 61, reason: "Foul" },
+      { player: "Nico Elvedi", team: "Switzerland", minute: 65, reason: "Foul" },
     ],
     redCards: [
-      { player: "Tarik Muharemović", team: "Bosnia & Herzegovina", minute: 80, reason: "Tripping" },
+      { player: "Tarik Muharemović", team: "Bosnia & Herzegovina", minute: 80, reason: "Professional foul last man" },
     ],
   },
   {
@@ -414,27 +414,30 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Jonathan David", team: "Canada", minute: 29, type: "goal" },
       { player: "Jonathan David", team: "Canada", minute: 45, minuteStoppage: 3, type: "goal" },
       { player: "Nathan Saliba", team: "Canada", minute: 64, type: "goal" },
-      { player: "M. Al Mannai", team: "Qatar", minute: 75, type: "own-goal" },
+      { player: "Mohamed Naceur Almanai", team: "Qatar", minute: 75, type: "own-goal" },
       { player: "Jonathan David", team: "Canada", minute: 90, minuteStoppage: 2, type: "goal" },
     ],
     yellowCards: [
-      { player: "Derek Cornelius", team: "Canada", minute: 9, reason: "Tripping" },
-      { player: "A. Fathi", team: "Qatar", minute: 62, reason: "Tripping" },
+      { player: "Derek Cornelius", team: "Canada", minute: 9, reason: "Foul" },
+      { player: "Ahmed Fathi", team: "Qatar", minute: 62, reason: "Foul" },
     ],
     redCards: [
-      { player: "H. Al Amin", team: "Qatar", minute: 33, reason: "Foul" },
-      { player: "Assim Madibo", team: "Qatar", minute: 53, reason: "Serious foul" },
+      { player: "Homam Al-Amin", team: "Qatar", minute: 33, reason: "Professional foul last man" },
+      { player: "Assim Madibo", team: "Qatar", minute: 53, reason: "Foul" },
     ],
   },
   {
     fixtureId: "A2_Mexico_v_South_Korea",
     home: "Mexico", away: "South Korea", date: "2026-06-19",
-    goals: [],
+    goals: [
+      { player: "Luis Romo", team: "Mexico", minute: 50, type: "goal" },
+    ],
     yellowCards: [
       { player: "Lee Kang-in", team: "South Korea", minute: 4, reason: "Foul" },
+      { player: "Paik Seung-ho", team: "South Korea", minute: 58, reason: "Foul" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-19T01:47:44.495Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-19T06:55:05.678Z';
