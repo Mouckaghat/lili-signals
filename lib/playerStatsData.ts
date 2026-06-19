@@ -901,4 +901,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "A2_Mexico_v_South_Korea", team: "South Korea", name: "Gue-sung Cho", pos: "FW", minutes: 13, rating: 6.3, goals: 0, assists: 0, saves: 0, shots: 1, shotsOn: 1, passes: 0, passAccPct: 0, tackles: 0, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-06-19T05:27:19.953Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-06-19T10:04:19.451Z';
