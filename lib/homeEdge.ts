@@ -9,6 +9,7 @@
 import { FIXTURE_RESULTS, type FixtureResult } from './fixtureResultsData';
 import { WC_FIXTURES, WC_TEAMS } from './wcData';
 import { FIXTURE_STADIUM_ID, getStadium } from './stadiumData';
+import { HEATMAP_I18N, hmT, type HeatmapI18n } from './heatmapI18n';
 
 const clamp = (lo: number, hi: number, n: number) => (n < lo ? lo : n > hi ? hi : n);
 
@@ -81,7 +82,7 @@ export function homeEdgePoints(results: Record<string, FixtureResult> = FIXTURE_
   return Math.round(clamp(0, 5, (rate - 0.45) * 17) * confidence * 10) / 10;
 }
 
-export function computeHomeEdge(results: Record<string, FixtureResult> = FIXTURE_RESULTS): HomeEdge {
+export function computeHomeEdge(results: Record<string, FixtureResult> = FIXTURE_RESULTS, L: HeatmapI18n = HEATMAP_I18N.EN): HomeEdge {
   const edgePoints = homeEdgePoints(results);
   let homeWins = 0, awayWins = 0, draws = 0;
   const matches: HomeEdgeMatch[] = [];
@@ -123,11 +124,11 @@ export function computeHomeEdge(results: Record<string, FixtureResult> = FIXTURE
   const pct = Math.round(homeWinRate * 100);
 
   const tail = completed < 6
-    ? 'Too few matches to call it yet.'
-    : rating === 'strong'   ? 'A measurable Home Edge is emerging.'
-    : rating === 'moderate' ? 'A mild home effect is visible.'
-    : 'No clear home advantage so far.';
-  const commentary = `Home teams currently win ${pct}% of matches. ${tail}`;
+    ? L.heTailFew
+    : rating === 'strong'   ? L.heTailStrong
+    : rating === 'moderate' ? L.heTailModerate
+    : L.heTailNone;
+  const commentary = hmT(L.heCommentary, { pct, tail });
 
   const byMatchday: MatchdayTrend[] = Object.keys(md)
     .map(Number).sort((a, b) => a - b)

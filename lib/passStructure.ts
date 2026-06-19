@@ -9,6 +9,7 @@ import { PLAYER_MATCH_STATS } from './playerStatsData';
 import { FIXTURE_RESULTS, type FixtureResult } from './fixtureResultsData';
 import { WC_TEAMS } from './wcData';
 import { nextOpponent } from './attackZones';
+import { HEATMAP_I18N, hmT, type HeatmapI18n } from './heatmapI18n';
 
 const flagOf = (t: string) => WC_TEAMS.find((x) => x.name === t)?.flag ?? '🏳';
 
@@ -33,13 +34,13 @@ export function connectivityOf(s: TeamMatchStats): number {
   return Math.round((0.45 * passAcc + 0.30 * poss + 0.25 * Math.min(passes / 600, 1)) * 100);
 }
 
-export function styleOf(s: TeamMatchStats): TeamStyle {
+export function styleOf(s: TeamMatchStats, L: HeatmapI18n = HEATMAP_I18N.EN): TeamStyle {
   const poss = s.possession || 0, pa = s.passAccuracy || 0, corners = s.corners || 0;
-  if (poss >= 0.58 && pa >= 0.85) return { label: 'Possession Web', desc: 'patient, high-retention build-up' };
-  if (corners >= 8)               return { label: 'Wing Dominant', desc: 'lots of wide deliveries and crosses' };
-  if (poss <= 0.42)               return { label: 'Counter Attack Network', desc: 'direct, low-possession transitions' };
-  if (pa >= 0.85)                 return { label: 'Central Engine', desc: 'controlled passing through the middle' };
-  return { label: 'Balanced Structure', desc: 'a mix of build-up and directness' };
+  if (poss >= 0.58 && pa >= 0.85) return { label: L.styleWeb, desc: L.styleWebD };
+  if (corners >= 8)               return { label: L.styleWing, desc: L.styleWingD };
+  if (poss <= 0.42)               return { label: L.styleCounter, desc: L.styleCounterD };
+  if (pa >= 0.85)                 return { label: L.styleCentral, desc: L.styleCentralD };
+  return { label: L.styleBalanced, desc: L.styleBalancedD };
 }
 
 function teamMatchStats(fixtureId: string, team: string): TeamMatchStats | null {
@@ -54,20 +55,26 @@ function teamMatchStats(fixtureId: string, team: string): TeamMatchStats | null 
 // renders its team-level passing structure instead of going blank. Per-player
 // nodes still come only from PLAYER_MATCH_STATS — no per-player live feed — so
 // they appear once the match is finalised and synced.
-export function passStructure(fixtureId: string, team: string, liveStats?: TeamMatchStats): PassStructure | null {
+export function passStructure(fixtureId: string, team: string, liveStats?: TeamMatchStats, L: HeatmapI18n = HEATMAP_I18N.EN): PassStructure | null {
   const s = teamMatchStats(fixtureId, team) ?? liveStats ?? null;
   if (!s) return null;
   const rows = PLAYER_MATCH_STATS.filter((p) => p.fixtureId === fixtureId && p.team === team && (p.minutes > 0 || p.passes > 0));
   const maxP = Math.max(1, ...rows.map((p) => p.passes));
   const players: PassNode[] = rows.map((p) => ({ name: p.name, pos: p.pos, passes: p.passes, passAccPct: p.passAccPct, involvement: p.passes / maxP }));
   const topPassers = [...players].sort((a, b) => b.passes - a.passes).slice(0, 4);
-  const style = styleOf(s);
+  const style = styleOf(s, L);
   const connectivity = connectivityOf(s);
 
   const t1 = topPassers[0], t2 = topPassers[1];
   const lili = t1
-    ? `${t1.name} was ${team}'s main distributor (${t1.passes} passes${t1.passAccPct ? `, ${t1.passAccPct}% accurate` : ''})${t2 ? `, with ${t2.name} also heavily involved` : ''}. ${team} played a ${style.label} — ${style.desc} — completing ${Math.round((s.passAccuracy || 0) * 100)}% of passes on ${Math.round((s.possession || 0) * 100)}% possession.`
-    : `${team} played a ${style.label} (${style.desc}).`;
+    ? hmT(L.pmLili, {
+        t1: t1.name, team, passes: t1.passes,
+        acc: t1.passAccPct ? hmT(L.pmAcc, { pct: t1.passAccPct }) : '',
+        t2: t2 ? hmT(L.pmT2, { t2: t2.name }) : '',
+        style: style.label, desc: style.desc,
+        pa: Math.round((s.passAccuracy || 0) * 100), poss: Math.round((s.possession || 0) * 100),
+      })
+    : hmT(L.pmSimple, { team, style: style.label, desc: style.desc });
 
   return {
     team, flag: flagOf(team), players, connectivity,

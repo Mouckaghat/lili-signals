@@ -12,6 +12,7 @@ import { PLAYER_MATCH_STATS, type PlayerMatchStat } from './playerStatsData';
 import { PLAYER_PROFILES } from './playerProfilesData';
 import { FIXTURE_RESULTS, type FixtureResult } from './fixtureResultsData';
 import { WC_FIXTURES, WC_TEAMS } from './wcData';
+import { HEATMAP_I18N, hmT, type HeatmapI18n } from './heatmapI18n';
 
 const flagOf = (team: string) => WC_TEAMS.find((t) => t.name === team)?.flag ?? '🏳';
 const profileOf = (name: string) => PLAYER_PROFILES.find((p) => p.name === name);
@@ -67,7 +68,7 @@ interface Acc {
   yellows: number; reds: number; tackles: number; interceptions: number;
 }
 
-export function computePlayerLeaders(results: Record<string, FixtureResult> = FIXTURE_RESULTS): PlayerLeaders {
+export function computePlayerLeaders(results: Record<string, FixtureResult> = FIXTURE_RESULTS, L: HeatmapI18n = HEATMAP_I18N.EN): PlayerLeaders {
   const map = new Map<string, Acc>();
   const get = (name: string, team: string): Acc => {
     const k = keyOf(name, team);
@@ -132,11 +133,11 @@ export function computePlayerLeaders(results: Record<string, FixtureResult> = FI
   if (impact.length) {
     const r = impact[0];
     const bits: string[] = [];
-    if (r.goals) bits.push(`${r.goals} goal${r.goals > 1 ? 's' : ''}`);
-    if (r.assists) bits.push(`${r.assists} assist${r.assists > 1 ? 's' : ''}`);
-    if (r.cleanSheets) bits.push(`${r.cleanSheets} clean sheet${r.cleanSheets > 1 ? 's' : ''}`);
-    const contrib = bits.length ? bits.join(', ') : 'consistent influence';
-    spotlight = { row: r, reason: `${r.name} has contributed ${contrib} — one of the most influential players in the tournament so far.` };
+    if (r.goals) bits.push(hmT(L.plGoals, { n: r.goals }));
+    if (r.assists) bits.push(hmT(L.plAssists, { n: r.assists }));
+    if (r.cleanSheets) bits.push(hmT(L.plCleanSheets, { n: r.cleanSheets }));
+    const contrib = bits.length ? bits.join(', ') : L.plConsistent;
+    spotlight = { row: r, reason: hmT(L.plSpotlight, { name: r.name, contrib }) };
   }
 
   return { topScorers, topAssists, defenders, goalkeepers, impact, spotlight };

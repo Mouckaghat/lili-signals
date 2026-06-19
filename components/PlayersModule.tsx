@@ -4,6 +4,8 @@ import { computePlayerLeaders, matchHero, matchSquads, startingXI, type ImpactRo
 import type { MatchStats } from '../lib/matchStatsData';
 import { useLiveResults } from '../lib/useLiveResults';
 import { WC_TEAMS } from '../lib/wcData';
+import { useLanguage } from '../contexts/LanguageContext';
+import { HEATMAP_I18N } from '../lib/heatmapI18n';
 
 const D = {
   panel:  '#0A1322',
@@ -27,7 +29,8 @@ export default function PlayersModule({ match }: { match: MatchStats }) {
   const { width } = useWindowDimensions();
   const wide = width >= 860;
   const results = useLiveResults();
-  const L = useMemo(() => computePlayerLeaders(results), [results]);
+  const { lang } = useLanguage();
+  const L = useMemo(() => computePlayerLeaders(results, HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN), [results, lang]);
   const hero = useMemo(() => matchHero(match.fixtureId, results), [match.fixtureId, results]);
   const xi = useMemo(() => startingXI(match.fixtureId), [match.fixtureId]);
   // No confirmed XI yet → fall back to the real squad pool (honest names early).

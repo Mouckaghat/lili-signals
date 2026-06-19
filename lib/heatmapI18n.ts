@@ -67,6 +67,37 @@ export interface HeatmapI18n {
   bandRange: string;
   bandWide: string;
   azLili: string;        // {dom} {dDanger} {sDanger} {band} {boxPct} {sub}
+  // ── Pass Map tab ──
+  styleWeb: string;        styleWebD: string;
+  styleWing: string;       styleWingD: string;
+  styleCounter: string;    styleCounterD: string;
+  styleCentral: string;    styleCentralD: string;
+  styleBalanced: string;   styleBalancedD: string;
+  pmLili: string;          // {t1} {team} {passes} {acc} {t2} {style} {desc} {pa} {poss}
+  pmAcc: string;           // {pct}
+  pmT2: string;            // {t2}
+  pmSimple: string;        // {team} {style} {desc}
+  // ── Players tab ──
+  plGoals: string;         // {n}
+  plAssists: string;       // {n}
+  plCleanSheets: string;   // {n}
+  plConsistent: string;
+  plSpotlight: string;     // {name} {contrib}
+  // ── Home Edge tab ──
+  heCommentary: string;    // {pct} {tail}
+  heTailFew: string;
+  heTailStrong: string;
+  heTailModerate: string;
+  heTailNone: string;
+  heResultHome: string;
+  heResultAway: string;
+  heResultNeutral: string;
+  heRatingWeak: string;
+  heRatingModerate: string;
+  heRatingStrong: string;
+  heDrillHome: string;     // {home}
+  heDrillAway: string;     // {away}
+  heDrillNeutral: string;
 }
 
 export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
@@ -100,6 +131,23 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     shScoreEdge: "The scoreline reflects {dom}'s attacking edge.", shScoreFlattered: "The scoreline didn't fully reflect the balance of chances.",
     bandBox: 'inside the penalty area', bandRange: 'from distance', bandWide: 'wide areas and set pieces',
     azLili: '{dom} created the most danger — {dDanger} dangerous attacks to {sDanger}, mostly {band} ({boxPct}% of shots from inside the box). {sub} rarely reached dangerous areas and relied on isolated chances.',
+    styleWeb: 'Possession Web', styleWebD: 'patient, high-retention build-up',
+    styleWing: 'Wing Dominant', styleWingD: 'lots of wide deliveries and crosses',
+    styleCounter: 'Counter Attack Network', styleCounterD: 'direct, low-possession transitions',
+    styleCentral: 'Central Engine', styleCentralD: 'controlled passing through the middle',
+    styleBalanced: 'Balanced Structure', styleBalancedD: 'a mix of build-up and directness',
+    pmLili: '{t1} was the main distributor for {team} ({passes} passes{acc}){t2}. {team} played a {style} — {desc} — completing {pa}% of passes on {poss}% possession.',
+    pmAcc: ', {pct}% accurate', pmT2: ', with {t2} also heavily involved',
+    pmSimple: '{team} played a {style} ({desc}).',
+    plGoals: '{n} goals', plAssists: '{n} assists', plCleanSheets: '{n} clean sheets', plConsistent: 'consistent influence',
+    plSpotlight: '{name} has contributed {contrib} — one of the most influential players in the tournament so far.',
+    heCommentary: 'Home teams currently win {pct}% of matches. {tail}',
+    heTailFew: 'Too few matches to call it yet.', heTailStrong: 'A measurable Home Edge is emerging.', heTailModerate: 'A mild home effect is visible.', heTailNone: 'No clear home advantage so far.',
+    heResultHome: 'Home Win', heResultAway: 'Away Win', heResultNeutral: 'Neutral',
+    heRatingWeak: 'Weak', heRatingModerate: 'Moderate', heRatingStrong: 'Strong',
+    heDrillHome: '{home} benefited from home support, but team strength remained the dominant factor.',
+    heDrillAway: '{away} overcame the home factor — strength outweighed any home edge here.',
+    heDrillNeutral: 'An even contest; the home factor was not decisive.',
   },
   FR: {
     statPossession: 'Possession', statShots: 'Tirs', statSoT: 'Tirs cadrés', statCorners: 'Corners', statPasses: 'Passes', statPassAcc: 'Précision passes', statXg: 'Buts attendus',
@@ -131,6 +179,23 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     shScoreEdge: 'Le score reflète l’avantage offensif de {dom}.', shScoreFlattered: 'Le score ne reflète pas vraiment l’équilibre des occasions.',
     bandBox: 'dans la surface', bandRange: 'de loin', bandWide: 'des côtés et sur coups de pied arrêtés',
     azLili: '{dom} a créé le plus de danger — {dDanger} attaques dangereuses contre {sDanger}, surtout {band} ({boxPct} % des tirs depuis la surface). {sub} a rarement atteint les zones dangereuses et s’est appuyé sur des occasions isolées.',
+    styleWeb: 'Jeu de possession', styleWebD: 'construction patiente et conservatrice',
+    styleWing: 'Domination des ailes', styleWingD: 'beaucoup de centres et de jeu sur les côtés',
+    styleCounter: 'Réseau de contre-attaque', styleCounterD: 'transitions directes à faible possession',
+    styleCentral: 'Moteur central', styleCentralD: 'passes maîtrisées dans l’axe',
+    styleBalanced: 'Structure équilibrée', styleBalancedD: 'un mélange de construction et de jeu direct',
+    pmLili: '{t1} a été le principal relayeur de {team} ({passes} passes{acc}){t2}. {team} a pratiqué un {style} — {desc} — avec {pa} % de passes réussies sur {poss} % de possession.',
+    pmAcc: ', {pct} % de réussite', pmT2: ', {t2} étant aussi très impliqué',
+    pmSimple: '{team} a pratiqué un {style} ({desc}).',
+    plGoals: '{n} buts', plAssists: '{n} passes décisives', plCleanSheets: '{n} clean sheets', plConsistent: 'une influence constante',
+    plSpotlight: '{name} a contribué avec {contrib} — l’un des joueurs les plus influents du tournoi jusqu’ici.',
+    heCommentary: 'Les équipes à domicile gagnent actuellement {pct} % des matchs. {tail}',
+    heTailFew: 'Trop peu de matchs pour conclure.', heTailStrong: 'Un avantage à domicile mesurable se dessine.', heTailModerate: 'Un léger effet domicile est visible.', heTailNone: 'Pas d’avantage clair à domicile pour l’instant.',
+    heResultHome: 'Victoire à domicile', heResultAway: 'Victoire à l’extérieur', heResultNeutral: 'Neutre',
+    heRatingWeak: 'Faible', heRatingModerate: 'Modéré', heRatingStrong: 'Fort',
+    heDrillHome: '{home} a profité du soutien de son public, mais la force de l’équipe est restée le facteur dominant.',
+    heDrillAway: '{away} a surmonté le facteur domicile — la force a primé sur tout avantage local.',
+    heDrillNeutral: 'Un match équilibré ; le facteur domicile n’a pas été décisif.',
   },
   IT: {
     statPossession: 'Possesso', statShots: 'Tiri', statSoT: 'Tiri in porta', statCorners: 'Calci d’angolo', statPasses: 'Passaggi', statPassAcc: 'Precisione passaggi', statXg: 'Gol attesi',
@@ -162,6 +227,23 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     shScoreEdge: 'Il risultato riflette la superiorità offensiva di {dom}.', shScoreFlattered: 'Il risultato non riflette del tutto l’equilibrio delle occasioni.',
     bandBox: 'in area di rigore', bandRange: 'dalla distanza', bandWide: 'dalle fasce e sui calci piazzati',
     azLili: '{dom} ha creato più pericolo — {dDanger} attacchi pericolosi contro {sDanger}, soprattutto {band} ({boxPct}% dei tiri dall’area). {sub} ha raramente raggiunto le zone pericolose, affidandosi a occasioni isolate.',
+    styleWeb: 'Gioco di possesso', styleWebD: 'manovra paziente e ad alta conservazione',
+    styleWing: 'Dominio sulle fasce', styleWingD: 'molti cross e gioco esterno',
+    styleCounter: 'Rete di contropiede', styleCounterD: 'transizioni dirette a basso possesso',
+    styleCentral: 'Motore centrale', styleCentralD: 'passaggi controllati per vie centrali',
+    styleBalanced: 'Struttura equilibrata', styleBalancedD: 'un mix di costruzione e gioco diretto',
+    pmLili: '{t1} è stato il principale regista di {team} ({passes} passaggi{acc}){t2}. {team} ha proposto un {style} — {desc} — completando il {pa}% dei passaggi con il {poss}% di possesso.',
+    pmAcc: ', {pct}% di precisione', pmT2: ', con {t2} molto coinvolto',
+    pmSimple: '{team} ha proposto un {style} ({desc}).',
+    plGoals: '{n} gol', plAssists: '{n} assist', plCleanSheets: '{n} clean sheet', plConsistent: 'un’influenza costante',
+    plSpotlight: '{name} ha contribuito con {contrib} — uno dei giocatori più influenti del torneo finora.',
+    heCommentary: 'Le squadre in casa vincono attualmente il {pct}% delle partite. {tail}',
+    heTailFew: 'Troppo poche partite per dirlo.', heTailStrong: 'Si delinea un vantaggio casalingo misurabile.', heTailModerate: 'Si nota un lieve effetto casa.', heTailNone: 'Nessun chiaro vantaggio casalingo finora.',
+    heResultHome: 'Vittoria casalinga', heResultAway: 'Vittoria esterna', heResultNeutral: 'Neutro',
+    heRatingWeak: 'Debole', heRatingModerate: 'Moderato', heRatingStrong: 'Forte',
+    heDrillHome: '{home} ha beneficiato del sostegno di casa, ma la forza della squadra è rimasta il fattore dominante.',
+    heDrillAway: '{away} ha superato il fattore campo — la forza ha contato più di ogni vantaggio casalingo.',
+    heDrillNeutral: 'Una gara equilibrata; il fattore campo non è stato decisivo.',
   },
   DE: {
     statPossession: 'Ballbesitz', statShots: 'Schüsse', statSoT: 'Schüsse aufs Tor', statCorners: 'Ecken', statPasses: 'Pässe', statPassAcc: 'Passquote', statXg: 'Erwartete Tore',
@@ -193,6 +275,23 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     shScoreEdge: 'Das Ergebnis spiegelt die Offensivüberlegenheit von {dom} wider.', shScoreFlattered: 'Das Ergebnis spiegelt die Chancenverteilung nicht ganz wider.',
     bandBox: 'im Strafraum', bandRange: 'aus der Distanz', bandWide: 'über die Flügel und Standards',
     azLili: '{dom} erzeugte die größte Gefahr — {dDanger} gefährliche Angriffe gegen {sDanger}, meist {band} ({boxPct} % der Schüsse aus dem Strafraum). {sub} erreichte selten gefährliche Zonen und war auf Einzelaktionen angewiesen.',
+    styleWeb: 'Ballbesitz-Netz', styleWebD: 'geduldiger, ballsicherer Spielaufbau',
+    styleWing: 'Flügeldominanz', styleWingD: 'viele Flanken und Spiel über außen',
+    styleCounter: 'Konter-Netzwerk', styleCounterD: 'direkte Umschaltmomente mit wenig Ballbesitz',
+    styleCentral: 'Zentrale Schaltstelle', styleCentralD: 'kontrolliertes Passspiel durch die Mitte',
+    styleBalanced: 'Ausgewogene Struktur', styleBalancedD: 'eine Mischung aus Aufbau und Direktheit',
+    pmLili: '{t1} war der wichtigste Verteiler für {team} ({passes} Pässe{acc}){t2}. {team} spielte ein {style} — {desc} — mit {pa} % Passquote bei {poss} % Ballbesitz.',
+    pmAcc: ', {pct} % genau', pmT2: ', wobei auch {t2} stark eingebunden war',
+    pmSimple: '{team} spielte ein {style} ({desc}).',
+    plGoals: '{n} Tore', plAssists: '{n} Vorlagen', plCleanSheets: '{n} Zu-null-Spiele', plConsistent: 'konstanter Einfluss',
+    plSpotlight: '{name} hat mit {contrib} beigetragen — einer der einflussreichsten Spieler des Turniers bisher.',
+    heCommentary: 'Heimteams gewinnen derzeit {pct} % der Spiele. {tail}',
+    heTailFew: 'Noch zu wenige Spiele für eine Aussage.', heTailStrong: 'Ein messbarer Heimvorteil zeichnet sich ab.', heTailModerate: 'Ein leichter Heimeffekt ist erkennbar.', heTailNone: 'Bisher kein klarer Heimvorteil.',
+    heResultHome: 'Heimsieg', heResultAway: 'Auswärtssieg', heResultNeutral: 'Neutral',
+    heRatingWeak: 'Schwach', heRatingModerate: 'Mäßig', heRatingStrong: 'Stark',
+    heDrillHome: '{home} profitierte von der Heimunterstützung, doch die Teamstärke blieb der entscheidende Faktor.',
+    heDrillAway: '{away} überwand den Heimfaktor — die Stärke wog schwerer als jeder Heimvorteil.',
+    heDrillNeutral: 'Ein ausgeglichenes Spiel; der Heimfaktor war nicht entscheidend.',
   },
   ES: {
     statPossession: 'Posesión', statShots: 'Tiros', statSoT: 'Tiros a puerta', statCorners: 'Córners', statPasses: 'Pases', statPassAcc: 'Precisión de pase', statXg: 'Goles esperados',
@@ -224,6 +323,23 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     shScoreEdge: 'El marcador refleja la superioridad ofensiva de {dom}.', shScoreFlattered: 'El marcador no refleja del todo el equilibrio de ocasiones.',
     bandBox: 'dentro del área', bandRange: 'desde lejos', bandWide: 'por las bandas y a balón parado',
     azLili: '{dom} generó el mayor peligro — {dDanger} ataques peligrosos por {sDanger}, sobre todo {band} ({boxPct} % de los tiros desde el área). {sub} rara vez llegó a zonas de peligro y dependió de ocasiones aisladas.',
+    styleWeb: 'Red de posesión', styleWebD: 'construcción paciente y de alta retención',
+    styleWing: 'Dominio por banda', styleWingD: 'muchos centros y juego exterior',
+    styleCounter: 'Red de contraataque', styleCounterD: 'transiciones directas con poca posesión',
+    styleCentral: 'Motor central', styleCentralD: 'pase controlado por el centro',
+    styleBalanced: 'Estructura equilibrada', styleBalancedD: 'una mezcla de construcción y juego directo',
+    pmLili: '{t1} fue el principal distribuidor de {team} ({passes} pases{acc}){t2}. {team} jugó una {style} — {desc} — completando el {pa} % de pases con un {poss} % de posesión.',
+    pmAcc: ', {pct} % de acierto', pmT2: ', con {t2} también muy involucrado',
+    pmSimple: '{team} jugó una {style} ({desc}).',
+    plGoals: '{n} goles', plAssists: '{n} asistencias', plCleanSheets: '{n} porterías a cero', plConsistent: 'una influencia constante',
+    plSpotlight: '{name} ha aportado {contrib} — uno de los jugadores más influyentes del torneo hasta ahora.',
+    heCommentary: 'Los equipos locales ganan actualmente el {pct} % de los partidos. {tail}',
+    heTailFew: 'Muy pocos partidos para sacar conclusiones.', heTailStrong: 'Surge una ventaja local apreciable.', heTailModerate: 'Se aprecia un leve efecto local.', heTailNone: 'Sin clara ventaja local por ahora.',
+    heResultHome: 'Victoria local', heResultAway: 'Victoria visitante', heResultNeutral: 'Neutral',
+    heRatingWeak: 'Débil', heRatingModerate: 'Moderada', heRatingStrong: 'Fuerte',
+    heDrillHome: '{home} se benefició del apoyo local, pero la fuerza del equipo siguió siendo el factor dominante.',
+    heDrillAway: '{away} superó el factor local — la fuerza pesó más que cualquier ventaja de jugar en casa.',
+    heDrillNeutral: 'Un partido parejo; el factor local no fue decisivo.',
   },
   RU: {
     statPossession: 'Владение', statShots: 'Удары', statSoT: 'Удары в створ', statCorners: 'Угловые', statPasses: 'Передачи', statPassAcc: 'Точность передач', statXg: 'Ожидаемые голы',
@@ -255,6 +371,23 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     shScoreEdge: 'Счёт отражает атакующее преимущество {dom}.', shScoreFlattered: 'Счёт не вполне отражает баланс моментов.',
     bandBox: 'из штрафной', bandRange: 'издали', bandWide: 'с флангов и со стандартов',
     azLili: '{dom} создал больше всего опасности — {dDanger} опасных атак против {sDanger}, в основном {band} ({boxPct}% ударов из штрафной). {sub} редко доходил до опасных зон и полагался на отдельные моменты.',
+    styleWeb: 'Контроль мяча', styleWebD: 'терпеливый, бережный розыгрыш',
+    styleWing: 'Игра флангами', styleWingD: 'много подач и игры по краям',
+    styleCounter: 'Контратакующая схема', styleCounterD: 'прямые переходы при малом владении',
+    styleCentral: 'Игра через центр', styleCentralD: 'контролируемый пас по центру',
+    styleBalanced: 'Сбалансированная структура', styleBalancedD: 'сочетание розыгрыша и прямой игры',
+    pmLili: '{t1} был главным распасовщиком {team} ({passes} передач{acc}){t2}. {team} играл в {style} — {desc} — с точностью передач {pa}% при владении {poss}%.',
+    pmAcc: ', точность {pct}%', pmT2: ', при активном участии {t2}',
+    pmSimple: '{team} играл в {style} ({desc}).',
+    plGoals: '{n} голов', plAssists: '{n} передач', plCleanSheets: '{n} «сухих» матчей', plConsistent: 'стабильное влияние',
+    plSpotlight: '{name} принёс {contrib} — один из самых влиятельных игроков турнира на данный момент.',
+    heCommentary: 'Хозяева сейчас выигрывают {pct}% матчей. {tail}',
+    heTailFew: 'Слишком мало матчей для выводов.', heTailStrong: 'Проявляется заметное преимущество дома.', heTailModerate: 'Заметен лёгкий эффект своего поля.', heTailNone: 'Явного преимущества дома пока нет.',
+    heResultHome: 'Победа хозяев', heResultAway: 'Победа гостей', heResultNeutral: 'Ничья',
+    heRatingWeak: 'Слабое', heRatingModerate: 'Умеренное', heRatingStrong: 'Сильное',
+    heDrillHome: '{home} воспользовался поддержкой трибун, но сила команды осталась решающим фактором.',
+    heDrillAway: '{away} преодолел фактор поля — класс перевесил любое домашнее преимущество.',
+    heDrillNeutral: 'Равная игра; фактор своего поля не стал решающим.',
   },
   CN: {
     statPossession: '控球', statShots: '射门', statSoT: '射正', statCorners: '角球', statPasses: '传球', statPassAcc: '传球成功率', statXg: '预期进球',
@@ -286,6 +419,23 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     shScoreEdge: '比分反映了 {dom} 的进攻优势。', shScoreFlattered: '比分并未完全反映机会的均衡。',
     bandBox: '禁区内', bandRange: '远射', bandWide: '边路与定位球',
     azLili: '{dom} 制造了最多威胁——{dDanger} 次危险进攻对 {sDanger} 次，多数来自{band}（{boxPct}% 的射门来自禁区内）。{sub} 很少进入危险区域，只能依靠零星机会。',
+    styleWeb: '控球网络', styleWebD: '耐心、保有率高的组织',
+    styleWing: '边路主导', styleWingD: '大量传中与边路输送',
+    styleCounter: '反击网络', styleCounterD: '低控球的直接转换',
+    styleCentral: '中路引擎', styleCentralD: '通过中路的可控传递',
+    styleBalanced: '均衡结构', styleBalancedD: '组织与直接打法的结合',
+    pmLili: '{t1} 是 {team} 的主要组织者（{passes} 次传球{acc}）{t2}。{team} 打的是{style}——{desc}——传球成功率 {pa}%，控球率 {poss}%。',
+    pmAcc: '，成功率 {pct}%', pmT2: '，{t2} 也深度参与',
+    pmSimple: '{team} 打的是{style}（{desc}）。',
+    plGoals: '{n} 球', plAssists: '{n} 次助攻', plCleanSheets: '{n} 场零封', plConsistent: '稳定的影响力',
+    plSpotlight: '{name} 贡献了 {contrib}——本届赛事迄今最具影响力的球员之一。',
+    heCommentary: '目前主队赢得了 {pct}% 的比赛。{tail}',
+    heTailFew: '比赛太少，尚无法判断。', heTailStrong: '可量化的主场优势正在显现。', heTailModerate: '可见轻微的主场效应。', heTailNone: '目前没有明显的主场优势。',
+    heResultHome: '主胜', heResultAway: '客胜', heResultNeutral: '平局',
+    heRatingWeak: '弱', heRatingModerate: '中等', heRatingStrong: '强',
+    heDrillHome: '{home} 得益于主场支持，但球队实力仍是主导因素。',
+    heDrillAway: '{away} 克服了主场因素——实力胜过任何主场优势。',
+    heDrillNeutral: '一场势均力敌的比赛；主场因素并不具决定性。',
   },
   JP: {
     statPossession: 'ポゼッション', statShots: 'シュート', statSoT: '枠内シュート', statCorners: 'コーナー', statPasses: 'パス', statPassAcc: 'パス成功率', statXg: '期待値ゴール',
@@ -317,6 +467,23 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     shScoreEdge: 'スコアは {dom} の攻撃面での優位を反映している。', shScoreFlattered: 'スコアは機会の均衡を十分には反映していない。',
     bandBox: 'ペナルティエリア内から', bandRange: '遠目から', bandWide: 'サイドとセットプレーから',
     azLili: '{dom} が最も多くの脅威を作った——危険な攻撃 {dDanger} 回対 {sDanger} 回、主に{band}（シュートの {boxPct}% がエリア内から）。{sub} は危険地帯にほとんど到達できず、単発の機会に頼った。',
+    styleWeb: 'ポゼッション網', styleWebD: '辛抱強く保持率の高い組み立て',
+    styleWing: 'サイド主導', styleWingD: '多くのクロスとサイド攻撃',
+    styleCounter: 'カウンター網', styleCounterD: '低保持からの直接的な切り替え',
+    styleCentral: '中央エンジン', styleCentralD: '中央を通すコントロールされたパス',
+    styleBalanced: 'バランス型', styleBalancedD: '組み立てと直接性の融合',
+    pmLili: '{t1} が {team} の主な配球役だった（{passes} 本のパス{acc}）{t2}。{team} は{style}を採用——{desc}——パス成功率 {pa}%、ポゼッション {poss}%。',
+    pmAcc: '、成功率 {pct}%', pmT2: '、{t2} も大きく関与',
+    pmSimple: '{team} は{style}を採用（{desc}）。',
+    plGoals: '{n} ゴール', plAssists: '{n} アシスト', plCleanSheets: '{n} 試合無失点', plConsistent: '安定した影響力',
+    plSpotlight: '{name} は {contrib} で貢献——今大会でこれまで最も影響力のある選手の一人。',
+    heCommentary: '現在、ホームチームは試合の {pct}% に勝利している。{tail}',
+    heTailFew: '判断するには試合数が少なすぎる。', heTailStrong: '測定可能なホーム優位が現れている。', heTailModerate: 'わずかなホーム効果が見られる。', heTailNone: '今のところ明確なホーム優位はない。',
+    heResultHome: 'ホーム勝利', heResultAway: 'アウェイ勝利', heResultNeutral: '中立',
+    heRatingWeak: '弱い', heRatingModerate: '中程度', heRatingStrong: '強い',
+    heDrillHome: '{home} はホームの後押しを受けたが、チーム力が依然として支配的な要因だった。',
+    heDrillAway: '{away} はホームの要因を乗り越えた——実力がホーム優位を上回った。',
+    heDrillNeutral: '互角の試合; ホームの要因は決定的ではなかった。',
   },
   KR: {
     statPossession: '점유율', statShots: '슈팅', statSoT: '유효 슈팅', statCorners: '코너킥', statPasses: '패스', statPassAcc: '패스 성공률', statXg: '기대 득점',
@@ -348,6 +515,23 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     shScoreEdge: '스코어는 {dom}의 공격 우위를 반영한다.', shScoreFlattered: '스코어는 기회의 균형을 충분히 반영하지 못했다.',
     bandBox: '박스 안에서', bandRange: '중거리에서', bandWide: '측면과 세트피스에서',
     azLili: '{dom}이(가) 가장 큰 위협을 만듦 — 위협적인 공격 {dDanger}회 대 {sDanger}회, 주로 {band}(슈팅의 {boxPct}%가 박스 안에서). {sub}은(는) 위험 지역에 거의 도달하지 못하고 단발성 기회에 의존했다.',
+    styleWeb: '점유 네트워크', styleWebD: '인내심 있고 보존율 높은 빌드업',
+    styleWing: '측면 주도', styleWingD: '많은 크로스와 측면 전개',
+    styleCounter: '역습 네트워크', styleCounterD: '낮은 점유율의 직선적 전환',
+    styleCentral: '중앙 엔진', styleCentralD: '중앙을 통한 통제된 패스',
+    styleBalanced: '균형 구조', styleBalancedD: '빌드업과 직선성의 혼합',
+    pmLili: '{t1}이(가) {team}의 주된 배급원이었다(패스 {passes}회{acc}){t2}. {team}은(는) {style}을(를) 구사 — {desc} — 패스 성공률 {pa}%, 점유율 {poss}%.',
+    pmAcc: ', 정확도 {pct}%', pmT2: ', {t2}도 깊이 관여',
+    pmSimple: '{team}은(는) {style}을(를) 구사({desc}).',
+    plGoals: '{n}골', plAssists: '{n}도움', plCleanSheets: '{n}경기 무실점', plConsistent: '꾸준한 영향력',
+    plSpotlight: '{name}이(가) {contrib}을(를) 기록 — 이번 대회에서 지금까지 가장 영향력 있는 선수 중 하나.',
+    heCommentary: '현재 홈팀이 경기의 {pct}%에서 승리하고 있다. {tail}',
+    heTailFew: '아직 판단하기엔 경기 수가 적다.', heTailStrong: '측정 가능한 홈 이점이 나타나고 있다.', heTailModerate: '약한 홈 효과가 보인다.', heTailNone: '아직 뚜렷한 홈 이점은 없다.',
+    heResultHome: '홈 승', heResultAway: '원정 승', heResultNeutral: '중립',
+    heRatingWeak: '약함', heRatingModerate: '보통', heRatingStrong: '강함',
+    heDrillHome: '{home}은(는) 홈 응원의 덕을 봤지만, 팀 전력이 여전히 결정적 요인이었다.',
+    heDrillAway: '{away}이(가) 홈 요인을 극복했다 — 전력이 어떤 홈 이점보다 우위였다.',
+    heDrillNeutral: '대등한 경기; 홈 요인은 결정적이지 않았다.',
   },
   PT: {
     statPossession: 'Posse de bola', statShots: 'Remates', statSoT: 'Remates à baliza', statCorners: 'Cantos', statPasses: 'Passes', statPassAcc: 'Precisão de passe', statXg: 'Golos esperados',
@@ -379,6 +563,23 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     shScoreEdge: 'O resultado reflete a superioridade ofensiva de {dom}.', shScoreFlattered: 'O resultado não reflete totalmente o equilíbrio de ocasiões.',
     bandBox: 'dentro da área', bandRange: 'de longe', bandWide: 'pelas alas e em bolas paradas',
     azLili: '{dom} criou o maior perigo — {dDanger} ataques perigosos contra {sDanger}, sobretudo {band} ({boxPct}% dos remates dentro da área). {sub} raramente chegou a zonas perigosas e dependeu de ocasiões isoladas.',
+    styleWeb: 'Teia de posse', styleWebD: 'construção paciente e de alta retenção',
+    styleWing: 'Domínio pelas alas', styleWingD: 'muitos cruzamentos e jogo exterior',
+    styleCounter: 'Rede de contra-ataque', styleCounterD: 'transições diretas com pouca posse',
+    styleCentral: 'Motor central', styleCentralD: 'passe controlado pelo meio',
+    styleBalanced: 'Estrutura equilibrada', styleBalancedD: 'uma mistura de construção e jogo direto',
+    pmLili: '{t1} foi o principal distribuidor do {team} ({passes} passes{acc}){t2}. O {team} jogou numa {style} — {desc} — completando {pa}% dos passes com {poss}% de posse.',
+    pmAcc: ', {pct}% de acerto', pmT2: ', com {t2} também muito envolvido',
+    pmSimple: 'O {team} jogou numa {style} ({desc}).',
+    plGoals: '{n} golos', plAssists: '{n} assistências', plCleanSheets: '{n} jogos sem sofrer', plConsistent: 'uma influência constante',
+    plSpotlight: '{name} contribuiu com {contrib} — um dos jogadores mais influentes do torneio até agora.',
+    heCommentary: 'As equipas em casa vencem atualmente {pct}% dos jogos. {tail}',
+    heTailFew: 'Poucos jogos para concluir.', heTailStrong: 'Surge uma vantagem caseira mensurável.', heTailModerate: 'Nota-se um ligeiro efeito de casa.', heTailNone: 'Sem vantagem caseira clara por agora.',
+    heResultHome: 'Vitória em casa', heResultAway: 'Vitória fora', heResultNeutral: 'Neutro',
+    heRatingWeak: 'Fraca', heRatingModerate: 'Moderada', heRatingStrong: 'Forte',
+    heDrillHome: '{home} beneficiou do apoio da casa, mas a força da equipa manteve-se o fator dominante.',
+    heDrillAway: '{away} superou o fator casa — a força pesou mais do que qualquer vantagem caseira.',
+    heDrillNeutral: 'Um jogo equilibrado; o fator casa não foi decisivo.',
   },
   AR: {
     statPossession: 'الاستحواذ', statShots: 'التسديدات', statSoT: 'تسديدات على المرمى', statCorners: 'الركنيات', statPasses: 'التمريرات', statPassAcc: 'دقة التمرير', statXg: 'الأهداف المتوقعة',
@@ -410,6 +611,23 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     shScoreEdge: 'تعكس النتيجة الأفضلية الهجومية لـ {dom}.', shScoreFlattered: 'لا تعكس النتيجة تمامًا توازن الفرص.',
     bandBox: 'داخل منطقة الجزاء', bandRange: 'من بعيد', bandWide: 'من الأطراف والكرات الثابتة',
     azLili: 'صنع {dom} أكبر قدر من الخطورة — {dDanger} هجمة خطيرة مقابل {sDanger}، معظمها {band} ({boxPct}% من التسديدات من داخل المنطقة). نادرًا ما بلغ {sub} المناطق الخطيرة واعتمد على فرص متفرّقة.',
+    styleWeb: 'شبكة استحواذ', styleWebD: 'بناء صبور وعالي الاحتفاظ بالكرة',
+    styleWing: 'سيطرة على الأطراف', styleWingD: 'الكثير من العرضيات واللعب على الجانبين',
+    styleCounter: 'شبكة هجمات مرتدة', styleCounterD: 'تحوّلات مباشرة باستحواذ منخفض',
+    styleCentral: 'محرّك مركزي', styleCentralD: 'تمرير متحكَّم فيه عبر الوسط',
+    styleBalanced: 'بنية متوازنة', styleBalancedD: 'مزيج من البناء واللعب المباشر',
+    pmLili: 'كان {t1} الموزّع الأساسي لـ {team} ({passes} تمريرة{acc}){t2}. لعب {team} بأسلوب {style} — {desc} — بإكمال {pa}% من التمريرات مع استحواذ {poss}%.',
+    pmAcc: '، بدقّة {pct}%', pmT2: '، مع مشاركة كبيرة من {t2}',
+    pmSimple: 'لعب {team} بأسلوب {style} ({desc}).',
+    plGoals: '{n} أهداف', plAssists: '{n} تمريرة حاسمة', plCleanSheets: '{n} مباراة نظيفة', plConsistent: 'تأثير ثابت',
+    plSpotlight: 'ساهم {name} بـ {contrib} — أحد أكثر اللاعبين تأثيرًا في البطولة حتى الآن.',
+    heCommentary: 'تفوز الفرق المضيفة حاليًا بـ {pct}% من المباريات. {tail}',
+    heTailFew: 'عدد المباريات قليل جدًا للحكم.', heTailStrong: 'تظهر أفضلية أرض قابلة للقياس.', heTailModerate: 'يظهر تأثير ملعب طفيف.', heTailNone: 'لا توجد أفضلية أرض واضحة حتى الآن.',
+    heResultHome: 'فوز المضيف', heResultAway: 'فوز الضيف', heResultNeutral: 'محايد',
+    heRatingWeak: 'ضعيفة', heRatingModerate: 'متوسطة', heRatingStrong: 'قوية',
+    heDrillHome: 'استفاد {home} من دعم جمهوره، لكن قوة الفريق ظلّت العامل الحاسم.',
+    heDrillAway: 'تجاوز {away} عامل الأرض — رجحت القوة على أي أفضلية للملعب.',
+    heDrillNeutral: 'مباراة متكافئة؛ لم يكن عامل الأرض حاسمًا.',
   },
 };
 

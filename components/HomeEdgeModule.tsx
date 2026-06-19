@@ -3,6 +3,8 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { computeHomeEdge, type HomeEdge, type HomeEdgeMatch } from '../lib/homeEdge';
 import { useLiveResults } from '../lib/useLiveResults';
 import { WC_TEAMS } from '../lib/wcData';
+import { useLanguage } from '../contexts/LanguageContext';
+import { HEATMAP_I18N, hmT } from '../lib/heatmapI18n';
 
 const D = {
   panel:  '#0A1322',
@@ -30,10 +32,14 @@ const resultColor = (r: HomeEdgeMatch['result']) => (r === 'Home Win' ? D.blue :
 
 export default function HomeEdgeModule() {
   const results = useLiveResults();
-  const edge: HomeEdge = useMemo(() => computeHomeEdge(results), [results]);
+  const { lang } = useLanguage();
+  const T = HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN;
+  const edge: HomeEdge = useMemo(() => computeHomeEdge(results, T), [results, T]);
   const [drillId, setDrillId] = useState<string | null>(null);
   const drill = edge.matches.find((m) => m.fixtureId === drillId);
-  const rating = RATING[edge.rating];
+  const ratingLabel = edge.rating === 'strong' ? T.heRatingStrong : edge.rating === 'moderate' ? T.heRatingModerate : T.heRatingWeak;
+  const rating = { ...RATING[edge.rating], label: ratingLabel };
+  const resultLabel = (r: HomeEdgeMatch['result']) => (r === 'Home Win' ? T.heResultHome : r === 'Away Win' ? T.heResultAway : T.heResultNeutral);
 
   const maxMd = Math.max(1, ...edge.byMatchday.map((d) => d.home + d.away + d.draw));
 
@@ -130,7 +136,7 @@ export default function HomeEdgeModule() {
                 <Text style={[s.td, s.cTeam]} numberOfLines={1}>{flagOf(m.home)} {m.home}</Text>
                 <Text style={[s.td, s.cScore, { fontWeight: '800', color: D.text1 }]}>{m.homeScore}-{m.awayScore}</Text>
                 <Text style={[s.td, s.cTeam]} numberOfLines={1}>{flagOf(m.away)} {m.away}</Text>
-                <Text style={[s.td, s.cRes, { color: resultColor(m.result), fontWeight: '700' }]}>{m.result}</Text>
+                <Text style={[s.td, s.cRes, { color: resultColor(m.result), fontWeight: '700' }]}>{resultLabel(m.result)}</Text>
               </Pressable>
               {on && (
                 <View style={s.drill}>
@@ -140,7 +146,7 @@ export default function HomeEdgeModule() {
                     <Drow k="Away Team" v={`${flagOf(m.away)} ${m.away}`} />
                     <Drow k="Venue" v={`${m.venue}, ${m.city}`} />
                     <Drow k="Capacity" v={m.capacity ? m.capacity.toLocaleString() : '—'} />
-                    <Drow k="Result" v={`${m.homeScore}-${m.awayScore} (${m.result})`} />
+                    <Drow k="Result" v={`${m.homeScore}-${m.awayScore} (${resultLabel(m.result)})`} />
                   </View>
                   <View style={s.impactRow}>
                     <Text style={s.impactLabel}>Home Edge Impact</Text>
@@ -150,10 +156,10 @@ export default function HomeEdgeModule() {
                   </View>
                   <Text style={s.drillLili}>
                     🦞 {m.result === 'Home Win'
-                      ? `${m.home} benefited from home support, but team strength remained the dominant factor.`
+                      ? hmT(T.heDrillHome, { home: m.home })
                       : m.result === 'Away Win'
-                      ? `${m.away} overcame the home factor — strength outweighed any home edge here.`
-                      : 'An even contest; the home factor was not decisive.'}
+                      ? hmT(T.heDrillAway, { away: m.away })
+                      : T.heDrillNeutral}
                   </Text>
                 </View>
               )}

@@ -3,6 +3,8 @@ import { Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-na
 import { passStructure, passRanking, passClash, type PassNode } from '../lib/passStructure';
 import type { MatchStats } from '../lib/matchStatsData';
 import { WC_TEAMS } from '../lib/wcData';
+import { useLanguage } from '../contexts/LanguageContext';
+import { HEATMAP_I18N } from '../lib/heatmapI18n';
 
 const D = {
   panel:  '#0A1322',
@@ -30,7 +32,8 @@ export default function PassMapModule({ match }: { match: MatchStats }) {
   const accent = side === 'home' ? D.blue : D.red;
 
   const liveStats = side === 'home' ? match.homeStats : match.awayStats;
-  const ps = useMemo(() => passStructure(match.fixtureId, team, liveStats), [match.fixtureId, team, liveStats]);
+  const { lang } = useLanguage();
+  const ps = useMemo(() => passStructure(match.fixtureId, team, liveStats, HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN), [match.fixtureId, team, liveStats, lang]);
   const ranking = useMemo(() => passRanking(), []);
   const clash = useMemo(() => passClash(team), [team]);
 
