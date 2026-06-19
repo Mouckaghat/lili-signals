@@ -41,8 +41,8 @@ export const MARKET_ODDS: MarketOdds[] = [
   { fixtureId: "B2_Switzerland_v_Bosnia_Herzegovina", home: "Switzerland", away: "Bosnia & Herzegovina", market: { home: 0.6085, draw: 0.2354, away: 0.1562 }, model: null, advice: null, bookmakers: 14 },
   { fixtureId: "B2_Canada_v_Qatar", home: "Canada", away: "Qatar", market: { home: 0.7285, draw: 0.1775, away: 0.0940 }, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Combo Double chance : Canada or draw and -3.5 goals", bookmakers: 14 },
   { fixtureId: "A2_Mexico_v_South_Korea", home: "Mexico", away: "South Korea", market: { home: 0.4671, draw: 0.2921, away: 0.2407 }, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Double chance : Mexico or draw", bookmakers: 14 },
-  { fixtureId: "C2_USA_v_Australia", home: "USA", away: "Australia", market: { home: 0.5843, draw: 0.2226, away: 0.1930 }, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Winner : USA", bookmakers: 13 },
-  { fixtureId: "D2_Scotland_v_Morocco", home: "Scotland", away: "Morocco", market: { home: 0.1738, draw: 0.2664, away: 0.5599 }, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Combo Double chance : Scotland or draw and -3.5 goals", bookmakers: 14 },
+  { fixtureId: "C2_USA_v_Australia", home: "USA", away: "Australia", market: { home: 0.5790, draw: 0.2296, away: 0.1914 }, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Winner : USA", bookmakers: 13 },
+  { fixtureId: "D2_Scotland_v_Morocco", home: "Scotland", away: "Morocco", market: { home: 0.1738, draw: 0.2664, away: 0.5598 }, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Combo Double chance : Scotland or draw and -3.5 goals", bookmakers: 14 },
   { fixtureId: "D2_Brazil_v_Haiti", home: "Brazil", away: "Haiti", market: { home: 0.8632, draw: 0.0937, away: 0.0430 }, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Combo Double chance : Brazil or draw and -3.5 goals", bookmakers: 14 },
   { fixtureId: "C2_T_rkiye_v_Paraguay", home: "Türkiye", away: "Paraguay", market: { home: 0.4590, draw: 0.2855, away: 0.2556 }, model: null, advice: null, bookmakers: 14 },
   { fixtureId: "F2_Netherlands_v_Sweden", home: "Netherlands", away: "Sweden", market: { home: 0.5462, draw: 0.2454, away: 0.2084 }, model: { home: 0.1000, draw: 0.4500, away: 0.4500 }, advice: "Combo Winner : Sweden and +2.5 goals", bookmakers: 14 },
@@ -87,4 +87,4 @@ export const MARKET_ODDS: MarketOdds[] = [
   { fixtureId: "J3_Jordan_v_Argentina", home: "Jordan", away: "Argentina", market: { home: 0.0681, draw: 0.1434, away: 0.7885 }, model: { home: 0.0000, draw: 0.5000, away: 0.5000 }, advice: "Winner : Argentina", bookmakers: 13 },
 ];
 
-export const MARKET_ODDS_LAST_UPDATED = '2026-06-19T18:00:44.334Z';
+export const MARKET_ODDS_LAST_UPDATED = '2026-06-19T20:01:10.371Z';
