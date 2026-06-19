@@ -8,6 +8,7 @@ import { FIXTURE_STADIUM_ID, getStadium } from './stadiumData';
 import { MATCH_EVENTS } from './matchEventsData';
 import { GROUP_STANDINGS } from './standingsData';
 import { buildHeatGrid } from './heatmap';
+import { HEATMAP_I18N, hmT, type HeatmapI18n } from './heatmapI18n';
 
 const flagOf = (t: string) => WC_TEAMS.find((x) => x.name === t)?.flag ?? '🏳';
 const share = (h: number, a: number) => (h + a > 0 ? h / (h + a) : 0.5);
@@ -46,7 +47,7 @@ function impactFor(team: string): TeamImpact | null {
   return { rank: s.rank, points: s.pts, gd: s.gd, qualPct: qualPct(s.pts, s.played) };
 }
 
-export function computeOverview(match: MatchStats, results: Record<string, FixtureResult> = FIXTURE_RESULTS): Overview {
+export function computeOverview(match: MatchStats, results: Record<string, FixtureResult> = FIXTURE_RESULTS, t: HeatmapI18n = HEATMAP_I18N.EN): Overview {
   const f = WC_FIXTURES.find((x) => x.id === match.fixtureId);
   const r = results[`${match.home}|${match.away}`];
   const stadium = f ? getStadium(FIXTURE_STADIUM_ID[f.stadium] ?? '') : undefined;
@@ -55,13 +56,13 @@ export function computeOverview(match: MatchStats, results: Record<string, Fixtu
   const status: Overview['status'] = match.status === 'LIVE' ? 'LIVE' : r?.status === 'FINISHED' || match.status === 'FINISHED' ? 'FINAL' : 'UPCOMING';
 
   const stats: StatPair[] = [
-    { label: 'Possession',     home: `${Math.round(h.possession * 100)}%`, away: `${Math.round(a.possession * 100)}%`, hShare: h.possession },
-    { label: 'Shots',          home: `${h.totalShots}`,  away: `${a.totalShots}`,  hShare: share(h.totalShots, a.totalShots) },
-    { label: 'Shots on Target',home: `${h.shotsOnGoal}`, away: `${a.shotsOnGoal}`, hShare: share(h.shotsOnGoal, a.shotsOnGoal) },
-    { label: 'Corners',        home: `${h.corners}`,     away: `${a.corners}`,     hShare: share(h.corners, a.corners) },
-    { label: 'Passes',         home: `${h.passes ?? '—'}`, away: `${a.passes ?? '—'}`, hShare: share(h.passes ?? 0, a.passes ?? 0) },
-    { label: 'Pass Accuracy',  home: `${Math.round(h.passAccuracy * 100)}%`, away: `${Math.round(a.passAccuracy * 100)}%`, hShare: share(h.passAccuracy, a.passAccuracy) },
-    { label: 'Expected Goals', home: h.xg.toFixed(1),    away: a.xg.toFixed(1),    hShare: share(h.xg, a.xg) },
+    { label: t.statPossession, home: `${Math.round(h.possession * 100)}%`, away: `${Math.round(a.possession * 100)}%`, hShare: h.possession },
+    { label: t.statShots,      home: `${h.totalShots}`,  away: `${a.totalShots}`,  hShare: share(h.totalShots, a.totalShots) },
+    { label: t.statSoT,        home: `${h.shotsOnGoal}`, away: `${a.shotsOnGoal}`, hShare: share(h.shotsOnGoal, a.shotsOnGoal) },
+    { label: t.statCorners,    home: `${h.corners}`,     away: `${a.corners}`,     hShare: share(h.corners, a.corners) },
+    { label: t.statPasses,     home: `${h.passes ?? '—'}`, away: `${a.passes ?? '—'}`, hShare: share(h.passes ?? 0, a.passes ?? 0) },
+    { label: t.statPassAcc,    home: `${Math.round(h.passAccuracy * 100)}%`, away: `${Math.round(a.passAccuracy * 100)}%`, hShare: share(h.passAccuracy, a.passAccuracy) },
+    { label: t.statXg,         home: h.xg.toFixed(1),    away: a.xg.toFixed(1),    hShare: share(h.xg, a.xg) },
   ];
 
   // Control index
@@ -78,28 +79,28 @@ export function computeOverview(match: MatchStats, results: Record<string, Fixtu
   const winner = winnerIsHome ? match.home : match.away;
   const loser = winnerIsHome ? match.away : match.home;
   const diff = Math.abs(controlHome - 50);
-  const verdict = diff >= 22 ? { icon: '🔥', text: `${winner} Dominated` }
-    : diff >= 10 ? { icon: '⚡', text: `${winner} in Control` }
-    : { icon: '⚖', text: 'Evenly Matched Contest' };
+  const verdict = diff >= 22 ? { icon: '🔥', text: hmT(t.verdictDominated, { winner }) }
+    : diff >= 10 ? { icon: '⚡', text: hmT(t.verdictInControl, { winner }) }
+    : { icon: '⚖', text: t.verdictEven };
 
   // Drivers — pick the largest real gaps
   const cand: { gap: number; text: string }[] = [];
   const sH = winnerIsHome ? h : a, sL = winnerIsHome ? a : h;
   const ratio = (sL.totalShots || 1) > 0 ? sH.totalShots / Math.max(sL.totalShots, 1) : 1;
-  if (ratio >= 1.8) cand.push({ gap: ratio, text: `${winner} generated ${ratio.toFixed(ratio >= 3 ? 0 : 1)}× more shots (${sH.totalShots} to ${sL.totalShots}).` });
-  if (Math.abs(h.possession - 0.5) >= 0.12) cand.push({ gap: Math.abs(h.possession - 0.5) * 10, text: `${winnerIsHome ? match.home : match.away} controlled possession (${Math.round((winnerIsHome ? h.possession : a.possession) * 100)}%).` });
-  if (sH.shotsOnGoal - sL.shotsOnGoal >= 3) cand.push({ gap: sH.shotsOnGoal - sL.shotsOnGoal, text: `${winner} hit ${sH.shotsOnGoal} shots on target to ${sL.shotsOnGoal}.` });
-  if (sL.shotsInsideBox <= 4) cand.push({ gap: 5 - sL.shotsInsideBox, text: `${loser} managed only ${sL.shotsInsideBox} shots inside the box.` });
-  if (sH.xg - sL.xg >= 1) cand.push({ gap: sH.xg - sL.xg, text: `${winner} created the better chances (${sH.xg.toFixed(1)} xG to ${sL.xg.toFixed(1)}).` });
+  if (ratio >= 1.8) cand.push({ gap: ratio, text: hmT(t.drvShots, { winner, ratio: ratio.toFixed(ratio >= 3 ? 0 : 1), hi: sH.totalShots, lo: sL.totalShots }) });
+  if (Math.abs(h.possession - 0.5) >= 0.12) cand.push({ gap: Math.abs(h.possession - 0.5) * 10, text: hmT(t.drvPossession, { team: winnerIsHome ? match.home : match.away, pct: Math.round((winnerIsHome ? h.possession : a.possession) * 100) }) });
+  if (sH.shotsOnGoal - sL.shotsOnGoal >= 3) cand.push({ gap: sH.shotsOnGoal - sL.shotsOnGoal, text: hmT(t.drvSoT, { winner, hi: sH.shotsOnGoal, lo: sL.shotsOnGoal }) });
+  if (sL.shotsInsideBox <= 4) cand.push({ gap: 5 - sL.shotsInsideBox, text: hmT(t.drvFewBox, { loser, n: sL.shotsInsideBox }) });
+  if (sH.xg - sL.xg >= 1) cand.push({ gap: sH.xg - sL.xg, text: hmT(t.drvXg, { winner, hi: sH.xg.toFixed(1), lo: sL.xg.toFixed(1) }) });
   const drivers = cand.sort((x, y) => y.gap - x.gap).slice(0, 3).map((c) => c.text);
 
   // Lili
   const sc = r && r.homeScore != null ? `${r.homeScore}-${r.awayScore}` : '';
   const lili = diff >= 22
-    ? `${winner} controlled both territory and possession throughout. The game was largely played in ${loser}'s half, and ${winner} converted efficiently while rarely letting ${loser} build pressure. ${sc ? `A deserved ${sc}.` : 'A deserved result.'}`
+    ? hmT(t.liliDominated, { winner, loser, tail: sc ? hmT(t.deservedScore, { sc }) : t.deservedResult })
     : diff >= 10
-    ? `${winner} edged a competitive match, carrying the greater threat (${winnerIsHome ? controlHome : controlAway}/100 control). ${loser} had moments but couldn't match ${winner}'s output in the key areas.`
-    : `A tight, balanced contest with little between the sides. Neither team established lasting control, and the margins were fine across territory and chances.`;
+    ? hmT(t.liliEdged, { winner, loser, control: winnerIsHome ? controlHome : controlAway })
+    : t.liliEven;
 
   // Events
   const ev = MATCH_EVENTS.find((e) => e.fixtureId === match.fixtureId);

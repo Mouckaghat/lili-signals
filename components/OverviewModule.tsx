@@ -3,6 +3,8 @@ import { StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { computeOverview, type Overview } from '../lib/matchOverview';
 import type { MatchStats } from '../lib/matchStatsData';
 import { useLiveResults } from '../lib/useLiveResults';
+import { useLanguage } from '../contexts/LanguageContext';
+import { HEATMAP_I18N } from '../lib/heatmapI18n';
 
 const D = {
   panel:  '#0A1322',
@@ -21,7 +23,8 @@ export default function OverviewModule({ match }: { match: MatchStats }) {
   const { width } = useWindowDimensions();
   const wide = width >= 860;
   const results = useLiveResults();
-  const o: Overview = useMemo(() => computeOverview(match, results), [match, results]);
+  const { lang } = useLanguage();
+  const o: Overview = useMemo(() => computeOverview(match, results, HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN), [match, results, lang]);
 
   const statusColor = o.status === 'LIVE' ? D.red : o.status === 'FINAL' ? D.text2 : D.blue;
 
