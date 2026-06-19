@@ -438,6 +438,19 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "C2_USA_v_Australia",
+    home: "USA", away: "Australia", date: "2026-06-19",
+    goals: [
+      { player: "Cameron Burgess", team: "Australia", minute: 11, type: "own-goal" },
+      { player: "Alex Freeman", team: "USA", minute: 43, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Jordan Bos", team: "Australia", minute: 16, reason: "Roughing" },
+      { player: "Alessandro Circati", team: "Australia", minute: 32, reason: "Tripping" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-19T18:27:23.327Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-19T20:14:03.160Z';
