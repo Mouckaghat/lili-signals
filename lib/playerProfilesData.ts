@@ -8684,7 +8684,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     caps: 14,
   },
   {
-    name: "Manaf Younis",
+    name: "Munaf Younis",
     nation: "Iraq",
     dob: "1996-11-16",
     age: 29,
@@ -12549,4 +12549,4 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
   },
 ];
 
-export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-18T10:25:21.627Z';
+export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-19T10:42:19.281Z';
