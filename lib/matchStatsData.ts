@@ -226,10 +226,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "C2_USA_v_Australia",
     home: "USA", away: "Australia", date: "2026-06-19",
-    status: "LIVE", elapsed: 45,
-    homeStats: { team: "USA", possession: 0.71, totalShots: 8, shotsInsideBox: 7, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 3, xg: 1.17, passAccuracy: 0.89, passes: 286, fouls: 8 },
-    awayStats: { team: "Australia", possession: 0.29, totalShots: 2, shotsInsideBox: 2, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 2, xg: 0.12, passAccuracy: 0.63, passes: 115, fouls: 8 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "USA", possession: 0.62, totalShots: 10, shotsInsideBox: 8, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 7, xg: 1.3, passAccuracy: 0.86, passes: 516, fouls: 12 },
+    awayStats: { team: "Australia", possession: 0.38, totalShots: 5, shotsInsideBox: 3, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 4, xg: 0.44, passAccuracy: 0.73, passes: 301, fouls: 16 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-19T20:08:30.745Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-19T21:19:48.751Z';
