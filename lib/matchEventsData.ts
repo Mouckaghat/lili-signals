@@ -456,6 +456,17 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "D2_Scotland_v_Morocco",
+    home: "Scotland", away: "Morocco", date: "2026-06-19",
+    goals: [
+      { player: "Ismael Saibari", team: "Morocco", minute: 2, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Issa Diop", team: "Morocco", minute: 23, reason: "Holding" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-19T21:35:27.789Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-19T22:33:11.012Z';
