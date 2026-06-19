@@ -448,9 +448,14 @@ export const MATCH_EVENTS: MatchEvents[] = [
     yellowCards: [
       { player: "Jordan Bos", team: "Australia", minute: 16, reason: "Roughing" },
       { player: "Alessandro Circati", team: "Australia", minute: 32, reason: "Tripping" },
+      { player: "Antonee Robinson", team: "USA", minute: 56, reason: "Tripping" },
+      { player: "Harry Souttar", team: "Australia", minute: 88, reason: "Unsportsmanlike conduct" },
+      { player: "Folarin Balogun", team: "USA", minute: 89, reason: "Unsportsmanlike conduct" },
+      { player: "Jacob Italiano", team: "Australia", minute: 89, reason: "Unsportsmanlike conduct" },
+      { player: "Chris Richards", team: "USA", minute: 90, reason: "Impeding" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-19T20:14:03.160Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-19T21:35:27.789Z';
