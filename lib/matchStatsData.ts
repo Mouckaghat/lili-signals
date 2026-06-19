@@ -164,8 +164,8 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "J1_Austria_v_Jordan",
     home: "Austria", away: "Jordan", date: "2026-06-17",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Austria", possession: 0.63, totalShots: 11, shotsInsideBox: 6, shotsOutsideBox: 5, shotsOnGoal: 4, corners: 4, xg: 1.66, passAccuracy: 0.84, passes: 580, fouls: 12 },
-    awayStats: { team: "Jordan", possession: 0.37, totalShots: 11, shotsInsideBox: 7, shotsOutsideBox: 4, shotsOnGoal: 4, corners: 3, xg: 0.53, passAccuracy: 0.73, passes: 330, fouls: 7 },
+    homeStats: { team: "Austria", possession: 0.63, totalShots: 11, shotsInsideBox: 6, shotsOutsideBox: 5, shotsOnGoal: 4, corners: 4, xg: 1.69, passAccuracy: 0.84, passes: 580, fouls: 12 },
+    awayStats: { team: "Jordan", possession: 0.37, totalShots: 11, shotsInsideBox: 7, shotsOutsideBox: 4, shotsOnGoal: 4, corners: 3, xg: 1.15, passAccuracy: 0.73, passes: 332, fouls: 7 },
   },
   {
     fixtureId: "K1_Portugal_v_Congo_DR",
@@ -225,4 +225,4 @@ export const MATCH_STATS: MatchStats[] = [
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-19T06:51:51.521Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-19T11:08:37.669Z';
