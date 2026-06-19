@@ -413,14 +413,28 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Cyle Larin", team: "Canada", minute: 16, type: "goal" },
       { player: "Jonathan David", team: "Canada", minute: 29, type: "goal" },
       { player: "Jonathan David", team: "Canada", minute: 45, minuteStoppage: 3, type: "goal" },
+      { player: "Nathan Saliba", team: "Canada", minute: 64, type: "goal" },
+      { player: "M. Al Mannai", team: "Qatar", minute: 75, type: "own-goal" },
+      { player: "Jonathan David", team: "Canada", minute: 90, minuteStoppage: 2, type: "goal" },
     ],
     yellowCards: [
       { player: "Derek Cornelius", team: "Canada", minute: 9, reason: "Tripping" },
+      { player: "A. Fathi", team: "Qatar", minute: 62, reason: "Tripping" },
     ],
     redCards: [
       { player: "H. Al Amin", team: "Qatar", minute: 33, reason: "Foul" },
+      { player: "Assim Madibo", team: "Qatar", minute: 53, reason: "Serious foul" },
     ],
+  },
+  {
+    fixtureId: "A2_Mexico_v_South_Korea",
+    home: "Mexico", away: "South Korea", date: "2026-06-19",
+    goals: [],
+    yellowCards: [
+      { player: "Lee Kang-in", team: "South Korea", minute: 4, reason: "Foul" },
+    ],
+    redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-18T23:01:20.008Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-19T01:47:44.495Z';
