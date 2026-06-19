@@ -4,6 +4,8 @@ import { useLocalSearchParams } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { buildHeatGrid, type HeatGrid, type TeamMatchStats } from '../lib/heatmap';
 import { forecastMatch } from '../lib/heatmapForecast';
+import { HEATMAP_I18N, hmT } from '../lib/heatmapI18n';
+import { useLanguage } from '../contexts/LanguageContext';
 import { buildMomentum, type MomentumEvent } from '../lib/matchMomentum';
 import type { MatchStats } from '../lib/matchStatsData';
 import { useLiveStats } from '../lib/useLiveStats';
@@ -218,6 +220,8 @@ export default function MatchHeatmapScreen() {
   const matches   = useLiveStats();
   const results   = useLiveResults();
   const lineups   = useLineups();
+  const { lang }  = useLanguage();
+  const t         = HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN;
   const [tab, setTab] = useState(OVERVIEW);
 
   const ordered = useMemo(() =>
@@ -294,9 +298,9 @@ export default function MatchHeatmapScreen() {
   const subShots = hTerr >= aTerr ? a.totalShots : h.totalShots;
   const domPoss  = Math.round((hTerr >= aTerr ? h.possession : a.possession) * 100);
   const margin   = Math.abs(hTerr - aTerr);
-  let headline = margin >= 24 ? `${dom} dominated` : margin >= 10 ? `${dom} edged it` : 'Even territorial battle';
-  let explain  = `${domPoss}% of the ball and ${domShots} shots to ${subShots}.`;
-  let conseq   = margin >= 10 ? `${sub} rarely progressed beyond the middle third.` : 'Both sides traded control across the pitch.';
+  let headline = margin >= 24 ? hmT(t.insHeadDom, { dom }) : margin >= 10 ? hmT(t.insHeadEdge, { dom }) : t.insHeadEven;
+  let explain  = hmT(t.insExplain, { pct: domPoss, hi: domShots, lo: subShots });
+  let conseq   = margin >= 10 ? hmT(t.insConseqEdge, { sub }) : t.insConseqEven;
 
   // Forecast wording — predicted, not past tense; led by Lili's win probability.
   if (isForecast && forecast) {
@@ -305,9 +309,9 @@ export default function MatchHeatmapScreen() {
     const aw = Math.round(forecast.awayWin * 100);
     const tight = Math.abs(forecast.homeWin - forecast.awayWin) < 0.08;
     const fav = forecast.homeWin >= forecast.awayWin ? active.home : active.away;
-    headline = tight ? 'Too close to call' : `${fav} favoured`;
-    explain  = `Lili's odds: ${active.home} ${hw}% · draw ${dw}% · ${active.away} ${aw}%.`;
-    conseq   = `Expecting ${dom} to see more of the ball (${domPoss}% projected) and press higher up the pitch.`;
+    headline = tight ? t.fcHeadTight : hmT(t.fcHeadFav, { fav });
+    explain  = hmT(t.fcOdds, { home: active.home, hw, dw, away: active.away, aw });
+    conseq   = hmT(t.fcConseq, { dom, pct: domPoss });
   }
 
   const Header = (
@@ -404,20 +408,20 @@ export default function MatchHeatmapScreen() {
   // labelled as a forecast. No momentum/score yet — those begin at kickoff.
   if (isForecast && forecast) {
     const basisLine =
-      forecast.basis === 'form'     ? "Modelled from both teams' tournament form so far"
-      : forecast.basis === 'mixed'  ? "Modelled from current form and Lili's strength ratings"
-      :                               "Modelled from Lili's strength ratings (no matches played yet)";
+      forecast.basis === 'form'     ? t.fcBasisForm
+      : forecast.basis === 'mixed'  ? t.fcBasisMixed
+      :                               t.fcBasisStrength;
     return (
       <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
         {Header}
         <View style={st.fcBanner}>
-          <Text style={st.fcBannerTitle}>🔮 LILI'S FORECAST · PREDICTED PRESSURE</Text>
-          <Text style={st.fcBannerSub}>{basisLine}. The live heatmap takes over the moment the match kicks off.</Text>
+          <Text style={st.fcBannerTitle}>{t.fcBannerTitle}</Text>
+          <Text style={st.fcBannerSub}>{basisLine}. {t.fcBannerTail}</Text>
         </View>
         <View style={st.narrowBody}>
           <Pitch home={h} away={a} homeName={active.home} awayName={active.away} homeFormation={homeFormation} awayFormation={awayFormation} fill={false} />
           <View style={st.fcNote}>
-            <Text style={st.fcNoteText}>Momentum, score & live stats begin at kickoff. Values shown are Lili's pre-match expectation — a model, not measured data.</Text>
+            <Text style={st.fcNoteText}>{t.fcNote}</Text>
           </View>
           <View style={{ marginTop: 12 }}>{RailContent}</View>
         </View>
