@@ -206,8 +206,8 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "B2_Switzerland_v_Bosnia_Herzegovina",
     home: "Switzerland", away: "Bosnia & Herzegovina", date: "2026-06-18",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Switzerland", possession: 0.62, totalShots: 13, shotsInsideBox: 9, shotsOutsideBox: 4, shotsOnGoal: 7, corners: 7, xg: 2.01, passAccuracy: 0.88, passes: 587, fouls: 7 },
-    awayStats: { team: "Bosnia & Herzegovina", possession: 0.38, totalShots: 5, shotsInsideBox: 3, shotsOutsideBox: 2, shotsOnGoal: 3, corners: 3, xg: 0.24, passAccuracy: 0.81, passes: 353, fouls: 18 },
+    homeStats: { team: "Switzerland", possession: 0.62, totalShots: 13, shotsInsideBox: 9, shotsOutsideBox: 4, shotsOnGoal: 7, corners: 7, xg: 2.06, passAccuracy: 0.88, passes: 586, fouls: 7 },
+    awayStats: { team: "Bosnia & Herzegovina", possession: 0.38, totalShots: 5, shotsInsideBox: 3, shotsOutsideBox: 2, shotsOnGoal: 3, corners: 3, xg: 0.23, passAccuracy: 0.81, passes: 354, fouls: 18 },
   },
   {
     fixtureId: "B2_Canada_v_Qatar",
@@ -240,10 +240,17 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "D2_Brazil_v_Haiti",
     home: "Brazil", away: "Haiti", date: "2026-06-20",
-    status: "LIVE", elapsed: 60,
-    homeStats: { team: "Brazil", possession: 0.6, totalShots: 6, shotsInsideBox: 6, shotsOutsideBox: 0, shotsOnGoal: 5, corners: 4, xg: 1.21, passAccuracy: 0.89, passes: 363, fouls: 7 },
-    awayStats: { team: "Haiti", possession: 0.4, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 1, xg: 0.07, passAccuracy: 0.81, passes: 245, fouls: 6 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Brazil", possession: 0.57, totalShots: 8, shotsInsideBox: 8, shotsOutsideBox: 0, shotsOnGoal: 5, corners: 4, xg: 1.5, passAccuracy: 0.88, passes: 522, fouls: 13 },
+    awayStats: { team: "Haiti", possession: 0.43, totalShots: 8, shotsInsideBox: 5, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 4, xg: 0.25, passAccuracy: 0.83, passes: 399, fouls: 15 },
+  },
+  {
+    fixtureId: "C2_T_rkiye_v_Paraguay",
+    home: "Türkiye", away: "Paraguay", date: "2026-06-19",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Türkiye", possession: 0.79, totalShots: 32, shotsInsideBox: 16, shotsOutsideBox: 16, shotsOnGoal: 5, corners: 12, xg: 2.1, passAccuracy: 0.89, passes: 630, fouls: 14 },
+    awayStats: { team: "Paraguay", possession: 0.21, totalShots: 7, shotsInsideBox: 3, shotsOutsideBox: 4, shotsOnGoal: 2, corners: 0, xg: 0.32, passAccuracy: 0.53, passes: 177, fouls: 15 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-20T01:55:28.962Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-20T05:58:33.060Z';
