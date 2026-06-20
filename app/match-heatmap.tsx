@@ -18,6 +18,7 @@ import OverviewModule, { TournamentImpactPanel } from '../components/OverviewMod
 import PassMapModule from '../components/PassMapModule';
 import ShotsModule from '../components/ShotsModule';
 import { MomentumPanel, AttackZonesPanel, ShotsMapPanel, PassMapPanel } from '../components/MatchDashboard';
+import TerritoryPitch from '../components/TerritoryPitch';
 
 // ─── Tokens ──────────────────────────────────────────────────────────────────
 const D = {
@@ -56,93 +57,6 @@ function fmtDate(iso: string): string {
   return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
 }
 
-// Subtle grass mowing-stripes so the field reads as a pitch under the heat.
-function Stripes() {
-  const bands = [];
-  for (let i = 0; i < 16; i++) {
-    bands.push(<View key={i} style={{ flex: 1, backgroundColor: i % 2 === 0 ? 'rgba(255,255,255,0.018)' : 'transparent' }} />);
-  }
-  return <View style={[StyleSheet.absoluteFill, { flexDirection: 'row' }]} pointerEvents="none">{bands}</View>;
-}
-
-// Threat overlay: only the danger zones glow (penalty area / half-spaces / wide
-// channels) — the model already zeroes out the own half & midfield, so most of
-// the pitch stays transparent and the markings read clearly underneath. A small
-// web blur softens the cell grid into zones without the old "weather-radar" wash.
-const HEAT_THRESH = 0.18;   // below this → fully transparent (cold pitch)
-const HEAT_MAXA   = 0.74;   // hottest zone opacity (markings still punch through on top)
-function HeatField({ homeGrid, awayGrid }: { homeGrid: HeatGrid; awayGrid: HeatGrid }) {
-  // Weight by ABSOLUTE activity (share), hard, so a dominant side fills its
-  // attacking third while a weak side collapses to a few isolated zones rather
-  // than flooding its half (each grid is normalised to its own max otherwise).
-  const W = (s: number) => Math.min(0.95, 0.05 + 1.12 * s);
-  const hW = W(homeGrid.share), aW = W(awayGrid.share);
-  const rows = [];
-  for (let cy = 0; cy < homeGrid.rows; cy++) {
-    const cells = [];
-    for (let cx = 0; cx < homeGrid.cols; cx++) {
-      const i = cy * homeGrid.cols + cx;
-      const Hw = homeGrid.cells[i] * hW;
-      const Aw = awayGrid.cells[i] * aW;
-      const total = Hw + Aw;
-      let bg: string | undefined;
-      if (total > HEAT_THRESH) {
-        const ratio = Hw / total; // 1 = all home (blue), 0 = all away (red)
-        const norm  = (total - HEAT_THRESH) / (1 - HEAT_THRESH);
-        // one-sidedness: 0 = perfectly contested, 1 = a team clearly owns it.
-        const dom   = Math.abs(ratio - 0.5) * 2;
-        // contested midfield fades; clearly-owned zones stay strong.
-        const alpha = Math.min(HEAT_MAXA, 0.05 + Math.pow(norm, 1.4) * HEAT_MAXA) * (0.5 + 0.5 * dom);
-        // steepen colour commitment so cells reach blue/red fast → narrow purple band.
-        const t     = Math.max(0, Math.min(1, 0.5 + (ratio - 0.5) * 1.8));
-        const rgb   = t >= 0.5 ? mix(D.purple, D.blue, (t - 0.5) * 2) : mix(D.red, D.purple, t * 2);
-        bg = `rgba(${rgb},${alpha.toFixed(3)})`;
-      }
-      cells.push(<View key={cx} style={[hp.cell, bg ? { backgroundColor: bg } : null]} />);
-    }
-    rows.push(<View key={cy} style={hp.row}>{cells}</View>);
-  }
-  return <View style={StyleSheet.absoluteFill}>{rows}</View>;
-}
-
-function Pitch({ home, away, homeName, awayName, homeFormation, awayFormation, fill }: {
-  home: TeamMatchStats; away: TeamMatchStats; homeName: string; awayName: string;
-  homeFormation?: string; awayFormation?: string; fill: boolean;
-}) {
-  const homeGrid = useMemo(() => buildHeatGrid(home, 'ltr', PITCH_COLS, PITCH_ROWS, homeFormation), [home, homeFormation]);
-  const awayGrid = useMemo(() => buildHeatGrid(away, 'rtl', PITCH_COLS, PITCH_ROWS, awayFormation), [away, awayFormation]);
-  // Lightly soften the zone grid on web (markings render after, so they stay
-  // sharp). Kept small — heavy blur is what made the old map look like weather
-  // radar; 2.5px just removes cell edges while keeping crisp zone transitions.
-  const blur = Platform.OS === 'web' ? ({ filter: 'blur(2.5px)' } as any) : null;
-  return (
-    <View style={[fill ? { flex: 1 } : null, { minHeight: 0 }]}>
-      <View style={hp.attackRow}>
-        <Text style={[hp.attackLabel, { color: D.blue }]}>{homeName.toUpperCase()} ATTACK →</Text>
-        <Text style={[hp.attackLabel, { color: D.red }]}>← {awayName.toUpperCase()} ATTACK</Text>
-      </View>
-      <View style={[hp.pitch, fill ? { flex: 1 } : { aspectRatio: 16 / 9 }]}>
-        <Stripes />
-        <View style={[StyleSheet.absoluteFill, blur]} pointerEvents="none">
-          <HeatField homeGrid={homeGrid} awayGrid={awayGrid} />
-        </View>
-        {/* markings — sharp & bright, ALWAYS above the heat so the pitch reads first */}
-        <View style={hp.halfway} />
-        <View style={hp.centerCircle} />
-        <View style={hp.spot} />
-        <View style={[hp.box, hp.boxL]} /><View style={[hp.box, hp.boxR]} />
-        <View style={[hp.sixBox, hp.sixL]} /><View style={[hp.sixBox, hp.sixR]} />
-        {/* penalty arcs (the "D") — full circles centred on the penalty spot,
-            clipped so only the arc outside each box shows */}
-        <View style={[hp.arcClip, hp.arcClipL]}><View style={[hp.arc, hp.arcL]} /></View>
-        <View style={[hp.arcClip, hp.arcClipR]}><View style={[hp.arc, hp.arcR]} /></View>
-        <View style={[hp.penSpot, { left: '9.5%' }]} /><View style={[hp.penSpot, { right: '9.5%' }]} />
-        <View style={[hp.corner, { top: -7, left: -7 }]} /><View style={[hp.corner, { top: -7, right: -7 }]} />
-        <View style={[hp.corner, { bottom: -7, left: -7 }]} /><View style={[hp.corner, { bottom: -7, right: -7 }]} />
-      </View>
-    </View>
-  );
-}
 
 // ─── Rail panels ────────────────────────────────────────────────────────────
 function Panel({ title, children, style }: { title: string; children: React.ReactNode; style?: any }) {
@@ -325,6 +239,19 @@ export default function MatchHeatmapScreen() {
 
   const RailContent = (
     <>
+      <Panel title="🦞 LILI INSIGHT" style={rp.tight}>
+        <Text style={rp.insHead}>{headline}</Text>
+        <Text style={rp.insBody}>{explain}</Text>
+        <Text style={rp.insConseq}>{conseq}</Text>
+      </Panel>
+
+      <Panel title="HOW TO READ" style={rp.tight}>
+        <View style={rp.gradient}>
+          <View style={{ flex: 1, backgroundColor: D.red }} /><View style={{ flex: 1, backgroundColor: D.purple }} /><View style={{ flex: 1, backgroundColor: D.blue }} />
+        </View>
+        <View style={rp.gradLabels}><Text style={rp.gradText}>{active.away}</Text><Text style={rp.gradText}>Contested</Text><Text style={rp.gradText}>{active.home}</Text></View>
+      </Panel>
+
       <Panel title="TERRITORY SHARE" style={rp.tight}>
         <View style={rp.shareRow}><View style={[rp.dot, { backgroundColor: D.blue }]} /><Text style={rp.shareTeam}>{active.home}</Text><Text style={[rp.sharePct, { color: D.blue }]}>{hTerr}%</Text></View>
         <View style={rp.shareRow}><View style={[rp.dot, { backgroundColor: D.red }]} /><Text style={rp.shareTeam}>{active.away}</Text><Text style={[rp.sharePct, { color: D.red }]}>{aTerr}%</Text></View>
@@ -342,19 +269,6 @@ export default function MatchHeatmapScreen() {
         <StatRow label="Pass Acc"   h={`${Math.round(h.passAccuracy * 100)}%`} a={`${Math.round(a.passAccuracy * 100)}%`} />
         <StatRow label="Corners"    h={h.corners} a={a.corners} />
         <StatRow label="Fouls"      h={h.fouls ?? '—'} a={a.fouls ?? '—'} />
-      </Panel>
-
-      <Panel title="HOW TO READ" style={rp.tight}>
-        <View style={rp.gradient}>
-          <View style={{ flex: 1, backgroundColor: D.blue }} /><View style={{ flex: 1, backgroundColor: D.purple }} /><View style={{ flex: 1, backgroundColor: D.red }} />
-        </View>
-        <View style={rp.gradLabels}><Text style={rp.gradText}>{active.home}</Text><Text style={rp.gradText}>Contested</Text><Text style={rp.gradText}>{active.away}</Text></View>
-      </Panel>
-
-      <Panel title="🦞 LILI INSIGHT" style={rp.tight}>
-        <Text style={rp.insHead}>{headline}</Text>
-        <Text style={rp.insBody}>{explain}</Text>
-        <Text style={rp.insConseq}>{conseq}</Text>
       </Panel>
     </>
   );
@@ -376,7 +290,7 @@ export default function MatchHeatmapScreen() {
           <Text style={st.fcBannerSub}>{basisLine}. {t.fcBannerTail}</Text>
         </View>
         <View style={st.narrowBody}>
-          <Pitch home={h} away={a} homeName={active.home} awayName={active.away} homeFormation={homeFormation} awayFormation={awayFormation} fill={false} />
+          <TerritoryPitch homeName={active.home} awayName={active.away} homeFrac={hTerr / 100} />
           <View style={st.fcNote}>
             <Text style={st.fcNoteText}>{t.fcNote}</Text>
           </View>
@@ -392,14 +306,14 @@ export default function MatchHeatmapScreen() {
   ) : wide ? (
     <View style={st.mainRow}>
       <View style={st.leftCol}>
-        <Pitch home={h} away={a} homeName={active.home} awayName={active.away} homeFormation={homeFormation} awayFormation={awayFormation} fill />
+        <TerritoryPitch homeName={active.home} awayName={active.away} homeFrac={hTerr / 100} />
         <MomentumPanel match={active} />
       </View>
       <ScrollView style={st.rail} contentContainerStyle={{ paddingBottom: 4 }} showsVerticalScrollIndicator={false}>{RailContent}</ScrollView>
     </View>
   ) : (
     <View>
-      <Pitch home={h} away={a} homeName={active.home} awayName={active.away} homeFormation={homeFormation} awayFormation={awayFormation} fill={false} />
+      <TerritoryPitch homeName={active.home} awayName={active.away} homeFrac={hTerr / 100} />
       <MomentumPanel match={active} />
       <View style={{ marginTop: 12 }}>{RailContent}</View>
     </View>
@@ -510,38 +424,6 @@ export default function MatchHeatmapScreen() {
 }
 
 // ─── Styles ────────────────────────────────────────────────────────────────────
-const hp = StyleSheet.create({
-  attackRow:   { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 },
-  attackLabel: { fontSize: 11, fontWeight: '800', letterSpacing: 0.4 },
-  pitch:       { width: '100%', backgroundColor: D.pitch, borderRadius: 6, borderWidth: 2, borderColor: D.line,
-                 overflow: 'hidden', shadowColor: D.blue, shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.35, shadowRadius: 16, elevation: 6 },
-  row:         { flex: 1, flexDirection: 'row' },
-  cell:        { flex: 1 },
-  halfway:     { position: 'absolute', left: '50%', top: 0, bottom: 0, width: 2, marginLeft: -1, backgroundColor: D.line },
-  // Centre circle: width is % of pitch width; aspectRatio 1 → height equals that
-  // in px, so marginTop must be −½·(that width %) — also a % of width in RN.
-  centerCircle:{ position: 'absolute', left: '50%', top: '50%', width: '16%', aspectRatio: 1, marginLeft: '-8%',
-                 marginTop: '-8%', borderRadius: 999, borderWidth: 2, borderColor: D.line },
-  spot:        { position: 'absolute', left: '50%', top: '50%', width: 5, height: 5, borderRadius: 3, marginLeft: -2.5, marginTop: -2.5, backgroundColor: D.line },
-  box:         { position: 'absolute', top: '19%', bottom: '19%', width: '16%', borderWidth: 2, borderColor: D.line },
-  boxL:        { left: 0, borderLeftWidth: 0 },
-  boxR:        { right: 0, borderRightWidth: 0 },
-  sixBox:      { position: 'absolute', top: '35%', bottom: '35%', width: '6%', borderWidth: 2, borderColor: D.line },
-  sixL:        { left: 0, borderLeftWidth: 0 },
-  sixR:        { right: 0, borderRightWidth: 0 },
-  penSpot:     { position: 'absolute', top: '50%', width: 4, height: 4, borderRadius: 2, marginTop: -2, backgroundColor: D.line },
-  // Penalty arc: a clip window just outside each box reveals only the curved
-  // edge of a full circle centred on the penalty spot → the "D".
-  arcClip:     { position: 'absolute', top: 0, bottom: 0, width: '15%', overflow: 'hidden' },
-  arcClipL:    { left: '16%' },
-  arcClipR:    { right: '16%' },
-  arc:         { position: 'absolute', top: '50%', width: '116%', aspectRatio: 1, marginTop: '-58%',
-                 borderRadius: 999, borderWidth: 2, borderColor: D.line },
-  arcL:        { left: '-95%' },
-  arcR:        { right: '-95%' },
-  corner:      { position: 'absolute', width: 14, height: 14, borderRadius: 999, borderWidth: 1.5, borderColor: D.lineSoft },
-});
-
 const rp = StyleSheet.create({
   panel:      { backgroundColor: D.panel, borderRadius: 10, borderWidth: 1, borderColor: D.border, paddingHorizontal: 10, paddingVertical: 8, marginBottom: 8 },
   tight:      {},
