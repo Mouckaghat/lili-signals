@@ -112,12 +112,16 @@ try {
 }
 
 // ── 4. Verify GitHub HEAD == local HEAD ────────────────────────────────────
+// Re-read HEAD *after* the push: git-push-retry.sh rebases on a rejected push
+// (lost the race with a sync bot), which rewrites our commit's SHA. Comparing
+// the pre-push SHA would be a false mismatch even though the push succeeded.
 console.log('\n── Deployment verification ───────────────────────────────────');
+const pushedHead = run('git rev-parse HEAD');
 const remoteLine = runSoft('git ls-remote origin -h refs/heads/main');
 const remoteHead = remoteLine.split(/\s+/)[0] || '';
-const githubMatch = remoteHead && remoteHead === localHead;
+const githubMatch = remoteHead && remoteHead === pushedHead;
 
-console.log(`${githubMatch ? '✅' : '❌'}  Local HEAD:  ${short(localHead)}`);
+console.log(`${githubMatch ? '✅' : '❌'}  Local HEAD:  ${short(pushedHead)}`);
 console.log(`${githubMatch ? '✅' : '❌'}  GitHub HEAD: ${short(remoteHead) || '(unknown)'}`);
 if (!githubMatch) {
   console.error(
@@ -130,7 +134,7 @@ if (!githubMatch) {
 if (process.env.SHIP_SKIP_VERCEL) {
   console.log('\nℹ️  SHIP_SKIP_VERCEL set — skipping Vercel verification.');
 } else {
-  verifyVercel(localHead);
+  verifyVercel(pushedHead);
 }
 
 console.log(
