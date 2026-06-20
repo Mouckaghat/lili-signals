@@ -32,11 +32,11 @@ export interface MomentumMarker {
 const ICON = { goal: '⚽', yellow: '🟨', red: '🟥' } as const;
 const KIND_LABEL = { goal: 'Goal', yellow: 'Yellow card', red: 'Red card' } as const;
 
-// vertical layout (px)
-const HOME_BAND = 72, WAVE_H = 148, AWAY_BAND = 72;
-const TOTAL = HOME_BAND + WAVE_H + AWAY_BAND; // 292
-const BASE_Y = HOME_BAND + WAVE_H / 2;        // baseline (the line) at 146
-const AMP = WAVE_H / 2 - 10;                   // wave amplitude (64)
+// vertical layout (px) — kept compact so the wave + the pitch both fit one screen
+const HOME_BAND = 56, WAVE_H = 84, AWAY_BAND = 56;
+const TOTAL = HOME_BAND + WAVE_H + AWAY_BAND; // 196
+const BASE_Y = HOME_BAND + WAVE_H / 2;        // baseline (the line) at 98
+const AMP = WAVE_H / 2 - 8;                    // wave amplitude (34)
 const HOME_EDGE_Y = HOME_BAND - 2;             // where a home leader-line meets the card
 const AWAY_EDGE_Y = HOME_BAND + WAVE_H + 2;    // …and an away card
 const CARD_W = 86, GAP = 6, HALF = CARD_W / 2; // card footprint for spreading/clamping
