@@ -261,10 +261,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "E2_Germany_v_Ivory_Coast",
     home: "Germany", away: "Ivory Coast", date: "2026-06-20",
-    status: "LIVE", elapsed: 63,
-    homeStats: { team: "Germany", possession: 0.61, totalShots: 9, shotsInsideBox: 4, shotsOutsideBox: 5, shotsOnGoal: 2, corners: 6, xg: 0.62, passAccuracy: 0.89, passes: 438, fouls: 2 },
-    awayStats: { team: "Ivory Coast", possession: 0.39, totalShots: 8, shotsInsideBox: 6, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 2, xg: 1.2, passAccuracy: 0.88, passes: 284, fouls: 5 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Germany", possession: 0.6, totalShots: 16, shotsInsideBox: 9, shotsOutsideBox: 7, shotsOnGoal: 7, corners: 8, xg: 1.48, passAccuracy: 0.89, passes: 618, fouls: 5 },
+    awayStats: { team: "Ivory Coast", possession: 0.4, totalShots: 9, shotsInsideBox: 6, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 3, xg: 1.23, passAccuracy: 0.86, passes: 420, fouls: 7 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-20T21:26:03.720Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-20T22:00:45.881Z';
