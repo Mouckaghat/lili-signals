@@ -61,10 +61,24 @@ export function formationShape(formation?: string): { push: number; width: numbe
 }
 
 /**
- * Build a normalised territory grid for one team.
- * Coordinates are computed in "attacking" space (x=1 is the opponent goal),
- * then mapped to absolute pitch orientation so home (ltr) and away (rtl) can
- * be drawn on the same pitch.
+ * Build a normalised THREAT grid for one team (the "where was danger created?"
+ * model — not a possession cloud).
+ *
+ * Design (premium match-centre, Opta/StatsBomb style):
+ *  • Heat lives in football ZONES, not radial blobs: five lateral channels
+ *    (wing / half-space / centre / half-space / wing) crossed with a strong
+ *    attacking-third gate so the midfield and own half stay cold.
+ *  • A fixed DANGER HIERARCHY sets the ceiling per zone — penalty area >
+ *    half-spaces > wide channels > midfield — modulated by what the side
+ *    actually did (box shots & xG → central penetration; corners & a back-3
+ *    width → wide; shots from distance → top-of-box half-space).
+ *  • HONEST LATERALITY: we have no x-y tracking, so we cannot know whether a
+ *    side attacked down the left or the right. The field is therefore MIRROR-
+ *    SYMMETRIC about the centre line (Left Wing == Right Wing, Left Half-Space
+ *    == Right Half-Space). We model central-vs-wide, never left-vs-right.
+ *
+ * Coordinates are computed in "attacking" space (ax=1 is the opponent goal),
+ * then mapped to absolute orientation so home (ltr) and away (rtl) share a pitch.
  */
 export function buildHeatGrid(
   s: TeamMatchStats,
@@ -74,46 +88,51 @@ export function buildHeatGrid(
   formation?: string,
 ): HeatGrid {
   const possession = clamp01(s.possession || 0);
-  const shots      = Math.max(1, s.totalShots || 0);
-  const outsideRat = clamp01((s.shotsOutsideBox || 0) / shots);
-
-  // Starting shape: nudges the line height and width. Possession still
-  // dominates (it's live truth); formation mainly shapes the early minutes
-  // before shots/xG accumulate, and separates a high press from a low block.
+  const shots   = Math.max(0, s.totalShots || 0);
+  const inBox   = Math.max(0, s.shotsInsideBox || 0);
+  const outBox  = Math.max(0, s.shotsOutsideBox || 0);
+  const onGoal  = Math.max(0, s.shotsOnGoal || 0);
+  const corners = Math.max(0, s.corners || 0);
+  const xg      = Math.max(0, s.xg || 0);
   const { push, width } = formationShape(formation);
 
-  // Centre of gravity along the pitch length: more possession ⇒ camped higher,
-  // plus a formation bias (high line pushes forward, low block sits deeper).
-  const muX  = clamp01(0.30 + 0.55 * possession + 0.08 * push); // ~0.47 (deep) … ~0.78 (dominant)
-  const sigX = 0.19;                               // tighter ⇒ a pressure zone, not a full-pitch cloud
-  const sigTerrY = 0.28 + 0.06 * width;            // wing-back systems spread wider
+  // What KIND of threat this side generated (all symmetric — central vs wide).
+  const central  = inBox * 0.6 + xg * 2.0 + onGoal * 0.5; // box penetration
+  const distance = outBox * 0.5;                           // from the top of the box / half-space
+  const wideness = corners * 0.5 + width * 1.5;            // crosses / wing-back width
 
-  // Threat hotspot just outside the opponent box, sized by box shots + xG.
-  const threat  = (s.shotsInsideBox || 0) * 0.6 + (s.xg || 0) * 2.0 + (s.shotsOnGoal || 0) * 0.4;
-  const boxAmp  = Math.min(threat / 6, 1.7);
-  const xBox    = 0.86;
-  const sigBoxX = 0.07;
-  const sigBoxY = 0.13 + 0.07 * outsideRat;        // wider band if shooting from distance
+  // How high up the pitch the side camped (centre of gravity along the length).
+  const muX = clamp01(0.36 + 0.46 * possession + 0.07 * push); // ~0.5 (deep) … ~0.86 (dominant)
 
-  // Corners feed both flanks near the byline.
-  const cornerW = Math.min((s.corners || 0) / 10, 1) * 0.5;
+  // DANGER HIERARCHY — the per-zone ceilings (penalty area ≫ half-space > wide > midfield).
+  const boxAmp  = Math.min(0.55 + central * 0.50, 3.0);                              // penalty area — 1st
+  const hsAmp   = Math.min(0.45 + central * 0.22 + distance * 0.45 + 0.20 * possession, 2.2); // half-spaces — 2nd
+  const wideAmp = Math.min(0.28 + wideness * 0.55 + 0.12 * possession, 1.6);         // wide channels — 3rd
+  const midAmp  = Math.min(0.20 + 0.40 * possession, 0.65);                          // midfield — lowest, capped
 
   const raw = new Array(cols * rows).fill(0);
   let max = 0;
 
   for (let cy = 0; cy < rows; cy++) {
     for (let cx = 0; cx < cols; cx++) {
-      const ax = (cx + 0.5) / cols; // attacking x: 0 own goal → 1 opp goal
-      const ay = (cy + 0.5) / rows;
+      const ax  = (cx + 0.5) / cols; // 0 own goal → 1 opp goal
+      const ay  = (cy + 0.5) / rows;
+      const ady = Math.abs(ay - 0.5); // 0 centre … 0.5 touchline
 
-      // Final-third emphasis: forward zones weigh more, own-half / midfield less,
-      // so domination reads as attacking pressure rather than a central cloud.
-      const fwd       = 0.45 + 0.85 * ax;
-      const territory = (0.45 + 0.55 * possession) * fwd * g(ax - muX, sigX) * g(ay - 0.5, sigTerrY);
-      const box       = boxAmp * g(ax - xBox, sigBoxX) * g(ay - 0.5, sigBoxY);
-      const flanks    = (cornerW + 0.15 * width) * (g(ax - 0.90, 0.06) * g(ay - 0.15, 0.10)
-                                                  + g(ax - 0.90, 0.06) * g(ay - 0.85, 0.10));
-      const v = territory + 1.2 * box + flanks;
+      // PENALTY AREA: central + deep. The hottest zone by design.
+      const box  = boxAmp  * g(ax - 0.88, 0.075) * g(ady - 0.00, 0.11);
+      // HALF-SPACES: two lanes ±0.17 off centre, just outside the box.
+      const hs   = hsAmp   * g(ax - 0.79, 0.115) * g(ady - 0.17, 0.075);
+      // WIDE CHANNELS: touchline lanes pushing toward the byline.
+      const wide = wideAmp * g(ax - 0.83, 0.105) * g(ady - 0.40, 0.075);
+      // MIDFIELD: central, middle third, scaled by where the side camps. Capped low.
+      const mid  = midAmp  * g(ax - muX, 0.15)   * g(ax - 0.52, 0.17) * g(ady - 0.00, 0.32);
+
+      let v = box * 1.30 + hs * 1.0 + wide * 0.95 + mid * 0.55;
+
+      // Hard gate behind the halfway-ish line: nothing glows in the own half,
+      // so the map can never read as "this whole half belonged to this team".
+      v *= clamp01((ax - 0.34) / 0.20); // 0 at ax≤0.34 → full by ax≥0.54
 
       const absCx = attackDir === 'ltr' ? cx : cols - 1 - cx;
       raw[cy * cols + absCx] = v;
@@ -124,7 +143,7 @@ export function buildHeatGrid(
   const cells = max > 0 ? raw.map((v) => v / max) : raw;
   // Cross-team weight: blend possession with shot volume so a dominant side
   // genuinely renders hotter than a parked-bus opponent.
-  const share = clamp01(0.5 * possession + 0.5 * Math.min(shots / 25, 1));
+  const share = clamp01(0.45 * possession + 0.55 * Math.min(shots / 22, 1));
 
   return { cols, rows, cells, share, attackDir };
 }

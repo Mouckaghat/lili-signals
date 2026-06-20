@@ -138,6 +138,11 @@ interface StandingEntry {
 function buildEntries(rawGroups: ApiStandingEntry[][]): StandingEntry[] {
   const wcTeamNames = new Set(WC_TEAMS.map((t) => t.name));
   const entries: StandingEntry[] = [];
+  // De-dupe by (group, team): api-football's /standings response repeats some
+  // group sub-arrays (it returned G–L twice on 2026-06-20), which previously
+  // wrote every team twice into lib/standingsData.ts and made the group table
+  // render each side twice. First occurrence wins — they are identical anyway.
+  const seen = new Set<string>();
 
   for (const group of rawGroups) {
     if (!Array.isArray(group)) continue;
@@ -148,6 +153,9 @@ function buildEntries(rawGroups: ApiStandingEntry[][]): StandingEntry[] {
         continue;
       }
       const groupLetter = e.group.replace(/^Group\s*/i, '').trim();
+      const key = `${groupLetter}|${team}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
       entries.push({
         group:  groupLetter,
         team,

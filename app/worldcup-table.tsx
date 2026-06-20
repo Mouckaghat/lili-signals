@@ -180,8 +180,14 @@ const STATUS_MAP: Record<string, Status> = {
 };
 
 function getApiStandings(group: string): StandingEntry[] {
+  // Defensive de-dupe by team: if the baked feed ever carries duplicate rows
+  // (api-football's /standings has repeated group sub-arrays — see
+  // sync-standings.ts), keep one row per team so the table can never render a
+  // side twice, and so the played-count selector below isn't inflated.
+  const seen = new Set<string>();
   return GROUP_STANDINGS
     .filter((s) => s.group === group || s.group.endsWith(group))
+    .filter((s) => { if (seen.has(s.team)) return false; seen.add(s.team); return true; })
     .sort((a, b) => a.rank - b.rank)
     .map((s) => {
       const team = WC_TEAMS.find((t) => t.name === s.team);

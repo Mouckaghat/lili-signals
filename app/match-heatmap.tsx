@@ -30,8 +30,8 @@ const D = {
   red:     '#FF3B47',
   purple:  '#9A52FF',
   pitch:   '#07181E',
-  line:    'rgba(255,255,255,0.62)',
-  lineSoft:'rgba(255,255,255,0.34)',
+  line:    'rgba(229,239,255,0.92)',   // pitch markings — bright, must read above heat
+  lineSoft:'rgba(229,239,255,0.55)',   // secondary markings (corners, arcs)
   text1:   '#F1F5FF',
   text2:   '#8DA2C8',
   text3:   '#52668C',
@@ -67,11 +67,12 @@ function Stripes() {
   return <View style={[StyleSheet.absoluteFill, { flexDirection: 'row' }]} pointerEvents="none">{bands}</View>;
 }
 
-// Territory overlay: only meaningful zones glow; low activity stays transparent
-// so the pitch shows through. Continuous alpha + a web blur → smooth gradients
-// (Opta/StatsBomb feel) rather than visible blocks.
-const HEAT_THRESH = 0.25;   // below this → transparent (most of the pitch)
-const HEAT_MAXA   = 0.70;   // hottest team zone opacity (field still visible under it)
+// Threat overlay: only the danger zones glow (penalty area / half-spaces / wide
+// channels) — the model already zeroes out the own half & midfield, so most of
+// the pitch stays transparent and the markings read clearly underneath. A small
+// web blur softens the cell grid into zones without the old "weather-radar" wash.
+const HEAT_THRESH = 0.18;   // below this → fully transparent (cold pitch)
+const HEAT_MAXA   = 0.74;   // hottest zone opacity (markings still punch through on top)
 function HeatField({ homeGrid, awayGrid }: { homeGrid: HeatGrid; awayGrid: HeatGrid }) {
   // Weight by ABSOLUTE activity (share), hard, so a dominant side fills its
   // attacking third while a weak side collapses to a few isolated zones rather
@@ -112,8 +113,10 @@ function Pitch({ home, away, homeName, awayName, homeFormation, awayFormation, f
 }) {
   const homeGrid = useMemo(() => buildHeatGrid(home, 'ltr', PITCH_COLS, PITCH_ROWS, homeFormation), [home, homeFormation]);
   const awayGrid = useMemo(() => buildHeatGrid(away, 'rtl', PITCH_COLS, PITCH_ROWS, awayFormation), [away, awayFormation]);
-  // Smooth the heat on web (markings render after, so they stay sharp).
-  const blur = Platform.OS === 'web' ? ({ filter: 'blur(6px)' } as any) : null;
+  // Lightly soften the zone grid on web (markings render after, so they stay
+  // sharp). Kept small — heavy blur is what made the old map look like weather
+  // radar; 2.5px just removes cell edges while keeping crisp zone transitions.
+  const blur = Platform.OS === 'web' ? ({ filter: 'blur(2.5px)' } as any) : null;
   return (
     <View style={[fill ? { flex: 1 } : null, { minHeight: 0 }]}>
       <View style={hp.attackRow}>
@@ -125,12 +128,16 @@ function Pitch({ home, away, homeName, awayName, homeFormation, awayFormation, f
         <View style={[StyleSheet.absoluteFill, blur]} pointerEvents="none">
           <HeatField homeGrid={homeGrid} awayGrid={awayGrid} />
         </View>
-        {/* markings — sharp & bright, above the heat */}
+        {/* markings — sharp & bright, ALWAYS above the heat so the pitch reads first */}
         <View style={hp.halfway} />
         <View style={hp.centerCircle} />
         <View style={hp.spot} />
         <View style={[hp.box, hp.boxL]} /><View style={[hp.box, hp.boxR]} />
         <View style={[hp.sixBox, hp.sixL]} /><View style={[hp.sixBox, hp.sixR]} />
+        {/* penalty arcs (the "D") — full circles centred on the penalty spot,
+            clipped so only the arc outside each box shows */}
+        <View style={[hp.arcClip, hp.arcClipL]}><View style={[hp.arc, hp.arcL]} /></View>
+        <View style={[hp.arcClip, hp.arcClipR]}><View style={[hp.arc, hp.arcR]} /></View>
         <View style={[hp.penSpot, { left: '9.5%' }]} /><View style={[hp.penSpot, { right: '9.5%' }]} />
         <View style={[hp.corner, { top: -7, left: -7 }]} /><View style={[hp.corner, { top: -7, right: -7 }]} />
         <View style={[hp.corner, { bottom: -7, left: -7 }]} /><View style={[hp.corner, { bottom: -7, right: -7 }]} />
@@ -535,21 +542,32 @@ export default function MatchHeatmapScreen() {
 const hp = StyleSheet.create({
   attackRow:   { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 },
   attackLabel: { fontSize: 11, fontWeight: '800', letterSpacing: 0.4 },
-  pitch:       { width: '100%', backgroundColor: D.pitch, borderRadius: 6, borderWidth: 1.5, borderColor: 'rgba(120,180,255,0.45)',
+  pitch:       { width: '100%', backgroundColor: D.pitch, borderRadius: 6, borderWidth: 2, borderColor: D.line,
                  overflow: 'hidden', shadowColor: D.blue, shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.35, shadowRadius: 16, elevation: 6 },
   row:         { flex: 1, flexDirection: 'row' },
   cell:        { flex: 1 },
-  halfway:     { position: 'absolute', left: '50%', top: 0, bottom: 0, width: 1.5, marginLeft: -0.75, backgroundColor: D.line },
-  centerCircle:{ position: 'absolute', left: '50%', top: '50%', width: '15%', aspectRatio: 1, marginLeft: '-7.5%',
-                 marginTop: '-12%', borderRadius: 999, borderWidth: 1.5, borderColor: D.line },
-  spot:        { position: 'absolute', left: '50%', top: '50%', width: 4, height: 4, borderRadius: 2, marginLeft: -2, marginTop: -2, backgroundColor: D.line },
-  box:         { position: 'absolute', top: '20%', bottom: '20%', width: '15%', borderWidth: 1.5, borderColor: D.line },
+  halfway:     { position: 'absolute', left: '50%', top: 0, bottom: 0, width: 2, marginLeft: -1, backgroundColor: D.line },
+  // Centre circle: width is % of pitch width; aspectRatio 1 → height equals that
+  // in px, so marginTop must be −½·(that width %) — also a % of width in RN.
+  centerCircle:{ position: 'absolute', left: '50%', top: '50%', width: '16%', aspectRatio: 1, marginLeft: '-8%',
+                 marginTop: '-8%', borderRadius: 999, borderWidth: 2, borderColor: D.line },
+  spot:        { position: 'absolute', left: '50%', top: '50%', width: 5, height: 5, borderRadius: 3, marginLeft: -2.5, marginTop: -2.5, backgroundColor: D.line },
+  box:         { position: 'absolute', top: '19%', bottom: '19%', width: '16%', borderWidth: 2, borderColor: D.line },
   boxL:        { left: 0, borderLeftWidth: 0 },
   boxR:        { right: 0, borderRightWidth: 0 },
-  sixBox:      { position: 'absolute', top: '36%', bottom: '36%', width: '6%', borderWidth: 1.5, borderColor: D.line },
+  sixBox:      { position: 'absolute', top: '35%', bottom: '35%', width: '6%', borderWidth: 2, borderColor: D.line },
   sixL:        { left: 0, borderLeftWidth: 0 },
   sixR:        { right: 0, borderRightWidth: 0 },
-  penSpot:     { position: 'absolute', top: '50%', width: 3, height: 3, borderRadius: 2, marginTop: -1.5, backgroundColor: D.line },
+  penSpot:     { position: 'absolute', top: '50%', width: 4, height: 4, borderRadius: 2, marginTop: -2, backgroundColor: D.line },
+  // Penalty arc: a clip window just outside each box reveals only the curved
+  // edge of a full circle centred on the penalty spot → the "D".
+  arcClip:     { position: 'absolute', top: 0, bottom: 0, width: '15%', overflow: 'hidden' },
+  arcClipL:    { left: '16%' },
+  arcClipR:    { right: '16%' },
+  arc:         { position: 'absolute', top: '50%', width: '116%', aspectRatio: 1, marginTop: '-58%',
+                 borderRadius: 999, borderWidth: 2, borderColor: D.line },
+  arcL:        { left: '-95%' },
+  arcR:        { right: '-95%' },
   corner:      { position: 'absolute', width: 14, height: 14, borderRadius: 999, borderWidth: 1.5, borderColor: D.lineSoft },
 });
 
