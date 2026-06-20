@@ -192,15 +192,15 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "K1_Uzbekistan_v_Colombia",
     home: "Uzbekistan", away: "Colombia", date: "2026-06-18",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Uzbekistan", possession: 0.39, totalShots: 8, shotsInsideBox: 4, shotsOutsideBox: 4, shotsOnGoal: 2, corners: 3, xg: 1.14, passAccuracy: 0.76, passes: 318, fouls: 14 },
-    awayStats: { team: "Colombia", possession: 0.61, totalShots: 15, shotsInsideBox: 10, shotsOutsideBox: 5, shotsOnGoal: 4, corners: 4, xg: 1.61, passAccuracy: 0.86, passes: 520, fouls: 11 },
+    homeStats: { team: "Uzbekistan", possession: 0.39, totalShots: 8, shotsInsideBox: 4, shotsOutsideBox: 4, shotsOnGoal: 2, corners: 3, xg: 1.16, passAccuracy: 0.76, passes: 319, fouls: 14 },
+    awayStats: { team: "Colombia", possession: 0.61, totalShots: 15, shotsInsideBox: 10, shotsOutsideBox: 5, shotsOnGoal: 4, corners: 4, xg: 1.61, passAccuracy: 0.86, passes: 519, fouls: 11 },
   },
   {
     fixtureId: "A2_Czech_Republic_v_South_Africa",
     home: "Czech Republic", away: "South Africa", date: "2026-06-18",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Czech Republic", possession: 0.38, totalShots: 14, shotsInsideBox: 11, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 5, xg: 1.02, passAccuracy: 0.8, passes: 339, fouls: 12 },
-    awayStats: { team: "South Africa", possession: 0.62, totalShots: 17, shotsInsideBox: 6, shotsOutsideBox: 11, shotsOnGoal: 4, corners: 5, xg: 1.37, passAccuracy: 0.9, passes: 563, fouls: 10 },
+    homeStats: { team: "Czech Republic", possession: 0.38, totalShots: 14, shotsInsideBox: 11, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 5, xg: 1.02, passAccuracy: 0.8, passes: 341, fouls: 12 },
+    awayStats: { team: "South Africa", possession: 0.62, totalShots: 17, shotsInsideBox: 6, shotsOutsideBox: 11, shotsOnGoal: 4, corners: 5, xg: 1.38, passAccuracy: 0.9, passes: 563, fouls: 10 },
   },
   {
     fixtureId: "B2_Switzerland_v_Bosnia_Herzegovina",
@@ -213,8 +213,8 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "B2_Canada_v_Qatar",
     home: "Canada", away: "Qatar", date: "2026-06-18",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Canada", possession: 0.79, totalShots: 30, shotsInsideBox: 19, shotsOutsideBox: 11, shotsOnGoal: 10, corners: 18, xg: 4.11, passAccuracy: 0.91, passes: 552, fouls: 8 },
-    awayStats: { team: "Qatar", possession: 0.21, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 1, xg: 0.18, passAccuracy: 0.64, passes: 162, fouls: 10 },
+    homeStats: { team: "Canada", possession: 0.79, totalShots: 32, shotsInsideBox: 21, shotsOutsideBox: 11, shotsOnGoal: 10, corners: 19, xg: 4.6, passAccuracy: 0.91, passes: 567, fouls: 9 },
+    awayStats: { team: "Qatar", possession: 0.21, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 1, xg: 0.22, passAccuracy: 0.64, passes: 162, fouls: 10 },
   },
   {
     fixtureId: "A2_Mexico_v_South_Korea",
@@ -253,4 +253,4 @@ export const MATCH_STATS: MatchStats[] = [
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-20T05:58:33.060Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-20T08:55:46.086Z';
