@@ -16,7 +16,7 @@ import { WC_FIXTURES, WC_TEAMS } from '../lib/wcData';
 import HomeEdgeModule from '../components/HomeEdgeModule';
 import PlayersModule from '../components/PlayersModule';
 import AttackZonesModule from '../components/AttackZonesModule';
-import OverviewModule from '../components/OverviewModule';
+import OverviewModule, { TournamentImpactPanel } from '../components/OverviewModule';
 import PassMapModule from '../components/PassMapModule';
 import ShotsModule from '../components/ShotsModule';
 import { MomentumPanel, AttackZonesPanel, ShotsMapPanel, PassMapPanel, KeyStatsPanel } from '../components/MatchDashboard';
@@ -518,6 +518,7 @@ export default function MatchHeatmapScreen() {
         <OverviewModule match={active} />
         <MomentumPanel match={active} />
         <KeyStatsPanel match={active} />
+        <TournamentImpactPanel match={active} />
         {Footer}
       </ScrollView>
     );

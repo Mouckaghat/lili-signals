@@ -111,24 +111,33 @@ export default function OverviewModule({ match }: { match: MatchStats }) {
     </View>
   );
 
-  const Impact = (
-    <View style={s.card}>
-      <Text style={s.cardTitle}>🌍 TOURNAMENT IMPACT</Text>
-      <View style={s.impRow}>
-        <ImpactCard team={o.home} flag={o.homeFlag} d={o.impactHome} color={D.blue} />
-        <ImpactCard team={o.away} flag={o.awayFlag} d={o.impactAway} color={D.red} />
-      </View>
-    </View>
-  );
-
   return (
     <View style={s.wrap}>
       {Summary}{Verdict}
       <View style={wide ? s.cols : undefined}>
         <View style={wide ? s.left : undefined}>{Control}{Stats}</View>
-        <View style={wide ? s.right : undefined}>{Drivers}{Lili}{Momentum}{Impact}</View>
+        <View style={wide ? s.right : undefined}>{Drivers}{Lili}{Momentum}</View>
       </View>
       <Text style={s.foot}>Match intelligence from live stats, events & standings · attendance shown as stadium capacity · Lili storytelling.</Text>
+    </View>
+  );
+}
+
+// Tournament Impact — standings/qualification effect of this match. Rendered as
+// its own panel in the Overview tab (below Key Stats), not inside the module.
+export function TournamentImpactPanel({ match }: { match: MatchStats }) {
+  const results = useLiveResults();
+  const { lang } = useLanguage();
+  const o: Overview = useMemo(() => computeOverview(match, results, HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN), [match, results, lang]);
+  return (
+    <View style={s.soloWrap}>
+      <View style={s.card}>
+        <Text style={s.cardTitle}>🌍 TOURNAMENT IMPACT</Text>
+        <View style={s.impRow}>
+          <ImpactCard team={o.home} flag={o.homeFlag} d={o.impactHome} color={D.blue} />
+          <ImpactCard team={o.away} flag={o.awayFlag} d={o.impactAway} color={D.red} />
+        </View>
+      </View>
     </View>
   );
 }
@@ -154,6 +163,7 @@ function Imp({ k, v }: { k: string; v: string }) {
 
 const s = StyleSheet.create({
   wrap:  { padding: 14, gap: 10 },
+  soloWrap: { paddingHorizontal: 14 },
   cols:  { flexDirection: 'row', gap: 12, alignItems: 'flex-start' },
   left:  { flex: 1.1, minWidth: 0, gap: 10 },
   right: { width: 330, gap: 10 },
