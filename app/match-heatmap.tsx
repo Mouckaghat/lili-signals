@@ -19,7 +19,7 @@ import AttackZonesModule from '../components/AttackZonesModule';
 import OverviewModule, { TournamentImpactPanel } from '../components/OverviewModule';
 import PassMapModule from '../components/PassMapModule';
 import ShotsModule from '../components/ShotsModule';
-import { MomentumPanel, AttackZonesPanel, ShotsMapPanel, PassMapPanel, KeyStatsPanel } from '../components/MatchDashboard';
+import { AttackZonesPanel, ShotsMapPanel, PassMapPanel } from '../components/MatchDashboard';
 
 // ─── Tokens ──────────────────────────────────────────────────────────────────
 const D = {
@@ -516,8 +516,6 @@ export default function MatchHeatmapScreen() {
       <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
         {Header}{Picker}{Tabs}
         <OverviewModule match={active} />
-        <MomentumPanel match={active} />
-        <KeyStatsPanel match={active} />
         <TournamentImpactPanel match={active} />
         {Footer}
       </ScrollView>
