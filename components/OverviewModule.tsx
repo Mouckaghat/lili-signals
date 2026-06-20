@@ -158,7 +158,7 @@ function ImpactCard({ team, flag, d, color }: { team: string; flag: string; d: O
   );
 }
 function Imp({ k, v }: { k: string; v: string }) {
-  return <View style={s.imp}><Text style={s.impV}>{v}</Text><Text style={s.impK}>{k}</Text></View>;
+  return <View style={s.imp}><Text style={s.impV} numberOfLines={1}>{v}</Text><Text style={s.impK} numberOfLines={1}>{k}</Text></View>;
 }
 
 const s = StyleSheet.create({
@@ -206,10 +206,10 @@ const s = StyleSheet.create({
   impRow:   { flexDirection: 'row', gap: 8 },
   impCard:  { flex: 1, backgroundColor: D.panel2, borderRadius: 10, padding: 10 },
   impTeam:  { fontSize: 13, fontWeight: '800', marginBottom: 6 },
-  impGrid:  { flexDirection: 'row', flexWrap: 'wrap', gap: 6 },
-  imp:      { width: '46%', flexGrow: 1 },
-  impV:     { color: D.text1, fontSize: 15, fontWeight: '900' },
-  impK:     { color: D.text2, fontSize: 9 },
+  impGrid:  { flexDirection: 'row', gap: 6 },
+  imp:      { flex: 1, minWidth: 0 },
+  impV:     { color: D.text1, fontSize: 14, fontWeight: '900' },
+  impK:     { color: D.text2, fontSize: 8.5 },
   impNone:  { color: D.text3, fontSize: 11 },
 
   foot:     { color: D.text3, fontSize: 9, textAlign: 'center', fontStyle: 'italic', marginTop: 2 },
