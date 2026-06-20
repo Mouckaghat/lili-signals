@@ -19,6 +19,7 @@ import AttackZonesModule from '../components/AttackZonesModule';
 import OverviewModule from '../components/OverviewModule';
 import PassMapModule from '../components/PassMapModule';
 import ShotsModule from '../components/ShotsModule';
+import MatchDashboard from '../components/MatchDashboard';
 
 // ─── Tokens ──────────────────────────────────────────────────────────────────
 const D = {
@@ -211,13 +212,14 @@ function Lg({ color, label }: { color: string; label: string }) {
   return <View style={mc.lg}><View style={[mc.lgDot, { backgroundColor: color }]} /><Text style={mc.lgTxt}>{label}</Text></View>;
 }
 
+const DASHBOARD = '📈 Dashboard';
 const OVERVIEW = '📊 Overview';
 const HOME_EDGE = '🏟 Home Edge';
 const PLAYERS = '👤 Players';
 const ATTACK = '⚔️ Attack Zones';
 const PASSMAP = '🕸 Pass Map';
 const SHOTS = '🎯 Shots';
-const TABS = [OVERVIEW, 'Heatmap', HOME_EDGE, ATTACK, SHOTS, PASSMAP, PLAYERS];
+const TABS = [DASHBOARD, OVERVIEW, 'Heatmap', HOME_EDGE, ATTACK, SHOTS, PASSMAP, PLAYERS];
 
 // ─── Screen ────────────────────────────────────────────────────────────────────
 export default function MatchHeatmapScreen() {
@@ -229,7 +231,7 @@ export default function MatchHeatmapScreen() {
   const lineups   = useLineups();
   const { lang }  = useLanguage();
   const t         = HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN;
-  const [tab, setTab] = useState(OVERVIEW);
+  const [tab, setTab] = useState(DASHBOARD);
 
   const ordered = useMemo(() =>
     [...matches].sort((a, b) => (a.status === 'LIVE' ? -1 : 0) - (b.status === 'LIVE' ? -1 : 0) || b.date.localeCompare(a.date)),
@@ -454,6 +456,18 @@ export default function MatchHeatmapScreen() {
       <View style={{ marginTop: 12 }}>{RailContent}</View>
     </View>
   );
+
+  // Dashboard — the single-screen Match Analytics composition (Momentum /
+  // Attack Zones · Shots · Pass / Key Stats) on the shared premium pitch.
+  if (tab === DASHBOARD) {
+    return (
+      <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
+        {Header}{Picker}{Tabs}
+        <MatchDashboard match={active} />
+        {Footer}
+      </ScrollView>
+    );
+  }
 
   // Home Edge is a tournament-wide module (not per-match) → its own scrollable
   // view, no match picker, no pitch.
