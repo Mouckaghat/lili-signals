@@ -311,10 +311,8 @@ export default function MatchHeatmapScreen() {
   ) : wide ? (
     <View style={st.heatRow}>
       <View style={st.heatLeft}>
-        <View style={st.pitchCap}>
-          <TerritoryPitch homeName={active.home} awayName={active.away} homeFrac={hTerr / 100} />
-          <MomentumPanel match={active} />
-        </View>
+        <TerritoryPitch homeName={active.home} awayName={active.away} homeFrac={hTerr / 100} />
+        <MomentumPanel match={active} />
       </View>
       <View style={st.heatRight}>{RailContent}</View>
     </View>
@@ -481,17 +479,13 @@ const st = StyleSheet.create({
   // Heatmap on laptop/desktop: same scrolling column as phone, just centred and
   // width-bounded so the pitch stays beautiful but never fills the viewport.
   heatBody:  { width: '100%', maxWidth: 760, alignSelf: 'center' },
-  // Two-column workstation (wide only): pitch + momentum left, cards right.
-  // Fills almost the full viewport width (the page's 14px side padding stays);
-  // columns are proportional (≈72/28) so the rail & momentum expand with the
-  // window. maxWidth only kicks in on very large monitors.
-  heatRow:   { flexDirection: 'row', gap: 18, alignItems: 'flex-start', width: '100%', maxWidth: 1760, alignSelf: 'center' },
-  heatLeft:  { flex: 72, minWidth: 0 },
-  heatRight: { flex: 28, minWidth: 300 },
-  // Pitch + momentum share one capped, centred column so they stay aligned and
-  // the pitch never grows taller than a comfortable height (aspect-locked) even
-  // as the window widens; the rail keeps expanding to fill the rest.
-  pitchCap:  { width: '100%', maxWidth: 820, alignSelf: 'center' },
+  // Heatmap (wide) uses the SAME edge-to-edge two-column grid as Overview /
+  // Attack Zones / Shots: full width (page's 14px padding), flex-left column +
+  // a fixed-width rail, stacked cards. No maxWidth, no centring — so it matches
+  // the density of the other pages and the page scrolls naturally like they do.
+  heatRow:   { flexDirection: 'row', gap: 12, alignItems: 'flex-start' },
+  heatLeft:  { flex: 1.3, minWidth: 0, gap: 10 },
+  heatRight: { width: 330, gap: 10 },
 
   soon:      { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 40 },
   soonText:  { color: D.text2, fontSize: 14 },
