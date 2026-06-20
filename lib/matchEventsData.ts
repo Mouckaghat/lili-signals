@@ -394,8 +394,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Johan Manzambi", team: "Switzerland", minute: 74, type: "goal" },
       { player: "Rubén Vargas", team: "Switzerland", minute: 84, type: "goal" },
       { player: "Johan Manzambi", team: "Switzerland", minute: 90, type: "goal" },
-      { player: "Ermin Mahmić", team: "Bosnia & Herzegovina", minute: 90, minuteStoppage: 3, type: "goal" },
-      { player: "Granit Xhaka", team: "Switzerland", minute: 90, minuteStoppage: 7, type: "penalty" },
+      { player: "Ermin Mahmić", team: "Bosnia & Herzegovina", minute: 90, type: "goal" },
+      { player: "Granit Xhaka", team: "Switzerland", minute: 90, type: "penalty" },
     ],
     yellowCards: [
       { player: "Amar Dedić", team: "Bosnia & Herzegovina", minute: 59, reason: "Foul" },
@@ -412,10 +412,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Cyle Larin", team: "Canada", minute: 16, type: "goal" },
       { player: "Jonathan David", team: "Canada", minute: 29, type: "goal" },
-      { player: "Jonathan David", team: "Canada", minute: 45, minuteStoppage: 3, type: "goal" },
+      { player: "Jonathan David", team: "Canada", minute: 45, type: "goal" },
       { player: "Nathan Saliba", team: "Canada", minute: 64, type: "goal" },
-      { player: "Mohamed Naceur Almanai", team: "Qatar", minute: 75, type: "own-goal" },
-      { player: "Jonathan David", team: "Canada", minute: 90, minuteStoppage: 2, type: "goal" },
+      { player: "M. Al Mannai", team: "Qatar", minute: 75, type: "own-goal" },
+      { player: "Jonathan David", team: "Canada", minute: 90, type: "goal" },
     ],
     yellowCards: [
       { player: "Derek Cornelius", team: "Canada", minute: 9, reason: "Foul" },
@@ -433,8 +433,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Luis Romo", team: "Mexico", minute: 50, type: "goal" },
     ],
     yellowCards: [
-      { player: "Lee Kang-in", team: "South Korea", minute: 4, reason: "Foul" },
-      { player: "Paik Seung-ho", team: "South Korea", minute: 58, reason: "Foul" },
+      { player: "Kang-in Lee", team: "South Korea", minute: 4, reason: "Foul" },
+      { player: "Seung Ho Paik", team: "South Korea", minute: 58, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -443,16 +443,16 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "USA", away: "Australia", date: "2026-06-19",
     goals: [
       { player: "Cameron Burgess", team: "Australia", minute: 11, type: "own-goal" },
-      { player: "Alex Freeman", team: "USA", minute: 43, type: "goal" },
+      { player: "Alex Freeman", team: "USA", minute: 44, type: "goal" },
     ],
     yellowCards: [
-      { player: "Jordan Bos", team: "Australia", minute: 16, reason: "Roughing" },
-      { player: "Alessandro Circati", team: "Australia", minute: 32, reason: "Tripping" },
-      { player: "Antonee Robinson", team: "USA", minute: 56, reason: "Tripping" },
-      { player: "Harry Souttar", team: "Australia", minute: 88, reason: "Unsportsmanlike conduct" },
-      { player: "Folarin Balogun", team: "USA", minute: 89, reason: "Unsportsmanlike conduct" },
-      { player: "Jacob Italiano", team: "Australia", minute: 89, reason: "Unsportsmanlike conduct" },
-      { player: "Chris Richards", team: "USA", minute: 90, reason: "Impeding" },
+      { player: "Jordan Bos", team: "Australia", minute: 16, reason: "Foul" },
+      { player: "Alessandro Circati", team: "Australia", minute: 32, reason: "Foul" },
+      { player: "Antonee Robinson", team: "USA", minute: 56, reason: "Foul" },
+      { player: "Folarin Balogun", team: "USA", minute: 89, reason: "Unsporting behaviour" },
+      { player: "Harry Souttar", team: "Australia", minute: 89, reason: "Unsporting behaviour" },
+      { player: "Jacob Italiano", team: "Australia", minute: 89, reason: "Unsporting behaviour" },
+      { player: "Chris Richards", team: "USA", minute: 90, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -463,8 +463,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Ismael Saibari", team: "Morocco", minute: 2, type: "goal" },
     ],
     yellowCards: [
-      { player: "Issa Diop", team: "Morocco", minute: 23, reason: "Holding" },
-      { player: "Andy Robertson", team: "Scotland", minute: 65, reason: "Holding" },
+      { player: "Issa Diop", team: "Morocco", minute: 23, reason: "Foul" },
+      { player: "Andy Robertson", team: "Scotland", minute: 66, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -479,9 +479,26 @@ export const MATCH_EVENTS: MatchEvents[] = [
     yellowCards: [
       { player: "Carlens Arcus", team: "Haiti", minute: 4, reason: "Roughing" },
       { player: "Frantzdy Pierrot", team: "Haiti", minute: 45, reason: "Elbowing" },
+      { player: "Douglas Santos", team: "Brazil", minute: 65, reason: "Roughing" },
+      { player: "Danley Jean Jacques", team: "Haiti", minute: 72, reason: "Roughing" },
     ],
     redCards: [],
   },
+  {
+    fixtureId: "C2_T_rkiye_v_Paraguay",
+    home: "Türkiye", away: "Paraguay", date: "2026-06-19",
+    goals: [
+      { player: "Matías Galarza", team: "Paraguay", minute: 2, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Matías Galarza", team: "Paraguay", minute: 4, reason: "Tripping" },
+      { player: "V. Montella", team: "Türkiye", minute: 63 },
+      { player: "E. Elmali", team: "Türkiye", minute: 71, reason: "Roughing" },
+    ],
+    redCards: [
+      { player: "Miguel Almirón", team: "Paraguay", minute: 45, reason: "Unsportsmanlike conduct" },
+    ],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-20T01:51:21.922Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-20T06:06:27.452Z';
