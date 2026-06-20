@@ -83,6 +83,10 @@ export interface HeatmapI18n {
   plCleanSheets: string;   // {n}
   plConsistent: string;
   plSpotlight: string;     // {name} {contrib}
+  plForm: string;          // section title: notes per game
+  plGames: string;         // "Games played"
+  plAvgNote: string;       // "Avg note"
+  plNoGames: string;       // not featured yet
   // ── Home Edge tab ──
   heCommentary: string;    // {pct} {tail}
   heTailFew: string;
@@ -141,6 +145,7 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     pmSimple: '{team} played a {style} ({desc}).',
     plGoals: '{n} goals', plAssists: '{n} assists', plCleanSheets: '{n} clean sheets', plConsistent: 'consistent influence',
     plSpotlight: '{name} has contributed {contrib} — one of the most influential players in the tournament so far.',
+    plForm: 'Notes per game', plGames: 'Games played', plAvgNote: 'Avg note', plNoGames: 'Not featured yet',
     heCommentary: 'Home teams currently win {pct}% of matches. {tail}',
     heTailFew: 'Too few matches to call it yet.', heTailStrong: 'A measurable Home Edge is emerging.', heTailModerate: 'A mild home effect is visible.', heTailNone: 'No clear home advantage so far.',
     heResultHome: 'Home Win', heResultAway: 'Away Win', heResultNeutral: 'Neutral',
@@ -189,6 +194,7 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     pmSimple: '{team} a pratiqué un {style} ({desc}).',
     plGoals: '{n} buts', plAssists: '{n} passes décisives', plCleanSheets: '{n} clean sheets', plConsistent: 'une influence constante',
     plSpotlight: '{name} a contribué avec {contrib} — l’un des joueurs les plus influents du tournoi jusqu’ici.',
+    plForm: 'Notes par match', plGames: 'Matchs joués', plAvgNote: 'Note moy.', plNoGames: 'Pas encore aligné',
     heCommentary: 'Les équipes à domicile gagnent actuellement {pct} % des matchs. {tail}',
     heTailFew: 'Trop peu de matchs pour conclure.', heTailStrong: 'Un avantage à domicile mesurable se dessine.', heTailModerate: 'Un léger effet domicile est visible.', heTailNone: 'Pas d’avantage clair à domicile pour l’instant.',
     heResultHome: 'Victoire à domicile', heResultAway: 'Victoire à l’extérieur', heResultNeutral: 'Neutre',
@@ -237,6 +243,7 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     pmSimple: '{team} ha proposto un {style} ({desc}).',
     plGoals: '{n} gol', plAssists: '{n} assist', plCleanSheets: '{n} clean sheet', plConsistent: 'un’influenza costante',
     plSpotlight: '{name} ha contribuito con {contrib} — uno dei giocatori più influenti del torneo finora.',
+    plForm: 'Voti per partita', plGames: 'Partite giocate', plAvgNote: 'Voto medio', plNoGames: 'Non ancora schierato',
     heCommentary: 'Le squadre in casa vincono attualmente il {pct}% delle partite. {tail}',
     heTailFew: 'Troppo poche partite per dirlo.', heTailStrong: 'Si delinea un vantaggio casalingo misurabile.', heTailModerate: 'Si nota un lieve effetto casa.', heTailNone: 'Nessun chiaro vantaggio casalingo finora.',
     heResultHome: 'Vittoria casalinga', heResultAway: 'Vittoria esterna', heResultNeutral: 'Neutro',
@@ -285,6 +292,7 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     pmSimple: '{team} spielte ein {style} ({desc}).',
     plGoals: '{n} Tore', plAssists: '{n} Vorlagen', plCleanSheets: '{n} Zu-null-Spiele', plConsistent: 'konstanter Einfluss',
     plSpotlight: '{name} hat mit {contrib} beigetragen — einer der einflussreichsten Spieler des Turniers bisher.',
+    plForm: 'Noten pro Spiel', plGames: 'Spiele', plAvgNote: 'Ø-Note', plNoGames: 'Noch nicht eingesetzt',
     heCommentary: 'Heimteams gewinnen derzeit {pct} % der Spiele. {tail}',
     heTailFew: 'Noch zu wenige Spiele für eine Aussage.', heTailStrong: 'Ein messbarer Heimvorteil zeichnet sich ab.', heTailModerate: 'Ein leichter Heimeffekt ist erkennbar.', heTailNone: 'Bisher kein klarer Heimvorteil.',
     heResultHome: 'Heimsieg', heResultAway: 'Auswärtssieg', heResultNeutral: 'Neutral',
@@ -333,6 +341,7 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     pmSimple: '{team} jugó una {style} ({desc}).',
     plGoals: '{n} goles', plAssists: '{n} asistencias', plCleanSheets: '{n} porterías a cero', plConsistent: 'una influencia constante',
     plSpotlight: '{name} ha aportado {contrib} — uno de los jugadores más influyentes del torneo hasta ahora.',
+    plForm: 'Notas por partido', plGames: 'Partidos jugados', plAvgNote: 'Nota media', plNoGames: 'Aún sin jugar',
     heCommentary: 'Los equipos locales ganan actualmente el {pct} % de los partidos. {tail}',
     heTailFew: 'Muy pocos partidos para sacar conclusiones.', heTailStrong: 'Surge una ventaja local apreciable.', heTailModerate: 'Se aprecia un leve efecto local.', heTailNone: 'Sin clara ventaja local por ahora.',
     heResultHome: 'Victoria local', heResultAway: 'Victoria visitante', heResultNeutral: 'Neutral',
@@ -381,6 +390,7 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     pmSimple: '{team} играл в {style} ({desc}).',
     plGoals: '{n} голов', plAssists: '{n} передач', plCleanSheets: '{n} «сухих» матчей', plConsistent: 'стабильное влияние',
     plSpotlight: '{name} принёс {contrib} — один из самых влиятельных игроков турнира на данный момент.',
+    plForm: 'Оценки по матчам', plGames: 'Сыграно матчей', plAvgNote: 'Средняя оценка', plNoGames: 'Ещё не выходил',
     heCommentary: 'Хозяева сейчас выигрывают {pct}% матчей. {tail}',
     heTailFew: 'Слишком мало матчей для выводов.', heTailStrong: 'Проявляется заметное преимущество дома.', heTailModerate: 'Заметен лёгкий эффект своего поля.', heTailNone: 'Явного преимущества дома пока нет.',
     heResultHome: 'Победа хозяев', heResultAway: 'Победа гостей', heResultNeutral: 'Ничья',
@@ -429,6 +439,7 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     pmSimple: '{team} 打的是{style}（{desc}）。',
     plGoals: '{n} 球', plAssists: '{n} 次助攻', plCleanSheets: '{n} 场零封', plConsistent: '稳定的影响力',
     plSpotlight: '{name} 贡献了 {contrib}——本届赛事迄今最具影响力的球员之一。',
+    plForm: '每场评分', plGames: '出场次数', plAvgNote: '平均评分', plNoGames: '尚未出场',
     heCommentary: '目前主队赢得了 {pct}% 的比赛。{tail}',
     heTailFew: '比赛太少，尚无法判断。', heTailStrong: '可量化的主场优势正在显现。', heTailModerate: '可见轻微的主场效应。', heTailNone: '目前没有明显的主场优势。',
     heResultHome: '主胜', heResultAway: '客胜', heResultNeutral: '平局',
@@ -477,6 +488,7 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     pmSimple: '{team} は{style}を採用（{desc}）。',
     plGoals: '{n} ゴール', plAssists: '{n} アシスト', plCleanSheets: '{n} 試合無失点', plConsistent: '安定した影響力',
     plSpotlight: '{name} は {contrib} で貢献——今大会でこれまで最も影響力のある選手の一人。',
+    plForm: '試合ごとの評価', plGames: '出場試合数', plAvgNote: '平均評価', plNoGames: 'まだ出場なし',
     heCommentary: '現在、ホームチームは試合の {pct}% に勝利している。{tail}',
     heTailFew: '判断するには試合数が少なすぎる。', heTailStrong: '測定可能なホーム優位が現れている。', heTailModerate: 'わずかなホーム効果が見られる。', heTailNone: '今のところ明確なホーム優位はない。',
     heResultHome: 'ホーム勝利', heResultAway: 'アウェイ勝利', heResultNeutral: '中立',
@@ -525,6 +537,7 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     pmSimple: '{team}은(는) {style}을(를) 구사({desc}).',
     plGoals: '{n}골', plAssists: '{n}도움', plCleanSheets: '{n}경기 무실점', plConsistent: '꾸준한 영향력',
     plSpotlight: '{name}이(가) {contrib}을(를) 기록 — 이번 대회에서 지금까지 가장 영향력 있는 선수 중 하나.',
+    plForm: '경기별 평점', plGames: '출전 경기', plAvgNote: '평균 평점', plNoGames: '아직 출전 없음',
     heCommentary: '현재 홈팀이 경기의 {pct}%에서 승리하고 있다. {tail}',
     heTailFew: '아직 판단하기엔 경기 수가 적다.', heTailStrong: '측정 가능한 홈 이점이 나타나고 있다.', heTailModerate: '약한 홈 효과가 보인다.', heTailNone: '아직 뚜렷한 홈 이점은 없다.',
     heResultHome: '홈 승', heResultAway: '원정 승', heResultNeutral: '중립',
@@ -573,6 +586,7 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     pmSimple: 'O {team} jogou numa {style} ({desc}).',
     plGoals: '{n} golos', plAssists: '{n} assistências', plCleanSheets: '{n} jogos sem sofrer', plConsistent: 'uma influência constante',
     plSpotlight: '{name} contribuiu com {contrib} — um dos jogadores mais influentes do torneio até agora.',
+    plForm: 'Notas por jogo', plGames: 'Jogos disputados', plAvgNote: 'Nota média', plNoGames: 'Ainda não jogou',
     heCommentary: 'As equipas em casa vencem atualmente {pct}% dos jogos. {tail}',
     heTailFew: 'Poucos jogos para concluir.', heTailStrong: 'Surge uma vantagem caseira mensurável.', heTailModerate: 'Nota-se um ligeiro efeito de casa.', heTailNone: 'Sem vantagem caseira clara por agora.',
     heResultHome: 'Vitória em casa', heResultAway: 'Vitória fora', heResultNeutral: 'Neutro',
@@ -621,6 +635,7 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
     pmSimple: 'لعب {team} بأسلوب {style} ({desc}).',
     plGoals: '{n} أهداف', plAssists: '{n} تمريرة حاسمة', plCleanSheets: '{n} مباراة نظيفة', plConsistent: 'تأثير ثابت',
     plSpotlight: 'ساهم {name} بـ {contrib} — أحد أكثر اللاعبين تأثيرًا في البطولة حتى الآن.',
+    plForm: 'التقييم لكل مباراة', plGames: 'المباريات الملعوبة', plAvgNote: 'متوسط التقييم', plNoGames: 'لم يشارك بعد',
     heCommentary: 'تفوز الفرق المضيفة حاليًا بـ {pct}% من المباريات. {tail}',
     heTailFew: 'عدد المباريات قليل جدًا للحكم.', heTailStrong: 'تظهر أفضلية أرض قابلة للقياس.', heTailModerate: 'يظهر تأثير ملعب طفيف.', heTailNone: 'لا توجد أفضلية أرض واضحة حتى الآن.',
     heResultHome: 'فوز المضيف', heResultAway: 'فوز الضيف', heResultNeutral: 'محايد',
