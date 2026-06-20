@@ -19,7 +19,7 @@ import AttackZonesModule from '../components/AttackZonesModule';
 import OverviewModule from '../components/OverviewModule';
 import PassMapModule from '../components/PassMapModule';
 import ShotsModule from '../components/ShotsModule';
-import MatchDashboard from '../components/MatchDashboard';
+import { MomentumPanel, AttackZonesPanel, ShotsMapPanel, PassMapPanel, KeyStatsPanel } from '../components/MatchDashboard';
 
 // ─── Tokens ──────────────────────────────────────────────────────────────────
 const D = {
@@ -231,7 +231,9 @@ export default function MatchHeatmapScreen() {
   const lineups   = useLineups();
   const { lang }  = useLanguage();
   const t         = HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN;
-  const [tab, setTab] = useState(DASHBOARD);
+  // Land on Overview (real match content); Dashboard is an empty placeholder
+  // until the tournament command centre is built.
+  const [tab, setTab] = useState(OVERVIEW);
 
   const ordered = useMemo(() =>
     [...matches].sort((a, b) => (a.status === 'LIVE' ? -1 : 0) - (b.status === 'LIVE' ? -1 : 0) || b.date.localeCompare(a.date)),
@@ -457,13 +459,18 @@ export default function MatchHeatmapScreen() {
     </View>
   );
 
-  // Dashboard — the single-screen Match Analytics composition (Momentum /
-  // Attack Zones · Shots · Pass / Key Stats) on the shared premium pitch.
+  // Dashboard — reserved for the future TOURNAMENT-level command centre
+  // (rankings, Home Edge, team highlights, Lili signals). Tournament-level, so
+  // no match picker. Match analytics now live in their own per-match tabs.
   if (tab === DASHBOARD) {
     return (
       <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
-        {Header}{Picker}{Tabs}
-        <MatchDashboard match={active} />
+        {Header}{Tabs}
+        <View style={st.placeholder}>
+          <Text style={st.placeholderTitle}>📈 Dashboard</Text>
+          <Text style={st.placeholderBody}>Dashboard command centre coming soon.</Text>
+          <Text style={st.placeholderSub}>Tournament rankings, Home Edge, team highlights and Lili signals will live here.</Text>
+        </View>
         {Footer}
       </ScrollView>
     );
@@ -497,6 +504,7 @@ export default function MatchHeatmapScreen() {
     return (
       <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
         {Header}{Picker}{Tabs}
+        <AttackZonesPanel match={active} />
         <AttackZonesModule match={active} />
         {Footer}
       </ScrollView>
@@ -508,6 +516,8 @@ export default function MatchHeatmapScreen() {
       <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
         {Header}{Picker}{Tabs}
         <OverviewModule match={active} />
+        <MomentumPanel match={active} />
+        <KeyStatsPanel match={active} />
         {Footer}
       </ScrollView>
     );
@@ -517,6 +527,7 @@ export default function MatchHeatmapScreen() {
     return (
       <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
         {Header}{Picker}{Tabs}
+        <PassMapPanel match={active} />
         <PassMapModule match={active} />
         {Footer}
       </ScrollView>
@@ -527,6 +538,7 @@ export default function MatchHeatmapScreen() {
     return (
       <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
         {Header}{Picker}{Tabs}
+        <ShotsMapPanel match={active} />
         <ShotsModule match={active} />
         {Footer}
       </ScrollView>
@@ -666,6 +678,10 @@ const st = StyleSheet.create({
 
   soon:      { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 40 },
   soonText:  { color: D.text2, fontSize: 14 },
+  placeholder:      { alignItems: 'center', justifyContent: 'center', paddingHorizontal: 28, paddingVertical: 64, gap: 8 },
+  placeholderTitle: { color: D.text1, fontSize: 22, fontWeight: '900', letterSpacing: 0.4 },
+  placeholderBody:  { color: D.text2, fontSize: 14, fontWeight: '600', textAlign: 'center' },
+  placeholderSub:   { color: D.text3, fontSize: 12, textAlign: 'center', maxWidth: 360 },
 
   fcBanner:      { marginHorizontal: 14, marginTop: 10, paddingHorizontal: 12, paddingVertical: 8, borderRadius: 10,
                    borderWidth: 1, borderColor: 'rgba(154,82,255,0.45)', backgroundColor: 'rgba(154,82,255,0.12)' },

@@ -80,11 +80,11 @@ function attackZoneShares(m: MatchStats): number[] {
   return raw.map((v) => v / sum);
 }
 
-function AttackZones({ match }: { match: MatchStats }) {
+export function AttackZonesPanel({ match }: { match: MatchStats }) {
   const shares = useMemo(() => attackZoneShares(match), [match]);
   const max = Math.max(...shares);
   return (
-    <Card title="ATTACK ZONES" legend={<Legend items={[{ color: D.blue, label: match.home }, { color: D.red, label: match.away }]} />}>
+    <Card title="ATTACK ZONES" style={s.solo} legend={<Legend items={[{ color: D.blue, label: match.home }, { color: D.red, label: match.away }]} />}>
       <PitchSvg>
         {shares.map((sh, i) => {
           const bw = PITCH_W / 5;
@@ -140,16 +140,16 @@ function ShotDot({ d, color }: { d: Dot; color: string }) {
   return <G><Circle cx={d.x} cy={d.y} r={d.r + 1.1} fill="none" stroke={color} strokeWidth={0.5} strokeOpacity={0.7} /><Circle cx={d.x} cy={d.y} r={d.r} fill={color} /></G>;
 }
 
-function ShotsMap({ match }: { match: MatchStats }) {
+export function ShotsMapPanel({ match }: { match: MatchStats }) {
   const results = useLiveResults();
   const m = useMemo(() => shotsMatch(match.fixtureId, results), [match.fixtureId, results]);
   const dots = useMemo(() => {
     if (!m) return [];
     return [...buildDots(match.fixtureId, m.home, 'home'), ...buildDots(match.fixtureId, m.away, 'away')];
   }, [m, match.fixtureId]);
-  if (!m) return <Card title="SHOTS MAP"><View style={s.pitchEmpty}><Text style={s.note}>No shot data yet.</Text></View></Card>;
+  if (!m) return <Card title="SHOTS MAP" style={s.solo}><View style={s.pitchEmpty}><Text style={s.note}>No shot data yet.</Text></View></Card>;
   return (
-    <Card title="SHOTS MAP">
+    <Card title="SHOTS MAP" style={s.solo}>
       <PitchSvg>
         {dots.map((d, i) => <ShotDot key={i} d={d} color={d.team === 'home' ? D.blue : D.red} />)}
       </PitchSvg>
@@ -209,9 +209,9 @@ function MiniPass({ fixtureId, team, color, stats }: { fixtureId: string; team: 
   );
 }
 
-function PassMap({ match }: { match: MatchStats }) {
+export function PassMapPanel({ match }: { match: MatchStats }) {
   return (
-    <Card title="PASS MAP">
+    <Card title="PASS MAP" style={s.solo}>
       <View style={s.passRow}>
         <MiniPass fixtureId={match.fixtureId} team={match.home} color={D.blue} stats={match.homeStats} />
         <MiniPass fixtureId={match.fixtureId} team={match.away} color={D.red} stats={match.awayStats} />
@@ -245,12 +245,14 @@ function Stat({ label, h, a, ring, homePoss, cellStyle }: { label: string; h: st
     </View>
   );
 }
-function KeyStats({ match, wide }: { match: MatchStats; wide: boolean }) {
+export function KeyStatsPanel({ match }: { match: MatchStats }) {
+  const { width } = useWindowDimensions();
+  const wide = width >= 860;
   const h = match.homeStats, a = match.awayStats;
   // 8-across on desktop (reference), 4-across (2 rows) on phones.
   const cw = wide ? s.statCell8 : s.statCell4;
   return (
-    <Card title="KEY STATS">
+    <Card title="KEY STATS" style={s.solo}>
       <View style={s.statGrid}>
         <Stat cellStyle={cw} label="POSSESSION" h={`${Math.round((h.possession || 0) * 100)}%`} a={`${Math.round((a.possession || 0) * 100)}%`} ring homePoss={h.possession || 0} />
         <Stat cellStyle={cw} label="TOTAL SHOTS" h={`${h.totalShots || 0}`} a={`${a.totalShots || 0}`} />
@@ -265,10 +267,9 @@ function KeyStats({ match, wide }: { match: MatchStats; wide: boolean }) {
   );
 }
 
-// ── Dashboard ───────────────────────────────────────────────────────────────
-export default function MatchDashboard({ match }: { match: MatchStats }) {
-  const { width } = useWindowDimensions();
-  const wide = width >= 860;
+// ── MOMENTUM ────────────────────────────────────────────────────────────────
+// Smooth momentum wave + interactive event markers. Lives in the Overview tab.
+export function MomentumPanel({ match }: { match: MatchStats }) {
   const end = match.status === 'LIVE' && match.elapsed ? Math.max(match.elapsed, 10) : 90;
   const span = Math.max(end, 90);
 
@@ -289,26 +290,16 @@ export default function MatchDashboard({ match }: { match: MatchStats }) {
   const points = useMemo(() => buildMomentum(match.fixtureId, match.homeStats.possession || 0.5, end, momEvents), [match.fixtureId, match.homeStats.possession, end, JSON.stringify(momEvents)]);
 
   return (
-    <View style={s.dash}>
-      <Card title="MOMENTUM" legend={<Legend items={[{ color: D.blue, label: match.home }, { color: D.red, label: match.away }, { color: D.purple, label: 'Events' }]} />}>
-        <MomentumWave points={points} span={span} markers={markers} />
-        <Text style={s.note}>Momentum is modelled from possession, shots & xG — not player tracking.</Text>
-      </Card>
-
-      <View style={[s.mid, wide ? s.midRow : s.midCol]}>
-        <AttackZones match={match} />
-        <ShotsMap match={match} />
-        <PassMap match={match} />
-      </View>
-
-      <KeyStats match={match} wide={wide} />
-      <Text style={s.foot}>Data by Lili Signals — Not player tracking</Text>
-    </View>
+    <Card title="MOMENTUM" style={s.solo} legend={<Legend items={[{ color: D.blue, label: match.home }, { color: D.red, label: match.away }, { color: D.purple, label: 'Events' }]} />}>
+      <MomentumWave points={points} span={span} markers={markers} />
+      <Text style={s.note}>Momentum is modelled from possession, shots & xG — not player tracking.</Text>
+    </Card>
   );
 }
 
 const s = StyleSheet.create({
   dash: { padding: 12, gap: 12, backgroundColor: D.bg },
+  solo: { marginHorizontal: 12, marginTop: 12 },
   card: { backgroundColor: D.panel, borderRadius: 12, borderWidth: 1, borderColor: D.border, padding: 12 },
   cardHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10, flexWrap: 'wrap', gap: 6 },
   cardTitle: { color: D.text3, fontSize: 11, fontWeight: '800', letterSpacing: 1 },
