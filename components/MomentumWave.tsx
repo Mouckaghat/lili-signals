@@ -46,7 +46,7 @@ function curveSegments(pts: { x: number; y: number }[]): string {
 export default function MomentumWave({
   points, span, markers,
 }: { points: MomentumPoint[]; span: number; markers: MomentumMarker[] }) {
-  const [active, setActive] = useState<number | null>(null);
+  const [active, setActive] = useState<string | null>(null);
 
   const pts = points.map((p) => ({
     x: (p.minute / span) * W,
@@ -60,38 +60,61 @@ export default function MomentumWave({
 
   const axis = [0, 15, 30, 45, 60, 75, 90].filter((m) => m <= span);
 
+  // Markers sit on the side of the line that belongs to their team: HOME above,
+  // AWAY below. Within a side, events close in time alternate rows so the cards
+  // don't overlap.
+  const homeMarkers = markers.filter((m) => m.side === 'home');
+  const awayMarkers = markers.filter((m) => m.side === 'away');
+  const staggerRows = (list: MomentumMarker[]) => {
+    const out: number[] = [];
+    let lastMin = -999, lastRow = 1;
+    list.forEach((m) => {
+      const close = (m.minute - lastMin) / span < 0.085;
+      const row = close ? (lastRow === 0 ? 1 : 0) : 0;
+      out.push(row); lastMin = m.minute; lastRow = row;
+    });
+    return out;
+  };
+  const homeRows = staggerRows(homeMarkers);
+  const awayRows = staggerRows(awayMarkers);
+
+  const renderMarker = (m: MomentumMarker, key: string, side: 'home' | 'away', row: number) => {
+    const leftPct = (m.minute / span) * 100;
+    const c = side === 'home' ? D.blue : D.red;
+    const isOn = active === key;
+    const pos = side === 'home' ? { bottom: row * 38 } : { top: row * 38 };
+    const card = (
+      <Pressable
+        onPress={() => setActive(isOn ? null : key)}
+        {...(Platform.OS === 'web' ? { onHoverIn: () => setActive(key), onHoverOut: () => setActive(null) } : {})}
+        style={[s.card, isOn && s.cardOn]}
+      >
+        <Text style={s.cardHead}>{ICON[m.kind]} <Text style={{ color: c }}>{m.minute}'</Text></Text>
+        <Text style={s.cardPlayer} numberOfLines={1}>{m.player || 'Player unknown'}</Text>
+        <Text style={[s.cardTeam, { color: c }]} numberOfLines={1}>{m.team}</Text>
+      </Pressable>
+    );
+    const conn = <View style={[s.connector, { backgroundColor: c }]} />;
+    const tip = isOn ? (
+      <View style={[s.tooltip, side === 'home' ? s.tipAbove : s.tipBelow]} pointerEvents="none">
+        <Text style={s.tipHead}>{ICON[m.kind]} {m.minute}'</Text>
+        <Text style={s.tipPlayer}>{m.player || 'Player unknown'}</Text>
+        <Text style={[s.tipTeam, { color: c }]}>{m.team}</Text>
+        <Text style={s.tipKind}>{KIND_LABEL[m.kind]}</Text>
+      </View>
+    ) : null;
+    return (
+      <View key={key} style={[s.slot, pos, { left: `${leftPct}%` }]} pointerEvents="box-none">
+        {side === 'home' ? (<>{card}{conn}{tip}</>) : (<>{conn}{card}{tip}</>)}
+      </View>
+    );
+  };
+
   return (
     <View style={s.wrap}>
-      {/* event cards (anchored to the timeline minute, staggered to avoid overlap) */}
-      <View style={s.markerLayer} pointerEvents="box-none">
-        {markers.map((m, i) => {
-          const leftPct = (m.minute / span) * 100;
-          const high = i % 2 === 0; // stagger rows
-          const color = m.side === 'home' ? D.blue : D.red;
-          const isOn = active === i;
-          return (
-            <View key={i} style={[s.markerSlot, { left: `${leftPct}%`, top: high ? 0 : 30 }]} pointerEvents="box-none">
-              <Pressable
-                onPress={() => setActive(isOn ? null : i)}
-                {...(Platform.OS === 'web' ? { onHoverIn: () => setActive(i), onHoverOut: () => setActive(null) } : {})}
-                style={[s.card, isOn && s.cardOn]}
-              >
-                <Text style={s.cardHead}>{ICON[m.kind]} <Text style={{ color }}>{m.minute}'</Text></Text>
-                <Text style={s.cardPlayer} numberOfLines={1}>{m.player || 'Player unknown'}</Text>
-                <Text style={[s.cardTeam, { color }]} numberOfLines={1}>{m.team}</Text>
-              </Pressable>
-              <View style={[s.connector, { backgroundColor: color }]} />
-              {isOn && (
-                <View style={s.tooltip} pointerEvents="none">
-                  <Text style={s.tipHead}>{ICON[m.kind]} {m.minute}'</Text>
-                  <Text style={s.tipPlayer}>{m.player || 'Player unknown'}</Text>
-                  <Text style={[s.tipTeam, { color }]}>{m.team}</Text>
-                  <Text style={s.tipKind}>{KIND_LABEL[m.kind]}</Text>
-                </View>
-              )}
-            </View>
-          );
-        })}
+      {/* HOME events — above the line */}
+      <View style={s.homeLayer} pointerEvents="box-none">
+        {homeMarkers.map((m, i) => renderMarker(m, `home-${i}`, 'home', homeRows[i]))}
       </View>
 
       <Svg width="100%" height={150} viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none">
@@ -122,6 +145,11 @@ export default function MomentumWave({
         </G>
       </Svg>
 
+      {/* AWAY events — below the line */}
+      <View style={s.awayLayer} pointerEvents="box-none">
+        {awayMarkers.map((m, i) => renderMarker(m, `away-${i}`, 'away', awayRows[i]))}
+      </View>
+
       <View style={s.axis}>
         {axis.map((m) => (
           <Text key={m} style={[s.axisLabel, { left: `${(m / span) * 100}%` }]}>{m}'</Text>
@@ -133,15 +161,18 @@ export default function MomentumWave({
 
 const s = StyleSheet.create({
   wrap: { width: '100%' },
-  markerLayer: { height: 76, marginBottom: 2, position: 'relative' },
-  markerSlot: { position: 'absolute', width: 96, marginLeft: -48, alignItems: 'center' },
+  homeLayer: { height: 94, position: 'relative' },
+  awayLayer: { height: 94, position: 'relative' },
+  slot: { position: 'absolute', width: 96, marginLeft: -48, alignItems: 'center' },
   card: { backgroundColor: D.card, borderWidth: 1, borderColor: D.border, borderRadius: 6, paddingHorizontal: 6, paddingVertical: 3, alignItems: 'center', minWidth: 78 },
   cardOn: { borderColor: 'rgba(160,190,240,0.6)' },
   cardHead: { color: D.text1, fontSize: 10, fontWeight: '800' },
   cardPlayer: { color: D.text1, fontSize: 10, fontWeight: '700' },
   cardTeam: { fontSize: 9, fontWeight: '700' },
-  connector: { width: 1.5, height: 14, opacity: 0.7 },
-  tooltip: { position: 'absolute', top: -4, backgroundColor: '#060B16', borderWidth: 1, borderColor: 'rgba(160,190,240,0.5)', borderRadius: 8, paddingHorizontal: 9, paddingVertical: 6, alignItems: 'center', minWidth: 92, zIndex: 30 },
+  connector: { width: 1.5, height: 16, opacity: 0.7 },
+  tooltip: { position: 'absolute', left: '50%', marginLeft: -46, backgroundColor: '#060B16', borderWidth: 1, borderColor: 'rgba(160,190,240,0.5)', borderRadius: 8, paddingHorizontal: 9, paddingVertical: 6, alignItems: 'center', minWidth: 92, zIndex: 30 },
+  tipAbove: { bottom: '108%' },
+  tipBelow: { top: '108%' },
   tipHead: { color: D.text1, fontSize: 12, fontWeight: '900' },
   tipPlayer: { color: D.text1, fontSize: 11, fontWeight: '700', marginTop: 1 },
   tipTeam: { fontSize: 10, fontWeight: '800' },
