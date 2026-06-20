@@ -91,7 +91,7 @@ const TABS = [DASHBOARD, OVERVIEW, 'Heatmap', HOME_EDGE, ATTACK, SHOTS, PASSMAP,
 // ─── Screen ────────────────────────────────────────────────────────────────────
 export default function MatchHeatmapScreen() {
   const insets    = useSafeAreaInsets();
-  const { width, height } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const wide      = width >= 860;
   const matches   = useLiveStats();
   const results   = useLiveResults();
@@ -289,7 +289,7 @@ export default function MatchHeatmapScreen() {
           <Text style={st.fcBannerTitle}>{t.fcBannerTitle}</Text>
           <Text style={st.fcBannerSub}>{basisLine}. {t.fcBannerTail}</Text>
         </View>
-        <View style={st.narrowBody}>
+        <View style={[st.narrowBody, wide && st.heatBody]}>
           <TerritoryPitch homeName={active.home} awayName={active.away} homeFrac={hTerr / 100} />
           <View style={st.fcNote}>
             <Text style={st.fcNoteText}>{t.fcNote}</Text>
@@ -301,18 +301,14 @@ export default function MatchHeatmapScreen() {
     );
   }
 
+  // Phone is the source of truth: a single column that the whole page scrolls.
+  // On laptop/desktop we keep the SAME stacked, scrollable model — just centred
+  // with a max-width so the pitch stays beautiful and bounded (no fixed 100vh,
+  // no nested rail scroll). Pitch first → scroll for momentum, stats & insight.
   const Main = tab !== 'Heatmap' ? (
     <View style={st.soon}><Text style={st.soonText}>🔧  {tab} — on the roadmap, coming soon.</Text></View>
-  ) : wide ? (
-    <View style={st.mainRow}>
-      <View style={st.leftCol}>
-        <TerritoryPitch homeName={active.home} awayName={active.away} homeFrac={hTerr / 100} />
-        <MomentumPanel match={active} />
-      </View>
-      <ScrollView style={st.rail} contentContainerStyle={{ paddingBottom: 4 }} showsVerticalScrollIndicator={false}>{RailContent}</ScrollView>
-    </View>
   ) : (
-    <View>
+    <View style={wide ? st.heatBody : undefined}>
       <TerritoryPitch homeName={active.home} awayName={active.away} homeFrac={hTerr / 100} />
       <MomentumPanel match={active} />
       <View style={{ marginTop: 12 }}>{RailContent}</View>
@@ -404,16 +400,9 @@ export default function MatchHeatmapScreen() {
     );
   }
 
-  // Desktop: fixed one-viewport layout, no page scroll. Mobile: stacked scroll.
-  if (wide) {
-    return (
-      <View style={[st.screen, { height }]}>
-        {Header}{Picker}{Tabs}
-        <View style={st.wideBody}>{Main}</View>
-        {Footer}
-      </View>
-    );
-  }
+  // One scrolling model for every width (phone is the reference). The page —
+  // not a nested container — scrolls, so the pitch shows first and momentum,
+  // stats & Lili insight are always reachable below it.
   return (
     <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
       {Header}{Picker}{Tabs}
@@ -477,11 +466,10 @@ const st = StyleSheet.create({
   tabText:   { color: D.text3, fontSize: 11, fontWeight: '600' },
   tabTextOn: { color: D.text1, fontWeight: '800' },
 
-  wideBody:  { flex: 1, paddingHorizontal: 14, paddingTop: 10, paddingBottom: 4, minHeight: 0 },
   narrowBody:{ paddingHorizontal: 14, paddingTop: 10 },
-  mainRow:   { flex: 1, flexDirection: 'row', gap: 12, minHeight: 0 },
-  leftCol:   { flex: 1, minWidth: 0, minHeight: 0 },
-  rail:      { width: 290, flexGrow: 0 },
+  // Heatmap on laptop/desktop: same scrolling column as phone, just centred and
+  // width-bounded so the pitch stays beautiful but never fills the viewport.
+  heatBody:  { width: '100%', maxWidth: 760, alignSelf: 'center' },
 
   soon:      { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 40 },
   soonText:  { color: D.text2, fontSize: 14 },
