@@ -517,6 +517,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "E2_Germany_v_Ivory_Coast",
+    home: "Germany", away: "Ivory Coast", date: "2026-06-20",
+    goals: [
+      { player: "Franck Kessié", team: "Ivory Coast", minute: 30, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-20T19:49:49.144Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-20T20:58:17.830Z';
