@@ -254,10 +254,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "F2_Netherlands_v_Sweden",
     home: "Netherlands", away: "Sweden", date: "2026-06-20",
-    status: "LIVE", elapsed: 45,
-    homeStats: { team: "Netherlands", possession: 0.6, totalShots: 5, shotsInsideBox: 4, shotsOutsideBox: 1, shotsOnGoal: 4, corners: 1, xg: 1.04, passAccuracy: 0.91, passes: 245, fouls: 4 },
-    awayStats: { team: "Sweden", possession: 0.4, totalShots: 6, shotsInsideBox: 5, shotsOutsideBox: 1, shotsOnGoal: 2, corners: 1, xg: 0.34, passAccuracy: 0.85, passes: 168, fouls: 4 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Netherlands", possession: 0.51, totalShots: 10, shotsInsideBox: 6, shotsOutsideBox: 4, shotsOnGoal: 7, corners: 2, xg: 2.47, passAccuracy: 0.88, passes: 450, fouls: 9 },
+    awayStats: { team: "Sweden", possession: 0.49, totalShots: 16, shotsInsideBox: 7, shotsOutsideBox: 9, shotsOnGoal: 8, corners: 5, xg: 0.98, passAccuracy: 0.85, passes: 424, fouls: 12 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-20T18:00:27.039Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-20T19:42:24.806Z';
