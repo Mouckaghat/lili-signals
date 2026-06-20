@@ -522,10 +522,12 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Germany", away: "Ivory Coast", date: "2026-06-20",
     goals: [
       { player: "Franck Kessié", team: "Ivory Coast", minute: 30, type: "goal" },
+      { player: "Deniz Undav", team: "Germany", minute: 68, type: "goal" },
+      { player: "Deniz Undav", team: "Germany", minute: 90, minuteStoppage: 4, type: "goal" },
     ],
     yellowCards: [],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-20T20:58:17.830Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-20T22:06:12.356Z';
