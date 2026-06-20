@@ -499,6 +499,16 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Miguel Almirón", team: "Paraguay", minute: 45, reason: "Unsportsmanlike conduct" },
     ],
   },
+  {
+    fixtureId: "F2_Netherlands_v_Sweden",
+    home: "Netherlands", away: "Sweden", date: "2026-06-20",
+    goals: [
+      { player: "Brian Brobbey", team: "Netherlands", minute: 5, type: "goal" },
+      { player: "Brian Brobbey", team: "Netherlands", minute: 17, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-20T16:48:06.820Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-20T18:02:16.590Z';
