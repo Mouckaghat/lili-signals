@@ -251,6 +251,13 @@ export const MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Türkiye", possession: 0.79, totalShots: 32, shotsInsideBox: 16, shotsOutsideBox: 16, shotsOnGoal: 5, corners: 12, xg: 2.1, passAccuracy: 0.89, passes: 630, fouls: 14 },
     awayStats: { team: "Paraguay", possession: 0.21, totalShots: 7, shotsInsideBox: 3, shotsOutsideBox: 4, shotsOnGoal: 2, corners: 0, xg: 0.32, passAccuracy: 0.53, passes: 177, fouls: 15 },
   },
+  {
+    fixtureId: "F2_Netherlands_v_Sweden",
+    home: "Netherlands", away: "Sweden", date: "2026-06-20",
+    status: "LIVE", elapsed: 45,
+    homeStats: { team: "Netherlands", possession: 0.6, totalShots: 5, shotsInsideBox: 4, shotsOutsideBox: 1, shotsOnGoal: 4, corners: 1, xg: 1.04, passAccuracy: 0.91, passes: 245, fouls: 4 },
+    awayStats: { team: "Sweden", possession: 0.4, totalShots: 6, shotsInsideBox: 5, shotsOutsideBox: 1, shotsOnGoal: 2, corners: 1, xg: 0.34, passAccuracy: 0.85, passes: 168, fouls: 4 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-20T16:43:17.230Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-20T18:00:27.039Z';
