@@ -505,10 +505,18 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Brian Brobbey", team: "Netherlands", minute: 5, type: "goal" },
       { player: "Brian Brobbey", team: "Netherlands", minute: 17, type: "goal" },
+      { player: "Cody Gakpo", team: "Netherlands", minute: 47, type: "goal" },
+      { player: "Cody Gakpo", team: "Netherlands", minute: 54, type: "goal" },
+      { player: "Anthony Elanga", team: "Sweden", minute: 59, type: "goal" },
+      { player: "Crysencio Summerville", team: "Netherlands", minute: 89, type: "goal" },
     ],
-    yellowCards: [],
+    yellowCards: [
+      { player: "Gabriel Gudmundsson", team: "Sweden", minute: 53, reason: "Tripping" },
+      { player: "Yasin Ayari", team: "Sweden", minute: 75, reason: "Holding" },
+      { player: "Lucas Bergvall", team: "Sweden", minute: 80, reason: "Roughing" },
+    ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-20T18:02:16.590Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-20T19:49:49.144Z';
