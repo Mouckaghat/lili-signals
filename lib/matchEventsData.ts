@@ -468,6 +468,20 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "D2_Brazil_v_Haiti",
+    home: "Brazil", away: "Haiti", date: "2026-06-20",
+    goals: [
+      { player: "Matheus Cunha", team: "Brazil", minute: 23, type: "goal" },
+      { player: "Matheus Cunha", team: "Brazil", minute: 36, type: "goal" },
+      { player: "Vinícius Júnior", team: "Brazil", minute: 45, minuteStoppage: 3, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Carlens Arcus", team: "Haiti", minute: 4, reason: "Roughing" },
+      { player: "Frantzdy Pierrot", team: "Haiti", minute: 45, reason: "Elbowing" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-19T23:41:55.122Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-20T01:51:21.922Z';
