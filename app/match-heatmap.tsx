@@ -6,12 +6,10 @@ import { buildHeatGrid, type HeatGrid, type TeamMatchStats } from '../lib/heatma
 import { forecastMatch } from '../lib/heatmapForecast';
 import { HEATMAP_I18N, hmT } from '../lib/heatmapI18n';
 import { useLanguage } from '../contexts/LanguageContext';
-import { buildMomentum, type MomentumEvent } from '../lib/matchMomentum';
 import type { MatchStats } from '../lib/matchStatsData';
 import { useLiveStats } from '../lib/useLiveStats';
 import { useLiveResults } from '../lib/useLiveResults';
 import { useLineups } from '../lib/useLineups';
-import { MATCH_EVENTS } from '../lib/matchEventsData';
 import { WC_FIXTURES, WC_TEAMS } from '../lib/wcData';
 import HomeEdgeModule from '../components/HomeEdgeModule';
 import PlayersModule from '../components/PlayersModule';
@@ -19,7 +17,7 @@ import AttackZonesModule from '../components/AttackZonesModule';
 import OverviewModule, { TournamentImpactPanel } from '../components/OverviewModule';
 import PassMapModule from '../components/PassMapModule';
 import ShotsModule from '../components/ShotsModule';
-import { AttackZonesPanel, ShotsMapPanel, PassMapPanel } from '../components/MatchDashboard';
+import { MomentumPanel, AttackZonesPanel, ShotsMapPanel, PassMapPanel } from '../components/MatchDashboard';
 
 // ─── Tokens ──────────────────────────────────────────────────────────────────
 const D = {
@@ -52,7 +50,6 @@ function mix(c1: string, c2: string, t: number): string {
   return `${Math.round(a[0] + (b[0] - a[0]) * t)},${Math.round(a[1] + (b[1] - a[1]) * t)},${Math.round(a[2] + (b[2] - a[2]) * t)}`;
 }
 const flagOf = (name: string) => WC_TEAMS.find((t) => t.name === name)?.flag ?? '🏳';
-const surname = (full: string) => { const p = full.trim().split(' '); return p.length > 1 ? p[p.length - 1] : full; };
 function fmtDate(iso: string): string {
   const d = new Date(iso);
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -166,51 +163,7 @@ function StatRow({ label, h, a }: { label: string; h: string | number; a: string
   );
 }
 
-// ─── Momentum (compact) ─────────────────────────────────────────────────────
-interface MatchEventMarker { minute: number; side: 'home' | 'away'; kind: 'goal' | 'yellow' | 'red'; icon: string; label?: string }
-
-function Momentum({ match, events }: { match: MatchStats; events: MatchEventMarker[] }) {
-  const end = match.status === 'LIVE' && match.elapsed ? Math.max(match.elapsed, 1) : 90;
-  const span = Math.max(end, 90);
-  const momEvents: MomentumEvent[] = events
-    .filter((e) => e.kind === 'goal' || e.kind === 'red')
-    .map((e) => ({ minute: e.minute, side: e.side, kind: e.kind === 'goal' ? 'goal' : 'red' }));
-  const points = useMemo(
-    () => buildMomentum(match.fixtureId, match.homeStats.possession, end, momEvents),
-    [match.fixtureId, match.homeStats.possession, end, JSON.stringify(momEvents)]);
-  const axis = [0, 15, 30, 45, 60, 75, 90].filter((m) => m <= span);
-
-  return (
-    <View style={mc.wrap}>
-      <View style={mc.head}>
-        <Text style={mc.title}>MOMENTUM</Text>
-        <View style={mc.legends}>
-          <Lg color={D.blue} label={match.home} /><Lg color={D.red} label={match.away} /><Lg color={D.purple} label="Events" />
-        </View>
-      </View>
-      <View style={mc.markerLayer}>
-        {events.map((e, i) => (
-          <View key={i} style={[mc.marker, { left: `${(e.minute / span) * 100}%` }]}>
-            <Text style={mc.markerTxt}>{e.icon}<Text style={{ color: e.side === 'home' ? D.blue : D.red }}> {e.minute}'</Text></Text>
-          </View>
-        ))}
-      </View>
-      <View style={mc.chart}>
-        {points.map((p, i) => (
-          <View key={i} style={mc.col}>
-            <View style={mc.halfTop}>{p.value > 0 && <View style={{ height: `${Math.min(100, p.value * 100)}%`, width: '100%', backgroundColor: rgba(D.blue, 0.9) }} />}</View>
-            <View style={mc.mid} />
-            <View style={mc.halfBot}>{p.value < 0 && <View style={{ height: `${Math.min(100, -p.value * 100)}%`, width: '100%', backgroundColor: rgba(D.red, 0.9) }} />}</View>
-          </View>
-        ))}
-      </View>
-      <View style={mc.axis}>{axis.map((m) => <Text key={m} style={[mc.axisLabel, { left: `${(m / span) * 100}%` }]}>{m}'</Text>)}</View>
-    </View>
-  );
-}
-function Lg({ color, label }: { color: string; label: string }) {
-  return <View style={mc.lg}><View style={[mc.lgDot, { backgroundColor: color }]} /><Text style={mc.lgTxt}>{label}</Text></View>;
-}
+// Momentum now renders via the shared smooth-wave MomentumPanel (components/MatchDashboard).
 
 const DASHBOARD = '📈 Dashboard';
 const OVERVIEW = '📊 Overview';
@@ -290,13 +243,6 @@ export default function MatchHeatmapScreen() {
   const aShare = buildHeatGrid(a, 'rtl', PITCH_COLS, PITCH_ROWS, awayFormation).share;
   const hTerr  = Math.round((hShare / (hShare + aShare || 1)) * 100);
   const aTerr  = 100 - hTerr;
-
-  const ev = MATCH_EVENTS.find((e) => e.fixtureId === active.fixtureId);
-  const markers: MatchEventMarker[] = ev ? [
-    ...ev.goals.map((g) => ({ minute: g.minute, side: (g.team === active.home ? 'home' : 'away') as 'home' | 'away', kind: 'goal' as const, icon: '⚽', label: surname(g.player) })),
-    ...ev.redCards.map((c) => ({ minute: c.minute ?? 0, side: (c.team === active.home ? 'home' : 'away') as 'home' | 'away', kind: 'red' as const, icon: '🟥' })),
-    ...ev.yellowCards.map((c) => ({ minute: c.minute ?? 0, side: (c.team === active.home ? 'home' : 'away') as 'home' | 'away', kind: 'yellow' as const, icon: '🟨' })),
-  ].sort((x, y) => x.minute - y.minute) : [];
 
   const statusLine = isForecast ? 'FORECAST' : active.status === 'LIVE' ? `LIVE ${active.elapsed ?? ''}'` : 'FULL TIME';
   const res = results[`${active.home}|${active.away}`];
@@ -447,14 +393,14 @@ export default function MatchHeatmapScreen() {
     <View style={st.mainRow}>
       <View style={st.leftCol}>
         <Pitch home={h} away={a} homeName={active.home} awayName={active.away} homeFormation={homeFormation} awayFormation={awayFormation} fill />
-        <Momentum match={active} events={markers} />
+        <MomentumPanel match={active} />
       </View>
       <ScrollView style={st.rail} contentContainerStyle={{ paddingBottom: 4 }} showsVerticalScrollIndicator={false}>{RailContent}</ScrollView>
     </View>
   ) : (
     <View>
       <Pitch home={h} away={a} homeName={active.home} awayName={active.away} homeFormation={homeFormation} awayFormation={awayFormation} fill={false} />
-      <Momentum match={active} events={markers} />
+      <MomentumPanel match={active} />
       <View style={{ marginTop: 12 }}>{RailContent}</View>
     </View>
   );
@@ -614,26 +560,6 @@ const rp = StyleSheet.create({
   insHead:    { color: D.text1, fontSize: 13, fontWeight: '800', marginBottom: 3 },
   insBody:    { color: D.text2, fontSize: 11, lineHeight: 15 },
   insConseq:  { color: D.purple, fontSize: 11, lineHeight: 15, marginTop: 3, fontWeight: '600' },
-});
-
-const mc = StyleSheet.create({
-  wrap:       { marginTop: 8, backgroundColor: D.panel, borderRadius: 10, borderWidth: 1, borderColor: D.border, paddingHorizontal: 10, paddingVertical: 6 },
-  head:       { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 4, marginBottom: 4 },
-  title:      { color: D.text3, fontSize: 9, fontWeight: '800', letterSpacing: 0.8 },
-  legends:    { flexDirection: 'row', gap: 10 },
-  lg:         { flexDirection: 'row', alignItems: 'center', gap: 4 },
-  lgDot:      { width: 7, height: 7, borderRadius: 4 },
-  lgTxt:      { color: D.text2, fontSize: 10 },
-  markerLayer:{ height: 16 },
-  marker:     { position: 'absolute', marginLeft: -14, width: 28, alignItems: 'center' },
-  markerTxt:  { fontSize: 9, fontWeight: '800' },
-  chart:      { flexDirection: 'row', height: 46, alignItems: 'stretch' },
-  col:        { flex: 1, justifyContent: 'center' },
-  halfTop:    { flex: 1, justifyContent: 'flex-end' },
-  mid:        { height: 1, backgroundColor: D.border },
-  halfBot:    { flex: 1, justifyContent: 'flex-start' },
-  axis:       { height: 12, marginTop: 2 },
-  axisLabel:  { position: 'absolute', color: D.text3, fontSize: 8, marginLeft: -7 },
 });
 
 const st = StyleSheet.create({
