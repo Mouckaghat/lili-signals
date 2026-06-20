@@ -240,10 +240,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "D2_Brazil_v_Haiti",
     home: "Brazil", away: "Haiti", date: "2026-06-20",
-    status: "LIVE", elapsed: 45,
-    homeStats: { team: "Brazil", possession: 0.62, totalShots: 7, shotsInsideBox: 7, shotsOutsideBox: 0, shotsOnGoal: 5, corners: 4, xg: 1.22, passAccuracy: 0.9, passes: 275, fouls: 6 },
-    awayStats: { team: "Haiti", possession: 0.38, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 1, xg: 0, passAccuracy: 0.8, passes: 168, fouls: 4 },
+    status: "LIVE", elapsed: 60,
+    homeStats: { team: "Brazil", possession: 0.6, totalShots: 6, shotsInsideBox: 6, shotsOutsideBox: 0, shotsOnGoal: 5, corners: 4, xg: 1.21, passAccuracy: 0.89, passes: 363, fouls: 7 },
+    awayStats: { team: "Haiti", possession: 0.4, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 1, xg: 0.07, passAccuracy: 0.81, passes: 245, fouls: 6 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-20T01:32:05.109Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-20T01:55:28.962Z';
