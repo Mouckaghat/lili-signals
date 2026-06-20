@@ -47,4 +47,4 @@ export const FIXTURE_RESULTS: Record<string, FixtureResult> = {
   "Türkiye|Paraguay": { status: 'FINISHED', homeScore: 0, awayScore: 1, winner: 'Paraguay' },
 };
 
-export const FIXTURE_RESULTS_LAST_UPDATED = '2026-06-20T11:48:45.440Z';
+export const FIXTURE_RESULTS_LAST_UPDATED = '2026-06-20T13:16:54.459Z';
