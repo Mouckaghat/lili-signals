@@ -1360,7 +1360,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     nation: "Canada",
     dob: "2005-10-12",
     age: 20,
-    club: "Dender",
+    club: "Dender EH",
     league: "Pro League",
     leagueFlag: "🇧🇪",
     caps: 13,
@@ -7915,7 +7915,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     nation: "Iran",
     dob: "1993-08-11",
     age: 32,
-    club: "Dender",
+    club: "Dender EH",
     league: "Pro League",
     leagueFlag: "🇧🇪",
     caps: 98,
@@ -12549,4 +12549,4 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
   },
 ];
 
-export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-19T10:42:19.281Z';
+export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-20T09:20:47.964Z';
