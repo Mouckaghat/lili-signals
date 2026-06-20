@@ -301,14 +301,23 @@ export default function MatchHeatmapScreen() {
     );
   }
 
-  // Phone is the source of truth: a single column that the whole page scrolls.
-  // On laptop/desktop we keep the SAME stacked, scrollable model — just centred
-  // with a max-width so the pitch stays beautiful and bounded (no fixed 100vh,
-  // no nested rail scroll). Pitch first → scroll for momentum, stats & insight.
+  // Phone is the source of truth: one scrollable column (pitch → momentum →
+  // cards). On laptop/desktop the SAME pieces are arranged as a two-column
+  // workstation — LEFT (pitch + momentum directly below it), RIGHT (the four
+  // cards stacked). Still inside the page ScrollView (no fixed 100vh, no nested
+  // rail scroll), centred + width-bounded so the pitch stays bounded and tidy.
   const Main = tab !== 'Heatmap' ? (
     <View style={st.soon}><Text style={st.soonText}>🔧  {tab} — on the roadmap, coming soon.</Text></View>
+  ) : wide ? (
+    <View style={st.heatRow}>
+      <View style={st.heatLeft}>
+        <TerritoryPitch homeName={active.home} awayName={active.away} homeFrac={hTerr / 100} />
+        <MomentumPanel match={active} />
+      </View>
+      <View style={st.heatRight}>{RailContent}</View>
+    </View>
   ) : (
-    <View style={wide ? st.heatBody : undefined}>
+    <View>
       <TerritoryPitch homeName={active.home} awayName={active.away} homeFrac={hTerr / 100} />
       <MomentumPanel match={active} />
       <View style={{ marginTop: 12 }}>{RailContent}</View>
@@ -470,6 +479,10 @@ const st = StyleSheet.create({
   // Heatmap on laptop/desktop: same scrolling column as phone, just centred and
   // width-bounded so the pitch stays beautiful but never fills the viewport.
   heatBody:  { width: '100%', maxWidth: 760, alignSelf: 'center' },
+  // Two-column workstation (wide only): pitch + momentum left, cards right.
+  heatRow:   { flexDirection: 'row', gap: 16, alignItems: 'flex-start', width: '100%', maxWidth: 1080, alignSelf: 'center' },
+  heatLeft:  { flex: 1, minWidth: 0 },
+  heatRight: { width: 320 },
 
   soon:      { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 40 },
   soonText:  { color: D.text2, fontSize: 14 },
