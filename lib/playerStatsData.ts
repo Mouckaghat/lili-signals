@@ -1028,4 +1028,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "C2_T_rkiye_v_Paraguay", team: "Paraguay", name: "Gabriel Ávalos", pos: "FW", minutes: 1, rating: null, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 2, passAccPct: 100, tackles: 1, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-06-20T12:00:42.197Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-06-20T14:27:27.388Z';
