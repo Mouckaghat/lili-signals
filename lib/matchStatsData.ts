@@ -276,9 +276,9 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "F2_Tunisia_v_Japan",
     home: "Tunisia", away: "Japan", date: "2026-06-21",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Tunisia", possession: 0.38, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 3, xg: 0.05, passAccuracy: 0.8, passes: 351, fouls: 8 },
-    awayStats: { team: "Japan", possession: 0.62, totalShots: 11, shotsInsideBox: 8, shotsOutsideBox: 3, shotsOnGoal: 5, corners: 5, xg: 2.07, passAccuracy: 0.89, passes: 565, fouls: 15 },
+    homeStats: { team: "Tunisia", possession: 0.38, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 3, xg: 0.05, passAccuracy: 0.8, passes: 353, fouls: 8 },
+    awayStats: { team: "Japan", possession: 0.62, totalShots: 11, shotsInsideBox: 8, shotsOutsideBox: 3, shotsOnGoal: 5, corners: 5, xg: 2.07, passAccuracy: 0.9, passes: 581, fouls: 15 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-21T06:31:21.319Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-21T10:11:10.915Z';
