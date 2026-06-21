@@ -12,6 +12,7 @@ import AttackZonesModule from '../components/AttackZonesModule';
 import OverviewModule, { TournamentImpactPanel } from '../components/OverviewModule';
 import PassMapModule from '../components/PassMapModule';
 import ShotsModule from '../components/ShotsModule';
+import DashboardRankings from '../components/DashboardRankings';
 import { AttackZonesPanel, ShotsMapPanel, PassMapPanel } from '../components/MatchDashboard';
 
 // ─── Tokens ──────────────────────────────────────────────────────────────────
@@ -141,19 +142,14 @@ export default function MatchHeatmapScreen() {
 
   const Footer = <Text style={st.foot}>Match intelligence modelled from live stats, events & standings — not player tracking · Data by Lili Signals 🦞</Text>;
 
-  // Dashboard — reserved for the future TOURNAMENT-level command centre.
-  // Tournament-level only, so NO match picker and NO match-level widgets — those
-  // live in the per-match tabs. Planned: Home Edge Tracker, Tournament rankings,
-  // Attack / Defence / Passing / Player / Goalkeeper rankings, Lili Spotlight.
+  // Dashboard — the TOURNAMENT-level command centre. Tournament-level only, so NO
+  // match picker and NO match-level widgets. First module: World Cup Rankings
+  // (moved here from the Shots tab). More tournament modules to follow.
   if (tab === DASHBOARD) {
     return (
       <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
         {Header}{Tabs}
-        <View style={st.placeholder}>
-          <Text style={st.placeholderTitle}>📈 Dashboard</Text>
-          <Text style={st.placeholderBody}>Tournament command centre coming soon.</Text>
-          <Text style={st.placeholderSub}>Home Edge Tracker · Tournament rankings · Attack, Defence, Passing, Player & Goalkeeper rankings · Lili Spotlight will live here.</Text>
-        </View>
+        <DashboardRankings />
         {Footer}
       </ScrollView>
     );
@@ -263,11 +259,6 @@ const st = StyleSheet.create({
   tabOn:     { borderBottomWidth: 2, borderBottomColor: D.purple },
   tabText:   { color: D.text3, fontSize: 11, fontWeight: '600' },
   tabTextOn: { color: D.text1, fontWeight: '800' },
-
-  placeholder:      { alignItems: 'center', justifyContent: 'center', paddingHorizontal: 28, paddingVertical: 64, gap: 8 },
-  placeholderTitle: { color: D.text1, fontSize: 22, fontWeight: '900', letterSpacing: 0.4 },
-  placeholderBody:  { color: D.text2, fontSize: 14, fontWeight: '600', textAlign: 'center' },
-  placeholderSub:   { color: D.text3, fontSize: 12, textAlign: 'center', maxWidth: 360 },
 
   foot:      { color: D.text3, fontSize: 9, textAlign: 'center', paddingHorizontal: 16, paddingVertical: 5, fontStyle: 'italic' },
 });

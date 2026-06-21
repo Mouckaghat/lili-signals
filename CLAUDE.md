@@ -159,7 +159,7 @@ The screen (route still `/match-heatmap`, header now reads **"MATCH INTELLIGENCE
 **PRODUCT RULE (architecture invariant — preserve it):**
 > **Dashboard = tournament-level intelligence.** **Overview / Home Edge / Attack Zones / Shots / Pass Map / Players = focused match intelligence or signal views.** Never put match-level widgets in Dashboard, and never push tournament-level rollups into the match tabs.
 
-**📈 Dashboard** — a **tournament-level intelligence placeholder / future command centre** (no match picker, no match-level widgets). Reserved for: Home Edge Tracker, Tournament rankings, Attack / Defence / Passing / Player / Goalkeeper rankings, Lili Spotlight. Currently renders only a placeholder.
+**📈 Dashboard** — the **tournament-level command centre** (no match picker, no match-level widgets) → `components/DashboardRankings.tsx`. First live module: **🌍 World Cup Rankings** (most goals / on target / Danger Index / toughest keeper, from `lib/shotsModel` `shotRankings` — moved here from the Shots tab in recon #48). Still to come: Home Edge Tracker, Attack / Defence / Passing rankings, Lili Spotlight.
 
 **Match-intelligence tabs** (each its own component + `lib/` model):
 1. **📊 Overview** — `OverviewModule` (+ `TournamentImpactPanel`) ← `lib/matchOverview.ts` · the cinematic "opening scene": hero score block + verdict badge + Lili headline, Match & Stadium Intelligence (capacity / June-avg temp / altitude — real curated `stadiumData` fields), Key Statistics, the smooth `MomentumPanel` heartbeat, Lili analysis, Control Index duel, Match Drivers, Tournament Impact. Single full-width column (order: Stats → Momentum → Lili → Control → Drivers).

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { StyleSheet, Text, useWindowDimensions, View } from 'react-native';
-import { shotsMatch, shotRankings, shotFuture, type ShotsMatch, type ShotTeam, type GkLine } from '../lib/shotsModel';
+import { shotsMatch, shotFuture, type ShotsMatch, type ShotTeam, type GkLine } from '../lib/shotsModel';
 import type { MatchStats } from '../lib/matchStatsData';
 import { useLiveResults } from '../lib/useLiveResults';
 import { WC_TEAMS } from '../lib/wcData';
@@ -29,7 +29,6 @@ export default function ShotsModule({ match }: { match: MatchStats }) {
   const results = useLiveResults();
   const { lang } = useLanguage();
   const m: ShotsMatch | null = useMemo(() => shotsMatch(match.fixtureId, results, HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN), [match.fixtureId, results, lang]);
-  const rank = useMemo(() => shotRankings(results), [results]);
   const fut = useMemo(() => shotFuture(match.home, results), [match.home, results]);
 
   if (!m) return <View style={s.wrap}><Text style={s.empty}>No shot data for this match yet.</Text></View>;
@@ -92,16 +91,6 @@ export default function ShotsModule({ match }: { match: MatchStats }) {
     </View>
   );
 
-  const Rankings = (
-    <View style={s.card}>
-      <Text style={s.cardTitle}>🌍 WORLD CUP RANKINGS</Text>
-      <RankList title="⚽ Most Goals" rows={rank.mostGoals} unit="" />
-      <RankList title="🎯 Most On Target" rows={rank.mostSot} unit="" />
-      <RankList title="🔥 Highest Danger" rows={rank.highestDanger} unit="" />
-      <RankList title="🧤 Toughest Keeper" rows={rank.toughestGk} unit="" showSub />
-    </View>
-  );
-
   const Future = fut && (
     <View style={s.card}>
       <Text style={s.cardTitle}>🔮 NEXT MATCH · {match.home} v {fut.opponent}</Text>
@@ -115,7 +104,7 @@ export default function ShotsModule({ match }: { match: MatchStats }) {
       <Text style={s.h1}>🎯 SHOTS</Text>
       <Text style={s.h1sub}>Who created the better chances — and did the score reflect them?</Text>
       <View style={wide ? s.cols : undefined}>
-        <View style={wide ? s.left : undefined}>{Summary}{Zones}{Rankings}</View>
+        <View style={wide ? s.left : undefined}>{Summary}{Zones}</View>
         <View style={wide ? s.right : undefined}>{Danger}{Finishing}{Gk}{Lili}{Future}</View>
       </View>
       <Text style={s.foot}>Real shot data (in/out box, on target, xG) + per-player saves. Danger Index & efficiency are Lili models. No exact shot coordinates in the feed.</Text>
@@ -144,18 +133,6 @@ function GkRow({ team, flag, g, color }: { team: string; flag: string; g: GkLine
       <Text style={s.gkSub}>{g.saves} saves · {g.conceded} conceded vs {g.xga.toFixed(1)} xGA · {g.label}</Text>
     </View>
     <Text style={s.gkIndex}>{g.index}</Text>
-  </View>;
-}
-function RankList({ title, rows, showSub }: { title: string; rows: { team: string; flag: string; value: number; sub?: string }[]; unit: string; showSub?: boolean }) {
-  return <View style={s.rl}>
-    <Text style={s.rlTitle}>{title}</Text>
-    {rows.slice(0, 3).map((r, i) => (
-      <View key={r.team} style={s.rlRow}>
-        <Text style={s.rlRank}>{i + 1}</Text>
-        <Text style={s.rlName} numberOfLines={1}>{r.flag} {r.team}</Text>
-        <Text style={s.rlVal}>{showSub && r.sub ? r.sub : r.value}</Text>
-      </View>
-    ))}
   </View>;
 }
 function FutRow({ team, flag, t, color }: { team: string; flag: string; t: { danger: number; effPct: number; gkIndex: number } | null; color: string }) {
@@ -198,13 +175,6 @@ const s = StyleSheet.create({
   gkIndex:{ color: D.text1, fontSize: 18, fontWeight: '900' },
 
   liliTxt:{ color: D.text1, fontSize: 12, lineHeight: 18 },
-
-  rl:      { marginBottom: 8 },
-  rlTitle: { color: D.text2, fontSize: 11, fontWeight: '700', marginBottom: 3 },
-  rlRow:   { flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 2 },
-  rlRank:  { color: D.text3, fontSize: 10, fontWeight: '800', width: 12 },
-  rlName:  { color: D.text1, fontSize: 11, fontWeight: '600', flex: 1 },
-  rlVal:   { color: D.text1, fontSize: 12, fontWeight: '800' },
 
   futRow:  { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 5, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: D.border, gap: 8 },
   futTeam: { fontSize: 12, fontWeight: '800', flexShrink: 0 },
