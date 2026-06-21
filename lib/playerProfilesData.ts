@@ -12549,4 +12549,4 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
   },
 ];
 
-export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-20T09:20:47.964Z';
+export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-21T09:54:43.603Z';
