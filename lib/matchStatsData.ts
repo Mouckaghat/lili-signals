@@ -220,22 +220,22 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "A2_Mexico_v_South_Korea",
     home: "Mexico", away: "South Korea", date: "2026-06-19",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Mexico", possession: 0.42, totalShots: 8, shotsInsideBox: 5, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 0, xg: 0.48, passAccuracy: 0.82, passes: 429, fouls: 9 },
-    awayStats: { team: "South Korea", possession: 0.58, totalShots: 9, shotsInsideBox: 6, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 2, xg: 0.69, passAccuracy: 0.84, passes: 579, fouls: 7 },
+    homeStats: { team: "Mexico", possession: 0.42, totalShots: 8, shotsInsideBox: 5, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 0, xg: 0.53, passAccuracy: 0.82, passes: 427, fouls: 9 },
+    awayStats: { team: "South Korea", possession: 0.58, totalShots: 9, shotsInsideBox: 6, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 2, xg: 0.91, passAccuracy: 0.84, passes: 578, fouls: 7 },
   },
   {
     fixtureId: "C2_USA_v_Australia",
     home: "USA", away: "Australia", date: "2026-06-19",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "USA", possession: 0.62, totalShots: 10, shotsInsideBox: 8, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 7, xg: 1.3, passAccuracy: 0.85, passes: 524, fouls: 12 },
-    awayStats: { team: "Australia", possession: 0.38, totalShots: 5, shotsInsideBox: 3, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 4, xg: 0.44, passAccuracy: 0.72, passes: 308, fouls: 16 },
+    homeStats: { team: "USA", possession: 0.62, totalShots: 10, shotsInsideBox: 8, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 7, xg: 1.08, passAccuracy: 0.85, passes: 523, fouls: 12 },
+    awayStats: { team: "Australia", possession: 0.38, totalShots: 5, shotsInsideBox: 3, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 4, xg: 0.35, passAccuracy: 0.71, passes: 310, fouls: 16 },
   },
   {
     fixtureId: "D2_Scotland_v_Morocco",
     home: "Scotland", away: "Morocco", date: "2026-06-19",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Scotland", possession: 0.41, totalShots: 6, shotsInsideBox: 5, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 1, xg: 0.54, passAccuracy: 0.85, passes: 454, fouls: 10 },
-    awayStats: { team: "Morocco", possession: 0.59, totalShots: 12, shotsInsideBox: 9, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 5, xg: 0.95, passAccuracy: 0.9, passes: 671, fouls: 8 },
+    homeStats: { team: "Scotland", possession: 0.41, totalShots: 6, shotsInsideBox: 5, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 2, xg: 0.51, passAccuracy: 0.85, passes: 456, fouls: 11 },
+    awayStats: { team: "Morocco", possession: 0.59, totalShots: 12, shotsInsideBox: 9, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 5, xg: 0.99, passAccuracy: 0.9, passes: 670, fouls: 8 },
   },
   {
     fixtureId: "D2_Brazil_v_Haiti",
@@ -275,10 +275,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "F2_Tunisia_v_Japan",
     home: "Tunisia", away: "Japan", date: "2026-06-21",
-    status: "LIVE", elapsed: 22,
-    homeStats: { team: "Tunisia", possession: 0.35, totalShots: 1, shotsInsideBox: 0, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 1, xg: 0.01, passAccuracy: 0.8, passes: 55, fouls: 2 },
-    awayStats: { team: "Japan", possession: 0.65, totalShots: 4, shotsInsideBox: 4, shotsOutsideBox: 0, shotsOnGoal: 2, corners: 2, xg: 1.26, passAccuracy: 0.92, passes: 104, fouls: 3 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Tunisia", possession: 0.38, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 3, xg: 0.05, passAccuracy: 0.8, passes: 351, fouls: 8 },
+    awayStats: { team: "Japan", possession: 0.62, totalShots: 11, shotsInsideBox: 8, shotsOutsideBox: 3, shotsOnGoal: 5, corners: 5, xg: 2.07, passAccuracy: 0.89, passes: 565, fouls: 15 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-21T04:22:27.015Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-21T06:31:21.319Z';
