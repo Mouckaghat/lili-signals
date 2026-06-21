@@ -443,15 +443,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "USA", away: "Australia", date: "2026-06-19",
     goals: [
       { player: "Cameron Burgess", team: "Australia", minute: 11, type: "own-goal" },
-      { player: "Alex Freeman", team: "USA", minute: 44, type: "goal" },
+      { player: "Alex Freeman", team: "USA", minute: 43, type: "goal" },
     ],
     yellowCards: [
       { player: "Jordan Bos", team: "Australia", minute: 16, reason: "Foul" },
       { player: "Alessandro Circati", team: "Australia", minute: 32, reason: "Foul" },
       { player: "Antonee Robinson", team: "USA", minute: 56, reason: "Foul" },
-      { player: "Folarin Balogun", team: "USA", minute: 89, reason: "Unsporting behaviour" },
-      { player: "Harry Souttar", team: "Australia", minute: 89, reason: "Unsporting behaviour" },
-      { player: "Jacob Italiano", team: "Australia", minute: 89, reason: "Unsporting behaviour" },
+      { player: "Harry Souttar", team: "Australia", minute: 88, reason: "Argument" },
+      { player: "Folarin Balogun", team: "USA", minute: 89, reason: "Argument" },
+      { player: "Jacob Italiano", team: "Australia", minute: 89, reason: "Argument" },
       { player: "Chris Richards", team: "USA", minute: 90, reason: "Foul" },
     ],
     redCards: [],
@@ -464,7 +464,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     yellowCards: [
       { player: "Issa Diop", team: "Morocco", minute: 23, reason: "Foul" },
-      { player: "Andy Robertson", team: "Scotland", minute: 66, reason: "Foul" },
+      { player: "Andy Robertson", team: "Scotland", minute: 65, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -474,13 +474,13 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Matheus Cunha", team: "Brazil", minute: 23, type: "goal" },
       { player: "Matheus Cunha", team: "Brazil", minute: 36, type: "goal" },
-      { player: "Vinícius Júnior", team: "Brazil", minute: 45, minuteStoppage: 3, type: "goal" },
+      { player: "Vinícius Júnior", team: "Brazil", minute: 45, type: "goal" },
     ],
     yellowCards: [
-      { player: "Carlens Arcus", team: "Haiti", minute: 4, reason: "Roughing" },
-      { player: "Frantzdy Pierrot", team: "Haiti", minute: 45, reason: "Elbowing" },
-      { player: "Douglas Santos", team: "Brazil", minute: 65, reason: "Roughing" },
-      { player: "Danley Jean Jacques", team: "Haiti", minute: 72, reason: "Roughing" },
+      { player: "Carlens Arcus", team: "Haiti", minute: 4, reason: "Foul" },
+      { player: "Frantzdy Pierrot", team: "Haiti", minute: 45, reason: "Foul" },
+      { player: "Douglas Santos", team: "Brazil", minute: 65, reason: "Foul" },
+      { player: "Danley Jean Jacques", team: "Haiti", minute: 72, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -491,12 +491,11 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Matías Galarza", team: "Paraguay", minute: 2, type: "goal" },
     ],
     yellowCards: [
-      { player: "Matías Galarza", team: "Paraguay", minute: 4, reason: "Tripping" },
-      { player: "V. Montella", team: "Türkiye", minute: 63 },
-      { player: "E. Elmali", team: "Türkiye", minute: 71, reason: "Roughing" },
+      { player: "Matías Galarza", team: "Paraguay", minute: 4, reason: "Foul" },
+      { player: "Eren Elmalı", team: "Türkiye", minute: 71, reason: "Foul" },
     ],
     redCards: [
-      { player: "Miguel Almirón", team: "Paraguay", minute: 45, reason: "Unsportsmanlike conduct" },
+      { player: "Miguel Almirón", team: "Paraguay", minute: 45, reason: "Argument" },
     ],
   },
   {
@@ -511,9 +510,9 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Crysencio Summerville", team: "Netherlands", minute: 89, type: "goal" },
     ],
     yellowCards: [
-      { player: "Gabriel Gudmundsson", team: "Sweden", minute: 53, reason: "Tripping" },
-      { player: "Yasin Ayari", team: "Sweden", minute: 75, reason: "Holding" },
-      { player: "Lucas Bergvall", team: "Sweden", minute: 80, reason: "Roughing" },
+      { player: "Gabriel Gudmundsson", team: "Sweden", minute: 53, reason: "Foul" },
+      { player: "Yasin Ayari", team: "Sweden", minute: 75, reason: "Foul" },
+      { player: "Lucas Bergvall", team: "Sweden", minute: 80, reason: "Dangerous play" },
     ],
     redCards: [],
   },
@@ -538,9 +537,22 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Juninho Bacuna", team: "Curaçao", minute: 53, reason: "Foul" },
       { player: "Livano Comenencia", team: "Curaçao", minute: 56, reason: "Roughing" },
       { player: "Juriën Gaari", team: "Curaçao", minute: 75, reason: "Roughing" },
+      { player: "Gervane Kastaneer", team: "Curaçao", minute: 90, reason: "Roughing" },
     ],
+    redCards: [],
+  },
+  {
+    fixtureId: "F2_Tunisia_v_Japan",
+    home: "Tunisia", away: "Japan", date: "2026-06-21",
+    goals: [
+      { player: "Daichi Kamada", team: "Japan", minute: 4, type: "goal" },
+      { player: "Ayase Ueda", team: "Japan", minute: 31, type: "goal" },
+      { player: "Junya Itō", team: "Japan", minute: 69, type: "goal" },
+      { player: "Ayase Ueda", team: "Japan", minute: 83, type: "goal" },
+    ],
+    yellowCards: [],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-21T01:43:53.391Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-21T06:32:19.871Z';
