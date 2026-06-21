@@ -6,7 +6,7 @@
 
 import { useMemo, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Svg, { Circle, G, Rect } from 'react-native-svg';
+import Svg, { Circle, G, Rect, Text as SvgText } from 'react-native-svg';
 import PitchSvg, { PITCH_W, PITCH_H } from './PitchSvg';
 import MomentumWave, { type MomentumMarker } from './MomentumWave';
 import { buildMomentum, type MomentumEvent } from '../lib/matchMomentum';
@@ -136,8 +136,16 @@ function buildDots(seed: string, t: ShotTeam, side: 'home' | 'away'): Dot[] {
 function ShotDot({ d, color }: { d: Dot; color: string }) {
   if (d.kind === 'off') return <Circle cx={d.x} cy={d.y} r={d.r} fill="none" stroke={color} strokeWidth={0.5} strokeOpacity={0.85} />;
   if (d.kind === 'sot') return <Circle cx={d.x} cy={d.y} r={d.r} fill={color} fillOpacity={0.9} />;
-  // goal — bright with ring
-  return <G><Circle cx={d.x} cy={d.y} r={d.r + 1.1} fill="none" stroke={color} strokeWidth={0.5} strokeOpacity={0.7} /><Circle cx={d.x} cy={d.y} r={d.r} fill={color} /></G>;
+  // goal — a football glyph in a team-coloured ring, so goals stand out from the
+  // shot circles and you can see (by area) where they came from. The ⚽ sits in
+  // each team's attacking half (home → right goal, away → left), so the ring
+  // colour + side together show who scored. Position is by area, not tracking.
+  return (
+    <G>
+      <Circle cx={d.x} cy={d.y} r={3.6} fill={color} fillOpacity={0.18} stroke={color} strokeWidth={0.8} strokeOpacity={0.95} />
+      <SvgText x={d.x} y={d.y + 1.85} fontSize={5} textAnchor="middle">⚽</SvgText>
+    </G>
+  );
 }
 
 export function ShotsMapPanel({ match }: { match: MatchStats }) {

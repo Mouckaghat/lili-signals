@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Platform, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import { StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { shotsMatch, shotRankings, shotFuture, type ShotsMatch, type ShotTeam, type GkLine } from '../lib/shotsModel';
 import type { MatchStats } from '../lib/matchStatsData';
 import { useLiveResults } from '../lib/useLiveResults';
@@ -22,17 +22,6 @@ const D = {
   text3:  '#52668C',
 };
 const flagOf = (t: string) => WC_TEAMS.find((x) => x.name === t)?.flag ?? '🏳';
-const rgba = (hex: string, n: number) => {
-  const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
-  return `rgba(${r},${g},${b},${n.toFixed(2)})`;
-};
-
-function ZoneGlow({ color, norm, pos }: { color: string; norm: number; pos: any }) {
-  if (norm <= 0.02) return null;
-  const size = 22 + norm * 26;
-  const blur = Platform.OS === 'web' ? ({ filter: `blur(${5 + norm * 7}px)` } as any) : null;
-  return <View pointerEvents="none" style={[{ position: 'absolute', width: `${size}%`, aspectRatio: 1, borderRadius: 999, backgroundColor: rgba(color, 0.18 + 0.4 * norm) }, pos, blur]} />;
-}
 
 export default function ShotsModule({ match }: { match: MatchStats }) {
   const { width } = useWindowDimensions();
@@ -45,27 +34,6 @@ export default function ShotsModule({ match }: { match: MatchStats }) {
 
   if (!m) return <View style={s.wrap}><Text style={s.empty}>No shot data for this match yet.</Text></View>;
   const { home: h, away: a, gkHome, gkAway } = m;
-  const mx = (x: number, y: number) => Math.max(x, y, 1);
-
-  const Map = (
-    <View style={s.card}>
-      <Text style={s.cardTitle}>🎯 SHOT MAP · by area</Text>
-      <View style={s.pitch}>
-        <ZoneGlow color={D.blue} norm={h.outside / mx(h.outside, a.outside)} pos={{ right: '22%', top: '30%' }} />
-        <ZoneGlow color={D.blue} norm={h.inside / mx(h.inside, a.inside)} pos={{ right: '5%', top: '30%' }} />
-        <ZoneGlow color={D.red} norm={a.outside / mx(h.outside, a.outside)} pos={{ left: '22%', top: '30%' }} />
-        <ZoneGlow color={D.red} norm={a.inside / mx(h.inside, a.inside)} pos={{ left: '5%', top: '30%' }} />
-        <View style={s.halfway} /><View style={s.circle} />
-        <View style={[s.box, s.boxL]} /><View style={[s.box, s.boxR]} />
-        <Text style={[s.goalBadge, { right: '7%', color: D.blue }]}>⚽ {h.goals}</Text>
-        <Text style={[s.goalBadge, { left: '7%', color: D.red }]}>⚽ {a.goals}</Text>
-      </View>
-      <View style={s.legendRow}>
-        <Text style={s.legend}>⚽ Goal   🎯 On Target   ⚪ Off Target</Text>
-      </View>
-      <Text style={s.pitchNote}>Glow size = shots from that area (box vs outside). Exact shot coordinates aren't in the feed.</Text>
-    </View>
-  );
 
   const Summary = (
     <View style={s.card}>
@@ -147,7 +115,7 @@ export default function ShotsModule({ match }: { match: MatchStats }) {
       <Text style={s.h1}>🎯 SHOTS</Text>
       <Text style={s.h1sub}>Who created the better chances — and did the score reflect them?</Text>
       <View style={wide ? s.cols : undefined}>
-        <View style={wide ? s.left : undefined}>{Map}{Summary}{Zones}{Rankings}</View>
+        <View style={wide ? s.left : undefined}>{Summary}{Zones}{Rankings}</View>
         <View style={wide ? s.right : undefined}>{Danger}{Finishing}{Gk}{Lili}{Future}</View>
       </View>
       <Text style={s.foot}>Real shot data (in/out box, on target, xG) + per-player saves. Danger Index & efficiency are Lili models. No exact shot coordinates in the feed.</Text>
@@ -208,16 +176,6 @@ const s = StyleSheet.create({
 
   card:      { backgroundColor: D.panel, borderRadius: 12, borderWidth: 1, borderColor: D.border, padding: 12 },
   cardTitle: { color: D.text3, fontSize: 10, fontWeight: '800', letterSpacing: 0.8, marginBottom: 8 },
-
-  pitch:    { width: '100%', aspectRatio: 16 / 9, backgroundColor: D.pitch, borderRadius: 8, borderWidth: 1.5, borderColor: 'rgba(120,180,255,0.4)', overflow: 'hidden', justifyContent: 'center' },
-  halfway:  { position: 'absolute', left: '50%', top: 0, bottom: 0, width: 1.5, marginLeft: -0.75, backgroundColor: D.line },
-  circle:   { position: 'absolute', left: '50%', top: '50%', width: '15%', aspectRatio: 1, marginLeft: '-7.5%', marginTop: '-13%', borderRadius: 999, borderWidth: 1.5, borderColor: D.line },
-  box:      { position: 'absolute', top: '22%', bottom: '22%', width: '15%', borderWidth: 1.5, borderColor: D.line },
-  boxL:     { left: 0, borderLeftWidth: 0 }, boxR: { right: 0, borderRightWidth: 0 },
-  goalBadge:{ position: 'absolute', top: '6%', fontSize: 13, fontWeight: '900' },
-  legendRow:{ marginTop: 6 },
-  legend:   { color: D.text2, fontSize: 10 },
-  pitchNote:{ color: D.text3, fontSize: 9, marginTop: 3, fontStyle: 'italic' },
 
   cmp:    { flexDirection: 'row', alignItems: 'center', paddingVertical: 5, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: D.border },
   cmpV:   { flex: 1, fontSize: 14, fontWeight: '700' },
