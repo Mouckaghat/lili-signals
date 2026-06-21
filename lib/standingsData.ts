@@ -44,9 +44,9 @@ export const GROUP_STANDINGS: GroupStanding[] = [
   { group: "F", team: "Japan", rank: 2, played: 2, won: 1, drawn: 1, lost: 0, gf: 6, ga: 2, gd: 4, pts: 4, status: 'QUALIFIED' },
   { group: "F", team: "Sweden", rank: 3, played: 2, won: 1, drawn: 0, lost: 1, gf: 6, ga: 6, gd: 0, pts: 3, status: 'AT-RISK' },
   { group: "F", team: "Tunisia", rank: 4, played: 2, won: 0, drawn: 0, lost: 2, gf: 1, ga: 9, gd: -8, pts: 0, status: 'ELIMINATED' },
-  { group: "G", team: "New Zealand", rank: 1, played: 1, won: 0, drawn: 1, lost: 0, gf: 2, ga: 2, gd: 0, pts: 1, status: 'ALIVE' },
-  { group: "G", team: "Iran", rank: 2, played: 1, won: 0, drawn: 1, lost: 0, gf: 2, ga: 2, gd: 0, pts: 1, status: 'ALIVE' },
-  { group: "G", team: "Belgium", rank: 3, played: 1, won: 0, drawn: 1, lost: 0, gf: 1, ga: 1, gd: 0, pts: 1, status: 'AT-RISK' },
+  { group: "G", team: "Iran", rank: 1, played: 2, won: 0, drawn: 2, lost: 0, gf: 2, ga: 2, gd: 0, pts: 2, status: 'ALIVE' },
+  { group: "G", team: "Belgium", rank: 2, played: 2, won: 0, drawn: 2, lost: 0, gf: 1, ga: 1, gd: 0, pts: 2, status: 'ALIVE' },
+  { group: "G", team: "New Zealand", rank: 3, played: 1, won: 0, drawn: 1, lost: 0, gf: 2, ga: 2, gd: 0, pts: 1, status: 'AT-RISK' },
   { group: "G", team: "Egypt", rank: 4, played: 1, won: 0, drawn: 1, lost: 0, gf: 1, ga: 1, gd: 0, pts: 1, status: 'AT-RISK' },
   { group: "H", team: "Spain", rank: 1, played: 2, won: 1, drawn: 1, lost: 0, gf: 4, ga: 0, gd: 4, pts: 4, status: 'QUALIFIED' },
   { group: "H", team: "Uruguay", rank: 2, played: 1, won: 0, drawn: 1, lost: 0, gf: 1, ga: 1, gd: 0, pts: 1, status: 'ALIVE' },
@@ -71,7 +71,7 @@ export const GROUP_STANDINGS: GroupStanding[] = [
   { group: "Stage", team: "Sweden", rank: 1, played: 2, won: 1, drawn: 0, lost: 1, gf: 6, ga: 6, gd: 0, pts: 3, status: 'ALIVE' },
   { group: "Stage", team: "Scotland", rank: 2, played: 2, won: 1, drawn: 0, lost: 1, gf: 1, ga: 1, gd: 0, pts: 3, status: 'ALIVE' },
   { group: "Stage", team: "Paraguay", rank: 3, played: 2, won: 1, drawn: 0, lost: 1, gf: 2, ga: 4, gd: -2, pts: 3, status: 'AT-RISK' },
-  { group: "Stage", team: "Belgium", rank: 4, played: 1, won: 0, drawn: 1, lost: 0, gf: 1, ga: 1, gd: 0, pts: 1, status: 'AT-RISK' },
+  { group: "Stage", team: "New Zealand", rank: 4, played: 1, won: 0, drawn: 1, lost: 0, gf: 2, ga: 2, gd: 0, pts: 1, status: 'AT-RISK' },
   { group: "Stage", team: "Portugal", rank: 5, played: 1, won: 0, drawn: 1, lost: 0, gf: 1, ga: 1, gd: 0, pts: 1, status: 'AT-RISK' },
   { group: "Stage", team: "Cape Verde Islands", rank: 6, played: 1, won: 0, drawn: 1, lost: 0, gf: 0, ga: 0, gd: 0, pts: 1, status: 'AT-RISK' },
   { group: "Stage", team: "Czech Republic", rank: 7, played: 2, won: 0, drawn: 1, lost: 1, gf: 2, ga: 3, gd: -1, pts: 1, status: 'AT-RISK' },
@@ -82,4 +82,4 @@ export const GROUP_STANDINGS: GroupStanding[] = [
   { group: "Stage", team: "Jordan", rank: 12, played: 1, won: 0, drawn: 0, lost: 1, gf: 1, ga: 3, gd: -2, pts: 0, status: 'AT-RISK' },
 ];
 
-export const STANDINGS_LAST_UPDATED = '2026-06-21T21:13:08.170Z';
+export const STANDINGS_LAST_UPDATED = '2026-06-21T23:12:21.395Z';
