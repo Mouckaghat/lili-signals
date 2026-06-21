@@ -558,10 +558,17 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Spain", away: "Saudi Arabia", date: "2026-06-21",
     goals: [
       { player: "Lamine Yamal", team: "Spain", minute: 10, type: "goal" },
+      { player: "Mikel Oyarzabal", team: "Spain", minute: 21, type: "goal" },
+      { player: "Mikel Oyarzabal", team: "Spain", minute: 24, type: "goal" },
+      { player: "H. Tambakti", team: "Saudi Arabia", minute: 49, type: "own-goal" },
+      { player: "Ferran Torres", team: "Spain", minute: 90, minuteStoppage: 2, type: "goal" },
     ],
-    yellowCards: [],
+    yellowCards: [
+      { player: "S. Al Dawsari", team: "Saudi Arabia", minute: 30, reason: "Roughing" },
+      { player: "Mohamed Kanno", team: "Saudi Arabia", minute: 60, reason: "Elbowing" },
+    ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-21T16:18:20.705Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-21T17:56:26.120Z';
