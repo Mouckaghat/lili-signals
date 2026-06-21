@@ -580,6 +580,22 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Nathan Ngoy", team: "Belgium", minute: 66, reason: "Holding" },
     ],
   },
+  {
+    fixtureId: "G2_Uruguay_v_Cape_Verde_Islands",
+    home: "Uruguay", away: "Cape Verde Islands", date: "2026-06-21",
+    goals: [
+      { player: "K. Lenini", team: "Cape Verde Islands", minute: 21, type: "goal" },
+      { player: "Maximiliano Araújo", team: "Uruguay", minute: 44, type: "goal" },
+      { player: "Agustín Canobbio", team: "Uruguay", minute: 45, minuteStoppage: 6, type: "goal" },
+      { player: "Hélio Varela", team: "Cape Verde Islands", minute: 61, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Sidny Lopes Cabral", team: "Cape Verde Islands", minute: 5 },
+      { player: "Rodrigo Bentancur", team: "Uruguay", minute: 20, reason: "Tripping" },
+      { player: "Mathías Olivera", team: "Uruguay", minute: 58, reason: "Holding" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-21T22:04:53.472Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-21T23:38:54.154Z';
