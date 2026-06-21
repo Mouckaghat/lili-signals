@@ -12,7 +12,7 @@ import AttackZonesModule from '../components/AttackZonesModule';
 import OverviewModule, { TournamentImpactPanel } from '../components/OverviewModule';
 import PassMapModule from '../components/PassMapModule';
 import ShotsModule from '../components/ShotsModule';
-import DashboardRankings from '../components/DashboardRankings';
+import DashboardModule from '../components/DashboardModule';
 import { AttackZonesPanel, ShotsMapPanel, PassMapPanel } from '../components/MatchDashboard';
 
 // ─── Tokens ──────────────────────────────────────────────────────────────────
@@ -141,16 +141,20 @@ export default function MatchHeatmapScreen() {
   );
 
   const Footer = <Text style={st.foot}>Match intelligence modelled from live stats, events & standings — not player tracking · Data by Lili Signals 🦞</Text>;
+  // Dashboard gets its own footer — it's tournament-wide (no single match), and
+  // the Lili XI is an evolving, non-official selection.
+  const DashFooter = <Text style={st.foot}>Tournament-wide intelligence from committed World Cup data · Lili XI is an evolving, non-official selection · Data by Lili Signals 🦞</Text>;
 
   // Dashboard — the TOURNAMENT-level command centre. Tournament-level only, so NO
-  // match picker and NO match-level widgets. First module: World Cup Rankings
-  // (moved here from the Shots tab). More tournament modules to follow.
+  // match picker and NO match-level widgets. Modules: World Cup Leaders, Team
+  // Rankings, Lili XI (Team of the Tournament Watch).
   if (tab === DASHBOARD) {
     return (
       <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
         {Header}{Tabs}
-        <DashboardRankings />
-        {Footer}
+        {/* TODO: pass favTeam once a global favourite/journey-team store exists. */}
+        <DashboardModule />
+        {DashFooter}
       </ScrollView>
     );
   }

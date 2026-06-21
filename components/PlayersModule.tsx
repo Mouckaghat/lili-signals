@@ -41,38 +41,10 @@ export default function PlayersModule({ match }: { match: MatchStats }) {
   const selRow: ImpactRow | undefined = selected ? L.impact.find((r) => r.name === selected.name && r.team === selected.team) : undefined;
   const topImpact = L.impact[0]?.impact || 1;
 
-  const Leaders = (
-    <View style={s.card}>
-      <Text style={s.cardTitle}>🏆 WORLD CUP LEADERS</Text>
-
-      <Text style={s.subhead}>🥅 Top Scorers</Text>
-      {L.topScorers.slice(0, 5).map((r, i) => (
-        <LeaderRow key={'g' + r.name + r.team} i={i} flag={r.flag} name={r.name} val={r.goals} unit="G" onPress={() => setSel({ name: r.name, team: r.team })} />
-      ))}
-      {!L.topScorers.length && <Text style={s.empty}>No goals yet.</Text>}
-
-      <Text style={[s.subhead, s.mt]}>🎯 Top Assists</Text>
-      {L.topAssists.slice(0, 4).map((r, i) => (
-        <LeaderRow key={'a' + r.name + r.team} i={i} flag={r.flag} name={r.name} val={r.assists} unit="A" color={D.blue} onPress={() => setSel({ name: r.name, team: r.team })} />
-      ))}
-      {!L.topAssists.length && <Text style={s.empty}>No assists yet.</Text>}
-
-      <Text style={[s.subhead, s.mt]}>🛡 Defensive Leaders</Text>
-      {L.defenders.slice(0, 4).map((r, i) => (
-        <LeaderRow key={'d' + r.name + r.team} i={i} flag={r.flag} name={r.name} val={r.actions} unit="T+I" color={D.green} onPress={() => setSel({ name: r.name, team: r.team })} />
-      ))}
-      {!L.defenders.length && <Text style={s.empty}>No data yet.</Text>}
-
-      <Text style={[s.subhead, s.mt]}>🧤 Goalkeepers</Text>
-      {L.goalkeepers.slice(0, 4).map((r, i) => (
-        <Pressable key={'k' + r.name + r.team} onPress={() => setSel({ name: r.name, team: r.team })} style={s.row}>
-          <Text style={s.rank}>{i + 1}</Text>
-          <Text style={s.pName} numberOfLines={1}>{r.flag} {r.name}</Text>
-          <Text style={[s.pVal, { color: D.green }]}>{r.cleanSheets}<Text style={s.pUnit}> CS</Text></Text>
-          <Text style={[s.pVal, { width: 48, color: D.text2 }]}>{r.saves}<Text style={s.pUnit}> SV</Text></Text>
-        </Pressable>
-      ))}
-      {!L.goalkeepers.length && <Text style={s.empty}>No clean sheets yet.</Text>}
+  const LeadersLink = (
+    <View style={[s.card, { borderColor: 'rgba(46,124,255,0.3)' }]}>
+      <Text style={[s.cardTitle, { color: D.blue }]}>🏆 WORLD CUP LEADERS</Text>
+      <Text style={s.linkNote}>Tournament-wide leaders (top scorers, assists, defenders, goalkeepers) now live on the 📈 Dashboard tab.</Text>
     </View>
   );
 
@@ -202,7 +174,7 @@ export default function PlayersModule({ match }: { match: MatchStats }) {
       <Text style={s.h1}>👤 PLAYERS</Text>
       <Text style={s.h1sub}>Which players are driving this World Cup?</Text>
       <View style={wide ? s.cols : undefined}>
-        <View style={wide ? s.left : undefined}>{Leaders}{Contributors}{Squad}</View>
+        <View style={wide ? s.left : undefined}>{LeadersLink}{Contributors}{Squad}</View>
         <View style={wide ? s.right : undefined}>{Spotlight}{Impact}{Hero}{Details}</View>
       </View>
       <Text style={s.foot}>Goals & cards from match events · assists, saves, ratings, tackles from player match stats · clean sheets derived · Impact = goals + assists + clean sheets + saves − discipline.</Text>
@@ -210,15 +182,6 @@ export default function PlayersModule({ match }: { match: MatchStats }) {
   );
 }
 
-function LeaderRow({ i, flag, name, val, unit, color, onPress }: { i: number; flag: string; name: string; val: number; unit: string; color?: string; onPress: () => void }) {
-  return (
-    <Pressable onPress={onPress} style={s.row}>
-      <Text style={s.rank}>{i + 1}</Text>
-      <Text style={s.pName} numberOfLines={1}>{flag} {name}</Text>
-      <Text style={[s.pVal, color ? { color } : null]}>{val}<Text style={s.pUnit}> {unit}</Text></Text>
-    </Pressable>
-  );
-}
 function HStat({ label, value }: { label: string; value: string | number }) {
   return <View style={s.hstat}><Text style={s.hstatVal}>{value}</Text><Text style={s.hstatLabel}>{label}</Text></View>;
 }
@@ -237,6 +200,7 @@ const s = StyleSheet.create({
   card:      { backgroundColor: D.panel, borderRadius: 12, borderWidth: 1, borderColor: D.border, padding: 12 },
   cardTitle: { color: D.text3, fontSize: 10, fontWeight: '800', letterSpacing: 0.8, marginBottom: 8 },
   subhead:   { color: D.text2, fontSize: 11, fontWeight: '700', marginBottom: 4 },
+  linkNote:  { color: D.text2, fontSize: 11, lineHeight: 16 },
   mt:        { marginTop: 10 },
   empty:     { color: D.text3, fontSize: 11, paddingVertical: 4 },
 
