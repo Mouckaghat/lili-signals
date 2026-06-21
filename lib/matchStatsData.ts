@@ -268,10 +268,17 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "E2_Ecuador_v_Cura_ao",
     home: "Ecuador", away: "Curaçao", date: "2026-06-21",
-    status: "LIVE", elapsed: 80,
-    homeStats: { team: "Ecuador", possession: 0.73, totalShots: 25, shotsInsideBox: 20, shotsOutsideBox: 5, shotsOnGoal: 14, corners: 5, xg: 2.9, passAccuracy: 0.9, passes: 525, fouls: 7 },
-    awayStats: { team: "Curaçao", possession: 0.27, totalShots: 10, shotsInsideBox: 4, shotsOutsideBox: 6, shotsOnGoal: 3, corners: 0, xg: 0.48, passAccuracy: 0.72, passes: 199, fouls: 9 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Ecuador", possession: 0.75, totalShots: 28, shotsInsideBox: 22, shotsOutsideBox: 6, shotsOnGoal: 15, corners: 9, xg: 3.06, passAccuracy: 0.9, passes: 641, fouls: 7 },
+    awayStats: { team: "Curaçao", possession: 0.25, totalShots: 10, shotsInsideBox: 4, shotsOutsideBox: 6, shotsOnGoal: 3, corners: 0, xg: 0.48, passAccuracy: 0.69, passes: 223, fouls: 10 },
+  },
+  {
+    fixtureId: "F2_Tunisia_v_Japan",
+    home: "Tunisia", away: "Japan", date: "2026-06-21",
+    status: "LIVE", elapsed: 22,
+    homeStats: { team: "Tunisia", possession: 0.35, totalShots: 1, shotsInsideBox: 0, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 1, xg: 0.01, passAccuracy: 0.8, passes: 55, fouls: 2 },
+    awayStats: { team: "Japan", possession: 0.65, totalShots: 4, shotsInsideBox: 4, shotsOutsideBox: 0, shotsOnGoal: 2, corners: 2, xg: 1.26, passAccuracy: 0.92, passes: 104, fouls: 3 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-21T01:40:17.575Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-21T04:22:27.015Z';
