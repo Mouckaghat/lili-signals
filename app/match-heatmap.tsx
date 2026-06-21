@@ -13,6 +13,7 @@ import OverviewModule, { TournamentImpactPanel } from '../components/OverviewMod
 import PassMapModule from '../components/PassMapModule';
 import ShotsModule from '../components/ShotsModule';
 import DashboardModule from '../components/DashboardModule';
+import Brand from '../components/Brand';
 import { AttackZonesPanel, ShotsMapPanel, PassMapPanel } from '../components/MatchDashboard';
 
 // ─── Tokens ──────────────────────────────────────────────────────────────────
@@ -105,8 +106,7 @@ export default function MatchHeatmapScreen() {
         </Text>
       </View>
       <View style={[st.headSide, { alignItems: 'flex-end' }]}>
-        <Text style={st.brand}>Worldcupilou</Text>
-        <Text style={st.brandSub}>by Lili Signals 🦞</Text>
+        <Brand tone="chrome" align="flex-end" />
       </View>
     </View>
   );
@@ -246,8 +246,6 @@ const st = StyleSheet.create({
   teamName:  { color: D.text1, fontSize: 13, fontWeight: '800' },
   score:     { color: D.text1, fontSize: 18, fontWeight: '900', letterSpacing: 0.5 },
   statusMini:{ color: D.text2, fontSize: 9, fontWeight: '700', marginTop: 1 },
-  brand:     { color: D.purple, fontSize: 13, fontWeight: '800' },
-  brandSub:  { color: D.text2, fontSize: 9 },
 
   pickerScroll:{ flexGrow: 0 },
   picker:    { flexDirection: 'row', gap: 6, paddingHorizontal: 14, paddingVertical: 6 },

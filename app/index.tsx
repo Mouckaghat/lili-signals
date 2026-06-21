@@ -16,6 +16,7 @@ import { checkApiHealth, type ApiStatus } from '../lib/apiClient';
 import { PLAYERS, type PlayerXI } from '../lib/playerXI';
 import { useLanguage } from '../contexts/LanguageContext';
 import { I18N, LANGUAGES, type LangCode } from '../lib/i18n';
+import Brand from '../components/Brand';
 
 // Maps player jersey number (1–11) to i18n.modules array index.
 // Computed once at module load from EN titles vs PLAYERS.name.
@@ -688,7 +689,7 @@ export default function LandingScreen() {
 
             {/* ── Footer ── */}
             <Animated.View style={[ls.footer, { opacity: footerFlash }]}>
-              <Text style={ls.footerPrimary}>Worldcupilou by Lobster Inc.</Text>
+              <Brand tone="dim" />
               <Text style={ls.footerSecondary}>{I18N[footerLang].footerSub}</Text>
             </Animated.View>
 
