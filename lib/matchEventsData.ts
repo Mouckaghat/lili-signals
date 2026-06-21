@@ -553,6 +553,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
     yellowCards: [],
     redCards: [],
   },
+  {
+    fixtureId: "G2_Spain_v_Saudi_Arabia",
+    home: "Spain", away: "Saudi Arabia", date: "2026-06-21",
+    goals: [
+      { player: "Lamine Yamal", team: "Spain", minute: 10, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-21T14:37:05.348Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-21T16:18:20.705Z';
