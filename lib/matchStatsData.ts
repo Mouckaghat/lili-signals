@@ -282,10 +282,17 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "G2_Spain_v_Saudi_Arabia",
     home: "Spain", away: "Saudi Arabia", date: "2026-06-21",
-    status: "LIVE", elapsed: 90,
-    homeStats: { team: "Spain", possession: 0.66, totalShots: 22, shotsInsideBox: 13, shotsOutsideBox: 9, shotsOnGoal: 9, corners: 6, xg: 2.78, passAccuracy: 0.92, passes: 690, fouls: 10 },
-    awayStats: { team: "Saudi Arabia", possession: 0.34, totalShots: 3, shotsInsideBox: 0, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 1, xg: 0.14, passAccuracy: 0.81, passes: 356, fouls: 2 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Spain", possession: 0.67, totalShots: 22, shotsInsideBox: 13, shotsOutsideBox: 9, shotsOnGoal: 8, corners: 6, xg: 2.85, passAccuracy: 0.92, passes: 725, fouls: 10 },
+    awayStats: { team: "Saudi Arabia", possession: 0.33, totalShots: 3, shotsInsideBox: 0, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 1, xg: 0.14, passAccuracy: 0.8, passes: 364, fouls: 2 },
+  },
+  {
+    fixtureId: "H2_Belgium_v_Iran",
+    home: "Belgium", away: "Iran", date: "2026-06-21",
+    status: "LIVE", elapsed: 20,
+    homeStats: { team: "Belgium", possession: 0.7, totalShots: 4, shotsInsideBox: 4, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 1, xg: 0.3, passAccuracy: 0.89, passes: 108, fouls: 3 },
+    awayStats: { team: "Iran", possession: 0.3, totalShots: 2, shotsInsideBox: 2, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 1, xg: 0.26, passAccuracy: 0.74, passes: 46, fouls: 0 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-21T17:56:18.215Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-21T19:20:22.707Z';
