@@ -148,10 +148,10 @@ export default function OverviewModule({ match }: { match: MatchStats }) {
     <View style={s.wrap}>
       {Hero}
       {Stadium}
-      {Lili}
-      {Control}
       {Stats}
       {Momentum}
+      {Lili}
+      {Control}
       {Drivers}
       <Text style={s.foot}>Match intelligence from live stats, events & standings · attendance shown as stadium capacity · temperature is the typical June average · Lili storytelling — modelled, never fabricated.</Text>
     </View>
