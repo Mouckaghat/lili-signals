@@ -5,10 +5,12 @@ import type { MatchStats } from '../lib/matchStatsData';
 import { useLiveResults } from '../lib/useLiveResults';
 import { useLanguage } from '../contexts/LanguageContext';
 import { HEATMAP_I18N } from '../lib/heatmapI18n';
+import { MomentumPanel } from './MatchDashboard';
 
 const D = {
   panel:  '#0A1322',
   panel2: '#0F1C33',
+  hero:   '#0B1730',
   border: 'rgba(86,140,224,0.16)',
   blue:   '#2E7CFF',
   red:    '#FF3B47',
@@ -19,6 +21,10 @@ const D = {
   text3:  '#52668C',
 };
 
+// ── Cinematic Overview — the premium opening scene of a match report.
+// "What happened, why did it happen, and why should I care?" Every value is a
+// real api-football aggregate / committed datum (see lib/matchOverview.ts) — no
+// fabricated context, attendance, weather or atmosphere.
 export default function OverviewModule({ match }: { match: MatchStats }) {
   const { width } = useWindowDimensions();
   const wide = width >= 860;
@@ -28,38 +34,65 @@ export default function OverviewModule({ match }: { match: MatchStats }) {
 
   const statusColor = o.status === 'LIVE' ? D.red : o.status === 'FINAL' ? D.text2 : D.blue;
 
-  const Summary = (
+  // 1 + 2 + 3 — Cinematic hero: poster-style score, verdict badge, Lili headline.
+  const Hero = (
+    <View style={s.hero}>
+      <View style={s.heroTop}>
+        <View style={s.heroTeam}>
+          <Text style={s.heroFlag}>{o.homeFlag}</Text>
+          <Text style={s.heroName} numberOfLines={2}>{o.home}</Text>
+        </View>
+        <View style={s.heroScoreWrap}>
+          <Text style={s.heroScore}>{o.homeScore ?? '–'}</Text>
+          <Text style={s.heroDash}>-</Text>
+          <Text style={s.heroScore}>{o.awayScore ?? '–'}</Text>
+        </View>
+        <View style={s.heroTeam}>
+          <Text style={s.heroFlag}>{o.awayFlag}</Text>
+          <Text style={s.heroName} numberOfLines={2}>{o.away}</Text>
+        </View>
+      </View>
+
+      <View style={s.badge}>
+        <Text style={s.badgeTxt}>{o.verdict.icon}  {o.verdict.text}</Text>
+      </View>
+
+      <View style={s.heroMeta}>
+        <View style={[s.statusBadge, { borderColor: statusColor }]}>
+          <Text style={[s.statusTxt, { color: statusColor }]}>{o.status}</Text>
+        </View>
+        <Text style={s.metaTxt}>Group {o.group}</Text>
+        {!!o.venue && <Text style={s.metaTxt}>· {o.venue}{o.city ? `, ${o.city}` : ''}</Text>}
+        {!!o.dateStr && <Text style={s.metaTxt}>· {o.dateStr}</Text>}
+      </View>
+
+      {!!o.headline && <Text style={s.headline}>🦞  {o.headline}</Text>}
+    </View>
+  );
+
+  // 4 — Match & Stadium Intelligence: venue made visible, plus the match profile.
+  const Stadium = (
     <View style={s.card}>
-      <View style={s.scoreRow}>
-        <Text style={[s.team, { textAlign: 'right' }]} numberOfLines={1}>{o.home} {o.homeFlag}</Text>
-        <Text style={s.score}>{o.homeScore ?? '–'} - {o.awayScore ?? '–'}</Text>
-        <Text style={[s.team, { textAlign: 'left' }]} numberOfLines={1}>{o.awayFlag} {o.away}</Text>
+      <Text style={s.cardTitle}>🏟 MATCH & STADIUM INTELLIGENCE</Text>
+      <View style={s.factGrid}>
+        {!!o.venue && <Fact k="Stadium" v={o.venue} />}
+        {!!o.city && <Fact k="City" v={o.city} />}
+        {o.capacity > 0 && <Fact k="Capacity" v={o.capacity.toLocaleString()} />}
+        {o.totalGoals != null && <Fact k="Total Goals" v={`${o.totalGoals}`} />}
       </View>
-      <View style={s.metaRow}>
-        <View style={[s.statusBadge, { borderColor: statusColor }]}><Text style={[s.statusTxt, { color: statusColor }]}>{o.status}</Text></View>
-        <Text style={s.meta}>Group {o.group} · {o.venue}{o.city ? `, ${o.city}` : ''} · {o.dateStr}{o.capacity ? ` · 🏟 ${o.capacity.toLocaleString()}` : ''}</Text>
+      <View style={s.profile}>
+        <Text style={s.profileTxt}>{o.matchProfile.icon}  {o.matchProfile.text}</Text>
       </View>
     </View>
   );
 
-  const Verdict = (
-    <View style={s.verdict}>
-      <Text style={s.verdictTxt}>{o.verdict.icon}  {o.verdict.text}</Text>
-    </View>
-  );
-
+  // 5 — Control Index as a duel.
   const Control = (
     <View style={s.card}>
       <Text style={s.cardTitle}>🎛 LILI MATCH CONTROL INDEX</Text>
-      <View style={s.ctrlRow}>
-        <Text style={[s.ctrlNum, { color: D.blue }]}>{o.controlHome}</Text>
-        <View style={s.ctrlBar}>
-          <View style={{ width: `${o.controlHome}%`, backgroundColor: D.blue }} />
-          <View style={{ width: `${o.controlAway}%`, backgroundColor: D.red }} />
-        </View>
-        <Text style={[s.ctrlNum, { color: D.red }]}>{o.controlAway}</Text>
-      </View>
-      <Text style={s.ctrlNote}>Possession · shots · dangerous attacks · territory · xG → out of 100</Text>
+      <ControlRow name={o.home} val={o.controlHome} color={D.blue} />
+      <ControlRow name={o.away} val={o.controlAway} color={D.red} />
+      <Text style={s.note}>Modelled from possession, territory, shots, dangerous attacks and xG.</Text>
     </View>
   );
 
@@ -82,15 +115,7 @@ export default function OverviewModule({ match }: { match: MatchStats }) {
     </View>
   );
 
-  const Drivers = o.drivers.length > 0 && (
-    <View style={s.card}>
-      <Text style={s.cardTitle}>🔑 MATCH DRIVERS</Text>
-      {o.drivers.map((d, i) => (
-        <View key={i} style={s.driver}><Text style={s.driverNum}>{i + 1}</Text><Text style={s.driverTxt}>{d}</Text></View>
-      ))}
-    </View>
-  );
-
+  // why it happened — Lili's full analysis
   const Lili = (
     <View style={[s.card, { borderColor: 'rgba(242,194,75,0.3)' }]}>
       <Text style={[s.cardTitle, { color: D.gold }]}>🦞 LILI MATCH INTELLIGENCE</Text>
@@ -98,41 +123,68 @@ export default function OverviewModule({ match }: { match: MatchStats }) {
     </View>
   );
 
-  const Momentum = o.events.length > 0 && (
+  // 6 — Three match drivers as "case evidence".
+  const Drivers = o.drivers.length > 0 && (
     <View style={s.card}>
-      <Text style={s.cardTitle}>⏱ MATCH MOMENTUM</Text>
-      <View style={s.events}>
-        {o.events.map((e, i) => (
-          <View key={i} style={[s.chip, { borderColor: e.side === 'home' ? D.blue : D.red }]}>
-            <Text style={s.chipTxt}>{e.icon} {e.minute}'</Text>
-          </View>
-        ))}
-      </View>
+      <Text style={s.cardTitle}>🔍 MATCH DRIVERS</Text>
+      {o.drivers.slice(0, 3).map((d, i) => (
+        <View key={i} style={s.evidence}>
+          <Text style={s.evidenceTag}>EVIDENCE {String(i + 1).padStart(2, '0')}</Text>
+          <Text style={s.evidenceTxt}>{d}</Text>
+        </View>
+      ))}
     </View>
   );
 
+  // 7 — Smooth, compact momentum heartbeat (real events, honest tooltips).
+  const Momentum = <MomentumPanel match={match} />;
+
   return (
     <View style={s.wrap}>
-      {Summary}{Verdict}
+      {Hero}
+      {Stadium}
       <View style={wide ? s.cols : undefined}>
         <View style={wide ? s.left : undefined}>{Control}{Stats}</View>
-        <View style={wide ? s.right : undefined}>{Drivers}{Lili}{Momentum}</View>
+        <View style={wide ? s.right : undefined}>{Lili}{Drivers}{Momentum}</View>
       </View>
-      <Text style={s.foot}>Match intelligence from live stats, events & standings · attendance shown as stadium capacity · Lili storytelling.</Text>
+      <Text style={s.foot}>Match intelligence from live stats, events & standings · attendance shown as stadium capacity · Lili storytelling — modelled, never fabricated.</Text>
     </View>
   );
 }
 
-// Tournament Impact — standings/qualification effect of this match. Rendered as
-// its own panel in the Overview tab (below Key Stats), not inside the module.
+function Fact({ k, v }: { k: string; v: string }) {
+  return (
+    <View style={s.fact}>
+      <Text style={s.factV} numberOfLines={1}>{v}</Text>
+      <Text style={s.factK} numberOfLines={1}>{k}</Text>
+    </View>
+  );
+}
+
+function ControlRow({ name, val, color }: { name: string; val: number; color: string }) {
+  return (
+    <View style={s.ctrlRow}>
+      <View style={s.ctrlHead}>
+        <Text style={s.ctrlName} numberOfLines={1}>{name}</Text>
+        <Text style={[s.ctrlVal, { color }]}>{val}</Text>
+      </View>
+      <View style={s.ctrlTrack}>
+        <View style={{ width: `${val}%`, height: '100%', backgroundColor: color, borderRadius: 5 }} />
+      </View>
+    </View>
+  );
+}
+
+// 8 — Tournament Impact — standings/qualification effect of this match. Rendered
+// as its own panel in the Overview tab (below the module), not inside it.
 export function TournamentImpactPanel({ match }: { match: MatchStats }) {
   const results = useLiveResults();
   const { lang } = useLanguage();
   const o: Overview = useMemo(() => computeOverview(match, results, HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN), [match, results, lang]);
   return (
     <View style={s.soloWrap}>
-      <View style={s.card}>
-        <Text style={s.cardTitle}>🌍 TOURNAMENT IMPACT</Text>
+      <View style={[s.card, { borderColor: 'rgba(51,194,107,0.28)' }]}>
+        <Text style={[s.cardTitle, { color: D.green }]}>🌍 TOURNAMENT IMPACT</Text>
         <View style={s.impRow}>
           <ImpactCard team={o.home} flag={o.homeFlag} d={o.impactHome} color={D.blue} />
           <ImpactCard team={o.away} flag={o.awayFlag} d={o.impactAway} color={D.red} />
@@ -171,38 +223,62 @@ const s = StyleSheet.create({
   card:      { backgroundColor: D.panel, borderRadius: 12, borderWidth: 1, borderColor: D.border, padding: 12 },
   cardTitle: { color: D.text3, fontSize: 10, fontWeight: '800', letterSpacing: 0.8, marginBottom: 8 },
 
-  scoreRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 14 },
-  team:     { color: D.text1, fontSize: 16, fontWeight: '800', flex: 1 },
-  score:    { color: D.text1, fontSize: 30, fontWeight: '900', letterSpacing: 1 },
-  metaRow:  { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, marginTop: 8, flexWrap: 'wrap' },
+  // ── Hero ──
+  hero: { backgroundColor: D.hero, borderRadius: 16, borderWidth: 1, borderColor: 'rgba(86,140,224,0.22)', paddingVertical: 18, paddingHorizontal: 14, gap: 12,
+          shadowColor: D.blue, shadowOpacity: 0.18, shadowRadius: 18, shadowOffset: { width: 0, height: 6 } },
+  heroTop:   { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10 },
+  heroTeam:  { flex: 1, alignItems: 'center', gap: 4 },
+  heroFlag:  { fontSize: 34 },
+  heroName:  { color: D.text1, fontSize: 15, fontWeight: '800', textAlign: 'center', letterSpacing: 0.3 },
+  heroScoreWrap: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingHorizontal: 4 },
+  heroScore: { color: D.text1, fontSize: 52, fontWeight: '900', letterSpacing: 1, lineHeight: 56 },
+  heroDash:  { color: D.text3, fontSize: 34, fontWeight: '700' },
+
+  badge:     { alignSelf: 'center', flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(242,194,75,0.10)',
+               borderWidth: 1, borderColor: 'rgba(242,194,75,0.5)', borderRadius: 999, paddingHorizontal: 16, paddingVertical: 7,
+               shadowColor: D.gold, shadowOpacity: 0.22, shadowRadius: 12, shadowOffset: { width: 0, height: 0 } },
+  badgeTxt:  { color: D.gold, fontSize: 15, fontWeight: '900', letterSpacing: 0.4 },
+
+  heroMeta:  { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7, flexWrap: 'wrap' },
   statusBadge:{ borderWidth: 1, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 3 },
-  statusTxt:{ fontSize: 10, fontWeight: '800', letterSpacing: 0.5 },
-  meta:     { color: D.text2, fontSize: 11 },
+  statusTxt: { fontSize: 10, fontWeight: '800', letterSpacing: 0.5 },
+  metaTxt:   { color: D.text2, fontSize: 11.5 },
+  headline:  { color: D.text1, fontSize: 13.5, fontWeight: '700', textAlign: 'center', lineHeight: 19, fontStyle: 'italic', marginTop: 2,
+               paddingHorizontal: 6 },
 
-  verdict:   { backgroundColor: D.panel2, borderRadius: 12, borderWidth: 1, borderColor: D.border, paddingVertical: 14, alignItems: 'center' },
-  verdictTxt:{ color: D.text1, fontSize: 20, fontWeight: '900' },
+  // ── Stadium ──
+  factGrid:  { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+  fact:      { minWidth: 92, flexGrow: 1, backgroundColor: D.panel2, borderRadius: 9, paddingVertical: 8, paddingHorizontal: 10 },
+  factV:     { color: D.text1, fontSize: 15, fontWeight: '900' },
+  factK:     { color: D.text2, fontSize: 9, marginTop: 2, letterSpacing: 0.3 },
+  profile:   { alignSelf: 'flex-start', marginTop: 10, backgroundColor: 'rgba(46,124,255,0.10)', borderWidth: 1,
+               borderColor: 'rgba(46,124,255,0.4)', borderRadius: 999, paddingHorizontal: 12, paddingVertical: 5 },
+  profileTxt:{ color: D.blue, fontSize: 12, fontWeight: '800', letterSpacing: 0.3 },
 
-  ctrlRow:  { flexDirection: 'row', alignItems: 'center', gap: 10 },
-  ctrlNum:  { fontSize: 24, fontWeight: '900', width: 40, textAlign: 'center' },
-  ctrlBar:  { flex: 1, flexDirection: 'row', height: 12, borderRadius: 6, overflow: 'hidden', backgroundColor: D.panel2 },
-  ctrlNote: { color: D.text3, fontSize: 9, marginTop: 6, textAlign: 'center' },
+  // ── Control duel ──
+  ctrlRow:   { marginBottom: 10 },
+  ctrlHead:  { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 5 },
+  ctrlName:  { color: D.text1, fontSize: 13, fontWeight: '700', flex: 1, minWidth: 0 },
+  ctrlVal:   { fontSize: 22, fontWeight: '900', marginLeft: 8 },
+  ctrlTrack: { height: 10, borderRadius: 5, backgroundColor: D.panel2, overflow: 'hidden' },
+  note:      { color: D.text3, fontSize: 9.5, marginTop: 2, textAlign: 'center' },
 
+  // ── Key stats ──
   statRow:  { flexDirection: 'row', alignItems: 'center', gap: 10, paddingVertical: 5 },
   statV:    { width: 50, fontSize: 14, fontWeight: '800' },
   statMid:  { flex: 1 },
   statL:    { color: D.text2, fontSize: 10, textAlign: 'center', marginBottom: 3 },
   statBar:  { flexDirection: 'row', height: 5, borderRadius: 3, overflow: 'hidden', backgroundColor: D.panel2 },
 
-  driver:   { flexDirection: 'row', gap: 8, alignItems: 'flex-start', paddingVertical: 4 },
-  driverNum:{ color: D.gold, fontSize: 12, fontWeight: '900', width: 16 },
-  driverTxt:{ color: D.text1, fontSize: 12, lineHeight: 17, flex: 1 },
-
   liliTxt:  { color: D.text1, fontSize: 12, lineHeight: 18 },
 
-  events:   { flexDirection: 'row', flexWrap: 'wrap', gap: 6 },
-  chip:     { borderWidth: 1, borderRadius: 999, paddingHorizontal: 8, paddingVertical: 3 },
-  chipTxt:  { color: D.text1, fontSize: 11, fontWeight: '700' },
+  // ── Evidence drivers ──
+  evidence:   { backgroundColor: D.panel2, borderRadius: 9, paddingVertical: 8, paddingHorizontal: 10, marginTop: 8,
+                borderLeftWidth: 3, borderLeftColor: D.gold },
+  evidenceTag:{ color: D.gold, fontSize: 9, fontWeight: '900', letterSpacing: 1, marginBottom: 3 },
+  evidenceTxt:{ color: D.text1, fontSize: 12, lineHeight: 17 },
 
+  // ── Tournament impact ──
   impRow:   { flexDirection: 'row', gap: 8 },
   impCard:  { flex: 1, backgroundColor: D.panel2, borderRadius: 10, padding: 10 },
   impTeam:  { fontSize: 13, fontWeight: '800', marginBottom: 6 },

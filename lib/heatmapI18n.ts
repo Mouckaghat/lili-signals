@@ -22,6 +22,10 @@ export interface HeatmapI18n {
   verdictDominated: string;   // {winner}
   verdictInControl: string;   // {winner}
   verdictEven: string;
+  // ── Overview tab — verdict badges (premium hero) ──
+  vbStatement: string; vbOneWay: string; vbClinical: string; vbDefensive: string; vbSurprise: string; vbBalanced: string;
+  // ── Overview tab — match profile (stadium block) ──
+  mpGoalFriendly: string; mpDefensiveNight: string; mpBalanced: string; mpHighControl: string;
   // ── Overview tab — drivers ──
   drvShots: string;     // {winner} {ratio} {hi} {lo}
   drvPossession: string;// {team} {pct}
@@ -108,6 +112,8 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
   EN: {
     statPossession: 'Possession', statShots: 'Shots', statSoT: 'Shots on Target', statCorners: 'Corners', statPasses: 'Passes', statPassAcc: 'Pass Accuracy', statXg: 'Expected Goals',
     verdictDominated: '{winner} Dominated', verdictInControl: '{winner} in Control', verdictEven: 'Evenly Matched Contest',
+    vbStatement: 'Statement Win', vbOneWay: 'One-Way Traffic', vbClinical: 'Clinical Finish', vbDefensive: 'Defensive Fight', vbSurprise: 'Surprise Result', vbBalanced: 'Balanced Battle',
+    mpGoalFriendly: 'Goal-Friendly Match', mpDefensiveNight: 'Defensive Venue Night', mpBalanced: 'Balanced Contest', mpHighControl: 'High-Control Performance',
     drvShots: '{winner} generated {ratio}× more shots ({hi} to {lo}).',
     drvPossession: '{team} controlled possession ({pct}%).',
     drvSoT: '{winner} hit {hi} shots on target to {lo}.',
@@ -157,6 +163,8 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
   FR: {
     statPossession: 'Possession', statShots: 'Tirs', statSoT: 'Tirs cadrés', statCorners: 'Corners', statPasses: 'Passes', statPassAcc: 'Précision passes', statXg: 'Buts attendus',
     verdictDominated: '{winner} a dominé', verdictInControl: '{winner} maîtrise', verdictEven: 'Match équilibré',
+    vbStatement: 'Victoire référence', vbOneWay: 'Sens unique', vbClinical: 'Finition clinique', vbDefensive: 'Combat défensif', vbSurprise: 'Résultat surprise', vbBalanced: 'Duel équilibré',
+    mpGoalFriendly: 'Match à buts', mpDefensiveNight: 'Soirée défensive', mpBalanced: 'Match équilibré', mpHighControl: 'Performance maîtrisée',
     drvShots: '{winner} a généré {ratio}× plus de tirs ({hi} à {lo}).',
     drvPossession: '{team} a contrôlé la possession ({pct} %).',
     drvSoT: '{winner} a cadré {hi} tirs contre {lo}.',
@@ -206,6 +214,8 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
   IT: {
     statPossession: 'Possesso', statShots: 'Tiri', statSoT: 'Tiri in porta', statCorners: 'Calci d’angolo', statPasses: 'Passaggi', statPassAcc: 'Precisione passaggi', statXg: 'Gol attesi',
     verdictDominated: '{winner} ha dominato', verdictInControl: '{winner} in controllo', verdictEven: 'Partita equilibrata',
+    vbStatement: 'Vittoria netta', vbOneWay: 'Senso unico', vbClinical: 'Finalizzazione cinica', vbDefensive: 'Battaglia difensiva', vbSurprise: 'Risultato a sorpresa', vbBalanced: 'Sfida equilibrata',
+    mpGoalFriendly: 'Partita da gol', mpDefensiveNight: 'Serata difensiva', mpBalanced: 'Sfida equilibrata', mpHighControl: 'Prestazione di controllo',
     drvShots: '{winner} ha prodotto {ratio}× tiri in più ({hi} a {lo}).',
     drvPossession: '{team} ha controllato il possesso ({pct}%).',
     drvSoT: '{winner} ha colpito {hi} tiri in porta contro {lo}.',
@@ -255,6 +265,8 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
   DE: {
     statPossession: 'Ballbesitz', statShots: 'Schüsse', statSoT: 'Schüsse aufs Tor', statCorners: 'Ecken', statPasses: 'Pässe', statPassAcc: 'Passquote', statXg: 'Erwartete Tore',
     verdictDominated: '{winner} dominierte', verdictInControl: '{winner} hat Kontrolle', verdictEven: 'Ausgeglichenes Spiel',
+    vbStatement: 'Statement-Sieg', vbOneWay: 'Einbahnstraße', vbClinical: 'Eiskalte Effizienz', vbDefensive: 'Defensivschlacht', vbSurprise: 'Überraschung', vbBalanced: 'Ausgeglichenes Duell',
+    mpGoalFriendly: 'Torreiches Spiel', mpDefensiveNight: 'Defensiver Abend', mpBalanced: 'Ausgeglichenes Spiel', mpHighControl: 'Dominante Leistung',
     drvShots: '{winner} erzeugte {ratio}× mehr Schüsse ({hi} zu {lo}).',
     drvPossession: '{team} kontrollierte den Ballbesitz ({pct} %).',
     drvSoT: '{winner} brachte {hi} Schüsse aufs Tor, {lo} dagegen.',
@@ -304,6 +316,8 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
   ES: {
     statPossession: 'Posesión', statShots: 'Tiros', statSoT: 'Tiros a puerta', statCorners: 'Córners', statPasses: 'Pases', statPassAcc: 'Precisión de pase', statXg: 'Goles esperados',
     verdictDominated: '{winner} dominó', verdictInControl: '{winner} con el control', verdictEven: 'Partido igualado',
+    vbStatement: 'Victoria contundente', vbOneWay: 'Sentido único', vbClinical: 'Definición letal', vbDefensive: 'Batalla defensiva', vbSurprise: 'Resultado sorpresa', vbBalanced: 'Duelo igualado',
+    mpGoalFriendly: 'Partido de goles', mpDefensiveNight: 'Noche defensiva', mpBalanced: 'Partido igualado', mpHighControl: 'Actuación dominante',
     drvShots: '{winner} generó {ratio}× más tiros ({hi} a {lo}).',
     drvPossession: '{team} controló la posesión ({pct} %).',
     drvSoT: '{winner} hizo {hi} tiros a puerta por {lo}.',
@@ -353,6 +367,8 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
   RU: {
     statPossession: 'Владение', statShots: 'Удары', statSoT: 'Удары в створ', statCorners: 'Угловые', statPasses: 'Передачи', statPassAcc: 'Точность передач', statXg: 'Ожидаемые голы',
     verdictDominated: '{winner} доминировал', verdictInControl: '{winner} контролирует', verdictEven: 'Равная игра',
+    vbStatement: 'Уверенная победа', vbOneWay: 'Игра в одни ворота', vbClinical: 'Хладнокровная реализация', vbDefensive: 'Оборонительная битва', vbSurprise: 'Сенсация', vbBalanced: 'Равная борьба',
+    mpGoalFriendly: 'Результативный матч', mpDefensiveNight: 'Оборонительный вечер', mpBalanced: 'Равный матч', mpHighControl: 'Доминирующая игра',
     drvShots: '{winner} нанёс в {ratio}× больше ударов ({hi} против {lo}).',
     drvPossession: '{team} контролировал мяч ({pct}%).',
     drvSoT: '{winner} нанёс {hi} ударов в створ против {lo}.',
@@ -402,6 +418,8 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
   CN: {
     statPossession: '控球', statShots: '射门', statSoT: '射正', statCorners: '角球', statPasses: '传球', statPassAcc: '传球成功率', statXg: '预期进球',
     verdictDominated: '{winner} 占据主导', verdictInControl: '{winner} 掌控局面', verdictEven: '势均力敌',
+    vbStatement: '强势取胜', vbOneWay: '一边倒', vbClinical: '高效终结', vbDefensive: '防守大战', vbSurprise: '爆冷结果', vbBalanced: '势均力敌',
+    mpGoalFriendly: '进球大战', mpDefensiveNight: '防守之夜', mpBalanced: '均势对决', mpHighControl: '掌控全场',
     drvShots: '{winner} 的射门数多出 {ratio}×（{hi} 比 {lo}）。',
     drvPossession: '{team} 掌控了控球（{pct}%）。',
     drvSoT: '{winner} 射正 {hi} 次，对手 {lo} 次。',
@@ -451,6 +469,8 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
   JP: {
     statPossession: 'ポゼッション', statShots: 'シュート', statSoT: '枠内シュート', statCorners: 'コーナー', statPasses: 'パス', statPassAcc: 'パス成功率', statXg: '期待値ゴール',
     verdictDominated: '{winner} が圧倒', verdictInControl: '{winner} が主導', verdictEven: '互角の戦い',
+    vbStatement: '完勝', vbOneWay: '一方的な展開', vbClinical: '効率的な決定力', vbDefensive: '守備の攻防', vbSurprise: '波乱の結果', vbBalanced: '互角の戦い',
+    mpGoalFriendly: '得点の多い試合', mpDefensiveNight: '守備的な一戦', mpBalanced: '互角の対戦', mpHighControl: '支配的な内容',
     drvShots: '{winner} はシュート数で {ratio}× 上回った（{hi} 対 {lo}）。',
     drvPossession: '{team} がポゼッションを支配（{pct}%）。',
     drvSoT: '{winner} は枠内シュート {hi} 本、相手は {lo} 本。',
@@ -500,6 +520,8 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
   KR: {
     statPossession: '점유율', statShots: '슈팅', statSoT: '유효 슈팅', statCorners: '코너킥', statPasses: '패스', statPassAcc: '패스 성공률', statXg: '기대 득점',
     verdictDominated: '{winner} 압도', verdictInControl: '{winner} 주도', verdictEven: '대등한 경기',
+    vbStatement: '완승', vbOneWay: '일방적 경기', vbClinical: '효율적 마무리', vbDefensive: '수비 혈투', vbSurprise: '이변의 결과', vbBalanced: '팽팽한 승부',
+    mpGoalFriendly: '득점 많은 경기', mpDefensiveNight: '수비적인 밤', mpBalanced: '균형 잡힌 경기', mpHighControl: '지배적인 경기력',
     drvShots: '{winner}이(가) 슈팅을 {ratio}× 더 많이 기록({hi} 대 {lo}).',
     drvPossession: '{team}이(가) 점유율을 장악({pct}%).',
     drvSoT: '{winner} 유효 슈팅 {hi}회, 상대 {lo}회.',
@@ -549,6 +571,8 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
   PT: {
     statPossession: 'Posse de bola', statShots: 'Remates', statSoT: 'Remates à baliza', statCorners: 'Cantos', statPasses: 'Passes', statPassAcc: 'Precisão de passe', statXg: 'Golos esperados',
     verdictDominated: '{winner} dominou', verdictInControl: '{winner} no controlo', verdictEven: 'Jogo equilibrado',
+    vbStatement: 'Vitória autoritária', vbOneWay: 'Sentido único', vbClinical: 'Finalização clínica', vbDefensive: 'Batalha defensiva', vbSurprise: 'Resultado surpresa', vbBalanced: 'Duelo equilibrado',
+    mpGoalFriendly: 'Jogo de golos', mpDefensiveNight: 'Noite defensiva', mpBalanced: 'Jogo equilibrado', mpHighControl: 'Atuação dominante',
     drvShots: '{winner} gerou {ratio}× mais remates ({hi} a {lo}).',
     drvPossession: '{team} controlou a posse ({pct}%).',
     drvSoT: '{winner} acertou {hi} remates à baliza contra {lo}.',
@@ -598,6 +622,8 @@ export const HEATMAP_I18N: Record<LangCode, HeatmapI18n> = {
   AR: {
     statPossession: 'الاستحواذ', statShots: 'التسديدات', statSoT: 'تسديدات على المرمى', statCorners: 'الركنيات', statPasses: 'التمريرات', statPassAcc: 'دقة التمرير', statXg: 'الأهداف المتوقعة',
     verdictDominated: '{winner} سيطر', verdictInControl: '{winner} يتحكّم', verdictEven: 'مباراة متكافئة',
+    vbStatement: 'فوز مقنع', vbOneWay: 'سيطرة كاملة', vbClinical: 'إنهاء فعّال', vbDefensive: 'معركة دفاعية', vbSurprise: 'نتيجة مفاجئة', vbBalanced: 'تعادل متكافئ',
+    mpGoalFriendly: 'مباراة أهداف', mpDefensiveNight: 'ليلة دفاعية', mpBalanced: 'مباراة متكافئة', mpHighControl: 'أداء مسيطر',
     drvShots: 'سدّد {winner} {ratio}× أكثر ({hi} مقابل {lo}).',
     drvPossession: 'تحكّم {team} في الاستحواذ ({pct}%).',
     drvSoT: 'سدّد {winner} {hi} على المرمى مقابل {lo}.',

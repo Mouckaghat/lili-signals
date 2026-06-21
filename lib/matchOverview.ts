@@ -21,9 +21,12 @@ export interface Overview {
   homeScore: number | null; awayScore: number | null;
   status: 'FINAL' | 'LIVE' | 'UPCOMING';
   group: string; venue: string; city: string; capacity: number; dateStr: string;
+  totalGoals: number | null;
   stats: StatPair[];
   controlHome: number; controlAway: number;
   verdict: { icon: string; text: string };
+  matchProfile: { icon: string; text: string };
+  headline: string;
   drivers: string[];
   lili: string;
   events: OverviewEvent[];
@@ -79,9 +82,39 @@ export function computeOverview(match: MatchStats, results: Record<string, Fixtu
   const winner = winnerIsHome ? match.home : match.away;
   const loser = winnerIsHome ? match.away : match.home;
   const diff = Math.abs(controlHome - 50);
-  const verdict = diff >= 22 ? { icon: '🔥', text: hmT(t.verdictDominated, { winner }) }
-    : diff >= 10 ? { icon: '⚡', text: hmT(t.verdictInControl, { winner }) }
-    : { icon: '⚖', text: t.verdictEven };
+
+  // Score-derived facts (only when the match is final / has a recorded score).
+  const homeScore = r?.homeScore ?? null;
+  const awayScore = r?.awayScore ?? null;
+  const totalGoals = homeScore != null && awayScore != null ? homeScore + awayScore : null;
+  const scoreWinner = homeScore != null && awayScore != null
+    ? (homeScore > awayScore ? match.home : awayScore > homeScore ? match.away : null) // null = draw
+    : null;
+  const winnerGoals = scoreWinner ? (scoreWinner === match.home ? homeScore! : awayScore!) : null;
+  const winnerXg = scoreWinner ? (scoreWinner === match.home ? h.xg : a.xg) : null;
+
+  // Premium verdict badge — strictly from real signals (control margin + score +
+  // goals vs xG). Ordered by specificity; no exaggeration beyond the data.
+  let verdict: { icon: string; text: string };
+  if (scoreWinner && scoreWinner !== winner && diff >= 10) {
+    verdict = { icon: '🎭', text: t.vbSurprise };                                   // scoreboard contradicts control
+  } else if (diff >= 22) {
+    verdict = { icon: '🌪', text: t.vbOneWay };                                     // territorial domination
+  } else if (scoreWinner && scoreWinner === winner && diff >= 14) {
+    verdict = { icon: '🔥', text: t.vbStatement };                                  // controlled and won
+  } else if (scoreWinner && winnerGoals != null && winnerXg != null && winnerGoals >= Math.ceil(winnerXg) && diff < 14) {
+    verdict = { icon: '⚡', text: t.vbClinical };                                   // efficient finishing
+  } else if (totalGoals != null && totalGoals <= 1 && diff < 14) {
+    verdict = { icon: '🧱', text: t.vbDefensive };                                  // low-scoring, tight
+  } else {
+    verdict = { icon: '⚖', text: t.vbBalanced };
+  }
+
+  // Match profile (stadium block) — from goals scored + control margin only.
+  const matchProfile = totalGoals != null && totalGoals >= 3 ? { icon: '⚡', text: t.mpGoalFriendly }
+    : totalGoals != null && totalGoals <= 1 ? { icon: '🧱', text: t.mpDefensiveNight }
+    : diff >= 20 ? { icon: '🔥', text: t.mpHighControl }
+    : { icon: '🎭', text: t.mpBalanced };
 
   // Drivers — pick the largest real gaps
   const cand: { gap: number; text: string }[] = [];
@@ -102,6 +135,12 @@ export function computeOverview(match: MatchStats, results: Record<string, Fixtu
     ? hmT(t.liliEdged, { winner, loser, control: winnerIsHome ? controlHome : controlAway })
     : t.liliEven;
 
+  // Punchy headline = the first sentence of Lili's (already-localised) analysis.
+  // Reuses translated prose, so it adds emotion with zero fabrication and no new
+  // per-language strings. Handles Latin (. ! ?) and CJK (。！？) sentence stops.
+  const headMatch = lili.match(/^[\s\S]*?[.!?。！？]/);
+  const headline = headMatch ? headMatch[0].trim() : lili;
+
   // Events
   const ev = MATCH_EVENTS.find((e) => e.fixtureId === match.fixtureId);
   const events: OverviewEvent[] = ev ? [
@@ -115,7 +154,8 @@ export function computeOverview(match: MatchStats, results: Record<string, Fixtu
     homeScore: r?.homeScore ?? null, awayScore: r?.awayScore ?? null, status,
     group: f?.group ?? '?', venue: stadium?.shortName ?? f?.stadium ?? '', city: f?.city ?? '',
     capacity: stadium?.capacity ?? 0, dateStr: f ? fmtDate(f.date) : '',
-    stats, controlHome, controlAway, verdict, drivers, lili, events,
+    totalGoals,
+    stats, controlHome, controlAway, verdict, matchProfile, headline, drivers, lili, events,
     impactHome: impactFor(match.home), impactAway: impactFor(match.away),
   };
 }
