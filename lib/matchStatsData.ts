@@ -289,10 +289,17 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "H2_Belgium_v_Iran",
     home: "Belgium", away: "Iran", date: "2026-06-21",
-    status: "LIVE", elapsed: 84,
-    homeStats: { team: "Belgium", possession: 0.72, totalShots: 17, shotsInsideBox: 16, shotsOutsideBox: 1, shotsOnGoal: 6, corners: 4, xg: 1.44, passAccuracy: 0.86, passes: 546, fouls: 7 },
-    awayStats: { team: "Iran", possession: 0.28, totalShots: 6, shotsInsideBox: 5, shotsOutsideBox: 1, shotsOnGoal: 3, corners: 2, xg: 0.53, passAccuracy: 0.72, passes: 217, fouls: 8 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Belgium", possession: 0.7, totalShots: 23, shotsInsideBox: 20, shotsOutsideBox: 3, shotsOnGoal: 7, corners: 4, xg: 1.8, passAccuracy: 0.86, passes: 622, fouls: 7 },
+    awayStats: { team: "Iran", possession: 0.3, totalShots: 7, shotsInsideBox: 6, shotsOutsideBox: 1, shotsOnGoal: 3, corners: 2, xg: 0.63, passAccuracy: 0.74, passes: 268, fouls: 9 },
+  },
+  {
+    fixtureId: "G2_Uruguay_v_Cape_Verde_Islands",
+    home: "Uruguay", away: "Cape Verde Islands", date: "2026-06-21",
+    status: "LIVE", elapsed: 4,
+    homeStats: { team: "Uruguay", possession: 0.59, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.75, passes: 20, fouls: 2 },
+    awayStats: { team: "Cape Verde Islands", possession: 0.41, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.71, passes: 14, fouls: 0 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-21T20:49:50.865Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-21T22:04:52.803Z';
