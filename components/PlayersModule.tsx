@@ -39,7 +39,6 @@ export default function PlayersModule({ match }: { match: MatchStats }) {
   const [sel, setSel] = useState<Sel | null>(null);
   const selected: Sel | null = sel ?? (L.spotlight ? { name: L.spotlight.row.name, team: L.spotlight.row.team } : null);
   const selRow: ImpactRow | undefined = selected ? L.impact.find((r) => r.name === selected.name && r.team === selected.team) : undefined;
-  const topImpact = L.impact[0]?.impact || 1;
 
   const LeadersLink = (
     <View style={[s.card, { borderColor: 'rgba(46,124,255,0.3)' }]}>
@@ -97,33 +96,9 @@ export default function PlayersModule({ match }: { match: MatchStats }) {
     </View>
   );
 
-  const Spotlight = L.spotlight && (
-    <View style={[s.card, { borderColor: D.purple }]}>
-      <Text style={[s.cardTitle, { color: D.purple }]}>🔥 LILI SPOTLIGHT</Text>
-      <Text style={s.spotName}>{flagOf(L.spotlight.row.team)} {L.spotlight.row.name}</Text>
-      <View style={s.spotImpactRow}>
-        <Text style={s.spotImpactLabel}>Tournament Impact</Text>
-        <Text style={s.spotImpactVal}>{L.spotlight.row.impact}</Text>
-      </View>
-      <Text style={s.spotReason}>{L.spotlight.reason}</Text>
-    </View>
-  );
-
-  const Impact = (
-    <View style={s.card}>
-      <Text style={s.cardTitle}>🌍 WORLD CUP IMPACT</Text>
-      {L.impact.slice(0, 6).map((r, i) => (
-        <Pressable key={r.name + r.team} onPress={() => setSel({ name: r.name, team: r.team })} style={s.row}>
-          <Text style={s.rank}>{i + 1}</Text>
-          <Text style={s.pName} numberOfLines={1}>{r.flag} {r.name}</Text>
-          <View style={s.impactBarTrack}><View style={[s.impactBarFill, { width: `${(r.impact / topImpact) * 100}%` }]} /></View>
-          <Text style={[s.pVal, { width: 28 }]}>{r.impact}</Text>
-        </Pressable>
-      ))}
-      {!L.impact.length && <Text style={s.empty}>No data yet.</Text>}
-    </View>
-  );
-
+  // Lili Spotlight + World Cup Impact are tournament-wide → they live on the
+  // Dashboard now (recon #50). Players stays match-level: MOTM, contributors,
+  // squad, and a Details card for the tapped match player.
   const Hero = (
     <View style={s.card}>
       <Text style={s.cardTitle}>⭐ MAN OF THE MATCH · {match.home} v {match.away}</Text>
@@ -175,7 +150,7 @@ export default function PlayersModule({ match }: { match: MatchStats }) {
       <Text style={s.h1sub}>Which players are driving this World Cup?</Text>
       <View style={wide ? s.cols : undefined}>
         <View style={wide ? s.left : undefined}>{LeadersLink}{Contributors}{Squad}</View>
-        <View style={wide ? s.right : undefined}>{Spotlight}{Impact}{Hero}{Details}</View>
+        <View style={wide ? s.right : undefined}>{Hero}{Details}</View>
       </View>
       <Text style={s.foot}>Goals & cards from match events · assists, saves, ratings, tackles from player match stats · clean sheets derived · Impact = goals + assists + clean sheets + saves − discipline.</Text>
     </View>
