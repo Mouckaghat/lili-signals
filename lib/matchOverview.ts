@@ -21,6 +21,7 @@ export interface Overview {
   homeScore: number | null; awayScore: number | null;
   status: 'FINAL' | 'LIVE' | 'UPCOMING';
   group: string; venue: string; city: string; capacity: number; dateStr: string;
+  altitude: number | null; tempJune: number | null;
   totalGoals: number | null;
   stats: StatPair[];
   controlHome: number; controlAway: number;
@@ -154,6 +155,7 @@ export function computeOverview(match: MatchStats, results: Record<string, Fixtu
     homeScore: r?.homeScore ?? null, awayScore: r?.awayScore ?? null, status,
     group: f?.group ?? '?', venue: stadium?.shortName ?? f?.stadium ?? '', city: f?.city ?? '',
     capacity: stadium?.capacity ?? 0, dateStr: f ? fmtDate(f.date) : '',
+    altitude: stadium?.altitudeM ?? null, tempJune: stadium?.tempJuneC ?? null,
     totalGoals,
     stats, controlHome, controlAway, verdict, matchProfile, headline, drivers, lili, events,
     impactHome: impactFor(match.home), impactAway: impactFor(match.away),

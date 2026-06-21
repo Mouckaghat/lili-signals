@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { computeOverview, type Overview } from '../lib/matchOverview';
 import type { MatchStats } from '../lib/matchStatsData';
 import { useLiveResults } from '../lib/useLiveResults';
@@ -26,8 +26,6 @@ const D = {
 // real api-football aggregate / committed datum (see lib/matchOverview.ts) — no
 // fabricated context, attendance, weather or atmosphere.
 export default function OverviewModule({ match }: { match: MatchStats }) {
-  const { width } = useWindowDimensions();
-  const wide = width >= 860;
   const results = useLiveResults();
   const { lang } = useLanguage();
   const o: Overview = useMemo(() => computeOverview(match, results, HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN), [match, results, lang]);
@@ -78,7 +76,8 @@ export default function OverviewModule({ match }: { match: MatchStats }) {
         {!!o.venue && <Fact k="Stadium" v={o.venue} />}
         {!!o.city && <Fact k="City" v={o.city} />}
         {o.capacity > 0 && <Fact k="Capacity" v={o.capacity.toLocaleString()} />}
-        {o.totalGoals != null && <Fact k="Total Goals" v={`${o.totalGoals}`} />}
+        {o.tempJune != null && <Fact k="Temp · June avg" v={`${o.tempJune}°C`} />}
+        {o.altitude != null && <Fact k="Altitude" v={`${o.altitude.toLocaleString()} m`} />}
       </View>
       <View style={s.profile}>
         <Text style={s.profileTxt}>{o.matchProfile.icon}  {o.matchProfile.text}</Text>
@@ -136,18 +135,25 @@ export default function OverviewModule({ match }: { match: MatchStats }) {
     </View>
   );
 
-  // 7 — Smooth, compact momentum heartbeat (real events, honest tooltips).
-  const Momentum = <MomentumPanel match={match} />;
+  // 7 — Smooth, compact momentum heartbeat (real events, honest tooltips). The
+  // slot cancels MomentumPanel's built-in s.solo inset so it shares the exact
+  // same width as every other card in the single column.
+  const Momentum = <View style={s.momSlot}><MomentumPanel match={match} /></View>;
 
+  // Single full-width column below the hero & stadium blocks — every card shares
+  // the same width for a clean, consistent read. Lili's analysis leads (the
+  // "why"), then the control duel, key stats, momentum heartbeat and the
+  // evidence drivers.
   return (
     <View style={s.wrap}>
       {Hero}
       {Stadium}
-      <View style={wide ? s.cols : undefined}>
-        <View style={wide ? s.left : undefined}>{Control}{Stats}{Momentum}</View>
-        <View style={wide ? s.right : undefined}>{Lili}{Drivers}</View>
-      </View>
-      <Text style={s.foot}>Match intelligence from live stats, events & standings · attendance shown as stadium capacity · Lili storytelling — modelled, never fabricated.</Text>
+      {Lili}
+      {Control}
+      {Stats}
+      {Momentum}
+      {Drivers}
+      <Text style={s.foot}>Match intelligence from live stats, events & standings · attendance shown as stadium capacity · temperature is the typical June average · Lili storytelling — modelled, never fabricated.</Text>
     </View>
   );
 }
@@ -216,9 +222,8 @@ function Imp({ k, v }: { k: string; v: string }) {
 const s = StyleSheet.create({
   wrap:  { padding: 14, gap: 10 },
   soloWrap: { paddingHorizontal: 14 },
-  cols:  { flexDirection: 'row', gap: 12, alignItems: 'flex-start' },
-  left:  { flex: 1.1, minWidth: 0, gap: 10 },
-  right: { width: 330, gap: 10 },
+  // Cancels MomentumPanel's s.solo inset so it matches the other cards' width.
+  momSlot: { marginHorizontal: -12, marginTop: -12 },
 
   card:      { backgroundColor: D.panel, borderRadius: 12, borderWidth: 1, borderColor: D.border, padding: 12 },
   cardTitle: { color: D.text3, fontSize: 10, fontWeight: '800', letterSpacing: 0.8, marginBottom: 8 },
