@@ -144,8 +144,8 @@ export default function OverviewModule({ match }: { match: MatchStats }) {
       {Hero}
       {Stadium}
       <View style={wide ? s.cols : undefined}>
-        <View style={wide ? s.left : undefined}>{Control}{Stats}</View>
-        <View style={wide ? s.right : undefined}>{Lili}{Drivers}{Momentum}</View>
+        <View style={wide ? s.left : undefined}>{Control}{Stats}{Momentum}</View>
+        <View style={wide ? s.right : undefined}>{Lili}{Drivers}</View>
       </View>
       <Text style={s.foot}>Match intelligence from live stats, events & standings · attendance shown as stadium capacity · Lili storytelling — modelled, never fabricated.</Text>
     </View>
