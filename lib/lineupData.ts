@@ -369,7 +369,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:11.644Z"
+    "updatedAt": "2026-06-21T03:56:27.358Z"
   },
   {
     "fixtureKey": "Argentina|Austria",
@@ -713,7 +713,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:06.994Z"
+    "updatedAt": "2026-06-21T03:56:23.396Z"
   },
   {
     "fixtureKey": "Austria|Jordan",
@@ -1043,7 +1043,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:12.070Z"
+    "updatedAt": "2026-06-21T03:56:27.707Z"
   },
   {
     "fixtureKey": "Belgium|Egypt",
@@ -1367,7 +1367,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:09.524Z"
+    "updatedAt": "2026-06-21T03:56:25.509Z"
   },
   {
     "fixtureKey": "Belgium|Iran",
@@ -1719,7 +1719,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:16.695Z"
+    "updatedAt": "2026-06-21T03:56:31.682Z"
   },
   {
     "fixtureKey": "Brazil|Morocco",
@@ -2043,7 +2043,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:06.154Z"
+    "updatedAt": "2026-06-21T03:56:22.690Z"
   },
   {
     "fixtureKey": "Canada|Bosnia & Herzegovina",
@@ -2373,7 +2373,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:04.875Z"
+    "updatedAt": "2026-06-21T03:56:21.633Z"
   },
   {
     "fixtureKey": "Canada|Qatar",
@@ -2697,7 +2697,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:15.026Z"
+    "updatedAt": "2026-06-21T03:56:30.278Z"
   },
   {
     "fixtureKey": "Cape Verde Islands|Saudi Arabia",
@@ -3107,21 +3107,337 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:14.171Z"
+    "updatedAt": "2026-06-21T03:56:29.567Z"
   },
   {
     "fixtureKey": "Ecuador|Curaçao",
     "home": {
-      "formation": "4-2-3-1",
-      "players": []
+      "formation": "3-1-4-2",
+      "players": [
+        {
+          "name": "Hernán Galíndez",
+          "number": 1,
+          "pos": "GK",
+          "starter": true
+        },
+        {
+          "name": "Alan Franco",
+          "number": 21,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Willian Pacho",
+          "number": 6,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Piero Hincapié",
+          "number": 3,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Jordy Alcivar",
+          "number": 5,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "John Yeboah",
+          "number": 9,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Pedro Vite",
+          "number": 15,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Moisés Caicedo",
+          "number": 23,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Pervis Estupiñán",
+          "number": 7,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Gonzalo Plata",
+          "number": 19,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Enner Valencia",
+          "number": 13,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Kevin Rodriguez",
+          "number": 11,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Nilson Angulo",
+          "number": 20,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Ángelo Preciado",
+          "number": 17,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Jordy Caicedo",
+          "number": 16,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Moisés Ramírez",
+          "number": 12,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Gonzalo Valle",
+          "number": 22,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Yaimar Medina",
+          "number": 26,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Joel Ordóñez",
+          "number": 4,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Jackson Porozo",
+          "number": 25,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Félix Torres",
+          "number": 2,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Kendry Páez",
+          "number": 10,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Denil Castillo",
+          "number": 18,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Jeremy Arevalo",
+          "number": 24,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Anthony Valencia",
+          "number": 8,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Alan Minda",
+          "number": 14,
+          "pos": "FW",
+          "starter": false
+        }
+      ],
+      "coach": "Sebastian Beccacece"
     },
     "away": {
-      "formation": "4-3-3",
-      "players": []
+      "formation": "5-4-1",
+      "players": [
+        {
+          "name": "Eloy Room",
+          "number": 1,
+          "pos": "GK",
+          "starter": true
+        },
+        {
+          "name": "Joshua Brenet",
+          "number": 20,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Jurien Gaari",
+          "number": 3,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Armando Obispo",
+          "number": 18,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Sherel Constancio Floranus",
+          "number": 5,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Deveron Fonville",
+          "number": 24,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Tahith Chong",
+          "number": 21,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Livano Comenencia",
+          "number": 8,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Leandro Bacuna",
+          "number": 10,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Juninho Bacuna",
+          "number": 7,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Jürgen Locadia",
+          "number": 9,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Kenji Gorré",
+          "number": 14,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Roshon van Eijma",
+          "number": 4,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Jearl Margaritha",
+          "number": 16,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Gervane Kastaneer",
+          "number": 19,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Godfried Roemeratoe",
+          "number": 6,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Tyrick Bodak",
+          "number": 25,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Trevor Iriving Doornbusch",
+          "number": 26,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Shurandy Sambo",
+          "number": 2,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Riechedly Bazoer",
+          "number": 23,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Ar'Jany Martha",
+          "number": 15,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Tyrese Noslin",
+          "number": 13,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Jeremy Antonisse",
+          "number": 11,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Kevin Felida",
+          "number": 22,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Brandley Kuwas",
+          "number": 17,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Sontje Hansen",
+          "number": 12,
+          "pos": "FW",
+          "starter": false
+        }
+      ],
+      "coach": "Dick Advocaat"
     },
-    "confirmed": false,
-    "source": "baseline",
-    "updatedAt": "2026-06-12T16:43:43.362Z"
+    "confirmed": true,
+    "source": "api-football",
+    "updatedAt": "2026-06-21T03:56:33.096Z"
   },
   {
     "fixtureKey": "Ecuador|Germany",
@@ -3473,7 +3789,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:12.902Z"
+    "updatedAt": "2026-06-21T03:56:28.416Z"
   },
   {
     "fixtureKey": "England|Ghana",
@@ -3831,7 +4147,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:10.805Z"
+    "updatedAt": "2026-06-21T03:56:26.623Z"
   },
   {
     "fixtureKey": "Germany|Curaçao",
@@ -4161,7 +4477,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:07.419Z"
+    "updatedAt": "2026-06-21T03:56:23.748Z"
   },
   {
     "fixtureKey": "Germany|Ivory Coast",
@@ -4491,7 +4807,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:17.959Z"
+    "updatedAt": "2026-06-21T03:56:32.739Z"
   },
   {
     "fixtureKey": "Ghana|Panama",
@@ -4815,7 +5131,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:13.330Z"
+    "updatedAt": "2026-06-21T03:56:28.864Z"
   },
   {
     "fixtureKey": "Haiti|Scotland",
@@ -5145,7 +5461,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:06.571Z"
+    "updatedAt": "2026-06-21T03:56:23.044Z"
   },
   {
     "fixtureKey": "Iran|New Zealand",
@@ -5468,7 +5784,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:10.376Z"
+    "updatedAt": "2026-06-21T03:56:26.269Z"
   },
   {
     "fixtureKey": "Iraq|Norway",
@@ -5798,7 +6114,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:11.219Z"
+    "updatedAt": "2026-06-21T03:56:26.972Z"
   },
   {
     "fixtureKey": "Ivory Coast|Ecuador",
@@ -6128,7 +6444,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:08.260Z"
+    "updatedAt": "2026-06-21T03:56:24.452Z"
   },
   {
     "fixtureKey": "Japan|Sweden",
@@ -6500,7 +6816,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:04.010Z"
+    "updatedAt": "2026-06-21T03:56:20.930Z"
   },
   {
     "fixtureKey": "Mexico|South Korea",
@@ -6824,7 +7140,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:15.440Z"
+    "updatedAt": "2026-06-21T03:56:30.631Z"
   },
   {
     "fixtureKey": "Morocco|Haiti",
@@ -7168,7 +7484,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:07.844Z"
+    "updatedAt": "2026-06-21T03:56:24.100Z"
   },
   {
     "fixtureKey": "Netherlands|Sweden",
@@ -7492,7 +7808,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:17.544Z"
+    "updatedAt": "2026-06-21T03:56:32.387Z"
   },
   {
     "fixtureKey": "New Zealand|Belgium",
@@ -7920,7 +8236,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:12.485Z"
+    "updatedAt": "2026-06-21T03:56:28.058Z"
   },
   {
     "fixtureKey": "Portugal|Uzbekistan",
@@ -8264,7 +8580,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:05.726Z"
+    "updatedAt": "2026-06-21T03:56:22.340Z"
   },
   {
     "fixtureKey": "Saudi Arabia|Uruguay",
@@ -8582,7 +8898,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:09.940Z"
+    "updatedAt": "2026-06-21T03:56:25.916Z"
   },
   {
     "fixtureKey": "Scotland|Brazil",
@@ -8926,7 +9242,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:16.282Z"
+    "updatedAt": "2026-06-21T03:56:31.331Z"
   },
   {
     "fixtureKey": "Senegal|Iraq",
@@ -9284,7 +9600,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:04.436Z"
+    "updatedAt": "2026-06-21T03:56:21.281Z"
   },
   {
     "fixtureKey": "Spain|Cape Verde Islands",
@@ -9614,7 +9930,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:09.111Z"
+    "updatedAt": "2026-06-21T03:56:25.157Z"
   },
   {
     "fixtureKey": "Spain|Saudi Arabia",
@@ -9958,7 +10274,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:08.685Z"
+    "updatedAt": "2026-06-21T03:56:24.806Z"
   },
   {
     "fixtureKey": "Switzerland|Bosnia & Herzegovina",
@@ -10282,7 +10598,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:14.597Z"
+    "updatedAt": "2026-06-21T03:56:29.921Z"
   },
   {
     "fixtureKey": "Switzerland|Canada",
@@ -10301,16 +10617,320 @@ export const MATCH_LINEUPS: MatchLineup[] = [
   {
     "fixtureKey": "Tunisia|Japan",
     "home": {
-      "formation": "4-2-3-1",
-      "players": []
+      "formation": "3-4-2-1",
+      "players": [
+        {
+          "name": "Aymen Dahmen",
+          "number": 16,
+          "pos": "GK",
+          "starter": true
+        },
+        {
+          "name": "Omar Rekik",
+          "number": 4,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Montassar Talbi",
+          "number": 3,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Dylan Bronn",
+          "number": 6,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Yan Valery",
+          "number": 20,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Ellyes Skhiri",
+          "number": 17,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Hannibal Mejbri",
+          "number": 10,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Ali Abdi",
+          "number": 2,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Elias Saad",
+          "number": 8,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Sebastian Tounekti",
+          "number": 26,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Anis Ben Slimane",
+          "number": 25,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Abdelmouhib Chamakh",
+          "number": 1,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Sabri Ben Hessen",
+          "number": 22,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Adem Arous",
+          "number": 5,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Amine Ben Hmida",
+          "number": 21,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Moataz Nefati",
+          "number": 23,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Raed Chikhaoui",
+          "number": 24,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Elias Achouri",
+          "number": 7,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Ismael Gharbi",
+          "number": 11,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Mohamed Belhadj Mahmoud",
+          "number": 15,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Mortadha Ben Ouanes",
+          "number": 12,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Rani Khedira",
+          "number": 13,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Hazem Mastouri",
+          "number": 9,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Firas Chaouat",
+          "number": 19,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Khalil Ayari",
+          "number": 14,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Rayan Elloumi",
+          "number": 18,
+          "pos": "FW",
+          "starter": false
+        }
+      ],
+      "coach": "Herve Renard"
     },
     "away": {
       "formation": "3-4-2-1",
-      "players": []
+      "players": [
+        {
+          "name": "Zion Suzuki",
+          "number": 1,
+          "pos": "GK",
+          "starter": true
+        },
+        {
+          "name": "Takehiro Tomiyasu",
+          "number": 22,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Ko Itakura",
+          "number": 4,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Hiroki Itō",
+          "number": 21,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Ritsu Doan",
+          "number": 10,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Kaishu Sano",
+          "number": 24,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Daichi Kamada",
+          "number": 15,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Keito Nakamura",
+          "number": 13,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Junya Ito",
+          "number": 14,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Ao Tanaka",
+          "number": 7,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Ayase Ueda",
+          "number": 18,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Keisuke Osako",
+          "number": 12,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Tomoki Hayakawa",
+          "number": 23,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Ayumu Seko",
+          "number": 20,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Junnosuke Suzuki",
+          "number": 25,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Shogo Taniguchi",
+          "number": 3,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Tsuyoshi Watanabe",
+          "number": 16,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Yukinari Sugawara",
+          "number": 2,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Yuto Nagatomo",
+          "number": 5,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Yuito Suzuki",
+          "number": 17,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Daizen Maeda",
+          "number": 11,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Keisuke Goto",
+          "number": 9,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Kento Shiogai",
+          "number": 26,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Koki Ogawa",
+          "number": 19,
+          "pos": "FW",
+          "starter": false
+        }
+      ],
+      "coach": "Hajime Moriyasu"
     },
     "confirmed": false,
-    "source": "baseline",
-    "updatedAt": "2026-06-12T16:43:43.362Z"
+    "source": "api-football",
+    "updatedAt": "2026-06-21T03:56:33.453Z"
   },
   {
     "fixtureKey": "Tunisia|Netherlands",
@@ -10654,7 +11274,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:17.120Z"
+    "updatedAt": "2026-06-21T03:56:32.032Z"
   },
   {
     "fixtureKey": "Türkiye|USA",
@@ -11020,7 +11640,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:15.851Z"
+    "updatedAt": "2026-06-21T03:56:30.981Z"
   },
   {
     "fixtureKey": "USA|Paraguay",
@@ -11350,7 +11970,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:05.296Z"
+    "updatedAt": "2026-06-21T03:56:21.985Z"
   },
   {
     "fixtureKey": "Uzbekistan|Colombia",
@@ -11680,8 +12300,8 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-20T23:54:13.757Z"
+    "updatedAt": "2026-06-21T03:56:29.215Z"
   }
 ];
 
-export const LINEUPS_LAST_UPDATED = '2026-06-20T23:54:19.479Z';
+export const LINEUPS_LAST_UPDATED = '2026-06-21T03:56:34.421Z';
