@@ -81,12 +81,13 @@ function StatRow({ label, h, a }: { label: string; h: string | number; a: string
 
 const DASHBOARD = '📈 Dashboard';
 const OVERVIEW = '📊 Overview';
+const HEATMAP = 'Heatmap';
 const HOME_EDGE = '🏟 Home Edge';
 const PLAYERS = '👤 Players';
 const ATTACK = '⚔️ Attack Zones';
 const PASSMAP = '🕸 Pass Map';
 const SHOTS = '🎯 Shots';
-const TABS = [DASHBOARD, OVERVIEW, 'Heatmap', HOME_EDGE, ATTACK, SHOTS, PASSMAP, PLAYERS];
+const TABS = [DASHBOARD, OVERVIEW, HEATMAP, HOME_EDGE, ATTACK, SHOTS, PASSMAP, PLAYERS];
 
 // ─── Screen ────────────────────────────────────────────────────────────────────
 export default function MatchHeatmapScreen() {
@@ -275,6 +276,33 @@ export default function MatchHeatmapScreen() {
 
   const Footer = <Text style={st.foot}>Heatmap & momentum modelled from possession, shots & xG — not player tracking · Data by Lili Signals</Text>;
 
+  // Shared Heatmap body — used by BOTH the live Heatmap tab and the pre-kickoff
+  // forecast, so they look identical. Phone is the reference: one scrolling
+  // column (pitch → momentum/note → rail). On wide it's the SAME two-column grid
+  // as Overview / Attack Zones / Shots (heatLeft flex + fixed-width heatRight).
+  // Live shows the momentum wave below the pitch; forecast shows the fcNote
+  // instead (no momentum exists before kickoff).
+  const heatLeftExtra = isForecast ? (
+    <View style={st.fcNote}><Text style={st.fcNoteText}>{t.fcNote}</Text></View>
+  ) : (
+    <MomentumPanel match={active} />
+  );
+  const HeatmapBody = wide ? (
+    <View style={st.heatRow}>
+      <View style={st.heatLeft}>
+        <TerritoryPitch homeName={active.home} awayName={active.away} homeFrac={hTerr / 100} />
+        {heatLeftExtra}
+      </View>
+      <View style={st.heatRight}>{RailContent}</View>
+    </View>
+  ) : (
+    <View>
+      <TerritoryPitch homeName={active.home} awayName={active.away} homeFrac={hTerr / 100} />
+      {heatLeftExtra}
+      <View style={{ marginTop: 12 }}>{RailContent}</View>
+    </View>
+  );
+
   // Pre-kickoff forecast view: predicted pressure on the same pitch, clearly
   // labelled as a forecast. No momentum/score yet — those begin at kickoff.
   if (isForecast && forecast) {
@@ -289,52 +317,25 @@ export default function MatchHeatmapScreen() {
           <Text style={st.fcBannerTitle}>{t.fcBannerTitle}</Text>
           <Text style={st.fcBannerSub}>{basisLine}. {t.fcBannerTail}</Text>
         </View>
-        <View style={[st.narrowBody, wide && st.heatBody]}>
-          <TerritoryPitch homeName={active.home} awayName={active.away} homeFrac={hTerr / 100} />
-          <View style={st.fcNote}>
-            <Text style={st.fcNoteText}>{t.fcNote}</Text>
-          </View>
-          <View style={{ marginTop: 12 }}>{RailContent}</View>
-        </View>
+        <View style={st.narrowBody}>{HeatmapBody}</View>
         {Footer}
       </ScrollView>
     );
   }
 
-  // Phone is the source of truth: one scrollable column (pitch → momentum →
-  // cards). On laptop/desktop the SAME pieces are arranged as a two-column
-  // workstation — LEFT (pitch + momentum directly below it), RIGHT (the four
-  // cards stacked). Still inside the page ScrollView (no fixed 100vh, no nested
-  // rail scroll), centred + width-bounded so the pitch stays bounded and tidy.
-  const Main = tab !== 'Heatmap' ? (
-    <View style={st.soon}><Text style={st.soonText}>🔧  {tab} — on the roadmap, coming soon.</Text></View>
-  ) : wide ? (
-    <View style={st.heatRow}>
-      <View style={st.heatLeft}>
-        <TerritoryPitch homeName={active.home} awayName={active.away} homeFrac={hTerr / 100} />
-        <MomentumPanel match={active} />
-      </View>
-      <View style={st.heatRight}>{RailContent}</View>
-    </View>
-  ) : (
-    <View>
-      <TerritoryPitch homeName={active.home} awayName={active.away} homeFrac={hTerr / 100} />
-      <MomentumPanel match={active} />
-      <View style={{ marginTop: 12 }}>{RailContent}</View>
-    </View>
-  );
-
-  // Dashboard — reserved for the future TOURNAMENT-level command centre
-  // (rankings, Home Edge, team highlights, Lili signals). Tournament-level, so
-  // no match picker. Match analytics now live in their own per-match tabs.
+  // Dashboard — reserved for the future TOURNAMENT-level command centre.
+  // Tournament-level only, so NO match picker and NO match-level widgets — those
+  // live in the per-match tabs (Overview / Heatmap / Attack / Shots / Pass /
+  // Players). Planned modules: Home Edge Tracker, Tournament rankings, Attack /
+  // Defence / Passing / Player / Goalkeeper rankings, Lili Spotlight.
   if (tab === DASHBOARD) {
     return (
       <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
         {Header}{Tabs}
         <View style={st.placeholder}>
           <Text style={st.placeholderTitle}>📈 Dashboard</Text>
-          <Text style={st.placeholderBody}>Dashboard command centre coming soon.</Text>
-          <Text style={st.placeholderSub}>Tournament rankings, Home Edge, team highlights and Lili signals will live here.</Text>
+          <Text style={st.placeholderBody}>Tournament command centre coming soon.</Text>
+          <Text style={st.placeholderSub}>Home Edge Tracker · Tournament rankings · Attack, Defence, Passing, Player & Goalkeeper rankings · Lili Spotlight will live here.</Text>
         </View>
         {Footer}
       </ScrollView>
@@ -409,16 +410,20 @@ export default function MatchHeatmapScreen() {
     );
   }
 
-  // One scrolling model for every width (phone is the reference). The page —
-  // not a nested container — scrolls, so the pitch shows first and momentum,
-  // stats & Lili insight are always reachable below it.
-  return (
-    <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
-      {Header}{Picker}{Tabs}
-      <View style={st.narrowBody}>{Main}</View>
-      {Footer}
-    </ScrollView>
-  );
+  // Heatmap — a normal match-intelligence tab. Same shared body as every other
+  // tab (the page ScrollView scrolls; phone single-column, wide two-column grid).
+  if (tab === HEATMAP) {
+    return (
+      <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
+        {Header}{Picker}{Tabs}
+        <View style={st.narrowBody}>{HeatmapBody}</View>
+        {Footer}
+      </ScrollView>
+    );
+  }
+
+  // Defensive fallback — every tab in TABS has an explicit branch above.
+  return null;
 }
 
 // ─── Styles ────────────────────────────────────────────────────────────────────
@@ -476,9 +481,6 @@ const st = StyleSheet.create({
   tabTextOn: { color: D.text1, fontWeight: '800' },
 
   narrowBody:{ paddingHorizontal: 14, paddingTop: 10 },
-  // Heatmap on laptop/desktop: same scrolling column as phone, just centred and
-  // width-bounded so the pitch stays beautiful but never fills the viewport.
-  heatBody:  { width: '100%', maxWidth: 760, alignSelf: 'center' },
   // Heatmap (wide) uses the SAME edge-to-edge two-column grid as Overview /
   // Attack Zones / Shots: full width (page's 14px padding), flex-left column +
   // a fixed-width rail, stacked cards. No maxWidth, no centring — so it matches
@@ -487,8 +489,6 @@ const st = StyleSheet.create({
   heatLeft:  { flex: 1.3, minWidth: 0, gap: 10 },
   heatRight: { width: 330, gap: 10 },
 
-  soon:      { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 40 },
-  soonText:  { color: D.text2, fontSize: 14 },
   placeholder:      { alignItems: 'center', justifyContent: 'center', paddingHorizontal: 28, paddingVertical: 64, gap: 8 },
   placeholderTitle: { color: D.text1, fontSize: 22, fontWeight: '900', letterSpacing: 0.4 },
   placeholderBody:  { color: D.text2, fontSize: 14, fontWeight: '600', textAlign: 'center' },

@@ -5,7 +5,7 @@
 // aggregates — no player tracking, no fabricated coordinates or pass pairs.
 
 import { useMemo, useState } from 'react';
-import { StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Svg, { Circle, G, Rect } from 'react-native-svg';
 import PitchSvg, { PITCH_W, PITCH_H } from './PitchSvg';
 import MomentumWave, { type MomentumMarker } from './MomentumWave';
@@ -221,52 +221,6 @@ export function PassMapPanel({ match }: { match: MatchStats }) {
   );
 }
 
-// ── KEY STATS ───────────────────────────────────────────────────────────────
-function PossRing({ home }: { home: number }) {
-  const r = 13, c = 2 * Math.PI * r;
-  const blue = c * home, red = c * (1 - home);
-  return (
-    <Svg width={34} height={34} viewBox="0 0 34 34">
-      <Circle cx={17} cy={17} r={r} fill="none" stroke={D.red} strokeWidth={4} />
-      <Circle cx={17} cy={17} r={r} fill="none" stroke={D.blue} strokeWidth={4}
-        strokeDasharray={`${blue} ${red}`} strokeDashoffset={c * 0.25} strokeLinecap="butt" transform="rotate(-90 17 17)" />
-    </Svg>
-  );
-}
-function Stat({ label, h, a, ring, homePoss, cellStyle }: { label: string; h: string; a: string; ring?: boolean; homePoss?: number; cellStyle?: any }) {
-  return (
-    <View style={[s.statCell, cellStyle]}>
-      <Text style={s.statLabel}>{label}</Text>
-      <View style={s.statVals}>
-        <Text style={[s.statV, { color: D.blue }]}>{h}</Text>
-        {ring && homePoss !== undefined ? <PossRing home={homePoss} /> : <View style={s.statGap} />}
-        <Text style={[s.statV, { color: D.red }]}>{a}</Text>
-      </View>
-    </View>
-  );
-}
-export function KeyStatsPanel({ match }: { match: MatchStats }) {
-  const { width } = useWindowDimensions();
-  const wide = width >= 860;
-  const h = match.homeStats, a = match.awayStats;
-  // 8-across on desktop (reference), 4-across (2 rows) on phones.
-  const cw = wide ? s.statCell8 : s.statCell4;
-  return (
-    <Card title="KEY STATS" style={s.solo}>
-      <View style={s.statGrid}>
-        <Stat cellStyle={cw} label="POSSESSION" h={`${Math.round((h.possession || 0) * 100)}%`} a={`${Math.round((a.possession || 0) * 100)}%`} ring homePoss={h.possession || 0} />
-        <Stat cellStyle={cw} label="TOTAL SHOTS" h={`${h.totalShots || 0}`} a={`${a.totalShots || 0}`} />
-        <Stat cellStyle={cw} label="SHOTS ON TARGET" h={`${h.shotsOnGoal || 0}`} a={`${a.shotsOnGoal || 0}`} />
-        <Stat cellStyle={cw} label="EXPECTED GOALS (XG)" h={(h.xg || 0).toFixed(2)} a={(a.xg || 0).toFixed(2)} />
-        <Stat cellStyle={cw} label="PASSES" h={`${h.passes ?? 0}`} a={`${a.passes ?? 0}`} />
-        <Stat cellStyle={cw} label="PASS ACCURACY" h={`${Math.round((h.passAccuracy || 0) * 100)}%`} a={`${Math.round((a.passAccuracy || 0) * 100)}%`} />
-        <Stat cellStyle={cw} label="FOULS" h={`${h.fouls ?? 0}`} a={`${a.fouls ?? 0}`} />
-        <Stat cellStyle={cw} label="CORNERS" h={`${h.corners || 0}`} a={`${a.corners || 0}`} />
-      </View>
-    </Card>
-  );
-}
-
 // ── MOMENTUM ────────────────────────────────────────────────────────────────
 // Smooth momentum wave + interactive event markers. Lives in the Overview tab.
 export function MomentumPanel({ match }: { match: MatchStats }) {
@@ -335,14 +289,4 @@ const s = StyleSheet.create({
   miniWrap: { flex: 1 },
   miniTitle: { fontSize: 12, fontWeight: '900', textAlign: 'center', marginBottom: 5, letterSpacing: 0.5 },
   miniStat: { color: D.text2, fontSize: 10, textAlign: 'center', marginTop: 5 },
-
-  // key stats
-  statGrid: { flexDirection: 'row', flexWrap: 'wrap' },
-  statCell: { paddingVertical: 8, alignItems: 'center' },
-  statCell4: { width: '25%' },
-  statCell8: { width: '12.5%' },
-  statLabel: { color: D.text3, fontSize: 9, fontWeight: '700', letterSpacing: 0.4, marginBottom: 4, textAlign: 'center' },
-  statVals: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  statV: { fontSize: 19, fontWeight: '900' },
-  statGap: { width: 6 },
 });
