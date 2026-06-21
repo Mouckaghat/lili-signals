@@ -369,7 +369,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:05.071Z"
+    "updatedAt": "2026-06-21T16:15:13.371Z"
   },
   {
     "fixtureKey": "Argentina|Austria",
@@ -713,7 +713,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:00.424Z"
+    "updatedAt": "2026-06-21T16:15:09.108Z"
   },
   {
     "fixtureKey": "Austria|Jordan",
@@ -1043,7 +1043,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:05.645Z"
+    "updatedAt": "2026-06-21T16:15:13.740Z"
   },
   {
     "fixtureKey": "Belgium|Egypt",
@@ -1367,7 +1367,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:02.926Z"
+    "updatedAt": "2026-06-21T16:15:11.516Z"
   },
   {
     "fixtureKey": "Belgium|Iran",
@@ -1719,7 +1719,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:10.134Z"
+    "updatedAt": "2026-06-21T16:15:17.837Z"
   },
   {
     "fixtureKey": "Brazil|Morocco",
@@ -2043,7 +2043,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:26:59.589Z"
+    "updatedAt": "2026-06-21T16:15:08.172Z"
   },
   {
     "fixtureKey": "Canada|Bosnia & Herzegovina",
@@ -2373,7 +2373,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:26:58.366Z"
+    "updatedAt": "2026-06-21T16:15:06.495Z"
   },
   {
     "fixtureKey": "Canada|Qatar",
@@ -2697,7 +2697,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:08.506Z"
+    "updatedAt": "2026-06-21T16:15:16.381Z"
   },
   {
     "fixtureKey": "Cape Verde Islands|Saudi Arabia",
@@ -3107,7 +3107,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:07.690Z"
+    "updatedAt": "2026-06-21T16:15:15.610Z"
   },
   {
     "fixtureKey": "Ecuador|Curaçao",
@@ -3437,7 +3437,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:11.779Z"
+    "updatedAt": "2026-06-21T16:15:19.294Z"
   },
   {
     "fixtureKey": "Ecuador|Germany",
@@ -3789,7 +3789,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:06.461Z"
+    "updatedAt": "2026-06-21T16:15:14.507Z"
   },
   {
     "fixtureKey": "England|Ghana",
@@ -4147,7 +4147,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:04.205Z"
+    "updatedAt": "2026-06-21T16:15:12.647Z"
   },
   {
     "fixtureKey": "Germany|Curaçao",
@@ -4477,7 +4477,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:00.840Z"
+    "updatedAt": "2026-06-21T16:15:09.504Z"
   },
   {
     "fixtureKey": "Germany|Ivory Coast",
@@ -4807,7 +4807,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:11.371Z"
+    "updatedAt": "2026-06-21T16:15:18.935Z"
   },
   {
     "fixtureKey": "Ghana|Panama",
@@ -5131,7 +5131,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:06.867Z"
+    "updatedAt": "2026-06-21T16:15:14.871Z"
   },
   {
     "fixtureKey": "Haiti|Scotland",
@@ -5461,7 +5461,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:26:59.999Z"
+    "updatedAt": "2026-06-21T16:15:08.557Z"
   },
   {
     "fixtureKey": "Iran|New Zealand",
@@ -5784,7 +5784,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:03.775Z"
+    "updatedAt": "2026-06-21T16:15:12.286Z"
   },
   {
     "fixtureKey": "Iraq|Norway",
@@ -6114,7 +6114,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:04.620Z"
+    "updatedAt": "2026-06-21T16:15:13.009Z"
   },
   {
     "fixtureKey": "Ivory Coast|Ecuador",
@@ -6444,7 +6444,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:01.684Z"
+    "updatedAt": "2026-06-21T16:15:10.383Z"
   },
   {
     "fixtureKey": "Japan|Sweden",
@@ -6816,7 +6816,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:26:57.548Z"
+    "updatedAt": "2026-06-21T16:15:04.777Z"
   },
   {
     "fixtureKey": "Mexico|South Korea",
@@ -7140,7 +7140,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:08.912Z"
+    "updatedAt": "2026-06-21T16:15:16.750Z"
   },
   {
     "fixtureKey": "Morocco|Haiti",
@@ -7484,7 +7484,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:01.260Z"
+    "updatedAt": "2026-06-21T16:15:09.898Z"
   },
   {
     "fixtureKey": "Netherlands|Sweden",
@@ -7808,7 +7808,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:10.953Z"
+    "updatedAt": "2026-06-21T16:15:18.579Z"
   },
   {
     "fixtureKey": "New Zealand|Belgium",
@@ -8236,7 +8236,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:06.052Z"
+    "updatedAt": "2026-06-21T16:15:14.131Z"
   },
   {
     "fixtureKey": "Portugal|Uzbekistan",
@@ -8580,7 +8580,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:26:59.183Z"
+    "updatedAt": "2026-06-21T16:15:07.498Z"
   },
   {
     "fixtureKey": "Saudi Arabia|Uruguay",
@@ -8898,7 +8898,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:03.339Z"
+    "updatedAt": "2026-06-21T16:15:11.895Z"
   },
   {
     "fixtureKey": "Scotland|Brazil",
@@ -9242,7 +9242,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:09.728Z"
+    "updatedAt": "2026-06-21T16:15:17.474Z"
   },
   {
     "fixtureKey": "Senegal|Iraq",
@@ -9600,7 +9600,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:26:57.956Z"
+    "updatedAt": "2026-06-21T16:15:06.104Z"
   },
   {
     "fixtureKey": "Spain|Cape Verde Islands",
@@ -9930,7 +9930,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:02.511Z"
+    "updatedAt": "2026-06-21T16:15:11.152Z"
   },
   {
     "fixtureKey": "Spain|Saudi Arabia",
@@ -10258,9 +10258,9 @@ export const MATCH_LINEUPS: MatchLineup[] = [
       ],
       "coach": "Georgios Donis"
     },
-    "confirmed": false,
+    "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:12.599Z"
+    "updatedAt": "2026-06-21T16:15:04.376Z"
   },
   {
     "fixtureKey": "Sweden|Tunisia",
@@ -10590,7 +10590,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:02.096Z"
+    "updatedAt": "2026-06-21T16:15:10.761Z"
   },
   {
     "fixtureKey": "Switzerland|Bosnia & Herzegovina",
@@ -10914,7 +10914,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:08.097Z"
+    "updatedAt": "2026-06-21T16:15:16.017Z"
   },
   {
     "fixtureKey": "Switzerland|Canada",
@@ -11246,7 +11246,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:12.189Z"
+    "updatedAt": "2026-06-21T16:15:19.651Z"
   },
   {
     "fixtureKey": "Tunisia|Netherlands",
@@ -11590,7 +11590,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:10.547Z"
+    "updatedAt": "2026-06-21T16:15:18.209Z"
   },
   {
     "fixtureKey": "Türkiye|USA",
@@ -11956,7 +11956,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:09.320Z"
+    "updatedAt": "2026-06-21T16:15:17.111Z"
   },
   {
     "fixtureKey": "USA|Paraguay",
@@ -12286,7 +12286,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:26:58.774Z"
+    "updatedAt": "2026-06-21T16:15:06.929Z"
   },
   {
     "fixtureKey": "Uzbekistan|Colombia",
@@ -12616,8 +12616,8 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-21T15:27:07.282Z"
+    "updatedAt": "2026-06-21T16:15:15.239Z"
   }
 ];
 
-export const LINEUPS_LAST_UPDATED = '2026-06-21T15:27:14.088Z';
+export const LINEUPS_LAST_UPDATED = '2026-06-21T16:15:21.009Z';
