@@ -528,6 +528,19 @@ export const MATCH_EVENTS: MatchEvents[] = [
     yellowCards: [],
     redCards: [],
   },
+  {
+    fixtureId: "E2_Ecuador_v_Cura_ao",
+    home: "Ecuador", away: "Curaçao", date: "2026-06-21",
+    goals: [],
+    yellowCards: [
+      { player: "Jordy Alcívar", team: "Ecuador", minute: 38, reason: "Tripping" },
+      { player: "Leandro Bacuna", team: "Curaçao", minute: 39, reason: "Foul" },
+      { player: "Juninho Bacuna", team: "Curaçao", minute: 53, reason: "Foul" },
+      { player: "Livano Comenencia", team: "Curaçao", minute: 56, reason: "Roughing" },
+      { player: "Juriën Gaari", team: "Curaçao", minute: 75, reason: "Roughing" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-20T23:22:31.175Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-21T01:43:53.391Z';
