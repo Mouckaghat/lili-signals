@@ -282,10 +282,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "G2_Spain_v_Saudi_Arabia",
     home: "Spain", away: "Saudi Arabia", date: "2026-06-21",
-    status: "LIVE", elapsed: 45,
-    homeStats: { team: "Spain", possession: 0.73, totalShots: 17, shotsInsideBox: 8, shotsOutsideBox: 9, shotsOnGoal: 5, corners: 4, xg: 1.87, passAccuracy: 0.91, passes: 368, fouls: 2 },
-    awayStats: { team: "Saudi Arabia", possession: 0.27, totalShots: 1, shotsInsideBox: 0, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 1, xg: 0.01, passAccuracy: 0.7, passes: 144, fouls: 1 },
+    status: "LIVE", elapsed: 90,
+    homeStats: { team: "Spain", possession: 0.66, totalShots: 22, shotsInsideBox: 13, shotsOutsideBox: 9, shotsOnGoal: 9, corners: 6, xg: 2.78, passAccuracy: 0.92, passes: 690, fouls: 10 },
+    awayStats: { team: "Saudi Arabia", possession: 0.34, totalShots: 3, shotsInsideBox: 0, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 1, xg: 0.14, passAccuracy: 0.81, passes: 356, fouls: 2 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-21T17:07:02.202Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-21T17:56:18.215Z';
