@@ -1155,4 +1155,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "F2_Tunisia_v_Japan", team: "Japan", name: "Keisuke Goto", pos: "FW", minutes: 13, rating: 6.9, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 1, passAccPct: 100, tackles: 1, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-06-21T12:25:02.096Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-06-21T14:56:59.667Z';
