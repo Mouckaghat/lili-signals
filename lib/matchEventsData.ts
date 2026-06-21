@@ -574,9 +574,12 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [],
     yellowCards: [
       { player: "Romelu Lukaku", team: "Belgium", minute: 3, reason: "Roughing" },
+      { player: "Saeid Ezatolahi", team: "Iran", minute: 33, reason: "Holding" },
     ],
-    redCards: [],
+    redCards: [
+      { player: "Nathan Ngoy", team: "Belgium", minute: 66, reason: "Holding" },
+    ],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-21T19:21:40.379Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-21T20:49:57.820Z';
