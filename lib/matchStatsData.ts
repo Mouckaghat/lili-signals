@@ -289,10 +289,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "H2_Belgium_v_Iran",
     home: "Belgium", away: "Iran", date: "2026-06-21",
-    status: "LIVE", elapsed: 20,
-    homeStats: { team: "Belgium", possession: 0.7, totalShots: 4, shotsInsideBox: 4, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 1, xg: 0.3, passAccuracy: 0.89, passes: 108, fouls: 3 },
-    awayStats: { team: "Iran", possession: 0.3, totalShots: 2, shotsInsideBox: 2, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 1, xg: 0.26, passAccuracy: 0.74, passes: 46, fouls: 0 },
+    status: "LIVE", elapsed: 54,
+    homeStats: { team: "Belgium", possession: 0.81, totalShots: 14, shotsInsideBox: 13, shotsOutsideBox: 1, shotsOnGoal: 4, corners: 4, xg: 1.03, passAccuracy: 0.86, passes: 407, fouls: 5 },
+    awayStats: { team: "Iran", possession: 0.19, totalShots: 3, shotsInsideBox: 3, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 1, xg: 0.31, passAccuracy: 0.57, passes: 96, fouls: 6 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-21T19:20:22.707Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-21T20:19:25.016Z';
