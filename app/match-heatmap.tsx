@@ -58,9 +58,18 @@ export default function MatchHeatmapScreen() {
   // until the tournament command centre is built.
   const [tab, setTab] = useState(OVERVIEW);
 
+  // A match's authoritative live/finished status comes from the results feed
+  // (refreshed every ~20s, flips to FINISHED the moment a game ends), NOT from
+  // the baked MATCH_STATS.status: the /api/match-stats overlay only ever ADDS
+  // currently-live games, so once a match ends and drops out of `live=all` the
+  // baked `LIVE` status would otherwise stick until a redeploy. Derive it from
+  // the live object the screen already holds. (See CLAUDE.md 2026-06-18.)
+  const statusOf = (m: { home: string; away: string; status: 'LIVE' | 'FINISHED' }) =>
+    results[`${m.home}|${m.away}`]?.status ?? m.status;
+
   const ordered = useMemo(() =>
-    [...matches].sort((a, b) => (a.status === 'LIVE' ? -1 : 0) - (b.status === 'LIVE' ? -1 : 0) || b.date.localeCompare(a.date)),
-  [matches]);
+    [...matches].sort((a, b) => (statusOf(a) === 'LIVE' ? -1 : 0) - (statusOf(b) === 'LIVE' ? -1 : 0) || b.date.localeCompare(a.date)),
+  [matches, results]);
 
   const { fixtureId } = useLocalSearchParams<{ fixtureId?: string }>();
   const [selected, setSelected] = useState<string | null>(null);
@@ -74,18 +83,29 @@ export default function MatchHeatmapScreen() {
 
   if (!active) {
     const name = requestedId ? WC_FIXTURES.find((f) => f.id === requestedId) : undefined;
+    // The detailed stats overlay (useLiveStats) lags kickoff: api-football posts
+    // /fixtures/statistics a minute or two after the match starts. Until then the
+    // honest LIVE signal is the results feed (set the instant a game kicks off).
+    // Use it so we never tell the user a live match "hasn't kicked off yet".
+    const liveResult = name ? results[`${name.home}|${name.away}`] : undefined;
+    const isLive = liveResult?.status === 'LIVE';
+    const liveScore = isLive ? `${liveResult!.homeScore ?? 0}–${liveResult!.awayScore ?? 0}` : '';
     return (
       <View style={[st.screen, st.empty]}>
         <Text style={st.emptyText}>
-          {name ? `${name.home} v ${name.away} hasn't kicked off yet — match intelligence appears at kickoff.`
-                : 'No match stats yet. Match intelligence appears once a game kicks off.'}
+          {name && isLive
+            ? `🔴 ${name.home} ${liveScore} ${name.away} is LIVE — match intelligence is warming up and appears within a few minutes of kickoff.`
+            : name
+              ? `${name.home} v ${name.away} hasn't kicked off yet — match intelligence appears at kickoff.`
+              : 'No match stats yet. Match intelligence appears once a game kicks off.'}
         </Text>
       </View>
     );
   }
 
   const fixture = WC_FIXTURES.find((f) => f.id === active.fixtureId);
-  const statusLine = active.status === 'LIVE' ? `LIVE ${active.elapsed ?? ''}'` : 'FULL TIME';
+  const activeStatus = statusOf(active);
+  const statusLine = activeStatus === 'LIVE' ? `LIVE ${active.elapsed ?? ''}'` : 'FULL TIME';
   const res = results[`${active.home}|${active.away}`];
   const scoreText = res && res.homeScore != null && res.awayScore != null ? `${res.homeScore} – ${res.awayScore}` : 'vs';
 
@@ -101,7 +121,7 @@ export default function MatchHeatmapScreen() {
           <Text style={st.score}>{scoreText}</Text>
           <Text style={st.teamName} numberOfLines={1}>{active.away.toUpperCase()} {flagOf(active.away)}</Text>
         </View>
-        <Text style={[st.statusMini, active.status === 'LIVE' && { color: D.red }]}>
+        <Text style={[st.statusMini, activeStatus === 'LIVE' && { color: D.red }]}>
           {statusLine}{fixture ? `  ·  ${fmtDate(active.date)} · ${fixture.stadium}` : ''}
         </Text>
       </View>
@@ -117,7 +137,7 @@ export default function MatchHeatmapScreen() {
         const on = m.fixtureId === active.fixtureId;
         return (
           <Pressable key={m.fixtureId} onPress={() => setSelected(m.fixtureId)} style={[st.pick, on && st.pickOn]}>
-            {m.status === 'LIVE' && <View style={st.liveDot} />}
+            {statusOf(m) === 'LIVE' && <View style={st.liveDot} />}
             <Text style={[st.pickText, on && st.pickTextOn]}>{m.home} v {m.away}</Text>
           </Pressable>
         );

@@ -13,9 +13,12 @@ import { computePlayerLeaders, type ImpactRow } from '../lib/playerImpact';
 import { shotRankings, type ShotRank } from '../lib/shotsModel';
 import { buildLiliXI } from '../lib/dashboardModel';
 import { useLiveResults } from '../lib/useLiveResults';
+import { useLineups } from '../lib/useLineups';
+import { WC_TEAMS } from '../lib/wcData';
 import { useLanguage } from '../contexts/LanguageContext';
 import { HEATMAP_I18N } from '../lib/heatmapI18n';
 import LiliXI from './LiliXI';
+import FormationRecord from './FormationRecord';
 
 const D = {
   panel:  '#0A1322',
@@ -37,11 +40,13 @@ export default function DashboardModule({ favTeam }: { favTeam?: string }) {
   const { width } = useWindowDimensions();
   const wide = width >= 860;
   const results = useLiveResults();
-  const { lang } = useLanguage();
+  const { lang, i18n } = useLanguage();
   const L = HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN;
   const leaders = useMemo(() => computePlayerLeaders(results, L), [results, lang]);
   const teams = useMemo(() => shotRankings(results), [results]);
   const xi = useMemo(() => buildLiliXI(results, L), [results, lang]);
+  const lineups = useLineups();
+  const teamFlagMap = useMemo(() => new Map(WC_TEAMS.map((t) => [t.name, t.flag])), []);
 
   const [sel, setSel] = useState<Sel | null>(null);
   const selected: Sel | null = sel ?? (leaders.spotlight ? { name: leaders.spotlight.row.name, team: leaders.spotlight.row.team, flag: leaders.spotlight.row.flag } : null);
@@ -149,6 +154,11 @@ export default function DashboardModule({ favTeam }: { favTeam?: string }) {
         <View style={wide ? s.col : undefined}>{Leaders}</View>
         <View style={wide ? s.col : undefined}>{Teams}</View>
         <View style={wide ? s.col : s.stack}>{Spotlight}{Impact}{Details}</View>
+      </View>
+
+      <View style={s.card}>
+        <Text style={s.cardTitle}>🧩 FORMATION RECORD · WHO WINS WITH WHAT</Text>
+        <FormationRecord lineups={lineups} teamFlagMap={teamFlagMap} i18n={i18n} />
       </View>
 
       <LiliXI xi={xi} favTeam={favTeam} />
