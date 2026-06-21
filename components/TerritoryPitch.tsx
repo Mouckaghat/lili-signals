@@ -37,7 +37,10 @@ function buildStops(homeFrac: number) {
   return out;
 }
 
-export default function TerritoryPitch({ homeName, awayName, homeFrac }: { homeName: string; awayName: string; homeFrac: number }) {
+// showLegend defaults true (phone). On desktop the "How To Read" rail panel
+// already explains the gradient, so the screen passes showLegend={false} to drop
+// the redundant under-pitch legend.
+export default function TerritoryPitch({ homeName, awayName, homeFrac, showLegend = true }: { homeName: string; awayName: string; homeFrac: number; showLegend?: boolean }) {
   const stops = buildStops(Number.isFinite(homeFrac) ? homeFrac : 0.5);
   return (
     <View>
@@ -60,11 +63,13 @@ export default function TerritoryPitch({ homeName, awayName, homeFrac }: { homeN
         <Rect x={0} y={0} width={PITCH_W} height={PITCH_H} fill="url(#terrH)" />
         <Rect x={0} y={0} width={PITCH_W} height={PITCH_H} fill="url(#terrV)" />
       </PitchSvg>
-      <View style={s.legend}>
-        <Lg color={C.red} label={`${awayName} territory`} />
-        <Lg color={C.purple} label="Contested" />
-        <Lg color={C.blue} label={`${homeName} territory`} />
-      </View>
+      {showLegend && (
+        <View style={s.legend}>
+          <Lg color={C.red} label={`${awayName} territory`} />
+          <Lg color={C.purple} label="Contested" />
+          <Lg color={C.blue} label={`${homeName} territory`} />
+        </View>
+      )}
     </View>
   );
 }

@@ -275,31 +275,50 @@ export default function MatchHeatmapScreen() {
   );
 
   const Footer = <Text style={st.foot}>Heatmap & momentum modelled from possession, shots & xG — not player tracking · Data by Lili Signals</Text>;
+  // Heatmap-tab footer: carries the TERRITORY/pitch honesty + attribution. The
+  // momentum honesty already lives in the MomentumPanel note (live) and the
+  // forecast honesty in fcNote — so the model caveat is stated once, not repeated.
+  const HeatFooter = <Text style={st.foot}>Territory map is a Lili model — not player tracking · Data by Lili Signals 🦞</Text>;
 
   // Shared Heatmap body — used by BOTH the live Heatmap tab and the pre-kickoff
-  // forecast, so they look identical. Phone is the reference: one scrolling
-  // column (pitch → momentum/note → rail). On wide it's the SAME two-column grid
-  // as Overview / Attack Zones / Shots (heatLeft flex + fixed-width heatRight).
-  // Live shows the momentum wave below the pitch; forecast shows the fcNote
-  // instead (no momentum exists before kickoff).
-  const heatLeftExtra = isForecast ? (
-    <View style={st.fcNote}><Text style={st.fcNoteText}>{t.fcNote}</Text></View>
-  ) : (
-    <MomentumPanel match={active} />
+  // forecast so they read identically.
+  //
+  // Desktop: a premium two-column control dashboard — LEFT = pitch with the
+  // momentum wave hugged directly beneath it (they belong together); RIGHT = the
+  // rail (Lili Insight → How To Read → Territory Share → Team Stats). The row is
+  // width-capped + centred so the aspect-locked pitch stays WIDE but never grows
+  // oversized-tall on big monitors, while the rail flexes to fill — no giant
+  // dead margins, no lonely centred pitch. The pitch legend is dropped on desktop
+  // (the How To Read rail already explains the gradient).
+  //
+  // Phone: pitch → rail → momentum (the wave reads last); forecast keeps its note
+  // directly under the pitch (there is no momentum before kickoff). The pitch
+  // legend stays on phone.
+  const fcNoteEl = <View style={st.fcNote}><Text style={st.fcNoteText}>{t.fcNote}</Text></View>;
+  const momentumEl = <View style={st.momSlot}><MomentumPanel match={active} /></View>;
+  const pitchEl = (
+    <TerritoryPitch homeName={active.home} awayName={active.away} homeFrac={hTerr / 100} showLegend={!wide} />
   );
+
   const HeatmapBody = wide ? (
     <View style={st.heatRow}>
       <View style={st.heatLeft}>
-        <TerritoryPitch homeName={active.home} awayName={active.away} homeFrac={hTerr / 100} />
-        {heatLeftExtra}
+        {pitchEl}
+        {isForecast ? fcNoteEl : momentumEl}
       </View>
       <View style={st.heatRight}>{RailContent}</View>
     </View>
+  ) : isForecast ? (
+    <View>
+      {pitchEl}
+      {fcNoteEl}
+      <View style={{ marginTop: 12 }}>{RailContent}</View>
+    </View>
   ) : (
     <View>
-      <TerritoryPitch homeName={active.home} awayName={active.away} homeFrac={hTerr / 100} />
-      {heatLeftExtra}
+      {pitchEl}
       <View style={{ marginTop: 12 }}>{RailContent}</View>
+      <View style={{ marginTop: 12 }}>{momentumEl}</View>
     </View>
   );
 
@@ -318,7 +337,7 @@ export default function MatchHeatmapScreen() {
           <Text style={st.fcBannerSub}>{basisLine}. {t.fcBannerTail}</Text>
         </View>
         <View style={st.narrowBody}>{HeatmapBody}</View>
-        {Footer}
+        {HeatFooter}
       </ScrollView>
     );
   }
@@ -417,7 +436,7 @@ export default function MatchHeatmapScreen() {
       <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
         {Header}{Picker}{Tabs}
         <View style={st.narrowBody}>{HeatmapBody}</View>
-        {Footer}
+        {HeatFooter}
       </ScrollView>
     );
   }
@@ -481,13 +500,18 @@ const st = StyleSheet.create({
   tabTextOn: { color: D.text1, fontWeight: '800' },
 
   narrowBody:{ paddingHorizontal: 14, paddingTop: 10 },
-  // Heatmap (wide) uses the SAME edge-to-edge two-column grid as Overview /
-  // Attack Zones / Shots: full width (page's 14px padding), flex-left column +
-  // a fixed-width rail, stacked cards. No maxWidth, no centring — so it matches
-  // the density of the other pages and the page scrolls naturally like they do.
-  heatRow:   { flexDirection: 'row', gap: 12, alignItems: 'flex-start' },
-  heatLeft:  { flex: 1.3, minWidth: 0, gap: 10 },
-  heatRight: { width: 330, gap: 10 },
+  // Heatmap (wide): a two-column control dashboard. The pitch is aspect-locked,
+  // so the LEFT column is capped (maxWidth) to keep it WIDE but never oversized-
+  // tall; the RIGHT rail flexes to fill, and the whole row is centred so any
+  // leftover space on very large monitors becomes a small symmetric margin —
+  // never a lonely centred pitch with giant dead space. Fills the width on normal
+  // laptops; only modest margins beyond ~1.1k.
+  heatRow:   { flexDirection: 'row', gap: 14, alignItems: 'flex-start', justifyContent: 'center' },
+  heatLeft:  { flex: 1, minWidth: 0, maxWidth: 660 },
+  heatRight: { flex: 1, minWidth: 300, maxWidth: 440, gap: 10 },
+  // Momentum sits flush under the pitch (cancels MomentumPanel's s.solo inset so
+  // the wave aligns to the pitch edges and hugs it with only a small gap).
+  momSlot:   { marginHorizontal: -12, marginTop: -4 },
 
   placeholder:      { alignItems: 'center', justifyContent: 'center', paddingHorizontal: 28, paddingVertical: 64, gap: 8 },
   placeholderTitle: { color: D.text1, fontSize: 22, fontWeight: '900', letterSpacing: 0.4 },
