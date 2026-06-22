@@ -300,6 +300,13 @@ export const MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Uruguay", possession: 0.66, totalShots: 16, shotsInsideBox: 8, shotsOutsideBox: 8, shotsOnGoal: 2, corners: 11, xg: 2.28, passAccuracy: 0.83, passes: 494, fouls: 8 },
     awayStats: { team: "Cape Verde Islands", possession: 0.34, totalShots: 7, shotsInsideBox: 1, shotsOutsideBox: 6, shotsOnGoal: 2, corners: 3, xg: 0.77, passAccuracy: 0.74, passes: 256, fouls: 4 },
   },
+  {
+    fixtureId: "H2_New_Zealand_v_Egypt",
+    home: "New Zealand", away: "Egypt", date: "2026-06-22",
+    status: "LIVE", elapsed: 47,
+    homeStats: { team: "New Zealand", possession: 0.43, totalShots: 7, shotsInsideBox: 4, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 1, xg: 0.34, passAccuracy: 0.8, passes: 209, fouls: 9 },
+    awayStats: { team: "Egypt", possession: 0.57, totalShots: 6, shotsInsideBox: 3, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 1, xg: 0.63, passAccuracy: 0.89, passes: 285, fouls: 2 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-22T00:14:03.530Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-22T02:07:36.887Z';
