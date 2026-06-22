@@ -627,6 +627,17 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "I2_France_v_Iraq",
+    home: "France", away: "Iraq", date: "2026-06-22",
+    goals: [
+      { player: "Kylian Mbappé", team: "France", minute: 14, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "A. Al Ammari", team: "Iraq", minute: 6, reason: "Tripping" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-22T20:26:23.469Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-22T22:21:03.310Z';
