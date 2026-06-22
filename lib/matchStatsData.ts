@@ -310,10 +310,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "J2_Argentina_v_Austria",
     home: "Argentina", away: "Austria", date: "2026-06-22",
-    status: "LIVE", elapsed: 45,
-    homeStats: { team: "Argentina", possession: 0.55, totalShots: 3, shotsInsideBox: 3, shotsOutsideBox: 0, shotsOnGoal: 2, corners: 0, xg: 1.05, passAccuracy: 0.87, passes: 230, fouls: 8 },
-    awayStats: { team: "Austria", possession: 0.45, totalShots: 2, shotsInsideBox: 2, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 2, xg: 0.24, passAccuracy: 0.79, passes: 184, fouls: 5 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Argentina", possession: 0.54, totalShots: 12, shotsInsideBox: 10, shotsOutsideBox: 2, shotsOnGoal: 5, corners: 1, xg: 2.65, passAccuracy: 0.89, passes: 553, fouls: 13 },
+    awayStats: { team: "Austria", possession: 0.46, totalShots: 6, shotsInsideBox: 4, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 3, xg: 0.5, passAccuracy: 0.86, passes: 468, fouls: 13 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-22T17:51:45.229Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-22T20:26:20.632Z';
