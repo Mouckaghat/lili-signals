@@ -241,29 +241,29 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "D2_Brazil_v_Haiti",
     home: "Brazil", away: "Haiti", date: "2026-06-20",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Brazil", possession: 0.57, totalShots: 8, shotsInsideBox: 8, shotsOutsideBox: 0, shotsOnGoal: 5, corners: 4, xg: 1.5, passAccuracy: 0.88, passes: 522, fouls: 13 },
-    awayStats: { team: "Haiti", possession: 0.43, totalShots: 8, shotsInsideBox: 5, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 4, xg: 0.25, passAccuracy: 0.83, passes: 399, fouls: 15 },
+    homeStats: { team: "Brazil", possession: 0.57, totalShots: 8, shotsInsideBox: 8, shotsOutsideBox: 0, shotsOnGoal: 5, corners: 4, xg: 1.75, passAccuracy: 0.88, passes: 525, fouls: 13 },
+    awayStats: { team: "Haiti", possession: 0.43, totalShots: 7, shotsInsideBox: 4, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 4, xg: 0.23, passAccuracy: 0.83, passes: 399, fouls: 14 },
   },
   {
     fixtureId: "C2_T_rkiye_v_Paraguay",
     home: "Türkiye", away: "Paraguay", date: "2026-06-19",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Türkiye", possession: 0.79, totalShots: 32, shotsInsideBox: 16, shotsOutsideBox: 16, shotsOnGoal: 5, corners: 12, xg: 2.1, passAccuracy: 0.89, passes: 630, fouls: 14 },
-    awayStats: { team: "Paraguay", possession: 0.21, totalShots: 7, shotsInsideBox: 3, shotsOutsideBox: 4, shotsOnGoal: 2, corners: 0, xg: 0.32, passAccuracy: 0.53, passes: 177, fouls: 15 },
+    homeStats: { team: "Türkiye", possession: 0.79, totalShots: 32, shotsInsideBox: 16, shotsOutsideBox: 16, shotsOnGoal: 5, corners: 12, xg: 2.17, passAccuracy: 0.89, passes: 629, fouls: 14 },
+    awayStats: { team: "Paraguay", possession: 0.21, totalShots: 7, shotsInsideBox: 3, shotsOutsideBox: 4, shotsOnGoal: 2, corners: 0, xg: 0.32, passAccuracy: 0.54, passes: 178, fouls: 15 },
   },
   {
     fixtureId: "F2_Netherlands_v_Sweden",
     home: "Netherlands", away: "Sweden", date: "2026-06-20",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Netherlands", possession: 0.51, totalShots: 10, shotsInsideBox: 6, shotsOutsideBox: 4, shotsOnGoal: 7, corners: 2, xg: 2.47, passAccuracy: 0.88, passes: 450, fouls: 9 },
-    awayStats: { team: "Sweden", possession: 0.49, totalShots: 16, shotsInsideBox: 7, shotsOutsideBox: 9, shotsOnGoal: 8, corners: 5, xg: 0.98, passAccuracy: 0.85, passes: 424, fouls: 12 },
+    homeStats: { team: "Netherlands", possession: 0.51, totalShots: 10, shotsInsideBox: 6, shotsOutsideBox: 4, shotsOnGoal: 7, corners: 2, xg: 2.61, passAccuracy: 0.89, passes: 449, fouls: 9 },
+    awayStats: { team: "Sweden", possession: 0.49, totalShots: 16, shotsInsideBox: 7, shotsOutsideBox: 9, shotsOnGoal: 8, corners: 5, xg: 1.01, passAccuracy: 0.85, passes: 425, fouls: 12 },
   },
   {
     fixtureId: "E2_Germany_v_Ivory_Coast",
     home: "Germany", away: "Ivory Coast", date: "2026-06-20",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Germany", possession: 0.59, totalShots: 16, shotsInsideBox: 9, shotsOutsideBox: 7, shotsOnGoal: 7, corners: 8, xg: 1.83, passAccuracy: 0.89, passes: 622, fouls: 5 },
-    awayStats: { team: "Ivory Coast", possession: 0.41, totalShots: 9, shotsInsideBox: 6, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 3, xg: 1.23, passAccuracy: 0.85, passes: 431, fouls: 7 },
+    homeStats: { team: "Germany", possession: 0.6, totalShots: 16, shotsInsideBox: 9, shotsOutsideBox: 7, shotsOnGoal: 7, corners: 8, xg: 1.89, passAccuracy: 0.89, passes: 624, fouls: 5 },
+    awayStats: { team: "Ivory Coast", possession: 0.4, totalShots: 9, shotsInsideBox: 6, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 3, xg: 1.22, passAccuracy: 0.85, passes: 431, fouls: 7 },
   },
   {
     fixtureId: "E2_Ecuador_v_Cura_ao",
@@ -303,10 +303,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "H2_New_Zealand_v_Egypt",
     home: "New Zealand", away: "Egypt", date: "2026-06-22",
-    status: "LIVE", elapsed: 47,
-    homeStats: { team: "New Zealand", possession: 0.43, totalShots: 7, shotsInsideBox: 4, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 1, xg: 0.34, passAccuracy: 0.8, passes: 209, fouls: 9 },
-    awayStats: { team: "Egypt", possession: 0.57, totalShots: 6, shotsInsideBox: 3, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 1, xg: 0.63, passAccuracy: 0.89, passes: 285, fouls: 2 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "New Zealand", possession: 0.44, totalShots: 11, shotsInsideBox: 6, shotsOutsideBox: 5, shotsOnGoal: 5, corners: 4, xg: 1.12, passAccuracy: 0.8, passes: 420, fouls: 14 },
+    awayStats: { team: "Egypt", possession: 0.56, totalShots: 19, shotsInsideBox: 12, shotsOutsideBox: 7, shotsOnGoal: 7, corners: 3, xg: 1.96, passAccuracy: 0.88, passes: 528, fouls: 8 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-22T02:07:36.887Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-22T07:37:45.726Z';
