@@ -56,8 +56,8 @@ export const GROUP_STANDINGS: GroupStanding[] = [
   { group: "I", team: "France", rank: 2, played: 1, won: 1, drawn: 0, lost: 0, gf: 3, ga: 1, gd: 2, pts: 3, status: 'ALIVE' },
   { group: "I", team: "Senegal", rank: 3, played: 1, won: 0, drawn: 0, lost: 1, gf: 1, ga: 3, gd: -2, pts: 0, status: 'AT-RISK' },
   { group: "I", team: "Iraq", rank: 4, played: 1, won: 0, drawn: 0, lost: 1, gf: 1, ga: 4, gd: -3, pts: 0, status: 'AT-RISK' },
-  { group: "J", team: "Argentina", rank: 1, played: 1, won: 1, drawn: 0, lost: 0, gf: 3, ga: 0, gd: 3, pts: 3, status: 'ALIVE' },
-  { group: "J", team: "Austria", rank: 2, played: 1, won: 1, drawn: 0, lost: 0, gf: 3, ga: 1, gd: 2, pts: 3, status: 'ALIVE' },
+  { group: "J", team: "Argentina", rank: 1, played: 2, won: 2, drawn: 0, lost: 0, gf: 5, ga: 0, gd: 5, pts: 6, status: 'QUALIFIED' },
+  { group: "J", team: "Austria", rank: 2, played: 2, won: 1, drawn: 0, lost: 1, gf: 3, ga: 3, gd: 0, pts: 3, status: 'ALIVE' },
   { group: "J", team: "Jordan", rank: 3, played: 1, won: 0, drawn: 0, lost: 1, gf: 1, ga: 3, gd: -2, pts: 0, status: 'AT-RISK' },
   { group: "J", team: "Algeria", rank: 4, played: 1, won: 0, drawn: 0, lost: 1, gf: 0, ga: 3, gd: -3, pts: 0, status: 'AT-RISK' },
   { group: "K", team: "Colombia", rank: 1, played: 1, won: 1, drawn: 0, lost: 0, gf: 3, ga: 1, gd: 2, pts: 3, status: 'ALIVE' },
@@ -82,4 +82,4 @@ export const GROUP_STANDINGS: GroupStanding[] = [
   { group: "Stage", team: "Jordan", rank: 12, played: 1, won: 0, drawn: 0, lost: 1, gf: 1, ga: 3, gd: -2, pts: 0, status: 'AT-RISK' },
 ];
 
-export const STANDINGS_LAST_UPDATED = '2026-06-22T15:50:35.956Z';
+export const STANDINGS_LAST_UPDATED = '2026-06-22T19:25:51.207Z';
