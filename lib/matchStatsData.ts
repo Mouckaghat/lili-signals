@@ -317,10 +317,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "I2_France_v_Iraq",
     home: "France", away: "Iraq", date: "2026-06-22",
-    status: "LIVE", elapsed: 45,
+    status: "LIVE", elapsed: null,
     homeStats: { team: "France", possession: 0.58, totalShots: 7, shotsInsideBox: 1, shotsOutsideBox: 6, shotsOnGoal: 1, corners: 1, xg: 0.24, passAccuracy: 0.89, passes: 291, fouls: 5 },
     awayStats: { team: "Iraq", possession: 0.42, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 1, xg: 0.16, passAccuracy: 0.8, passes: 213, fouls: 2 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-22T21:52:16.173Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-22T22:20:41.956Z';
