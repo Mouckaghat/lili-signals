@@ -1337,4 +1337,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "I2_France_v_Iraq", team: "Iraq", name: "Ali Al-Hamadi", pos: "FW", minutes: 20, rating: 6.7, goals: 0, assists: 0, saves: 0, shots: 1, shotsOn: 0, passes: 5, passAccPct: 40, tackles: 0, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-06-22T21:53:22.035Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-06-22T23:21:07.522Z';
