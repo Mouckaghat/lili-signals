@@ -512,7 +512,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     yellowCards: [
       { player: "Gabriel Gudmundsson", team: "Sweden", minute: 53, reason: "Foul" },
       { player: "Yasin Ayari", team: "Sweden", minute: 75, reason: "Foul" },
-      { player: "Lucas Bergvall", team: "Sweden", minute: 80, reason: "Dangerous play" },
+      { player: "Lucas Bergvall", team: "Sweden", minute: 80, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -522,7 +522,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Franck Kessié", team: "Ivory Coast", minute: 30, type: "goal" },
       { player: "Deniz Undav", team: "Germany", minute: 68, type: "goal" },
-      { player: "Deniz Undav", team: "Germany", minute: 90, minuteStoppage: 4, type: "goal" },
+      { player: "Deniz Undav", team: "Germany", minute: 90, type: "goal" },
     ],
     yellowCards: [],
     redCards: [],
@@ -532,12 +532,12 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Ecuador", away: "Curaçao", date: "2026-06-21",
     goals: [],
     yellowCards: [
-      { player: "Jordy Alcívar", team: "Ecuador", minute: 38, reason: "Tripping" },
+      { player: "Jordy Alcívar", team: "Ecuador", minute: 38, reason: "Foul" },
       { player: "Leandro Bacuna", team: "Curaçao", minute: 39, reason: "Foul" },
       { player: "Juninho Bacuna", team: "Curaçao", minute: 53, reason: "Foul" },
-      { player: "Livano Comenencia", team: "Curaçao", minute: 56, reason: "Roughing" },
-      { player: "Juriën Gaari", team: "Curaçao", minute: 75, reason: "Roughing" },
-      { player: "Gervane Kastaneer", team: "Curaçao", minute: 90, reason: "Roughing" },
+      { player: "Livano Comenencia", team: "Curaçao", minute: 56, reason: "Foul" },
+      { player: "Juriën Gaari", team: "Curaçao", minute: 75, reason: "Foul" },
+      { player: "Gervane Kastaneer", team: "Curaçao", minute: 90, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -560,11 +560,11 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Lamine Yamal", team: "Spain", minute: 10, type: "goal" },
       { player: "Mikel Oyarzabal", team: "Spain", minute: 21, type: "goal" },
       { player: "Mikel Oyarzabal", team: "Spain", minute: 24, type: "goal" },
-      { player: "H. Tambakti", team: "Saudi Arabia", minute: 49, type: "own-goal" },
+      { player: "Hassan Tambakti", team: "Saudi Arabia", minute: 49, type: "own-goal" },
     ],
     yellowCards: [
-      { player: "S. Al Dawsari", team: "Saudi Arabia", minute: 30, reason: "Roughing" },
-      { player: "Mohamed Kanno", team: "Saudi Arabia", minute: 60, reason: "Elbowing" },
+      { player: "Salem Al-Dawsari", team: "Saudi Arabia", minute: 30, reason: "Foul" },
+      { player: "Mohamed Kanno", team: "Saudi Arabia", minute: 60, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -573,27 +573,26 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Belgium", away: "Iran", date: "2026-06-21",
     goals: [],
     yellowCards: [
-      { player: "Romelu Lukaku", team: "Belgium", minute: 3, reason: "Roughing" },
-      { player: "Saeid Ezatolahi", team: "Iran", minute: 33, reason: "Holding" },
+      { player: "Romelu Lukaku", team: "Belgium", minute: 3, reason: "Foul" },
+      { player: "Saeid Ezatolahi", team: "Iran", minute: 33, reason: "Foul" },
     ],
     redCards: [
-      { player: "Nathan Ngoy", team: "Belgium", minute: 66, reason: "Holding" },
+      { player: "Nathan Ngoy", team: "Belgium", minute: 66, reason: "Professional foul last man" },
     ],
   },
   {
     fixtureId: "G2_Uruguay_v_Cape_Verde_Islands",
     home: "Uruguay", away: "Cape Verde Islands", date: "2026-06-21",
     goals: [
-      { player: "K. Lenini", team: "Cape Verde Islands", minute: 21, type: "goal" },
+      { player: "Kevin Lenini", team: "Cape Verde Islands", minute: 21, type: "goal" },
       { player: "Maximiliano Araújo", team: "Uruguay", minute: 44, type: "goal" },
       { player: "Agustín Canobbio", team: "Uruguay", minute: 45, minuteStoppage: 6, type: "goal" },
       { player: "Hélio Varela", team: "Cape Verde Islands", minute: 61, type: "goal" },
     ],
     yellowCards: [
-      { player: "Sidny Lopes Cabral", team: "Cape Verde Islands", minute: 5 },
-      { player: "Rodrigo Bentancur", team: "Uruguay", minute: 20, reason: "Tripping" },
-      { player: "Mathías Olivera", team: "Uruguay", minute: 58, reason: "Holding" },
-      { player: "D. Borges", team: "Cape Verde Islands", minute: 90, reason: "Foul" },
+      { player: "Sidny Lopes Cabral", team: "Cape Verde Islands", minute: 5, reason: "Foul" },
+      { player: "Rodrigo Bentancur", team: "Uruguay", minute: 20, reason: "Foul" },
+      { player: "Mathías Olivera", team: "Uruguay", minute: 58, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -602,6 +601,9 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "New Zealand", away: "Egypt", date: "2026-06-22",
     goals: [
       { player: "Finn Surman", team: "New Zealand", minute: 15, type: "goal" },
+      { player: "Mostafa Ziko", team: "Egypt", minute: 58, type: "goal" },
+      { player: "Mohamed Salah", team: "Egypt", minute: 67, type: "goal" },
+      { player: "Trézéguet", team: "Egypt", minute: 82, type: "goal" },
     ],
     yellowCards: [
       { player: "Mohanad Lasheen", team: "Egypt", minute: 17, reason: "Roughing" },
@@ -612,4 +614,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-22T02:07:41.262Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-22T07:37:54.657Z';
