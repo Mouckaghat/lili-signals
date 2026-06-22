@@ -1282,4 +1282,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "H2_New_Zealand_v_Egypt", team: "Egypt", name: "Mohamed Abdelmonem", pos: "DF", minutes: 2, rating: null, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 2, passAccPct: 100, tackles: 0, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-06-22T11:20:05.439Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-06-22T16:09:11.211Z';
