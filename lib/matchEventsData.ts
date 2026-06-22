@@ -617,12 +617,16 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Argentina", away: "Austria", date: "2026-06-22",
     goals: [
       { player: "Lionel Messi", team: "Argentina", minute: 38, type: "goal" },
+      { player: "Lionel Messi", team: "Argentina", minute: 90, minuteStoppage: 5, type: "goal" },
     ],
     yellowCards: [
       { player: "Stefan Posch", team: "Austria", minute: 40, reason: "Unsportsmanlike conduct" },
+      { player: "Facundo Medina", team: "Argentina", minute: 76, reason: "Unsportsmanlike conduct" },
+      { player: "Konrad Laimer", team: "Austria", minute: 76, reason: "Unsportsmanlike conduct" },
+      { player: "Leandro Paredes", team: "Argentina", minute: 90, reason: "Roughing" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-22T17:52:00.821Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-22T20:26:23.469Z';
