@@ -369,7 +369,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:36.206Z"
+    "updatedAt": "2026-06-22T21:30:55.702Z"
   },
   {
     "fixtureKey": "Argentina|Austria",
@@ -461,6 +461,18 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
+          "name": "Nicolás Tagliafico",
+          "number": 3,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Leandro Paredes",
+          "number": 5,
+          "pos": "MF",
+          "starter": false
+        },
+        {
           "name": "Juan Musso",
           "number": 1,
           "pos": "GK",
@@ -470,12 +482,6 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "name": "Gerónimo Rulli",
           "number": 12,
           "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "Nicolás Tagliafico",
-          "number": 3,
-          "pos": "DF",
           "starter": false
         },
         {
@@ -500,12 +506,6 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "name": "Nico Paz",
           "number": 18,
           "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "Leandro Paredes",
-          "number": 5,
-          "pos": "MF",
           "starter": false
         },
         {
@@ -605,6 +605,36 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
+          "name": "Marco Friedl",
+          "number": 23,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Alexander Prass",
+          "number": 22,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Marko Arnautović",
+          "number": 7,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Patrick Wimmer",
+          "number": 21,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Carney Chukwuemeka",
+          "number": 17,
+          "pos": "MF",
+          "starter": false
+        },
+        {
           "name": "Patrick Pentz",
           "number": 13,
           "pos": "GK",
@@ -623,12 +653,6 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "Marco Friedl",
-          "number": 23,
-          "pos": "DF",
-          "starter": false
-        },
-        {
           "name": "Michael Svoboda",
           "number": 25,
           "pos": "DF",
@@ -641,32 +665,14 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "Alexander Prass",
-          "number": 22,
-          "pos": "DF",
-          "starter": false
-        },
-        {
           "name": "Dejan Ljubičić",
           "number": 19,
           "pos": "MF",
           "starter": false
         },
         {
-          "name": "Patrick Wimmer",
-          "number": 21,
-          "pos": "MF",
-          "starter": false
-        },
-        {
           "name": "Florian Grillitsch",
           "number": 10,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "Carney Chukwuemeka",
-          "number": 17,
           "pos": "MF",
           "starter": false
         },
@@ -687,19 +693,13 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "number": 14,
           "pos": "FW",
           "starter": false
-        },
-        {
-          "name": "Marko Arnautović",
-          "number": 7,
-          "pos": "FW",
-          "starter": false
         }
       ],
       "coach": "Ralf Rangnick"
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:28.083Z"
+    "updatedAt": "2026-06-22T21:31:03.795Z"
   },
   {
     "fixtureKey": "Australia|Türkiye",
@@ -1029,7 +1029,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:31.331Z"
+    "updatedAt": "2026-06-22T21:30:51.752Z"
   },
   {
     "fixtureKey": "Austria|Jordan",
@@ -1359,7 +1359,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:36.611Z"
+    "updatedAt": "2026-06-22T21:30:56.059Z"
   },
   {
     "fixtureKey": "Belgium|Egypt",
@@ -1683,7 +1683,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:33.774Z"
+    "updatedAt": "2026-06-22T21:30:53.906Z"
   },
   {
     "fixtureKey": "Belgium|Iran",
@@ -2001,7 +2001,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:44.033Z"
+    "updatedAt": "2026-06-22T21:31:02.717Z"
   },
   {
     "fixtureKey": "Bosnia & Herzegovina|Qatar",
@@ -2339,7 +2339,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:41.193Z"
+    "updatedAt": "2026-06-22T21:31:00.031Z"
   },
   {
     "fixtureKey": "Brazil|Morocco",
@@ -2663,7 +2663,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:30.519Z"
+    "updatedAt": "2026-06-22T21:30:51.029Z"
   },
   {
     "fixtureKey": "Canada|Bosnia & Herzegovina",
@@ -2993,7 +2993,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:29.297Z"
+    "updatedAt": "2026-06-22T21:30:49.949Z"
   },
   {
     "fixtureKey": "Canada|Qatar",
@@ -3317,7 +3317,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:39.580Z"
+    "updatedAt": "2026-06-22T21:30:58.591Z"
   },
   {
     "fixtureKey": "Cape Verde Islands|Saudi Arabia",
@@ -3727,7 +3727,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:38.771Z"
+    "updatedAt": "2026-06-22T21:30:57.872Z"
   },
   {
     "fixtureKey": "Ecuador|Curaçao",
@@ -4057,7 +4057,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:42.822Z"
+    "updatedAt": "2026-06-22T21:31:01.537Z"
   },
   {
     "fixtureKey": "Ecuador|Germany",
@@ -4409,7 +4409,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:37.558Z"
+    "updatedAt": "2026-06-22T21:30:56.775Z"
   },
   {
     "fixtureKey": "England|Ghana",
@@ -4429,15 +4429,331 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     "fixtureKey": "France|Iraq",
     "home": {
       "formation": "4-2-3-1",
-      "players": []
+      "players": [
+        {
+          "name": "Mike Maignan",
+          "number": 16,
+          "pos": "GK",
+          "starter": true
+        },
+        {
+          "name": "Jules Koundé",
+          "number": 5,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Dayot Upamecano",
+          "number": 4,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "William Saliba",
+          "number": 17,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Lucas Digne",
+          "number": 3,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Manu Koné",
+          "number": 6,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Adrien Rabiot",
+          "number": 14,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Ousmane Dembélé",
+          "number": 7,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Michael Olise",
+          "number": 11,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Bradley Barcola",
+          "number": 12,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Kylian Mbappé",
+          "number": 10,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Brice Samba",
+          "number": 1,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Robin Risser",
+          "number": 23,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Malo Gusto",
+          "number": 2,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Ibrahima Konaté",
+          "number": 15,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Lucas Hernández",
+          "number": 21,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Theo Hernández",
+          "number": 19,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Maxence Lacroix",
+          "number": 26,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Aurélien Tchouaméni",
+          "number": 8,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "N'Golo Kanté",
+          "number": 13,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Warren Zaïre-Emery",
+          "number": 18,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Maghnes Akliouche",
+          "number": 25,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Rayan Cherki",
+          "number": 24,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Jean-Philippe Mateta",
+          "number": 22,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Marcus Thuram",
+          "number": 9,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Désiré Doué",
+          "number": 20,
+          "pos": "FW",
+          "starter": false
+        }
+      ],
+      "coach": "Didier Deschamps"
     },
     "away": {
-      "formation": "4-4-2",
-      "players": []
+      "formation": "4-3-3",
+      "players": [
+        {
+          "name": "Ahmed Basil",
+          "number": 22,
+          "pos": "GK",
+          "starter": true
+        },
+        {
+          "name": "Hussein Ali",
+          "number": 3,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Zaid Tahseen",
+          "number": 4,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Akam Hashem",
+          "number": 5,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Merchas Doski",
+          "number": 23,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Zaid Ismail",
+          "number": 24,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Amir Al-Ammari",
+          "number": 16,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Zidane Iqbal",
+          "number": 14,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Ahmed Qasem",
+          "number": 11,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Aymen Hussein",
+          "number": 18,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Ibrahim Bayesh",
+          "number": 8,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Fahad Talib",
+          "number": 1,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Jalal Hassan",
+          "number": 12,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Munaf Younus",
+          "number": 6,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Ahmed Hasan Maknazi",
+          "number": 15,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Frans Putros",
+          "number": 26,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Mustafa Saadoon",
+          "number": 25,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Rebin Sulaka",
+          "number": 2,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Ali Jasim",
+          "number": 17,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Aimar Sher",
+          "number": 20,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Kevin Yakob",
+          "number": 19,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Marko Farji",
+          "number": 21,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Youssef Amyn",
+          "number": 7,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Ali Yousif",
+          "number": 13,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Ali Al-Hamadi",
+          "number": 9,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Mohanad Ali",
+          "number": 10,
+          "pos": "FW",
+          "starter": false
+        }
+      ],
+      "coach": "Graham Arnold"
     },
-    "confirmed": false,
-    "source": "baseline",
-    "updatedAt": "2026-06-12T16:43:43.362Z"
+    "confirmed": true,
+    "source": "api-football",
+    "updatedAt": "2026-06-22T21:30:48.864Z"
   },
   {
     "fixtureKey": "France|Senegal",
@@ -4767,7 +5083,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:35.395Z"
+    "updatedAt": "2026-06-22T21:30:54.985Z"
   },
   {
     "fixtureKey": "Germany|Curaçao",
@@ -5097,7 +5413,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:31.751Z"
+    "updatedAt": "2026-06-22T21:30:52.114Z"
   },
   {
     "fixtureKey": "Germany|Ivory Coast",
@@ -5427,7 +5743,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:42.404Z"
+    "updatedAt": "2026-06-22T21:31:01.141Z"
   },
   {
     "fixtureKey": "Ghana|Panama",
@@ -5751,7 +6067,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:37.963Z"
+    "updatedAt": "2026-06-22T21:30:57.133Z"
   },
   {
     "fixtureKey": "Haiti|Scotland",
@@ -6081,7 +6397,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:30.925Z"
+    "updatedAt": "2026-06-22T21:30:51.392Z"
   },
   {
     "fixtureKey": "Iran|New Zealand",
@@ -6404,7 +6720,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:34.988Z"
+    "updatedAt": "2026-06-22T21:30:54.624Z"
   },
   {
     "fixtureKey": "Iraq|Norway",
@@ -6734,7 +7050,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:35.802Z"
+    "updatedAt": "2026-06-22T21:30:55.345Z"
   },
   {
     "fixtureKey": "Ivory Coast|Ecuador",
@@ -7064,7 +7380,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:32.560Z"
+    "updatedAt": "2026-06-22T21:30:52.834Z"
   },
   {
     "fixtureKey": "Japan|Sweden",
@@ -7436,7 +7752,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:28.489Z"
+    "updatedAt": "2026-06-22T21:30:49.224Z"
   },
   {
     "fixtureKey": "Mexico|South Korea",
@@ -7760,7 +8076,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:39.983Z"
+    "updatedAt": "2026-06-22T21:30:58.950Z"
   },
   {
     "fixtureKey": "Morocco|Haiti",
@@ -8104,7 +8420,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:32.155Z"
+    "updatedAt": "2026-06-22T21:30:52.473Z"
   },
   {
     "fixtureKey": "Netherlands|Sweden",
@@ -8428,7 +8744,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:42.000Z"
+    "updatedAt": "2026-06-22T21:31:00.774Z"
   },
   {
     "fixtureKey": "New Zealand|Belgium",
@@ -8771,7 +9087,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:44.840Z"
+    "updatedAt": "2026-06-22T21:31:03.434Z"
   },
   {
     "fixtureKey": "Norway|France",
@@ -9171,7 +9487,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:37.015Z"
+    "updatedAt": "2026-06-22T21:30:56.418Z"
   },
   {
     "fixtureKey": "Portugal|Uzbekistan",
@@ -9515,7 +9831,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:30.114Z"
+    "updatedAt": "2026-06-22T21:30:50.669Z"
   },
   {
     "fixtureKey": "Saudi Arabia|Uruguay",
@@ -9833,7 +10149,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:34.582Z"
+    "updatedAt": "2026-06-22T21:30:54.263Z"
   },
   {
     "fixtureKey": "Scotland|Brazil",
@@ -10177,7 +10493,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:40.790Z"
+    "updatedAt": "2026-06-22T21:30:59.672Z"
   },
   {
     "fixtureKey": "Senegal|Iraq",
@@ -10535,7 +10851,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:28.894Z"
+    "updatedAt": "2026-06-22T21:30:49.581Z"
   },
   {
     "fixtureKey": "Spain|Cape Verde Islands",
@@ -10865,7 +11181,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:33.370Z"
+    "updatedAt": "2026-06-22T21:30:53.549Z"
   },
   {
     "fixtureKey": "Spain|Saudi Arabia",
@@ -11195,7 +11511,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:43.628Z"
+    "updatedAt": "2026-06-22T21:31:02.275Z"
   },
   {
     "fixtureKey": "Sweden|Tunisia",
@@ -11525,7 +11841,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:32.965Z"
+    "updatedAt": "2026-06-22T21:30:53.194Z"
   },
   {
     "fixtureKey": "Switzerland|Bosnia & Herzegovina",
@@ -11849,7 +12165,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:39.175Z"
+    "updatedAt": "2026-06-22T21:30:58.233Z"
   },
   {
     "fixtureKey": "Switzerland|Canada",
@@ -12181,7 +12497,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:43.224Z"
+    "updatedAt": "2026-06-22T21:31:01.901Z"
   },
   {
     "fixtureKey": "Tunisia|Netherlands",
@@ -12525,7 +12841,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:41.595Z"
+    "updatedAt": "2026-06-22T21:31:00.412Z"
   },
   {
     "fixtureKey": "Türkiye|USA",
@@ -12857,7 +13173,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:44.436Z"
+    "updatedAt": "2026-06-22T21:31:03.076Z"
   },
   {
     "fixtureKey": "Uruguay|Spain",
@@ -13195,7 +13511,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:40.386Z"
+    "updatedAt": "2026-06-22T21:30:59.309Z"
   },
   {
     "fixtureKey": "USA|Paraguay",
@@ -13525,7 +13841,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:29.704Z"
+    "updatedAt": "2026-06-22T21:30:50.309Z"
   },
   {
     "fixtureKey": "Uzbekistan|Colombia",
@@ -13855,8 +14171,8 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-06-22T18:44:38.368Z"
+    "updatedAt": "2026-06-22T21:30:57.513Z"
   }
 ];
 
-export const LINEUPS_LAST_UPDATED = '2026-06-22T18:44:46.311Z';
+export const LINEUPS_LAST_UPDATED = '2026-06-22T21:31:04.774Z';
