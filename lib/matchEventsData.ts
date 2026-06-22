@@ -593,9 +593,23 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Sidny Lopes Cabral", team: "Cape Verde Islands", minute: 5 },
       { player: "Rodrigo Bentancur", team: "Uruguay", minute: 20, reason: "Tripping" },
       { player: "Mathías Olivera", team: "Uruguay", minute: 58, reason: "Holding" },
+      { player: "D. Borges", team: "Cape Verde Islands", minute: 90, reason: "Foul" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "H2_New_Zealand_v_Egypt",
+    home: "New Zealand", away: "Egypt", date: "2026-06-22",
+    goals: [
+      { player: "Finn Surman", team: "New Zealand", minute: 15, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Mohanad Lasheen", team: "Egypt", minute: 17, reason: "Roughing" },
+      { player: "Sarpreet Singh", team: "New Zealand", minute: 20, reason: "Holding" },
+      { player: "Callum McCowatt", team: "New Zealand", minute: 34, reason: "Tripping" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-21T23:38:54.154Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-22T02:07:41.262Z';
