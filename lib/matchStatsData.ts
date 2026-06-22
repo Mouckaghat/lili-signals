@@ -296,10 +296,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "G2_Uruguay_v_Cape_Verde_Islands",
     home: "Uruguay", away: "Cape Verde Islands", date: "2026-06-21",
-    status: "LIVE", elapsed: 73,
-    homeStats: { team: "Uruguay", possession: 0.68, totalShots: 12, shotsInsideBox: 6, shotsOutsideBox: 6, shotsOnGoal: 2, corners: 6, xg: 1.96, passAccuracy: 0.85, passes: 415, fouls: 8 },
-    awayStats: { team: "Cape Verde Islands", possession: 0.32, totalShots: 6, shotsInsideBox: 0, shotsOutsideBox: 6, shotsOnGoal: 2, corners: 1, xg: 0.66, passAccuracy: 0.74, passes: 202, fouls: 3 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Uruguay", possession: 0.66, totalShots: 16, shotsInsideBox: 8, shotsOutsideBox: 8, shotsOnGoal: 2, corners: 11, xg: 2.28, passAccuracy: 0.83, passes: 494, fouls: 8 },
+    awayStats: { team: "Cape Verde Islands", possession: 0.34, totalShots: 7, shotsInsideBox: 1, shotsOutsideBox: 6, shotsOnGoal: 2, corners: 3, xg: 0.77, passAccuracy: 0.74, passes: 256, fouls: 4 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-21T23:38:47.816Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-22T00:14:03.530Z';
