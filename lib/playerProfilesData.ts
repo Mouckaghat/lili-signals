@@ -6482,7 +6482,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Iğdır",
     league: "Süper Lig",
     leagueFlag: "🇹🇷",
-    caps: 98,
+    caps: 97,
   },
   {
     name: "Nuno da Costa",
@@ -8684,7 +8684,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     caps: 14,
   },
   {
-    name: "Munaf Younis",
+    name: "Manaf Younis",
     nation: "Iraq",
     dob: "1996-11-16",
     age: 29,
@@ -12549,4 +12549,4 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
   },
 ];
 
-export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-21T09:54:43.603Z';
+export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-22T12:10:33.490Z';
