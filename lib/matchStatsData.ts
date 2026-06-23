@@ -339,9 +339,16 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "K2_Portugal_v_Uzbekistan",
     home: "Portugal", away: "Uzbekistan", date: "2026-06-23",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Portugal", possession: 0.66, totalShots: 17, shotsInsideBox: 12, shotsOutsideBox: 5, shotsOnGoal: 9, corners: 3, xg: 2.44, passAccuracy: 0.9, passes: 616, fouls: 13 },
-    awayStats: { team: "Uzbekistan", possession: 0.34, totalShots: 7, shotsInsideBox: 4, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 2, xg: 0.24, passAccuracy: 0.81, passes: 319, fouls: 15 },
+    homeStats: { team: "Portugal", possession: 0.66, totalShots: 17, shotsInsideBox: 12, shotsOutsideBox: 5, shotsOnGoal: 9, corners: 3, xg: 2.41, passAccuracy: 0.9, passes: 623, fouls: 14 },
+    awayStats: { team: "Uzbekistan", possession: 0.34, totalShots: 7, shotsInsideBox: 4, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 2, xg: 0.25, passAccuracy: 0.81, passes: 324, fouls: 15 },
+  },
+  {
+    fixtureId: "L2_England_v_Ghana",
+    home: "England", away: "Ghana", date: "2026-06-23",
+    status: "LIVE", elapsed: 34,
+    homeStats: { team: "England", possession: 0.84, totalShots: 3, shotsInsideBox: 2, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 1, xg: 0.12, passAccuracy: 0.96, passes: 225, fouls: 4 },
+    awayStats: { team: "Ghana", possession: 0.16, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.73, passes: 44, fouls: 7 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-23T19:29:42.124Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-23T20:34:47.232Z';
