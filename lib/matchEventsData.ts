@@ -632,12 +632,26 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "France", away: "Iraq", date: "2026-06-22",
     goals: [
       { player: "Kylian Mbappé", team: "France", minute: 14, type: "goal" },
+      { player: "Kylian Mbappé", team: "France", minute: 54, type: "goal" },
+      { player: "Ousmane Dembélé", team: "France", minute: 66, type: "goal" },
     ],
     yellowCards: [
-      { player: "A. Al Ammari", team: "Iraq", minute: 6, reason: "Tripping" },
+      { player: "Amir Al-Ammari", team: "Iraq", minute: 6, reason: "Foul" },
     ],
+    redCards: [],
+  },
+  {
+    fixtureId: "I2_Norway_v_Senegal",
+    home: "Norway", away: "Senegal", date: "2026-06-23",
+    goals: [
+      { player: "Marcus Holmgren Pedersen", team: "Norway", minute: 43, type: "goal" },
+      { player: "Erling Haaland", team: "Norway", minute: 48, type: "goal" },
+      { player: "Ismaïla Sarr", team: "Senegal", minute: 53, type: "goal" },
+      { player: "Erling Haaland", team: "Norway", minute: 58, type: "goal" },
+    ],
+    yellowCards: [],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-22T23:46:43.015Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-23T01:49:16.487Z';
