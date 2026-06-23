@@ -560,7 +560,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Lamine Yamal", team: "Spain", minute: 10, type: "goal" },
       { player: "Mikel Oyarzabal", team: "Spain", minute: 21, type: "goal" },
       { player: "Mikel Oyarzabal", team: "Spain", minute: 24, type: "goal" },
-      { player: "Hassan Tambakti", team: "Saudi Arabia", minute: 49, type: "own-goal" },
+      { player: "H. Tambakti", team: "Saudi Arabia", minute: 49, type: "own-goal" },
     ],
     yellowCards: [
       { player: "Salem Al-Dawsari", team: "Saudi Arabia", minute: 30, reason: "Foul" },
@@ -584,15 +584,16 @@ export const MATCH_EVENTS: MatchEvents[] = [
     fixtureId: "G2_Uruguay_v_Cape_Verde_Islands",
     home: "Uruguay", away: "Cape Verde Islands", date: "2026-06-21",
     goals: [
-      { player: "Kevin Lenini", team: "Cape Verde Islands", minute: 21, type: "goal" },
+      { player: "K. Lenini", team: "Cape Verde Islands", minute: 21, type: "goal" },
       { player: "Maximiliano Araújo", team: "Uruguay", minute: 44, type: "goal" },
-      { player: "Agustín Canobbio", team: "Uruguay", minute: 45, minuteStoppage: 6, type: "goal" },
+      { player: "Agustín Canobbio", team: "Uruguay", minute: 45, type: "goal" },
       { player: "Hélio Varela", team: "Cape Verde Islands", minute: 61, type: "goal" },
     ],
     yellowCards: [
       { player: "Sidny Lopes Cabral", team: "Cape Verde Islands", minute: 5, reason: "Foul" },
       { player: "Rodrigo Bentancur", team: "Uruguay", minute: 20, reason: "Foul" },
       { player: "Mathías Olivera", team: "Uruguay", minute: 58, reason: "Foul" },
+      { player: "Diney Borges", team: "Cape Verde Islands", minute: 90, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -669,4 +670,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-23T05:54:46.756Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-23T08:56:09.671Z';
