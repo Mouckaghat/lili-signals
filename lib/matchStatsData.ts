@@ -290,8 +290,8 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "H2_Belgium_v_Iran",
     home: "Belgium", away: "Iran", date: "2026-06-21",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Belgium", possession: 0.7, totalShots: 23, shotsInsideBox: 20, shotsOutsideBox: 3, shotsOnGoal: 7, corners: 4, xg: 1.8, passAccuracy: 0.86, passes: 622, fouls: 7 },
-    awayStats: { team: "Iran", possession: 0.3, totalShots: 7, shotsInsideBox: 6, shotsOutsideBox: 1, shotsOnGoal: 3, corners: 2, xg: 0.63, passAccuracy: 0.74, passes: 268, fouls: 9 },
+    homeStats: { team: "Belgium", possession: 0.7, totalShots: 23, shotsInsideBox: 20, shotsOutsideBox: 3, shotsOnGoal: 7, corners: 4, xg: 1.79, passAccuracy: 0.86, passes: 621, fouls: 7 },
+    awayStats: { team: "Iran", possession: 0.3, totalShots: 7, shotsInsideBox: 6, shotsOutsideBox: 1, shotsOnGoal: 3, corners: 2, xg: 0.62, passAccuracy: 0.73, passes: 270, fouls: 9 },
   },
   {
     fixtureId: "G2_Uruguay_v_Cape_Verde_Islands",
@@ -324,10 +324,17 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "I2_Norway_v_Senegal",
     home: "Norway", away: "Senegal", date: "2026-06-23",
-    status: "LIVE", elapsed: 89,
-    homeStats: { team: "Norway", possession: 0.44, totalShots: 11, shotsInsideBox: 9, shotsOutsideBox: 2, shotsOnGoal: 6, corners: 4, xg: 1.76, passAccuracy: 0.81, passes: 329, fouls: 9 },
-    awayStats: { team: "Senegal", possession: 0.56, totalShots: 12, shotsInsideBox: 7, shotsOutsideBox: 5, shotsOnGoal: 3, corners: 2, xg: 0.93, passAccuracy: 0.87, passes: 420, fouls: 4 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Norway", possession: 0.42, totalShots: 13, shotsInsideBox: 11, shotsOutsideBox: 2, shotsOnGoal: 7, corners: 5, xg: 2.1, passAccuracy: 0.8, passes: 352, fouls: 13 },
+    awayStats: { team: "Senegal", possession: 0.58, totalShots: 16, shotsInsideBox: 10, shotsOutsideBox: 6, shotsOnGoal: 4, corners: 4, xg: 1.7, passAccuracy: 0.88, passes: 487, fouls: 5 },
+  },
+  {
+    fixtureId: "J2_Jordan_v_Algeria",
+    home: "Jordan", away: "Algeria", date: "2026-06-23",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Jordan", possession: 0.28, totalShots: 8, shotsInsideBox: 4, shotsOutsideBox: 4, shotsOnGoal: 4, corners: 1, xg: 0.65, passAccuracy: 0.72, passes: 251, fouls: 11 },
+    awayStats: { team: "Algeria", possession: 0.72, totalShots: 17, shotsInsideBox: 11, shotsOutsideBox: 6, shotsOnGoal: 8, corners: 10, xg: 1.81, passAccuracy: 0.88, passes: 638, fouls: 6 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-23T01:49:00.573Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-23T05:51:05.058Z';
