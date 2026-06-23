@@ -684,6 +684,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "L2_England_v_Ghana",
+    home: "England", away: "Ghana", date: "2026-06-23",
+    goals: [],
+    yellowCards: [
+      { player: "Declan Rice", team: "England", minute: 41, reason: "Roughing" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-23T19:11:06.844Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-23T21:06:33.035Z';
