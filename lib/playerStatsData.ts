@@ -1410,4 +1410,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "J2_Jordan_v_Algeria", team: "Algeria", name: "Jaouen Hadjam", pos: "DF", minutes: 13, rating: 6.6, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 5, passAccPct: 80, tackles: 0, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-06-23T12:22:40.432Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-06-23T15:33:02.116Z';
