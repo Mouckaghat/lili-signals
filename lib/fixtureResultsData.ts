@@ -57,6 +57,7 @@ export const FIXTURE_RESULTS: Record<string, FixtureResult> = {
   "France|Iraq": { status: 'FINISHED', homeScore: 3, awayScore: 0, winner: 'France' },
   "Norway|Senegal": { status: 'FINISHED', homeScore: 3, awayScore: 2, winner: 'Norway' },
   "Jordan|Algeria": { status: 'FINISHED', homeScore: 1, awayScore: 2, winner: 'Algeria' },
+  "Portugal|Uzbekistan": { status: 'FINISHED', homeScore: 5, awayScore: 0, winner: 'Portugal' },
 };
 
-export const FIXTURE_RESULTS_LAST_UPDATED = '2026-06-23T17:00:18.477Z';
+export const FIXTURE_RESULTS_LAST_UPDATED = '2026-06-23T19:14:45.456Z';
