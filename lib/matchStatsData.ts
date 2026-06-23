@@ -324,10 +324,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "I2_Norway_v_Senegal",
     home: "Norway", away: "Senegal", date: "2026-06-23",
-    status: "LIVE", elapsed: 72,
-    homeStats: { team: "Norway", possession: 0.44, totalShots: 11, shotsInsideBox: 9, shotsOutsideBox: 2, shotsOnGoal: 6, corners: 4, xg: 1.76, passAccuracy: 0.83, passes: 275, fouls: 7 },
-    awayStats: { team: "Senegal", possession: 0.56, totalShots: 9, shotsInsideBox: 5, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 2, xg: 0.71, passAccuracy: 0.89, passes: 348, fouls: 2 },
+    status: "LIVE", elapsed: 89,
+    homeStats: { team: "Norway", possession: 0.44, totalShots: 11, shotsInsideBox: 9, shotsOutsideBox: 2, shotsOnGoal: 6, corners: 4, xg: 1.76, passAccuracy: 0.81, passes: 329, fouls: 9 },
+    awayStats: { team: "Senegal", possession: 0.56, totalShots: 12, shotsInsideBox: 7, shotsOutsideBox: 5, shotsOnGoal: 3, corners: 2, xg: 0.93, passAccuracy: 0.87, passes: 420, fouls: 4 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-23T01:31:18.525Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-23T01:49:00.573Z';
