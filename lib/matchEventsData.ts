@@ -606,9 +606,9 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Trézéguet", team: "Egypt", minute: 82, type: "goal" },
     ],
     yellowCards: [
-      { player: "Mohanad Lasheen", team: "Egypt", minute: 17, reason: "Roughing" },
-      { player: "Sarpreet Singh", team: "New Zealand", minute: 20, reason: "Holding" },
-      { player: "Callum McCowatt", team: "New Zealand", minute: 34, reason: "Tripping" },
+      { player: "Mohanad Lasheen", team: "Egypt", minute: 17, reason: "Foul" },
+      { player: "Sarpreet Singh", team: "New Zealand", minute: 20, reason: "Foul" },
+      { player: "Callum McCowatt", team: "New Zealand", minute: 34, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -648,10 +648,25 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Erling Haaland", team: "Norway", minute: 48, type: "goal" },
       { player: "Ismaïla Sarr", team: "Senegal", minute: 53, type: "goal" },
       { player: "Erling Haaland", team: "Norway", minute: 58, type: "goal" },
+      { player: "Ismaïla Sarr", team: "Senegal", minute: 90, minuteStoppage: 3, type: "goal" },
     ],
     yellowCards: [],
     redCards: [],
   },
+  {
+    fixtureId: "J2_Jordan_v_Algeria",
+    home: "Jordan", away: "Algeria", date: "2026-06-23",
+    goals: [
+      { player: "N. Al Rashdan", team: "Jordan", minute: 36, type: "goal" },
+      { player: "Nadhir Benbouali", team: "Algeria", minute: 69, type: "goal" },
+      { player: "Amine Gouiri", team: "Algeria", minute: 82, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Ramiz Zerrouki", team: "Algeria", minute: 44, reason: "Foul" },
+      { player: "Husam Abu Dahab", team: "Jordan", minute: 64, reason: "Holding" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-23T01:49:16.487Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-23T05:54:46.756Z';
