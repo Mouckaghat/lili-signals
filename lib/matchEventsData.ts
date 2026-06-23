@@ -668,6 +668,22 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "K2_Portugal_v_Uzbekistan",
+    home: "Portugal", away: "Uzbekistan", date: "2026-06-23",
+    goals: [
+      { player: "Cristiano Ronaldo", team: "Portugal", minute: 6, type: "goal" },
+      { player: "Nuno Mendes", team: "Portugal", minute: 17, type: "goal" },
+      { player: "Cristiano Ronaldo", team: "Portugal", minute: 39, type: "goal" },
+      { player: "Abduvohid Nematov", team: "Uzbekistan", minute: 60, type: "own-goal" },
+      { player: "Rafael Leão", team: "Portugal", minute: 87, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "O. Khamrobekov", team: "Uzbekistan", minute: 14, reason: "Holding" },
+      { player: "Renato Veiga", team: "Portugal", minute: 68, reason: "Roughing" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-23T17:00:37.466Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-23T19:11:06.844Z';
