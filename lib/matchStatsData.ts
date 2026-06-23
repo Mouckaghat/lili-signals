@@ -335,6 +335,13 @@ export const MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Jordan", possession: 0.28, totalShots: 8, shotsInsideBox: 4, shotsOutsideBox: 4, shotsOnGoal: 4, corners: 1, xg: 0.65, passAccuracy: 0.72, passes: 251, fouls: 11 },
     awayStats: { team: "Algeria", possession: 0.72, totalShots: 17, shotsInsideBox: 11, shotsOutsideBox: 6, shotsOnGoal: 8, corners: 10, xg: 1.81, passAccuracy: 0.88, passes: 638, fouls: 6 },
   },
+  {
+    fixtureId: "K2_Portugal_v_Uzbekistan",
+    home: "Portugal", away: "Uzbekistan", date: "2026-06-23",
+    status: "LIVE", elapsed: 29,
+    homeStats: { team: "Portugal", possession: 0.8, totalShots: 6, shotsInsideBox: 3, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 1, xg: 1.04, passAccuracy: 0.91, passes: 140, fouls: 1 },
+    awayStats: { team: "Uzbekistan", possession: 0.2, totalShots: 1, shotsInsideBox: 1, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 0, xg: 0.08, passAccuracy: 0.76, passes: 37, fouls: 5 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-23T16:40:14.376Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-23T17:29:30.174Z';
