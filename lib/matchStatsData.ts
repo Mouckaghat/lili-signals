@@ -352,10 +352,10 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "L2_Panama_v_Croatia",
     home: "Panama", away: "Croatia", date: "2026-06-23",
-    status: "LIVE", elapsed: 13,
-    homeStats: { team: "Panama", possession: 0.42, totalShots: 1, shotsInsideBox: 1, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0.06, passAccuracy: 0.85, passes: 39, fouls: 2 },
-    awayStats: { team: "Croatia", possession: 0.58, totalShots: 1, shotsInsideBox: 1, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0.03, passAccuracy: 0.91, passes: 54, fouls: 2 },
+    status: "LIVE", elapsed: 44,
+    homeStats: { team: "Panama", possession: 0.38, totalShots: 1, shotsInsideBox: 1, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0.06, passAccuracy: 0.8, passes: 148, fouls: 8 },
+    awayStats: { team: "Croatia", possession: 0.62, totalShots: 1, shotsInsideBox: 1, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0.03, passAccuracy: 0.87, passes: 242, fouls: 4 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-23T23:13:25.502Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-23T23:43:40.145Z';
