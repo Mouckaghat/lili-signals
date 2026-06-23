@@ -346,9 +346,16 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "L2_England_v_Ghana",
     home: "England", away: "Ghana", date: "2026-06-23",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "England", possession: 0.79, totalShots: 19, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 4, corners: 9, xg: 0, passAccuracy: 0, passes: 0, fouls: 14 },
+    homeStats: { team: "England", possession: 0.79, totalShots: 19, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 3, corners: 9, xg: 0, passAccuracy: 0, passes: 0, fouls: 14 },
     awayStats: { team: "Ghana", possession: 0.21, totalShots: 2, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 2, xg: 0, passAccuracy: 0, passes: 0, fouls: 24 },
+  },
+  {
+    fixtureId: "L2_Panama_v_Croatia",
+    home: "Panama", away: "Croatia", date: "2026-06-23",
+    status: "LIVE", elapsed: 13,
+    homeStats: { team: "Panama", possession: 0.42, totalShots: 1, shotsInsideBox: 1, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0.06, passAccuracy: 0.85, passes: 39, fouls: 2 },
+    awayStats: { team: "Croatia", possession: 0.58, totalShots: 1, shotsInsideBox: 1, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0.03, passAccuracy: 0.91, passes: 54, fouls: 2 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-23T22:01:19.225Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-23T23:13:25.502Z';
