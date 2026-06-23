@@ -9424,7 +9424,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Stade Nyonnais",
     league: "Swiss Super League",
     leagueFlag: "🇨🇭",
-    caps: 3,
+    caps: 2,
   },
   {
     name: "Aïssa Mandi",
@@ -9434,7 +9434,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Lille",
     league: "Ligue 1",
     leagueFlag: "🇫🇷",
-    caps: 120,
+    caps: 119,
   },
   {
     name: "Achref Abada",
@@ -9454,7 +9454,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Espérance de Tunis",
     league: "Ligue Professionnelle 1",
     leagueFlag: "🇹🇳",
-    caps: 31,
+    caps: 30,
   },
   {
     name: "Zineddine Belaïd",
@@ -9464,7 +9464,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "JS Kabylie",
     league: "Ligue 1",
     leagueFlag: "🇩🇿",
-    caps: 13,
+    caps: 18,
   },
   {
     name: "Ramiz Zerrouki",
@@ -9474,7 +9474,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Twente",
     league: "Eredivisie",
     leagueFlag: "🇳🇱",
-    caps: 54,
+    caps: 53,
   },
   {
     name: "Riyad Mahrez",
@@ -9484,7 +9484,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Al-Ahli",
     league: "Saudi Pro League",
     leagueFlag: "🇸🇦",
-    caps: 117,
+    caps: 116,
   },
   {
     name: "Houssem Aouar",
@@ -9494,7 +9494,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Al-Ittihad",
     league: "Saudi Pro League",
     leagueFlag: "🇸🇦",
-    caps: 23,
+    caps: 22,
   },
   {
     name: "Amine Gouiri",
@@ -9504,7 +9504,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Marseille",
     league: "Ligue 1",
     leagueFlag: "🇫🇷",
-    caps: 24,
+    caps: 23,
   },
   {
     name: "Farès Chaïbi",
@@ -9514,7 +9514,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Eintracht Frankfurt",
     league: "Bundesliga",
     leagueFlag: "🇩🇪",
-    caps: 32,
+    caps: 31,
   },
   {
     name: "Anis Hadj Moussa",
@@ -9524,7 +9524,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Feyenoord",
     league: "Eredivisie",
     leagueFlag: "🇳🇱",
-    caps: 16,
+    caps: 15,
   },
   {
     name: "Nadhir Benbouali",
@@ -9534,7 +9534,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Győri ETO",
     league: "NB I",
     leagueFlag: "🇭🇺",
-    caps: 5,
+    caps: 4,
   },
   {
     name: "Jaouen Hadjam",
@@ -9544,7 +9544,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Young Boys",
     league: "Swiss Super League",
     leagueFlag: "🇨🇭",
-    caps: 19,
+    caps: 18,
   },
   {
     name: "Hicham Boudaoui",
@@ -9554,7 +9554,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Nice",
     league: "Ligue 1",
     leagueFlag: "🇫🇷",
-    caps: 35,
+    caps: 34,
   },
   {
     name: "Rayan Aït-Nouri",
@@ -9564,7 +9564,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Manchester City",
     league: "Premier League",
     leagueFlag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-    caps: 31,
+    caps: 30,
   },
   {
     name: "Oussama Benbot",
@@ -9574,7 +9574,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "USM Alger",
     league: "Ligue 1",
     leagueFlag: "🇩🇿",
-    caps: 4,
+    caps: 5,
   },
   {
     name: "Rafik Belghali",
@@ -9584,7 +9584,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Hellas Verona",
     league: "Serie A",
     leagueFlag: "🇮🇹",
-    caps: 14,
+    caps: 13,
   },
   {
     name: "Mohamed Amoura",
@@ -9594,7 +9594,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "VfL Wolfsburg",
     league: "Bundesliga",
     leagueFlag: "🇩🇪",
-    caps: 48,
+    caps: 47,
   },
   {
     name: "Nabil Bentaleb",
@@ -9604,7 +9604,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Lille",
     league: "Ligue 1",
     leagueFlag: "🇫🇷",
-    caps: 62,
+    caps: 60,
   },
   {
     name: "Adil Boulbina",
@@ -9614,7 +9614,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Al-Duhail",
     league: "Qatar Stars League",
     leagueFlag: "🇶🇦",
-    caps: 11,
+    caps: 12,
   },
   {
     name: "Ramy Bensebaini",
@@ -9634,7 +9634,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Bayer Leverkusen",
     league: "Bundesliga",
     leagueFlag: "🇩🇪",
-    caps: 18,
+    caps: 17,
   },
   {
     name: "Luca Zidane",
@@ -9674,7 +9674,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Paris FC",
     league: "Ligue 1",
     leagueFlag: "🇫🇷",
-    caps: 6,
+    caps: 5,
   },
   // ── Argentina ───────────────────────────────────────────────────────────────────
   {
@@ -12549,4 +12549,4 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
   },
 ];
 
-export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-22T12:10:33.490Z';
+export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-23T09:46:29.948Z';
