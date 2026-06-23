@@ -269,22 +269,22 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "E2_Ecuador_v_Cura_ao",
     home: "Ecuador", away: "Curaçao", date: "2026-06-21",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Ecuador", possession: 0.75, totalShots: 28, shotsInsideBox: 22, shotsOutsideBox: 6, shotsOnGoal: 15, corners: 9, xg: 3.06, passAccuracy: 0.9, passes: 641, fouls: 7 },
-    awayStats: { team: "Curaçao", possession: 0.25, totalShots: 10, shotsInsideBox: 4, shotsOutsideBox: 6, shotsOnGoal: 3, corners: 0, xg: 0.48, passAccuracy: 0.69, passes: 223, fouls: 10 },
+    homeStats: { team: "Ecuador", possession: 0.75, totalShots: 27, shotsInsideBox: 21, shotsOutsideBox: 6, shotsOnGoal: 15, corners: 9, xg: 2.84, passAccuracy: 0.9, passes: 644, fouls: 7 },
+    awayStats: { team: "Curaçao", possession: 0.25, totalShots: 10, shotsInsideBox: 4, shotsOutsideBox: 6, shotsOnGoal: 3, corners: 0, xg: 0.5, passAccuracy: 0.7, passes: 227, fouls: 10 },
   },
   {
     fixtureId: "F2_Tunisia_v_Japan",
     home: "Tunisia", away: "Japan", date: "2026-06-21",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Tunisia", possession: 0.38, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 3, xg: 0.05, passAccuracy: 0.8, passes: 353, fouls: 8 },
-    awayStats: { team: "Japan", possession: 0.62, totalShots: 11, shotsInsideBox: 8, shotsOutsideBox: 3, shotsOnGoal: 5, corners: 5, xg: 2.07, passAccuracy: 0.9, passes: 581, fouls: 15 },
+    homeStats: { team: "Tunisia", possession: 0.38, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 3, xg: 0.05, passAccuracy: 0.8, passes: 354, fouls: 8 },
+    awayStats: { team: "Japan", possession: 0.62, totalShots: 11, shotsInsideBox: 8, shotsOutsideBox: 3, shotsOnGoal: 5, corners: 5, xg: 2.13, passAccuracy: 0.89, passes: 583, fouls: 15 },
   },
   {
     fixtureId: "G2_Spain_v_Saudi_Arabia",
     home: "Spain", away: "Saudi Arabia", date: "2026-06-21",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Spain", possession: 0.67, totalShots: 22, shotsInsideBox: 13, shotsOutsideBox: 9, shotsOnGoal: 8, corners: 6, xg: 2.85, passAccuracy: 0.92, passes: 725, fouls: 10 },
-    awayStats: { team: "Saudi Arabia", possession: 0.33, totalShots: 3, shotsInsideBox: 0, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 1, xg: 0.14, passAccuracy: 0.8, passes: 364, fouls: 2 },
+    homeStats: { team: "Spain", possession: 0.67, totalShots: 22, shotsInsideBox: 13, shotsOutsideBox: 9, shotsOnGoal: 8, corners: 6, xg: 2.3, passAccuracy: 0.92, passes: 726, fouls: 10 },
+    awayStats: { team: "Saudi Arabia", possession: 0.33, totalShots: 3, shotsInsideBox: 0, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 1, xg: 0.14, passAccuracy: 0.81, passes: 364, fouls: 2 },
   },
   {
     fixtureId: "H2_Belgium_v_Iran",
@@ -297,8 +297,8 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "G2_Uruguay_v_Cape_Verde_Islands",
     home: "Uruguay", away: "Cape Verde Islands", date: "2026-06-21",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Uruguay", possession: 0.66, totalShots: 16, shotsInsideBox: 8, shotsOutsideBox: 8, shotsOnGoal: 2, corners: 11, xg: 2.28, passAccuracy: 0.83, passes: 494, fouls: 8 },
-    awayStats: { team: "Cape Verde Islands", possession: 0.34, totalShots: 7, shotsInsideBox: 1, shotsOutsideBox: 6, shotsOnGoal: 2, corners: 3, xg: 0.77, passAccuracy: 0.74, passes: 256, fouls: 4 },
+    homeStats: { team: "Uruguay", possession: 0.65, totalShots: 17, shotsInsideBox: 9, shotsOutsideBox: 8, shotsOnGoal: 2, corners: 11, xg: 2.32, passAccuracy: 0.82, passes: 511, fouls: 11 },
+    awayStats: { team: "Cape Verde Islands", possession: 0.35, totalShots: 12, shotsInsideBox: 2, shotsOutsideBox: 10, shotsOnGoal: 4, corners: 4, xg: 0.88, passAccuracy: 0.74, passes: 278, fouls: 4 },
   },
   {
     fixtureId: "H2_New_Zealand_v_Egypt",
@@ -318,8 +318,8 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "I2_France_v_Iraq",
     home: "France", away: "Iraq", date: "2026-06-22",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "France", possession: 0.55, totalShots: 19, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 5, corners: 4, xg: 0, passAccuracy: 0, passes: 0, fouls: 8 },
-    awayStats: { team: "Iraq", possession: 0.45, totalShots: 4, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 2, xg: 0, passAccuracy: 0, passes: 0, fouls: 4 },
+    homeStats: { team: "France", possession: 0.56, totalShots: 19, shotsInsideBox: 12, shotsOutsideBox: 7, shotsOnGoal: 5, corners: 4, xg: 2.67, passAccuracy: 0.9, passes: 603, fouls: 8 },
+    awayStats: { team: "Iraq", possession: 0.44, totalShots: 4, shotsInsideBox: 3, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 2, xg: 0.63, passAccuracy: 0.86, passes: 481, fouls: 4 },
   },
   {
     fixtureId: "I2_Norway_v_Senegal",
@@ -337,4 +337,4 @@ export const MATCH_STATS: MatchStats[] = [
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-23T05:54:30.222Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-23T08:54:55.805Z';
