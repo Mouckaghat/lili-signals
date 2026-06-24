@@ -366,17 +366,17 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "B3_Switzerland_v_Canada",
     home: "Switzerland", away: "Canada", date: "2026-06-24",
-    status: "LIVE", elapsed: 3,
-    homeStats: { team: "Switzerland", possession: 0.43, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.8, passes: 5, fouls: 0 },
-    awayStats: { team: "Canada", possession: 0.57, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.75, passes: 8, fouls: 0 },
+    status: "LIVE", elapsed: 15,
+    homeStats: { team: "Switzerland", possession: 0.77, totalShots: 2, shotsInsideBox: 2, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 1, xg: 0.62, passAccuracy: 0.87, passes: 99, fouls: 3 },
+    awayStats: { team: "Canada", possession: 0.23, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.66, passes: 29, fouls: 3 },
   },
   {
     fixtureId: "B3_Bosnia_Herzegovina_v_Qatar",
     home: "Bosnia & Herzegovina", away: "Qatar", date: "2026-06-24",
-    status: "LIVE", elapsed: 3,
-    homeStats: { team: "Bosnia & Herzegovina", possession: 0, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0, passes: 0, fouls: 0 },
-    awayStats: { team: "Qatar", possession: 0, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0, passes: 0, fouls: 0 },
+    status: "LIVE", elapsed: 14,
+    homeStats: { team: "Bosnia & Herzegovina", possession: 0.62, totalShots: 2, shotsInsideBox: 0, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 1, xg: 0.05, passAccuracy: 0.83, passes: 76, fouls: 3 },
+    awayStats: { team: "Qatar", possession: 0.38, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 1, xg: 0, passAccuracy: 0.76, passes: 51, fouls: 1 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-24T19:03:33.785Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-24T19:15:06.815Z';
