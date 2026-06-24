@@ -719,6 +719,36 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "B3_Switzerland_v_Canada",
+    home: "Switzerland", away: "Canada", date: "2026-06-24",
+    goals: [
+      { player: "Rubén Vargas", team: "Switzerland", minute: 46, type: "goal" },
+      { player: "Johan Manzambi", team: "Switzerland", minute: 57, type: "goal" },
+      { player: "Promise David", team: "Canada", minute: 76, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Cyle Larin", team: "Canada", minute: 32, reason: "Unsportsmanlike conduct" },
+      { player: "Granit Xhaka", team: "Switzerland", minute: 32, reason: "Unsportsmanlike conduct" },
+      { player: "Liam Millar", team: "Canada", minute: 87, reason: "Holding" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "B3_Bosnia_Herzegovina_v_Qatar",
+    home: "Bosnia & Herzegovina", away: "Qatar", date: "2026-06-24",
+    goals: [
+      { player: "Kerim Alajbegović", team: "Bosnia & Herzegovina", minute: 29, type: "goal" },
+      { player: "Mahmud Abunada", team: "Qatar", minute: 34, type: "own-goal" },
+      { player: "H. Al Haydos", team: "Qatar", minute: 42, type: "goal" },
+      { player: "Ermin Mahmić", team: "Bosnia & Herzegovina", minute: 80, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "A. Fathi", team: "Qatar", minute: 78 },
+      { player: "Ermin Mahmić", team: "Bosnia & Herzegovina", minute: 82, reason: "Unsportsmanlike conduct" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-24T19:21:03.151Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-24T21:01:26.843Z';
