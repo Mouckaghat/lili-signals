@@ -346,8 +346,8 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "L2_England_v_Ghana",
     home: "England", away: "Ghana", date: "2026-06-23",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "England", possession: 0.79, totalShots: 19, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 3, corners: 9, xg: 0, passAccuracy: 0, passes: 0, fouls: 14 },
-    awayStats: { team: "Ghana", possession: 0.21, totalShots: 2, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 2, xg: 0, passAccuracy: 0, passes: 0, fouls: 24 },
+    homeStats: { team: "England", possession: 0.79, totalShots: 19, shotsInsideBox: 14, shotsOutsideBox: 5, shotsOnGoal: 3, corners: 9, xg: 1.36, passAccuracy: 0.93, passes: 633, fouls: 14 },
+    awayStats: { team: "Ghana", possession: 0.21, totalShots: 2, shotsInsideBox: 2, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 2, xg: 0.17, passAccuracy: 0.74, passes: 172, fouls: 24 },
   },
   {
     fixtureId: "L2_Panama_v_Croatia",
@@ -365,4 +365,4 @@ export const MATCH_STATS: MatchStats[] = [
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-24T08:00:51.372Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-24T10:56:45.053Z';
