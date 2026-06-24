@@ -694,6 +694,18 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "L2_Panama_v_Croatia",
+    home: "Panama", away: "Croatia", date: "2026-06-23",
+    goals: [
+      { player: "Ante Budimir", team: "Croatia", minute: 54, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Yoel Bárcenas", team: "Panama", minute: 61, reason: "Roughing" },
+      { player: "Petar Sučić", team: "Croatia", minute: 90, reason: "Tripping" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-23T23:33:22.306Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-24T01:28:13.950Z';
