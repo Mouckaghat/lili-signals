@@ -380,17 +380,17 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "D3_Morocco_v_Haiti",
     home: "Morocco", away: "Haiti", date: "2026-06-24",
-    status: "LIVE", elapsed: 13,
-    homeStats: { team: "Morocco", possession: 0.7, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.92, passes: 91, fouls: 1 },
-    awayStats: { team: "Haiti", possession: 0.3, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 0, xg: 0.04, passAccuracy: 0.93, passes: 40, fouls: 0 },
+    status: "LIVE", elapsed: 72,
+    homeStats: { team: "Morocco", possession: 0.71, totalShots: 14, shotsInsideBox: 11, shotsOutsideBox: 3, shotsOnGoal: 8, corners: 6, xg: 2.22, passAccuracy: 0.9, passes: 443, fouls: 6 },
+    awayStats: { team: "Haiti", possession: 0.29, totalShots: 5, shotsInsideBox: 2, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 0, xg: 0.52, passAccuracy: 0.8, passes: 189, fouls: 13 },
   },
   {
     fixtureId: "D3_Scotland_v_Brazil",
     home: "Scotland", away: "Brazil", date: "2026-06-24",
-    status: "LIVE", elapsed: 13,
-    homeStats: { team: "Scotland", possession: 0.63, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.88, passes: 69, fouls: 0 },
-    awayStats: { team: "Brazil", possession: 0.37, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 0, xg: 0.97, passAccuracy: 0.95, passes: 41, fouls: 0 },
+    status: "LIVE", elapsed: 70,
+    homeStats: { team: "Scotland", possession: 0.5, totalShots: 7, shotsInsideBox: 3, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 4, xg: 0.39, passAccuracy: 0.91, passes: 405, fouls: 7 },
+    awayStats: { team: "Brazil", possession: 0.5, totalShots: 16, shotsInsideBox: 9, shotsOutsideBox: 7, shotsOnGoal: 7, corners: 3, xg: 3.38, passAccuracy: 0.92, passes: 409, fouls: 3 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-24T22:14:20.870Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-24T23:34:49.903Z';
