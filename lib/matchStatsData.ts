@@ -304,15 +304,15 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "H2_New_Zealand_v_Egypt",
     home: "New Zealand", away: "Egypt", date: "2026-06-22",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "New Zealand", possession: 0.44, totalShots: 11, shotsInsideBox: 6, shotsOutsideBox: 5, shotsOnGoal: 5, corners: 4, xg: 1.12, passAccuracy: 0.8, passes: 420, fouls: 14 },
-    awayStats: { team: "Egypt", possession: 0.56, totalShots: 19, shotsInsideBox: 12, shotsOutsideBox: 7, shotsOnGoal: 7, corners: 3, xg: 1.96, passAccuracy: 0.88, passes: 528, fouls: 8 },
+    homeStats: { team: "New Zealand", possession: 0.44, totalShots: 11, shotsInsideBox: 6, shotsOutsideBox: 5, shotsOnGoal: 5, corners: 4, xg: 1.24, passAccuracy: 0.8, passes: 421, fouls: 14 },
+    awayStats: { team: "Egypt", possession: 0.56, totalShots: 19, shotsInsideBox: 12, shotsOutsideBox: 7, shotsOnGoal: 7, corners: 3, xg: 1.87, passAccuracy: 0.87, passes: 526, fouls: 8 },
   },
   {
     fixtureId: "J2_Argentina_v_Austria",
     home: "Argentina", away: "Austria", date: "2026-06-22",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Argentina", possession: 0.54, totalShots: 12, shotsInsideBox: 10, shotsOutsideBox: 2, shotsOnGoal: 5, corners: 1, xg: 2.65, passAccuracy: 0.89, passes: 553, fouls: 13 },
-    awayStats: { team: "Austria", possession: 0.46, totalShots: 6, shotsInsideBox: 4, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 3, xg: 0.5, passAccuracy: 0.86, passes: 468, fouls: 13 },
+    homeStats: { team: "Argentina", possession: 0.54, totalShots: 12, shotsInsideBox: 10, shotsOutsideBox: 2, shotsOnGoal: 5, corners: 1, xg: 2.36, passAccuracy: 0.89, passes: 554, fouls: 13 },
+    awayStats: { team: "Austria", possession: 0.46, totalShots: 6, shotsInsideBox: 4, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 3, xg: 0.53, passAccuracy: 0.86, passes: 468, fouls: 13 },
   },
   {
     fixtureId: "I2_France_v_Iraq",
@@ -353,8 +353,8 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "L2_Panama_v_Croatia",
     home: "Panama", away: "Croatia", date: "2026-06-23",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Panama", possession: 0.36, totalShots: 1, shotsInsideBox: 1, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0.06, passAccuracy: 0.79, passes: 172, fouls: 9 },
-    awayStats: { team: "Croatia", possession: 0.64, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 1, xg: 0.05, passAccuracy: 0.88, passes: 310, fouls: 5 },
+    homeStats: { team: "Panama", possession: 0.42, totalShots: 8, shotsInsideBox: 6, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 7, xg: 0.55, passAccuracy: 0.79, passes: 352, fouls: 19 },
+    awayStats: { team: "Croatia", possession: 0.58, totalShots: 6, shotsInsideBox: 4, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 2, xg: 1.65, passAccuracy: 0.84, passes: 512, fouls: 12 },
   },
   {
     fixtureId: "K2_Colombia_v_Congo_DR",
@@ -365,4 +365,4 @@ export const MATCH_STATS: MatchStats[] = [
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-24T04:35:04.400Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-24T08:00:51.372Z';
