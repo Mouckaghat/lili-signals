@@ -749,6 +749,24 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "D3_Morocco_v_Haiti",
+    home: "Morocco", away: "Haiti", date: "2026-06-24",
+    goals: [
+      { player: "Lenny Joseph", team: "Haiti", minute: 10, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
+  {
+    fixtureId: "D3_Scotland_v_Brazil",
+    home: "Scotland", away: "Brazil", date: "2026-06-24",
+    goals: [
+      { player: "Vinícius Júnior", team: "Brazil", minute: 7, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-24T21:01:26.843Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-24T22:23:45.748Z';
