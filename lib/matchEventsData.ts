@@ -753,7 +753,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
     fixtureId: "D3_Morocco_v_Haiti",
     home: "Morocco", away: "Haiti", date: "2026-06-24",
     goals: [
-      { player: "Lenny Joseph", team: "Haiti", minute: 10, type: "goal" },
+      { player: "Bono", team: "Morocco", minute: 10, type: "own-goal" },
+      { player: "Achraf Hakimi", team: "Morocco", minute: 39, type: "goal" },
+      { player: "Wilson Isidor", team: "Haiti", minute: 43, type: "goal" },
+      { player: "Ismael Saibari", team: "Morocco", minute: 45, minuteStoppage: 1, type: "goal" },
     ],
     yellowCards: [],
     redCards: [],
@@ -763,10 +766,14 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Scotland", away: "Brazil", date: "2026-06-24",
     goals: [
       { player: "Vinícius Júnior", team: "Brazil", minute: 7, type: "goal" },
+      { player: "Vinícius Júnior", team: "Brazil", minute: 45, minuteStoppage: 3, type: "goal" },
+      { player: "Matheus Cunha", team: "Brazil", minute: 60, type: "goal" },
     ],
-    yellowCards: [],
+    yellowCards: [
+      { player: "Danilo", team: "Brazil", minute: 62, reason: "Tripping" },
+    ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-24T22:23:45.748Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-24T23:38:33.560Z';
