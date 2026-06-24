@@ -363,6 +363,20 @@ export const MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Colombia", possession: 0.64, totalShots: 20, shotsInsideBox: 11, shotsOutsideBox: 9, shotsOnGoal: 9, corners: 5, xg: 1.03, passAccuracy: 0.88, passes: 540, fouls: 12 },
     awayStats: { team: "Congo DR", possession: 0.36, totalShots: 8, shotsInsideBox: 4, shotsOutsideBox: 4, shotsOnGoal: 1, corners: 4, xg: 0.39, passAccuracy: 0.75, passes: 298, fouls: 16 },
   },
+  {
+    fixtureId: "B3_Switzerland_v_Canada",
+    home: "Switzerland", away: "Canada", date: "2026-06-24",
+    status: "LIVE", elapsed: 3,
+    homeStats: { team: "Switzerland", possession: 0.43, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.8, passes: 5, fouls: 0 },
+    awayStats: { team: "Canada", possession: 0.57, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.75, passes: 8, fouls: 0 },
+  },
+  {
+    fixtureId: "B3_Bosnia_Herzegovina_v_Qatar",
+    home: "Bosnia & Herzegovina", away: "Qatar", date: "2026-06-24",
+    status: "LIVE", elapsed: 3,
+    homeStats: { team: "Bosnia & Herzegovina", possession: 0, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0, passes: 0, fouls: 0 },
+    awayStats: { team: "Qatar", possession: 0, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0, passes: 0, fouls: 0 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-24T17:31:25.918Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-24T19:03:33.785Z';
