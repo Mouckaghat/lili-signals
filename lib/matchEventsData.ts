@@ -618,13 +618,13 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Argentina", away: "Austria", date: "2026-06-22",
     goals: [
       { player: "Lionel Messi", team: "Argentina", minute: 38, type: "goal" },
-      { player: "Lionel Messi", team: "Argentina", minute: 90, minuteStoppage: 5, type: "goal" },
+      { player: "Lionel Messi", team: "Argentina", minute: 90, type: "goal" },
     ],
     yellowCards: [
-      { player: "Stefan Posch", team: "Austria", minute: 40, reason: "Unsportsmanlike conduct" },
-      { player: "Facundo Medina", team: "Argentina", minute: 76, reason: "Unsportsmanlike conduct" },
-      { player: "Konrad Laimer", team: "Austria", minute: 76, reason: "Unsportsmanlike conduct" },
-      { player: "Leandro Paredes", team: "Argentina", minute: 90, reason: "Roughing" },
+      { player: "Stefan Posch", team: "Austria", minute: 40, reason: "Argument" },
+      { player: "Facundo Medina", team: "Argentina", minute: 76, reason: "Argument" },
+      { player: "Konrad Laimer", team: "Austria", minute: 76, reason: "Argument" },
+      { player: "Leandro Paredes", team: "Argentina", minute: 90, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -664,7 +664,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     yellowCards: [
       { player: "Ramiz Zerrouki", team: "Algeria", minute: 44, reason: "Foul" },
-      { player: "Husam Abu Dahab", team: "Jordan", minute: 64, reason: "Holding" },
+      { player: "Husam Ali Mohammad Abudahab", team: "Jordan", minute: 64, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -679,8 +679,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Rafael Leão", team: "Portugal", minute: 87, type: "goal" },
     ],
     yellowCards: [
-      { player: "O. Khamrobekov", team: "Uzbekistan", minute: 14, reason: "Holding" },
-      { player: "Renato Veiga", team: "Portugal", minute: 68, reason: "Roughing" },
+      { player: "Odiljon Khamrobekov", team: "Uzbekistan", minute: 14, reason: "Foul" },
+      { player: "Renato Veiga", team: "Portugal", minute: 68, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -706,6 +706,19 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "K2_Colombia_v_Congo_DR",
+    home: "Colombia", away: "Congo DR", date: "2026-06-24",
+    goals: [
+      { player: "Daniel Muñoz", team: "Colombia", minute: 76, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Jhon Lucumí", team: "Colombia", minute: 56, reason: "Roughing" },
+      { player: "Charles Pickel", team: "Congo DR", minute: 90, reason: "Unsportsmanlike conduct" },
+      { player: "Jefferson Lerma", team: "Colombia", minute: 90, reason: "Roughing" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-24T01:28:13.950Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-24T05:36:33.857Z';
