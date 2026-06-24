@@ -1534,4 +1534,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "K2_Colombia_v_Congo_DR", team: "Congo DR", name: "Nathanaël Mbuku", pos: "FW", minutes: 8, rating: 6.7, goals: 0, assists: 0, saves: 0, shots: 1, shotsOn: 1, passes: 5, passAccPct: 80, tackles: 0, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-06-24T12:13:12.714Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-06-24T15:12:43.339Z';
