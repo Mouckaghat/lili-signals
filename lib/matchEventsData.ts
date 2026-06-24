@@ -649,7 +649,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Erling Haaland", team: "Norway", minute: 48, type: "goal" },
       { player: "Ismaïla Sarr", team: "Senegal", minute: 53, type: "goal" },
       { player: "Erling Haaland", team: "Norway", minute: 58, type: "goal" },
-      { player: "Ismaïla Sarr", team: "Senegal", minute: 90, minuteStoppage: 3, type: "goal" },
+      { player: "Ismaïla Sarr", team: "Senegal", minute: 90, type: "goal" },
     ],
     yellowCards: [],
     redCards: [],
@@ -721,4 +721,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-24T05:36:33.857Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-24T08:41:23.513Z';
