@@ -367,16 +367,30 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "B3_Switzerland_v_Canada",
     home: "Switzerland", away: "Canada", date: "2026-06-24",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Switzerland", possession: 0.56, totalShots: 6, shotsInsideBox: 5, shotsOutsideBox: 1, shotsOnGoal: 4, corners: 2, xg: 1.06, passAccuracy: 0.83, passes: 440, fouls: 19 },
-    awayStats: { team: "Canada", possession: 0.44, totalShots: 11, shotsInsideBox: 10, shotsOutsideBox: 1, shotsOnGoal: 5, corners: 7, xg: 1.19, passAccuracy: 0.8, passes: 332, fouls: 12 },
+    homeStats: { team: "Switzerland", possession: 0.55, totalShots: 6, shotsInsideBox: 5, shotsOutsideBox: 1, shotsOnGoal: 4, corners: 2, xg: 1.06, passAccuracy: 0.83, passes: 441, fouls: 19 },
+    awayStats: { team: "Canada", possession: 0.45, totalShots: 13, shotsInsideBox: 12, shotsOutsideBox: 1, shotsOnGoal: 7, corners: 7, xg: 1.27, passAccuracy: 0.8, passes: 339, fouls: 13 },
   },
   {
     fixtureId: "B3_Bosnia_Herzegovina_v_Qatar",
     home: "Bosnia & Herzegovina", away: "Qatar", date: "2026-06-24",
-    status: "LIVE", elapsed: 90,
-    homeStats: { team: "Bosnia & Herzegovina", possession: 0.56, totalShots: 14, shotsInsideBox: 4, shotsOutsideBox: 10, shotsOnGoal: 5, corners: 5, xg: 0.65, passAccuracy: 0.88, passes: 506, fouls: 8 },
-    awayStats: { team: "Qatar", possession: 0.44, totalShots: 7, shotsInsideBox: 4, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 4, xg: 0.67, passAccuracy: 0.85, passes: 408, fouls: 13 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Bosnia & Herzegovina", possession: 0.55, totalShots: 14, shotsInsideBox: 4, shotsOutsideBox: 10, shotsOnGoal: 5, corners: 5, xg: 0.64, passAccuracy: 0.88, passes: 516, fouls: 9 },
+    awayStats: { team: "Qatar", possession: 0.45, totalShots: 9, shotsInsideBox: 5, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 5, xg: 0.77, passAccuracy: 0.85, passes: 434, fouls: 14 },
+  },
+  {
+    fixtureId: "D3_Morocco_v_Haiti",
+    home: "Morocco", away: "Haiti", date: "2026-06-24",
+    status: "LIVE", elapsed: 13,
+    homeStats: { team: "Morocco", possession: 0.7, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.92, passes: 91, fouls: 1 },
+    awayStats: { team: "Haiti", possession: 0.3, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 0, xg: 0.04, passAccuracy: 0.93, passes: 40, fouls: 0 },
+  },
+  {
+    fixtureId: "D3_Scotland_v_Brazil",
+    home: "Scotland", away: "Brazil", date: "2026-06-24",
+    status: "LIVE", elapsed: 13,
+    homeStats: { team: "Scotland", possession: 0.63, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.88, passes: 69, fouls: 0 },
+    awayStats: { team: "Brazil", possession: 0.37, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 0, xg: 0.97, passAccuracy: 0.95, passes: 41, fouls: 0 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-24T20:57:29.124Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-24T22:14:20.870Z';
