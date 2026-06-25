@@ -339,8 +339,8 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "K2_Portugal_v_Uzbekistan",
     home: "Portugal", away: "Uzbekistan", date: "2026-06-23",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Portugal", possession: 0.66, totalShots: 17, shotsInsideBox: 12, shotsOutsideBox: 5, shotsOnGoal: 9, corners: 3, xg: 2.41, passAccuracy: 0.9, passes: 623, fouls: 14 },
-    awayStats: { team: "Uzbekistan", possession: 0.34, totalShots: 7, shotsInsideBox: 4, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 2, xg: 0.25, passAccuracy: 0.81, passes: 324, fouls: 15 },
+    homeStats: { team: "Portugal", possession: 0.66, totalShots: 17, shotsInsideBox: 12, shotsOutsideBox: 5, shotsOnGoal: 9, corners: 3, xg: 2.61, passAccuracy: 0.9, passes: 624, fouls: 14 },
+    awayStats: { team: "Uzbekistan", possession: 0.34, totalShots: 7, shotsInsideBox: 4, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 2, xg: 0.24, passAccuracy: 0.8, passes: 327, fouls: 15 },
   },
   {
     fixtureId: "L2_England_v_Ghana",
@@ -394,17 +394,17 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "A3_Czech_Republic_v_Mexico",
     home: "Czech Republic", away: "Mexico", date: "2026-06-25",
-    status: "LIVE", elapsed: 34,
-    homeStats: { team: "Czech Republic", possession: 0.52, totalShots: 5, shotsInsideBox: 4, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 0, xg: 0.24, passAccuracy: 0.85, passes: 127, fouls: 3 },
-    awayStats: { team: "Mexico", possession: 0.48, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.86, passes: 115, fouls: 5 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Czech Republic", possession: 0.52, totalShots: 13, shotsInsideBox: 6, shotsOutsideBox: 7, shotsOnGoal: 1, corners: 5, xg: 0.47, passAccuracy: 0.83, passes: 398, fouls: 9 },
+    awayStats: { team: "Mexico", possession: 0.48, totalShots: 11, shotsInsideBox: 9, shotsOutsideBox: 2, shotsOnGoal: 5, corners: 1, xg: 1.79, passAccuracy: 0.85, passes: 388, fouls: 13 },
   },
   {
     fixtureId: "A3_South_Africa_v_South_Korea",
     home: "South Africa", away: "South Korea", date: "2026-06-25",
-    status: "LIVE", elapsed: 34,
-    homeStats: { team: "South Africa", possession: 0.37, totalShots: 4, shotsInsideBox: 2, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 3, xg: 0.95, passAccuracy: 0.83, passes: 112, fouls: 0 },
-    awayStats: { team: "South Korea", possession: 0.63, totalShots: 3, shotsInsideBox: 3, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 2, xg: 0.41, passAccuracy: 0.88, passes: 190, fouls: 2 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "South Africa", possession: 0.32, totalShots: 13, shotsInsideBox: 5, shotsOutsideBox: 8, shotsOnGoal: 4, corners: 4, xg: 1.1, passAccuracy: 0.82, passes: 339, fouls: 7 },
+    awayStats: { team: "South Korea", possession: 0.68, totalShots: 8, shotsInsideBox: 5, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 6, xg: 1, passAccuracy: 0.89, passes: 720, fouls: 9 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-25T01:34:45.303Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-25T05:48:29.194Z';
