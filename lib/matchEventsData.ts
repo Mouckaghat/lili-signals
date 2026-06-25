@@ -762,7 +762,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     yellowCards: [
       { player: "Johny Placide", team: "Haiti", minute: 79, reason: "Argument" },
-      { player: "Duckens Nazon", team: "Haiti", minute: 79, reason: "Argument" },
+      { player: "Duckens Nazon", team: "Haiti", minute: 80, reason: "Argument" },
       { player: "Josué Casimir", team: "Haiti", minute: 90, reason: "Foul" },
     ],
     redCards: [],
@@ -776,8 +776,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Matheus Cunha", team: "Brazil", minute: 60, type: "goal" },
     ],
     yellowCards: [
-      { player: "Danilo", team: "Brazil", minute: 63, reason: "Foul" },
-      { player: "Fabinho", team: "Brazil", minute: 83, reason: "Foul" },
+      { player: "Danilo", team: "Brazil", minute: 62, reason: "Foul" },
+      { player: "Fabinho", team: "Brazil", minute: 82, reason: "Foul" },
       { player: "Ryan Christie", team: "Scotland", minute: 89, reason: "Foul" },
     ],
     redCards: [],
@@ -809,4 +809,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-25T08:41:16.813Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-25T11:22:04.413Z';
