@@ -408,7 +408,7 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "E3_Ecuador_v_Germany",
     home: "Ecuador", away: "Germany", date: "2026-06-25",
-    status: "LIVE", elapsed: 90,
+    status: "FINISHED", elapsed: null,
     homeStats: { team: "Ecuador", possession: 0.39, totalShots: 7, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 3, corners: 3, xg: 0, passAccuracy: 0, passes: 0, fouls: 15 },
     awayStats: { team: "Germany", possession: 0.61, totalShots: 11, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 3, corners: 2, xg: 0, passAccuracy: 0, passes: 0, fouls: 10 },
   },
@@ -421,4 +421,4 @@ export const MATCH_STATS: MatchStats[] = [
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-25T21:59:05.998Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-25T22:45:51.069Z';
