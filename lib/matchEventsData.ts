@@ -713,9 +713,9 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Daniel Muñoz", team: "Colombia", minute: 76, type: "goal" },
     ],
     yellowCards: [
-      { player: "Jhon Lucumí", team: "Colombia", minute: 56, reason: "Roughing" },
-      { player: "Charles Pickel", team: "Congo DR", minute: 90, reason: "Unsportsmanlike conduct" },
-      { player: "Jefferson Lerma", team: "Colombia", minute: 90, reason: "Roughing" },
+      { player: "Jhon Lucumí", team: "Colombia", minute: 56, reason: "Foul" },
+      { player: "Jefferson Lerma", team: "Colombia", minute: 90, reason: "Foul" },
+      { player: "Charles Pickel", team: "Congo DR", minute: 90, reason: "Argument" },
     ],
     redCards: [],
   },
@@ -809,4 +809,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-25T05:49:10.400Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-25T08:41:16.813Z';
