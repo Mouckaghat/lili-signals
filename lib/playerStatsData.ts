@@ -1724,4 +1724,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "A3_South_Africa_v_South_Korea", team: "South Korea", name: "Gue-sung Cho", pos: "FW", minutes: 16, rating: 6.3, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 5, passAccPct: 60, tackles: 0, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-06-25T15:16:51.801Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-06-25T17:26:59.535Z';
