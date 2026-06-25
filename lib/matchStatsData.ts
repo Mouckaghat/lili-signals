@@ -408,17 +408,17 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "E3_Ecuador_v_Germany",
     home: "Ecuador", away: "Germany", date: "2026-06-25",
-    status: "LIVE", elapsed: 48,
-    homeStats: { team: "Ecuador", possession: 0.38, totalShots: 2, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 1, xg: 0, passAccuracy: 0, passes: 0, fouls: 10 },
-    awayStats: { team: "Germany", possession: 0.62, totalShots: 7, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 2, corners: 1, xg: 0, passAccuracy: 0, passes: 0, fouls: 3 },
+    status: "LIVE", elapsed: 90,
+    homeStats: { team: "Ecuador", possession: 0.39, totalShots: 7, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 3, corners: 3, xg: 0, passAccuracy: 0, passes: 0, fouls: 15 },
+    awayStats: { team: "Germany", possession: 0.61, totalShots: 11, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 3, corners: 2, xg: 0, passAccuracy: 0, passes: 0, fouls: 10 },
   },
   {
     fixtureId: "E3_Cura_ao_v_Ivory_Coast",
     home: "Curaçao", away: "Ivory Coast", date: "2026-06-25",
-    status: "LIVE", elapsed: 47,
-    homeStats: { team: "Curaçao", possession: 0.31, totalShots: 4, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 3, xg: 0, passAccuracy: 0, passes: 0, fouls: 7 },
-    awayStats: { team: "Ivory Coast", possession: 0.69, totalShots: 4, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 2, xg: 0, passAccuracy: 0, passes: 0, fouls: 4 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Curaçao", possession: 0.37, totalShots: 11, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 2, corners: 4, xg: 0, passAccuracy: 0, passes: 0, fouls: 11 },
+    awayStats: { team: "Ivory Coast", possession: 0.63, totalShots: 7, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 3, corners: 6, xg: 0, passAccuracy: 0, passes: 0, fouls: 6 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-25T21:08:49.335Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-25T21:59:05.998Z';
