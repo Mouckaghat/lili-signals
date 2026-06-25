@@ -837,6 +837,16 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "F3_Tunisia_v_Netherlands",
+    home: "Tunisia", away: "Netherlands", date: "2026-06-25",
+    goals: [
+      { player: "Ellyes Skhiri", team: "Tunisia", minute: 3, type: "own-goal" },
+      { player: "Brian Brobbey", team: "Netherlands", minute: 7, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-25T21:59:16.405Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-25T23:19:13.011Z';
