@@ -325,15 +325,15 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "I2_Norway_v_Senegal",
     home: "Norway", away: "Senegal", date: "2026-06-23",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Norway", possession: 0.42, totalShots: 13, shotsInsideBox: 11, shotsOutsideBox: 2, shotsOnGoal: 7, corners: 5, xg: 2.1, passAccuracy: 0.8, passes: 352, fouls: 13 },
-    awayStats: { team: "Senegal", possession: 0.58, totalShots: 16, shotsInsideBox: 10, shotsOutsideBox: 6, shotsOnGoal: 4, corners: 4, xg: 1.7, passAccuracy: 0.88, passes: 487, fouls: 5 },
+    homeStats: { team: "Norway", possession: 0.42, totalShots: 13, shotsInsideBox: 11, shotsOutsideBox: 2, shotsOnGoal: 7, corners: 5, xg: 2.2, passAccuracy: 0.8, passes: 353, fouls: 13 },
+    awayStats: { team: "Senegal", possession: 0.58, totalShots: 16, shotsInsideBox: 10, shotsOutsideBox: 6, shotsOnGoal: 4, corners: 4, xg: 1.72, passAccuracy: 0.88, passes: 489, fouls: 5 },
   },
   {
     fixtureId: "J2_Jordan_v_Algeria",
     home: "Jordan", away: "Algeria", date: "2026-06-23",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Jordan", possession: 0.28, totalShots: 8, shotsInsideBox: 4, shotsOutsideBox: 4, shotsOnGoal: 4, corners: 1, xg: 0.65, passAccuracy: 0.72, passes: 251, fouls: 11 },
-    awayStats: { team: "Algeria", possession: 0.72, totalShots: 17, shotsInsideBox: 11, shotsOutsideBox: 6, shotsOnGoal: 8, corners: 10, xg: 1.81, passAccuracy: 0.88, passes: 638, fouls: 6 },
+    homeStats: { team: "Jordan", possession: 0.28, totalShots: 8, shotsInsideBox: 4, shotsOutsideBox: 4, shotsOnGoal: 4, corners: 1, xg: 0.63, passAccuracy: 0.72, passes: 251, fouls: 11 },
+    awayStats: { team: "Algeria", possession: 0.72, totalShots: 17, shotsInsideBox: 11, shotsOutsideBox: 6, shotsOnGoal: 8, corners: 10, xg: 1.89, passAccuracy: 0.88, passes: 641, fouls: 6 },
   },
   {
     fixtureId: "K2_Portugal_v_Uzbekistan",
@@ -407,4 +407,4 @@ export const MATCH_STATS: MatchStats[] = [
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-25T05:48:29.194Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-25T08:40:53.001Z';
