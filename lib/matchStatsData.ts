@@ -380,17 +380,31 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "D3_Morocco_v_Haiti",
     home: "Morocco", away: "Haiti", date: "2026-06-24",
-    status: "LIVE", elapsed: 72,
-    homeStats: { team: "Morocco", possession: 0.71, totalShots: 14, shotsInsideBox: 11, shotsOutsideBox: 3, shotsOnGoal: 8, corners: 6, xg: 2.22, passAccuracy: 0.9, passes: 443, fouls: 6 },
-    awayStats: { team: "Haiti", possession: 0.29, totalShots: 5, shotsInsideBox: 2, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 0, xg: 0.52, passAccuracy: 0.8, passes: 189, fouls: 13 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Morocco", possession: 0.7, totalShots: 22, shotsInsideBox: 15, shotsOutsideBox: 7, shotsOnGoal: 11, corners: 9, xg: 3.26, passAccuracy: 0.89, passes: 540, fouls: 10 },
+    awayStats: { team: "Haiti", possession: 0.3, totalShots: 5, shotsInsideBox: 2, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 0, xg: 0.52, passAccuracy: 0.8, passes: 242, fouls: 18 },
   },
   {
     fixtureId: "D3_Scotland_v_Brazil",
     home: "Scotland", away: "Brazil", date: "2026-06-24",
-    status: "LIVE", elapsed: 70,
-    homeStats: { team: "Scotland", possession: 0.5, totalShots: 7, shotsInsideBox: 3, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 4, xg: 0.39, passAccuracy: 0.91, passes: 405, fouls: 7 },
-    awayStats: { team: "Brazil", possession: 0.5, totalShots: 16, shotsInsideBox: 9, shotsOutsideBox: 7, shotsOnGoal: 7, corners: 3, xg: 3.38, passAccuracy: 0.92, passes: 409, fouls: 3 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Scotland", possession: 0.47, totalShots: 13, shotsInsideBox: 9, shotsOutsideBox: 4, shotsOnGoal: 4, corners: 6, xg: 0.87, passAccuracy: 0.9, passes: 497, fouls: 10 },
+    awayStats: { team: "Brazil", possession: 0.53, totalShots: 20, shotsInsideBox: 13, shotsOutsideBox: 7, shotsOnGoal: 9, corners: 6, xg: 4.41, passAccuracy: 0.93, passes: 585, fouls: 9 },
+  },
+  {
+    fixtureId: "A3_Czech_Republic_v_Mexico",
+    home: "Czech Republic", away: "Mexico", date: "2026-06-25",
+    status: "LIVE", elapsed: 34,
+    homeStats: { team: "Czech Republic", possession: 0.52, totalShots: 5, shotsInsideBox: 4, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 0, xg: 0.24, passAccuracy: 0.85, passes: 127, fouls: 3 },
+    awayStats: { team: "Mexico", possession: 0.48, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.86, passes: 115, fouls: 5 },
+  },
+  {
+    fixtureId: "A3_South_Africa_v_South_Korea",
+    home: "South Africa", away: "South Korea", date: "2026-06-25",
+    status: "LIVE", elapsed: 34,
+    homeStats: { team: "South Africa", possession: 0.37, totalShots: 4, shotsInsideBox: 2, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 3, xg: 0.95, passAccuracy: 0.83, passes: 112, fouls: 0 },
+    awayStats: { team: "South Korea", possession: 0.63, totalShots: 3, shotsInsideBox: 3, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 2, xg: 0.41, passAccuracy: 0.88, passes: 190, fouls: 2 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-24T23:34:49.903Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-25T01:34:45.303Z';
