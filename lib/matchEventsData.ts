@@ -757,8 +757,14 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Achraf Hakimi", team: "Morocco", minute: 39, type: "goal" },
       { player: "Wilson Isidor", team: "Haiti", minute: 43, type: "goal" },
       { player: "Ismael Saibari", team: "Morocco", minute: 45, minuteStoppage: 1, type: "goal" },
+      { player: "Soufiane Rahimi", team: "Morocco", minute: 78, type: "goal" },
+      { player: "Gessime Yassine", team: "Morocco", minute: 89, type: "goal" },
     ],
-    yellowCards: [],
+    yellowCards: [
+      { player: "Duckens Nazon", team: "Haiti", minute: 79, reason: "Unsportsmanlike conduct" },
+      { player: "Johny Placide", team: "Haiti", minute: 79, reason: "Unsportsmanlike conduct" },
+      { player: "Josué Casimir", team: "Haiti", minute: 90, reason: "Tripping" },
+    ],
     redCards: [],
   },
   {
@@ -771,9 +777,11 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     yellowCards: [
       { player: "Danilo", team: "Brazil", minute: 62, reason: "Tripping" },
+      { player: "Fabinho", team: "Brazil", minute: 82, reason: "Tripping" },
+      { player: "Ryan Christie", team: "Scotland", minute: 89, reason: "Holding" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-24T23:38:33.560Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-25T01:36:15.998Z';
