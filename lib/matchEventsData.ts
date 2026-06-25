@@ -813,8 +813,14 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Leroy Sané", team: "Germany", minute: 2, type: "goal" },
       { player: "Nilson Angulo", team: "Ecuador", minute: 9, type: "goal" },
+      { player: "Gonzalo Plata", team: "Ecuador", minute: 77, type: "goal" },
     ],
-    yellowCards: [],
+    yellowCards: [
+      { player: "Piero Hincapié", team: "Ecuador", minute: 43, reason: "Foul" },
+      { player: "Aleksandar Pavlović", team: "Germany", minute: 44, reason: "Foul" },
+      { player: "Alan Franco", team: "Ecuador", minute: 50, reason: "Time Wasting" },
+      { player: "Gonzalo Plata", team: "Ecuador", minute: 89, reason: "Foul" },
+    ],
     redCards: [],
   },
   {
@@ -822,10 +828,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Curaçao", away: "Ivory Coast", date: "2026-06-25",
     goals: [
       { player: "Nicolas Pépé", team: "Ivory Coast", minute: 7, type: "goal" },
+      { player: "Nicolas Pépé", team: "Ivory Coast", minute: 64, type: "goal" },
     ],
-    yellowCards: [],
+    yellowCards: [
+      { player: "Nicolas Pépé", team: "Ivory Coast", minute: 35, reason: "Foul" },
+      { player: "Juninho Bacuna", team: "Curaçao", minute: 75, reason: "Foul" },
+      { player: "Gervane Kastaneer", team: "Curaçao", minute: 83, reason: "Foul" },
+    ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-25T20:26:13.915Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-25T21:59:16.405Z';
