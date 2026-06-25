@@ -381,15 +381,15 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "D3_Morocco_v_Haiti",
     home: "Morocco", away: "Haiti", date: "2026-06-24",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Morocco", possession: 0.7, totalShots: 22, shotsInsideBox: 15, shotsOutsideBox: 7, shotsOnGoal: 11, corners: 9, xg: 3.26, passAccuracy: 0.89, passes: 540, fouls: 10 },
-    awayStats: { team: "Haiti", possession: 0.3, totalShots: 5, shotsInsideBox: 2, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 0, xg: 0.52, passAccuracy: 0.8, passes: 242, fouls: 18 },
+    homeStats: { team: "Morocco", possession: 0.69, totalShots: 22, shotsInsideBox: 15, shotsOutsideBox: 7, shotsOnGoal: 11, corners: 9, xg: 3.76, passAccuracy: 0.88, passes: 541, fouls: 10 },
+    awayStats: { team: "Haiti", possession: 0.31, totalShots: 9, shotsInsideBox: 4, shotsOutsideBox: 5, shotsOnGoal: 2, corners: 1, xg: 0.67, passAccuracy: 0.8, passes: 247, fouls: 18 },
   },
   {
     fixtureId: "D3_Scotland_v_Brazil",
     home: "Scotland", away: "Brazil", date: "2026-06-24",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Scotland", possession: 0.47, totalShots: 13, shotsInsideBox: 9, shotsOutsideBox: 4, shotsOnGoal: 4, corners: 6, xg: 0.87, passAccuracy: 0.9, passes: 497, fouls: 10 },
-    awayStats: { team: "Brazil", possession: 0.53, totalShots: 20, shotsInsideBox: 13, shotsOutsideBox: 7, shotsOnGoal: 9, corners: 6, xg: 4.41, passAccuracy: 0.93, passes: 585, fouls: 9 },
+    homeStats: { team: "Scotland", possession: 0.46, totalShots: 14, shotsInsideBox: 10, shotsOutsideBox: 4, shotsOnGoal: 5, corners: 7, xg: 1.04, passAccuracy: 0.9, passes: 500, fouls: 10 },
+    awayStats: { team: "Brazil", possession: 0.54, totalShots: 21, shotsInsideBox: 14, shotsOutsideBox: 7, shotsOnGoal: 9, corners: 6, xg: 4.33, passAccuracy: 0.93, passes: 605, fouls: 11 },
   },
   {
     fixtureId: "A3_Czech_Republic_v_Mexico",
@@ -407,4 +407,4 @@ export const MATCH_STATS: MatchStats[] = [
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-25T08:40:53.001Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-25T11:21:56.292Z';
