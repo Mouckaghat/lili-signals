@@ -701,8 +701,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Ante Budimir", team: "Croatia", minute: 54, type: "goal" },
     ],
     yellowCards: [
-      { player: "Yoel Bárcenas", team: "Panama", minute: 61, reason: "Roughing" },
-      { player: "Petar Sučić", team: "Croatia", minute: 90, reason: "Tripping" },
+      { player: "Yoel Bárcenas", team: "Panama", minute: 61, reason: "Foul" },
+      { player: "Petar Sučić", team: "Croatia", minute: 90, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -728,9 +728,9 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Promise David", team: "Canada", minute: 76, type: "goal" },
     ],
     yellowCards: [
-      { player: "Cyle Larin", team: "Canada", minute: 32, reason: "Unsportsmanlike conduct" },
-      { player: "Granit Xhaka", team: "Switzerland", minute: 32, reason: "Unsportsmanlike conduct" },
-      { player: "Liam Millar", team: "Canada", minute: 87, reason: "Holding" },
+      { player: "Granit Xhaka", team: "Switzerland", minute: 32, reason: "Argument" },
+      { player: "Cyle Larin", team: "Canada", minute: 32, reason: "Argument" },
+      { player: "Liam Millar", team: "Canada", minute: 87, reason: "Professional foul" },
     ],
     redCards: [],
   },
@@ -740,12 +740,12 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Kerim Alajbegović", team: "Bosnia & Herzegovina", minute: 29, type: "goal" },
       { player: "Mahmud Abunada", team: "Qatar", minute: 34, type: "own-goal" },
-      { player: "H. Al Haydos", team: "Qatar", minute: 42, type: "goal" },
+      { player: "Hassan Al Haydos", team: "Qatar", minute: 42, type: "goal" },
       { player: "Ermin Mahmić", team: "Bosnia & Herzegovina", minute: 80, type: "goal" },
     ],
     yellowCards: [
-      { player: "A. Fathi", team: "Qatar", minute: 78 },
-      { player: "Ermin Mahmić", team: "Bosnia & Herzegovina", minute: 82, reason: "Unsportsmanlike conduct" },
+      { player: "Ahmed Fathi", team: "Qatar", minute: 78, reason: "Foul" },
+      { player: "Ermin Mahmić", team: "Bosnia & Herzegovina", minute: 82 },
     ],
     redCards: [],
   },
@@ -753,7 +753,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     fixtureId: "D3_Morocco_v_Haiti",
     home: "Morocco", away: "Haiti", date: "2026-06-24",
     goals: [
-      { player: "Bono", team: "Morocco", minute: 10, type: "own-goal" },
+      { player: "Yassine Bounou", team: "Morocco", minute: 10, type: "own-goal" },
       { player: "Achraf Hakimi", team: "Morocco", minute: 39, type: "goal" },
       { player: "Wilson Isidor", team: "Haiti", minute: 43, type: "goal" },
       { player: "Ismael Saibari", team: "Morocco", minute: 45, minuteStoppage: 1, type: "goal" },
@@ -761,9 +761,9 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Gessime Yassine", team: "Morocco", minute: 89, type: "goal" },
     ],
     yellowCards: [
-      { player: "Duckens Nazon", team: "Haiti", minute: 79, reason: "Unsportsmanlike conduct" },
-      { player: "Johny Placide", team: "Haiti", minute: 79, reason: "Unsportsmanlike conduct" },
-      { player: "Josué Casimir", team: "Haiti", minute: 90, reason: "Tripping" },
+      { player: "Johny Placide", team: "Haiti", minute: 79, reason: "Argument" },
+      { player: "Duckens Nazon", team: "Haiti", minute: 79, reason: "Argument" },
+      { player: "Josué Casimir", team: "Haiti", minute: 90, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -776,12 +776,37 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Matheus Cunha", team: "Brazil", minute: 60, type: "goal" },
     ],
     yellowCards: [
-      { player: "Danilo", team: "Brazil", minute: 62, reason: "Tripping" },
-      { player: "Fabinho", team: "Brazil", minute: 82, reason: "Tripping" },
-      { player: "Ryan Christie", team: "Scotland", minute: 89, reason: "Holding" },
+      { player: "Danilo", team: "Brazil", minute: 63, reason: "Foul" },
+      { player: "Fabinho", team: "Brazil", minute: 83, reason: "Foul" },
+      { player: "Ryan Christie", team: "Scotland", minute: 89, reason: "Foul" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "A3_Czech_Republic_v_Mexico",
+    home: "Czech Republic", away: "Mexico", date: "2026-06-25",
+    goals: [
+      { player: "M. Chavez Garcia", team: "Mexico", minute: 55, type: "goal" },
+      { player: "Julián Quiñones", team: "Mexico", minute: 61, type: "goal" },
+      { player: "Álvaro Fidalgo", team: "Mexico", minute: 90, minuteStoppage: 4, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Edson Álvarez", team: "Mexico", minute: 64, reason: "Tripping" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "A3_South_Africa_v_South_Korea",
+    home: "South Africa", away: "South Korea", date: "2026-06-25",
+    goals: [
+      { player: "Thapelo Maseko", team: "South Africa", minute: 63, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Aubrey Modiba", team: "South Africa", minute: 73, reason: "Foul" },
+      { player: "Cho Gue-sung", team: "South Korea", minute: 79, reason: "Roughing" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-25T01:36:15.998Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-25T05:49:10.400Z';
