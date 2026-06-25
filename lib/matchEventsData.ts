@@ -807,6 +807,25 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "E3_Ecuador_v_Germany",
+    home: "Ecuador", away: "Germany", date: "2026-06-25",
+    goals: [
+      { player: "Leroy Sané", team: "Germany", minute: 2, type: "goal" },
+      { player: "Nilson Angulo", team: "Ecuador", minute: 9, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
+  {
+    fixtureId: "E3_Cura_ao_v_Ivory_Coast",
+    home: "Curaçao", away: "Ivory Coast", date: "2026-06-25",
+    goals: [
+      { player: "Nicolas Pépé", team: "Ivory Coast", minute: 7, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-25T18:22:22.385Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-25T20:26:13.915Z';
