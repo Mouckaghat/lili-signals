@@ -405,6 +405,20 @@ export const MATCH_STATS: MatchStats[] = [
     homeStats: { team: "South Africa", possession: 0.32, totalShots: 13, shotsInsideBox: 5, shotsOutsideBox: 8, shotsOnGoal: 4, corners: 4, xg: 1.1, passAccuracy: 0.82, passes: 339, fouls: 7 },
     awayStats: { team: "South Korea", possession: 0.68, totalShots: 8, shotsInsideBox: 5, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 6, xg: 1, passAccuracy: 0.89, passes: 720, fouls: 9 },
   },
+  {
+    fixtureId: "E3_Ecuador_v_Germany",
+    home: "Ecuador", away: "Germany", date: "2026-06-25",
+    status: "LIVE", elapsed: 25,
+    homeStats: { team: "Ecuador", possession: 0.42, totalShots: 1, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 1, xg: 0, passAccuracy: 0, passes: 0, fouls: 8 },
+    awayStats: { team: "Germany", possession: 0.58, totalShots: 4, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 2, corners: 0, xg: 0, passAccuracy: 0, passes: 0, fouls: 2 },
+  },
+  {
+    fixtureId: "E3_Cura_ao_v_Ivory_Coast",
+    home: "Curaçao", away: "Ivory Coast", date: "2026-06-25",
+    status: "LIVE", elapsed: 25,
+    homeStats: { team: "Curaçao", possession: 0.27, totalShots: 2, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 0, xg: 0, passAccuracy: 0, passes: 0, fouls: 4 },
+    awayStats: { team: "Ivory Coast", possession: 0.73, totalShots: 3, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 0, xg: 0, passAccuracy: 0, passes: 0, fouls: 1 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-25T19:19:13.633Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-25T20:26:01.541Z';
