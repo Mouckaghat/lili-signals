@@ -1978,4 +1978,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "I3_Norway_v_France", team: "France", name: "Jean-Philippe Mateta", pos: "FW", minutes: 9, rating: 6.5, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 0, passAccPct: 0, tackles: 0, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-06-26T21:40:03.057Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-06-26T22:52:40.488Z';
