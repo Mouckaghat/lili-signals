@@ -753,10 +753,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
     fixtureId: "D3_Morocco_v_Haiti",
     home: "Morocco", away: "Haiti", date: "2026-06-24",
     goals: [
-      { player: "Yassine Bounou", team: "Morocco", minute: 10, type: "own-goal" },
+      { player: "Bono", team: "Morocco", minute: 10, type: "own-goal" },
       { player: "Achraf Hakimi", team: "Morocco", minute: 39, type: "goal" },
       { player: "Wilson Isidor", team: "Haiti", minute: 43, type: "goal" },
-      { player: "Ismael Saibari", team: "Morocco", minute: 45, minuteStoppage: 1, type: "goal" },
+      { player: "Ismael Saibari", team: "Morocco", minute: 45, type: "goal" },
       { player: "Soufiane Rahimi", team: "Morocco", minute: 78, type: "goal" },
       { player: "Gessime Yassine", team: "Morocco", minute: 89, type: "goal" },
     ],
@@ -818,7 +818,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     yellowCards: [
       { player: "Piero Hincapié", team: "Ecuador", minute: 43, reason: "Foul" },
       { player: "Aleksandar Pavlović", team: "Germany", minute: 44, reason: "Foul" },
-      { player: "Alan Franco", team: "Ecuador", minute: 50, reason: "Time Wasting" },
+      { player: "Alan Franco", team: "Ecuador", minute: 50, reason: "Time wasting" },
       { player: "Gonzalo Plata", team: "Ecuador", minute: 89, reason: "Foul" },
     ],
     redCards: [],
@@ -845,9 +845,9 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Anthony Elanga", team: "Sweden", minute: 62, type: "goal" },
     ],
     yellowCards: [
-      { player: "Isak Hien", team: "Sweden", minute: 32, reason: "Foul" },
-      { player: "Shōgo Taniguchi", team: "Japan", minute: 77, reason: "Foul" },
-      { player: "Viktor Gyökeres", team: "Sweden", minute: 85, reason: "Foul" },
+      { player: "Isak Hien", team: "Sweden", minute: 32, reason: "Holding" },
+      { player: "Shōgo Taniguchi", team: "Japan", minute: 77, reason: "Roughing" },
+      { player: "Viktor Gyökeres", team: "Sweden", minute: 85, reason: "Roughing" },
     ],
     redCards: [],
   },
@@ -890,4 +890,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-26T05:52:23.830Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-26T08:44:00.953Z';
