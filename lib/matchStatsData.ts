@@ -449,4 +449,4 @@ export const MATCH_STATS: MatchStats[] = [
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-26T15:55:08.684Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-26T17:29:05.400Z';
