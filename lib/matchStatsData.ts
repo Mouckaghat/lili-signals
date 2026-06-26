@@ -422,17 +422,17 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "F3_Japan_v_Sweden",
     home: "Japan", away: "Sweden", date: "2026-06-25",
-    status: "LIVE", elapsed: 45,
-    homeStats: { team: "Japan", possession: 0.55, totalShots: 4, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 2, corners: 1, xg: 0, passAccuracy: 0, passes: 0, fouls: 11 },
-    awayStats: { team: "Sweden", possession: 0.45, totalShots: 2, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 3, xg: 0, passAccuracy: 0, passes: 0, fouls: 6 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Japan", possession: 0.52, totalShots: 8, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 3, corners: 2, xg: 0, passAccuracy: 0, passes: 0, fouls: 20 },
+    awayStats: { team: "Sweden", possession: 0.48, totalShots: 11, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 5, corners: 8, xg: 0, passAccuracy: 0, passes: 0, fouls: 11 },
   },
   {
     fixtureId: "F3_Tunisia_v_Netherlands",
     home: "Tunisia", away: "Netherlands", date: "2026-06-25",
-    status: "LIVE", elapsed: 45,
-    homeStats: { team: "Tunisia", possession: 0.3, totalShots: 4, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 1, xg: 0, passAccuracy: 0, passes: 0, fouls: 5 },
-    awayStats: { team: "Netherlands", possession: 0.7, totalShots: 12, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 3, corners: 3, xg: 0, passAccuracy: 0, passes: 0, fouls: 4 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Tunisia", possession: 0.28, totalShots: 10, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 4, corners: 4, xg: 0, passAccuracy: 0, passes: 0, fouls: 11 },
+    awayStats: { team: "Netherlands", possession: 0.72, totalShots: 20, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 7, corners: 6, xg: 0, passAccuracy: 0, passes: 0, fouls: 10 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-26T00:01:33.480Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-26T01:33:12.302Z';
