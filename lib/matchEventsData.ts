@@ -729,8 +729,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     yellowCards: [
       { player: "Granit Xhaka", team: "Switzerland", minute: 32, reason: "Argument" },
-      { player: "Cyle Larin", team: "Canada", minute: 32, reason: "Argument" },
-      { player: "Liam Millar", team: "Canada", minute: 87, reason: "Professional foul" },
+      { player: "Cyle Larin", team: "Canada", minute: 32 },
+      { player: "Liam Millar", team: "Canada", minute: 87, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -740,7 +740,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Kerim Alajbegović", team: "Bosnia & Herzegovina", minute: 29, type: "goal" },
       { player: "Mahmud Abunada", team: "Qatar", minute: 34, type: "own-goal" },
-      { player: "Hassan Al Haydos", team: "Qatar", minute: 42, type: "goal" },
+      { player: "H. Al Haydos", team: "Qatar", minute: 42, type: "goal" },
       { player: "Ermin Mahmić", team: "Bosnia & Herzegovina", minute: 80, type: "goal" },
     ],
     yellowCards: [
@@ -772,7 +772,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Scotland", away: "Brazil", date: "2026-06-24",
     goals: [
       { player: "Vinícius Júnior", team: "Brazil", minute: 7, type: "goal" },
-      { player: "Vinícius Júnior", team: "Brazil", minute: 45, minuteStoppage: 3, type: "goal" },
+      { player: "Vinícius Júnior", team: "Brazil", minute: 45, type: "goal" },
       { player: "Matheus Cunha", team: "Brazil", minute: 60, type: "goal" },
     ],
     yellowCards: [
@@ -788,10 +788,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "M. Chavez Garcia", team: "Mexico", minute: 55, type: "goal" },
       { player: "Julián Quiñones", team: "Mexico", minute: 61, type: "goal" },
-      { player: "Álvaro Fidalgo", team: "Mexico", minute: 90, minuteStoppage: 4, type: "goal" },
+      { player: "Álvaro Fidalgo", team: "Mexico", minute: 90, type: "goal" },
     ],
     yellowCards: [
-      { player: "Edson Álvarez", team: "Mexico", minute: 64, reason: "Tripping" },
+      { player: "Edson Álvarez", team: "Mexico", minute: 64, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -803,7 +803,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     yellowCards: [
       { player: "Aubrey Modiba", team: "South Africa", minute: 73, reason: "Foul" },
-      { player: "Cho Gue-sung", team: "South Korea", minute: 79, reason: "Roughing" },
+      { player: "Gue-sung Cho", team: "South Korea", minute: 79, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -863,6 +863,31 @@ export const MATCH_EVENTS: MatchEvents[] = [
     yellowCards: [],
     redCards: [],
   },
+  {
+    fixtureId: "C3_T_rkiye_v_USA",
+    home: "Türkiye", away: "USA", date: "2026-06-26",
+    goals: [
+      { player: "Auston Trusty", team: "USA", minute: 3, type: "goal" },
+      { player: "Arda Güler", team: "Türkiye", minute: 10, type: "goal" },
+      { player: "B. Yilmaz", team: "Türkiye", minute: 31, type: "goal" },
+      { player: "Sebastian Berhalter", team: "USA", minute: 49, type: "goal" },
+      { player: "Kaan Ayhan", team: "Türkiye", minute: 90, minuteStoppage: 8, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Sebastian Berhalter", team: "USA", minute: 19, reason: "Roughing" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "C3_Paraguay_v_Australia",
+    home: "Paraguay", away: "Australia", date: "2026-06-25",
+    goals: [],
+    yellowCards: [
+      { player: "Jackson Irvine", team: "Australia", minute: 46, reason: "Tripping" },
+      { player: "Diego Gómez", team: "Paraguay", minute: 77 },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-26T01:33:22.168Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-26T05:52:23.830Z';
