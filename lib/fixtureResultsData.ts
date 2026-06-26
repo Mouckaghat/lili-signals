@@ -75,4 +75,4 @@ export const FIXTURE_RESULTS: Record<string, FixtureResult> = {
   "Paraguay|Australia": { status: 'FINISHED', homeScore: 0, awayScore: 0, winner: null },
 };
 
-export const FIXTURE_RESULTS_LAST_UPDATED = '2026-06-26T16:51:40.334Z';
+export const FIXTURE_RESULTS_LAST_UPDATED = '2026-06-26T18:24:55.647Z';
