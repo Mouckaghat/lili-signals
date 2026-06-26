@@ -367,15 +367,15 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "B3_Switzerland_v_Canada",
     home: "Switzerland", away: "Canada", date: "2026-06-24",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Switzerland", possession: 0.55, totalShots: 6, shotsInsideBox: 5, shotsOutsideBox: 1, shotsOnGoal: 4, corners: 2, xg: 1.06, passAccuracy: 0.83, passes: 441, fouls: 19 },
-    awayStats: { team: "Canada", possession: 0.45, totalShots: 13, shotsInsideBox: 12, shotsOutsideBox: 1, shotsOnGoal: 7, corners: 7, xg: 1.27, passAccuracy: 0.8, passes: 339, fouls: 13 },
+    homeStats: { team: "Switzerland", possession: 0.55, totalShots: 6, shotsInsideBox: 5, shotsOutsideBox: 1, shotsOnGoal: 4, corners: 2, xg: 1.11, passAccuracy: 0.83, passes: 443, fouls: 19 },
+    awayStats: { team: "Canada", possession: 0.45, totalShots: 13, shotsInsideBox: 12, shotsOutsideBox: 1, shotsOnGoal: 7, corners: 7, xg: 1.66, passAccuracy: 0.8, passes: 339, fouls: 13 },
   },
   {
     fixtureId: "B3_Bosnia_Herzegovina_v_Qatar",
     home: "Bosnia & Herzegovina", away: "Qatar", date: "2026-06-24",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Bosnia & Herzegovina", possession: 0.55, totalShots: 14, shotsInsideBox: 4, shotsOutsideBox: 10, shotsOnGoal: 5, corners: 5, xg: 0.64, passAccuracy: 0.88, passes: 516, fouls: 9 },
-    awayStats: { team: "Qatar", possession: 0.45, totalShots: 9, shotsInsideBox: 5, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 5, xg: 0.77, passAccuracy: 0.85, passes: 434, fouls: 14 },
+    homeStats: { team: "Bosnia & Herzegovina", possession: 0.54, totalShots: 14, shotsInsideBox: 4, shotsOutsideBox: 10, shotsOnGoal: 5, corners: 5, xg: 0.68, passAccuracy: 0.88, passes: 515, fouls: 9 },
+    awayStats: { team: "Qatar", possession: 0.46, totalShots: 9, shotsInsideBox: 5, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 5, xg: 0.77, passAccuracy: 0.85, passes: 434, fouls: 14 },
   },
   {
     fixtureId: "D3_Morocco_v_Haiti",
@@ -449,4 +449,4 @@ export const MATCH_STATS: MatchStats[] = [
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-26T04:37:55.478Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-26T05:52:12.968Z';
