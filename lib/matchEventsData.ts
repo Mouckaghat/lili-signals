@@ -893,8 +893,17 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Senegal", away: "Iraq", date: "2026-06-26",
     goals: [
       { player: "Habib Diarra", team: "Senegal", minute: 4, type: "goal" },
+      { player: "Ismaïla Sarr", team: "Senegal", minute: 56, type: "goal" },
+      { player: "Pape Gueye", team: "Senegal", minute: 59, type: "goal" },
+      { player: "Pape Gueye", team: "Senegal", minute: 71, type: "goal" },
+      { player: "Iliman Ndiaye", team: "Senegal", minute: 82, type: "goal" },
     ],
-    yellowCards: [],
+    yellowCards: [
+      { player: "Abdoulaye Seck", team: "Senegal", minute: 18, reason: "Foul" },
+      { player: "A. Al Ammari", team: "Iraq", minute: 75 },
+      { player: "Pape Gueye", team: "Senegal", minute: 81, reason: "Foul" },
+      { player: "Merchas Doski", team: "Iraq", minute: 90, reason: "Foul" },
+    ],
     redCards: [
       { player: "Rebin Sulaka", team: "Iraq", minute: 13, reason: "Holding" },
     ],
@@ -904,12 +913,17 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Norway", away: "France", date: "2026-06-26",
     goals: [
       { player: "Ousmane Dembélé", team: "France", minute: 7, type: "goal" },
+      { player: "Ousmane Dembélé", team: "France", minute: 20, type: "goal" },
+      { player: "Thelo Aasgaard", team: "Norway", minute: 21, type: "goal" },
+      { player: "Ousmane Dembélé", team: "France", minute: 32, type: "goal" },
+      { player: "Désiré Doué", team: "France", minute: 90, minuteStoppage: 4, type: "goal" },
     ],
     yellowCards: [
       { player: "Patrick Berg", team: "Norway", minute: 10, reason: "Holding" },
+      { player: "Aurélien Tchouaméni", team: "France", minute: 74, reason: "Roughing" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-26T19:19:57.939Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-26T20:59:17.830Z';
