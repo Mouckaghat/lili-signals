@@ -838,15 +838,31 @@ export const MATCH_EVENTS: MatchEvents[] = [
     redCards: [],
   },
   {
+    fixtureId: "F3_Japan_v_Sweden",
+    home: "Japan", away: "Sweden", date: "2026-06-25",
+    goals: [
+      { player: "Daizen Maeda", team: "Japan", minute: 56, type: "goal" },
+      { player: "Anthony Elanga", team: "Sweden", minute: 62, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Isak Hien", team: "Sweden", minute: 32, reason: "Foul" },
+      { player: "Shōgo Taniguchi", team: "Japan", minute: 77, reason: "Foul" },
+      { player: "Viktor Gyökeres", team: "Sweden", minute: 85, reason: "Foul" },
+    ],
+    redCards: [],
+  },
+  {
     fixtureId: "F3_Tunisia_v_Netherlands",
     home: "Tunisia", away: "Netherlands", date: "2026-06-25",
     goals: [
       { player: "Ellyes Skhiri", team: "Tunisia", minute: 3, type: "own-goal" },
       { player: "Brian Brobbey", team: "Netherlands", minute: 7, type: "goal" },
+      { player: "Hazem Mastouri", team: "Tunisia", minute: 54, type: "goal" },
+      { player: "Jan Paul van Hecke", team: "Netherlands", minute: 62, type: "goal" },
     ],
     yellowCards: [],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-25T23:19:13.011Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-26T01:33:22.168Z';
