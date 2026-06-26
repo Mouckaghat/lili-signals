@@ -1914,4 +1914,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "C3_Paraguay_v_Australia", team: "Australia", name: "Tete Yengi", pos: "FW", minutes: 12, rating: 6.2, goals: 0, assists: 0, saves: 0, shots: 1, shotsOn: 1, passes: 1, passAccPct: 100, tackles: 0, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-06-26T11:23:13.064Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-06-26T13:29:38.951Z';
