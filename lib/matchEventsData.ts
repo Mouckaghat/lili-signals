@@ -888,6 +888,28 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "I3_Senegal_v_Iraq",
+    home: "Senegal", away: "Iraq", date: "2026-06-26",
+    goals: [
+      { player: "Habib Diarra", team: "Senegal", minute: 4, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [
+      { player: "Rebin Sulaka", team: "Iraq", minute: 13, reason: "Holding" },
+    ],
+  },
+  {
+    fixtureId: "I3_Norway_v_France",
+    home: "Norway", away: "France", date: "2026-06-26",
+    goals: [
+      { player: "Ousmane Dembélé", team: "France", minute: 7, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Patrick Berg", team: "Norway", minute: 10, reason: "Holding" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-26T17:30:23.454Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-26T19:19:57.939Z';
