@@ -110,9 +110,13 @@ function fmtCountdown(diffMs: number): string {
 // ─── Build entries ────────────────────────────────────────────────────────────
 
 function buildEntries(group: string | null, liveResults: Record<string, FixtureResult>): MatchEntry[] {
+  // General list shows the WHOLE tournament (sorted by date below), so matchday-3
+  // and any knockout games always appear — never a frozen first-N cap that
+  // strands later games (the old `.slice(0, 48)` cut the list off at ~24 Jun).
+  // Section headers (see render) keep the longer list scannable.
   const fixtures = group
     ? WC_FIXTURES.filter((f) => f.group === group)
-    : WC_FIXTURES.slice(0, 48);
+    : WC_FIXTURES;
 
   const sorted = [...fixtures].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
@@ -127,6 +131,14 @@ function buildEntries(group: string | null, liveResults: Record<string, FixtureR
     if (!nextMarked) { nextMarked = true; return { fixture, kind: 'NEXT' as MatchKind }; }
     return { fixture, kind: 'UPCOMING' as MatchKind };
   });
+}
+
+// Section label for the round dividers. Group stage → "Matchday N" (reusing the
+// existing i18n.matchday key, all 11 langs); knockout fixtures carry their round
+// name in `group` (e.g. "Round of 16") so we show it verbatim — they slot into
+// the same timeline automatically once the sync pipeline adds them.
+function sectionLabel(f: WCFixture, i18n: I18n): string {
+  return /^[A-L]$/.test(f.group) ? `${i18n.matchday} ${f.matchday}` : f.group;
 }
 
 // ─── Match row ────────────────────────────────────────────────────────────────
@@ -257,6 +269,19 @@ export default function MatchTimelineSection({ group }: { group: string | null }
 
   const lineupByKey = new Map(allLineups.map((l) => [l.fixtureKey, l]));
 
+  // Bucket the (date-sorted) entries into round sections — Matchday 1/2/3, then
+  // any knockout rounds — preserving the date order inside each section and the
+  // first-seen order of the sections themselves. Headers keep the full-tournament
+  // list scannable without dropping any row (so every 🔥 Heatmap button stays).
+  const sections: { label: string; rows: MatchEntry[] }[] = [];
+  const byLabel = new Map<string, MatchEntry[]>();
+  for (const entry of entries) {
+    const label = sectionLabel(entry.fixture, i18n);
+    let bucket = byLabel.get(label);
+    if (!bucket) { bucket = []; byLabel.set(label, bucket); sections.push({ label, rows: bucket }); }
+    bucket.push(entry);
+  }
+
   return (
     <View style={tl.section}>
       {/* Header */}
@@ -268,16 +293,23 @@ export default function MatchTimelineSection({ group }: { group: string | null }
         </Text>
       </View>
 
-      {/* Row list */}
+      {/* Row list, grouped by round */}
       <View style={tl.list}>
-        {entries.map((entry) => (
-          <MatchRow
-            key={entry.fixture.id}
-            entry={entry}
-            lineup={lineupByKey.get(`${entry.fixture.home}|${entry.fixture.away}`)}
-            i18n={i18n}
-            now={now}
-          />
+        {sections.map((sec) => (
+          <View key={sec.label}>
+            <View style={tl.sectionHeader}>
+              <Text style={tl.sectionHeaderText}>{sec.label}</Text>
+            </View>
+            {sec.rows.map((entry) => (
+              <MatchRow
+                key={entry.fixture.id}
+                entry={entry}
+                lineup={lineupByKey.get(`${entry.fixture.home}|${entry.fixture.away}`)}
+                i18n={i18n}
+                now={now}
+              />
+            ))}
+          </View>
         ))}
       </View>
     </View>
@@ -296,5 +328,19 @@ const tl = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(80,140,255,0.10)',
     overflow: 'hidden',
+  },
+  sectionHeader: {
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    backgroundColor: 'rgba(74,158,255,0.06)',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: D.border,
+  },
+  sectionHeaderText: {
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 1.4,
+    color: D.blue,
+    textTransform: 'uppercase',
   },
 });
