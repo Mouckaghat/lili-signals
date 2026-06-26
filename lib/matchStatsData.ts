@@ -433,6 +433,20 @@ export const MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Tunisia", possession: 0.28, totalShots: 10, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 4, corners: 4, xg: 0, passAccuracy: 0, passes: 0, fouls: 11 },
     awayStats: { team: "Netherlands", possession: 0.72, totalShots: 20, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 7, corners: 6, xg: 0, passAccuracy: 0, passes: 0, fouls: 10 },
   },
+  {
+    fixtureId: "C3_T_rkiye_v_USA",
+    home: "Türkiye", away: "USA", date: "2026-06-26",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Türkiye", possession: 0.47, totalShots: 9, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 3, corners: 2, xg: 0, passAccuracy: 0, passes: 0, fouls: 13 },
+    awayStats: { team: "USA", possession: 0.53, totalShots: 18, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 7, corners: 9, xg: 0, passAccuracy: 0, passes: 0, fouls: 13 },
+  },
+  {
+    fixtureId: "C3_Paraguay_v_Australia",
+    home: "Paraguay", away: "Australia", date: "2026-06-25",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Paraguay", possession: 0.44, totalShots: 7, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 2, corners: 1, xg: 0, passAccuracy: 0, passes: 0, fouls: 9 },
+    awayStats: { team: "Australia", possession: 0.56, totalShots: 12, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 5, corners: 3, xg: 0, passAccuracy: 0, passes: 0, fouls: 6 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-26T01:33:12.302Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-26T04:37:55.478Z';
