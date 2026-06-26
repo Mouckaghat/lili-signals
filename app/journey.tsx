@@ -1,5 +1,5 @@
 import { Stack } from 'expo-router';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -29,6 +29,7 @@ import {
 import FeatureIntro from '../components/FeatureIntro';
 import { playerByPath } from '../lib/playerXI';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useProfile } from '../contexts/ProfileContext';
 import { fmtDate, fmtTime } from '../lib/fmt';
 
 // ─── Scrubber stages ──────────────────────────────────────────────────────────
@@ -262,9 +263,20 @@ function PathChip({
 export default function JourneyScreen() {
   const [launched, setLaunched] = useState(false);
   const { i18n } = useLanguage();
+  const { favTeam, setFavTeam, ready } = useProfile();
   const [team, setTeam]           = useState<WCTeam | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [stageIndex, setStageIndex] = useState(0);
+
+  // Hydrate the journey from the saved favourite team once storage has loaded,
+  // so the followed team persists across app restarts (and stays in sync with
+  // the Dashboard / Team Rankings highlight). Only seeds when nothing's picked.
+  useEffect(() => {
+    if (ready && !team && favTeam) {
+      const t = getTeam(favTeam);
+      if (t) setTeam(t);
+    }
+  }, [ready, favTeam]);
 
   // Derive all journey data when team changes
   const groupFixtures = useMemo(
@@ -283,6 +295,7 @@ export default function JourneyScreen() {
   const handleTeamSelect = (t: WCTeam) => {
     setTeam(t);
     setStageIndex(0);
+    setFavTeam(t.name); // persist as the global favourite so it lights up elsewhere
   };
 
   // Compute Lili insight for current stage

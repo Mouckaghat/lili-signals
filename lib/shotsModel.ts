@@ -81,16 +81,24 @@ export function shotsMatch(fixtureId: string, results: Record<string, FixtureRes
 
 // ── Tournament rankings ──────────────────────────────────────────────────────
 export interface ShotRank { team: string; flag: string; value: number; sub?: string }
-export interface ShotRankings { mostGoals: ShotRank[]; mostSot: ShotRank[]; highestDanger: ShotRank[]; toughestGk: ShotRank[] }
+// theWall = "The Wall": the meanest defences — teams that have conceded the
+// fewest goals across their FINISHED matches (honest: only counts played games,
+// tie-break by fewest-per-game so more games with the same total ranks higher).
+export interface ShotRankings { mostGoals: ShotRank[]; mostSot: ShotRank[]; highestDanger: ShotRank[]; toughestGk: ShotRank[]; theWall: ShotRank[] }
 
 export function shotRankings(results: Record<string, FixtureResult> = FIXTURE_RESULTS): ShotRankings {
   const teams = new Set<string>();
   for (const m of MATCH_STATS) { teams.add(m.home); teams.add(m.away); }
   const goalsFor = new Map<string, number>();
+  const goalsAgainst = new Map<string, number>();
+  const played = new Map<string, number>();
   for (const k in results) {
     const r = results[k]; if (r.status !== 'FINISHED' || r.homeScore == null) continue;
     const [h, a] = k.split('|');
-    goalsFor.set(h, (goalsFor.get(h) ?? 0) + r.homeScore); goalsFor.set(a, (goalsFor.get(a) ?? 0) + (r.awayScore ?? 0));
+    const ag = r.awayScore ?? 0;
+    goalsFor.set(h, (goalsFor.get(h) ?? 0) + r.homeScore); goalsFor.set(a, (goalsFor.get(a) ?? 0) + ag);
+    goalsAgainst.set(h, (goalsAgainst.get(h) ?? 0) + ag); goalsAgainst.set(a, (goalsAgainst.get(a) ?? 0) + r.homeScore);
+    played.set(h, (played.get(h) ?? 0) + 1); played.set(a, (played.get(a) ?? 0) + 1);
   }
   const agg = [...teams].map((t) => {
     let sot = 0, danger = 0, saves = 0, xga = 0, conceded = 0;
@@ -107,11 +115,19 @@ export function shotRankings(results: Record<string, FixtureResult> = FIXTURE_RE
   });
   const top = (sel: (x: typeof agg[number]) => number, sub?: (x: typeof agg[number]) => string) =>
     [...agg].sort((a, b) => sel(b) - sel(a)).slice(0, 5).map((x) => ({ team: x.team, flag: x.flag, value: Math.round(sel(x)), sub: sub?.(x) }));
+  // The Wall — fewest goals conceded (ascending). Only teams that have played;
+  // tie-break by fewest conceded per game, then by more games played.
+  const theWall: ShotRank[] = [...played.keys()]
+    .map((t) => { const ga = goalsAgainst.get(t) ?? 0, gp = played.get(t) ?? 1; return { team: t, ga, gp }; })
+    .sort((a, b) => (a.ga - b.ga) || (a.ga / a.gp - b.ga / b.gp) || (b.gp - a.gp))
+    .slice(0, 5)
+    .map((x) => ({ team: x.team, flag: flagOf(x.team), value: x.ga, sub: `${x.ga} in ${x.gp}` }));
   return {
     mostGoals: top((x) => x.goals),
     mostSot: top((x) => x.sot),
     highestDanger: top((x) => x.danger),
     toughestGk: top((x) => x.prevented * 10 + x.saves, (x) => `${x.saves} saves`),
+    theWall,
   };
 }
 

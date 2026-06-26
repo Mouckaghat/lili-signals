@@ -92,6 +92,7 @@ export default function DashboardModule({ favTeam }: { favTeam?: string }) {
       <TeamList title="🎯 Most On Target" rows={teams.mostSot} favTeam={favTeam} />
       <TeamList title="🔥 Highest Danger" rows={teams.highestDanger} favTeam={favTeam} />
       <TeamList title="🧤 Toughest Keeper" rows={teams.toughestGk} favTeam={favTeam} showSub />
+      <TeamList title="🧱 The Wall · Fewest Conceded" rows={teams.theWall} favTeam={favTeam} showSub />
     </View>
   );
 

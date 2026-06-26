@@ -4,10 +4,12 @@ import { View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import BottomNavigationDock from '../components/BottomNavigationDock';
 import { LanguageProvider } from '../contexts/LanguageContext';
+import { ProfileProvider } from '../contexts/ProfileContext';
 
 export default function RootLayout() {
   return (
     <LanguageProvider>
+      <ProfileProvider>
       <SafeAreaProvider>
         <StatusBar style="light" />
         <View style={{ flex: 1 }}>
@@ -38,6 +40,7 @@ export default function RootLayout() {
           <BottomNavigationDock />
         </View>
       </SafeAreaProvider>
+      </ProfileProvider>
     </LanguageProvider>
   );
 }

@@ -13,6 +13,7 @@ import OverviewModule, { TournamentImpactPanel } from '../components/OverviewMod
 import PassMapModule from '../components/PassMapModule';
 import ShotsModule from '../components/ShotsModule';
 import DashboardModule from '../components/DashboardModule';
+import { useProfile } from '../contexts/ProfileContext';
 import Brand from '../components/Brand';
 import { AttackZonesPanel, ShotsMapPanel, PassMapPanel } from '../components/MatchDashboard';
 
@@ -54,6 +55,7 @@ export default function MatchHeatmapScreen() {
   const insets  = useSafeAreaInsets();
   const matches = useLiveStats();
   const results = useLiveResults();
+  const { favTeam } = useProfile();
   // Land on Overview (real match content); Dashboard is an empty placeholder
   // until the tournament command centre is built.
   const [tab, setTab] = useState(OVERVIEW);
@@ -173,7 +175,7 @@ export default function MatchHeatmapScreen() {
       <ScrollView style={st.screen} contentContainerStyle={{ paddingBottom: insets.bottom + 60 }}>
         {Header}{Tabs}
         {/* TODO: pass favTeam once a global favourite/journey-team store exists. */}
-        <DashboardModule />
+        <DashboardModule favTeam={favTeam ?? undefined} />
         {DashFooter}
       </ScrollView>
     );
