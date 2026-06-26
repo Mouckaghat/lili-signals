@@ -450,17 +450,17 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "I3_Senegal_v_Iraq",
     home: "Senegal", away: "Iraq", date: "2026-06-26",
-    status: "LIVE", elapsed: 90,
-    homeStats: { team: "Senegal", possession: 0.69, totalShots: 25, shotsInsideBox: 15, shotsOutsideBox: 10, shotsOnGoal: 9, corners: 12, xg: 2.93, passAccuracy: 0.88, passes: 549, fouls: 9 },
-    awayStats: { team: "Iraq", possession: 0.31, totalShots: 6, shotsInsideBox: 1, shotsOutsideBox: 5, shotsOnGoal: 1, corners: 3, xg: 0.18, passAccuracy: 0.71, passes: 251, fouls: 9 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Senegal", possession: 0.69, totalShots: 28, shotsInsideBox: 17, shotsOutsideBox: 11, shotsOnGoal: 12, corners: 12, xg: 3.1, passAccuracy: 0.88, passes: 590, fouls: 10 },
+    awayStats: { team: "Iraq", possession: 0.31, totalShots: 6, shotsInsideBox: 1, shotsOutsideBox: 5, shotsOnGoal: 1, corners: 3, xg: 0.18, passAccuracy: 0.69, passes: 265, fouls: 11 },
   },
   {
     fixtureId: "I3_Norway_v_France",
     home: "Norway", away: "France", date: "2026-06-26",
-    status: "LIVE", elapsed: 90,
-    homeStats: { team: "Norway", possession: 0.43, totalShots: 10, shotsInsideBox: 6, shotsOutsideBox: 4, shotsOnGoal: 4, corners: 4, xg: 1.69, passAccuracy: 0.82, passes: 409, fouls: 9 },
-    awayStats: { team: "France", possession: 0.57, totalShots: 17, shotsInsideBox: 9, shotsOutsideBox: 8, shotsOnGoal: 8, corners: 5, xg: 1.18, passAccuracy: 0.86, passes: 545, fouls: 10 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Norway", possession: 0.43, totalShots: 10, shotsInsideBox: 6, shotsOutsideBox: 4, shotsOnGoal: 4, corners: 4, xg: 1.69, passAccuracy: 0.82, passes: 420, fouls: 9 },
+    awayStats: { team: "France", possession: 0.57, totalShots: 18, shotsInsideBox: 10, shotsOutsideBox: 8, shotsOnGoal: 9, corners: 5, xg: 1.31, passAccuracy: 0.86, passes: 557, fouls: 11 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-26T20:59:10.768Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-26T22:14:27.489Z';
