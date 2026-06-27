@@ -81,4 +81,4 @@ export const FIXTURE_RESULTS: Record<string, FixtureResult> = {
   "New Zealand|Belgium": { status: 'FINISHED', homeScore: 1, awayScore: 5, winner: 'Belgium' },
 };
 
-export const FIXTURE_RESULTS_LAST_UPDATED = '2026-06-27T12:45:55.436Z';
+export const FIXTURE_RESULTS_LAST_UPDATED = '2026-06-27T14:19:04.416Z';
