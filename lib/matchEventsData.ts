@@ -845,9 +845,9 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Anthony Elanga", team: "Sweden", minute: 62, type: "goal" },
     ],
     yellowCards: [
-      { player: "Isak Hien", team: "Sweden", minute: 32, reason: "Holding" },
-      { player: "Shōgo Taniguchi", team: "Japan", minute: 77, reason: "Roughing" },
-      { player: "Viktor Gyökeres", team: "Sweden", minute: 85, reason: "Roughing" },
+      { player: "Isak Hien", team: "Sweden", minute: 32, reason: "Foul" },
+      { player: "Shōgo Taniguchi", team: "Japan", minute: 77, reason: "Foul" },
+      { player: "Viktor Gyökeres", team: "Sweden", minute: 85, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -895,17 +895,17 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Habib Diarra", team: "Senegal", minute: 4, type: "goal" },
       { player: "Ismaïla Sarr", team: "Senegal", minute: 56, type: "goal" },
       { player: "Pape Gueye", team: "Senegal", minute: 59, type: "goal" },
-      { player: "Pape Gueye", team: "Senegal", minute: 71, type: "goal" },
+      { player: "Pape Gueye", team: "Senegal", minute: 72, type: "goal" },
       { player: "Iliman Ndiaye", team: "Senegal", minute: 82, type: "goal" },
     ],
     yellowCards: [
-      { player: "Abdoulaye Seck", team: "Senegal", minute: 18, reason: "Foul" },
-      { player: "A. Al Ammari", team: "Iraq", minute: 75 },
+      { player: "Abdoulaye Seck", team: "Senegal", minute: 17, reason: "Foul" },
+      { player: "Amir Al-Ammari", team: "Iraq", minute: 76, reason: "Foul" },
       { player: "Pape Gueye", team: "Senegal", minute: 81, reason: "Foul" },
       { player: "Merchas Doski", team: "Iraq", minute: 90, reason: "Foul" },
     ],
     redCards: [
-      { player: "Rebin Sulaka", team: "Iraq", minute: 13, reason: "Holding" },
+      { player: "Rebin Sulaka", team: "Iraq", minute: 13, reason: "Foul" },
     ],
   },
   {
@@ -919,8 +919,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Désiré Doué", team: "France", minute: 90, minuteStoppage: 4, type: "goal" },
     ],
     yellowCards: [
-      { player: "Patrick Berg", team: "Norway", minute: 10, reason: "Holding" },
-      { player: "Aurélien Tchouaméni", team: "France", minute: 74, reason: "Roughing" },
+      { player: "Patrick Berg", team: "Norway", minute: 10, reason: "Foul" },
+      { player: "Aurélien Tchouaméni", team: "France", minute: 74, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -928,14 +928,17 @@ export const MATCH_EVENTS: MatchEvents[] = [
     fixtureId: "G3_Uruguay_v_Spain",
     home: "Uruguay", away: "Spain", date: "2026-06-27",
     goals: [
-      { player: "Alejandro Baena Rodríguez", team: "Spain", minute: 42, type: "goal" },
+      { player: "Álex Baena", team: "Spain", minute: 42, type: "goal" },
     ],
     yellowCards: [
-      { player: "Alejandro Baena Rodríguez", team: "Spain", minute: 46, reason: "Foul" },
-      { player: "Juan Manuel Sanabria", team: "Uruguay", minute: 54, reason: "Foul" },
-      { player: "Guillermo Varela", team: "Uruguay", minute: 58, reason: "Foul" },
+      { player: "Álex Baena", team: "Spain", minute: 46, reason: "Holding" },
+      { player: "Juan Manuel Sanabria", team: "Uruguay", minute: 54, reason: "Tripping" },
+      { player: "Guillermo Varela", team: "Uruguay", minute: 58, reason: "Elbowing" },
+      { player: "Nicolás de la Cruz", team: "Uruguay", minute: 90, reason: "Tripping" },
     ],
-    redCards: [],
+    redCards: [
+      { player: "Agustín Canobbio", team: "Uruguay", minute: 90, reason: "Serious foul" },
+    ],
   },
   {
     fixtureId: "G3_Cape_Verde_Islands_v_Saudi_Arabia",
@@ -943,10 +946,47 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [],
     yellowCards: [
       { player: "Saud Abdulhamid", team: "Saudi Arabia", minute: 4, reason: "Foul" },
-      { player: "Wagner Pina", team: "Cape Verde Islands", minute: 9, reason: "Foul" },
+      { player: "Wagner Pina", team: "Cape Verde Islands", minute: 8, reason: "Elbowing" },
+      { player: "N. Al Dawsari", team: "Saudi Arabia", minute: 67, reason: "Holding" },
+      { player: "F. Al Buraikan", team: "Saudi Arabia", minute: 90, reason: "Foul" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "H3_Egypt_v_Iran",
+    home: "Egypt", away: "Iran", date: "2026-06-27",
+    goals: [
+      { player: "Mahmoud Saber", team: "Egypt", minute: 5, type: "goal" },
+      { player: "Ramin Rezaeian", team: "Iran", minute: 14, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "H. Kanaani", team: "Iran", minute: 19, reason: "Tripping" },
+      { player: "Mahmoud Saber", team: "Egypt", minute: 20, reason: "Roughing" },
+      { player: "Yasser Ibrahim", team: "Egypt", minute: 42, reason: "Foul" },
+      { player: "Ali Nemati", team: "Iran", minute: 43, reason: "Tripping" },
+      { player: "Saeid Ezatolahi", team: "Iran", minute: 79 },
+      { player: "Mohanad Lasheen", team: "Egypt", minute: 90 },
+      { player: "Shojae Khalilzadeh", team: "Iran", minute: 90, reason: "Unsportsmanlike conduct" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "H3_New_Zealand_v_Belgium",
+    home: "New Zealand", away: "Belgium", date: "2026-06-27",
+    goals: [
+      { player: "Leandro Trossard", team: "Belgium", minute: 28, type: "goal" },
+      { player: "Leandro Trossard", team: "Belgium", minute: 50, type: "goal" },
+      { player: "Kevin De Bruyne", team: "Belgium", minute: 66, type: "goal" },
+      { player: "Elijah Just", team: "New Zealand", minute: 84, type: "goal" },
+      { player: "Romelu Lukaku", team: "Belgium", minute: 86, type: "goal" },
+      { player: "Alexis Saelemaekers", team: "Belgium", minute: 90, minuteStoppage: 4, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Marko Stamenić", team: "New Zealand", minute: 46, reason: "Tripping" },
+      { player: "Elijah Just", team: "New Zealand", minute: 56, reason: "Holding" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-27T01:31:34.325Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-27T05:31:35.001Z';
