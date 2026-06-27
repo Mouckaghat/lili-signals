@@ -1594,7 +1594,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Al-Rayyan",
     league: "Qatar Stars League",
     leagueFlag: "🇶🇦",
-    caps: 5,
+    caps: 6,
   },
   {
     name: "Pedro Miguel",
@@ -1644,7 +1644,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Al-Rayyan",
     league: "Qatar Stars League",
     leagueFlag: "🇶🇦",
-    caps: 117,
+    caps: 119,
   },
   {
     name: "Ahmed Alaaeldin",
@@ -7918,7 +7918,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Dender EH",
     league: "Pro League",
     leagueFlag: "🇧🇪",
-    caps: 98,
+    caps: 99,
   },
   {
     name: "Mohammad Mohebi",
@@ -12549,4 +12549,4 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
   },
 ];
 
-export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-26T09:32:39.441Z';
+export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-27T08:39:55.437Z';
