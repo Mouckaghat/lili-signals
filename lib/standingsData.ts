@@ -48,10 +48,10 @@ export const GROUP_STANDINGS: GroupStanding[] = [
   { group: "G", team: "Iran", rank: 2, played: 2, won: 0, drawn: 2, lost: 0, gf: 2, ga: 2, gd: 0, pts: 2, status: 'ALIVE' },
   { group: "G", team: "Belgium", rank: 3, played: 2, won: 0, drawn: 2, lost: 0, gf: 1, ga: 1, gd: 0, pts: 2, status: 'AT-RISK' },
   { group: "G", team: "New Zealand", rank: 4, played: 2, won: 0, drawn: 1, lost: 1, gf: 3, ga: 5, gd: -2, pts: 1, status: 'AT-RISK' },
-  { group: "H", team: "Spain", rank: 1, played: 2, won: 1, drawn: 1, lost: 0, gf: 4, ga: 0, gd: 4, pts: 4, status: 'QUALIFIED' },
-  { group: "H", team: "Uruguay", rank: 2, played: 2, won: 0, drawn: 2, lost: 0, gf: 3, ga: 3, gd: 0, pts: 2, status: 'ALIVE' },
-  { group: "H", team: "Cape Verde Islands", rank: 3, played: 2, won: 0, drawn: 2, lost: 0, gf: 2, ga: 2, gd: 0, pts: 2, status: 'AT-RISK' },
-  { group: "H", team: "Saudi Arabia", rank: 4, played: 2, won: 0, drawn: 1, lost: 1, gf: 1, ga: 5, gd: -4, pts: 1, status: 'AT-RISK' },
+  { group: "H", team: "Spain", rank: 1, played: 3, won: 2, drawn: 1, lost: 0, gf: 5, ga: 0, gd: 5, pts: 7, status: 'QUALIFIED' },
+  { group: "H", team: "Cape Verde Islands", rank: 2, played: 3, won: 0, drawn: 3, lost: 0, gf: 2, ga: 2, gd: 0, pts: 3, status: 'ALIVE' },
+  { group: "H", team: "Uruguay", rank: 3, played: 3, won: 0, drawn: 2, lost: 1, gf: 3, ga: 4, gd: -1, pts: 2, status: 'ELIMINATED' },
+  { group: "H", team: "Saudi Arabia", rank: 4, played: 3, won: 0, drawn: 2, lost: 1, gf: 1, ga: 5, gd: -4, pts: 2, status: 'ELIMINATED' },
   { group: "I", team: "France", rank: 1, played: 3, won: 3, drawn: 0, lost: 0, gf: 10, ga: 2, gd: 8, pts: 9, status: 'QUALIFIED' },
   { group: "I", team: "Norway", rank: 2, played: 3, won: 2, drawn: 0, lost: 1, gf: 8, ga: 7, gd: 1, pts: 6, status: 'QUALIFIED' },
   { group: "I", team: "Senegal", rank: 3, played: 3, won: 1, drawn: 0, lost: 2, gf: 8, ga: 6, gd: 2, pts: 3, status: 'AT-RISK' },
@@ -77,9 +77,9 @@ export const GROUP_STANDINGS: GroupStanding[] = [
   { group: "Stage", team: "South Korea", rank: 7, played: 3, won: 1, drawn: 0, lost: 2, gf: 2, ga: 3, gd: -1, pts: 3, status: 'ELIMINATED' },
   { group: "Stage", team: "Algeria", rank: 8, played: 2, won: 1, drawn: 0, lost: 1, gf: 2, ga: 4, gd: -2, pts: 3, status: 'AT-RISK' },
   { group: "Stage", team: "Scotland", rank: 9, played: 3, won: 1, drawn: 0, lost: 2, gf: 1, ga: 4, gd: -3, pts: 3, status: 'ELIMINATED' },
-  { group: "Stage", team: "Cape Verde Islands", rank: 10, played: 2, won: 0, drawn: 2, lost: 0, gf: 2, ga: 2, gd: 0, pts: 2, status: 'AT-RISK' },
-  { group: "Stage", team: "Belgium", rank: 11, played: 2, won: 0, drawn: 2, lost: 0, gf: 1, ga: 1, gd: 0, pts: 2, status: 'AT-RISK' },
+  { group: "Stage", team: "Belgium", rank: 10, played: 2, won: 0, drawn: 2, lost: 0, gf: 1, ga: 1, gd: 0, pts: 2, status: 'AT-RISK' },
+  { group: "Stage", team: "Uruguay", rank: 11, played: 3, won: 0, drawn: 2, lost: 1, gf: 3, ga: 4, gd: -1, pts: 2, status: 'ELIMINATED' },
   { group: "Stage", team: "Congo DR", rank: 12, played: 2, won: 0, drawn: 1, lost: 1, gf: 1, ga: 2, gd: -1, pts: 1, status: 'AT-RISK' },
 ];
 
-export const STANDINGS_LAST_UPDATED = '2026-06-26T23:05:15.498Z';
+export const STANDINGS_LAST_UPDATED = '2026-06-27T02:59:07.920Z';
