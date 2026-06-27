@@ -479,16 +479,16 @@ export const MATCH_STATS: MatchStats[] = [
     fixtureId: "H3_Egypt_v_Iran",
     home: "Egypt", away: "Iran", date: "2026-06-27",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Egypt", possession: 0.62, totalShots: 15, shotsInsideBox: 8, shotsOutsideBox: 7, shotsOnGoal: 3, corners: 8, xg: 0.81, passAccuracy: 0.88, passes: 580, fouls: 11 },
-    awayStats: { team: "Iran", possession: 0.38, totalShots: 11, shotsInsideBox: 8, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 2, xg: 1.76, passAccuracy: 0.77, passes: 359, fouls: 16 },
+    homeStats: { team: "Egypt", possession: 0.61, totalShots: 15, shotsInsideBox: 8, shotsOutsideBox: 7, shotsOnGoal: 3, corners: 8, xg: 0.81, passAccuracy: 0.87, passes: 587, fouls: 11 },
+    awayStats: { team: "Iran", possession: 0.39, totalShots: 12, shotsInsideBox: 9, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 2, xg: 1.83, passAccuracy: 0.77, passes: 367, fouls: 16 },
   },
   {
     fixtureId: "H3_New_Zealand_v_Belgium",
     home: "New Zealand", away: "Belgium", date: "2026-06-27",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "New Zealand", possession: 0.45, totalShots: 6, shotsInsideBox: 3, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 5, xg: 0.24, passAccuracy: 0.84, passes: 417, fouls: 10 },
-    awayStats: { team: "Belgium", possession: 0.55, totalShots: 34, shotsInsideBox: 22, shotsOutsideBox: 12, shotsOnGoal: 9, corners: 8, xg: 3.59, passAccuracy: 0.88, passes: 521, fouls: 7 },
+    homeStats: { team: "New Zealand", possession: 0.45, totalShots: 6, shotsInsideBox: 3, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 5, xg: 0.24, passAccuracy: 0.85, passes: 435, fouls: 10 },
+    awayStats: { team: "Belgium", possession: 0.55, totalShots: 35, shotsInsideBox: 23, shotsOutsideBox: 12, shotsOnGoal: 10, corners: 8, xg: 3.6, passAccuracy: 0.88, passes: 526, fouls: 7 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-27T05:30:51.790Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-27T08:10:49.516Z';
