@@ -924,6 +924,29 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "G3_Uruguay_v_Spain",
+    home: "Uruguay", away: "Spain", date: "2026-06-27",
+    goals: [
+      { player: "Alejandro Baena Rodríguez", team: "Spain", minute: 42, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Alejandro Baena Rodríguez", team: "Spain", minute: 46, reason: "Foul" },
+      { player: "Juan Manuel Sanabria", team: "Uruguay", minute: 54, reason: "Foul" },
+      { player: "Guillermo Varela", team: "Uruguay", minute: 58, reason: "Foul" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "G3_Cape_Verde_Islands_v_Saudi_Arabia",
+    home: "Cape Verde Islands", away: "Saudi Arabia", date: "2026-06-27",
+    goals: [],
+    yellowCards: [
+      { player: "Saud Abdulhamid", team: "Saudi Arabia", minute: 4, reason: "Foul" },
+      { player: "Wagner Pina", team: "Cape Verde Islands", minute: 9, reason: "Foul" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-26T23:35:44.503Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-27T01:31:34.325Z';
