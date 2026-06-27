@@ -871,7 +871,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Arda Güler", team: "Türkiye", minute: 10, type: "goal" },
       { player: "B. Yilmaz", team: "Türkiye", minute: 31, type: "goal" },
       { player: "Sebastian Berhalter", team: "USA", minute: 49, type: "goal" },
-      { player: "Kaan Ayhan", team: "Türkiye", minute: 90, minuteStoppage: 8, type: "goal" },
+      { player: "Kaan Ayhan", team: "Türkiye", minute: 90, type: "goal" },
     ],
     yellowCards: [
       { player: "Sebastian Berhalter", team: "USA", minute: 19, reason: "Roughing" },
@@ -989,4 +989,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-27T05:31:35.001Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-27T08:11:03.484Z';
