@@ -464,17 +464,31 @@ export const MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "G3_Uruguay_v_Spain",
     home: "Uruguay", away: "Spain", date: "2026-06-27",
-    status: "LIVE", elapsed: 66,
-    homeStats: { team: "Uruguay", possession: 0.28, totalShots: 4, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0, passes: 0, fouls: 7 },
-    awayStats: { team: "Spain", possession: 0.72, totalShots: 5, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 6, xg: 0, passAccuracy: 0, passes: 0, fouls: 10 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Uruguay", possession: 0.33, totalShots: 5, shotsInsideBox: 2, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 1, xg: 0.2, passAccuracy: 0.76, passes: 301, fouls: 14 },
+    awayStats: { team: "Spain", possession: 0.67, totalShots: 6, shotsInsideBox: 5, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 6, xg: 0.86, passAccuracy: 0.89, passes: 623, fouls: 14 },
   },
   {
     fixtureId: "G3_Cape_Verde_Islands_v_Saudi_Arabia",
     home: "Cape Verde Islands", away: "Saudi Arabia", date: "2026-06-27",
-    status: "LIVE", elapsed: 67,
-    homeStats: { team: "Cape Verde Islands", possession: 0.55, totalShots: 8, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 3, xg: 0, passAccuracy: 0, passes: 0, fouls: 8 },
-    awayStats: { team: "Saudi Arabia", possession: 0.45, totalShots: 4, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 1, xg: 0, passAccuracy: 0, passes: 0, fouls: 11 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Cape Verde Islands", possession: 0.51, totalShots: 15, shotsInsideBox: 9, shotsOutsideBox: 6, shotsOnGoal: 2, corners: 4, xg: 1.46, passAccuracy: 0.85, passes: 451, fouls: 10 },
+    awayStats: { team: "Saudi Arabia", possession: 0.49, totalShots: 7, shotsInsideBox: 5, shotsOutsideBox: 2, shotsOnGoal: 3, corners: 2, xg: 0.4, passAccuracy: 0.81, passes: 442, fouls: 16 },
+  },
+  {
+    fixtureId: "H3_Egypt_v_Iran",
+    home: "Egypt", away: "Iran", date: "2026-06-27",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Egypt", possession: 0.62, totalShots: 15, shotsInsideBox: 8, shotsOutsideBox: 7, shotsOnGoal: 3, corners: 8, xg: 0.81, passAccuracy: 0.88, passes: 580, fouls: 11 },
+    awayStats: { team: "Iran", possession: 0.38, totalShots: 11, shotsInsideBox: 8, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 2, xg: 1.76, passAccuracy: 0.77, passes: 359, fouls: 16 },
+  },
+  {
+    fixtureId: "H3_New_Zealand_v_Belgium",
+    home: "New Zealand", away: "Belgium", date: "2026-06-27",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "New Zealand", possession: 0.45, totalShots: 6, shotsInsideBox: 3, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 5, xg: 0.24, passAccuracy: 0.84, passes: 417, fouls: 10 },
+    awayStats: { team: "Belgium", possession: 0.55, totalShots: 34, shotsInsideBox: 22, shotsOutsideBox: 12, shotsOnGoal: 9, corners: 8, xg: 3.59, passAccuracy: 0.88, passes: 521, fouls: 7 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-27T01:31:13.422Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-27T05:30:51.790Z';
