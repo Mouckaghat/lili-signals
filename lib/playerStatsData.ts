@@ -2103,4 +2103,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "H3_New_Zealand_v_Belgium", team: "Belgium", name: "Nicolas Raskin", pos: "MF", minutes: 11, rating: 7.3, goals: 0, assists: 1, saves: 0, shots: 0, shotsOn: 0, passes: 5, passAccPct: 100, tackles: 1, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-06-27T07:31:12.956Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-06-27T09:39:41.512Z';
