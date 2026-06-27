@@ -461,6 +461,20 @@ export const MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Norway", possession: 0.43, totalShots: 10, shotsInsideBox: 6, shotsOutsideBox: 4, shotsOnGoal: 4, corners: 4, xg: 1.69, passAccuracy: 0.82, passes: 420, fouls: 9 },
     awayStats: { team: "France", possession: 0.57, totalShots: 18, shotsInsideBox: 10, shotsOutsideBox: 8, shotsOnGoal: 9, corners: 5, xg: 1.31, passAccuracy: 0.86, passes: 557, fouls: 11 },
   },
+  {
+    fixtureId: "G3_Uruguay_v_Spain",
+    home: "Uruguay", away: "Spain", date: "2026-06-27",
+    status: "LIVE", elapsed: 66,
+    homeStats: { team: "Uruguay", possession: 0.28, totalShots: 4, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0, passes: 0, fouls: 7 },
+    awayStats: { team: "Spain", possession: 0.72, totalShots: 5, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 6, xg: 0, passAccuracy: 0, passes: 0, fouls: 10 },
+  },
+  {
+    fixtureId: "G3_Cape_Verde_Islands_v_Saudi_Arabia",
+    home: "Cape Verde Islands", away: "Saudi Arabia", date: "2026-06-27",
+    status: "LIVE", elapsed: 67,
+    homeStats: { team: "Cape Verde Islands", possession: 0.55, totalShots: 8, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 3, xg: 0, passAccuracy: 0, passes: 0, fouls: 8 },
+    awayStats: { team: "Saudi Arabia", possession: 0.45, totalShots: 4, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 1, xg: 0, passAccuracy: 0, passes: 0, fouls: 11 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-26T23:35:29.517Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-27T01:31:13.422Z';
