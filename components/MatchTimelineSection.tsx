@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { WC_FIXTURES, WC_TEAMS, type WCFixture } from '../lib/wcData';
+import { WC_KNOCKOUT, type KnockoutFixture } from '../lib/knockoutData';
 import { MATCH_STATS } from '../lib/matchStatsData';
 import type { FixtureResult } from '../lib/fixtureResultsData';
 import { useLiveResults } from '../lib/useLiveResults';
@@ -109,14 +110,41 @@ function fmtCountdown(diffMs: number): string {
 
 // ─── Build entries ────────────────────────────────────────────────────────────
 
+// Adapt a knockout fixture into the WCFixture shape the timeline already renders.
+// The bracket is its own array (so it never skews group-stage models); here we
+// only borrow the display fields. `group` carries the round label ("Round of 32")
+// so the existing non-letter-group path renders it as a section + tag. `stadium`
+// is the full venue name (resolved via FIXTURE_STADIUM_ID, '' → no venue line, so
+// a TBC tie shows none rather than a fake one). `matchday`/`country` are unused
+// for knockout rows (the section label branches on `group`) — set to safe
+// defaults purely to satisfy the type.
+function koToFixture(ko: KnockoutFixture): WCFixture {
+  return {
+    id: ko.id,
+    group: ko.roundLabel,
+    matchday: 3,
+    home: ko.home,
+    away: ko.away,
+    date: ko.date,
+    stadium: ko.venueName ?? '',
+    city: ko.city ?? '',
+    country: 'USA',
+    status: ko.status,
+    homeScore: ko.homeScore ?? undefined,
+    awayScore: ko.awayScore ?? undefined,
+  };
+}
+
 function buildEntries(group: string | null, liveResults: Record<string, FixtureResult>): MatchEntry[] {
   // General list shows the WHOLE tournament (sorted by date below), so matchday-3
-  // and any knockout games always appear — never a frozen first-N cap that
+  // and the knockout bracket always appear — never a frozen first-N cap that
   // strands later games (the old `.slice(0, 48)` cut the list off at ~24 Jun).
-  // Section headers (see render) keep the longer list scannable.
+  // Knockout ties aren't group-scoped, so they only join the "All" view; a
+  // specific group still shows just that group's six games. Section headers (see
+  // render) keep the longer list scannable.
   const fixtures = group
     ? WC_FIXTURES.filter((f) => f.group === group)
-    : WC_FIXTURES;
+    : [...WC_FIXTURES, ...WC_KNOCKOUT.map(koToFixture)];
 
   const sorted = [...fixtures].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
@@ -126,8 +154,13 @@ function buildEntries(group: string | null, liveResults: Record<string, FixtureR
   return sorted.map((fixture) => {
     const result = liveResults[`${fixture.home}|${fixture.away}`];
     const status = result?.status ?? fixture.status;
-    if (status === 'FINISHED') return { fixture, kind: 'PLAYED' as MatchKind, homeScore: result?.homeScore, awayScore: result?.awayScore };
-    if (status === 'LIVE')     return { fixture, kind: 'LIVE' as MatchKind,   homeScore: result?.homeScore, awayScore: result?.awayScore };
+    // Score from the live overlay first, then the fixture's own baked score
+    // (group fixtures carry none → undefined; knockout fixtures bake the result
+    // so a finished tie shows immediately, even before the overlay loads).
+    const hs = result?.homeScore ?? fixture.homeScore;
+    const as = result?.awayScore ?? fixture.awayScore;
+    if (status === 'FINISHED') return { fixture, kind: 'PLAYED' as MatchKind, homeScore: hs, awayScore: as };
+    if (status === 'LIVE')     return { fixture, kind: 'LIVE' as MatchKind,   homeScore: hs, awayScore: as };
     if (!nextMarked) { nextMarked = true; return { fixture, kind: 'NEXT' as MatchKind }; }
     return { fixture, kind: 'UPCOMING' as MatchKind };
   });
@@ -168,9 +201,20 @@ function MatchRow({ entry, lineup, i18n, now }: { entry: MatchEntry; lineup?: Ma
 
   // Heatmap entry point: live/finished games with stats get the model; an
   // upcoming game inside the warm-up window gets the countdown teaser → forecast.
+  // Knockout rows have no heatmap model yet (not in MATCH_STATS, not in the
+  // match-heatmap screen's data), so they show no heat pill — a tap would land
+  // on an empty screen. Their own pick-the-winner affordance comes separately.
+  const isKnockout   = !/^[A-L]$/.test(fixture.group);
   const toKO         = new Date(fixture.date).getTime() - now;
-  const showLivePill = FIXTURES_WITH_HEAT.has(fixture.id) || kind === 'LIVE';
-  const showTeaser   = !showLivePill && toKO > 0 && toKO <= HEAT_WARMUP_MS;
+  const kickedOff    = toKO <= 0;                                              // scheduled KO time reached
+  const showLivePill = !isKnockout && (FIXTURES_WITH_HEAT.has(fixture.id) || kind === 'LIVE');  // a real model exists now
+  // The whistle has gone but the model isn't ready yet — the LIVE status (~20s
+  // results poll) and the stats feed both lag kickoff by a minute or two. Keep a
+  // tappable "warming up" pill across that gap so the countdown always DELIVERS
+  // into a live state instead of leaving a blank row (it opens the screen's own
+  // "warming up — appears within a few minutes" message).
+  const showWarming  = !isKnockout && !showLivePill && kickedOff && kind !== 'PLAYED';
+  const showTeaser   = !isKnockout && !showLivePill && !showWarming && kind !== 'PLAYED' && toKO > 0 && toKO <= HEAT_WARMUP_MS;
   const urgent       = toKO <= HEAT_TICK_MS;
   const openHeatmap  = () => router.push({ pathname: '/match-heatmap', params: { fixtureId: fixture.id } } as any);
 
@@ -209,6 +253,14 @@ function MatchRow({ entry, lineup, i18n, now }: { entry: MatchEntry; lineup?: Ma
           style={({ pressed }) => [row.heatBtn, pressed && row.heatBtnPressed]}
         >
           <Text style={row.heatBtnText}>🔥 {i18n.tlHeatmap} →</Text>
+        </Pressable>
+      ) : showWarming ? (
+        <Pressable
+          onPress={openHeatmap}
+          hitSlop={6}
+          style={({ pressed }) => [row.heatBtn, row.heatBtnUrgent, pressed && row.heatBtnPressed]}
+        >
+          <Text style={[row.heatBtnText, row.heatBtnUrgentText]}>🔴 {i18n.tlHeatmap} →</Text>
         </Pressable>
       ) : showTeaser ? (
         <Pressable

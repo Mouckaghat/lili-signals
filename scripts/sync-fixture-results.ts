@@ -19,6 +19,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import dotenv from 'dotenv';
 import { WC_FIXTURES } from '../lib/wcData.js';
+import { WC_KNOCKOUT } from '../lib/knockoutData.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.resolve(__dirname, '..', '.env.local') });
@@ -116,8 +117,13 @@ interface ResultEntry {
 }
 
 function buildMap(apiFixtures: ApiFixture[]): Map<string, ResultEntry> {
-  // Build lookup: "HomeTeam|AwayTeam" → WCFixture  (our canonical key)
-  const knownKeys = new Set(WC_FIXTURES.map((f) => `${f.home}|${f.away}`));
+  // Build lookup: "HomeTeam|AwayTeam" → WCFixture  (our canonical key).
+  // Include the knockout bracket so finished/live knockout ties are baked too
+  // (the runtime /api/fixture-results overlay already returns them unfiltered).
+  const knownKeys = new Set([
+    ...WC_FIXTURES.map((f) => `${f.home}|${f.away}`),
+    ...WC_KNOCKOUT.map((f) => `${f.home}|${f.away}`),
+  ]);
 
   const results = new Map<string, ResultEntry>();
 

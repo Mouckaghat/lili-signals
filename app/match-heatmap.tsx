@@ -90,13 +90,19 @@ export default function MatchHeatmapScreen() {
     // honest LIVE signal is the results feed (set the instant a game kicks off).
     // Use it so we never tell the user a live match "hasn't kicked off yet".
     const liveResult = name ? results[`${name.home}|${name.away}`] : undefined;
-    const isLive = liveResult?.status === 'LIVE';
-    const liveScore = isLive ? `${liveResult!.homeScore ?? 0}–${liveResult!.awayScore ?? 0}` : '';
+    // Treat "scheduled kickoff reached and not yet finished" as warming up — not
+    // just an explicit LIVE status. The results poll (~20s) and api-football both
+    // lag the whistle, so a fixture can be genuinely under way before its status
+    // flips; without this, a tap from the timeline's warming pill would wrongly
+    // read "hasn't kicked off yet" for a game that has.
+    const kickedOff = name ? Date.now() >= new Date(name.date).getTime() : false;
+    const warming   = !!name && liveResult?.status !== 'FINISHED' && (liveResult?.status === 'LIVE' || kickedOff);
+    const liveScore = liveResult && liveResult.homeScore != null ? `${liveResult.homeScore}–${liveResult.awayScore ?? 0}` : '';
     return (
       <View style={[st.screen, st.empty]}>
         <Text style={st.emptyText}>
-          {name && isLive
-            ? `🔴 ${name.home} ${liveScore} ${name.away} is LIVE — match intelligence is warming up and appears within a few minutes of kickoff.`
+          {name && warming
+            ? `🔴 ${name.home} ${liveScore || 'v'} ${name.away} — match intelligence is warming up and appears within a few minutes of kickoff.`
             : name
               ? `${name.home} v ${name.away} hasn't kicked off yet — match intelligence appears at kickoff.`
               : 'No match stats yet. Match intelligence appears once a game kicks off.'}

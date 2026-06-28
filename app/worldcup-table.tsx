@@ -17,6 +17,8 @@ import MatchTimelineSection from '../components/MatchTimelineSection';
 import { playerByPath } from '../lib/playerXI';
 import { useLanguage } from '../contexts/LanguageContext';
 import { MARKET_I18N } from '../lib/marketI18n';
+import { KNOCKOUT_I18N } from '../lib/knockoutI18n';
+import { WC_KNOCKOUT } from '../lib/knockoutData';
 
 // ─── Live result overlay ──────────────────────────────────────────────────────
 
@@ -364,6 +366,15 @@ export default function WorldCupTableScreen() {
         <Text style={st.marketLinkArrow}>→</Text>
       </TouchableOpacity>
 
+      {/* Entry point: Road to the Final — the knockout bracket + pick-the-winner
+          game. Only shown once the bracket has seeded (real fixtures exist). */}
+      {WC_KNOCKOUT.length > 0 && (
+        <TouchableOpacity style={st.bracketLink} onPress={() => router.push('/knockout-bracket' as any)} activeOpacity={0.8}>
+          <Text style={st.bracketLinkText}>🏆  {(KNOCKOUT_I18N[lang] ?? KNOCKOUT_I18N.EN).title}</Text>
+          <Text style={st.bracketLinkArrow}>→</Text>
+        </TouchableOpacity>
+      )}
+
       <ScrollView style={st.scroll} contentContainerStyle={st.content}>
         {displayGroups.map((g) => (
           <GroupTable key={g} group={g} liveResults={liveResults} />
@@ -513,6 +524,21 @@ const st = StyleSheet.create({
   },
   marketLinkText: { fontSize: 13, fontWeight: '700', color: '#34D399' },
   marketLinkArrow: { fontSize: 15, fontWeight: '700', color: '#34D399' },
+  bracketLink: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginHorizontal: 16,
+    marginTop: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 11,
+    borderRadius: 12,
+    backgroundColor: 'rgba(245,196,81,0.08)',
+    borderWidth: 1,
+    borderColor: 'rgba(245,196,81,0.30)',
+  },
+  bracketLinkText: { fontSize: 13, fontWeight: '700', color: '#F5C451' },
+  bracketLinkArrow: { fontSize: 15, fontWeight: '700', color: '#F5C451' },
   scroll: { flex: 1 },
   content: { padding: 16, paddingBottom: 48 },
   footNote: {

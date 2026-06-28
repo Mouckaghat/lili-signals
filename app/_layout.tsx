@@ -5,11 +5,13 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import BottomNavigationDock from '../components/BottomNavigationDock';
 import { LanguageProvider } from '../contexts/LanguageContext';
 import { ProfileProvider } from '../contexts/ProfileContext';
+import { KnockoutPicksProvider } from '../contexts/KnockoutPicksContext';
 
 export default function RootLayout() {
   return (
     <LanguageProvider>
       <ProfileProvider>
+      <KnockoutPicksProvider>
       <SafeAreaProvider>
         <StatusBar style="light" />
         <View style={{ flex: 1 }}>
@@ -36,10 +38,12 @@ export default function RootLayout() {
             <Stack.Screen name="group-drama" options={{ title: 'Group Drama Index', headerShown: false }} />
             <Stack.Screen name="match-heatmap" options={{ title: 'Match Heatmaps' }} />
             <Stack.Screen name="lili-vs-market" options={{ title: 'Lili vs The Market' }} />
+            <Stack.Screen name="knockout-bracket" options={{ title: 'Road to the Final' }} />
           </Stack>
           <BottomNavigationDock />
         </View>
       </SafeAreaProvider>
+      </KnockoutPicksProvider>
       </ProfileProvider>
     </LanguageProvider>
   );
