@@ -1,14 +1,14 @@
 name: "🤖 Lili Bot — Live Scores"
 
-# Runs every 5 min during tournament hours.
+# Runs every 15 min during tournament hours.
 # The script itself loops every 30 s internally for the full window,
 # so scores are always fresh without relying on any paid API.
 
 on:
   schedule:
     # Every 5 min — June group stage (11–30) + July knockouts (1–19), full 24h
-    - cron: '*/5 * 11-30 6 *'
-    - cron: '*/5 * 1-19 7 *'
+    - cron: '*/15 * 11-30 6 *'
+    - cron: '*/15 * 1-19 7 *'
 
   # Trigger manually from the Actions tab for testing
   workflow_dispatch:

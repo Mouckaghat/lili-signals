@@ -11,8 +11,8 @@ name: Data Health Watchdog
 
 on:
   schedule:
-    - cron: '*/10 * 11-30 6 *'   # group stage (June 11–30) — every 10 min
-    - cron: '*/10 * 1-19 7 *'    # knockouts (July 1–19) — every 10 min
+    - cron: '*/15 * 11-30 6 *'   # group stage (June 11–30) — every 15 min
+    - cron: '*/15 * 1-19 7 *'    # knockouts (July 1–19) — every 15 min
     - cron: '0 6 * 1-5,8-12 *'   # off-season keep-warm: daily 06:00 UTC
   workflow_dispatch:
 

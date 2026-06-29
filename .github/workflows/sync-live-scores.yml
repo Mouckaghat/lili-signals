@@ -12,12 +12,12 @@ name: Sync Live Scores
 
 on:
   schedule:
-    # ── June: Group Stage (June 11–30) — every 10 min all day ──
+    # ── June: Group Stage (June 11–30) — every 15 min all day ──
     # Full 24h coverage: early ET games (10am ET = 14:00 UTC) through late PT games (9pm PT = 04:00 UTC)
-    - cron: '*/10 * 11-30 6 *'
+    - cron: '*/15 * 11-30 6 *'
 
-    # ── July: Knockouts (July 1–19) — every 10 min all day ──
-    - cron: '*/10 * 1-19 7 *'
+    # ── July: Knockouts (July 1–19) — every 15 min all day ──
+    - cron: '*/15 * 1-19 7 *'
 
     # ── Rest of year: hourly heartbeat ──
     # Catches pre-tournament fixture schedule updates

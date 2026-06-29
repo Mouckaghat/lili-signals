@@ -12,11 +12,11 @@ name: Sync Match Events
 
 on:
   schedule:
-    # ── June: Group Stage (June 11–30) — every 5 min all day ──
-    - cron: '*/5 * 11-30 6 *'
+    # ── June: Group Stage (June 11–30) — every 15 min all day ──
+    - cron: '*/15 * 11-30 6 *'
 
-    # ── July: Knockouts (July 1–19) — every 5 min all day ──
-    - cron: '*/5 * 1-19 7 *'
+    # ── July: Knockouts (July 1–19) — every 15 min all day ──
+    - cron: '*/15 * 1-19 7 *'
 
     # ── Rest of year: hourly heartbeat ──
     - cron: '0 * * 1-5,8-12 *'

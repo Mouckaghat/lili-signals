@@ -10,9 +10,9 @@ name: Sync Player Stats
 
 on:
   schedule:
-    # Group stage (June 11–30) and knockouts (July 1–19) — every 5 min.
-    - cron: '*/5 * 11-30 6 *'
-    - cron: '*/5 * 1-19 7 *'
+    # Group stage (June 11–30) and knockouts (July 1–19) — every 15 min.
+    - cron: '*/15 * 11-30 6 *'
+    - cron: '*/15 * 1-19 7 *'
     # Off-season keep-warm: daily 06:15 UTC.
     - cron: '15 6 * 1-5,8-12 *'
   workflow_dispatch:
