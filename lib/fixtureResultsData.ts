@@ -13,6 +13,7 @@ export interface FixtureResult {
 // Keyed by "HomeTeam|AwayTeam" — matches WC_FIXTURES home|away exactly.
 // Only contains entries for fixtures that are LIVE or FINISHED.
 export const FIXTURE_RESULTS: Record<string, FixtureResult> = {
+  "Brazil|Japan": { status: 'LIVE', homeScore: 0, awayScore: 0, winner: null },
   "Mexico|South Africa": { status: 'FINISHED', homeScore: 2, awayScore: 0, winner: 'Mexico' },
   "South Korea|Czech Republic": { status: 'FINISHED', homeScore: 2, awayScore: 1, winner: 'South Korea' },
   "Canada|Bosnia & Herzegovina": { status: 'FINISHED', homeScore: 1, awayScore: 1, winner: null },
@@ -79,6 +80,13 @@ export const FIXTURE_RESULTS: Record<string, FixtureResult> = {
   "Cape Verde Islands|Saudi Arabia": { status: 'FINISHED', homeScore: 0, awayScore: 0, winner: null },
   "Egypt|Iran": { status: 'FINISHED', homeScore: 1, awayScore: 1, winner: null },
   "New Zealand|Belgium": { status: 'FINISHED', homeScore: 1, awayScore: 5, winner: 'Belgium' },
+  "Croatia|Ghana": { status: 'FINISHED', homeScore: 2, awayScore: 1, winner: 'Croatia' },
+  "Panama|England": { status: 'FINISHED', homeScore: 0, awayScore: 2, winner: 'England' },
+  "Colombia|Portugal": { status: 'FINISHED', homeScore: 0, awayScore: 0, winner: null },
+  "Congo DR|Uzbekistan": { status: 'FINISHED', homeScore: 3, awayScore: 1, winner: 'Congo DR' },
+  "Algeria|Austria": { status: 'FINISHED', homeScore: 3, awayScore: 3, winner: null },
+  "Jordan|Argentina": { status: 'FINISHED', homeScore: 1, awayScore: 3, winner: 'Argentina' },
+  "South Africa|Canada": { status: 'FINISHED', homeScore: 0, awayScore: 1, winner: 'Canada' },
 };
 
-export const FIXTURE_RESULTS_LAST_UPDATED = '2026-06-27T15:43:26.150Z';
+export const FIXTURE_RESULTS_LAST_UPDATED = '2026-06-29T17:23:56.772Z';

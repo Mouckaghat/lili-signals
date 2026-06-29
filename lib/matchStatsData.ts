@@ -489,6 +489,48 @@ export const MATCH_STATS: MatchStats[] = [
     homeStats: { team: "New Zealand", possession: 0.45, totalShots: 6, shotsInsideBox: 3, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 5, xg: 0.24, passAccuracy: 0.85, passes: 435, fouls: 10 },
     awayStats: { team: "Belgium", possession: 0.55, totalShots: 35, shotsInsideBox: 23, shotsOutsideBox: 12, shotsOnGoal: 10, corners: 8, xg: 3.6, passAccuracy: 0.88, passes: 526, fouls: 7 },
   },
+  {
+    fixtureId: "L3_Croatia_v_Ghana",
+    home: "Croatia", away: "Ghana", date: "2026-06-27",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Croatia", possession: 0.53, totalShots: 8, shotsInsideBox: 3, shotsOutsideBox: 5, shotsOnGoal: 4, corners: 3, xg: 0.46, passAccuracy: 0.91, passes: 523, fouls: 9 },
+    awayStats: { team: "Ghana", possession: 0.47, totalShots: 6, shotsInsideBox: 3, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 2, xg: 0.73, passAccuracy: 0.88, passes: 455, fouls: 13 },
+  },
+  {
+    fixtureId: "L3_Panama_v_England",
+    home: "Panama", away: "England", date: "2026-06-27",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Panama", possession: 0.33, totalShots: 12, shotsInsideBox: 8, shotsOutsideBox: 4, shotsOnGoal: 2, corners: 3, xg: 0.57, passAccuracy: 0.75, passes: 267, fouls: 16 },
+    awayStats: { team: "England", possession: 0.67, totalShots: 17, shotsInsideBox: 12, shotsOutsideBox: 5, shotsOnGoal: 6, corners: 7, xg: 1.49, passAccuracy: 0.89, passes: 557, fouls: 13 },
+  },
+  {
+    fixtureId: "K3_Colombia_v_Portugal",
+    home: "Colombia", away: "Portugal", date: "2026-06-27",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Colombia", possession: 0.55, totalShots: 24, shotsInsideBox: 15, shotsOutsideBox: 9, shotsOnGoal: 6, corners: 5, xg: 1.63, passAccuracy: 0.89, passes: 545, fouls: 12 },
+    awayStats: { team: "Portugal", possession: 0.45, totalShots: 13, shotsInsideBox: 5, shotsOutsideBox: 8, shotsOnGoal: 2, corners: 2, xg: 0.69, passAccuracy: 0.91, passes: 446, fouls: 6 },
+  },
+  {
+    fixtureId: "K3_Congo_DR_v_Uzbekistan",
+    home: "Congo DR", away: "Uzbekistan", date: "2026-06-27",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Congo DR", possession: 0.58, totalShots: 19, shotsInsideBox: 11, shotsOutsideBox: 8, shotsOnGoal: 4, corners: 2, xg: 2.35, passAccuracy: 0.82, passes: 487, fouls: 6 },
+    awayStats: { team: "Uzbekistan", possession: 0.42, totalShots: 4, shotsInsideBox: 3, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 4, xg: 0.27, passAccuracy: 0.76, passes: 355, fouls: 16 },
+  },
+  {
+    fixtureId: "J3_Algeria_v_Austria",
+    home: "Algeria", away: "Austria", date: "2026-06-28",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Algeria", possession: 0.65, totalShots: 12, shotsInsideBox: 6, shotsOutsideBox: 6, shotsOnGoal: 5, corners: 0, xg: 1.62, passAccuracy: 0.94, passes: 755, fouls: 3 },
+    awayStats: { team: "Austria", possession: 0.35, totalShots: 10, shotsInsideBox: 6, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 3, xg: 1.44, passAccuracy: 0.87, passes: 397, fouls: 7 },
+  },
+  {
+    fixtureId: "J3_Jordan_v_Argentina",
+    home: "Jordan", away: "Argentina", date: "2026-06-28",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Jordan", possession: 0.27, totalShots: 5, shotsInsideBox: 2, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 2, xg: 0.74, passAccuracy: 0.8, passes: 285, fouls: 13 },
+    awayStats: { team: "Argentina", possession: 0.73, totalShots: 12, shotsInsideBox: 6, shotsOutsideBox: 6, shotsOnGoal: 4, corners: 6, xg: 2.14, passAccuracy: 0.92, passes: 799, fouls: 7 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-27T15:53:12.690Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-29T17:24:23.393Z';

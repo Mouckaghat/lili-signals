@@ -895,7 +895,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Habib Diarra", team: "Senegal", minute: 4, type: "goal" },
       { player: "Ismaïla Sarr", team: "Senegal", minute: 56, type: "goal" },
       { player: "Pape Gueye", team: "Senegal", minute: 59, type: "goal" },
-      { player: "Pape Gueye", team: "Senegal", minute: 72, type: "goal" },
+      { player: "Pape Gueye", team: "Senegal", minute: 71, type: "goal" },
       { player: "Iliman Ndiaye", team: "Senegal", minute: 82, type: "goal" },
     ],
     yellowCards: [
@@ -916,7 +916,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Ousmane Dembélé", team: "France", minute: 20, type: "goal" },
       { player: "Thelo Aasgaard", team: "Norway", minute: 21, type: "goal" },
       { player: "Ousmane Dembélé", team: "France", minute: 32, type: "goal" },
-      { player: "Désiré Doué", team: "France", minute: 90, minuteStoppage: 4, type: "goal" },
+      { player: "Désiré Doué", team: "France", minute: 90, type: "goal" },
     ],
     yellowCards: [
       { player: "Patrick Berg", team: "Norway", minute: 10, reason: "Foul" },
@@ -979,7 +979,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Kevin De Bruyne", team: "Belgium", minute: 66, type: "goal" },
       { player: "Elijah Just", team: "New Zealand", minute: 84, type: "goal" },
       { player: "Romelu Lukaku", team: "Belgium", minute: 86, type: "goal" },
-      { player: "Alexis Saelemaekers", team: "Belgium", minute: 90, minuteStoppage: 4, type: "goal" },
+      { player: "Alexis Saelemaekers", team: "Belgium", minute: 90, type: "goal" },
     ],
     yellowCards: [
       { player: "Marko Stamenić", team: "New Zealand", minute: 46, reason: "Tripping" },
@@ -987,6 +987,93 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "L3_Croatia_v_Ghana",
+    home: "Croatia", away: "Ghana", date: "2026-06-27",
+    goals: [
+      { player: "Petar Sučić", team: "Croatia", minute: 31, type: "goal" },
+      { player: "Derrick Luckassen", team: "Ghana", minute: 73, type: "goal" },
+      { player: "Nikola Vlašić", team: "Croatia", minute: 83, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Ivan Perišić", team: "Croatia", minute: 68, reason: "Foul" },
+      { player: "Kojo Peprah Oppong", team: "Ghana", minute: 90, reason: "Foul" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "L3_Panama_v_England",
+    home: "Panama", away: "England", date: "2026-06-27",
+    goals: [
+      { player: "Jude Bellingham", team: "England", minute: 62, type: "goal" },
+      { player: "Harry Kane", team: "England", minute: 67, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "José Fajardo", team: "Panama", minute: 53, reason: "Foul" },
+      { player: "Jarell Quansah", team: "England", minute: 60, reason: "Foul" },
+      { player: "Andrés Andrade", team: "Panama", minute: 84, reason: "Foul" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "K3_Colombia_v_Portugal",
+    home: "Colombia", away: "Portugal", date: "2026-06-27",
+    goals: [],
+    yellowCards: [
+      { player: "Gustavo Puerta", team: "Colombia", minute: 86, reason: "Foul" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "K3_Congo_DR_v_Uzbekistan",
+    home: "Congo DR", away: "Uzbekistan", date: "2026-06-27",
+    goals: [
+      { player: "Eldor Shomurodov", team: "Uzbekistan", minute: 10, type: "goal" },
+      { player: "Yoane Wissa", team: "Congo DR", minute: 68, type: "penalty" },
+      { player: "Fiston Mayele", team: "Congo DR", minute: 78, type: "goal" },
+      { player: "Yoane Wissa", team: "Congo DR", minute: 90, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Noah Sadiki", team: "Congo DR", minute: 21, reason: "Foul" },
+      { player: "Abdukodir Khusanov", team: "Uzbekistan", minute: 43, reason: "Foul" },
+      { player: "Nathanaël Mbuku", team: "Congo DR", minute: 45, reason: "Foul" },
+      { player: "Sherzod Nasrullaev", team: "Uzbekistan", minute: 48, reason: "Foul" },
+      { player: "Samuel Moutoussamy", team: "Congo DR", minute: 62, reason: "Foul" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "J3_Algeria_v_Austria",
+    home: "Algeria", away: "Austria", date: "2026-06-28",
+    goals: [
+      { player: "Marko Arnautović", team: "Austria", minute: 28, type: "goal" },
+      { player: "Rafik Belghali", team: "Algeria", minute: 45, type: "goal" },
+      { player: "Marcel Sabitzer", team: "Austria", minute: 55, type: "goal" },
+      { player: "Riyad Mahrez", team: "Algeria", minute: 60, type: "goal" },
+      { player: "Riyad Mahrez", team: "Algeria", minute: 90, type: "goal" },
+      { player: "Saša Kalajdžić", team: "Austria", minute: 90, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Marko Arnautović", team: "Austria", minute: 11, reason: "Roughing" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "J3_Jordan_v_Argentina",
+    home: "Jordan", away: "Argentina", date: "2026-06-28",
+    goals: [
+      { player: "Giovani Lo Celso", team: "Argentina", minute: 19, type: "goal" },
+      { player: "L. Martinez", team: "Argentina", minute: 31, type: "penalty" },
+      { player: "M. Tamari", team: "Jordan", minute: 55, type: "goal" },
+      { player: "Lionel Messi", team: "Argentina", minute: 80, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "M. Abu Taha", team: "Jordan", minute: 17, reason: "Tripping" },
+      { player: "Y. Al Arab", team: "Jordan", minute: 64, reason: "Roughing" },
+      { player: "Shararh", team: "Jordan", minute: 90, reason: "Tripping" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-27T15:53:21.202Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-29T17:24:49.119Z';
