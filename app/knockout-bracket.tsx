@@ -113,6 +113,7 @@ function Badge({ label, color }: { label: string; color: string }) {
 // ─── A single knockout tie card ─────────────────────────────────────────────────
 function TieCard({ tie, accent, t }: { tie: KnockoutTie; accent: string; t: T }) {
   const { picks, setPick } = useKnockoutPicks();
+  const { i18n } = useLanguage();   // for the shared "Heatmap" label (tlHeatmap)
   const { favTeam } = useProfile();
   const router = useRouter();
   const myPick = picks[tie.fixture.id];
@@ -234,7 +235,7 @@ function TieCard({ tie, accent, t }: { tie: KnockoutTie; accent: string; t: T })
           onPress={() => router.push({ pathname: '/match-heatmap', params: { fixtureId: tie.fixture.id } } as any)}
           style={({ pressed }) => [bx.relive, pressed && { backgroundColor: 'rgba(245,196,81,0.18)' }]}
         >
-          <Text style={bx.reliveText}>🎬 {t.reliveMatch}  ·  📊 →</Text>
+          <Text style={bx.reliveText}>🔥 {i18n.tlHeatmap} →</Text>
         </Pressable>
       )}
     </View>
@@ -470,6 +471,7 @@ const STATE_COLOR: Record<PathStep['state'], string> = {
 function PathStepCard({ step, team, t, last }: { step: PathStep; team: TeamForm; t: T; last: boolean }) {
   const router = useRouter();
   const accent = ROUND_COLOR[step.round];
+  const { i18n } = useLanguage();   // for the shared "Heatmap" label (tlHeatmap)
   const dim = step.state === 'potential';
   const venue = step.stadium ? `🏟 ${step.stadium.shortName}, ${step.stadium.city}` : `🏟 ${t.venueTBC}`;
   const myScore = step.tie && step.mySide && step.tie.result ? step.tie.result[step.mySide] : null;
@@ -527,7 +529,7 @@ function PathStepCard({ step, team, t, last }: { step: PathStep; team: TeamForm;
         {canRelive && (
           <Pressable onPress={() => router.push({ pathname: '/match-heatmap', params: { fixtureId: step.tie!.fixture.id } } as any)}
             style={({ pressed }) => [bx.relive, pressed && { backgroundColor: 'rgba(245,196,81,0.18)' }]}>
-            <Text style={bx.reliveText}>🎬 {t.reliveMatch}  ·  📊 →</Text>
+            <Text style={bx.reliveText}>🔥 {i18n.tlHeatmap} →</Text>
           </Pressable>
         )}
       </View>
