@@ -85,7 +85,11 @@ export default function MatchHeatmapScreen() {
   const active: MatchStats | null = liveActive ?? (requestedId ? null : ordered[0] ?? null);
 
   if (!active) {
-    const name = requestedId ? WC_FIXTURES.find((f) => f.id === requestedId) : undefined;
+    // Group fixture first, then a knockout tie (deep-linked from Road to the Final)
+    // — so a just-kicked-off LIVE knockout game shows the right "warming up" copy.
+    const name = requestedId
+      ? (WC_FIXTURES.find((f) => f.id === requestedId) ?? WC_KNOCKOUT.find((f) => f.id === requestedId))
+      : undefined;
     // The detailed stats overlay (useLiveStats) lags kickoff: api-football posts
     // /fixtures/statistics a minute or two after the match starts. Until then the
     // honest LIVE signal is the results feed (set the instant a game kicks off).

@@ -147,7 +147,10 @@ function TieCard({ tie, accent, t }: { tie: KnockoutTie; accent: string; t: T })
   }
 
   // Match-intelligence access for completed/live ties that actually have a model.
-  const canRelive = (finished || live) && FIXTURES_WITH_INTEL.has(tie.fixture.id);
+  // Show the Heatmap entry for any LIVE game (the match-intel screen pulls live
+  // games from the runtime /api overlay, even before they're baked) OR a finished
+  // game whose stats exist — same logic as the pool-games timeline. Never a dead tap.
+  const canRelive = live || FIXTURES_WITH_INTEL.has(tie.fixture.id);
 
   const PickBtn = ({ side }: { side: Side }) => {
     const selected = myPick === side;
@@ -476,7 +479,9 @@ function PathStepCard({ step, team, t, last }: { step: PathStep; team: TeamForm;
   const venue = step.stadium ? `🏟 ${step.stadium.shortName}, ${step.stadium.city}` : `🏟 ${t.venueTBC}`;
   const myScore = step.tie && step.mySide && step.tie.result ? step.tie.result[step.mySide] : null;
   const oppScore = step.tie && step.mySide && step.tie.result ? step.tie.result[step.mySide === 'home' ? 'away' : 'home'] : null;
-  const canRelive = step.tie && (step.tie.status === 'FINISHED' || step.tie.status === 'LIVE') && FIXTURES_WITH_INTEL.has(step.tie.fixture.id);
+  // LIVE games always get the Heatmap entry (runtime /api overlay covers them);
+  // a finished game needs baked stats so the tap lands on real content.
+  const canRelive = !!step.tie && (step.tie.status === 'LIVE' || FIXTURES_WITH_INTEL.has(step.tie.fixture.id));
 
   return (
     <View style={bx.stepRow}>
