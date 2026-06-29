@@ -1,18 +1,26 @@
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { useMemo } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { buildRoadToFinal, liliKnockoutRecord, type KnockoutTie, type RoundGroup, type Side, type TeamForm } from '../lib/knockoutModel';
 import type { KnockoutRound } from '../lib/knockoutData';
+import { MATCH_STATS } from '../lib/matchStatsData';
 import { useLiveResults } from '../lib/useLiveResults';
 import { useKnockoutPicks } from '../contexts/KnockoutPicksContext';
 import { useProfile } from '../contexts/ProfileContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { KNOCKOUT_I18N, koT } from '../lib/knockoutI18n';
 
-// ─── Design tokens (match the dark intel screens) ──────────────────────────────
+// Fixtures that have a real match-intelligence model (same gate the timeline
+// uses). A knockout tie only gets a "Relive the match" deep-link once it's been
+// captured live — otherwise the tap would land on an empty screen. It lights up
+// automatically when the live-stats bot bakes the game.
+const FIXTURES_WITH_INTEL = new Set(MATCH_STATS.map((m) => m.fixtureId));
+
+// ─── Design tokens (cinematic dark navy + trophy gold) ─────────────────────────
 const D = {
-  bg:     '#040C10',
+  bg:     '#040A14',
+  bgHi:   '#08182C',
   card:   '#0C1C2C',
   cardHi: '#102539',
   border: 'rgba(0,200,255,0.10)',
@@ -23,12 +31,20 @@ const D = {
   green:  '#34D399',
   red:    '#FF6B6B',
   gold:   '#F5C451',
+  // bleu-blanc-rouge identity, woven into the hero
+  fr:     '#4A6BFF',
+  white:  '#F4F7FF',
+  fred:   '#FF5A6E',
 };
 
 // Each round gets its own accent, warming toward gold at the Final — the "road"
-// visibly heats up as you descend.
+// visibly heats up as it nears the trophy.
 const ROUND_COLOR: Record<KnockoutRound, string> = {
   R32: '#4A9EFF', R16: '#22D3EE', QF: '#34D399', SF: '#FF9F45', '3RD': '#8298BE', F: '#F5C451',
+};
+// A short stage badge for the premium stage header.
+const ROUND_BADGE: Record<KnockoutRound, string> = {
+  R32: 'R32', R16: 'R16', QF: 'QF', SF: 'SF', '3RD': '3rd', F: '🏆',
 };
 
 function fmtDate(iso: string): string {
@@ -40,6 +56,8 @@ function fmtDate(iso: string): string {
   return `${day} ${mon} · ${hh}:${mm}`;
 }
 
+type T = typeof KNOCKOUT_I18N['EN'];
+
 // ─── One team row inside a tie card ─────────────────────────────────────────────
 function TeamRow({
   team, side, tie, picked, isFav, t, accent,
@@ -49,7 +67,7 @@ function TeamRow({
   tie: KnockoutTie;
   picked: boolean;
   isFav: boolean;       // user's favourite team
-  t: typeof KNOCKOUT_I18N['EN'];
+  t: T;
   accent: string;
 }) {
   const liliBacks = tie.liliFav === side;
@@ -58,12 +76,14 @@ function TeamRow({
   const dim = tie.winner != null && !isWinner;
 
   return (
-    <View style={[bx.teamRow, picked && { backgroundColor: 'rgba(74,158,255,0.10)' }]}>
+    <View style={[bx.teamRow, picked && { backgroundColor: 'rgba(74,158,255,0.10)' }, isWinner && { backgroundColor: accent + '14' }]}>
+      {isWinner && <View style={[bx.winBar, { backgroundColor: accent }]} />}
       <Text style={[bx.flag, dim && bx.dim]}>{team?.flag ?? '🏳️'}</Text>
       <View style={{ flex: 1, minWidth: 0 }}>
         <Text style={[bx.teamName, dim && bx.dim, isFav && { color: D.gold }]} numberOfLines={1}>
           {team?.name ?? t.toBeDecided}
           {liliBacks && <Text style={bx.liliDot}>{'  '}🤖</Text>}
+          {isWinner && <Text style={{ color: accent }}>{'  '}✦</Text>}
         </Text>
         {team && (
           <Text style={bx.formLine} numberOfLines={1}>
@@ -80,13 +100,25 @@ function TeamRow({
   );
 }
 
+// ─── Drama badge ────────────────────────────────────────────────────────────────
+function Badge({ label, color }: { label: string; color: string }) {
+  return (
+    <View style={[bx.badge, { borderColor: color + '66', backgroundColor: color + '1A' }]}>
+      <Text style={[bx.badgeText, { color }]}>{label}</Text>
+    </View>
+  );
+}
+
 // ─── A single knockout tie card ─────────────────────────────────────────────────
-function TieCard({ tie, accent, t }: { tie: KnockoutTie; accent: string; t: typeof KNOCKOUT_I18N['EN'] }) {
+function TieCard({ tie, accent, t }: { tie: KnockoutTie; accent: string; t: T }) {
   const { picks, setPick } = useKnockoutPicks();
   const { favTeam } = useProfile();
+  const router = useRouter();
   const myPick = picks[tie.fixture.id];
   const locked = tie.status !== 'SCHEDULED';            // lock at kickoff — picks are predictions
   const finished = tie.status === 'FINISHED' && tie.winner != null;
+  const live = tie.status === 'LIVE';
+  const bothKnown = !!tie.home && !!tie.away;
 
   const venue = tie.stadium
     ? `🏟 ${tie.stadium.shortName}${tie.stadium.city ? ', ' + tie.stadium.city : ''}`
@@ -96,10 +128,24 @@ function TieCard({ tie, accent, t }: { tie: KnockoutTie; accent: string; t: type
 
   const favName = (side: Side) => (side === 'home' ? tie.home?.name : tie.away?.name) ?? '';
   const isFav = (side: Side) => !!favTeam && favName(side) === favTeam;
+  const followed = isFav('home') || isFav('away');
 
   const myRight = finished && myPick ? (myPick === tie.winner) : null;
   const homePct = Math.round(tie.homeProb * 100);
   const liliPct = tie.liliFav === 'home' ? homePct : 100 - homePct;
+
+  // ── Drama indicators (existing data only — never invented) ──
+  const highConf = bothKnown && liliPct >= 65;
+  const closeCall = bothKnown && liliPct <= 55;
+  let upset = false;
+  if (finished && tie.home && tie.away && tie.winner) {
+    const winS = tie.winner === 'home' ? tie.home.strength : tie.away.strength;
+    const loseS = tie.winner === 'home' ? tie.away.strength : tie.home.strength;
+    upset = winS < loseS; // the lower-rated side went through
+  }
+
+  // Match-intelligence access for completed/live ties that actually have a model.
+  const canRelive = (finished || live) && FIXTURES_WITH_INTEL.has(tie.fixture.id);
 
   const PickBtn = ({ side }: { side: Side }) => {
     const selected = myPick === side;
@@ -117,11 +163,11 @@ function TieCard({ tie, accent, t }: { tie: KnockoutTie; accent: string; t: type
   };
 
   return (
-    <View style={[bx.card, { borderLeftColor: accent }, (isFav('home') || isFav('away')) && { borderColor: 'rgba(245,196,81,0.45)' }]}>
-      {/* meta */}
+    <View style={[bx.card, { borderLeftColor: accent }, followed && bx.cardFollowed]}>
+      {/* meta + status / drama chips */}
       <View style={bx.metaRow}>
         <Text style={bx.meta} numberOfLines={1}>{fmtDate(tie.fixture.date)}  ·  {venue}</Text>
-        {tie.status === 'LIVE' && <Text style={[bx.chip, { color: D.red }]}>🔴 {t.live}</Text>}
+        {live && <Text style={[bx.chip, { color: D.red }]}>🔴 {t.live}</Text>}
         {finished && <Text style={[bx.chip, { color: D.text3 }]}>{t.ft}</Text>}
       </View>
 
@@ -129,31 +175,50 @@ function TieCard({ tie, accent, t }: { tie: KnockoutTie; accent: string; t: type
       <TeamRow team={tie.home} side="home" tie={tie} picked={myPick === 'home'} isFav={isFav('home')} t={t} accent={accent} />
       <TeamRow team={tie.away} side="away" tie={tie} picked={myPick === 'away'} isFav={isFav('away')} t={t} accent={accent} />
 
-      {/* Lili's read */}
-      <View style={bx.liliRow}>
+      {/* drama badges */}
+      {(highConf || closeCall || upset || followed) && (
+        <View style={bx.badgeRow}>
+          {upset && <Badge label={`🤯 ${t.upset}`} color={D.red} />}
+          {highConf && <Badge label={`🔥 ${t.highConfidence}`} color={D.gold} />}
+          {closeCall && <Badge label={`⚖️ ${t.closeCall}`} color={D.blue} />}
+          {followed && <Badge label={`⭐ ${t.heroYourTeamLabel}`} color={D.gold} />}
+        </View>
+      )}
+
+      {/* Lili's read — predicted scoreline + confidence bar */}
+      <View style={bx.liliBlock}>
         <Text style={bx.liliText} numberOfLines={1}>
           🤖 {t.liliPredicts} <Text style={bx.liliScore}>{tie.liliScore.home}–{tie.liliScore.away}</Text>
-          {'   ·   '}{koT(t.liliPicks, { team: favName(tie.liliFav) })} <Text style={{ color: accent }}>{liliPct}%</Text>
+          {finished && (
+            <Text style={{ color: tie.liliRight ? D.green : D.red, fontWeight: '900' }}>{'   '}{tie.liliRight ? '✓' : '✗'}</Text>
+          )}
         </Text>
-        {finished && (
-          <Text style={[bx.verdict, { color: tie.liliRight ? D.green : D.red }]}>
-            {tie.liliRight ? '✓' : '✗'}
-          </Text>
+        {bothKnown && (
+          <>
+            <View style={bx.confBar}>
+              <View style={{ flex: Math.max(0.001, tie.homeProb), backgroundColor: tie.liliFav === 'home' ? accent : D.cardHi }} />
+              <View style={{ flex: Math.max(0.001, 1 - tie.homeProb), backgroundColor: tie.liliFav === 'away' ? accent : D.cardHi }} />
+            </View>
+            <Text style={bx.confLabel} numberOfLines={1}>
+              {koT(t.liliPicks, { team: favName(tie.liliFav) })} <Text style={{ color: accent, fontWeight: '800' }}>{liliPct}%</Text>
+              <Text style={{ color: D.text3 }}>{'  ·  '}{t.confidenceLabel}</Text>
+            </Text>
+          </>
         )}
       </View>
 
       {/* your pick / the game */}
-      {tie.home && tie.away ? (
+      {bothKnown ? (
         finished ? (
           <View style={bx.resultRow}>
             <Text style={[bx.resultText, { color: myRight == null ? D.text3 : myRight ? D.green : D.red }]}>
               {myPick ? (myRight ? '✅ ' + t.youGotIt : '❌ ' + t.youMissed) : '— ' + t.yourPick}
             </Text>
-            <Text style={bx.advances}>{koT(t.advances, { team: favName(tie.winner!) })}</Text>
+            <Text style={bx.advances}>✦ {koT(t.advances, { team: favName(tie.winner!) })}</Text>
           </View>
         ) : (
           <View>
-            <Text style={bx.pickPrompt}>{locked ? t.yourPick : t.pickPrompt}</Text>
+            <Text style={bx.pickPrompt}>{locked ? `${t.yourPick} · ${t.winnerAdvances}` : `${t.pickPrompt} · ${t.winnerAdvances}`}</Text>
             <View style={bx.pickRow}>
               <PickBtn side="home" />
               <PickBtn side="away" />
@@ -161,35 +226,155 @@ function TieCard({ tie, accent, t }: { tie: KnockoutTie; accent: string; t: type
           </View>
         )
       ) : null}
+
+      {/* relive the match — only when a real match-intelligence model exists */}
+      {canRelive && (
+        <Pressable
+          onPress={() => router.push({ pathname: '/match-heatmap', params: { fixtureId: tie.fixture.id } } as any)}
+          style={({ pressed }) => [bx.relive, pressed && { backgroundColor: 'rgba(245,196,81,0.18)' }]}
+        >
+          <Text style={bx.reliveText}>🎬 {t.reliveMatch}  ·  📊 →</Text>
+        </Pressable>
+      )}
     </View>
   );
 }
 
-// ─── A round section (spine node + its ties, or a locked rail) ───────────────────
-function RoundSection({ group, t }: { group: RoundGroup; t: typeof KNOCKOUT_I18N['EN'] }) {
+// ─── A round = a premium "stage" ────────────────────────────────────────────────
+function StageSection({ group, t, cols }: { group: RoundGroup; t: T; cols: number }) {
   const accent = ROUND_COLOR[group.round];
   const label = t.rounds[group.round];
   const empty = group.ties.length === 0;
 
   return (
-    <View style={bx.section}>
-      <View style={bx.spineRow}>
-        <View style={[bx.node, { borderColor: accent, backgroundColor: empty ? 'transparent' : accent }]} />
-        <Text style={[bx.roundLabel, { color: accent }]}>{label}</Text>
-        {!empty && <Text style={bx.roundCount}>{group.ties.length}</Text>}
+    <View style={bx.stage}>
+      {/* stage header */}
+      <View style={bx.stageHeader}>
+        <View style={[bx.stageBadge, { borderColor: accent }]}>
+          <Text style={[bx.stageBadgeText, { color: accent }]}>{ROUND_BADGE[group.round]}</Text>
+        </View>
+        <View style={{ flex: 1, minWidth: 0 }}>
+          <Text style={[bx.stageTitle, { color: accent }]} numberOfLines={1}>{label}</Text>
+          {!empty && <Text style={bx.stageMeta}>{koT(t.matchesShort, { n: group.ties.length })}</Text>}
+        </View>
+      </View>
+      <View style={[bx.stageRule, { backgroundColor: accent + '40' }]} />
+
+      {/* ties — single column on phone, 2-up grid on wide screens */}
+      {empty ? (
+        <View style={bx.locked}>
+          <Text style={bx.lockedText}>🔒 {t.locked}</Text>
+        </View>
+      ) : (
+        <View style={[bx.grid, cols === 2 && bx.gridWide]}>
+          {group.ties.map((tie) => (
+            <View key={tie.fixture.id} style={cols === 2 ? bx.cellWide : bx.cell}>
+              <TieCard tie={tie} accent={accent} t={t} />
+            </View>
+          ))}
+        </View>
+      )}
+    </View>
+  );
+}
+
+// ─── Hero (current stage · teams left · Lili's favourite · your team) ────────────
+function Hero({ rounds, rec, t }: { rounds: RoundGroup[]; rec: { correct: number; total: number }; t: T }) {
+  const { favTeam } = useProfile();
+
+  // Deepest seeded round = the stage currently in play.
+  const seeded = rounds.filter((r) => r.ties.length > 0);
+  const current = seeded[seeded.length - 1] ?? null;
+
+  // Teams still alive in the current stage (winner advances, others out).
+  const alive: TeamForm[] = [];
+  if (current) {
+    for (const tie of current.ties) {
+      if (tie.winner) {
+        const w = tie.winner === 'home' ? tie.home : tie.away;
+        if (w) alive.push(w);
+      } else {
+        if (tie.home) alive.push(tie.home);
+        if (tie.away) alive.push(tie.away);
+      }
+    }
+  }
+  const liliFav = [...alive].sort((a, b) => b.strength - a.strength)[0] ?? null;
+  const yourTeam = favTeam ? alive.find((tm) => tm.name === favTeam) ?? null : null;
+
+  // Path-to-the-final rail (skip the 3rd-place play-off — it's a detour).
+  const pathRounds = rounds.filter((r) => r.round !== '3RD');
+
+  return (
+    <View style={bx.hero}>
+      <View style={bx.heroGlow} pointerEvents="none" />
+      <Text style={bx.heroKicker}>🏆 {t.title}</Text>
+      {/* bleu-blanc-rouge identity, kept as a quiet signature line */}
+      <View style={bx.tricolor}>
+        <View style={[bx.tricolorSeg, { backgroundColor: D.fr }]} />
+        <View style={[bx.tricolorSeg, { backgroundColor: D.white }]} />
+        <View style={[bx.tricolorSeg, { backgroundColor: D.fred }]} />
+      </View>
+      <Text style={bx.heroSub}>{t.intro}</Text>
+      {rec.total > 0 && (
+        <Text style={bx.record}>🤖 {koT(t.record, { c: rec.correct, t: rec.total })}</Text>
+      )}
+
+      {/* stat chips */}
+      <View style={bx.heroStats}>
+        {current && (
+          <View style={bx.statChip}>
+            <Text style={bx.statLabel}>{t.heroStageLabel}</Text>
+            <Text style={[bx.statValue, { color: ROUND_COLOR[current.round] }]} numberOfLines={1}>{t.rounds[current.round]}</Text>
+          </View>
+        )}
+        {alive.length > 0 && (
+          <View style={bx.statChip}>
+            <Text style={bx.statLabel}>{t.heroRemainingLabel}</Text>
+            <Text style={[bx.statValue, { color: D.text1 }]}>{alive.length}</Text>
+          </View>
+        )}
+        {liliFav && (
+          <View style={bx.statChip}>
+            <Text style={bx.statLabel}>🤖 {t.heroLiliFavLabel}</Text>
+            <Text style={[bx.statValue, { color: D.gold }]} numberOfLines={1}>{liliFav.flag} {liliFav.name}</Text>
+          </View>
+        )}
+        {yourTeam && (
+          <View style={[bx.statChip, { borderColor: 'rgba(245,196,81,0.4)' }]}>
+            <Text style={bx.statLabel}>⭐ {t.heroYourTeamLabel}</Text>
+            <Text style={[bx.statValue, { color: D.gold }]} numberOfLines={1}>{yourTeam.flag} {yourTeam.name}</Text>
+          </View>
+        )}
       </View>
 
-      <View style={bx.sectionBody}>
-        <View style={[bx.spine, { backgroundColor: accent + '33' }]} />
-        <View style={{ flex: 1, gap: 10 }}>
-          {empty ? (
-            <View style={bx.locked}>
-              <Text style={bx.lockedText}>🔒 {t.locked}</Text>
+      {/* path to the final — progression rail */}
+      <Text style={bx.pathLabel}>{t.pathToFinal}</Text>
+      <View style={bx.pathRail}>
+        {pathRounds.map((r, i) => {
+          const accent = ROUND_COLOR[r.round];
+          const hasTies = r.ties.length > 0;
+          const allDone = hasTies && r.ties.every((x) => x.status === 'FINISHED');
+          const isCurrent = current ? r.round === current.round : false;
+          const state = allDone ? 'done' : isCurrent ? 'current' : 'future';
+          return (
+            <View key={r.round} style={bx.pathStep}>
+              <View
+                style={[
+                  bx.pathNode,
+                  state === 'future'
+                    ? { borderColor: D.text3 }
+                    : { borderColor: accent, backgroundColor: state === 'done' ? accent : accent + '33' },
+                ]}
+              >
+                <Text style={[bx.pathNodeText, { color: state === 'future' ? D.text3 : state === 'done' ? D.bg : accent }]}>
+                  {ROUND_BADGE[r.round]}
+                </Text>
+              </View>
+              {i < pathRounds.length - 1 && <View style={[bx.pathLink, { backgroundColor: allDone ? accent : D.border }]} />}
             </View>
-          ) : (
-            group.ties.map((tie) => <TieCard key={tie.fixture.id} tie={tie} accent={accent} t={t} />)
-          )}
-        </View>
+          );
+        })}
       </View>
     </View>
   );
@@ -202,19 +387,16 @@ export default function KnockoutBracketScreen() {
   const liveResults = useLiveResults();
   const rounds = useMemo(() => buildRoadToFinal(liveResults), [liveResults]);
   const rec = liliKnockoutRecord(rounds);
+  const { width } = useWindowDimensions();
+  const cols = width >= 760 ? 2 : 1;
 
   return (
     <SafeAreaView style={bx.screen} edges={['bottom']}>
       <Stack.Screen options={{ title: t.title }} />
-      <ScrollView contentContainerStyle={bx.scroll} showsVerticalScrollIndicator={false}>
-        <Text style={bx.title}>🏆 {t.title}</Text>
-        <Text style={bx.intro}>{t.intro}</Text>
-        {rec.total > 0 && (
-          <Text style={bx.record}>🤖 {koT(t.record, { c: rec.correct, t: rec.total })}</Text>
-        )}
-
-        <View style={{ marginTop: 14 }}>
-          {rounds.map((g) => <RoundSection key={g.round} group={g} t={t} />)}
+      <ScrollView contentContainerStyle={[bx.scroll, cols === 2 && bx.scrollWide]} showsVerticalScrollIndicator={false}>
+        <Hero rounds={rounds} rec={rec} t={t} />
+        <View style={{ marginTop: 6 }}>
+          {rounds.map((g) => <StageSection key={g.round} group={g} t={t} cols={cols} />)}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -223,48 +405,118 @@ export default function KnockoutBracketScreen() {
 
 const bx = StyleSheet.create({
   screen: { flex: 1, backgroundColor: D.bg },
-  scroll: { padding: 14, paddingBottom: 48 },
-  title: { fontSize: 22, fontWeight: '900', color: D.text1, letterSpacing: 0.3 },
-  intro: { fontSize: 13, color: D.text2, marginTop: 4, lineHeight: 18 },
-  record: { fontSize: 12, color: D.gold, fontWeight: '700', marginTop: 8 },
+  scroll: { padding: 14, paddingBottom: 56 },
+  scrollWide: { maxWidth: 1100, width: '100%', alignSelf: 'center', paddingHorizontal: 24 },
 
-  section: { marginBottom: 6 },
-  spineRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 14, marginBottom: 6 },
-  node: { width: 14, height: 14, borderRadius: 7, borderWidth: 2, marginLeft: 3 },
-  roundLabel: { fontSize: 12, fontWeight: '800', letterSpacing: 1.2, textTransform: 'uppercase' },
-  roundCount: { fontSize: 11, color: D.text3, fontWeight: '700' },
-  sectionBody: { flexDirection: 'row' },
-  spine: { width: 2, marginLeft: 9, marginRight: 13, borderRadius: 1 },
+  // ── Hero ──
+  hero: {
+    backgroundColor: D.bgHi,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(245,196,81,0.28)',
+    borderTopWidth: 3,
+    borderTopColor: D.gold,
+    padding: 18,
+    overflow: 'hidden',
+  },
+  heroGlow: {
+    position: 'absolute',
+    top: -70,
+    right: -50,
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    backgroundColor: 'rgba(245,196,81,0.12)',
+  },
+  heroKicker: { fontSize: 26, fontWeight: '900', color: D.text1, letterSpacing: 0.3 },
+  tricolor: { flexDirection: 'row', gap: 3, marginTop: 8, width: 84 },
+  tricolorSeg: { flex: 1, height: 3, borderRadius: 2 },
+  heroSub: { fontSize: 13, color: D.text2, marginTop: 8, lineHeight: 19 },
+  record: { fontSize: 12, color: D.gold, fontWeight: '800', marginTop: 8 },
 
-  locked: { paddingVertical: 14, paddingHorizontal: 14, borderRadius: 12, borderWidth: 1, borderColor: D.border, borderStyle: 'dashed', backgroundColor: 'rgba(255,255,255,0.02)' },
+  heroStats: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 16 },
+  statChip: {
+    flexGrow: 1,
+    minWidth: 130,
+    backgroundColor: 'rgba(255,255,255,0.03)',
+    borderWidth: 1,
+    borderColor: D.border,
+    borderRadius: 12,
+    paddingVertical: 9,
+    paddingHorizontal: 12,
+  },
+  statLabel: { fontSize: 9.5, color: D.text2, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.7 },
+  statValue: { fontSize: 16, fontWeight: '900', marginTop: 3 },
+
+  pathLabel: { fontSize: 9.5, color: D.text2, fontWeight: '800', textTransform: 'uppercase', letterSpacing: 1.2, marginTop: 18, marginBottom: 8 },
+  pathRail: { flexDirection: 'row', alignItems: 'center' },
+  pathStep: { flexDirection: 'row', alignItems: 'center', flexShrink: 1 },
+  pathNode: { width: 34, height: 34, borderRadius: 17, borderWidth: 2, alignItems: 'center', justifyContent: 'center' },
+  pathNodeText: { fontSize: 11, fontWeight: '900' },
+  pathLink: { height: 2, flex: 1, minWidth: 8, marginHorizontal: 3, borderRadius: 1 },
+
+  // ── Stage ──
+  stage: { marginTop: 22 },
+  stageHeader: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  stageBadge: { width: 40, height: 40, borderRadius: 12, borderWidth: 2, alignItems: 'center', justifyContent: 'center' },
+  stageBadgeText: { fontSize: 13, fontWeight: '900' },
+  stageTitle: { fontSize: 19, fontWeight: '900', letterSpacing: 0.4, textTransform: 'uppercase' },
+  stageMeta: { fontSize: 11, color: D.text3, fontWeight: '700', marginTop: 1 },
+  stageRule: { height: 2, borderRadius: 1, marginTop: 10, marginBottom: 12 },
+
+  grid: { gap: 12 },
+  gridWide: { flexDirection: 'row', flexWrap: 'wrap' },
+  cell: { width: '100%' },
+  cellWide: { width: '48.6%', flexGrow: 1 },
+
+  locked: { paddingVertical: 16, paddingHorizontal: 14, borderRadius: 12, borderWidth: 1, borderColor: D.border, borderStyle: 'dashed', backgroundColor: 'rgba(255,255,255,0.02)' },
   lockedText: { fontSize: 12, color: D.text3, fontStyle: 'italic' },
 
-  card: { backgroundColor: D.card, borderRadius: 14, borderWidth: 1, borderColor: D.border, borderLeftWidth: 3, padding: 12, gap: 8 },
+  // ── Tie card ──
+  card: { backgroundColor: D.card, borderRadius: 16, borderWidth: 1, borderColor: D.border, borderLeftWidth: 4, padding: 13, gap: 9 },
+  cardFollowed: { borderColor: 'rgba(245,196,81,0.5)', backgroundColor: '#13202E' },
   metaRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 },
   meta: { flex: 1, fontSize: 10.5, color: D.text3, fontWeight: '600' },
-  chip: { fontSize: 10, fontWeight: '800', letterSpacing: 0.6 },
+  chip: { fontSize: 10, fontWeight: '900', letterSpacing: 0.6 },
 
-  teamRow: { flexDirection: 'row', alignItems: 'center', gap: 9, paddingVertical: 5, paddingHorizontal: 6, borderRadius: 8 },
-  flag: { fontSize: 22 },
-  teamName: { fontSize: 15, fontWeight: '800', color: D.text1 },
+  teamRow: { flexDirection: 'row', alignItems: 'center', gap: 9, paddingVertical: 6, paddingHorizontal: 8, borderRadius: 9, overflow: 'hidden' },
+  winBar: { position: 'absolute', left: 0, top: 0, bottom: 0, width: 3 },
+  flag: { fontSize: 23 },
+  teamName: { fontSize: 15.5, fontWeight: '800', color: D.text1 },
   liliDot: { fontSize: 11 },
   formLine: { fontSize: 10.5, color: D.text2, marginTop: 1 },
   strength: { color: D.text3 },
-  goals: { fontSize: 20, fontWeight: '900', minWidth: 22, textAlign: 'center' },
+  goals: { fontSize: 21, fontWeight: '900', minWidth: 22, textAlign: 'center' },
   dim: { color: D.text3, opacity: 0.6 },
 
-  liliRow: { flexDirection: 'row', alignItems: 'center', gap: 8, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: D.border, paddingTop: 8 },
-  liliText: { flex: 1, fontSize: 11.5, color: D.text2 },
-  liliScore: { color: D.text1, fontWeight: '800' },
-  verdict: { fontSize: 14, fontWeight: '900' },
+  badgeRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 6 },
+  badge: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: 999, borderWidth: 1 },
+  badgeText: { fontSize: 10, fontWeight: '800', letterSpacing: 0.2 },
 
-  pickPrompt: { fontSize: 10.5, color: D.text3, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 6 },
+  liliBlock: { borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: D.border, paddingTop: 9, gap: 7 },
+  liliText: { fontSize: 11.5, color: D.text2 },
+  liliScore: { color: D.text1, fontWeight: '900', fontSize: 13 },
+  confBar: { flexDirection: 'row', height: 7, borderRadius: 4, overflow: 'hidden', backgroundColor: D.cardHi },
+  confLabel: { fontSize: 11, color: D.text2 },
+
+  pickPrompt: { fontSize: 10, color: D.text3, fontWeight: '800', textTransform: 'uppercase', letterSpacing: 0.7, marginBottom: 7 },
   pickRow: { flexDirection: 'row', gap: 8 },
-  pickBtn: { flex: 1, paddingVertical: 9, paddingHorizontal: 8, borderRadius: 10, borderWidth: 1, borderColor: D.border, backgroundColor: D.cardHi, alignItems: 'center' },
+  pickBtn: { flex: 1, paddingVertical: 10, paddingHorizontal: 8, borderRadius: 10, borderWidth: 1, borderColor: D.border, backgroundColor: D.cardHi, alignItems: 'center' },
   pickBtnLocked: { opacity: 0.85 },
   pickBtnText: { fontSize: 12.5, fontWeight: '700', color: D.text2 },
 
   resultRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 },
   resultText: { fontSize: 12.5, fontWeight: '800' },
-  advances: { fontSize: 11, color: D.text3, fontWeight: '600' },
+  advances: { fontSize: 11, color: D.text2, fontWeight: '700' },
+
+  relive: {
+    marginTop: 2,
+    alignItems: 'center',
+    paddingVertical: 9,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(245,196,81,0.4)',
+    backgroundColor: 'rgba(245,196,81,0.09)',
+  },
+  reliveText: { fontSize: 12, fontWeight: '800', color: D.gold, letterSpacing: 0.3 },
 });
