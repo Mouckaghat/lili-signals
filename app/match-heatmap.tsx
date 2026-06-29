@@ -6,6 +6,7 @@ import type { MatchStats } from '../lib/matchStatsData';
 import { useLiveStats } from '../lib/useLiveStats';
 import { useLiveResults } from '../lib/useLiveResults';
 import { WC_FIXTURES, WC_TEAMS } from '../lib/wcData';
+import { WC_KNOCKOUT } from '../lib/knockoutData';
 import HomeEdgeModule from '../components/HomeEdgeModule';
 import PlayersModule from '../components/PlayersModule';
 import AttackZonesModule from '../components/AttackZonesModule';
@@ -112,6 +113,9 @@ export default function MatchHeatmapScreen() {
   }
 
   const fixture = WC_FIXTURES.find((f) => f.id === active.fixtureId);
+  // Knockout ties aren't in WC_FIXTURES — fall back to WC_KNOCKOUT so a KO game
+  // opened via "Relive the match" still shows its round + venue in the header.
+  const koFixture = !fixture ? WC_KNOCKOUT.find((f) => f.id === active.fixtureId) : undefined;
   const activeStatus = statusOf(active);
   const statusLine = activeStatus === 'LIVE' ? `LIVE ${active.elapsed ?? ''}'` : 'FULL TIME';
   const res = results[`${active.home}|${active.away}`];
@@ -121,7 +125,9 @@ export default function MatchHeatmapScreen() {
     <View style={st.header}>
       <View style={st.headSide}>
         <Text style={st.headTitle}>MATCH INTELLIGENCE</Text>
-        {fixture && <Text style={st.headSub}>Group {fixture.group} · Matchday {fixture.matchday}</Text>}
+        {fixture
+          ? <Text style={st.headSub}>Group {fixture.group} · Matchday {fixture.matchday}</Text>
+          : koFixture ? <Text style={st.headSub}>{koFixture.roundLabel}</Text> : null}
       </View>
       <View style={st.headCenter}>
         <View style={st.scoreRow}>
@@ -130,7 +136,9 @@ export default function MatchHeatmapScreen() {
           <Text style={st.teamName} numberOfLines={1}>{active.away.toUpperCase()} {flagOf(active.away)}</Text>
         </View>
         <Text style={[st.statusMini, activeStatus === 'LIVE' && { color: D.red }]}>
-          {statusLine}{fixture ? `  ·  ${fmtDate(active.date)} · ${fixture.stadium}` : ''}
+          {statusLine}{fixture
+            ? `  ·  ${fmtDate(active.date)} · ${fixture.stadium}`
+            : koFixture ? `  ·  ${fmtDate(active.date)}${koFixture.venueName ? ' · ' + koFixture.venueName : ''}` : ''}
         </Text>
       </View>
       <View style={[st.headSide, { alignItems: 'flex-end' }]}>

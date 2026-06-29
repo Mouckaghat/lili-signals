@@ -533,4 +533,25 @@ export const MATCH_STATS: MatchStats[] = [
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-29T17:24:23.393Z';
+// Knockout-stage match stats — kept SEPARATE from MATCH_STATS so the tournament
+// aggregates (rankings, attack zones) that iterate MATCH_STATS aren't skewed by
+// knockout games. Merged in only at the match-intelligence display layer
+// (lib/useLiveStats → the match-heatmap screen).
+export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
+  {
+    fixtureId: "1561329",
+    home: "South Africa", away: "Canada", date: "2026-06-28",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "South Africa", possession: 0.58, totalShots: 6, shotsInsideBox: 1, shotsOutsideBox: 5, shotsOnGoal: 1, corners: 1, xg: 0.13, passAccuracy: 0.85, passes: 550, fouls: 10 },
+    awayStats: { team: "Canada", possession: 0.42, totalShots: 12, shotsInsideBox: 9, shotsOutsideBox: 3, shotsOnGoal: 7, corners: 4, xg: 1.32, passAccuracy: 0.78, passes: 380, fouls: 16 },
+  },
+  {
+    fixtureId: "1562344",
+    home: "Brazil", away: "Japan", date: "2026-06-29",
+    status: "LIVE", elapsed: 48,
+    homeStats: { team: "Brazil", possession: 0.68, totalShots: 8, shotsInsideBox: 4, shotsOutsideBox: 4, shotsOnGoal: 2, corners: 2, xg: 0.35, passAccuracy: 0.93, passes: 359, fouls: 1 },
+    awayStats: { team: "Japan", possession: 0.32, totalShots: 4, shotsInsideBox: 1, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 2, xg: 0.21, passAccuracy: 0.85, passes: 166, fouls: 6 },
+  },
+];
+
+export const MATCH_STATS_LAST_UPDATED = '2026-06-29T18:10:21.699Z';

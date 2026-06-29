@@ -337,13 +337,15 @@ export default function WorldCupTableScreen() {
   const [launched, setLaunched] = useState(false);
   const { i18n, lang } = useLanguage();
   const router = useRouter();
-  const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
+  // Pool Games is the default landing — the complete group-stage experience.
+  // (The old "All" view was removed; everything it showed now lives in Pool Games.)
+  const [selectedGroup, setSelectedGroup] = useState<string>(POOL);
   const liveResults = useLiveResults();
 
-  // "Pool Games" and a single group both render group tables; Pool Games (and the
-  // "All" default) show all 12 groups, a specific letter shows just that one.
+  // Pool Games shows all 12 group tables (+ hero + timeline); a single group
+  // letter narrows to just that group.
   const isPool = selectedGroup === POOL;
-  const displayGroups = isPool || selectedGroup === null ? GROUPS : [selectedGroup];
+  const displayGroups = isPool ? GROUPS : [selectedGroup];
 
   if (!launched) return (
     <>
@@ -363,32 +365,18 @@ export default function WorldCupTableScreen() {
         style={st.pillScroll}
         contentContainerStyle={st.pillContent}
       >
-        <TouchableOpacity
-          style={[st.pill, selectedGroup === null && st.pillActive]}
-          onPress={() => setSelectedGroup(null)}
-        >
-          <Text style={[st.pillText, selectedGroup === null && st.pillTextActive]}>{i18n.all}</Text>
-        </TouchableOpacity>
-        {GROUPS.map((g) => (
-          <TouchableOpacity
-            key={g}
-            style={[st.pill, selectedGroup === g && st.pillActive]}
-            onPress={() => setSelectedGroup(selectedGroup === g ? null : g)}
-          >
-            <Text style={[st.pillText, selectedGroup === g && st.pillTextActive]}>{i18n.group} {g}</Text>
-          </TouchableOpacity>
-        ))}
+        {/* Nav tells the tournament story: Pool Games → Road to the Final →
+            individual groups. "All" was removed — Pool Games is its richer home. */}
 
-        {/* Pool Games — the curated group-stage story (all tables + group-stage
-            timeline, no knockouts). Placed right before Road to the Final. */}
+        {/* Pool Games — the complete group-stage experience (default landing). */}
         <TouchableOpacity
           style={[st.pill, st.pillPool, isPool && st.pillPoolActive]}
-          onPress={() => setSelectedGroup(isPool ? null : POOL)}
+          onPress={() => setSelectedGroup(POOL)}
         >
           <Text style={[st.pillText, st.pillPoolText, isPool && st.pillTextActive]}>⚽ {i18n.poolGames}</Text>
         </TouchableOpacity>
 
-        {/* Road to the Final — nav shortcut to the knockout bracket (separate
+        {/* Road to the Final — the dedicated knockout experience (separate
             screen). Only shown once the bracket has seeded. */}
         {WC_KNOCKOUT.length > 0 && (
           <TouchableOpacity
@@ -398,6 +386,17 @@ export default function WorldCupTableScreen() {
             <Text style={[st.pillText, st.pillBracketText]}>🏆 {(KNOCKOUT_I18N[lang] ?? KNOCKOUT_I18N.EN).title}</Text>
           </TouchableOpacity>
         )}
+
+        {/* Group shortcuts — narrow to a single group; tap again to return to Pool Games. */}
+        {GROUPS.map((g) => (
+          <TouchableOpacity
+            key={g}
+            style={[st.pill, selectedGroup === g && st.pillActive]}
+            onPress={() => setSelectedGroup(selectedGroup === g ? POOL : g)}
+          >
+            <Text style={[st.pillText, selectedGroup === g && st.pillTextActive]}>{i18n.group} {g}</Text>
+          </TouchableOpacity>
+        ))}
       </ScrollView>
 
       {/* Banner */}
@@ -409,20 +408,12 @@ export default function WorldCupTableScreen() {
         </View>
       </View>
 
-      {/* Entry point: Lili vs The Market (pre-match odds vs Lili's model) */}
+      {/* Entry point: Lili vs The Market (pre-match odds vs Lili's model).
+          (Road to the Final now lives in the top nav as a pill — no duplicate card.) */}
       <TouchableOpacity style={st.marketLink} onPress={() => router.push('/lili-vs-market' as any)} activeOpacity={0.8}>
         <Text style={st.marketLinkText}>📈  {(MARKET_I18N[lang] ?? MARKET_I18N.EN).title}</Text>
         <Text style={st.marketLinkArrow}>→</Text>
       </TouchableOpacity>
-
-      {/* Entry point: Road to the Final — the knockout bracket + pick-the-winner
-          game. Only shown once the bracket has seeded (real fixtures exist). */}
-      {WC_KNOCKOUT.length > 0 && (
-        <TouchableOpacity style={st.bracketLink} onPress={() => router.push('/knockout-bracket' as any)} activeOpacity={0.8}>
-          <Text style={st.bracketLinkText}>🏆  {(KNOCKOUT_I18N[lang] ?? KNOCKOUT_I18N.EN).title}</Text>
-          <Text style={st.bracketLinkArrow}>→</Text>
-        </TouchableOpacity>
-      )}
 
       <ScrollView style={st.scroll} contentContainerStyle={st.content}>
         {isPool && <PoolHero liveResults={liveResults} />}
@@ -583,21 +574,6 @@ const st = StyleSheet.create({
   },
   marketLinkText: { fontSize: 13, fontWeight: '700', color: '#34D399' },
   marketLinkArrow: { fontSize: 15, fontWeight: '700', color: '#34D399' },
-  bracketLink: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginHorizontal: 16,
-    marginTop: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 11,
-    borderRadius: 12,
-    backgroundColor: 'rgba(245,196,81,0.08)',
-    borderWidth: 1,
-    borderColor: 'rgba(245,196,81,0.30)',
-  },
-  bracketLinkText: { fontSize: 13, fontWeight: '700', color: '#F5C451' },
-  bracketLinkArrow: { fontSize: 15, fontWeight: '700', color: '#F5C451' },
   scroll: { flex: 1 },
   content: { padding: 16, paddingBottom: 48 },
   footNote: {

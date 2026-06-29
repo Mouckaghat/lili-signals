@@ -1,12 +1,20 @@
 import { useEffect, useState } from 'react';
-import { MATCH_STATS, type MatchStats, type TeamMatchStats } from './matchStatsData';
+import { MATCH_STATS, KNOCKOUT_MATCH_STATS, type MatchStats, type TeamMatchStats } from './matchStatsData';
 import { WC_FIXTURES } from './wcData';
+import { WC_KNOCKOUT } from './knockoutData';
 import { apiUrl, LIVE_API_ENABLED } from './apiBase';
 
-// home|away → real WCFixture.id, so a LIVE game that isn't in the pre-baked
-// MATCH_STATS still gets its canonical fixtureId (e.g. E1_Germany_v_Cura_ao).
-// Without this, deep-links from the timeline's 🔥 flame wouldn't preselect it.
-const FIXTURE_ID_BY_KEY = new Map(WC_FIXTURES.map((f) => [`${f.home}|${f.away}`, f.id]));
+// Group stage + knockouts both feed the match-intelligence screen (the only
+// consumer of this hook), so its base is both committed arrays. The knockout
+// stats stay in their own export (KNOCKOUT_MATCH_STATS) so tournament aggregates
+// over MATCH_STATS aren't skewed — they're only united here, at the display layer.
+const BASE_STATS = [...MATCH_STATS, ...KNOCKOUT_MATCH_STATS];
+
+// home|away → real fixture id, so a LIVE game that isn't in the pre-baked stats
+// still gets its canonical id (group e.g. E1_Germany_v_Cura_ao, or a knockout id
+// like 1562344). Without this, deep-links (timeline 🔥 / "Relive the match")
+// wouldn't preselect it. Includes knockout ties so live KO games resolve too.
+const FIXTURE_ID_BY_KEY = new Map([...WC_FIXTURES, ...WC_KNOCKOUT].map((f) => [`${f.home}|${f.away}`, f.id]));
 
 // Poll cadence for the live heatmap, aligned to the /api/match-stats edge cache
 // (s-maxage=15). Polling at the cache TTL picks up each refresh once without
@@ -26,7 +34,7 @@ interface LivePayload {
  * it just returns the pre-built data, so the screen always works.
  */
 export function useLiveStats(): MatchStats[] {
-  const [stats, setStats] = useState<MatchStats[]>(MATCH_STATS);
+  const [stats, setStats] = useState<MatchStats[]>(BASE_STATS);
 
   useEffect(() => {
     if (!LIVE_API_ENABLED) return;

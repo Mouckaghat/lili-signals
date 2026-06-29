@@ -4,18 +4,18 @@ import { Pressable, ScrollView, StyleSheet, Text, useWindowDimensions, View } fr
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { buildRoadToFinal, liliKnockoutRecord, type KnockoutTie, type RoundGroup, type Side, type TeamForm } from '../lib/knockoutModel';
 import type { KnockoutRound } from '../lib/knockoutData';
-import { MATCH_STATS } from '../lib/matchStatsData';
+import { KNOCKOUT_MATCH_STATS } from '../lib/matchStatsData';
 import { useLiveResults } from '../lib/useLiveResults';
 import { useKnockoutPicks } from '../contexts/KnockoutPicksContext';
 import { useProfile } from '../contexts/ProfileContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { KNOCKOUT_I18N, koT } from '../lib/knockoutI18n';
 
-// Fixtures that have a real match-intelligence model (same gate the timeline
-// uses). A knockout tie only gets a "Relive the match" deep-link once it's been
-// captured live — otherwise the tap would land on an empty screen. It lights up
-// automatically when the live-stats bot bakes the game.
-const FIXTURES_WITH_INTEL = new Set(MATCH_STATS.map((m) => m.fixtureId));
+// Knockout fixtures that have a real match-intelligence model baked. A tie only
+// gets a "Relive the match" deep-link once its stats exist (captured while live),
+// so the tap always lands on real content, never an empty screen. Lights up
+// automatically when the live-stats bot bakes the game into KNOCKOUT_MATCH_STATS.
+const FIXTURES_WITH_INTEL = new Set(KNOCKOUT_MATCH_STATS.map((m) => m.fixtureId));
 
 // ─── Design tokens (cinematic dark navy + trophy gold) ─────────────────────────
 const D = {
