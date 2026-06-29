@@ -1,8 +1,9 @@
 import { Stack, useRouter } from 'expo-router';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { buildRoadToFinal, liliKnockoutRecord, type KnockoutTie, type RoundGroup, type Side, type TeamForm } from '../lib/knockoutModel';
+import { buildFullBracket, buildTeamPath, type BracketNode, type PathStep, type SlotSide, type TeamPath } from '../lib/bracketModel';
 import type { KnockoutRound } from '../lib/knockoutData';
 import { KNOCKOUT_MATCH_STATS } from '../lib/matchStatsData';
 import { useLiveResults } from '../lib/useLiveResults';
@@ -380,24 +381,232 @@ function Hero({ rounds, rec, t }: { rounds: RoundGroup[]; rec: { correct: number
   );
 }
 
+// ─── A resolved slot side: a team, an "A or B" pair, or "Winner of Match X" ──────
+function SideView({ side, t, favTeam, big }: { side: SlotSide; t: T; favTeam?: string | null; big?: boolean }) {
+  if (side.kind === 'team') {
+    const fav = favTeam === side.team.name;
+    return (
+      <View style={bx.sideRow}>
+        <Text style={bx.sideFlag}>{side.team.flag}</Text>
+        <Text style={[bx.sideName, big && bx.sideNameBig, fav && { color: D.gold }]} numberOfLines={1}>{side.team.name}</Text>
+      </View>
+    );
+  }
+  if (side.kind === 'pair') {
+    return (
+      <View style={bx.sideRow}>
+        <Text style={[bx.sideName, bx.sidePending]} numberOfLines={1}>
+          {side.a?.flag ?? '🏳️'} {side.a?.name ?? '?'}<Text style={bx.orText}>  {t.orWord}  </Text>{side.b?.flag ?? '🏳️'} {side.b?.name ?? '?'}
+        </Text>
+      </View>
+    );
+  }
+  return (
+    <View style={bx.sideRow}>
+      <Text style={[bx.sideName, bx.sidePending]} numberOfLines={1}>🏆 {koT(t.winnerOfMatch, { n: side.fromMatch })}</Text>
+    </View>
+  );
+}
+
+// ─── A future slot card (All Teams mode, R16→Final) ──────────────────────────────
+function FutureNodeCard({ node, accent, t, favTeam }: { node: BracketNode; accent: string; t: T; favTeam?: string | null }) {
+  const venue = node.stadium ? `🏟 ${node.stadium.shortName}, ${node.stadium.city}` : `🏟 ${t.venueTBC}`;
+  const isFav = (s: SlotSide) => s.kind === 'team' && favTeam === s.team.name;
+  const followed = isFav(node.sideA) || isFav(node.sideB);
+  return (
+    <View style={[bx.card, { borderLeftColor: accent }, followed && bx.cardFollowed]}>
+      <View style={bx.metaRow}><Text style={bx.meta} numberOfLines={1}>{fmtDate(node.date)}  ·  {venue}</Text></View>
+      <SideView side={node.sideA} t={t} favTeam={favTeam} big />
+      <Text style={bx.vsText}>vs</Text>
+      <SideView side={node.sideB} t={t} favTeam={favTeam} big />
+    </View>
+  );
+}
+
+// ─── All Teams mode — the full progressive bracket ───────────────────────────────
+const FUTURE_ORDER: KnockoutRound[] = ['R16', 'QF', 'SF', '3RD', 'F'];
+
+function AllTeamsView({ full, t, cols, favTeam }: { full: ReturnType<typeof buildFullBracket>; t: T; cols: number; favTeam?: string | null }) {
+  return (
+    <View style={{ marginTop: 6 }}>
+      <StageSection group={{ round: 'R32', label: t.rounds.R32, ties: full.r32 }} t={t} cols={cols} />
+      {FUTURE_ORDER.map((rd) => {
+        const nodes = full.nodes.filter((n) => n.round === rd);
+        if (!nodes.length) return null;
+        const accent = ROUND_COLOR[rd];
+        return (
+          <View key={rd} style={bx.stage}>
+            <View style={bx.stageHeader}>
+              <View style={[bx.stageBadge, { borderColor: accent }]}><Text style={[bx.stageBadgeText, { color: accent }]}>{ROUND_BADGE[rd]}</Text></View>
+              <View style={{ flex: 1, minWidth: 0 }}>
+                <Text style={[bx.stageTitle, { color: accent }]} numberOfLines={1}>{t.rounds[rd]}</Text>
+                <Text style={bx.stageMeta}>{koT(t.matchesShort, { n: nodes.length })}</Text>
+              </View>
+            </View>
+            <View style={[bx.stageRule, { backgroundColor: accent + '40' }]} />
+            <View style={[bx.grid, cols === 2 && bx.gridWide]}>
+              {nodes.map((n) => (
+                <View key={n.match} style={cols === 2 ? bx.cellWide : bx.cell}>
+                  <FutureNodeCard node={n} accent={accent} t={t} favTeam={favTeam} />
+                </View>
+              ))}
+            </View>
+          </View>
+        );
+      })}
+    </View>
+  );
+}
+
+// ─── My Team mode — the followed team's road to the final ────────────────────────
+const STATE_LABEL: Record<PathStep['state'], (t: T) => string> = {
+  won: (t) => t.stateThrough, eliminated: (t) => t.stateOut, live: (t) => t.live,
+  next: (t) => t.stateNext, potential: (t) => t.statePotential,
+};
+const STATE_COLOR: Record<PathStep['state'], string> = {
+  won: D.green, eliminated: D.red, live: D.red, next: D.gold, potential: D.text3,
+};
+
+function PathStepCard({ step, team, t, last }: { step: PathStep; team: TeamForm; t: T; last: boolean }) {
+  const router = useRouter();
+  const accent = ROUND_COLOR[step.round];
+  const dim = step.state === 'potential';
+  const venue = step.stadium ? `🏟 ${step.stadium.shortName}, ${step.stadium.city}` : `🏟 ${t.venueTBC}`;
+  const myScore = step.tie && step.mySide && step.tie.result ? step.tie.result[step.mySide] : null;
+  const oppScore = step.tie && step.mySide && step.tie.result ? step.tie.result[step.mySide === 'home' ? 'away' : 'home'] : null;
+  const canRelive = step.tie && (step.tie.status === 'FINISHED' || step.tie.status === 'LIVE') && FIXTURES_WITH_INTEL.has(step.tie.fixture.id);
+
+  return (
+    <View style={bx.stepRow}>
+      {/* spine */}
+      <View style={bx.stepSpineCol}>
+        <View style={[bx.stepNode, step.state === 'won' ? { borderColor: accent, backgroundColor: accent }
+          : step.state === 'eliminated' ? { borderColor: D.red, backgroundColor: D.red }
+          : { borderColor: accent, backgroundColor: D.bg }]}>
+          <Text style={[bx.stepNodeText, { color: step.state === 'won' || step.state === 'eliminated' ? D.bg : accent }]}>{ROUND_BADGE[step.round]}</Text>
+        </View>
+        {!last && <View style={[bx.stepLine, { backgroundColor: step.state === 'won' ? accent : D.border }]} />}
+      </View>
+
+      {/* card */}
+      <View style={[bx.card, bx.stepCard, { borderLeftColor: accent }, dim && { opacity: 0.72 }, step.state === 'next' && { borderColor: accent + '66' }]}>
+        <View style={bx.metaRow}>
+          <Text style={[bx.stepRound, { color: accent }]} numberOfLines={1}>{t.rounds[step.round]}</Text>
+          <View style={[bx.badge, { borderColor: STATE_COLOR[step.state] + '66', backgroundColor: STATE_COLOR[step.state] + '1A' }]}>
+            <Text style={[bx.badgeText, { color: STATE_COLOR[step.state] }]}>{STATE_LABEL[step.state](t)}</Text>
+          </View>
+        </View>
+        <Text style={bx.meta} numberOfLines={1}>{fmtDate(step.date)}  ·  {venue}</Text>
+
+        {/* matchup: my team vs opponent */}
+        <View style={bx.stepMatch}>
+          <View style={[bx.sideRow, { flex: 1 }]}>
+            <Text style={bx.sideFlag}>{team.flag}</Text>
+            <Text style={[bx.sideName, { color: D.gold, flex: 1 }]} numberOfLines={1}>{team.name}</Text>
+            {myScore != null && <Text style={bx.stepScore}>{myScore}</Text>}
+          </View>
+          <Text style={bx.vsTextInline}>vs</Text>
+          <View style={[bx.sideRow, { flex: 1 }]}>
+            <View style={{ flex: 1, minWidth: 0 }}><SideView side={step.opponent} t={t} /></View>
+            {oppScore != null && <Text style={bx.stepScore}>{oppScore}</Text>}
+          </View>
+        </View>
+
+        {/* Lili pre-analysis of a still-undecided opponent */}
+        {step.lili && step.lili.length > 0 && (
+          <View style={bx.liliBlock}>
+            <Text style={bx.liliText}>🤖 {t.oppDeciding}</Text>
+            {step.lili.map((o) => (
+              <Text key={o.team.name} style={bx.liliOpt} numberOfLines={1}>
+                {o.team.flag} {o.team.name}  ·  <Text style={{ color: accent, fontWeight: '800' }}>{koT(t.liliAdvance, { pct: o.advancePct })}</Text>
+              </Text>
+            ))}
+          </View>
+        )}
+
+        {canRelive && (
+          <Pressable onPress={() => router.push({ pathname: '/match-heatmap', params: { fixtureId: step.tie!.fixture.id } } as any)}
+            style={({ pressed }) => [bx.relive, pressed && { backgroundColor: 'rgba(245,196,81,0.18)' }]}>
+            <Text style={bx.reliveText}>🎬 {t.reliveMatch}  ·  📊 →</Text>
+          </Pressable>
+        )}
+      </View>
+    </View>
+  );
+}
+
+function MyTeamView({ path, t }: { path: TeamPath; t: T }) {
+  const reached = [...path.steps].reverse().find((s) => s.state === 'won' || s.state === 'live' || s.state === 'next' || s.state === 'eliminated');
+  const statusText = path.status === 'champion' ? `🏆 ${t.champion}`
+    : path.status === 'eliminated' ? t.stateOut
+    : reached ? `${t.stateThrough} · ${t.rounds[reached.round]}` : t.yourRoad;
+  const statusColor = path.status === 'champion' ? D.gold : path.status === 'eliminated' ? D.red : D.green;
+
+  return (
+    <View style={{ marginTop: 6 }}>
+      <View style={bx.teamHero}>
+        <Text style={bx.teamHeroFlag}>{path.team.flag}</Text>
+        <View style={{ flex: 1, minWidth: 0 }}>
+          <Text style={bx.teamHeroName} numberOfLines={1}>{path.team.name}</Text>
+          <Text style={bx.teamHeroSub} numberOfLines={1}>{t.yourRoad}</Text>
+        </View>
+        <View style={[bx.badge, { borderColor: statusColor + '66', backgroundColor: statusColor + '1A' }]}>
+          <Text style={[bx.badgeText, { color: statusColor }]} numberOfLines={1}>{statusText}</Text>
+        </View>
+      </View>
+      {path.steps.map((s, i) => (
+        <PathStepCard key={s.match} step={s} team={path.team} t={t} last={i === path.steps.length - 1} />
+      ))}
+    </View>
+  );
+}
+
+function ModeToggle({ mode, choose, canTeam, favFlag, t }: { mode: 'all' | 'team'; choose: (m: 'all' | 'team') => void; canTeam: boolean; favFlag?: string; t: T }) {
+  return (
+    <View style={bx.modeRow}>
+      <Pressable onPress={() => canTeam && choose('team')} disabled={!canTeam} style={[bx.modeBtn, mode === 'team' && bx.modeBtnOn, !canTeam && { opacity: 0.4 }]}>
+        <Text style={[bx.modeText, mode === 'team' && bx.modeTextOn]} numberOfLines={1}>⭐ {t.modeMyTeam}{favFlag ? `  ${favFlag}` : ''}</Text>
+      </Pressable>
+      <Pressable onPress={() => choose('all')} style={[bx.modeBtn, mode === 'all' && bx.modeBtnOn]}>
+        <Text style={[bx.modeText, mode === 'all' && bx.modeTextOn]} numberOfLines={1}>🌍 {t.modeAllTeams}</Text>
+      </Pressable>
+    </View>
+  );
+}
+
 // ─── Screen ─────────────────────────────────────────────────────────────────────
 export default function KnockoutBracketScreen() {
   const { lang } = useLanguage();
   const t = KNOCKOUT_I18N[lang] ?? KNOCKOUT_I18N.EN;
   const liveResults = useLiveResults();
-  const rounds = useMemo(() => buildRoadToFinal(liveResults), [liveResults]);
-  const rec = liliKnockoutRecord(rounds);
+  const { favTeam } = useProfile();
   const { width } = useWindowDimensions();
   const cols = width >= 760 ? 2 : 1;
+
+  const rounds = useMemo(() => buildRoadToFinal(liveResults), [liveResults]);
+  const rec = liliKnockoutRecord(rounds);
+  const full = useMemo(() => buildFullBracket(liveResults), [liveResults]);
+  const teamPath = useMemo(() => (favTeam ? buildTeamPath(favTeam, liveResults) : null), [favTeam, liveResults]);
+  const canTeam = !!teamPath;
+
+  // Default to "My Team" once a followed team is in the bracket (the whole point:
+  // "I know exactly where my country is") — but never override a manual choice.
+  const [mode, setMode] = useState<'all' | 'team'>('all');
+  const touched = useRef(false);
+  useEffect(() => { if (canTeam && !touched.current) setMode('team'); }, [canTeam]);
+  const choose = (m: 'all' | 'team') => { touched.current = true; setMode(m); };
+  const effMode = canTeam ? mode : 'all';
 
   return (
     <SafeAreaView style={bx.screen} edges={['bottom']}>
       <Stack.Screen options={{ title: t.title }} />
       <ScrollView contentContainerStyle={[bx.scroll, cols === 2 && bx.scrollWide]} showsVerticalScrollIndicator={false}>
         <Hero rounds={rounds} rec={rec} t={t} />
-        <View style={{ marginTop: 6 }}>
-          {rounds.map((g) => <StageSection key={g.round} group={g} t={t} cols={cols} />)}
-        </View>
+        <ModeToggle mode={effMode} choose={choose} canTeam={canTeam} favFlag={teamPath?.team.flag} t={t} />
+        {effMode === 'team' && teamPath
+          ? <MyTeamView path={teamPath} t={t} />
+          : <AllTeamsView full={full} t={t} cols={cols} favTeam={favTeam} />}
+        {!canTeam && <Text style={bx.hint}>{t.pickTeamHint}</Text>}
       </ScrollView>
     </SafeAreaView>
   );
@@ -519,4 +728,43 @@ const bx = StyleSheet.create({
     backgroundColor: 'rgba(245,196,81,0.09)',
   },
   reliveText: { fontSize: 12, fontWeight: '800', color: D.gold, letterSpacing: 0.3 },
+
+  // ── Mode toggle ──
+  modeRow: { flexDirection: 'row', gap: 8, marginTop: 14 },
+  modeBtn: { flex: 1, alignItems: 'center', paddingVertical: 10, borderRadius: 12, borderWidth: 1, borderColor: D.border, backgroundColor: D.card },
+  modeBtnOn: { borderColor: D.gold, backgroundColor: 'rgba(245,196,81,0.12)' },
+  modeText: { fontSize: 13, fontWeight: '800', color: D.text2 },
+  modeTextOn: { color: D.gold },
+  hint: { fontSize: 11.5, color: D.text3, textAlign: 'center', marginTop: 16, fontStyle: 'italic', lineHeight: 17 },
+
+  // ── Slot sides (future nodes) ──
+  sideRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  sideFlag: { fontSize: 20 },
+  sideName: { fontSize: 14, fontWeight: '800', color: D.text1 },
+  sideNameBig: { fontSize: 15.5 },
+  sidePending: { color: D.text2, fontWeight: '700', fontSize: 13, flex: 1 },
+  orText: { color: D.text3, fontWeight: '700', fontSize: 11 },
+  vsText: { fontSize: 10, fontWeight: '800', color: D.text3, letterSpacing: 1, marginVertical: 3 },
+  vsTextInline: { fontSize: 10, fontWeight: '800', color: D.text3, letterSpacing: 1, paddingHorizontal: 8 },
+
+  // ── My Team path ──
+  teamHero: {
+    flexDirection: 'row', alignItems: 'center', gap: 12,
+    backgroundColor: D.bgHi, borderRadius: 16, borderWidth: 1, borderColor: 'rgba(245,196,81,0.3)',
+    borderLeftWidth: 4, borderLeftColor: D.gold, padding: 14, marginBottom: 8,
+  },
+  teamHeroFlag: { fontSize: 38 },
+  teamHeroName: { fontSize: 20, fontWeight: '900', color: D.text1 },
+  teamHeroSub: { fontSize: 11.5, color: D.text2, marginTop: 2, textTransform: 'uppercase', letterSpacing: 0.8 },
+
+  stepRow: { flexDirection: 'row', gap: 10 },
+  stepSpineCol: { width: 36, alignItems: 'center' },
+  stepNode: { width: 32, height: 32, borderRadius: 16, borderWidth: 2, alignItems: 'center', justifyContent: 'center' },
+  stepNodeText: { fontSize: 10.5, fontWeight: '900' },
+  stepLine: { width: 2, flex: 1, marginVertical: 2, borderRadius: 1, minHeight: 14 },
+  stepCard: { flex: 1, marginBottom: 10 },
+  stepRound: { flex: 1, fontSize: 14, fontWeight: '900', letterSpacing: 0.3, textTransform: 'uppercase' },
+  stepMatch: { flexDirection: 'row', alignItems: 'center', marginTop: 2 },
+  stepScore: { fontSize: 18, fontWeight: '900', color: D.text1, minWidth: 20, textAlign: 'center' },
+  liliOpt: { fontSize: 11.5, color: D.text2, marginTop: 2 },
 });
