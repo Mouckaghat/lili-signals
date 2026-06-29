@@ -135,16 +135,20 @@ function koToFixture(ko: KnockoutFixture): WCFixture {
   };
 }
 
-function buildEntries(group: string | null, liveResults: Record<string, FixtureResult>): MatchEntry[] {
+function buildEntries(group: string | null, liveResults: Record<string, FixtureResult>, includeKnockouts: boolean): MatchEntry[] {
   // General list shows the WHOLE tournament (sorted by date below), so matchday-3
   // and the knockout bracket always appear — never a frozen first-N cap that
   // strands later games (the old `.slice(0, 48)` cut the list off at ~24 Jun).
   // Knockout ties aren't group-scoped, so they only join the "All" view; a
   // specific group still shows just that group's six games. Section headers (see
-  // render) keep the longer list scannable.
+  // render) keep the longer list scannable. `includeKnockouts=false` (the Pool
+  // Games / group-stage view) keeps the bracket out — those live in Road to the
+  // Final — so the list stays "everything BEFORE the knockouts".
   const fixtures = group
     ? WC_FIXTURES.filter((f) => f.group === group)
-    : [...WC_FIXTURES, ...WC_KNOCKOUT.map(koToFixture)];
+    : includeKnockouts
+      ? [...WC_FIXTURES, ...WC_KNOCKOUT.map(koToFixture)]
+      : [...WC_FIXTURES];
 
   const sorted = [...fixtures].sort(
     (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
@@ -305,11 +309,11 @@ const row = StyleSheet.create({
 
 // ─── Section ──────────────────────────────────────────────────────────────────
 
-export default function MatchTimelineSection({ group }: { group: string | null }) {
+export default function MatchTimelineSection({ group, includeKnockouts = true }: { group: string | null; includeKnockouts?: boolean }) {
   const { i18n }    = useLanguage();
   const liveResults = useLiveResults();
   const allLineups  = useLineups();
-  const entries     = buildEntries(group, liveResults);
+  const entries     = buildEntries(group, liveResults, includeKnockouts);
   const tzLabel     = localTzLabel();
 
   // Tick every second so the heatmap teaser countdowns stay live.

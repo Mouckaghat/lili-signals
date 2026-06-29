@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { FED_BG, FED_COLOR, getGroupTeams, getTeamFixtures, WC_TEAMS, type WCFixture, type WCTeam } from '../lib/wcData';
+import { FED_BG, FED_COLOR, getGroupTeams, getTeamFixtures, WC_FIXTURES, WC_TEAMS, type WCFixture, type WCTeam } from '../lib/wcData';
 import { type FixtureResult } from '../lib/fixtureResultsData';
 import { useLiveResults } from '../lib/useLiveResults';
 import { GROUP_STANDINGS } from '../lib/standingsData';
@@ -303,9 +303,35 @@ function GroupTable({ group, liveResults }: { group: string; liveResults: LiveRe
   );
 }
 
+// ─── Pool Games hero ──────────────────────────────────────────────────────────
+// The "story" framing for the group-stage view: a cinematic header that sits
+// above all 12 group tables + the group-stage timeline, so the page reads like
+// "how teams reached the knockouts" rather than just a table. The progress stat
+// is derived from existing committed fixtures + the live results overlay (no new
+// data model) — an honest count of FINISHED group-stage games.
+function PoolHero({ liveResults }: { liveResults: LiveResults }) {
+  const { i18n } = useLanguage();
+  const total  = WC_FIXTURES.length;
+  const played = WC_FIXTURES.filter((fx) => {
+    const r = liveResults[`${fx.home}|${fx.away}`];
+    return (r?.status ?? fx.status) === 'FINISHED';
+  }).length;
+  return (
+    <View style={ph.card}>
+      <Text style={ph.kicker}>⚽  {i18n.poolGames}</Text>
+      <Text style={ph.tagline}>{i18n.poolGamesTagline}</Text>
+      <View style={ph.statRow}>
+        <Text style={ph.stat}>{played}<Text style={ph.statDim}> / {total}</Text></Text>
+        <Text style={ph.statLabel}>{i18n.poolGamesPlayed}</Text>
+      </View>
+    </View>
+  );
+}
+
 // ─── Screen ───────────────────────────────────────────────────────────────────
 
 const GROUPS = 'ABCDEFGHIJKL'.split('');
+const POOL = 'POOL'; // sentinel for the "Pool Games" pill (not a real group letter)
 
 export default function WorldCupTableScreen() {
   const [launched, setLaunched] = useState(false);
@@ -314,7 +340,10 @@ export default function WorldCupTableScreen() {
   const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
   const liveResults = useLiveResults();
 
-  const displayGroups = selectedGroup ? [selectedGroup] : GROUPS;
+  // "Pool Games" and a single group both render group tables; Pool Games (and the
+  // "All" default) show all 12 groups, a specific letter shows just that one.
+  const isPool = selectedGroup === POOL;
+  const displayGroups = isPool || selectedGroup === null ? GROUPS : [selectedGroup];
 
   if (!launched) return (
     <>
@@ -349,6 +378,26 @@ export default function WorldCupTableScreen() {
             <Text style={[st.pillText, selectedGroup === g && st.pillTextActive]}>{i18n.group} {g}</Text>
           </TouchableOpacity>
         ))}
+
+        {/* Pool Games — the curated group-stage story (all tables + group-stage
+            timeline, no knockouts). Placed right before Road to the Final. */}
+        <TouchableOpacity
+          style={[st.pill, st.pillPool, isPool && st.pillPoolActive]}
+          onPress={() => setSelectedGroup(isPool ? null : POOL)}
+        >
+          <Text style={[st.pillText, st.pillPoolText, isPool && st.pillTextActive]}>⚽ {i18n.poolGames}</Text>
+        </TouchableOpacity>
+
+        {/* Road to the Final — nav shortcut to the knockout bracket (separate
+            screen). Only shown once the bracket has seeded. */}
+        {WC_KNOCKOUT.length > 0 && (
+          <TouchableOpacity
+            style={[st.pill, st.pillBracket]}
+            onPress={() => router.push('/knockout-bracket' as any)}
+          >
+            <Text style={[st.pillText, st.pillBracketText]}>🏆 {(KNOCKOUT_I18N[lang] ?? KNOCKOUT_I18N.EN).title}</Text>
+          </TouchableOpacity>
+        )}
       </ScrollView>
 
       {/* Banner */}
@@ -376,10 +425,13 @@ export default function WorldCupTableScreen() {
       )}
 
       <ScrollView style={st.scroll} contentContainerStyle={st.content}>
+        {isPool && <PoolHero liveResults={liveResults} />}
         {displayGroups.map((g) => (
           <GroupTable key={g} group={g} liveResults={liveResults} />
         ))}
-        <MatchTimelineSection group={selectedGroup} />
+        {/* Pool Games shows the group-stage timeline only (knockouts live in Road
+            to the Final). All / single-group keep their existing behaviour. */}
+        <MatchTimelineSection group={isPool ? null : selectedGroup} includeKnockouts={!isPool} />
         <Text style={st.footNote}>{i18n.tableFootnote}</Text>
       </ScrollView>
     </SafeAreaView>
@@ -496,6 +548,13 @@ const st = StyleSheet.create({
   pillActive: { backgroundColor: '#4A9EFF' },
   pillText: { fontSize: 12, fontWeight: '600', color: '#7A90B8' },
   pillTextActive: { color: '#FFFFFF' },
+  // Pool Games pill — blue-tinted, fills solid blue when active.
+  pillPool: { backgroundColor: 'rgba(74,158,255,0.10)', borderWidth: 1, borderColor: 'rgba(74,158,255,0.35)' },
+  pillPoolActive: { backgroundColor: '#4A9EFF', borderColor: '#4A9EFF' },
+  pillPoolText: { color: '#4A9EFF' },
+  // Road to the Final pill — gold nav shortcut to the bracket screen.
+  pillBracket: { backgroundColor: 'rgba(245,196,81,0.10)', borderWidth: 1, borderColor: 'rgba(245,196,81,0.35)' },
+  pillBracketText: { color: '#F5C451' },
   banner: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -549,4 +608,24 @@ const st = StyleSheet.create({
     marginTop: 4,
     fontStyle: 'italic',
   },
+});
+
+const ph = StyleSheet.create({
+  card: {
+    backgroundColor: '#0E1933',
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(74,158,255,0.25)',
+    paddingHorizontal: 18,
+    paddingVertical: 18,
+    marginBottom: 16,
+    borderLeftWidth: 3,
+    borderLeftColor: '#4A9EFF',
+  },
+  kicker: { fontSize: 20, fontWeight: '800', color: '#EEF2FF', letterSpacing: 0.2 },
+  tagline: { fontSize: 13, color: '#9DB2D8', marginTop: 6, lineHeight: 19 },
+  statRow: { flexDirection: 'row', alignItems: 'baseline', gap: 8, marginTop: 14 },
+  stat: { fontSize: 26, fontWeight: '800', color: '#4A9EFF' },
+  statDim: { fontSize: 16, fontWeight: '700', color: '#374F7A' },
+  statLabel: { fontSize: 11, color: '#7A90B8', textTransform: 'uppercase', letterSpacing: 0.4, flex: 1 },
 });
