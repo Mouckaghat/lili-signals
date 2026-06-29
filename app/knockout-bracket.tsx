@@ -535,7 +535,9 @@ function PathStepCard({ step, team, t, last }: { step: PathStep; team: TeamForm;
   );
 }
 
-function MyTeamView({ path, t }: { path: TeamPath; t: T }) {
+function MyTeamView({ path, t, teams, favTeam, onPick, pickerOpen, onToggle }: {
+  path: TeamPath; t: T; teams: TeamForm[]; favTeam: string | null; onPick: (n: string) => void; pickerOpen: boolean; onToggle: () => void;
+}) {
   const reached = [...path.steps].reverse().find((s) => s.state === 'won' || s.state === 'live' || s.state === 'next' || s.state === 'eliminated');
   const statusText = path.status === 'champion' ? `🏆 ${t.champion}`
     : path.status === 'eliminated' ? t.stateOut
@@ -544,16 +546,18 @@ function MyTeamView({ path, t }: { path: TeamPath; t: T }) {
 
   return (
     <View style={{ marginTop: 6 }}>
-      <View style={bx.teamHero}>
+      {/* tap the team header to change your team */}
+      <Pressable onPress={onToggle} style={bx.teamHero}>
         <Text style={bx.teamHeroFlag}>{path.team.flag}</Text>
         <View style={{ flex: 1, minWidth: 0 }}>
           <Text style={bx.teamHeroName} numberOfLines={1}>{path.team.name}</Text>
-          <Text style={bx.teamHeroSub} numberOfLines={1}>{t.yourRoad}</Text>
+          <Text style={bx.teamHeroSub} numberOfLines={1}>{pickerOpen ? t.chooseTeam : `${t.changeTeam}  ▾`}</Text>
         </View>
         <View style={[bx.badge, { borderColor: statusColor + '66', backgroundColor: statusColor + '1A' }]}>
           <Text style={[bx.badgeText, { color: statusColor }]} numberOfLines={1}>{statusText}</Text>
         </View>
-      </View>
+      </Pressable>
+      {pickerOpen && <TeamPickerGrid teams={teams} selected={favTeam} onPick={onPick} t={t} />}
       {path.steps.map((s, i) => (
         <PathStepCard key={s.match} step={s} team={path.team} t={t} last={i === path.steps.length - 1} />
       ))}
@@ -561,10 +565,10 @@ function MyTeamView({ path, t }: { path: TeamPath; t: T }) {
   );
 }
 
-function ModeToggle({ mode, choose, canTeam, favFlag, t }: { mode: 'all' | 'team'; choose: (m: 'all' | 'team') => void; canTeam: boolean; favFlag?: string; t: T }) {
+function ModeToggle({ mode, choose, favFlag, t }: { mode: 'all' | 'team'; choose: (m: 'all' | 'team') => void; favFlag?: string; t: T }) {
   return (
     <View style={bx.modeRow}>
-      <Pressable onPress={() => canTeam && choose('team')} disabled={!canTeam} style={[bx.modeBtn, mode === 'team' && bx.modeBtnOn, !canTeam && { opacity: 0.4 }]}>
+      <Pressable onPress={() => choose('team')} style={[bx.modeBtn, mode === 'team' && bx.modeBtnOn]}>
         <Text style={[bx.modeText, mode === 'team' && bx.modeTextOn]} numberOfLines={1}>⭐ {t.modeMyTeam}{favFlag ? `  ${favFlag}` : ''}</Text>
       </Pressable>
       <Pressable onPress={() => choose('all')} style={[bx.modeBtn, mode === 'all' && bx.modeBtnOn]}>
@@ -574,12 +578,32 @@ function ModeToggle({ mode, choose, canTeam, favFlag, t }: { mode: 'all' | 'team
   );
 }
 
+// ─── Team picker — pick any team still alive in the bracket to follow its road ───
+function TeamPickerGrid({ teams, selected, onPick, t }: { teams: TeamForm[]; selected: string | null; onPick: (n: string) => void; t: T }) {
+  return (
+    <View style={bx.pickerCard}>
+      <Text style={bx.pickerTitle}>{t.chooseTeam}  ·  {teams.length}</Text>
+      <View style={bx.pickerGrid}>
+        {teams.map((tm) => {
+          const on = tm.name === selected;
+          return (
+            <Pressable key={tm.name} onPress={() => onPick(tm.name)} style={[bx.teamChip, on && bx.teamChipOn]}>
+              <Text style={bx.teamChipFlag}>{tm.flag}</Text>
+              <Text style={[bx.teamChipName, on && bx.teamChipNameOn]} numberOfLines={1}>{tm.name}</Text>
+            </Pressable>
+          );
+        })}
+      </View>
+    </View>
+  );
+}
+
 // ─── Screen ─────────────────────────────────────────────────────────────────────
 export default function KnockoutBracketScreen() {
   const { lang } = useLanguage();
   const t = KNOCKOUT_I18N[lang] ?? KNOCKOUT_I18N.EN;
   const liveResults = useLiveResults();
-  const { favTeam } = useProfile();
+  const { favTeam, setFavTeam } = useProfile();
   const { width } = useWindowDimensions();
   const cols = width >= 760 ? 2 : 1;
 
@@ -589,24 +613,50 @@ export default function KnockoutBracketScreen() {
   const teamPath = useMemo(() => (favTeam ? buildTeamPath(favTeam, liveResults) : null), [favTeam, liveResults]);
   const canTeam = !!teamPath;
 
-  // Default to "My Team" once a followed team is in the bracket (the whole point:
-  // "I know exactly where my country is") — but never override a manual choice.
+  // Every team still alive in the bracket (winner advances, others out), strongest
+  // first — the pool you pick "your team" from, right here on the page.
+  const aliveTeams = useMemo(() => {
+    const out: TeamForm[] = [];
+    for (const tie of full.r32) {
+      if (tie.winner) { const w = tie.winner === 'home' ? tie.home : tie.away; if (w) out.push(w); }
+      else { if (tie.home) out.push(tie.home); if (tie.away) out.push(tie.away); }
+    }
+    return out.sort((a, b) => b.strength - a.strength);
+  }, [full]);
+
+  // Default to "My Team" once a followed team is in the bracket — but never
+  // override a manual choice. My Team is always reachable (it holds the picker).
   const [mode, setMode] = useState<'all' | 'team'>('all');
   const touched = useRef(false);
   useEffect(() => { if (canTeam && !touched.current) setMode('team'); }, [canTeam]);
   const choose = (m: 'all' | 'team') => { touched.current = true; setMode(m); };
-  const effMode = canTeam ? mode : 'all';
+
+  // The team picker (open by default until a team is chosen).
+  const [pickerOpen, setPickerOpen] = useState(false);
+  const pick = (name: string) => { setFavTeam(name); setPickerOpen(false); touched.current = true; setMode('team'); };
 
   return (
     <SafeAreaView style={bx.screen} edges={['bottom']}>
       <Stack.Screen options={{ title: t.title }} />
       <ScrollView contentContainerStyle={[bx.scroll, cols === 2 && bx.scrollWide]} showsVerticalScrollIndicator={false}>
         <Hero rounds={rounds} rec={rec} t={t} />
-        <ModeToggle mode={effMode} choose={choose} canTeam={canTeam} favFlag={teamPath?.team.flag} t={t} />
-        {effMode === 'team' && teamPath
-          ? <MyTeamView path={teamPath} t={t} />
+        <ModeToggle mode={mode} choose={choose} favFlag={teamPath?.team.flag} t={t} />
+        {mode === 'team'
+          ? (teamPath
+              ? <MyTeamView path={teamPath} t={t} teams={aliveTeams} favTeam={favTeam} onPick={pick} pickerOpen={pickerOpen} onToggle={() => setPickerOpen((o) => !o)} />
+              : (
+                <View style={{ marginTop: 6 }}>
+                  <View style={bx.teamHero}>
+                    <Text style={bx.teamHeroFlag}>⭐</Text>
+                    <View style={{ flex: 1, minWidth: 0 }}>
+                      <Text style={bx.teamHeroName} numberOfLines={1}>{t.chooseTeam}</Text>
+                      <Text style={bx.teamHeroSub} numberOfLines={1}>{t.yourRoad}</Text>
+                    </View>
+                  </View>
+                  <TeamPickerGrid teams={aliveTeams} selected={favTeam} onPick={pick} t={t} />
+                </View>
+              ))
           : <AllTeamsView full={full} t={t} cols={cols} favTeam={favTeam} />}
-        {!canTeam && <Text style={bx.hint}>{t.pickTeamHint}</Text>}
       </ScrollView>
     </SafeAreaView>
   );
@@ -767,4 +817,14 @@ const bx = StyleSheet.create({
   stepMatch: { flexDirection: 'row', alignItems: 'center', marginTop: 2 },
   stepScore: { fontSize: 18, fontWeight: '900', color: D.text1, minWidth: 20, textAlign: 'center' },
   liliOpt: { fontSize: 11.5, color: D.text2, marginTop: 2 },
+
+  // ── Team picker ──
+  pickerCard: { backgroundColor: D.card, borderRadius: 14, borderWidth: 1, borderColor: D.border, padding: 12, marginBottom: 10 },
+  pickerTitle: { fontSize: 10, fontWeight: '800', color: D.text2, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 10 },
+  pickerGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+  teamChip: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingVertical: 7, paddingHorizontal: 10, borderRadius: 999, borderWidth: 1, borderColor: D.border, backgroundColor: D.cardHi },
+  teamChipOn: { borderColor: D.gold, backgroundColor: 'rgba(245,196,81,0.14)' },
+  teamChipFlag: { fontSize: 16 },
+  teamChipName: { fontSize: 12, fontWeight: '700', color: D.text2 },
+  teamChipNameOn: { color: D.gold },
 });
