@@ -270,8 +270,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Kylian Mbappé", team: "France", minute: 66, type: "goal" },
       { player: "Bradley Barcola", team: "France", minute: 82, type: "goal" },
-      { player: "Ibrahim Mbaye", team: "Senegal", minute: 90, type: "goal" },
-      { player: "Kylian Mbappé", team: "France", minute: 90, type: "goal" },
+      { player: "Ibrahim Mbaye", team: "Senegal", minute: 90, minuteStoppage: 5, type: "goal" },
+      { player: "Kylian Mbappé", team: "France", minute: 90, minuteStoppage: 6, type: "goal" },
     ],
     yellowCards: [],
     redCards: [],
@@ -869,12 +869,12 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Auston Trusty", team: "USA", minute: 3, type: "goal" },
       { player: "Arda Güler", team: "Türkiye", minute: 10, type: "goal" },
-      { player: "B. Yilmaz", team: "Türkiye", minute: 31, type: "goal" },
+      { player: "Barış Alper Yılmaz", team: "Türkiye", minute: 31, type: "goal" },
       { player: "Sebastian Berhalter", team: "USA", minute: 49, type: "goal" },
-      { player: "Kaan Ayhan", team: "Türkiye", minute: 90, type: "goal" },
+      { player: "Kaan Ayhan", team: "Türkiye", minute: 90, minuteStoppage: 8, type: "goal" },
     ],
     yellowCards: [
-      { player: "Sebastian Berhalter", team: "USA", minute: 19, reason: "Roughing" },
+      { player: "Sebastian Berhalter", team: "USA", minute: 19, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -883,8 +883,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Paraguay", away: "Australia", date: "2026-06-25",
     goals: [],
     yellowCards: [
-      { player: "Jackson Irvine", team: "Australia", minute: 46, reason: "Tripping" },
-      { player: "Diego Gómez", team: "Paraguay", minute: 77 },
+      { player: "Jackson Irvine", team: "Australia", minute: 46, reason: "Foul" },
+      { player: "Diego Gómez", team: "Paraguay", minute: 77, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -899,13 +899,13 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Iliman Ndiaye", team: "Senegal", minute: 82, type: "goal" },
     ],
     yellowCards: [
-      { player: "Abdoulaye Seck", team: "Senegal", minute: 17, reason: "Foul" },
-      { player: "Amir Al-Ammari", team: "Iraq", minute: 76, reason: "Foul" },
+      { player: "Abdoulaye Seck", team: "Senegal", minute: 18, reason: "Foul" },
+      { player: "Amir Al-Ammari", team: "Iraq", minute: 75, reason: "Foul" },
       { player: "Pape Gueye", team: "Senegal", minute: 81, reason: "Foul" },
       { player: "Merchas Doski", team: "Iraq", minute: 90, reason: "Foul" },
     ],
     redCards: [
-      { player: "Rebin Sulaka", team: "Iraq", minute: 13, reason: "Foul" },
+      { player: "Rebin Sulaka", team: "Iraq", minute: 13, reason: "Professional foul last man" },
     ],
   },
   {
@@ -931,13 +931,13 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Álex Baena", team: "Spain", minute: 42, type: "goal" },
     ],
     yellowCards: [
-      { player: "Álex Baena", team: "Spain", minute: 46, reason: "Holding" },
-      { player: "Juan Manuel Sanabria", team: "Uruguay", minute: 54, reason: "Tripping" },
-      { player: "Guillermo Varela", team: "Uruguay", minute: 58, reason: "Elbowing" },
-      { player: "Nicolás de la Cruz", team: "Uruguay", minute: 90, reason: "Tripping" },
+      { player: "Álex Baena", team: "Spain", minute: 46, reason: "Foul" },
+      { player: "Juan Manuel Sanabria", team: "Uruguay", minute: 54, reason: "Foul" },
+      { player: "Guillermo Varela", team: "Uruguay", minute: 58, reason: "Off the ball foul" },
+      { player: "Nicolás de la Cruz", team: "Uruguay", minute: 90, reason: "Foul" },
     ],
     redCards: [
-      { player: "Agustín Canobbio", team: "Uruguay", minute: 90, reason: "Serious foul" },
+      { player: "Agustín Canobbio", team: "Uruguay", minute: 90, reason: "Foul" },
     ],
   },
   {
@@ -946,9 +946,9 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [],
     yellowCards: [
       { player: "Saud Abdulhamid", team: "Saudi Arabia", minute: 4, reason: "Foul" },
-      { player: "Wagner Pina", team: "Cape Verde Islands", minute: 8, reason: "Elbowing" },
-      { player: "N. Al Dawsari", team: "Saudi Arabia", minute: 67, reason: "Holding" },
-      { player: "F. Al Buraikan", team: "Saudi Arabia", minute: 90, reason: "Foul" },
+      { player: "Wagner Pina", team: "Cape Verde Islands", minute: 8, reason: "Foul" },
+      { player: "Nasser Al-Dawsari", team: "Saudi Arabia", minute: 67, reason: "Foul" },
+      { player: "Firas Al-Buraikan", team: "Saudi Arabia", minute: 90, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -960,13 +960,13 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Ramin Rezaeian", team: "Iran", minute: 14, type: "goal" },
     ],
     yellowCards: [
-      { player: "H. Kanaani", team: "Iran", minute: 19, reason: "Tripping" },
-      { player: "Mahmoud Saber", team: "Egypt", minute: 20, reason: "Roughing" },
+      { player: "Hossein Kanaani", team: "Iran", minute: 19, reason: "Foul" },
+      { player: "Mahmoud Saber", team: "Egypt", minute: 20, reason: "Foul" },
       { player: "Yasser Ibrahim", team: "Egypt", minute: 42, reason: "Foul" },
-      { player: "Ali Nemati", team: "Iran", minute: 43, reason: "Tripping" },
-      { player: "Saeid Ezatolahi", team: "Iran", minute: 79 },
-      { player: "Mohanad Lasheen", team: "Egypt", minute: 90 },
-      { player: "Shojae Khalilzadeh", team: "Iran", minute: 90, reason: "Unsportsmanlike conduct" },
+      { player: "Ali Nemati", team: "Iran", minute: 43, reason: "Foul" },
+      { player: "Saeid Ezatolahi", team: "Iran", minute: 79, reason: "Foul" },
+      { player: "Mohanad Lasheen", team: "Egypt", minute: 90, reason: "Foul" },
+      { player: "Shojae Khalilzadeh", team: "Iran", minute: 90 },
     ],
     redCards: [],
   },
@@ -982,8 +982,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Alexis Saelemaekers", team: "Belgium", minute: 90, type: "goal" },
     ],
     yellowCards: [
-      { player: "Marko Stamenić", team: "New Zealand", minute: 46, reason: "Tripping" },
-      { player: "Elijah Just", team: "New Zealand", minute: 56, reason: "Holding" },
+      { player: "Marko Stamenić", team: "New Zealand", minute: 46, reason: "Foul" },
+      { player: "Elijah Just", team: "New Zealand", minute: 56, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -1076,4 +1076,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-06-29T17:24:49.119Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-06-30T19:18:17.255Z';
