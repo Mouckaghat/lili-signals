@@ -569,10 +569,10 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "1564789",
     home: "Ivory Coast", away: "Norway", date: "2026-06-30",
-    status: "LIVE", elapsed: 87,
-    homeStats: { team: "Ivory Coast", possession: 0.48, totalShots: 12, shotsInsideBox: 9, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 12, xg: 1.11, passAccuracy: 0.85, passes: 364, fouls: 4 },
-    awayStats: { team: "Norway", possession: 0.52, totalShots: 7, shotsInsideBox: 6, shotsOutsideBox: 1, shotsOnGoal: 3, corners: 3, xg: 1.13, passAccuracy: 0.87, passes: 411, fouls: 6 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Ivory Coast", possession: 0.46, totalShots: 12, shotsInsideBox: 9, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 12, xg: 1.11, passAccuracy: 0.85, passes: 390, fouls: 6 },
+    awayStats: { team: "Norway", possession: 0.54, totalShots: 9, shotsInsideBox: 8, shotsOutsideBox: 1, shotsOnGoal: 4, corners: 3, xg: 2.02, passAccuracy: 0.88, passes: 471, fouls: 6 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-30T18:46:54.390Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-30T19:17:42.849Z';
