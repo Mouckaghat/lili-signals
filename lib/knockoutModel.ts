@@ -15,6 +15,7 @@ import { GROUP_STANDINGS } from './standingsData';
 import { getStadium, type StadiumInfo } from './stadiumData';
 import { liliProbs } from './marketComparison';
 import { buildTrackRecord } from './trackRecord';
+import { BRACKET_SLOTS, r32MatchOf } from './bracketStructure';
 
 export type Side = 'home' | 'away';
 
@@ -31,6 +32,7 @@ export interface TeamForm {
 
 export interface KnockoutTie {
   fixture: KnockoutFixture;
+  matchNo: number | null;   // official FIFA match number (R32 = 73–88, R16 = 89–96, … Final = 104)
   home: TeamForm | null;    // null when the slot is still a placeholder ("Winner …")
   away: TeamForm | null;
   stadium: StadiumInfo | null;
@@ -109,6 +111,11 @@ export function buildRoadToFinal(liveResults: Record<string, LiveResult> = {}): 
 
   const byRound = new Map<KnockoutRound, KnockoutTie[]>();
 
+  // Official match number → winning team name, filled progressively as we walk the
+  // rounds in order (R32 first). Lets a feed R16+ tie find its slot number by
+  // matching its two teams to the winners of the slot's feeder matches.
+  const winnerByMatch = new Map<number, string>();
+
   for (const fx of [...WC_KNOCKOUT].sort((a, b) =>
     KNOCKOUT_ORDER[a.round] - KNOCKOUT_ORDER[b.round] ||
     new Date(a.date).getTime() - new Date(b.date).getTime()
@@ -154,8 +161,30 @@ export function buildRoadToFinal(liveResults: Record<string, LiveResult> = {}): 
       if (winner != null) liliRight = winner === liliFav;
     }
 
+    // Official match number: R32 maps directly by team pair; an R16+ tie matches
+    // the slot of its round whose two feeder matches were won by these two teams.
+    let matchNo: number | null = null;
+    if (fx.round === 'R32') {
+      matchNo = r32MatchOf(fx.home, fx.away);
+    } else {
+      for (const slot of BRACKET_SLOTS) {
+        if (slot.round !== fx.round) continue;
+        const a = winnerByMatch.get(slot.feeds[0]);
+        const b = winnerByMatch.get(slot.feeds[1]);
+        if (a && b && (a === fx.home || a === fx.away) && (b === fx.home || b === fx.away)) {
+          matchNo = slot.match;
+          break;
+        }
+      }
+    }
+    // Record this tie's winner under its match number so later rounds can resolve.
+    if (matchNo != null && winner != null) {
+      winnerByMatch.set(matchNo, winner === 'home' ? fx.home : fx.away);
+    }
+
     const tie: KnockoutTie = {
       fixture: fx,
+      matchNo,
       home, away,
       stadium: fx.stadiumId ? getStadium(fx.stadiumId) ?? null : null,
       venueName: fx.venueName,

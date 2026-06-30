@@ -176,7 +176,10 @@ function TieCard({ tie, accent, t }: { tie: KnockoutTie; accent: string; t: T })
     <View style={[bx.card, { borderLeftColor: accent }, followed && bx.cardFollowed]}>
       {/* meta + status / drama chips */}
       <View style={bx.metaRow}>
-        <Text style={bx.meta} numberOfLines={1}>{fmtDate(tie.fixture.date)}  ·  {venue}</Text>
+        <Text style={bx.meta} numberOfLines={1}>
+          {tie.matchNo != null && <Text style={bx.matchTag}>{koT(t.matchTag, { n: tie.matchNo })}  ·  </Text>}
+          {fmtDate(tie.fixture.date)}  ·  {venue}
+        </Text>
         {live && <Text style={[bx.chip, { color: D.red }]}>🔴 {t.live}</Text>}
         {finished && <Text style={[bx.chip, { color: D.text3 }]}>{t.ft}</Text>}
       </View>
@@ -424,7 +427,7 @@ function FutureNodeCard({ node, accent, t, favTeam }: { node: BracketNode; accen
   const followed = isFav(node.sideA) || isFav(node.sideB);
   return (
     <View style={[bx.card, { borderLeftColor: accent }, followed && bx.cardFollowed]}>
-      <View style={bx.metaRow}><Text style={bx.meta} numberOfLines={1}>{fmtDate(node.date)}  ·  {venue}</Text></View>
+      <View style={bx.metaRow}><Text style={bx.meta} numberOfLines={1}><Text style={bx.matchTag}>{koT(t.matchTag, { n: node.match })}  ·  </Text>{fmtDate(node.date)}  ·  {venue}</Text></View>
       <SideView side={node.sideA} t={t} favTeam={favTeam} big />
       <Text style={bx.vsText}>vs</Text>
       <SideView side={node.sideB} t={t} favTeam={favTeam} big />
@@ -749,6 +752,7 @@ const bx = StyleSheet.create({
   metaRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 },
   meta: { flex: 1, fontSize: 10.5, color: D.text3, fontWeight: '600' },
   chip: { fontSize: 10, fontWeight: '900', letterSpacing: 0.6 },
+  matchTag: { color: D.text2, fontWeight: '900' },   // official match number badge, e.g. "Match 77"
 
   teamRow: { flexDirection: 'row', alignItems: 'center', gap: 9, paddingVertical: 6, paddingHorizontal: 8, borderRadius: 9, overflow: 'hidden' },
   winBar: { position: 'absolute', left: 0, top: 0, bottom: 0, width: 3 },
