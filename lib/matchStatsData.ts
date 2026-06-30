@@ -570,9 +570,16 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     fixtureId: "1564789",
     home: "Ivory Coast", away: "Norway", date: "2026-06-30",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Ivory Coast", possession: 0.46, totalShots: 12, shotsInsideBox: 9, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 12, xg: 1.11, passAccuracy: 0.85, passes: 390, fouls: 6 },
-    awayStats: { team: "Norway", possession: 0.54, totalShots: 9, shotsInsideBox: 8, shotsOutsideBox: 1, shotsOnGoal: 4, corners: 3, xg: 2.02, passAccuracy: 0.88, passes: 471, fouls: 6 },
+    homeStats: { team: "Ivory Coast", possession: 0.47, totalShots: 14, shotsInsideBox: 10, shotsOutsideBox: 4, shotsOnGoal: 5, corners: 14, xg: 1.36, passAccuracy: 0.85, passes: 401, fouls: 6 },
+    awayStats: { team: "Norway", possession: 0.53, totalShots: 9, shotsInsideBox: 8, shotsOutsideBox: 1, shotsOnGoal: 4, corners: 3, xg: 2.02, passAccuracy: 0.88, passes: 473, fouls: 7 },
+  },
+  {
+    fixtureId: "1565177",
+    home: "France", away: "Sweden", date: "2026-06-30",
+    status: "LIVE", elapsed: 14,
+    homeStats: { team: "France", possession: 0.72, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.89, passes: 62, fouls: 2 },
+    awayStats: { team: "Sweden", possession: 0.28, totalShots: 1, shotsInsideBox: 1, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 0, xg: 0.03, passAccuracy: 0.76, passes: 25, fouls: 4 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-06-30T19:17:42.849Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-06-30T21:14:19.670Z';
