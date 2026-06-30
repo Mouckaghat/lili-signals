@@ -26,12 +26,12 @@ export const KNOCKOUT_ORDER: Record<KnockoutRound, number> = { R32: 0, R16: 1, Q
 
 export const WC_KNOCKOUT: KnockoutFixture[] = [
   { id: '1561329', round: 'R32', roundLabel: 'Round of 32', home: 'South Africa', away: 'Canada', date: '2026-06-28T19:00:00+00:00', stadiumId: 'sofi', venueName: 'SoFi Stadium', city: 'Inglewood', status: 'FINISHED', homeScore: 0, awayScore: 1 },
-  { id: '1562344', round: 'R32', roundLabel: 'Round of 32', home: 'Brazil', away: 'Japan', date: '2026-06-29T17:00:00+00:00', stadiumId: 'nrg', venueName: 'NRG Stadium', city: 'Houston', status: 'LIVE', homeScore: 0, awayScore: 0 },
-  { id: '1565176', round: 'R32', roundLabel: 'Round of 32', home: 'Germany', away: 'Paraguay', date: '2026-06-29T20:30:00+00:00', stadiumId: 'gillette', venueName: 'Gillette Stadium', city: 'Boston', status: 'SCHEDULED', homeScore: null, awayScore: null },
-  { id: '1562345', round: 'R32', roundLabel: 'Round of 32', home: 'Netherlands', away: 'Morocco', date: '2026-06-30T01:00:00+00:00', stadiumId: 'bbva', venueName: 'Estadio BBVA', city: 'Monterrey', status: 'SCHEDULED', homeScore: null, awayScore: null },
-  { id: '1564789', round: 'R32', roundLabel: 'Round of 32', home: 'Ivory Coast', away: 'Norway', date: '2026-06-30T17:00:00+00:00', stadiumId: 'att', venueName: 'AT&T Stadium', city: 'Dallas', status: 'SCHEDULED', homeScore: null, awayScore: null },
+  { id: '1562344', round: 'R32', roundLabel: 'Round of 32', home: 'Brazil', away: 'Japan', date: '2026-06-29T17:00:00+00:00', stadiumId: 'nrg', venueName: 'NRG Stadium', city: 'Houston', status: 'FINISHED', homeScore: 2, awayScore: 1 },
+  { id: '1565176', round: 'R32', roundLabel: 'Round of 32', home: 'Germany', away: 'Paraguay', date: '2026-06-29T20:30:00+00:00', stadiumId: 'gillette', venueName: 'Gillette Stadium', city: 'Boston', status: 'FINISHED', homeScore: 1, awayScore: 1 },
+  { id: '1562345', round: 'R32', roundLabel: 'Round of 32', home: 'Netherlands', away: 'Morocco', date: '2026-06-30T01:00:00+00:00', stadiumId: 'bbva', venueName: 'Estadio BBVA', city: 'Monterrey', status: 'FINISHED', homeScore: 1, awayScore: 1 },
+  { id: '1564789', round: 'R32', roundLabel: 'Round of 32', home: 'Ivory Coast', away: 'Norway', date: '2026-06-30T17:00:00+00:00', stadiumId: 'att', venueName: 'AT&T Stadium', city: 'Dallas', status: 'LIVE', homeScore: 1, awayScore: 2 },
   { id: '1565177', round: 'R32', roundLabel: 'Round of 32', home: 'France', away: 'Sweden', date: '2026-06-30T21:00:00+00:00', stadiumId: 'metlife', venueName: 'MetLife Stadium', city: 'New-York', status: 'SCHEDULED', homeScore: null, awayScore: null },
-  { id: '1567306', round: 'R32', roundLabel: 'Round of 32', home: 'Mexico', away: 'Ecuador', date: '2026-07-01T01:00:00+00:00', stadiumId: 'azteca', venueName: 'Estadio Azteca', city: 'Mexico City', status: 'SCHEDULED', homeScore: null, awayScore: null },
+  { id: '1567306', round: 'R32', roundLabel: 'Round of 32', home: 'Mexico', away: 'Ecuador', date: '2026-07-01T01:00:00+00:00', stadiumId: 'azteca', venueName: 'Estadio Banorte', city: 'Mexico City', status: 'SCHEDULED', homeScore: null, awayScore: null },
   { id: '1567307', round: 'R32', roundLabel: 'Round of 32', home: 'England', away: 'Congo DR', date: '2026-07-01T16:00:00+00:00', stadiumId: 'mercedes', venueName: 'Mercedes-Benz Stadium', city: 'Atlanta', status: 'SCHEDULED', homeScore: null, awayScore: null },
   { id: '1567308', round: 'R32', roundLabel: 'Round of 32', home: 'Belgium', away: 'Senegal', date: '2026-07-01T20:00:00+00:00', stadiumId: 'lumen', venueName: 'Lumen Field', city: 'Seattle', status: 'SCHEDULED', homeScore: null, awayScore: null },
   { id: '1562586', round: 'R32', roundLabel: 'Round of 32', home: 'USA', away: 'Bosnia & Herzegovina', date: '2026-07-02T00:00:00+00:00', stadiumId: 'levis', venueName: 'Levi\'s Stadium', city: 'San-Francisco', status: 'SCHEDULED', homeScore: null, awayScore: null },
@@ -41,6 +41,7 @@ export const WC_KNOCKOUT: KnockoutFixture[] = [
   { id: '1565178', round: 'R32', roundLabel: 'Round of 32', home: 'Australia', away: 'Egypt', date: '2026-07-03T18:00:00+00:00', stadiumId: 'att', venueName: 'AT&T Stadium', city: 'Dallas', status: 'SCHEDULED', homeScore: null, awayScore: null },
   { id: '1565179', round: 'R32', roundLabel: 'Round of 32', home: 'Argentina', away: 'Cape Verde Islands', date: '2026-07-03T22:00:00+00:00', stadiumId: 'hardrock', venueName: 'Hard Rock Stadium', city: 'Miami', status: 'SCHEDULED', homeScore: null, awayScore: null },
   { id: '1567310', round: 'R32', roundLabel: 'Round of 32', home: 'Colombia', away: 'Ghana', date: '2026-07-04T01:30:00+00:00', stadiumId: 'arrowhead', venueName: 'Arrowhead Stadium', city: 'Kansas City', status: 'SCHEDULED', homeScore: null, awayScore: null },
+  { id: '1567824', round: 'R16', roundLabel: 'Round of 16', home: 'Canada', away: 'Morocco', date: '2026-07-04T17:00:00+00:00', stadiumId: 'nrg', venueName: 'NRG Stadium', city: 'Houston', status: 'SCHEDULED', homeScore: null, awayScore: null },
 ];
 
-export const WC_KNOCKOUT_LAST_UPDATED = '2026-06-29T17:24:50.036Z';
+export const WC_KNOCKOUT_LAST_UPDATED = '2026-06-30T18:46:22.229Z';
