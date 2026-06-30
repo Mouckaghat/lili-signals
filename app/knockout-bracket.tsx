@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { buildRoadToFinal, liliKnockoutRecord, type KnockoutTie, type RoundGroup, type Side, type TeamForm } from '../lib/knockoutModel';
 import { buildFullBracket, buildTeamPath, type BracketNode, type PathStep, type SlotSide, type TeamPath } from '../lib/bracketModel';
 import type { KnockoutRound } from '../lib/knockoutData';
+import type { I18n } from '../lib/i18n';
 import { KNOCKOUT_MATCH_STATS } from '../lib/matchStatsData';
 import { useLiveResults } from '../lib/useLiveResults';
 import { useKnockoutPicks } from '../contexts/KnockoutPicksContext';
@@ -115,12 +116,85 @@ function Badge({ label, color }: { label: string; color: string }) {
   );
 }
 
+// ─── Heatmap CTA with a pre-kickoff countdown ───────────────────────────────────
+// Lifecycle (same as the pool-games timeline, now on the knockout cards too):
+//   ≤3h out → "Heatmap · live at kickoff"  ·  ≤1h → "Heatmap in 12m"  ·  ≤10m →
+//   ticking "Heatmap in 4:37" (urgent) → at kickoff the live model lags a minute
+//   or two, so a "🔴 Heatmap →" warming pill bridges the gap → real heatmap. The
+//   countdown ALWAYS delivers — it never resolves into a blank gap.
+const HEAT_WARMUP_MS = 3 * 60 * 60 * 1000;  // ≤3h out → "live at kickoff"
+const HEAT_COUNT_MS  = 60 * 60 * 1000;      // ≤1h out → minutes countdown
+const HEAT_TICK_MS   = 10 * 60 * 1000;      // ≤10m out → ticking m:ss (urgent)
+
+function fmtCountdown(diffMs: number): string {
+  const totalSec = Math.max(0, Math.floor(diffMs / 1000));
+  const m = Math.floor(totalSec / 60);
+  const s = totalSec % 60;
+  if (diffMs > HEAT_TICK_MS) return `${m}m`;
+  return `${m}:${String(s).padStart(2, '0')}`;
+}
+
+function HeatmapCTA({ fixtureId, koDate, status, i18n }: {
+  fixtureId: string;
+  koDate: string;
+  status: 'SCHEDULED' | 'LIVE' | 'FINISHED';
+  i18n: I18n;
+}) {
+  const router = useRouter();
+  const koMs = new Date(koDate).getTime();
+  const [now, setNow] = useState(() => Date.now());
+  // Tick every second while the tie isn't finished, so the countdown stays live
+  // and the state transitions (countdown → warming → live) fire on their own.
+  useEffect(() => {
+    if (status === 'FINISHED') return;
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, [status]);
+
+  const live   = status === 'LIVE';
+  const baked  = FIXTURES_WITH_INTEL.has(fixtureId);
+  const toKO   = koMs - now;
+  const kickedOff = toKO <= 0;
+
+  const showLive    = live || baked;                                   // a real heatmap is reachable now
+  const showWarming = !showLive && kickedOff && status !== 'FINISHED'; // kicked off, model still warming
+  const showTeaser  = !showLive && !showWarming && status === 'SCHEDULED' && toKO > 0 && toKO <= HEAT_WARMUP_MS;
+  const urgent      = toKO <= HEAT_TICK_MS;
+
+  const open = () => router.push({ pathname: '/match-heatmap', params: { fixtureId } } as any);
+  const press = ({ pressed }: { pressed: boolean }) => pressed && { backgroundColor: 'rgba(245,196,81,0.18)' };
+
+  if (showLive) {
+    return (
+      <Pressable onPress={open} style={({ pressed }) => [bx.relive, press({ pressed })]}>
+        <Text style={bx.reliveText}>🔥 {i18n.tlHeatmap} →</Text>
+      </Pressable>
+    );
+  }
+  if (showWarming) {
+    return (
+      <Pressable onPress={open} style={({ pressed }) => [bx.relive, bx.reliveWarm, press({ pressed })]}>
+        <Text style={[bx.reliveText, bx.reliveWarmText]}>🔴 {i18n.tlHeatmap} →</Text>
+      </Pressable>
+    );
+  }
+  if (showTeaser) {
+    return (
+      <Pressable onPress={open} style={({ pressed }) => [bx.relive, bx.reliveTeaser, urgent && bx.reliveWarm, press({ pressed })]}>
+        <Text style={[bx.reliveText, urgent ? bx.reliveWarmText : bx.reliveTeaserText]}>
+          🔥 {toKO <= HEAT_COUNT_MS ? `${i18n.tlHeatmapSoon} ${fmtCountdown(toKO)}` : i18n.tlHeatmapAtKO}
+        </Text>
+      </Pressable>
+    );
+  }
+  return null;
+}
+
 // ─── A single knockout tie card ─────────────────────────────────────────────────
 function TieCard({ tie, accent, t }: { tie: KnockoutTie; accent: string; t: T }) {
   const { picks, setPick } = useKnockoutPicks();
   const { i18n } = useLanguage();   // for the shared "Heatmap" label (tlHeatmap)
   const { favTeam } = useProfile();
-  const router = useRouter();
   const myPick = picks[tie.fixture.id];
   const locked = tie.status !== 'SCHEDULED';            // lock at kickoff — picks are predictions
   const finished = tie.status === 'FINISHED' && tie.winner != null;
@@ -150,12 +224,6 @@ function TieCard({ tie, accent, t }: { tie: KnockoutTie; accent: string; t: T })
     const loseS = tie.winner === 'home' ? tie.away.strength : tie.home.strength;
     upset = winS < loseS; // the lower-rated side went through
   }
-
-  // Match-intelligence access for completed/live ties that actually have a model.
-  // Show the Heatmap entry for any LIVE game (the match-intel screen pulls live
-  // games from the runtime /api overlay, even before they're baked) OR a finished
-  // game whose stats exist — same logic as the pool-games timeline. Never a dead tap.
-  const canRelive = live || FIXTURES_WITH_INTEL.has(tie.fixture.id);
 
   const PickBtn = ({ side }: { side: Side }) => {
     const selected = myPick === side;
@@ -240,15 +308,8 @@ function TieCard({ tie, accent, t }: { tie: KnockoutTie; accent: string; t: T })
         )
       ) : null}
 
-      {/* relive the match — only when a real match-intelligence model exists */}
-      {canRelive && (
-        <Pressable
-          onPress={() => router.push({ pathname: '/match-heatmap', params: { fixtureId: tie.fixture.id } } as any)}
-          style={({ pressed }) => [bx.relive, pressed && { backgroundColor: 'rgba(245,196,81,0.18)' }]}
-        >
-          <Text style={bx.reliveText}>🔥 {i18n.tlHeatmap} →</Text>
-        </Pressable>
-      )}
+      {/* heatmap — pre-kickoff countdown → warming → live, never a blank gap */}
+      <HeatmapCTA fixtureId={tie.fixture.id} koDate={tie.fixture.date} status={tie.status} i18n={i18n} />
     </View>
   );
 }
@@ -480,16 +541,12 @@ const STATE_COLOR: Record<PathStep['state'], string> = {
 };
 
 function PathStepCard({ step, team, t, last }: { step: PathStep; team: TeamForm; t: T; last: boolean }) {
-  const router = useRouter();
   const accent = ROUND_COLOR[step.round];
   const { i18n } = useLanguage();   // for the shared "Heatmap" label (tlHeatmap)
   const dim = step.state === 'potential';
   const venue = step.stadium ? `🏟 ${step.stadium.shortName}, ${step.stadium.city}` : `🏟 ${t.venueTBC}`;
   const myScore = step.tie && step.mySide && step.tie.result ? step.tie.result[step.mySide] : null;
   const oppScore = step.tie && step.mySide && step.tie.result ? step.tie.result[step.mySide === 'home' ? 'away' : 'home'] : null;
-  // LIVE games always get the Heatmap entry (runtime /api overlay covers them);
-  // a finished game needs baked stats so the tap lands on real content.
-  const canRelive = !!step.tie && (step.tie.status === 'LIVE' || FIXTURES_WITH_INTEL.has(step.tie.fixture.id));
 
   return (
     <View style={bx.stepRow}>
@@ -539,11 +596,8 @@ function PathStepCard({ step, team, t, last }: { step: PathStep; team: TeamForm;
           </View>
         )}
 
-        {canRelive && (
-          <Pressable onPress={() => router.push({ pathname: '/match-heatmap', params: { fixtureId: step.tie!.fixture.id } } as any)}
-            style={({ pressed }) => [bx.relive, pressed && { backgroundColor: 'rgba(245,196,81,0.18)' }]}>
-            <Text style={bx.reliveText}>🔥 {i18n.tlHeatmap} →</Text>
-          </Pressable>
+        {step.tie && (
+          <HeatmapCTA fixtureId={step.tie.fixture.id} koDate={step.tie.fixture.date} status={step.tie.status} i18n={i18n} />
         )}
       </View>
     </View>
@@ -795,6 +849,10 @@ const bx = StyleSheet.create({
     backgroundColor: 'rgba(245,196,81,0.09)',
   },
   reliveText: { fontSize: 12, fontWeight: '800', color: D.gold, letterSpacing: 0.3 },
+  reliveTeaser:     { borderColor: 'rgba(74,158,255,0.4)', backgroundColor: 'rgba(74,158,255,0.09)' },  // pre-kickoff countdown
+  reliveTeaserText: { color: D.blue },
+  reliveWarm:       { borderColor: 'rgba(255,77,79,0.5)', backgroundColor: 'rgba(255,77,79,0.12)' },     // urgent / warming up
+  reliveWarmText:   { color: D.red },
 
   // ── Mode toggle ──
   modeRow: { flexDirection: 'row', gap: 8, marginTop: 14 },
