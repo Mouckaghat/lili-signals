@@ -5,7 +5,7 @@ import type { MatchStats, TeamMatchStats } from './matchStatsData';
 import { FIXTURE_RESULTS, type FixtureResult } from './fixtureResultsData';
 import { WC_FIXTURES, WC_TEAMS } from './wcData';
 import { FIXTURE_STADIUM_ID, getStadium } from './stadiumData';
-import { MATCH_EVENTS } from './matchEventsData';
+import { MATCH_EVENTS, type MatchEvents } from './matchEventsData';
 import { GROUP_STANDINGS } from './standingsData';
 import { buildHeatGrid } from './heatmap';
 import { HEATMAP_I18N, hmT, type HeatmapI18n } from './heatmapI18n';
@@ -51,7 +51,7 @@ function impactFor(team: string): TeamImpact | null {
   return { rank: s.rank, points: s.pts, gd: s.gd, qualPct: qualPct(s.pts, s.played) };
 }
 
-export function computeOverview(match: MatchStats, results: Record<string, FixtureResult> = FIXTURE_RESULTS, t: HeatmapI18n = HEATMAP_I18N.EN): Overview {
+export function computeOverview(match: MatchStats, results: Record<string, FixtureResult> = FIXTURE_RESULTS, t: HeatmapI18n = HEATMAP_I18N.EN, allEvents: MatchEvents[] = MATCH_EVENTS): Overview {
   const f = WC_FIXTURES.find((x) => x.id === match.fixtureId);
   const r = results[`${match.home}|${match.away}`];
   const stadium = f ? getStadium(FIXTURE_STADIUM_ID[f.stadium] ?? '') : undefined;
@@ -142,8 +142,8 @@ export function computeOverview(match: MatchStats, results: Record<string, Fixtu
   const headMatch = lili.match(/^[\s\S]*?[.!?。！？]/);
   const headline = headMatch ? headMatch[0].trim() : lili;
 
-  // Events
-  const ev = MATCH_EVENTS.find((e) => e.fixtureId === match.fixtureId);
+  // Events (live-overlaid when the screen passes useLiveEvents() — see header)
+  const ev = allEvents.find((e) => e.fixtureId === match.fixtureId);
   const events: OverviewEvent[] = ev ? [
     ...ev.goals.map((g) => ({ icon: '⚽', minute: g.minute, side: (g.team === match.home ? 'home' : 'away') as 'home' | 'away' })),
     ...ev.yellowCards.map((c) => ({ icon: '🟨', minute: c.minute ?? 0, side: (c.team === match.home ? 'home' : 'away') as 'home' | 'away' })),

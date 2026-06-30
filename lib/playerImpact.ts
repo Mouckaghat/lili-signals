@@ -53,8 +53,8 @@ for (const r of PLAYER_MATCH_STATS) {
   const arr = statsByFixture.get(r.fixtureId) ?? [];
   arr.push(r); statsByFixture.set(r.fixtureId, arr);
 }
-function fxStat(fixtureId: string, name: string, team: string): PlayerMatchStat | undefined {
-  const rows = statsByFixture.get(fixtureId);
+function fxStat(fixtureId: string, name: string, team: string, livePlayers?: PlayerMatchStat[]): PlayerMatchStat | undefined {
+  const rows = livePlayers ? livePlayers.filter((r) => r.fixtureId === fixtureId) : statsByFixture.get(fixtureId);
   if (!rows) return undefined;
   return rows.find((r) => r.team === team && (r.name === name || surname(r.name) === surname(name)));
 }
@@ -144,10 +144,10 @@ export function computePlayerLeaders(results: Record<string, FixtureResult> = FI
 }
 
 // ── Match Hero: highest-rated player of the selected match ───────────────────────
-export function matchHero(fixtureId: string, results: Record<string, FixtureResult> = FIXTURE_RESULTS): MatchHero {
+export function matchHero(fixtureId: string, results: Record<string, FixtureResult> = FIXTURE_RESULTS, livePlayers?: PlayerMatchStat[]): MatchHero {
   const f = WC_FIXTURES.find((x) => x.id === fixtureId);
   if (!f) return null;
-  const rows = statsByFixture.get(fixtureId) ?? [];
+  const rows = (livePlayers ? livePlayers.filter((r) => r.fixtureId === fixtureId) : statsByFixture.get(fixtureId)) ?? [];
   const r = results[`${f.home}|${f.away}`];
 
   const rated = rows.filter((x) => x.rating != null).sort((a, b) => (b.rating! - a.rating!));
@@ -169,7 +169,7 @@ export function matchHero(fixtureId: string, results: Record<string, FixtureResu
 }
 
 // ── Starting XI of the selected match, with goals/assists/rating ─────────────────
-export function startingXI(fixtureId: string): { home: XIPlayer[]; away: XIPlayer[]; homeTeam: string; awayTeam: string } | null {
+export function startingXI(fixtureId: string, livePlayers?: PlayerMatchStat[]): { home: XIPlayer[]; away: XIPlayer[]; homeTeam: string; awayTeam: string } | null {
   const f = WC_FIXTURES.find((x) => x.id === fixtureId);
   if (!f) return null;
   const lu = lineupFor(`${f.home}|${f.away}`);
@@ -177,7 +177,7 @@ export function startingXI(fixtureId: string): { home: XIPlayer[]; away: XIPlaye
 
   const build = (players: LineupPlayer[], team: string): XIPlayer[] =>
     players.filter((p) => p.starter).map((p) => {
-      const st = fxStat(fixtureId, p.name, team);
+      const st = fxStat(fixtureId, p.name, team, livePlayers);
       const goals = st?.goals ?? 0, assists = st?.assists ?? 0, rating = st?.rating ?? null;
       const influence = rating != null ? Math.max(0, (rating - 5.5) / 4.5) : Math.min(1, (goals * 0.5 + assists * 0.3));
       return { name: p.name, pos: p.pos, number: p.number, team, goals, assists, rating, influence };

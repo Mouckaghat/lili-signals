@@ -13,8 +13,10 @@ import { buildMomentum, type MomentumEvent } from '../lib/matchMomentum';
 import { shotsMatch, type ShotTeam } from '../lib/shotsModel';
 import { passStructure, type PassNode } from '../lib/passStructure';
 import type { MatchStats } from '../lib/matchStatsData';
-import { MATCH_EVENTS } from '../lib/matchEventsData';
+import type { PlayerMatchStat } from '../lib/playerStatsData';
+import { MATCH_EVENTS, type MatchEvents } from '../lib/matchEventsData';
 import { useLiveResults } from '../lib/useLiveResults';
+import { useLivePlayers } from '../lib/useLivePlayers';
 
 const D = {
   bg: '#04060D', panel: '#0A1322', panel2: '#0F1C33', border: 'rgba(86,140,224,0.18)',
@@ -195,8 +197,8 @@ function nodePositions(players: PassNode[]): { node: PassNode; x: number; y: num
   return out;
 }
 
-function MiniPass({ fixtureId, team, color, stats }: { fixtureId: string; team: string; color: string; stats: MatchStats['homeStats'] }) {
-  const ps = useMemo(() => passStructure(fixtureId, team, stats), [fixtureId, team, stats]);
+function MiniPass({ fixtureId, team, color, stats, livePlayers }: { fixtureId: string; team: string; color: string; stats: MatchStats['homeStats']; livePlayers?: PlayerMatchStat[] }) {
+  const ps = useMemo(() => passStructure(fixtureId, team, stats, undefined, livePlayers), [fixtureId, team, stats, livePlayers]);
   const nodes = useMemo(() => (ps ? nodePositions(ps.players) : []), [ps]);
   return (
     <View style={s.miniWrap}>
@@ -218,11 +220,12 @@ function MiniPass({ fixtureId, team, color, stats }: { fixtureId: string; team: 
 }
 
 export function PassMapPanel({ match }: { match: MatchStats }) {
+  const livePlayers = useLivePlayers();
   return (
     <Card title="PASS MAP" style={s.solo}>
       <View style={s.passRow}>
-        <MiniPass fixtureId={match.fixtureId} team={match.home} color={D.blue} stats={match.homeStats} />
-        <MiniPass fixtureId={match.fixtureId} team={match.away} color={D.red} stats={match.awayStats} />
+        <MiniPass fixtureId={match.fixtureId} team={match.home} color={D.blue} stats={match.homeStats} livePlayers={livePlayers} />
+        <MiniPass fixtureId={match.fixtureId} team={match.away} color={D.red} stats={match.awayStats} livePlayers={livePlayers} />
       </View>
       <Text style={s.note}>● Node size = passes played (involvement). No pass-by-pass link data in the feed.</Text>
     </Card>
@@ -231,11 +234,11 @@ export function PassMapPanel({ match }: { match: MatchStats }) {
 
 // ── MOMENTUM ────────────────────────────────────────────────────────────────
 // Smooth momentum wave + interactive event markers. Lives in the Overview tab.
-export function MomentumPanel({ match }: { match: MatchStats }) {
+export function MomentumPanel({ match, events = MATCH_EVENTS }: { match: MatchStats; events?: MatchEvents[] }) {
   const end = match.status === 'LIVE' && match.elapsed ? Math.max(match.elapsed, 10) : 90;
   const span = Math.max(end, 90);
 
-  const ev = MATCH_EVENTS.find((e) => e.fixtureId === match.fixtureId);
+  const ev = events.find((e) => e.fixtureId === match.fixtureId);
   const markers: MomentumMarker[] = useMemo(() => {
     if (!ev) return [];
     const side = (team: string) => (team === match.home ? 'home' : 'away') as 'home' | 'away';

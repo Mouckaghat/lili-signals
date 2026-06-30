@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { passStructure, passRanking, passClash, type PassNode } from '../lib/passStructure';
 import type { MatchStats } from '../lib/matchStatsData';
+import { useLivePlayers } from '../lib/useLivePlayers';
 import { WC_TEAMS } from '../lib/wcData';
 import { useLanguage } from '../contexts/LanguageContext';
 import { HEATMAP_I18N } from '../lib/heatmapI18n';
@@ -32,8 +33,9 @@ export default function PassMapModule({ match }: { match: MatchStats }) {
   const accent = side === 'home' ? D.blue : D.red;
 
   const liveStats = side === 'home' ? match.homeStats : match.awayStats;
+  const livePlayers = useLivePlayers();
   const { lang } = useLanguage();
-  const ps = useMemo(() => passStructure(match.fixtureId, team, liveStats, HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN), [match.fixtureId, team, liveStats, lang]);
+  const ps = useMemo(() => passStructure(match.fixtureId, team, liveStats, HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN, livePlayers), [match.fixtureId, team, liveStats, lang, livePlayers]);
   const ranking = useMemo(() => passRanking(), []);
   const clash = useMemo(() => passClash(team), [team]);
 

@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, useWindowDimensions, View } from 'react-na
 import { computePlayerLeaders, matchHero, matchSquads, startingXI, type ImpactRow } from '../lib/playerImpact';
 import type { MatchStats } from '../lib/matchStatsData';
 import { useLiveResults } from '../lib/useLiveResults';
+import { useLivePlayers } from '../lib/useLivePlayers';
 import { WC_TEAMS } from '../lib/wcData';
 import { useLanguage } from '../contexts/LanguageContext';
 import { HEATMAP_I18N } from '../lib/heatmapI18n';
@@ -29,10 +30,11 @@ export default function PlayersModule({ match }: { match: MatchStats }) {
   const { width } = useWindowDimensions();
   const wide = width >= 860;
   const results = useLiveResults();
+  const livePlayers = useLivePlayers();
   const { lang } = useLanguage();
   const L = useMemo(() => computePlayerLeaders(results, HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN), [results, lang]);
-  const hero = useMemo(() => matchHero(match.fixtureId, results), [match.fixtureId, results]);
-  const xi = useMemo(() => startingXI(match.fixtureId), [match.fixtureId]);
+  const hero = useMemo(() => matchHero(match.fixtureId, results, livePlayers), [match.fixtureId, results, livePlayers]);
+  const xi = useMemo(() => startingXI(match.fixtureId, livePlayers), [match.fixtureId, livePlayers]);
   // No confirmed XI yet → fall back to the real squad pool (honest names early).
   const squads = useMemo(() => (xi ? null : matchSquads(match.fixtureId)), [match.fixtureId, xi]);
 

@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { computeOverview, type Overview } from '../lib/matchOverview';
 import type { MatchStats } from '../lib/matchStatsData';
 import { useLiveResults } from '../lib/useLiveResults';
+import { useLiveEvents } from '../lib/useLiveEvents';
 import { useLanguage } from '../contexts/LanguageContext';
 import { HEATMAP_I18N } from '../lib/heatmapI18n';
 import { MomentumPanel } from './MatchDashboard';
@@ -27,8 +28,9 @@ const D = {
 // fabricated context, attendance, weather or atmosphere.
 export default function OverviewModule({ match }: { match: MatchStats }) {
   const results = useLiveResults();
+  const events = useLiveEvents();
   const { lang } = useLanguage();
-  const o: Overview = useMemo(() => computeOverview(match, results, HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN), [match, results, lang]);
+  const o: Overview = useMemo(() => computeOverview(match, results, HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN, events), [match, results, lang, events]);
 
   const statusColor = o.status === 'LIVE' ? D.red : o.status === 'FINAL' ? D.text2 : D.blue;
 
@@ -138,7 +140,7 @@ export default function OverviewModule({ match }: { match: MatchStats }) {
   // 7 — Smooth, compact momentum heartbeat (real events, honest tooltips). The
   // slot cancels MomentumPanel's built-in s.solo inset so it shares the exact
   // same width as every other card in the single column.
-  const Momentum = <View style={s.momSlot}><MomentumPanel match={match} /></View>;
+  const Momentum = <View style={s.momSlot}><MomentumPanel match={match} events={events} /></View>;
 
   // Single full-width column below the hero & stadium blocks — every card shares
   // the same width for a clean, consistent read. Lili's analysis leads (the

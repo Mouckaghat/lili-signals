@@ -5,7 +5,7 @@
 // laid out by formation role.
 
 import { MATCH_STATS, type TeamMatchStats } from './matchStatsData';
-import { PLAYER_MATCH_STATS } from './playerStatsData';
+import { PLAYER_MATCH_STATS, type PlayerMatchStat } from './playerStatsData';
 import { FIXTURE_RESULTS, type FixtureResult } from './fixtureResultsData';
 import { WC_TEAMS } from './wcData';
 import { nextOpponent } from './attackZones';
@@ -55,10 +55,13 @@ function teamMatchStats(fixtureId: string, team: string): TeamMatchStats | null 
 // renders its team-level passing structure instead of going blank. Per-player
 // nodes still come only from PLAYER_MATCH_STATS — no per-player live feed — so
 // they appear once the match is finalised and synced.
-export function passStructure(fixtureId: string, team: string, liveStats?: TeamMatchStats, L: HeatmapI18n = HEATMAP_I18N.EN): PassStructure | null {
+// `livePlayers` is the live-overlaid per-player rows (useLivePlayers) the screen
+// holds. Pass it so the per-player nodes update during a game; without it they
+// come only from the deploy-gated baked PLAYER_MATCH_STATS and freeze mid-match.
+export function passStructure(fixtureId: string, team: string, liveStats?: TeamMatchStats, L: HeatmapI18n = HEATMAP_I18N.EN, livePlayers?: PlayerMatchStat[]): PassStructure | null {
   const s = teamMatchStats(fixtureId, team) ?? liveStats ?? null;
   if (!s) return null;
-  const rows = PLAYER_MATCH_STATS.filter((p) => p.fixtureId === fixtureId && p.team === team && (p.minutes > 0 || p.passes > 0));
+  const rows = (livePlayers ?? PLAYER_MATCH_STATS).filter((p) => p.fixtureId === fixtureId && p.team === team && (p.minutes > 0 || p.passes > 0));
   const maxP = Math.max(1, ...rows.map((p) => p.passes));
   const players: PassNode[] = rows.map((p) => ({ name: p.name, pos: p.pos, passes: p.passes, passAccPct: p.passAccPct, involvement: p.passes / maxP }));
   const topPassers = [...players].sort((a, b) => b.passes - a.passes).slice(0, 4);

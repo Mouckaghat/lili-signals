@@ -192,6 +192,11 @@ function buildEntry(
   const opponentOf = (t: string) => (t === fixture.home ? fixture.away : fixture.home);
 
   for (const e of events) {
+    // Penalty-shootout kicks arrive as type:'Goal'/'Penalty' at elapsed≥120 but
+    // are NOT match goals (the score stays level — the shootout decides who
+    // advances, captured separately). Skip them so they never inflate goal counts
+    // or top-scorer tallies. api-football flags them with this exact comment.
+    if (e.comments === 'Penalty Shootout') continue;
     const minute  = e.time?.elapsed ?? undefined;
     const apiTeam = normTeam(e.team?.name ?? '');
 
