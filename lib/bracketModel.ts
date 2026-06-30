@@ -13,7 +13,7 @@ import { getStadium, type StadiumInfo } from './stadiumData';
 import { liliProbs } from './marketComparison';
 import type { KnockoutRound } from './knockoutData';
 
-type LiveResult = { status: 'SCHEDULED' | 'LIVE' | 'FINISHED'; homeScore: number | null; awayScore: number | null };
+type LiveResult = { status: 'SCHEDULED' | 'LIVE' | 'FINISHED'; homeScore: number | null; awayScore: number | null; winner?: string | null };
 
 // A resolved side of a slot: a known qualifier, an undecided R32 pair ("A or B"),
 // or a deeper unknown ("Winner of Match X").

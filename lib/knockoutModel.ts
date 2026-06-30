@@ -92,7 +92,7 @@ function buildTeamForm(name: string, liliRec: Map<string, { c: number; t: number
   };
 }
 
-type LiveResult = { status: 'SCHEDULED' | 'LIVE' | 'FINISHED'; homeScore: number | null; awayScore: number | null };
+type LiveResult = { status: 'SCHEDULED' | 'LIVE' | 'FINISHED'; homeScore: number | null; awayScore: number | null; winner?: string | null };
 
 export function buildRoadToFinal(liveResults: Record<string, LiveResult> = {}): RoundGroup[] {
   // Lili's per-team call record, derived once from the finished-game track record.
@@ -134,13 +134,20 @@ export function buildRoadToFinal(liveResults: Record<string, LiveResult> = {}): 
     let winner: Side | null = null;
     let liliRight: boolean | null = null;
     if (status === 'FINISHED' && result) {
-      // A finished knockout tie has a winner; on a level 90-min score the feed's
-      // own winner flag (penalties) isn't in this snapshot, so we only call a
-      // winner when the scoreline separates them — otherwise leave it undecided.
       if (result.home !== result.away) {
+        // Decided in normal/extra time — the scoreline names the winner.
         winner = result.home > result.away ? 'home' : 'away';
-        liliRight = winner === liliFav;
+      } else {
+        // Level scoreline → decided on penalties. Use the REAL winner, never a
+        // guess: the live overlay's winning-team name (freshest, ~20s after the
+        // whistle), then the baked feed flag (sync-knockout, ET/penalty aware).
+        const liveWinner = live?.winner;
+        if (liveWinner && liveWinner !== 'Draw') {
+          winner = liveWinner === fx.home ? 'home' : liveWinner === fx.away ? 'away' : null;
+        }
+        if (winner == null && fx.winner) winner = fx.winner;
       }
+      if (winner != null) liliRight = winner === liliFav;
     }
 
     const tie: KnockoutTie = {
