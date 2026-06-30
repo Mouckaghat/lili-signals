@@ -95,7 +95,12 @@ function TeamRow({
         )}
       </View>
       {goals != null && (
-        <Text style={[bx.goals, isWinner ? { color: accent } : bx.dim]}>{goals}</Text>
+        <Text style={[bx.goals, isWinner ? { color: accent } : bx.dim]}>
+          {goals}
+          {tie.penalties && (
+            <Text style={bx.pens}> ({tie.penalties[side]})</Text>
+          )}
+        </Text>
       )}
     </View>
   );
@@ -753,6 +758,7 @@ const bx = StyleSheet.create({
   formLine: { fontSize: 10.5, color: D.text2, marginTop: 1 },
   strength: { color: D.text3 },
   goals: { fontSize: 21, fontWeight: '900', minWidth: 22, textAlign: 'center' },
+  pens: { fontSize: 12, fontWeight: '800', color: D.text3 },   // penalty-shootout score, e.g. " (4)"
   dim: { color: D.text3, opacity: 0.6 },
 
   badgeRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 6 },

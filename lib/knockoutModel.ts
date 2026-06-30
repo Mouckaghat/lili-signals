@@ -41,6 +41,7 @@ export interface KnockoutTie {
   liliScore: { home: number; away: number };  // Lili's predicted scoreline
   status: 'SCHEDULED' | 'LIVE' | 'FINISHED';
   result: { home: number; away: number } | null;
+  penalties: { home: number; away: number } | null;  // shootout score when the tie went to spot-kicks
   winner: Side | null;      // actual winner once decided
   liliRight: boolean | null;
 }
@@ -130,6 +131,9 @@ export function buildRoadToFinal(liveResults: Record<string, LiveResult> = {}): 
     const as = live?.awayScore ?? fx.awayScore;
     const hasScore = hs != null && as != null;
     const result = hasScore ? { home: hs as number, away: as as number } : null;
+    // Penalty-shootout score (baked from the feed; null unless the tie went to spot-kicks).
+    const penalties = fx.penHome != null && fx.penAway != null
+      ? { home: fx.penHome, away: fx.penAway } : null;
 
     let winner: Side | null = null;
     let liliRight: boolean | null = null;
@@ -161,6 +165,7 @@ export function buildRoadToFinal(liveResults: Record<string, LiveResult> = {}): 
       liliScore,
       status,
       result,
+      penalties,
       winner,
       liliRight,
     };
