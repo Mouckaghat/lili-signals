@@ -68,4 +68,4 @@ export const MARKET_ODDS: MarketOdds[] = [
   { fixtureId: "J3_Jordan_v_Argentina", home: "Jordan", away: "Argentina", market: { home: 0.0462, draw: 0.1123, away: 0.8414 }, model: { home: 0.0000, draw: 0.5000, away: 0.5000 }, advice: "Winner : Argentina", bookmakers: 12 },
 ];
 
-export const MARKET_ODDS_LAST_UPDATED = '2026-07-01T20:22:09.975Z';
+export const MARKET_ODDS_LAST_UPDATED = '2026-07-01T21:57:35.993Z';
