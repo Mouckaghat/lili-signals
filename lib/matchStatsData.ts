@@ -580,6 +580,13 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     homeStats: { team: "France", possession: 0.61, totalShots: 25, shotsInsideBox: 16, shotsOutsideBox: 9, shotsOnGoal: 12, corners: 9, xg: 3.17, passAccuracy: 0.88, passes: 551, fouls: 14 },
     awayStats: { team: "Sweden", possession: 0.39, totalShots: 8, shotsInsideBox: 7, shotsOutsideBox: 1, shotsOnGoal: 3, corners: 1, xg: 0.65, passAccuracy: 0.8, passes: 352, fouls: 10 },
   },
+  {
+    fixtureId: "1567306",
+    home: "Mexico", away: "Ecuador", date: "2026-07-01",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Mexico", possession: 0.43, totalShots: 15, shotsInsideBox: 10, shotsOutsideBox: 5, shotsOnGoal: 3, corners: 3, xg: 1.02, passAccuracy: 0.78, passes: 319, fouls: 10 },
+    awayStats: { team: "Ecuador", possession: 0.57, totalShots: 7, shotsInsideBox: 5, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 8, xg: 0.73, passAccuracy: 0.84, passes: 407, fouls: 14 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-01T02:01:39.196Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-01T06:43:52.239Z';
