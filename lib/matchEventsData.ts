@@ -1179,6 +1179,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "England", away: "Congo DR", date: "2026-07-01",
     goals: [
       { player: "Brian Cipenga", team: "Congo DR", minute: 7, type: "goal" },
+      { player: "Harry Kane", team: "England", minute: 75, type: "goal" },
+      { player: "Harry Kane", team: "England", minute: 86, type: "goal" },
     ],
     yellowCards: [
       { player: "Jude Bellingham", team: "England", minute: 19, reason: "Tripping" },
@@ -1188,4 +1190,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-01T17:22:10.194Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-01T18:17:21.596Z';
