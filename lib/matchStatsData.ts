@@ -587,6 +587,13 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Mexico", possession: 0.43, totalShots: 15, shotsInsideBox: 10, shotsOutsideBox: 5, shotsOnGoal: 3, corners: 3, xg: 1.02, passAccuracy: 0.78, passes: 319, fouls: 10 },
     awayStats: { team: "Ecuador", possession: 0.57, totalShots: 7, shotsInsideBox: 5, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 8, xg: 0.73, passAccuracy: 0.84, passes: 407, fouls: 14 },
   },
+  {
+    fixtureId: "1567307",
+    home: "England", away: "Congo DR", date: "2026-07-01",
+    status: "LIVE", elapsed: 58,
+    homeStats: { team: "England", possession: 0.59, totalShots: 10, shotsInsideBox: 9, shotsOutsideBox: 1, shotsOnGoal: 4, corners: 4, xg: 1.57, passAccuracy: 0.91, passes: 319, fouls: 7 },
+    awayStats: { team: "Congo DR", possession: 0.41, totalShots: 3, shotsInsideBox: 2, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 1, xg: 0.69, passAccuracy: 0.83, passes: 234, fouls: 7 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-01T16:01:01.611Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-01T17:21:33.681Z';
