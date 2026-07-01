@@ -597,10 +597,10 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "1567308",
     home: "Belgium", away: "Senegal", date: "2026-07-01",
-    status: "LIVE", elapsed: 102,
-    homeStats: { team: "Belgium", possession: 0.54, totalShots: 16, shotsInsideBox: 9, shotsOutsideBox: 7, shotsOnGoal: 4, corners: 4, xg: 0.88, passAccuracy: 0.87, passes: 594, fouls: 18 },
-    awayStats: { team: "Senegal", possession: 0.46, totalShots: 13, shotsInsideBox: 9, shotsOutsideBox: 4, shotsOnGoal: 4, corners: 1, xg: 2.8, passAccuracy: 0.85, passes: 508, fouls: 10 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Belgium", possession: 0.52, totalShots: 19, shotsInsideBox: 11, shotsOutsideBox: 8, shotsOnGoal: 5, corners: 4, xg: 1.8, passAccuracy: 0.86, passes: 699, fouls: 22 },
+    awayStats: { team: "Senegal", possession: 0.48, totalShots: 19, shotsInsideBox: 10, shotsOutsideBox: 9, shotsOnGoal: 5, corners: 2, xg: 3.54, passAccuracy: 0.84, passes: 639, fouls: 12 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-01T22:17:51.351Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-01T23:49:40.287Z';
