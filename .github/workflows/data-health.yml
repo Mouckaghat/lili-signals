@@ -52,6 +52,8 @@ jobs:
         run: |
           echo "Healing feeds: ${{ steps.check.outputs.heal }}"
           if [[ "${{ steps.check.outputs.heal }}" == *stats*   ]]; then npx tsx scripts/sync-live-stats.ts      || true; fi
+          if [[ "${{ steps.check.outputs.heal }}" == *events*  ]]; then npx tsx scripts/sync-match-events.ts    || true; fi
+          if [[ "${{ steps.check.outputs.heal }}" == *players* ]]; then npx tsx scripts/sync-player-stats.ts    || true; fi
           if [[ "${{ steps.check.outputs.heal }}" == *lineups* ]]; then npx tsx scripts/sync-lineups.ts         || true; fi
           if [[ "${{ steps.check.outputs.heal }}" == *results* ]]; then npx tsx scripts/sync-fixture-results.ts || true; fi
 
@@ -60,7 +62,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add lib/matchStatsData.ts lib/lineupData.ts lib/fixtureResultsData.ts
+          git add lib/matchStatsData.ts lib/matchEventsData.ts lib/playerStatsData.ts lib/lineupData.ts lib/fixtureResultsData.ts
           if git diff --cached --quiet; then
             echo "No file changes from heal."
           else

@@ -25,37 +25,52 @@
 
 import fs from 'node:fs';
 import { WC_FIXTURES } from '../lib/wcData.js';
-import { MATCH_STATS, MATCH_STATS_LAST_UPDATED } from '../lib/matchStatsData.js';
+import { WC_KNOCKOUT } from '../lib/knockoutData.js';
+import { MATCH_STATS, KNOCKOUT_MATCH_STATS, MATCH_STATS_LAST_UPDATED } from '../lib/matchStatsData.js';
 import { MATCH_LINEUPS } from '../lib/lineupData.js';
 import { FIXTURE_RESULTS } from '../lib/fixtureResultsData.js';
+import { MATCH_EVENTS, MATCH_EVENTS_LAST_UPDATED } from '../lib/matchEventsData.js';
+import { PLAYER_MATCH_STATS, PLAYER_STATS_LAST_UPDATED } from '../lib/playerStatsData.js';
 
 const MIN = 60_000;
 const LIVE_WINDOW_MS = 150 * MIN; // kickoff → ~2.5 h later: match is in progress
 const STATS_STALE_MS = 20 * MIN;  // live stats should refresh within ~20 min
+const FEED_STALE_MS  = 45 * MIN;  // events/player feeds should refresh within ~45 min
 const LINEUP_LEAD_MS = 40 * MIN;  // official XI posts ~40 min before kickoff
 
 const NOW = process.env.HEALTH_NOW ? Date.parse(process.env.HEALTH_NOW) : Date.now();
 const statsUpdated = Date.parse(MATCH_STATS_LAST_UPDATED);
+const eventsUpdated = Date.parse(MATCH_EVENTS_LAST_UPDATED);
+const playersUpdated = Date.parse(PLAYER_STATS_LAST_UPDATED);
 const statsAgeMin = Math.round((NOW - statsUpdated) / MIN);
+const eventsAgeMin = Math.round((NOW - eventsUpdated) / MIN);
+const playersAgeMin = Math.round((NOW - playersUpdated) / MIN);
 
-type Feed = 'stats' | 'lineups' | 'results';
+type Feed = 'stats' | 'lineups' | 'results' | 'events' | 'players';
 interface Issue { severity: 'CRITICAL' | 'warning'; fixture: string; msg: string; heal: Feed }
 
 const issues: Issue[] = [];
 const add = (severity: Issue['severity'], fixture: string, msg: string, heal: Feed) =>
   issues.push({ severity, fixture, msg, heal });
 
-for (const f of WC_FIXTURES) {
+const allFixtures = [...WC_FIXTURES, ...WC_KNOCKOUT];
+const allStats = [...MATCH_STATS, ...KNOCKOUT_MATCH_STATS];
+const eventFixtureIds = new Set(MATCH_EVENTS.map((m) => m.fixtureId));
+const playerFixtureIds = new Set(PLAYER_MATCH_STATS.map((p) => p.fixtureId));
+
+for (const f of allFixtures) {
   const key   = `${f.home}|${f.away}`;
   const label = `${f.home} v ${f.away}`;
   const ko    = Date.parse(f.date);
   if (Number.isNaN(ko)) continue;
   const since = NOW - ko; // >0 = after kickoff
 
-  const stats  = MATCH_STATS.find((m) => m.fixtureId === f.id);
+  const stats  = allStats.find((m) => m.fixtureId === f.id);
   const result = FIXTURE_RESULTS[key];
   const lineup = MATCH_LINEUPS.find((l) => l.fixtureKey === key);
   const hasXI  = !!lineup && (lineup.home.players.length > 0 || lineup.away.players.length > 0);
+  const hasEvents = eventFixtureIds.has(f.id);
+  const hasPlayers = playerFixtureIds.has(f.id);
 
   if (since >= 0 && since < LIVE_WINDOW_MS) {
     // ── Match is LIVE ──────────────────────────────────────────────────────────
@@ -68,10 +83,23 @@ for (const f of WC_FIXTURES) {
     // ── Match is FINISHED ──────────────────────────────────────────────────────
     if (!stats) add('CRITICAL', label, 'finished but missing from match stats → no heatmap', 'stats');
     if (!result || result.status !== 'FINISHED') add('warning', label, 'finished but no recorded result', 'results');
+    if (!hasPlayers) add('CRITICAL', label, 'finished but missing from player stats → Players/Pass Map stale', 'players');
+    if (!hasEvents) add('warning', label, 'finished but no event row yet (can be legitimate on low-event matches)', 'events');
   } else if (since < 0 && since > -LINEUP_LEAD_MS) {
     // ── Within ~40 min before kickoff ──────────────────────────────────────────
     if (!hasXI) add('warning', label, `kickoff in ${Math.round(-since / MIN)}m but no starting XI posted`, 'lineups');
   }
+}
+
+// Freshness guards for feeds that power live/just-finished intelligence.
+if (statsAgeMin > STATS_STALE_MS / MIN) {
+  add('CRITICAL', 'GLOBAL', `match stats feed stale (${statsAgeMin}m since refresh)`, 'stats');
+}
+if (eventsAgeMin > FEED_STALE_MS / MIN) {
+  add('CRITICAL', 'GLOBAL', `match events feed stale (${eventsAgeMin}m since refresh)`, 'events');
+}
+if (playersAgeMin > FEED_STALE_MS / MIN) {
+  add('CRITICAL', 'GLOBAL', `player stats feed stale (${playersAgeMin}m since refresh)`, 'players');
 }
 
 // ─── Report ───────────────────────────────────────────────────────────────────
@@ -81,7 +109,9 @@ const heals     = [...new Set(issues.map((i) => i.heal))];
 
 console.log(`\n🩺  Data health @ ${new Date(NOW).toISOString()}`);
 console.log(`    Match stats last refreshed ${statsAgeMin}m ago (${MATCH_STATS_LAST_UPDATED})`);
-console.log(`    ${WC_FIXTURES.length} fixtures checked · ${criticals.length} critical · ${warnings.length} warning\n`);
+console.log(`    Match events last refreshed ${eventsAgeMin}m ago (${MATCH_EVENTS_LAST_UPDATED})`);
+console.log(`    Player stats last refreshed ${playersAgeMin}m ago (${PLAYER_STATS_LAST_UPDATED})`);
+console.log(`    ${allFixtures.length} fixtures checked · ${criticals.length} critical · ${warnings.length} warning\n`);
 
 if (!issues.length) {
   console.log('✅  All data present and fresh for the current schedule.\n');

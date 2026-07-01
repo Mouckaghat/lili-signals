@@ -25,6 +25,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import dotenv from 'dotenv';
 import { WC_FIXTURES } from '../lib/wcData.js';
+import { WC_KNOCKOUT } from '../lib/knockoutData.js';
 import { PLAYER_PROFILES } from '../lib/playerProfilesData.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -374,7 +375,8 @@ async function main() {
     return; // SAFETY: never blank the curated file on failure
   }
 
-  const wcByKey = new Map(WC_FIXTURES.map((f) => [`${f.home}|${f.away}`, f]));
+  const allFixtures = [...WC_FIXTURES, ...WC_KNOCKOUT];
+  const wcByKey = new Map(allFixtures.map((f) => [`${f.home}|${f.away}`, f]));
 
   const played = apiFixtures
     .map((af) => ({
@@ -386,9 +388,9 @@ async function main() {
 
   console.log(`  ✓  ${played.length} known fixtures are live/finished`);
 
-  // 2. Events per fixture (preserve WC_FIXTURES order in output)
+  // 2. Events per fixture (preserve tournament order in output)
   const entries: MatchEvents[] = [];
-  const order = new Map(WC_FIXTURES.map((f, i) => [f.id, i]));
+  const order = new Map(allFixtures.map((f, i) => [f.id, i]));
   const scorerIds = new Map<string, number>(); // curated name → api-football player id
 
   for (const p of played) {

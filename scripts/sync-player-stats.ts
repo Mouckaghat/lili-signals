@@ -20,6 +20,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import dotenv from 'dotenv';
 import { WC_FIXTURES } from '../lib/wcData.js';
+import { WC_KNOCKOUT } from '../lib/knockoutData.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.resolve(__dirname, '..', '.env.local') });
@@ -145,8 +146,9 @@ async function main() {
     return;
   }
 
-  const wcByKey = new Map(WC_FIXTURES.map((f) => [`${f.home}|${f.away}`, f]));
-  const order   = new Map(WC_FIXTURES.map((f, i) => [f.id, i]));
+  const allFixtures = [...WC_FIXTURES, ...WC_KNOCKOUT];
+  const wcByKey = new Map(allFixtures.map((f) => [`${f.home}|${f.away}`, f]));
+  const order   = new Map(allFixtures.map((f, i) => [f.id, i]));
 
   const played = fixtures
     .map((f) => ({ apiId: f.fixture.id, short: f.fixture.status.short, wc: wcByKey.get(`${normTeam(f.teams.home.name)}|${normTeam(f.teams.away.name)}`) }))
