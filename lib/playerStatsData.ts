@@ -2515,4 +2515,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "1567306", team: "Ecuador", name: "Jordy Caicedo", pos: "FW", minutes: 11, rating: 6.3, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 3, passAccPct: 67, tackles: 0, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-07-01T10:40:15.417Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-07-01T11:46:42.320Z';
