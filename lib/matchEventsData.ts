@@ -1074,6 +1074,106 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "1561329",
+    home: "South Africa", away: "Canada", date: "2026-06-28",
+    goals: [
+      { player: "Stephen Eustáquio", team: "Canada", minute: 90, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Nathan Saliba", team: "Canada", minute: 54, reason: "Foul" },
+      { player: "Niko Sigur", team: "Canada", minute: 67, reason: "Foul" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "1562344",
+    home: "Brazil", away: "Japan", date: "2026-06-29",
+    goals: [
+      { player: "Kaishū Sano", team: "Japan", minute: 29, type: "goal" },
+      { player: "Casemiro", team: "Brazil", minute: 56, type: "goal" },
+      { player: "Gabriel Martinelli", team: "Brazil", minute: 90, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Kaishū Sano", team: "Japan", minute: 12, reason: "Foul" },
+      { player: "Casemiro", team: "Brazil", minute: 14, reason: "Foul" },
+      { player: "Daichi Kamada", team: "Japan", minute: 45, reason: "Foul" },
+      { player: "Danilo", team: "Brazil", minute: 48, reason: "Foul" },
+      { player: "Junnosuke Suzuki", team: "Japan", minute: 84, reason: "Foul" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "1565176",
+    home: "Germany", away: "Paraguay", date: "2026-06-29",
+    goals: [
+      { player: "Julio Enciso", team: "Paraguay", minute: 42, type: "goal" },
+      { player: "Kai Havertz", team: "Germany", minute: 54, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Andrés Cubas", team: "Paraguay", minute: 65, reason: "Foul" },
+      { player: "Gustavo Julio Alfaro", team: "Paraguay", minute: 105, reason: "Dissent" },
+      { player: "Julian Nagelsmann", team: "Germany", minute: 105, reason: "Dissent" },
+      { player: "Kai Havertz", team: "Germany", minute: 106, reason: "Foul" },
+      { player: "Jamal Musiala", team: "Germany", minute: 115, reason: "Foul" },
+      { player: "Mads Buttgereit", team: "Germany", minute: 116 },
+      { player: "Alejandro Juan Manograsso", team: "Paraguay", minute: 117 },
+      { player: "Matías Galarza", team: "Paraguay", minute: 117, reason: "Foul" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "1562345",
+    home: "Netherlands", away: "Morocco", date: "2026-06-30",
+    goals: [
+      { player: "Cody Gakpo", team: "Netherlands", minute: 72, type: "goal" },
+      { player: "Issa Diop", team: "Morocco", minute: 90, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Issa Diop", team: "Morocco", minute: 47, reason: "Foul" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "1564789",
+    home: "Ivory Coast", away: "Norway", date: "2026-06-30",
+    goals: [
+      { player: "Antonio Nusa", team: "Norway", minute: 39, type: "goal" },
+      { player: "Amad Diallo", team: "Ivory Coast", minute: 74, type: "goal" },
+      { player: "Erling Haaland", team: "Norway", minute: 86, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Antonio Nusa", team: "Norway", minute: 45, reason: "Foul" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "1565177",
+    home: "France", away: "Sweden", date: "2026-06-30",
+    goals: [
+      { player: "Kylian Mbappé", team: "France", minute: 45, type: "goal" },
+      { player: "Bradley Barcola", team: "France", minute: 53, type: "goal" },
+      { player: "Kylian Mbappé", team: "France", minute: 74, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
+  {
+    fixtureId: "1567306",
+    home: "Mexico", away: "Ecuador", date: "2026-07-01",
+    goals: [
+      { player: "Julián Quiñones", team: "Mexico", minute: 22, type: "goal" },
+      { player: "Raúl Jiménez", team: "Mexico", minute: 31, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Alan Franco", team: "Ecuador", minute: 45, reason: "Tripping" },
+      { player: "Kendry Páez", team: "Ecuador", minute: 90, reason: "Tripping" },
+      { player: "Moisés Caicedo", team: "Ecuador", minute: 90, reason: "Tripping" },
+    ],
+    redCards: [
+      { player: "Piero Hincapié", team: "Ecuador", minute: 90, reason: "Unsportsmanlike conduct" },
+    ],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-01T03:29:36.914Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-01T07:56:12.059Z';
