@@ -270,8 +270,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Kylian Mbappé", team: "France", minute: 66, type: "goal" },
       { player: "Bradley Barcola", team: "France", minute: 82, type: "goal" },
-      { player: "Ibrahim Mbaye", team: "Senegal", minute: 90, minuteStoppage: 5, type: "goal" },
-      { player: "Kylian Mbappé", team: "France", minute: 90, minuteStoppage: 6, type: "goal" },
+      { player: "Ibrahim Mbaye", team: "Senegal", minute: 90, type: "goal" },
+      { player: "Kylian Mbappé", team: "France", minute: 90, type: "goal" },
     ],
     yellowCards: [],
     redCards: [],
@@ -869,9 +869,9 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Auston Trusty", team: "USA", minute: 3, type: "goal" },
       { player: "Arda Güler", team: "Türkiye", minute: 10, type: "goal" },
-      { player: "Barış Alper Yılmaz", team: "Türkiye", minute: 31, type: "goal" },
+      { player: "B. Yilmaz", team: "Türkiye", minute: 31, type: "goal" },
       { player: "Sebastian Berhalter", team: "USA", minute: 49, type: "goal" },
-      { player: "Kaan Ayhan", team: "Türkiye", minute: 90, minuteStoppage: 8, type: "goal" },
+      { player: "Kaan Ayhan", team: "Türkiye", minute: 90, type: "goal" },
     ],
     yellowCards: [
       { player: "Sebastian Berhalter", team: "USA", minute: 19, reason: "Foul" },
@@ -1176,4 +1176,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-01T07:56:12.059Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-01T11:22:42.575Z';
