@@ -82,4 +82,4 @@ export const GROUP_STANDINGS: GroupStanding[] = [
   { group: "Stage", team: "Uruguay", rank: 12, played: 3, won: 0, drawn: 2, lost: 1, gf: 3, ga: 4, gd: -1, pts: 2, status: 'ELIMINATED' },
 ];
 
-export const STANDINGS_LAST_UPDATED = '2026-07-01T02:50:21.949Z';
+export const STANDINGS_LAST_UPDATED = '2026-07-01T07:06:54.690Z';
