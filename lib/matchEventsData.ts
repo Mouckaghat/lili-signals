@@ -1188,6 +1188,22 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "1567308",
+    home: "Belgium", away: "Senegal", date: "2026-07-01",
+    goals: [
+      { player: "Habib Diarra", team: "Senegal", minute: 25, type: "goal" },
+      { player: "Ismaïla Sarr", team: "Senegal", minute: 51, type: "goal" },
+      { player: "Romelu Lukaku", team: "Belgium", minute: 86, type: "goal" },
+      { player: "Youri Tielemans", team: "Belgium", minute: 89, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Brandon Mechele", team: "Belgium", minute: 64, reason: "Roughing" },
+      { player: "Lamine Camara", team: "Senegal", minute: 67, reason: "Roughing" },
+      { player: "R. Garcia", team: "Belgium", minute: 90 },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-01T20:23:46.522Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-01T21:59:12.998Z';
