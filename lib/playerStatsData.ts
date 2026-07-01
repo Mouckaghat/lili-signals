@@ -2293,4 +2293,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "J3_Jordan_v_Argentina", team: "Argentina", name: "José Manuel López", pos: "FW", minutes: 8, rating: 6.5, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 0, passAccPct: 0, tackles: 1, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-07-01T00:20:41.644Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-07-01T02:39:09.306Z';
