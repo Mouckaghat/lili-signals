@@ -1174,6 +1174,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Piero Hincapié", team: "Ecuador", minute: 90, reason: "Unsportsmanlike conduct" },
     ],
   },
+  {
+    fixtureId: "1567307",
+    home: "England", away: "Congo DR", date: "2026-07-01",
+    goals: [
+      { player: "Brian Cipenga", team: "Congo DR", minute: 7, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-01T14:49:48.564Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-01T16:12:12.213Z';
