@@ -1196,6 +1196,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Ismaïla Sarr", team: "Senegal", minute: 51, type: "goal" },
       { player: "Romelu Lukaku", team: "Belgium", minute: 86, type: "goal" },
       { player: "Youri Tielemans", team: "Belgium", minute: 89, type: "goal" },
+      { player: "Youri Tielemans", team: "Belgium", minute: 120, minuteStoppage: 5, type: "penalty" },
     ],
     yellowCards: [
       { player: "Brandon Mechele", team: "Belgium", minute: 64, reason: "Roughing" },
@@ -1206,4 +1207,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-01T21:59:12.998Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-01T23:21:23.958Z';
