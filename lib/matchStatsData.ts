@@ -590,10 +590,10 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "1567307",
     home: "England", away: "Congo DR", date: "2026-07-01",
-    status: "LIVE", elapsed: 58,
-    homeStats: { team: "England", possession: 0.59, totalShots: 10, shotsInsideBox: 9, shotsOutsideBox: 1, shotsOnGoal: 4, corners: 4, xg: 1.57, passAccuracy: 0.91, passes: 319, fouls: 7 },
-    awayStats: { team: "Congo DR", possession: 0.41, totalShots: 3, shotsInsideBox: 2, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 1, xg: 0.69, passAccuracy: 0.83, passes: 234, fouls: 7 },
+    status: "LIVE", elapsed: 90,
+    homeStats: { team: "England", possession: 0.61, totalShots: 15, shotsInsideBox: 13, shotsOutsideBox: 2, shotsOnGoal: 7, corners: 5, xg: 2.03, passAccuracy: 0.91, passes: 494, fouls: 8 },
+    awayStats: { team: "Congo DR", possession: 0.39, totalShots: 6, shotsInsideBox: 2, shotsOutsideBox: 4, shotsOnGoal: 2, corners: 3, xg: 0.76, passAccuracy: 0.82, passes: 338, fouls: 10 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-01T17:21:33.681Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-01T17:56:14.382Z';
