@@ -49,4 +49,4 @@ export const WC_KNOCKOUT: KnockoutFixture[] = [
   { id: '1568100', round: 'R16', roundLabel: 'Round of 16', home: 'Brazil', away: 'Norway', date: '2026-07-05T20:00:00+00:00', stadiumId: null, venueName: null, city: null, status: 'SCHEDULED', homeScore: null, awayScore: null, winner: null, penHome: null, penAway: null },
 ];
 
-export const WC_KNOCKOUT_LAST_UPDATED = '2026-07-01T13:57:00.844Z';
+export const WC_KNOCKOUT_LAST_UPDATED = '2026-07-01T14:01:21.037Z';
