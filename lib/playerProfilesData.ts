@@ -6482,7 +6482,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Iğdır",
     league: "Süper Lig",
     leagueFlag: "🇹🇷",
-    caps: 97,
+    caps: 96,
   },
   {
     name: "Nuno da Costa",
@@ -12549,4 +12549,4 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
   },
 ];
 
-export const PLAYER_PROFILES_LAST_UPDATED = '2026-06-27T08:39:55.437Z';
+export const PLAYER_PROFILES_LAST_UPDATED = '2026-07-01T09:53:40.172Z';
