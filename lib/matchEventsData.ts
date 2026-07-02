@@ -1215,6 +1215,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Folarin Balogun", team: "USA", minute: 64, reason: "Serious foul" },
     ],
   },
+  {
+    fixtureId: "1567311",
+    home: "Spain", away: "Austria", date: "2026-07-02",
+    goals: [
+      { player: "Mikel Oyarzabal", team: "Spain", minute: 36, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-02T18:57:06.556Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-02T20:19:08.183Z';
