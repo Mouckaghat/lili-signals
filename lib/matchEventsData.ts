@@ -1220,10 +1220,14 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Spain", away: "Austria", date: "2026-07-02",
     goals: [
       { player: "Mikel Oyarzabal", team: "Spain", minute: 36, type: "goal" },
+      { player: "Pedro Porro", team: "Spain", minute: 66, type: "goal" },
+      { player: "Mikel Oyarzabal", team: "Spain", minute: 89, type: "goal" },
     ],
-    yellowCards: [],
+    yellowCards: [
+      { player: "Stefan Posch", team: "Austria", minute: 83, reason: "Holding" },
+    ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-02T20:19:08.183Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-02T21:43:43.966Z';
