@@ -97,4 +97,4 @@ export const FIXTURE_RESULTS: Record<string, FixtureResult> = {
   "USA|Bosnia & Herzegovina": { status: 'FINISHED', homeScore: 2, awayScore: 0, winner: 'USA' },
 };
 
-export const FIXTURE_RESULTS_LAST_UPDATED = '2026-07-02T13:01:41.172Z';
+export const FIXTURE_RESULTS_LAST_UPDATED = '2026-07-02T15:32:56.303Z';
