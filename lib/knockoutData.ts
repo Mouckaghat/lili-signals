@@ -51,4 +51,4 @@ export const WC_KNOCKOUT: KnockoutFixture[] = [
   { id: '1570715', round: 'R16', roundLabel: 'Round of 16', home: 'USA', away: 'Belgium', date: '2026-07-07T00:00:00+00:00', stadiumId: 'lumen', venueName: 'Lumen Field', city: null, status: 'SCHEDULED', homeScore: null, awayScore: null, winner: null, penHome: null, penAway: null },
 ];
 
-export const WC_KNOCKOUT_LAST_UPDATED = '2026-07-02T21:17:11.844Z';
+export const WC_KNOCKOUT_LAST_UPDATED = '2026-07-02T22:37:44.524Z';
