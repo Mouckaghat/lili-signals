@@ -1112,12 +1112,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     yellowCards: [
       { player: "Andrés Cubas", team: "Paraguay", minute: 65, reason: "Foul" },
-      { player: "Gustavo Julio Alfaro", team: "Paraguay", minute: 105, reason: "Dissent" },
-      { player: "Julian Nagelsmann", team: "Germany", minute: 105, reason: "Dissent" },
       { player: "Kai Havertz", team: "Germany", minute: 106, reason: "Foul" },
       { player: "Jamal Musiala", team: "Germany", minute: 115, reason: "Foul" },
-      { player: "Mads Buttgereit", team: "Germany", minute: 116 },
-      { player: "Alejandro Juan Manograsso", team: "Paraguay", minute: 117 },
       { player: "Matías Galarza", team: "Paraguay", minute: 117, reason: "Foul" },
     ],
     redCards: [],
@@ -1183,8 +1179,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Harry Kane", team: "England", minute: 86, type: "goal" },
     ],
     yellowCards: [
-      { player: "Jude Bellingham", team: "England", minute: 19, reason: "Tripping" },
-      { player: "Noah Sadiki", team: "Congo DR", minute: 28, reason: "Tripping" },
+      { player: "Jude Bellingham", team: "England", minute: 19, reason: "Foul" },
+      { player: "Noah Sadiki", team: "Congo DR", minute: 27, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -1199,9 +1195,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Youri Tielemans", team: "Belgium", minute: 120, minuteStoppage: 5, type: "penalty" },
     ],
     yellowCards: [
-      { player: "Brandon Mechele", team: "Belgium", minute: 64, reason: "Roughing" },
-      { player: "Lamine Camara", team: "Senegal", minute: 67, reason: "Roughing" },
-      { player: "R. Garcia", team: "Belgium", minute: 90 },
+      { player: "Brandon Mechele", team: "Belgium", minute: 64, reason: "Foul" },
+      { player: "Lamine Camara", team: "Senegal", minute: 67, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -1210,12 +1205,16 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "USA", away: "Bosnia & Herzegovina", date: "2026-07-02",
     goals: [
       { player: "Folarin Balogun", team: "USA", minute: 45, type: "goal" },
+      { player: "Malik Tillman", team: "USA", minute: 82, type: "goal" },
     ],
-    yellowCards: [],
+    yellowCards: [
+      { player: "S. Barbarez", team: "Bosnia & Herzegovina", minute: 80 },
+      { player: "Stjepan Radeljić", team: "Bosnia & Herzegovina", minute: 80, reason: "Holding" },
+    ],
     redCards: [
       { player: "Folarin Balogun", team: "USA", minute: 64, reason: "Serious foul" },
     ],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-02T01:32:30.244Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-02T05:43:16.642Z';
