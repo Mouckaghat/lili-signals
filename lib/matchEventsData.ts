@@ -1205,6 +1205,17 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "1562586",
+    home: "USA", away: "Bosnia & Herzegovina", date: "2026-07-02",
+    goals: [
+      { player: "Folarin Balogun", team: "USA", minute: 45, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [
+      { player: "Folarin Balogun", team: "USA", minute: 64, reason: "Serious foul" },
+    ],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-01T23:21:23.958Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-02T01:32:30.244Z';
