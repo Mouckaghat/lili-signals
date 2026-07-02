@@ -615,6 +615,13 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Spain", possession: 0.65, totalShots: 23, shotsInsideBox: 15, shotsOutsideBox: 8, shotsOnGoal: 10, corners: 9, xg: 2.84, passAccuracy: 0.91, passes: 629, fouls: 8 },
     awayStats: { team: "Austria", possession: 0.35, totalShots: 5, shotsInsideBox: 4, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 0, xg: 0.32, passAccuracy: 0.82, passes: 346, fouls: 15 },
   },
+  {
+    fixtureId: "1567309",
+    home: "Portugal", away: "Croatia", date: "2026-07-02",
+    status: "LIVE", elapsed: 14,
+    homeStats: { team: "Portugal", possession: 0.54, totalShots: 4, shotsInsideBox: 2, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 1, xg: 0.59, passAccuracy: 0.88, passes: 56, fouls: 0 },
+    awayStats: { team: "Croatia", possession: 0.46, totalShots: 2, shotsInsideBox: 2, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 0, xg: 0.15, passAccuracy: 0.84, passes: 50, fouls: 1 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-02T22:44:34.484Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-02T23:14:54.245Z';
