@@ -2610,4 +2610,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "1562586", team: "Bosnia & Herzegovina", name: "Haris Tabaković", pos: "FW", minutes: 15, rating: 6.3, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 1, passAccPct: 100, tackles: 0, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-07-02T04:38:10.705Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-07-02T07:52:47.500Z';
