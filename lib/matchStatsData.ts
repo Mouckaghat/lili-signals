@@ -608,6 +608,13 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     homeStats: { team: "USA", possession: 0.48, totalShots: 8, shotsInsideBox: 6, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 4, xg: 0.92, passAccuracy: 0.83, passes: 415, fouls: 7 },
     awayStats: { team: "Bosnia & Herzegovina", possession: 0.52, totalShots: 10, shotsInsideBox: 5, shotsOutsideBox: 5, shotsOnGoal: 3, corners: 3, xg: 0.25, passAccuracy: 0.82, passes: 446, fouls: 13 },
   },
+  {
+    fixtureId: "1567311",
+    home: "Spain", away: "Austria", date: "2026-07-02",
+    status: "LIVE", elapsed: 51,
+    homeStats: { team: "Spain", possession: 0.65, totalShots: 11, shotsInsideBox: 7, shotsOutsideBox: 4, shotsOnGoal: 6, corners: 6, xg: 1.34, passAccuracy: 0.91, passes: 341, fouls: 5 },
+    awayStats: { team: "Austria", possession: 0.35, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 0, xg: 0.09, passAccuracy: 0.79, passes: 188, fouls: 7 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-02T18:46:50.233Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-02T20:13:12.778Z';
