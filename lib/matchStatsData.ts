@@ -612,9 +612,9 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     fixtureId: "1567311",
     home: "Spain", away: "Austria", date: "2026-07-02",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Spain", possession: 0.65, totalShots: 22, shotsInsideBox: 14, shotsOutsideBox: 8, shotsOnGoal: 10, corners: 9, xg: 2.8, passAccuracy: 0.91, passes: 613, fouls: 8 },
-    awayStats: { team: "Austria", possession: 0.35, totalShots: 5, shotsInsideBox: 4, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 0, xg: 0.49, passAccuracy: 0.82, passes: 334, fouls: 14 },
+    homeStats: { team: "Spain", possession: 0.65, totalShots: 23, shotsInsideBox: 15, shotsOutsideBox: 8, shotsOnGoal: 10, corners: 9, xg: 2.84, passAccuracy: 0.91, passes: 629, fouls: 8 },
+    awayStats: { team: "Austria", possession: 0.35, totalShots: 5, shotsInsideBox: 4, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 0, xg: 0.32, passAccuracy: 0.82, passes: 346, fouls: 15 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-02T21:31:45.917Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-02T22:44:34.484Z';
