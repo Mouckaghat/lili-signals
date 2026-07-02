@@ -604,10 +604,10 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "1562586",
     home: "USA", away: "Bosnia & Herzegovina", date: "2026-07-02",
-    status: "LIVE", elapsed: 89,
-    homeStats: { team: "USA", possession: 0.51, totalShots: 7, shotsInsideBox: 5, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 4, xg: 0.88, passAccuracy: 0.84, passes: 369, fouls: 5 },
-    awayStats: { team: "Bosnia & Herzegovina", possession: 0.49, totalShots: 6, shotsInsideBox: 3, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 3, xg: 0.17, passAccuracy: 0.8, passes: 369, fouls: 10 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "USA", possession: 0.48, totalShots: 8, shotsInsideBox: 6, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 4, xg: 0.92, passAccuracy: 0.83, passes: 415, fouls: 7 },
+    awayStats: { team: "Bosnia & Herzegovina", possession: 0.52, totalShots: 10, shotsInsideBox: 5, shotsOutsideBox: 5, shotsOnGoal: 3, corners: 3, xg: 0.25, passAccuracy: 0.82, passes: 446, fouls: 13 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-02T01:55:29.494Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-02T05:46:12.862Z';
