@@ -2738,4 +2738,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "1565178", team: "Egypt", name: "Mahmoud Saber", pos: "MF", minutes: 1, rating: null, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 0, passAccPct: 0, tackles: 0, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-07-03T20:54:25.767Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-07-03T21:58:29.500Z';
