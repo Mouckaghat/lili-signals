@@ -1237,12 +1237,24 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Gonçalo Ramos", team: "Portugal", minute: 90, minuteStoppage: 4, type: "goal" },
     ],
     yellowCards: [
-      { player: "Rúben Dias", team: "Portugal", minute: 17, reason: "Elbowing" },
-      { player: "Luka Modrić", team: "Croatia", minute: 59, reason: "Tripping" },
-      { player: "Ivan Perišić", team: "Croatia", minute: 90, reason: "Unsportsmanlike conduct" },
+      { player: "Rúben Dias", team: "Portugal", minute: 17, reason: "Foul" },
+      { player: "Luka Modrić", team: "Croatia", minute: 59, reason: "Foul" },
+      { player: "Ivan Perišić", team: "Croatia", minute: 90, reason: "Off the ball foul" },
+    ],
+    redCards: [],
+  },
+  {
+    fixtureId: "1567312",
+    home: "Switzerland", away: "Algeria", date: "2026-07-03",
+    goals: [
+      { player: "Breel Embolo", team: "Switzerland", minute: 10, type: "goal" },
+      { player: "Dan Ndoye", team: "Switzerland", minute: 46, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Farès Chaïbi", team: "Algeria", minute: 36, reason: "Tripping" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-03T01:07:26.336Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-03T04:07:48.622Z';
