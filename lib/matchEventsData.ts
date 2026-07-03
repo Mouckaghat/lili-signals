@@ -1188,11 +1188,11 @@ export const MATCH_EVENTS: MatchEvents[] = [
     fixtureId: "1567308",
     home: "Belgium", away: "Senegal", date: "2026-07-01",
     goals: [
-      { player: "Habib Diarra", team: "Senegal", minute: 25, type: "goal" },
+      { player: "Habib Diarra", team: "Senegal", minute: 24, type: "goal" },
       { player: "Ismaïla Sarr", team: "Senegal", minute: 51, type: "goal" },
       { player: "Romelu Lukaku", team: "Belgium", minute: 86, type: "goal" },
       { player: "Youri Tielemans", team: "Belgium", minute: 89, type: "goal" },
-      { player: "Youri Tielemans", team: "Belgium", minute: 120, minuteStoppage: 5, type: "penalty" },
+      { player: "Youri Tielemans", team: "Belgium", minute: 120, type: "penalty" },
     ],
     yellowCards: [
       { player: "Brandon Mechele", team: "Belgium", minute: 64, reason: "Foul" },
@@ -1224,7 +1224,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Mikel Oyarzabal", team: "Spain", minute: 89, type: "goal" },
     ],
     yellowCards: [
-      { player: "Stefan Posch", team: "Austria", minute: 83, reason: "Holding" },
+      { player: "Stefan Posch", team: "Austria", minute: 83, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -1237,9 +1237,9 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Gonçalo Ramos", team: "Portugal", minute: 90, minuteStoppage: 4, type: "goal" },
     ],
     yellowCards: [
-      { player: "Rúben Dias", team: "Portugal", minute: 17, reason: "Foul" },
-      { player: "Luka Modrić", team: "Croatia", minute: 59, reason: "Foul" },
-      { player: "Ivan Perišić", team: "Croatia", minute: 90, reason: "Off the ball foul" },
+      { player: "Rúben Dias", team: "Portugal", minute: 17, reason: "Elbowing" },
+      { player: "Luka Modrić", team: "Croatia", minute: 59, reason: "Tripping" },
+      { player: "Ivan Perišić", team: "Croatia", minute: 90, reason: "Unsportsmanlike conduct" },
     ],
     redCards: [],
   },
@@ -1252,9 +1252,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     yellowCards: [
       { player: "Farès Chaïbi", team: "Algeria", minute: 36, reason: "Tripping" },
+      { player: "Hicham Boudaoui", team: "Algeria", minute: 72, reason: "Roughing" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-03T04:07:48.622Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-03T07:35:59.901Z';
