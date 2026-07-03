@@ -1228,6 +1228,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "1567309",
+    home: "Portugal", away: "Croatia", date: "2026-07-02",
+    goals: [],
+    yellowCards: [
+      { player: "Rúben Dias", team: "Portugal", minute: 17, reason: "Elbowing" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-02T22:48:27.855Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-03T00:04:13.123Z';
