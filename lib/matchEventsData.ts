@@ -979,7 +979,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Kevin De Bruyne", team: "Belgium", minute: 66, type: "goal" },
       { player: "Elijah Just", team: "New Zealand", minute: 84, type: "goal" },
       { player: "Romelu Lukaku", team: "Belgium", minute: 86, type: "goal" },
-      { player: "Alexis Saelemaekers", team: "Belgium", minute: 90, type: "goal" },
+      { player: "Alexis Saelemaekers", team: "Belgium", minute: 90, minuteStoppage: 4, type: "goal" },
     ],
     yellowCards: [
       { player: "Marko Stamenić", team: "New Zealand", minute: 46, reason: "Foul" },
@@ -1256,6 +1256,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "1565178",
+    home: "Australia", away: "Egypt", date: "2026-07-03",
+    goals: [
+      { player: "Emam Ashour", team: "Egypt", minute: 13, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-03T17:49:53.983Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-03T19:15:44.087Z';
