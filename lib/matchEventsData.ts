@@ -1261,10 +1261,13 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Australia", away: "Egypt", date: "2026-07-03",
     goals: [
       { player: "Emam Ashour", team: "Egypt", minute: 13, type: "goal" },
+      { player: "Mohamed Hany", team: "Egypt", minute: 55, type: "own-goal" },
     ],
-    yellowCards: [],
+    yellowCards: [
+      { player: "Haissem Hassan", team: "Egypt", minute: 105, reason: "Holding" },
+    ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-03T19:15:44.087Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-03T20:34:50.666Z';
