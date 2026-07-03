@@ -48,7 +48,8 @@ export const WC_KNOCKOUT: KnockoutFixture[] = [
   { id: '1569870', round: 'R16', roundLabel: 'Round of 16', home: 'Paraguay', away: 'France', date: '2026-07-04T21:00:00+00:00', stadiumId: 'lincoln', venueName: 'Lincoln Financial Field', city: 'Philadelphia', status: 'SCHEDULED', homeScore: null, awayScore: null, winner: null, penHome: null, penAway: null },
   { id: '1568100', round: 'R16', roundLabel: 'Round of 16', home: 'Brazil', away: 'Norway', date: '2026-07-05T20:00:00+00:00', stadiumId: 'metlife', venueName: 'MetLife Stadium', city: null, status: 'SCHEDULED', homeScore: null, awayScore: null, winner: null, penHome: null, penAway: null },
   { id: '1570714', round: 'R16', roundLabel: 'Round of 16', home: 'Mexico', away: 'England', date: '2026-07-06T00:00:00+00:00', stadiumId: 'azteca', venueName: 'Estadio Banorte', city: 'Mexico City', status: 'SCHEDULED', homeScore: null, awayScore: null, winner: null, penHome: null, penAway: null },
+  { id: '1576756', round: 'R16', roundLabel: 'Round of 16', home: 'Portugal', away: 'Spain', date: '2026-07-06T19:00:00+00:00', stadiumId: null, venueName: null, city: null, status: 'SCHEDULED', homeScore: null, awayScore: null, winner: null, penHome: null, penAway: null },
   { id: '1570715', round: 'R16', roundLabel: 'Round of 16', home: 'USA', away: 'Belgium', date: '2026-07-07T00:00:00+00:00', stadiumId: 'lumen', venueName: 'Lumen Field', city: null, status: 'SCHEDULED', homeScore: null, awayScore: null, winner: null, penHome: null, penAway: null },
 ];
 
-export const WC_KNOCKOUT_LAST_UPDATED = '2026-07-03T06:51:17.849Z';
+export const WC_KNOCKOUT_LAST_UPDATED = '2026-07-03T10:07:10.869Z';
