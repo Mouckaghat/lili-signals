@@ -629,6 +629,13 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Switzerland", possession: 0.45, totalShots: 11, shotsInsideBox: 9, shotsOutsideBox: 2, shotsOnGoal: 5, corners: 4, xg: 2.56, passAccuracy: 0.81, passes: 436, fouls: 10 },
     awayStats: { team: "Algeria", possession: 0.55, totalShots: 8, shotsInsideBox: 5, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 2, xg: 0.73, passAccuracy: 0.85, passes: 561, fouls: 12 },
   },
+  {
+    fixtureId: "1565178",
+    home: "Australia", away: "Egypt", date: "2026-07-03",
+    status: "LIVE", elapsed: 6,
+    homeStats: { team: "Australia", possession: 0.53, totalShots: 1, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0, passes: 0, fouls: 0 },
+    awayStats: { team: "Egypt", possession: 0.47, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0, passes: 0, fouls: 0 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-03T16:50:34.927Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-03T18:06:31.418Z';
