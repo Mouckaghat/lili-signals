@@ -412,10 +412,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Cyle Larin", team: "Canada", minute: 16, type: "goal" },
       { player: "Jonathan David", team: "Canada", minute: 29, type: "goal" },
-      { player: "Jonathan David", team: "Canada", minute: 45, type: "goal" },
+      { player: "Jonathan David", team: "Canada", minute: 45, minuteStoppage: 3, type: "goal" },
       { player: "Nathan Saliba", team: "Canada", minute: 64, type: "goal" },
-      { player: "M. Al Mannai", team: "Qatar", minute: 75, type: "own-goal" },
-      { player: "Jonathan David", team: "Canada", minute: 90, type: "goal" },
+      { player: "Mohamed Naceur Almanai", team: "Qatar", minute: 75, type: "own-goal" },
+      { player: "Jonathan David", team: "Canada", minute: 90, minuteStoppage: 2, type: "goal" },
     ],
     yellowCards: [
       { player: "Derek Cornelius", team: "Canada", minute: 9, reason: "Foul" },
@@ -1269,6 +1269,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "1565179",
+    home: "Argentina", away: "Cape Verde Islands", date: "2026-07-03",
+    goals: [
+      { player: "Lionel Messi", team: "Argentina", minute: 29, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-03T21:45:10.989Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-03T22:37:05.193Z';
