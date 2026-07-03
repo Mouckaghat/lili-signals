@@ -618,10 +618,10 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "1567309",
     home: "Portugal", away: "Croatia", date: "2026-07-02",
-    status: "LIVE", elapsed: 44,
-    homeStats: { team: "Portugal", possession: 0.71, totalShots: 8, shotsInsideBox: 4, shotsOutsideBox: 4, shotsOnGoal: 1, corners: 6, xg: 0.92, passAccuracy: 0.94, passes: 270, fouls: 3 },
-    awayStats: { team: "Croatia", possession: 0.29, totalShots: 3, shotsInsideBox: 2, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 0, xg: 0.21, passAccuracy: 0.83, passes: 111, fouls: 4 },
+    status: "LIVE", elapsed: 46,
+    homeStats: { team: "Portugal", possession: 0.6, totalShots: 15, shotsInsideBox: 10, shotsOutsideBox: 5, shotsOnGoal: 3, corners: 9, xg: 2.18, passAccuracy: 0.91, passes: 577, fouls: 6 },
+    awayStats: { team: "Croatia", possession: 0.4, totalShots: 13, shotsInsideBox: 10, shotsOutsideBox: 3, shotsOnGoal: 6, corners: 5, xg: 1.32, passAccuracy: 0.85, passes: 366, fouls: 12 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-02T23:45:18.967Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-03T01:06:47.375Z';

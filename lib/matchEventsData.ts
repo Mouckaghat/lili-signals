@@ -1231,12 +1231,18 @@ export const MATCH_EVENTS: MatchEvents[] = [
   {
     fixtureId: "1567309",
     home: "Portugal", away: "Croatia", date: "2026-07-02",
-    goals: [],
+    goals: [
+      { player: "Ivan Perišić", team: "Croatia", minute: 53, type: "goal" },
+      { player: "Cristiano Ronaldo", team: "Portugal", minute: 68, type: "penalty" },
+      { player: "Gonçalo Ramos", team: "Portugal", minute: 90, minuteStoppage: 4, type: "goal" },
+    ],
     yellowCards: [
       { player: "Rúben Dias", team: "Portugal", minute: 17, reason: "Elbowing" },
+      { player: "Luka Modrić", team: "Croatia", minute: 59, reason: "Tripping" },
+      { player: "Ivan Perišić", team: "Croatia", minute: 90, reason: "Unsportsmanlike conduct" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-03T00:04:13.123Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-03T01:07:26.336Z';
