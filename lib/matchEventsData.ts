@@ -1265,9 +1265,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     yellowCards: [
       { player: "Haissem Hassan", team: "Egypt", minute: 105, reason: "Holding" },
+      { player: "Yasser Ibrahim", team: "Egypt", minute: 120, reason: "Roughing" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-03T20:34:50.666Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-03T21:45:10.989Z';
