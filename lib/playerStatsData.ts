@@ -2705,4 +2705,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "1567312", team: "Algeria", name: "Adil Boulbina", pos: "FW", minutes: 8, rating: 6.5, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 6, passAccPct: 67, tackles: 0, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-07-03T05:08:36.391Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-07-03T08:21:20.580Z';
