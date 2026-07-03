@@ -1274,10 +1274,13 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Argentina", away: "Cape Verde Islands", date: "2026-07-03",
     goals: [
       { player: "Lionel Messi", team: "Argentina", minute: 29, type: "goal" },
+      { player: "Deroy Duarte", team: "Cape Verde Islands", minute: 59, type: "goal" },
     ],
-    yellowCards: [],
+    yellowCards: [
+      { player: "K. Lenini", team: "Cape Verde Islands", minute: 68, reason: "Holding" },
+    ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-03T22:45:16.026Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-03T23:46:19.497Z';
