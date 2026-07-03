@@ -619,9 +619,16 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     fixtureId: "1567309",
     home: "Portugal", away: "Croatia", date: "2026-07-02",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Portugal", possession: 0.6, totalShots: 15, shotsInsideBox: 10, shotsOutsideBox: 5, shotsOnGoal: 3, corners: 9, xg: 2.18, passAccuracy: 0.91, passes: 576, fouls: 6 },
-    awayStats: { team: "Croatia", possession: 0.4, totalShots: 14, shotsInsideBox: 11, shotsOutsideBox: 3, shotsOnGoal: 6, corners: 5, xg: 1.34, passAccuracy: 0.85, passes: 366, fouls: 12 },
+    homeStats: { team: "Portugal", possession: 0.61, totalShots: 15, shotsInsideBox: 10, shotsOutsideBox: 5, shotsOnGoal: 3, corners: 9, xg: 2.18, passAccuracy: 0.91, passes: 584, fouls: 6 },
+    awayStats: { team: "Croatia", possession: 0.39, totalShots: 13, shotsInsideBox: 10, shotsOutsideBox: 3, shotsOnGoal: 6, corners: 5, xg: 1.34, passAccuracy: 0.85, passes: 368, fouls: 12 },
+  },
+  {
+    fixtureId: "1567312",
+    home: "Switzerland", away: "Algeria", date: "2026-07-03",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Switzerland", possession: 0.45, totalShots: 11, shotsInsideBox: 9, shotsOutsideBox: 2, shotsOnGoal: 5, corners: 4, xg: 2.56, passAccuracy: 0.81, passes: 436, fouls: 10 },
+    awayStats: { team: "Algeria", possession: 0.55, totalShots: 8, shotsInsideBox: 5, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 2, xg: 0.73, passAccuracy: 0.85, passes: 561, fouls: 12 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-03T01:17:35.851Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-03T05:05:17.209Z';
