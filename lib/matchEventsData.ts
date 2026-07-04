@@ -1300,6 +1300,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "1567824",
+    home: "Canada", away: "Morocco", date: "2026-07-04",
+    goals: [],
+    yellowCards: [
+      { player: "Redouane Halhal", team: "Morocco", minute: 20, reason: "Foul" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-04T16:15:52.903Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-04T17:30:56.877Z';
