@@ -1305,6 +1305,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Canada", away: "Morocco", date: "2026-07-04",
     goals: [
       { player: "Azzedine Ounahi", team: "Morocco", minute: 50, type: "goal" },
+      { player: "Azzedine Ounahi", team: "Morocco", minute: 82, type: "goal" },
+      { player: "Soufiane Rahimi", team: "Morocco", minute: 90, minuteStoppage: 8, type: "goal" },
     ],
     yellowCards: [
       { player: "Redouane Halhal", team: "Morocco", minute: 20, reason: "Roughing" },
@@ -1320,4 +1322,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-04T18:35:20.356Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-04T19:54:05.186Z';
