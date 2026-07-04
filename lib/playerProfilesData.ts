@@ -9183,7 +9183,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Al-Hilal",
     league: "Saudi Pro League",
     leagueFlag: "🇸🇦",
-    caps: 103,
+    caps: 104,
   },
   {
     name: "Abdoulaye Seck",
@@ -9193,7 +9193,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Maccabi Haifa",
     league: "Israeli Premier League",
     leagueFlag: "🇮🇱",
-    caps: 22,
+    caps: 25,
   },
   {
     name: "Idrissa Gueye",
@@ -9203,7 +9203,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Everton",
     league: "Premier League",
     leagueFlag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-    caps: 131,
+    caps: 132,
   },
   {
     name: "Pathé Ciss",
@@ -9233,7 +9233,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Monaco",
     league: "Ligue 1",
     leagueFlag: "🇫🇷",
-    caps: 33,
+    caps: 45,
   },
   {
     name: "Bamba Dieng",
@@ -9283,7 +9283,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Everton",
     league: "Premier League",
     leagueFlag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-    caps: 40,
+    caps: 41,
   },
   {
     name: "Ismail Jakobs",
@@ -9293,7 +9293,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Galatasaray",
     league: "Süper Lig",
     leagueFlag: "🇹🇷",
-    caps: 30,
+    caps: 31,
   },
   {
     name: "Krépin Diatta",
@@ -9313,7 +9313,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Al-Ahli",
     league: "Saudi Pro League",
     leagueFlag: "🇸🇦",
-    caps: 57,
+    caps: 58,
   },
   {
     name: "Pape Matar Sarr",
@@ -9333,7 +9333,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Crystal Palace",
     league: "Premier League",
     leagueFlag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-    caps: 83,
+    caps: 84,
   },
   {
     name: "Moussa Niakhaté",
@@ -9343,7 +9343,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Lyon",
     league: "Ligue 1",
     leagueFlag: "🇫🇷",
-    caps: 31,
+    caps: 32,
   },
   {
     name: "Ibrahim Mbaye",
@@ -9413,7 +9413,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Villarreal",
     league: "La Liga",
     leagueFlag: "🇪🇸",
-    caps: 41,
+    caps: 42,
   },
   // ── Algeria ─────────────────────────────────────────────────────────────────────
   {
@@ -12549,4 +12549,4 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
   },
 ];
 
-export const PLAYER_PROFILES_LAST_UPDATED = '2026-07-03T09:22:52.927Z';
+export const PLAYER_PROFILES_LAST_UPDATED = '2026-07-04T08:41:25.457Z';
