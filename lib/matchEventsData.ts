@@ -1285,6 +1285,17 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "1567310",
+    home: "Colombia", away: "Ghana", date: "2026-07-04",
+    goals: [
+      { player: "Jhon Arias", team: "Colombia", minute: 14, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Jhon Arias", team: "Colombia", minute: 12, reason: "Tripping" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-04T01:22:56.749Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-04T02:35:01.663Z';
