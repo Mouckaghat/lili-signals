@@ -650,6 +650,13 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Colombia", possession: 0.61, totalShots: 20, shotsInsideBox: 12, shotsOutsideBox: 8, shotsOnGoal: 8, corners: 3, xg: 2.18, passAccuracy: 0.91, passes: 586, fouls: 14 },
     awayStats: { team: "Ghana", possession: 0.39, totalShots: 8, shotsInsideBox: 2, shotsOutsideBox: 6, shotsOnGoal: 0, corners: 2, xg: 0.26, passAccuracy: 0.83, passes: 376, fouls: 10 },
   },
+  {
+    fixtureId: "1567824",
+    home: "Canada", away: "Morocco", date: "2026-07-04",
+    status: "LIVE", elapsed: 33,
+    homeStats: { team: "Canada", possession: 0.4, totalShots: 4, shotsInsideBox: 4, shotsOutsideBox: 0, shotsOnGoal: 2, corners: 4, xg: 0.42, passAccuracy: 0.75, passes: 97, fouls: 8 },
+    awayStats: { team: "Morocco", possession: 0.6, totalShots: 1, shotsInsideBox: 0, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 0, xg: 0.02, passAccuracy: 0.88, passes: 160, fouls: 2 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-04T16:30:26.418Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-04T17:34:22.299Z';
