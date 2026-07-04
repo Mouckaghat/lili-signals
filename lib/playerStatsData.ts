@@ -2834,4 +2834,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "1567824", team: "Morocco", name: "Samir El Mourabet", pos: "MF", minutes: 13, rating: 6.7, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 3, passAccPct: 100, tackles: 0, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-07-04T19:52:41.458Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-07-04T20:44:25.713Z';
