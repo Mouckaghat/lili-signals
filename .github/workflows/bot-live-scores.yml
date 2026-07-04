@@ -7,8 +7,8 @@ name: "🤖 Lili Bot — Live Scores"
 on:
   schedule:
     # Every 5 min — June group stage (11–30) + July knockouts (1–19), full 24h
-    - cron: '*/15 * 11-30 6 *'
-    - cron: '*/15 * 1-19 7 *'
+    - cron: '*/30 * 11-30 6 *'
+    - cron: '*/30 * 1-19 7 *'
 
   # Trigger manually from the Actions tab for testing
   workflow_dispatch:
