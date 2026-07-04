@@ -30,6 +30,10 @@ export interface BracketNode {
   stadium: StadiumInfo | null;
   sideA: SlotSide;
   sideB: SlotSide;
+  // The resolved tie for this slot once BOTH its feeders are decided — real (baked)
+  // or synthesized from the live overlay. When set, the UI renders a full result
+  // card (score/winner/heatmap); when null it stays a matchup preview (A or B / TBD).
+  tie: KnockoutTie | null;
 }
 
 // Lili's honest read of a still-undecided opponent: her advance-probability for
@@ -65,17 +69,18 @@ function r32ByMatch(ties: KnockoutTie[]): Map<number, KnockoutTie> {
   return m;
 }
 
-const winnerForm = (tie: KnockoutTie): TeamForm | null =>
-  tie.winner == null ? null : tie.winner === 'home' ? tie.home : tie.away;
-
-// Resolve one feeding match into a slot side.
-function resolveSide(match: number, r32: Map<number, KnockoutTie>): SlotSide {
+// Resolve one feeding match into a slot side. Winners propagate from ANY round
+// (not just R32), so a QF/SF/Final side resolves to a real team the moment its
+// feeder round finishes — not "Winner of Match 89" forever.
+function resolveSide(
+  match: number,
+  r32: Map<number, KnockoutTie>,
+  winners: Map<number, TeamForm>,
+): SlotSide {
+  const w = winners.get(match);
+  if (w) return { kind: 'team', team: w };
   const tie = r32.get(match);
-  if (tie) {
-    const w = winnerForm(tie);
-    if (w) return { kind: 'team', team: w };
-    return { kind: 'pair', a: tie.home, b: tie.away, fromMatch: match };
-  }
+  if (tie) return { kind: 'pair', a: tie.home, b: tie.away, fromMatch: match };
   const slot = SLOT_BY_MATCH.get(match);
   return { kind: 'winner', fromMatch: match, round: slot?.round ?? 'R16' };
 }
@@ -89,13 +94,31 @@ export function buildFullBracket(liveResults: Record<string, LiveResult> = {}): 
   const rounds = buildRoadToFinal(liveResults);
   const r32 = rounds.find((r) => r.round === 'R32')?.ties ?? [];
   const r32map = r32ByMatch(r32);
-  const nodes = BRACKET_SLOTS.map((slot) => ({
+
+  // Every resolved tie (R32 + progressively-synthesized future rounds), keyed by
+  // official match number, and the winner (as a TeamForm) of each decided match —
+  // so a slot can both carry its own result and resolve its feeder sides.
+  const tieByMatch = new Map<number, KnockoutTie>();
+  const winners = new Map<number, TeamForm>();
+  for (const rg of rounds) {
+    for (const ti of rg.ties) {
+      if (ti.matchNo == null) continue;
+      tieByMatch.set(ti.matchNo, ti);
+      if (ti.winner) {
+        const w = ti.winner === 'home' ? ti.home : ti.away;
+        if (w) winners.set(ti.matchNo, w);
+      }
+    }
+  }
+
+  const nodes: BracketNode[] = BRACKET_SLOTS.map((slot) => ({
     match: slot.match,
     round: slot.round,
     date: slot.date,
     stadium: getStadium(slot.stadiumId) ?? null,
-    sideA: resolveSide(slot.feeds[0], r32map),
-    sideB: resolveSide(slot.feeds[1], r32map),
+    sideA: resolveSide(slot.feeds[0], r32map, winners),
+    sideB: resolveSide(slot.feeds[1], r32map, winners),
+    tie: tieByMatch.get(slot.match) ?? null,
   }));
   return { r32, nodes };
 }
@@ -108,6 +131,16 @@ export function buildTeamPath(
   const rounds = buildRoadToFinal(liveResults);
   const r32 = rounds.find((r) => r.round === 'R32')?.ties ?? [];
   const r32map = r32ByMatch(r32);
+
+  // Winners across ALL rounds, so a future opponent resolves once its feeder round
+  // finishes (not only from R32).
+  const winners = new Map<number, TeamForm>();
+  for (const rg of rounds) for (const ti of rg.ties) {
+    if (ti.matchNo != null && ti.winner) {
+      const w = ti.winner === 'home' ? ti.home : ti.away;
+      if (w) winners.set(ti.matchNo, w);
+    }
+  }
 
   // Find the followed team's R32 tie.
   let startMatch: number | null = null;
@@ -146,7 +179,7 @@ export function buildTeamPath(
       // whichever side its previous win flows into.
       const myFeederWonInto = slot.feeds.find((f) => onPathTo(f, startMatch, r32map));
       const oppFeeder = slot.feeds.find((f) => f !== myFeederWonInto) ?? slot.feeds[1];
-      const opponent = resolveSide(oppFeeder, r32map);
+      const opponent = resolveSide(oppFeeder, r32map, winners);
       const state: PathStep['state'] = reachedHere ? 'next' : 'potential';
       const lili = opponentOptions(teamForm.name, opponent);
       steps.push({

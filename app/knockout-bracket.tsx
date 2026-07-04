@@ -308,8 +308,12 @@ function TieCard({ tie, accent, t }: { tie: KnockoutTie; accent: string; t: T })
         )
       ) : null}
 
-      {/* heatmap — pre-kickoff countdown → warming → live, never a blank gap */}
-      <HeatmapCTA fixtureId={tie.fixture.id} koDate={tie.fixture.date} status={tie.status} i18n={i18n} />
+      {/* heatmap — pre-kickoff countdown → warming → live, never a blank gap.
+          Suppressed for a synthetic (not-yet-baked) slot: no real fixture id → no
+          match-intelligence data yet, so a tap would land on an empty screen. */}
+      {!tie.fixture.id.startsWith('slot-') && (
+        <HeatmapCTA fixtureId={tie.fixture.id} koDate={tie.fixture.date} status={tie.status} i18n={i18n} />
+      )}
     </View>
   );
 }
@@ -483,6 +487,10 @@ function SideView({ side, t, favTeam, big }: { side: SlotSide; t: T; favTeam?: s
 
 // ─── A future slot card (All Teams mode, R16→Final) ──────────────────────────────
 function FutureNodeCard({ node, accent, t, favTeam }: { node: BracketNode; accent: string; t: T; favTeam?: string | null }) {
+  // Both feeders decided → render the real result card (score/winner/heatmap),
+  // exactly like an R32 tie. Otherwise fall back to the matchup preview below.
+  if (node.tie) return <TieCard tie={node.tie} accent={accent} t={t} />;
+
   const venue = node.stadium ? `🏟 ${node.stadium.shortName}, ${node.stadium.city}` : `🏟 ${t.venueTBC}`;
   const isFav = (s: SlotSide) => s.kind === 'team' && favTeam === s.team.name;
   const followed = isFav(node.sideA) || isFav(node.sideB);

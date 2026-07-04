@@ -204,10 +204,97 @@ export function buildRoadToFinal(liveResults: Record<string, LiveResult> = {}): 
     byRound.set(fx.round, bucket);
   }
 
+  // ── Phase 2: progressive future rounds (deploy-independent) ────────────────────
+  // The feed only ever carries the CURRENT round's fixtures, and even once a deeper
+  // round is baked into WC_KNOCKOUT it's deploy-gated. So for any bracket slot whose
+  // BOTH feeder winners are already known, synthesize its tie here — teams resolved
+  // from the winners we just computed, and any live/final score pulled straight from
+  // the /api/fixture-results overlay by team name. This means a new round appears —
+  // real matchup + live score + winner — the instant the previous round finishes,
+  // with NO redeploy. Walk in match-number order so a synthesized winner feeds the
+  // next slot (feeds are always lower-numbered matches).
+  const labelOf = new Map(ALL_ROUNDS.map((r) => [r.round, r.label]));
+  const haveMatch = new Set<number>();
+  for (const list of byRound.values()) for (const ti of list) if (ti.matchNo != null) haveMatch.add(ti.matchNo);
+
+  for (const slot of [...BRACKET_SLOTS].sort((a, b) => a.match - b.match)) {
+    if (haveMatch.has(slot.match)) continue;   // already a real (baked) tie
+    if (slot.thirdPlace) continue;             // 3rd place uses LOSERS — not tracked here
+    const hName = winnerByMatch.get(slot.feeds[0]);
+    const aName = winnerByMatch.get(slot.feeds[1]);
+    if (!hName || !aName) continue;            // both sides not yet decided → leave as a preview slot
+
+    const home = buildTeamForm(hName, liliRec);
+    const away = buildTeamForm(aName, liliRec);
+    const sH = home?.strength ?? 70;
+    const sA = away?.strength ?? 70;
+    const p = liliProbs(hName, aName);
+    const homeProb = p.home + p.draw / 2;
+    const liliFav: Side = homeProb >= 0.5 ? 'home' : 'away';
+    const liliScore = predictScore(sH, sA);
+
+    // Live overlay by team name. The feed's home/away order isn't known ahead of the
+    // draw, so try both orders and swap the scores if it's keyed the other way round.
+    let live = liveResults[`${hName}|${aName}`];
+    let swapped = false;
+    if (!live) { const r = liveResults[`${aName}|${hName}`]; if (r) { live = r; swapped = true; } }
+    const status = live?.status ?? 'SCHEDULED';
+    const rawH = live?.homeScore ?? null;
+    const rawA = live?.awayScore ?? null;
+    const hs = swapped ? rawA : rawH;
+    const as = swapped ? rawH : rawA;
+    const result = hs != null && as != null ? { home: hs, away: as } : null;
+
+    let winner: Side | null = null;
+    let liliRight: boolean | null = null;
+    if (status === 'FINISHED' && result) {
+      if (result.home !== result.away) winner = result.home > result.away ? 'home' : 'away';
+      else {
+        const lw = live?.winner;
+        if (lw && lw !== 'Draw') winner = lw === hName ? 'home' : lw === aName ? 'away' : null;
+      }
+      if (winner != null) liliRight = winner === liliFav;
+    }
+    if (winner != null) winnerByMatch.set(slot.match, winner === 'home' ? hName : aName);
+
+    const stadium = getStadium(slot.stadiumId) ?? null;
+    // A synthetic fixture id (prefix "slot-") marks a not-yet-baked tie: the bracket
+    // suppresses the heatmap CTA for it (no match-intelligence data under a real id yet).
+    const synthFixture: KnockoutFixture = {
+      id: `slot-${slot.match}`,
+      round: slot.round,
+      roundLabel: labelOf.get(slot.round) ?? '',
+      home: hName, away: aName,
+      date: slot.date,
+      stadiumId: slot.stadiumId,
+      venueName: stadium?.shortName ?? null,
+      city: stadium?.city ?? null,
+      status, homeScore: hs, awayScore: as, winner,
+      penHome: null, penAway: null,
+    };
+    const tie: KnockoutTie = {
+      fixture: synthFixture,
+      matchNo: slot.match,
+      home, away,
+      stadium,
+      venueName: synthFixture.venueName,
+      city: synthFixture.city,
+      homeProb, liliFav, liliScore,
+      status, result, penalties: null, winner, liliRight,
+    };
+    const bucket = byRound.get(slot.round) ?? [];
+    bucket.push(tie);
+    byRound.set(slot.round, bucket);
+    haveMatch.add(slot.match);
+  }
+
   return ALL_ROUNDS.map(({ round, label }) => ({
     round,
     label,
-    ties: byRound.get(round) ?? [],
+    // Stable order: by kickoff, then official match number (baked + synthesized mix).
+    ties: (byRound.get(round) ?? []).sort((a, b) =>
+      new Date(a.fixture.date).getTime() - new Date(b.fixture.date).getTime() ||
+      (a.matchNo ?? 0) - (b.matchNo ?? 0)),
   }));
 }
 
