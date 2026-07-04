@@ -1323,12 +1323,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
   {
     fixtureId: "1569870",
     home: "Paraguay", away: "France", date: "2026-07-04",
-    goals: [],
+    goals: [
+      { player: "Kylian Mbappé", team: "France", minute: 70, type: "penalty" },
+    ],
     yellowCards: [
       { player: "Bradley Barcola", team: "France", minute: 19, reason: "Roughing" },
+      { player: "Manu Koné", team: "France", minute: 81, reason: "Tripping" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-04T21:56:47.734Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-04T22:57:33.576Z';
