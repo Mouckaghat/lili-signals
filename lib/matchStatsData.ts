@@ -653,10 +653,10 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "1567824",
     home: "Canada", away: "Morocco", date: "2026-07-04",
-    status: "LIVE", elapsed: 33,
-    homeStats: { team: "Canada", possession: 0.4, totalShots: 4, shotsInsideBox: 4, shotsOutsideBox: 0, shotsOnGoal: 2, corners: 4, xg: 0.42, passAccuracy: 0.75, passes: 97, fouls: 8 },
-    awayStats: { team: "Morocco", possession: 0.6, totalShots: 1, shotsInsideBox: 0, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 0, xg: 0.02, passAccuracy: 0.88, passes: 160, fouls: 2 },
+    status: "LIVE", elapsed: 73,
+    homeStats: { team: "Canada", possession: 0.38, totalShots: 5, shotsInsideBox: 5, shotsOutsideBox: 0, shotsOnGoal: 2, corners: 7, xg: 0.56, passAccuracy: 0.75, passes: 241, fouls: 19 },
+    awayStats: { team: "Morocco", possession: 0.62, totalShots: 2, shotsInsideBox: 0, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 1, xg: 0.09, passAccuracy: 0.87, passes: 414, fouls: 7 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-04T17:34:22.299Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-04T18:37:54.614Z';
