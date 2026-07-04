@@ -1303,12 +1303,21 @@ export const MATCH_EVENTS: MatchEvents[] = [
   {
     fixtureId: "1567824",
     home: "Canada", away: "Morocco", date: "2026-07-04",
-    goals: [],
+    goals: [
+      { player: "Azzedine Ounahi", team: "Morocco", minute: 50, type: "goal" },
+    ],
     yellowCards: [
-      { player: "Redouane Halhal", team: "Morocco", minute: 20, reason: "Foul" },
+      { player: "Redouane Halhal", team: "Morocco", minute: 20, reason: "Roughing" },
+      { player: "Achraf Hakimi", team: "Morocco", minute: 40, reason: "Unsportsmanlike conduct" },
+      { player: "Richie Laryea", team: "Canada", minute: 40, reason: "Unsportsmanlike conduct" },
+      { player: "Jonathan David", team: "Canada", minute: 43, reason: "Holding" },
+      { player: "Azzedine Ounahi", team: "Morocco", minute: 45, reason: "Tripping" },
+      { player: "Bilal El Khannouss", team: "Morocco", minute: 45, reason: "Roughing" },
+      { player: "Luc de Fougerolles", team: "Canada", minute: 49, reason: "Tripping" },
+      { player: "Cyle Larin", team: "Canada", minute: 67, reason: "Foul" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-04T17:30:56.877Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-04T18:35:20.356Z';
