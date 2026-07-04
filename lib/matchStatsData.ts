@@ -657,6 +657,13 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Canada", possession: 0.45, totalShots: 11, shotsInsideBox: 7, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 11, xg: 0.86, passAccuracy: 0.76, passes: 357, fouls: 24 },
     awayStats: { team: "Morocco", possession: 0.55, totalShots: 5, shotsInsideBox: 3, shotsOutsideBox: 2, shotsOnGoal: 4, corners: 1, xg: 0.78, passAccuracy: 0.82, passes: 472, fouls: 14 },
   },
+  {
+    fixtureId: "1569870",
+    home: "Paraguay", away: "France", date: "2026-07-04",
+    status: "LIVE", elapsed: 7,
+    homeStats: { team: "Paraguay", possession: 0.11, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.44, passes: 9, fouls: 0 },
+    awayStats: { team: "France", possession: 0.89, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0, passAccuracy: 0.89, passes: 75, fouls: 0 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-04T20:41:21.048Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-04T21:11:38.631Z';
