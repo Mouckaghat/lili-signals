@@ -412,10 +412,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Cyle Larin", team: "Canada", minute: 16, type: "goal" },
       { player: "Jonathan David", team: "Canada", minute: 29, type: "goal" },
-      { player: "Jonathan David", team: "Canada", minute: 45, minuteStoppage: 3, type: "goal" },
+      { player: "Jonathan David", team: "Canada", minute: 45, type: "goal" },
       { player: "Nathan Saliba", team: "Canada", minute: 64, type: "goal" },
-      { player: "Mohamed Naceur Almanai", team: "Qatar", minute: 75, type: "own-goal" },
-      { player: "Jonathan David", team: "Canada", minute: 90, minuteStoppage: 2, type: "goal" },
+      { player: "M. Al Mannai", team: "Qatar", minute: 75, type: "own-goal" },
+      { player: "Jonathan David", team: "Canada", minute: 90, type: "goal" },
     ],
     yellowCards: [
       { player: "Derek Cornelius", team: "Canada", minute: 9, reason: "Foul" },
@@ -1216,19 +1216,6 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
   },
   {
-    fixtureId: "1567311",
-    home: "Spain", away: "Austria", date: "2026-07-02",
-    goals: [
-      { player: "Mikel Oyarzabal", team: "Spain", minute: 36, type: "goal" },
-      { player: "Pedro Porro", team: "Spain", minute: 66, type: "goal" },
-      { player: "Mikel Oyarzabal", team: "Spain", minute: 89, type: "goal" },
-    ],
-    yellowCards: [
-      { player: "Stefan Posch", team: "Austria", minute: 83, reason: "Foul" },
-    ],
-    redCards: [],
-  },
-  {
     fixtureId: "1567309",
     home: "Portugal", away: "Croatia", date: "2026-07-02",
     goals: [
@@ -1302,4 +1289,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-04T08:50:43.870Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-04T10:28:58.182Z';
