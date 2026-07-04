@@ -1234,12 +1234,12 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Ivan Perišić", team: "Croatia", minute: 53, type: "goal" },
       { player: "Cristiano Ronaldo", team: "Portugal", minute: 68, type: "penalty" },
-      { player: "Gonçalo Ramos", team: "Portugal", minute: 90, minuteStoppage: 4, type: "goal" },
+      { player: "Gonçalo Ramos", team: "Portugal", minute: 90, type: "goal" },
     ],
     yellowCards: [
-      { player: "Rúben Dias", team: "Portugal", minute: 17, reason: "Elbowing" },
-      { player: "Luka Modrić", team: "Croatia", minute: 59, reason: "Tripping" },
-      { player: "Ivan Perišić", team: "Croatia", minute: 90, reason: "Unsportsmanlike conduct" },
+      { player: "Rúben Dias", team: "Portugal", minute: 17, reason: "Foul" },
+      { player: "Luka Modrić", team: "Croatia", minute: 59, reason: "Foul" },
+      { player: "Ivan Perišić", team: "Croatia", minute: 90, reason: "Off the ball foul" },
     ],
     redCards: [],
   },
@@ -1264,8 +1264,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Mohamed Hany", team: "Egypt", minute: 55, type: "own-goal" },
     ],
     yellowCards: [
-      { player: "Haissem Hassan", team: "Egypt", minute: 105, reason: "Holding" },
-      { player: "Yasser Ibrahim", team: "Egypt", minute: 120, reason: "Roughing" },
+      { player: "Haissem Hassan", team: "Egypt", minute: 105, reason: "Foul" },
+      { player: "Yasser Ibrahim", team: "Egypt", minute: 120, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -1275,13 +1275,13 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Lionel Messi", team: "Argentina", minute: 29, type: "goal" },
       { player: "Deroy Duarte", team: "Cape Verde Islands", minute: 59, type: "goal" },
-      { player: "L. Martinez", team: "Argentina", minute: 92, type: "goal" },
+      { player: "Lisandro Martínez", team: "Argentina", minute: 93, type: "goal" },
       { player: "Sidny Lopes Cabral", team: "Cape Verde Islands", minute: 103, type: "goal" },
-      { player: "D. Borges", team: "Cape Verde Islands", minute: 111, type: "own-goal" },
+      { player: "Diney Borges", team: "Cape Verde Islands", minute: 111, type: "own-goal" },
     ],
     yellowCards: [
-      { player: "K. Lenini", team: "Cape Verde Islands", minute: 68, reason: "Holding" },
-      { player: "Gonzalo Montiel", team: "Argentina", minute: 115, reason: "Tripping" },
+      { player: "Kevin Lenini", team: "Cape Verde Islands", minute: 68, reason: "Foul" },
+      { player: "Gonzalo Montiel", team: "Argentina", minute: 115, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -1293,9 +1293,13 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     yellowCards: [
       { player: "Jhon Arias", team: "Colombia", minute: 12, reason: "Tripping" },
+      { player: "Caleb Yirenkyi", team: "Ghana", minute: 49, reason: "Holding" },
+      { player: "Abdul Fatawu", team: "Ghana", minute: 66, reason: "Unsportsmanlike conduct" },
+      { player: "Alidu Seidu", team: "Ghana", minute: 76, reason: "Tripping" },
+      { player: "Richard Ríos", team: "Colombia", minute: 78, reason: "Tripping" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-04T02:35:01.663Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-04T05:25:45.580Z';
