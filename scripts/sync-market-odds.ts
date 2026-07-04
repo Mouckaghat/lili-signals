@@ -23,6 +23,7 @@
  */
 
 import fs from 'node:fs';
+import { writeGeneratedFile } from './writeGenerated';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import dotenv from 'dotenv';
@@ -208,8 +209,8 @@ async function main() {
     console.log('\n  DRY RUN — no file written.\n'); return;
   }
   const now = new Date().toISOString();
-  fs.writeFileSync(OUT_PATH, fileContent(rows, now), 'utf8');
-  console.log(`\n  ✓  Written to lib/marketOddsData.ts (${now})\n`);
+  const _wrote = writeGeneratedFile(OUT_PATH, fileContent(rows, now));
+  console.log(_wrote ? `\n  ✓  Written to lib/marketOddsData.ts (${now})\n` : `\n  ↔  No material change — left committed file untouched (skipped timestamp-only churn)\n`);
 }
 
 main();

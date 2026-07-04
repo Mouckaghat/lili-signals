@@ -21,6 +21,7 @@
  */
 
 import fs from 'node:fs';
+import { writeGeneratedFile } from './writeGenerated';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import dotenv from 'dotenv';
@@ -478,8 +479,8 @@ _Auto-updated by sync-match-events. Closes automatically once every scorer match
   }
 
   const now = new Date().toISOString();
-  fs.writeFileSync(OUT_PATH, generateFile(entries, now), 'utf8');
-  console.log(`\n  ✓  Written to lib/matchEventsData.ts (${now})\n`);
+  const _wrote = writeGeneratedFile(OUT_PATH, generateFile(entries, now));
+  console.log(_wrote ? `\n  ✓  Written to lib/matchEventsData.ts (${now})\n` : `\n  ↔  No material change — left committed file untouched (skipped timestamp-only churn)\n`);
 }
 
 main().catch((err) => { console.error(err); process.exit(1); });
