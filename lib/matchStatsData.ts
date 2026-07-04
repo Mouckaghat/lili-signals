@@ -660,10 +660,10 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "1569870",
     home: "Paraguay", away: "France", date: "2026-07-04",
-    status: "LIVE", elapsed: 33,
-    homeStats: { team: "Paraguay", possession: 0.2, totalShots: 2, shotsInsideBox: 0, shotsOutsideBox: 2, shotsOnGoal: 0, corners: 0, xg: 0.05, passAccuracy: 0.61, passes: 54, fouls: 1 },
-    awayStats: { team: "France", possession: 0.8, totalShots: 1, shotsInsideBox: 0, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 4, xg: 0.03, passAccuracy: 0.92, passes: 204, fouls: 4 },
+    status: "LIVE", elapsed: 50,
+    homeStats: { team: "Paraguay", possession: 0.21, totalShots: 2, shotsInsideBox: 0, shotsOutsideBox: 2, shotsOnGoal: 0, corners: 0, xg: 0.05, passAccuracy: 0.54, passes: 85, fouls: 5 },
+    awayStats: { team: "France", possession: 0.79, totalShots: 5, shotsInsideBox: 1, shotsOutsideBox: 4, shotsOnGoal: 0, corners: 7, xg: 0.15, passAccuracy: 0.92, passes: 309, fouls: 7 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-04T21:37:28.853Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-04T22:14:17.767Z';
