@@ -54,4 +54,4 @@ export const WC_KNOCKOUT: KnockoutFixture[] = [
   { id: '1576805', round: 'R16', roundLabel: 'Round of 16', home: 'Switzerland', away: 'Colombia', date: '2026-07-07T20:00:00+00:00', stadiumId: null, venueName: null, city: null, status: 'SCHEDULED', homeScore: null, awayScore: null, winner: null, penHome: null, penAway: null },
 ];
 
-export const WC_KNOCKOUT_LAST_UPDATED = '2026-07-04T19:55:52.677Z';
+export const WC_KNOCKOUT_LAST_UPDATED = '2026-07-04T21:02:50.760Z';
