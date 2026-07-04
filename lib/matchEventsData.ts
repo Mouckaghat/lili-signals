@@ -1320,6 +1320,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "1569870",
+    home: "Paraguay", away: "France", date: "2026-07-04",
+    goals: [],
+    yellowCards: [
+      { player: "Bradley Barcola", team: "France", minute: 19, reason: "Roughing" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-04T20:53:35.344Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-04T21:56:47.734Z';
