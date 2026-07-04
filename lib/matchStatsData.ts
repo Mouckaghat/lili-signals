@@ -640,9 +640,16 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     fixtureId: "1565179",
     home: "Argentina", away: "Cape Verde Islands", date: "2026-07-03",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Argentina", possession: 0.64, totalShots: 22, shotsInsideBox: 15, shotsOutsideBox: 7, shotsOnGoal: 10, corners: 8, xg: 2.15, passAccuracy: 0.92, passes: 843, fouls: 13 },
-    awayStats: { team: "Cape Verde Islands", possession: 0.36, totalShots: 13, shotsInsideBox: 6, shotsOutsideBox: 7, shotsOnGoal: 5, corners: 7, xg: 0.36, passAccuracy: 0.86, passes: 466, fouls: 12 },
+    homeStats: { team: "Argentina", possession: 0.64, totalShots: 22, shotsInsideBox: 15, shotsOutsideBox: 7, shotsOnGoal: 10, corners: 8, xg: 2.16, passAccuracy: 0.92, passes: 849, fouls: 13 },
+    awayStats: { team: "Cape Verde Islands", possession: 0.36, totalShots: 16, shotsInsideBox: 6, shotsOutsideBox: 10, shotsOnGoal: 5, corners: 8, xg: 0.45, passAccuracy: 0.86, passes: 476, fouls: 12 },
+  },
+  {
+    fixtureId: "1567310",
+    home: "Colombia", away: "Ghana", date: "2026-07-04",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Colombia", possession: 0.61, totalShots: 20, shotsInsideBox: 12, shotsOutsideBox: 8, shotsOnGoal: 8, corners: 3, xg: 2.18, passAccuracy: 0.91, passes: 586, fouls: 14 },
+    awayStats: { team: "Ghana", possession: 0.39, totalShots: 8, shotsInsideBox: 2, shotsOutsideBox: 6, shotsOnGoal: 0, corners: 2, xg: 0.26, passAccuracy: 0.83, passes: 376, fouls: 10 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-04T01:25:09.793Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-04T04:59:07.817Z';
