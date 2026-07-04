@@ -639,10 +639,10 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "1565179",
     home: "Argentina", away: "Cape Verde Islands", date: "2026-07-03",
-    status: "LIVE", elapsed: 90,
-    homeStats: { team: "Argentina", possession: 0.68, totalShots: 11, shotsInsideBox: 7, shotsOutsideBox: 4, shotsOnGoal: 5, corners: 5, xg: 1.33, passAccuracy: 0.92, passes: 652, fouls: 10 },
-    awayStats: { team: "Cape Verde Islands", possession: 0.32, totalShots: 6, shotsInsideBox: 2, shotsOutsideBox: 4, shotsOnGoal: 2, corners: 2, xg: 0.17, passAccuracy: 0.85, passes: 308, fouls: 8 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Argentina", possession: 0.64, totalShots: 22, shotsInsideBox: 15, shotsOutsideBox: 7, shotsOnGoal: 10, corners: 8, xg: 2.15, passAccuracy: 0.92, passes: 843, fouls: 13 },
+    awayStats: { team: "Cape Verde Islands", possession: 0.36, totalShots: 13, shotsInsideBox: 6, shotsOutsideBox: 7, shotsOnGoal: 5, corners: 7, xg: 0.36, passAccuracy: 0.86, passes: 466, fouls: 12 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-03T23:53:06.981Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-04T01:22:17.602Z';
