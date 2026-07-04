@@ -2802,4 +2802,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "1567310", team: "Ghana", name: "Prince Kwabena Adu", pos: "FW", minutes: 11, rating: 6.3, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 1, passAccPct: 0, tackles: 0, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-07-04T05:26:17.347Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-07-04T07:13:28.147Z';
