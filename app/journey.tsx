@@ -10,12 +10,16 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import FutureScrubber, { type ScrubberStage } from '../components/FutureScrubber';
 import TeamPickerModal, { TeamPickerTrigger } from '../components/TeamPickerModal';
-import {
-  buildStageInsight,
-  getProjectedKnockoutPath,
-  type ProjectedMatch,
-} from '../lib/journeyProjection';
+import { buildStageInsight } from '../lib/journeyProjection';
 import { buildMatchPredictions } from '../lib/wcSimulation';
+import { buildFullBracket, type SlotSide } from '../lib/bracketModel';
+import { SLOT_BY_MATCH, nextSlotForWinner } from '../lib/bracketStructure';
+import type { KnockoutTie } from '../lib/knockoutModel';
+import { liliProbs } from '../lib/marketComparison';
+import { useLiveResults } from '../lib/useLiveResults';
+import type { FixtureResult } from '../lib/fixtureResultsData';
+import { KNOCKOUT_I18N, koT } from '../lib/knockoutI18n';
+import type { StadiumInfo } from '../lib/stadiumData';
 import {
   FED_BG,
   FED_COLOR,
@@ -34,17 +38,154 @@ import { fmtDate, fmtTime } from '../lib/fmt';
 
 // ─── Scrubber stages ──────────────────────────────────────────────────────────
 
+// 2026 has a Round of 32 as the first knockout round — the path now shows it so
+// it's truthful (e.g. France really played Sweden in R32 before the R16).
 const JOURNEY_STAGES: ScrubberStage[] = [
   { key: 'MD1',   label: 'MD 1'  },
   { key: 'MD2',   label: 'MD 2'  },
   { key: 'MD3',   label: 'MD 3'  },
+  { key: 'R32',   label: 'R32'   },
   { key: 'R16',   label: 'R16'   },
   { key: 'QF',    label: 'QF'    },
   { key: 'SF',    label: 'SF'    },
   { key: 'Final', label: 'Final' },
 ];
 
-const GROUP_STAGE_COUNT = 3; // MD1–MD3 are real fixtures, index 3+ are projected
+const GROUP_STAGE_COUNT = 3; // MD1–MD3 are real group fixtures; index 3+ is the real knockout bracket
+
+// ─── Real knockout path (replaces the old simulated projection) ────────────────
+// The road past MD3 is now the REAL bracket, resolved live from buildFullBracket:
+// actual opponents + results, never a name-hash simulation.
+
+type KoRound = 'R32' | 'R16' | 'QF' | 'SF' | 'F';
+type Outcome = 'W' | 'D' | 'L';
+type KoState = 'won' | 'out' | 'live' | 'next' | 'unreached';
+
+const KO_ROUNDS: KoRound[] = ['R32', 'R16', 'QF', 'SF', 'F'];
+const KO_STAGE: Record<KoRound, number> = { R32: 3, R16: 4, QF: 5, SF: 6, F: 7 };
+
+interface KoStep {
+  round:      KoRound;
+  stageIndex: number;            // 3..7 — lines up with JOURNEY_STAGES
+  opponent:   SlotSide | null;   // resolved team / "A or B" / "Winner of Match X"; null once unreached
+  outcome:    Outcome | null;    // the match result (dot colour) — only once finished
+  state:      KoState;
+  eliminated: boolean;           // this is where the journey ended (red cross)
+  winPct:     number | null;     // Lili win probability vs a known opponent (0..1)
+  matchNo:    number | null;
+  stadium:    StadiumInfo | null;
+  date:       string | null;
+}
+
+interface TeamRoad {
+  steps:           KoStep[];        // always 5 (R32..F), padded with 'unreached'
+  qualified:       boolean;         // reached the Round of 32 at all
+  eliminatedStage: number | null;   // stageIndex where the cross sits (knockout exit)
+}
+
+function emptyRoad(): KoStep[] {
+  return KO_ROUNDS.map((r) => ({
+    round: r, stageIndex: KO_STAGE[r], opponent: null, outcome: null,
+    state: 'unreached' as KoState, eliminated: false, winPct: null,
+    matchNo: null, stadium: null, date: null,
+  }));
+}
+
+// Walk the followed team through the resolved bracket: real opponent + result at
+// every round it actually reached, then stop at its real next fixture. Nothing is
+// projected — an unplayed round with a known opponent shows that opponent; a round
+// whose opponent isn't decided yet shows "A or B" / "Winner of Match X".
+function buildTeamRoad(teamName: string, live: Record<string, FixtureResult>): TeamRoad {
+  const { r32, nodes } = buildFullBracket(live);
+  const nodeByMatch = new Map(nodes.map((n) => [n.match, n]));
+  const steps = emptyRoad();
+
+  const r32tie = r32.find((t) => t.home?.name === teamName || t.away?.name === teamName) ?? null;
+  if (!r32tie || r32tie.matchNo == null) return { steps, qualified: false, eliminatedStage: null };
+
+  let match: number | null = r32tie.matchNo;
+  let prevMatch: number | null = null;
+  let eliminatedStage: number | null = null;
+
+  for (let i = 0; i < KO_ROUNDS.length && match != null; i++) {
+    const step = steps[i];
+    step.matchNo = match;
+
+    let tie: KnockoutTie | null;
+    if (i === 0) {
+      tie = r32tie;
+      const teamIsHome = r32tie.home?.name === teamName;
+      const oppForm = teamIsHome ? r32tie.away : r32tie.home;
+      step.opponent = oppForm ? { kind: 'team', team: oppForm } : { kind: 'winner', fromMatch: match, round: 'R32' };
+      step.stadium  = r32tie.stadium;
+      step.date     = r32tie.fixture.date;
+    } else {
+      const slot = SLOT_BY_MATCH.get(match)!;
+      const node = nodeByMatch.get(match) ?? null;
+      tie = node?.tie ?? null;
+      step.opponent = slot.feeds[0] === prevMatch ? node?.sideB ?? null : node?.sideA ?? null;
+      step.stadium  = node?.stadium ?? null;
+      step.date     = slot.date;
+    }
+
+    if (step.opponent?.kind === 'team') {
+      step.winPct = liliProbs(teamName, step.opponent.team.name).home;
+    }
+
+    // Result + advancement.
+    const teamIsHome = tie ? tie.home?.name === teamName : false;
+    if (tie && tie.status === 'FINISHED' && tie.result) {
+      const my = teamIsHome ? tie.result.home : tie.result.away;
+      const op = teamIsHome ? tie.result.away : tie.result.home;
+      step.outcome = my > op ? 'W' : my < op ? 'L' : 'D';   // dot = the match result (level = draw)
+      const wonTie = tie.winner === (teamIsHome ? 'home' : 'away');  // advancement incl. ET/pens
+      if (wonTie) {
+        step.state = 'won';
+        prevMatch = match;
+        const nx = nextSlotForWinner(match);
+        match = nx ? nx.match : null;
+        continue;
+      }
+      step.state = 'out';
+      step.eliminated = true;
+      eliminatedStage = step.stageIndex;   // red cross here
+      break;
+    }
+
+    // Not finished: this is the team's real next fixture (or a live one). Stop —
+    // everything past the next real game stays honestly "unreached".
+    step.state = tie && tie.status === 'LIVE' ? 'live' : 'next';
+    break;
+  }
+
+  return { steps, qualified: true, eliminatedStage };
+}
+
+// The two possible teams / "Winner of Match X" for a still-undecided opponent.
+function sideDisplay(
+  side: SlotSide | null,
+  kt: typeof KNOCKOUT_I18N['EN'],
+): { flag: string; name: string; tbd: boolean } {
+  if (!side) return { flag: '❓', name: kt.toBeDecided, tbd: true };
+  if (side.kind === 'team') return { flag: side.team.flag, name: side.team.name, tbd: false };
+  if (side.kind === 'pair') {
+    const { a, b } = side;
+    const name = a && b ? `${a.name} ${kt.orWord} ${b.name}` : (a?.name ?? b?.name ?? kt.toBeDecided);
+    return { flag: `${a?.flag ?? '🏳'}${b ? '/' + b.flag : ''}`, name, tbd: true };
+  }
+  return { flag: '🏆', name: koT(kt.winnerOfMatch, { n: side.fromMatch }), tbd: true };
+}
+
+// W / D / L for a finished group fixture, from the followed team's perspective.
+function groupOutcome(fixture: WCFixture, teamName: string, live: Record<string, FixtureResult>): Outcome | null {
+  const r = live[`${fixture.home}|${fixture.away}`];
+  if (!r || r.status !== 'FINISHED' || r.homeScore == null || r.awayScore == null) return null;
+  if (r.homeScore === r.awayScore) return 'D';
+  const teamIsHome = fixture.home === teamName;
+  const my = teamIsHome ? r.homeScore : r.awayScore;
+  const op = teamIsHome ? r.awayScore : r.homeScore;
+  return my > op ? 'W' : 'L';
+}
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -148,58 +289,96 @@ function GroupStageCard({
   );
 }
 
-// ─── Active Projected Card ────────────────────────────────────────────────────
+// ─── Active Knockout Card (real bracket) ──────────────────────────────────────
 
-function ProjectedCard({
-  projected,
-  teamName,
-  i18n,
+// Small win-probability bar (knockouts advance, so there's no draw segment).
+function WinBar({ win }: { win: number }) {
+  return (
+    <View style={s.probBarRow}>
+      <View style={[s.probSeg, { flex: win, backgroundColor: '#34C759' }]} />
+      <View style={[s.probSeg, { flex: 1 - win, backgroundColor: 'rgba(255,255,255,0.10)' }]} />
+    </View>
+  );
+}
+
+const KO_BADGE: Record<KoState, { txt: (kt: typeof KNOCKOUT_I18N['EN']) => string; bg: string; fg: string }> = {
+  won:       { txt: (kt) => kt.stateThrough,   bg: 'rgba(52,199,89,0.16)',  fg: '#34C759' },
+  out:       { txt: (kt) => kt.stateOut,       bg: 'rgba(255,59,48,0.16)',  fg: '#FF3B30' },
+  live:      { txt: (kt) => kt.live,           bg: 'rgba(255,59,48,0.16)',  fg: '#FF6B60' },
+  next:      { txt: (kt) => kt.stateNext,      bg: 'rgba(74,158,255,0.16)', fg: '#4A9EFF' },
+  unreached: { txt: (kt) => kt.statePotential, bg: 'rgba(122,144,184,0.14)', fg: '#7A90B8' },
+};
+
+function KnockoutStageCard({
+  step, team, kt, i18n,
 }: {
-  projected: ProjectedMatch;
-  teamName: string;
+  step: KoStep;
+  team: WCTeam;
+  kt: typeof KNOCKOUT_I18N['EN'];
   i18n: ReturnType<typeof useLanguage>['i18n'];
 }) {
+  const opp     = sideDisplay(step.opponent, kt);
+  const badge   = KO_BADGE[step.state];
+  const roundLbl = kt.rounds[step.round];
+  const showBar = step.winPct != null && (step.state === 'next' || step.state === 'live');
+
   return (
-    <View style={[s.activeCard, s.projectedCard]}>
+    <View style={[s.activeCard, step.state === 'unreached' && s.projectedCard]}>
       {/* Header */}
       <View style={s.activeCardHeader}>
         <View style={[s.mdBadge, s.projectedBadge]}>
-          <Text style={s.projectedBadgeText}>{projected.roundLabel.toUpperCase()}</Text>
+          <Text style={s.projectedBadgeText}>{roundLbl.toUpperCase()}</Text>
         </View>
-        <Text style={s.activeCardDate}>{projected.approxDate}</Text>
-        <View style={s.simTag}>
-          <Text style={s.simTagText}>{i18n.simulationLabel}</Text>
+        <Text style={s.activeCardDate}>{step.date ? fmtDate(step.date) : ''}</Text>
+        <View style={[s.koStateBadge, { backgroundColor: badge.bg }]}>
+          <Text style={[s.koStateText, { color: badge.fg }]}>{badge.txt(kt)}</Text>
         </View>
       </View>
 
       {/* Match */}
       <View style={s.matchRow}>
         <View style={s.teamBlock}>
-          <Text style={s.teamFlagLarge}>{'🏳'}</Text>
-          <Text style={s.teamNameLarge} numberOfLines={1}>{teamName}</Text>
-          <Text style={s.homeAwayLabel}>{i18n.neutralMatch}</Text>
+          <Text style={s.teamFlagLarge}>{team.flag}</Text>
+          <Text style={s.teamNameLarge} numberOfLines={1}>{team.name}</Text>
+          {step.outcome ? (
+            <View style={[s.resultDot, s.resultDotLg, dotStyle(step.outcome)]} />
+          ) : (
+            <Text style={s.homeAwayLabel}>{i18n.neutralMatch}</Text>
+          )}
         </View>
 
         <Text style={s.vsText}>vs</Text>
 
         <View style={[s.teamBlock, s.teamBlockRight]}>
-          <Text style={s.teamFlagLarge}>{projected.opponent.flag}</Text>
-          <Text style={s.teamNameLarge} numberOfLines={1}>{projected.opponent.name}</Text>
-          <View style={[s.fedPill, { backgroundColor: FED_BG[projected.opponent.federation] }]}>
-            <Text style={[s.fedPillText, { color: FED_COLOR[projected.opponent.federation] }]}>
-              {projected.opponent.federation}
-            </Text>
-          </View>
+          <Text style={[s.teamFlagLarge, opp.tbd && s.teamFlagTbd]}>{opp.flag}</Text>
+          <Text style={[s.teamNameLarge, opp.tbd && s.tbdName]} numberOfLines={2}>{opp.name}</Text>
         </View>
       </View>
 
-      {/* Lili projection */}
-      <View style={s.predSection}>
-        <Text style={s.predLabel}>{i18n.liliProjection}</Text>
-        <ProbRow win={projected.winProb} draw={projected.drawProb} loss={projected.lossProb} />
-      </View>
+      {/* Lili win probability (only for an upcoming/live game vs a known opponent) */}
+      {showBar ? (
+        <View style={s.predSection}>
+          <Text style={s.predLabel}>{i18n.liliPrediction}</Text>
+          <WinBar win={step.winPct!} />
+          <Text style={[s.probLabel, { color: '#34C759', marginTop: 6 }]}>W {pct(step.winPct!)}</Text>
+        </View>
+      ) : null}
 
-      <Text style={s.projectedNote}>{i18n.basedOnSimulation}</Text>
+      {/* Venue */}
+      {step.stadium ? (
+        <View style={s.venueRow}>
+          <Text style={s.venueFlag}>{step.stadium.flag}</Text>
+          <View>
+            <Text style={s.stadiumText}>{step.stadium.name}</Text>
+            <Text style={s.cityText}>{step.stadium.city} · {step.stadium.country}</Text>
+          </View>
+        </View>
+      ) : null}
+
+      {/* Honest note for a not-yet-reached round */}
+      {step.state === 'unreached' ? (
+        <Text style={s.projectedNote}>{kt.statePotential}</Text>
+      ) : null}
     </View>
   );
 }
@@ -218,23 +397,34 @@ function LiliInsightBox({ text, label }: { text: string; label: string }) {
   );
 }
 
-// ─── Path Overview chips ──────────────────────────────────────────────────────
+// ─── Full Path (real bracket, full-width aligned grid) ─────────────────────────
 
-interface PathChipData {
+// One node of the whole road: the group nodes (MD1–MD3) and the knockout nodes
+// (R32→Final) share the same 8-column grid so the row lines up exactly under the
+// World Cup Path above it.
+interface PathNode {
   stageIndex: number;
-  label: string;
-  opponentFlag: string;
-  winProb: number;
-  isProjected: boolean;
+  label:      string;         // MD1 / R32 / QF …
+  flag:       string;         // opponent flag, or '?' when undecided
+  tbd:        boolean;
+  winPct:     number | null;  // Lili win probability (0..1) or null
+  outcome:    Outcome | null; // W/D/L dot once played
+  live:       boolean;
+  dead:       boolean;        // after elimination / never reached
+  eliminated: boolean;        // this node carries the red cross
 }
 
-function PathChip({
-  chip,
-  isActive,
-  onPress,
-  color,
+function dotStyle(o: Outcome | null) {
+  if (o === 'W') return s.dotW;
+  if (o === 'D') return s.dotD;
+  if (o === 'L') return s.dotL;
+  return s.dotPending;
+}
+
+function FullPathCell({
+  node, isActive, onPress, color,
 }: {
-  chip: PathChipData;
+  node: PathNode;
   isActive: boolean;
   onPress: () => void;
   color: string;
@@ -242,18 +432,23 @@ function PathChip({
   return (
     <TouchableOpacity
       style={[
-        s.pathChip,
-        isActive && { borderColor: color, backgroundColor: `${color}12` },
-        chip.isProjected && s.pathChipProjected,
+        s.fpCell,
+        node.stageIndex >= GROUP_STAGE_COUNT && s.fpCellKnock,
+        isActive && { borderColor: color, backgroundColor: `${color}18` },
+        node.dead && s.fpCellDead,
       ]}
       onPress={onPress}
       activeOpacity={0.7}
     >
-      <Text style={[s.pathChipStage, isActive && { color }]}>{chip.label}</Text>
-      <Text style={s.pathChipFlag}>{chip.opponentFlag}</Text>
-      <Text style={[s.pathChipProb, { color: isActive ? color : '#7A90B8' }]}>
-        W{Math.round(chip.winProb * 100)}%
+      {node.eliminated ? <Text style={s.fpCross}>✗</Text> : null}
+      <Text style={[s.fpRound, isActive && { color }]}>{node.label}</Text>
+      <Text style={[s.fpFlag, node.tbd && s.fpFlagTbd]}>{node.flag}</Text>
+      <Text style={[s.fpPct, isActive && { color }]}>
+        {node.winPct != null ? `W${Math.round(node.winPct * 100)}%` : '—'}
       </Text>
+      {node.live
+        ? <View style={[s.resultDot, s.dotLive]} />
+        : <View style={[s.resultDot, dotStyle(node.outcome)]} />}
     </TouchableOpacity>
   );
 }
@@ -262,7 +457,9 @@ function PathChip({
 
 export default function JourneyScreen() {
   const [launched, setLaunched] = useState(false);
-  const { i18n } = useLanguage();
+  const { i18n, lang } = useLanguage();
+  const kt = KNOCKOUT_I18N[lang] ?? KNOCKOUT_I18N.EN;
+  const liveResults = useLiveResults();
   const { favTeam, setFavTeam, ready } = useProfile();
   const [team, setTeam]           = useState<WCTeam | null>(null);
   const [pickerOpen, setPickerOpen] = useState(false);
@@ -287,10 +484,18 @@ export default function JourneyScreen() {
     () => (team ? buildMatchPredictions(team.name) : []),
     [team]
   );
-  const projectedPath = useMemo(
-    () => (team ? getProjectedKnockoutPath(team) : []),
-    [team]
+  // The REAL knockout road (opponents + results, live-resolved from the bracket).
+  const road = useMemo(
+    () => (team ? buildTeamRoad(team.name, liveResults) : null),
+    [team, liveResults]
   );
+  // Group W/D/L for the dots.
+  const groupOutcomes = useMemo(
+    () => (team ? groupFixtures.map((f) => groupOutcome(f, team.name, liveResults)) : []),
+    [team, groupFixtures, liveResults]
+  );
+  // The active knockout step for the selected stage (3..7 → R32..Final).
+  const activeStep = stageIndex >= GROUP_STAGE_COUNT ? road?.steps[stageIndex - GROUP_STAGE_COUNT] ?? null : null;
 
   const handleTeamSelect = (t: WCTeam) => {
     setTeam(t);
@@ -298,57 +503,64 @@ export default function JourneyScreen() {
     setFavTeam(t.name); // persist as the global favourite so it lights up elsewhere
   };
 
-  // Compute Lili insight for current stage
+  // Lili insight — group stage only (the knockout card carries its own real read).
   const liliInsight = useMemo(() => {
-    if (!team) return '';
-    if (stageIndex < GROUP_STAGE_COUNT) {
-      const fixture    = groupFixtures[stageIndex];
-      const pred       = groupPredictions[stageIndex];
-      if (!fixture || !pred) return '';
-      const oppName = getOpponent(fixture, team.name);
-      const opp     = getTeam(oppName);
-      return buildStageInsight(
-        team, stageIndex, oppName, opp?.strength ?? 65, pred.winProb, false, i18n
-      );
-    } else {
-      const proj = projectedPath[stageIndex - GROUP_STAGE_COUNT];
-      if (!proj) return '';
-      return buildStageInsight(
-        team, stageIndex, proj.opponent.name, proj.opponent.strength, proj.winProb, true, i18n
-      );
-    }
-  }, [team, stageIndex, groupFixtures, groupPredictions, projectedPath, i18n]);
+    if (!team || stageIndex >= GROUP_STAGE_COUNT) return '';
+    const fixture = groupFixtures[stageIndex];
+    const pred    = groupPredictions[stageIndex];
+    if (!fixture || !pred) return '';
+    const oppName = getOpponent(fixture, team.name);
+    const opp     = getTeam(oppName);
+    return buildStageInsight(team, stageIndex, oppName, opp?.strength ?? 65, pred.winProb, false, i18n);
+  }, [team, stageIndex, groupFixtures, groupPredictions, i18n]);
 
-  // Build path chips for the overview row
-  const pathChips: PathChipData[] = useMemo(() => {
-    if (!team) return [];
-    const chips: PathChipData[] = [];
+  // Whether the whole group stage is done (used to place the "out in the group" cross).
+  const groupFinished = groupOutcomes.length > 0 && groupOutcomes.every((o) => o != null);
+  const groupExitStage = road && !road.qualified && groupFinished ? GROUP_STAGE_COUNT - 1 : null;
+
+  // Build the full-path nodes: 3 group + 5 knockout, one aligned 8-column row.
+  const pathNodes: PathNode[] = useMemo(() => {
+    if (!team || !road) return [];
+    const nodes: PathNode[] = [];
 
     groupFixtures.forEach((f, i) => {
-      const pred = groupPredictions[i];
       const oppName = getOpponent(f, team.name);
       const opp = getTeam(oppName);
-      chips.push({
+      nodes.push({
         stageIndex: i,
         label: `MD${i + 1}`,
-        opponentFlag: opp?.flag ?? '🏳',
-        winProb: pred?.winProb ?? 0.5,
-        isProjected: false,
+        flag: opp?.flag ?? '🏳',
+        tbd: false,
+        winPct: groupPredictions[i]?.winProb ?? null,
+        outcome: groupOutcomes[i] ?? null,
+        live: false,
+        dead: false,
+        eliminated: groupExitStage === i,
       });
     });
 
-    projectedPath.forEach((proj, i) => {
-      chips.push({
-        stageIndex: GROUP_STAGE_COUNT + i,
-        label: proj.round,
-        opponentFlag: proj.opponent.flag,
-        winProb: proj.winProb,
-        isProjected: true,
+    // Once the team is out (in the group or a knockout), every round it never
+    // reached is greyed "dead". While it's still alive, an unreached round is just
+    // "future" (rendered normally with a hollow dot + "?").
+    const teamOut = groupExitStage != null || road.steps.some((st) => st.state === 'out');
+    road.steps.forEach((step) => {
+      const side = step.opponent ? sideDisplay(step.opponent, kt) : null;
+      const isUnreached = step.state === 'unreached';
+      nodes.push({
+        stageIndex: step.stageIndex,
+        label: step.round,
+        flag: isUnreached ? '?' : side?.flag ?? '?',
+        tbd: isUnreached || (side?.tbd ?? false),
+        winPct: step.winPct,
+        outcome: step.outcome,
+        live: step.state === 'live',
+        dead: isUnreached && teamOut,
+        eliminated: step.eliminated,
       });
     });
 
-    return chips;
-  }, [team, groupFixtures, groupPredictions, projectedPath]);
+    return nodes;
+  }, [team, road, groupFixtures, groupPredictions, groupOutcomes, groupExitStage, kt]);
 
   const fedColor = team ? FED_COLOR[team.federation] : '#4A9EFF';
 
@@ -435,12 +647,8 @@ export default function JourneyScreen() {
               </View>
             )
           ) : (
-            projectedPath[stageIndex - GROUP_STAGE_COUNT] ? (
-              <ProjectedCard
-                projected={projectedPath[stageIndex - GROUP_STAGE_COUNT]}
-                teamName={team.name}
-                i18n={i18n}
-              />
+            activeStep ? (
+              <KnockoutStageCard step={activeStep} team={team} kt={kt} i18n={i18n} />
             ) : (
               <View style={s.noDataCard}>
                 <Text style={s.noDataText}>{i18n.chooseNationSub}</Text>
@@ -451,43 +659,20 @@ export default function JourneyScreen() {
           {/* Lili insight */}
           {liliInsight ? <LiliInsightBox text={liliInsight} label={i18n.liliInsightLabel} /> : null}
 
-          {/* Path overview */}
+          {/* Full path — one full-width row aligned to the World Cup Path above */}
           <View style={s.pathSection}>
             <Text style={s.pathSectionLabel}>{i18n.fullPath}</Text>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={s.pathChipsRow}
-            >
-              {pathChips.map((chip) => {
-                if (chip.stageIndex === GROUP_STAGE_COUNT && chip.isProjected) {
-                  return (
-                    <View key={chip.label} style={s.pathChipWithSep}>
-                      <View style={s.pathSep}>
-                        <View style={s.pathSepLine} />
-                        <Text style={s.pathSepLabel}>{i18n.projectedLabel}</Text>
-                        <View style={s.pathSepLine} />
-                      </View>
-                      <PathChip
-                        chip={chip}
-                        isActive={chip.stageIndex === stageIndex}
-                        onPress={() => setStageIndex(chip.stageIndex)}
-                        color={fedColor}
-                      />
-                    </View>
-                  );
-                }
-                return (
-                  <PathChip
-                    key={chip.label}
-                    chip={chip}
-                    isActive={chip.stageIndex === stageIndex}
-                    onPress={() => setStageIndex(chip.stageIndex)}
-                    color={fedColor}
-                  />
-                );
-              })}
-            </ScrollView>
+            <View style={s.fpGrid}>
+              {pathNodes.map((node) => (
+                <FullPathCell
+                  key={node.stageIndex}
+                  node={node}
+                  isActive={node.stageIndex === stageIndex}
+                  onPress={() => setStageIndex(node.stageIndex)}
+                  color={fedColor}
+                />
+              ))}
+            </View>
           </View>
 
           <Text style={s.footNote}>{i18n.groupFixturesFootnote}</Text>
@@ -694,31 +879,46 @@ const s = StyleSheet.create({
     letterSpacing: 0.5,
     marginBottom: 10,
   },
-  pathChipsRow: { gap: 8, paddingBottom: 4 },
-  pathChip: {
+  // Full-path grid — 8 equal columns, aligned under the World Cup Path scrubber.
+  fpGrid: { flexDirection: 'row', gap: 3 },
+  fpCell: {
+    flex: 1,
     alignItems: 'center',
-    paddingHorizontal: 10,
-    paddingVertical: 10,
-    borderRadius: 12,
+    justifyContent: 'flex-start',
+    paddingVertical: 9,
+    paddingHorizontal: 1,
+    borderRadius: 10,
     borderWidth: 1.5,
-    borderColor: 'rgba(80,140,255,0.12)',
+    borderColor: 'transparent',
     backgroundColor: '#0E1933',
-    minWidth: 56,
-    gap: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    elevation: 1,
+    minHeight: 92,
+    gap: 4,
   },
-  pathChipProjected: { borderStyle: 'dashed', opacity: 0.85 },
-  pathChipStage: { fontSize: 10, fontWeight: '700', color: '#7A90B8', letterSpacing: 0.2 },
-  pathChipFlag: { fontSize: 20 },
-  pathChipProb: { fontSize: 10, fontWeight: '600' },
-  pathChipWithSep: { alignItems: 'center', gap: 4 },
-  pathSep: { flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 4 },
-  pathSepLine: { width: 12, height: 1, backgroundColor: 'rgba(80,140,255,0.12)' },
-  pathSepLabel: { fontSize: 8, fontWeight: '600', color: '#374F7A', letterSpacing: 0.4 },
+  fpCellKnock: { backgroundColor: 'rgba(74,158,255,0.05)' },
+  fpCellDead: { opacity: 0.34 },
+  fpCross: {
+    position: 'absolute', top: 3, right: 4,
+    fontSize: 12, fontWeight: '900', color: '#FF3B30',
+  },
+  fpRound: { fontSize: 8.5, fontWeight: '800', color: '#7A90B8', letterSpacing: 0.2 },
+  fpFlag: { fontSize: 19, lineHeight: 22 },
+  fpFlagTbd: { fontSize: 12, color: '#374F7A', fontWeight: '800' },
+  fpPct: { fontSize: 9.5, fontWeight: '700', color: '#7A90B8', fontVariant: ['tabular-nums'] },
+
+  // Result dots (shared by the grid + the knockout card).
+  resultDot: { width: 10, height: 10, borderRadius: 5, marginTop: 1 },
+  resultDotLg: { width: 12, height: 12, borderRadius: 6, marginTop: 2 },
+  dotW: { backgroundColor: '#34C759' },
+  dotD: { backgroundColor: '#FF9F0A' },
+  dotL: { backgroundColor: '#FF3B30' },
+  dotLive: { backgroundColor: '#FF6B60' },
+  dotPending: { backgroundColor: 'transparent', borderWidth: 1.5, borderStyle: 'dashed', borderColor: '#374F7A' },
+
+  // Knockout active-card bits.
+  koStateBadge: { paddingHorizontal: 8, paddingVertical: 3, borderRadius: 6 },
+  koStateText: { fontSize: 10, fontWeight: '800', letterSpacing: 0.3, textTransform: 'uppercase' },
+  teamFlagTbd: { fontSize: 26 },
+  tbdName: { color: '#7A90B8', fontSize: 12 },
 
   footNote: {
     fontSize: 11,
