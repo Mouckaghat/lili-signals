@@ -1327,12 +1327,12 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Kylian Mbappé", team: "France", minute: 70, type: "penalty" },
     ],
     yellowCards: [
-      { player: "Bradley Barcola", team: "France", minute: 19, reason: "Roughing" },
-      { player: "Manu Koné", team: "France", minute: 81, reason: "Tripping" },
-      { player: "Michael Olise", team: "France", minute: 90, reason: "Unsportsmanlike conduct" },
+      { player: "Bradley Barcola", team: "France", minute: 19, reason: "Foul" },
+      { player: "Manu Koné", team: "France", minute: 81, reason: "Foul" },
+      { player: "Michael Olise", team: "France", minute: 90, reason: "Unsporting behaviour" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-05T00:03:05.273Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-05T04:20:07.956Z';
