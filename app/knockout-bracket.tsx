@@ -357,7 +357,7 @@ function StageSection({ group, t, cols }: { group: RoundGroup; t: T; cols: numbe
 }
 
 // ─── Hero (current stage · teams left · Lili's favourite · your team) ────────────
-function Hero({ rounds, rec, t }: { rounds: RoundGroup[]; rec: { correct: number; total: number }; t: T }) {
+function Hero({ rounds, rec, t, onJump }: { rounds: RoundGroup[]; rec: { correct: number; total: number }; t: T; onJump: (round: KnockoutRound) => void }) {
   const { favTeam } = useProfile();
 
   // Deepest seeded round = the stage currently in play.
@@ -437,18 +437,22 @@ function Hero({ rounds, rec, t }: { rounds: RoundGroup[]; rec: { correct: number
           const state = allDone ? 'done' : isCurrent ? 'current' : 'future';
           return (
             <View key={r.round} style={bx.pathStep}>
-              <View
-                style={[
+              <Pressable
+                onPress={() => onJump(r.round)}
+                hitSlop={8}
+                accessibilityRole="button"
+                style={({ pressed }) => [
                   bx.pathNode,
                   state === 'future'
                     ? { borderColor: D.text3 }
                     : { borderColor: accent, backgroundColor: state === 'done' ? accent : accent + '33' },
+                  pressed && { opacity: 0.55, transform: [{ scale: 0.94 }] },
                 ]}
               >
                 <Text style={[bx.pathNodeText, { color: state === 'future' ? D.text3 : state === 'done' ? D.bg : accent }]}>
                   {ROUND_BADGE[r.round]}
                 </Text>
-              </View>
+              </Pressable>
               {i < pathRounds.length - 1 && <View style={[bx.pathLink, { backgroundColor: allDone ? accent : D.border }]} />}
             </View>
           );
@@ -507,16 +511,18 @@ function FutureNodeCard({ node, accent, t, favTeam }: { node: BracketNode; accen
 // ─── All Teams mode — the full progressive bracket ───────────────────────────────
 const FUTURE_ORDER: KnockoutRound[] = ['R16', 'QF', 'SF', '3RD', 'F'];
 
-function AllTeamsView({ full, t, cols, favTeam }: { full: ReturnType<typeof buildFullBracket>; t: T; cols: number; favTeam?: string | null }) {
+function AllTeamsView({ full, t, cols, favTeam, register }: { full: ReturnType<typeof buildFullBracket>; t: T; cols: number; favTeam?: string | null; register: (round: KnockoutRound, y: number) => void }) {
   return (
     <View style={{ marginTop: 6 }}>
-      <StageSection group={{ round: 'R32', label: t.rounds.R32, ties: full.r32 }} t={t} cols={cols} />
+      <View onLayout={(e) => register('R32', e.nativeEvent.layout.y)}>
+        <StageSection group={{ round: 'R32', label: t.rounds.R32, ties: full.r32 }} t={t} cols={cols} />
+      </View>
       {FUTURE_ORDER.map((rd) => {
         const nodes = full.nodes.filter((n) => n.round === rd);
         if (!nodes.length) return null;
         const accent = ROUND_COLOR[rd];
         return (
-          <View key={rd} style={bx.stage}>
+          <View key={rd} style={bx.stage} onLayout={(e) => register(rd, e.nativeEvent.layout.y)}>
             <View style={bx.stageHeader}>
               <View style={[bx.stageBadge, { borderColor: accent }]}><Text style={[bx.stageBadgeText, { color: accent }]}>{ROUND_BADGE[rd]}</Text></View>
               <View style={{ flex: 1, minWidth: 0 }}>
@@ -612,8 +618,9 @@ function PathStepCard({ step, team, t, last }: { step: PathStep; team: TeamForm;
   );
 }
 
-function MyTeamView({ path, t, teams, favTeam, onPick, pickerOpen, onToggle }: {
+function MyTeamView({ path, t, teams, favTeam, onPick, pickerOpen, onToggle, register }: {
   path: TeamPath; t: T; teams: TeamForm[]; favTeam: string | null; onPick: (n: string) => void; pickerOpen: boolean; onToggle: () => void;
+  register: (round: KnockoutRound, y: number) => void;
 }) {
   const reached = [...path.steps].reverse().find((s) => s.state === 'won' || s.state === 'live' || s.state === 'next' || s.state === 'eliminated');
   const statusText = path.status === 'champion' ? `🏆 ${t.champion}`
@@ -636,7 +643,9 @@ function MyTeamView({ path, t, teams, favTeam, onPick, pickerOpen, onToggle }: {
       </Pressable>
       {pickerOpen && <TeamPickerGrid teams={teams} selected={favTeam} onPick={onPick} t={t} />}
       {path.steps.map((s, i) => (
-        <PathStepCard key={s.match} step={s} team={path.team} t={t} last={i === path.steps.length - 1} />
+        <View key={s.match} onLayout={(e) => register(s.round, e.nativeEvent.layout.y)}>
+          <PathStepCard step={s} team={path.team} t={t} last={i === path.steps.length - 1} />
+        </View>
       ))}
     </View>
   );
@@ -712,28 +721,49 @@ export default function KnockoutBracketScreen() {
   const [pickerOpen, setPickerOpen] = useState(false);
   const pick = (name: string) => { setFavTeam(name); setPickerOpen(false); touched.current = true; setMode('team'); };
 
+  // Tap a round dot in the hero's "Path to the Final" → scroll the list down to
+  // that round's games so you can revive a moment (open its heatmap). Each round
+  // section reports its Y (relative to the mode-content wrapper) via onLayout;
+  // `baseY` is the wrapper's own offset under the hero + toggle. Pure-JS offsets
+  // (no measure APIs) → identical on web + native.
+  const scrollRef = useRef<ScrollView>(null);
+  const baseY = useRef(0);
+  const sectionY = useRef<Partial<Record<KnockoutRound, number>>>({});
+  // Different modes show different rounds → drop stale offsets on a mode switch
+  // (synchronously, before children re-render and re-report via onLayout).
+  const lastMode = useRef(mode);
+  if (lastMode.current !== mode) { sectionY.current = {}; lastMode.current = mode; }
+  const registerSection = (round: KnockoutRound, y: number) => { sectionY.current[round] = y; };
+  const jumpTo = (round: KnockoutRound) => {
+    const y = sectionY.current[round];
+    if (y == null) return; // round not on screen (e.g. not yet reached) → no-op
+    scrollRef.current?.scrollTo({ y: Math.max(0, baseY.current + y - 12), animated: true });
+  };
+
   return (
     <SafeAreaView style={bx.screen} edges={['bottom']}>
       <Stack.Screen options={{ title: t.title }} />
-      <ScrollView contentContainerStyle={[bx.scroll, cols === 2 && bx.scrollWide]} showsVerticalScrollIndicator={false}>
-        <Hero rounds={rounds} rec={rec} t={t} />
+      <ScrollView ref={scrollRef} contentContainerStyle={[bx.scroll, cols === 2 && bx.scrollWide]} showsVerticalScrollIndicator={false}>
+        <Hero rounds={rounds} rec={rec} t={t} onJump={jumpTo} />
         <ModeToggle mode={mode} choose={choose} favFlag={teamPath?.team.flag} t={t} />
-        {mode === 'team'
-          ? (teamPath
-              ? <MyTeamView path={teamPath} t={t} teams={aliveTeams} favTeam={favTeam} onPick={pick} pickerOpen={pickerOpen} onToggle={() => setPickerOpen((o) => !o)} />
-              : (
-                <View style={{ marginTop: 6 }}>
-                  <View style={bx.teamHero}>
-                    <Text style={bx.teamHeroFlag}>⭐</Text>
-                    <View style={{ flex: 1, minWidth: 0 }}>
-                      <Text style={bx.teamHeroName} numberOfLines={1}>{t.chooseTeam}</Text>
-                      <Text style={bx.teamHeroSub} numberOfLines={1}>{t.yourRoad}</Text>
+        <View onLayout={(e) => { baseY.current = e.nativeEvent.layout.y; }}>
+          {mode === 'team'
+            ? (teamPath
+                ? <MyTeamView path={teamPath} t={t} teams={aliveTeams} favTeam={favTeam} onPick={pick} pickerOpen={pickerOpen} onToggle={() => setPickerOpen((o) => !o)} register={registerSection} />
+                : (
+                  <View style={{ marginTop: 6 }}>
+                    <View style={bx.teamHero}>
+                      <Text style={bx.teamHeroFlag}>⭐</Text>
+                      <View style={{ flex: 1, minWidth: 0 }}>
+                        <Text style={bx.teamHeroName} numberOfLines={1}>{t.chooseTeam}</Text>
+                        <Text style={bx.teamHeroSub} numberOfLines={1}>{t.yourRoad}</Text>
+                      </View>
                     </View>
+                    <TeamPickerGrid teams={aliveTeams} selected={favTeam} onPick={pick} t={t} />
                   </View>
-                  <TeamPickerGrid teams={aliveTeams} selected={favTeam} onPick={pick} t={t} />
-                </View>
-              ))
-          : <AllTeamsView full={full} t={t} cols={cols} favTeam={favTeam} />}
+                ))
+            : <AllTeamsView full={full} t={t} cols={cols} favTeam={favTeam} register={registerSection} />}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
