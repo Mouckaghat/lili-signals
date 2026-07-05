@@ -667,10 +667,10 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "1568100",
     home: "Brazil", away: "Norway", date: "2026-07-05",
-    status: "LIVE", elapsed: 66,
-    homeStats: { team: "Brazil", possession: 0.33, totalShots: 11, shotsInsideBox: 8, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 3, xg: 1.89, passAccuracy: 0.86, passes: 231, fouls: 5 },
-    awayStats: { team: "Norway", possession: 0.67, totalShots: 5, shotsInsideBox: 4, shotsOutsideBox: 1, shotsOnGoal: 2, corners: 3, xg: 0.46, passAccuracy: 0.91, passes: 490, fouls: 3 },
+    status: "LIVE", elapsed: 84,
+    homeStats: { team: "Brazil", possession: 0.31, totalShots: 11, shotsInsideBox: 8, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 3, xg: 1.9, passAccuracy: 0.84, passes: 262, fouls: 6 },
+    awayStats: { team: "Norway", possession: 0.69, totalShots: 8, shotsInsideBox: 7, shotsOutsideBox: 1, shotsOnGoal: 4, corners: 4, xg: 0.7, passAccuracy: 0.92, passes: 605, fouls: 3 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-05T21:29:20.596Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-05T21:46:38.959Z';
