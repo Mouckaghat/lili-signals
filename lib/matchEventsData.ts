@@ -1339,6 +1339,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Erling Haaland", team: "Norway", minute: 79, type: "goal" },
       { player: "Erling Haaland", team: "Norway", minute: 90, type: "goal" },
+      { player: "Neymar", team: "Brazil", minute: 90, minuteStoppage: 10, type: "penalty" },
     ],
     yellowCards: [
       { player: "Neymar", team: "Brazil", minute: 90, reason: "Tripping" },
@@ -1347,4 +1348,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-05T22:00:56.762Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-05T23:11:32.904Z';
