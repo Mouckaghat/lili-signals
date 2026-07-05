@@ -91,15 +91,27 @@ for (const f of allFixtures) {
   }
 }
 
-// Freshness guards for feeds that power live/just-finished intelligence.
-if (statsAgeMin > STATS_STALE_MS / MIN) {
-  add('CRITICAL', 'GLOBAL', `match stats feed stale (${statsAgeMin}m since refresh)`, 'stats');
-}
-if (eventsAgeMin > FEED_STALE_MS / MIN) {
-  add('CRITICAL', 'GLOBAL', `match events feed stale (${eventsAgeMin}m since refresh)`, 'events');
-}
-if (playersAgeMin > FEED_STALE_MS / MIN) {
-  add('CRITICAL', 'GLOBAL', `player stats feed stale (${playersAgeMin}m since refresh)`, 'players');
+// Freshness guards for feeds that power live intelligence — ONLY meaningful
+// while a match is actually in progress. Since recon #73 the sync bots skip
+// timestamp-only writes (writeGeneratedFile), so *_LAST_UPDATED advances only on
+// a real data change. Between matches the feeds legitimately have nothing new,
+// so an old timestamp is the NORMAL healthy state — not a dead bot. Gating on
+// `anyLive` keeps these guards catching a genuinely lagging feed during a live
+// game, without false-alarming (and self-emailing) every 15 min in the lulls.
+const anyLive = allFixtures.some((f) => {
+  const since = NOW - Date.parse(f.date);
+  return since >= 0 && since < LIVE_WINDOW_MS;
+});
+if (anyLive) {
+  if (statsAgeMin > STATS_STALE_MS / MIN) {
+    add('CRITICAL', 'GLOBAL', `match stats feed stale (${statsAgeMin}m since refresh)`, 'stats');
+  }
+  if (eventsAgeMin > FEED_STALE_MS / MIN) {
+    add('CRITICAL', 'GLOBAL', `match events feed stale (${eventsAgeMin}m since refresh)`, 'events');
+  }
+  if (playersAgeMin > FEED_STALE_MS / MIN) {
+    add('CRITICAL', 'GLOBAL', `player stats feed stale (${playersAgeMin}m since refresh)`, 'players');
+  }
 }
 
 // ─── Report ───────────────────────────────────────────────────────────────────
