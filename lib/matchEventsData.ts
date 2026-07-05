@@ -1275,9 +1275,9 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Lionel Messi", team: "Argentina", minute: 29, type: "goal" },
       { player: "Deroy Duarte", team: "Cape Verde Islands", minute: 59, type: "goal" },
-      { player: "Lisandro Martínez", team: "Argentina", minute: 93, type: "goal" },
+      { player: "L. Martinez", team: "Argentina", minute: 92, type: "goal" },
       { player: "Sidny Lopes Cabral", team: "Cape Verde Islands", minute: 103, type: "goal" },
-      { player: "Diney Borges", team: "Cape Verde Islands", minute: 111, type: "own-goal" },
+      { player: "D. Borges", team: "Cape Verde Islands", minute: 111, type: "own-goal" },
     ],
     yellowCards: [
       { player: "Kevin Lenini", team: "Cape Verde Islands", minute: 68, reason: "Foul" },
@@ -1335,4 +1335,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-05T05:43:53.718Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-05T07:43:59.774Z';
