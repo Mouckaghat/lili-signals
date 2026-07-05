@@ -105,13 +105,6 @@ export const MATCH_STATS: MatchStats[] = [
     awayStats: { team: "Ecuador", possession: 0.52, totalShots: 12, shotsInsideBox: 5, shotsOutsideBox: 7, shotsOnGoal: 1, corners: 5, xg: 1.01, passAccuracy: 0.85, passes: 492, fouls: 13 },
   },
   {
-    fixtureId: "F1_Sweden_v_Tunisia",
-    home: "Sweden", away: "Tunisia", date: "2026-06-15",
-    status: "FINISHED", elapsed: null,
-    homeStats: { team: "Sweden", possession: 0.49, totalShots: 13, shotsInsideBox: 9, shotsOutsideBox: 4, shotsOnGoal: 7, corners: 4, xg: 1.33, passAccuracy: 0.78, passes: 356, fouls: 10 },
-    awayStats: { team: "Tunisia", possession: 0.51, totalShots: 6, shotsInsideBox: 2, shotsOutsideBox: 4, shotsOnGoal: 2, corners: 2, xg: 0.28, passAccuracy: 0.79, passes: 371, fouls: 8 },
-  },
-  {
     fixtureId: "G1_Spain_v_Cape_Verde_Islands",
     home: "Spain", away: "Cape Verde Islands", date: "2026-06-15",
     status: "FINISHED", elapsed: null,
@@ -666,4 +659,4 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-04T23:41:12.248Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-05T12:02:10.674Z';
