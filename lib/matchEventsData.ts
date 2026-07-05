@@ -1333,6 +1333,18 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "1568100",
+    home: "Brazil", away: "Norway", date: "2026-07-05",
+    goals: [
+      { player: "Erling Haaland", team: "Norway", minute: 79, type: "goal" },
+      { player: "Erling Haaland", team: "Norway", minute: 90, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Neymar", team: "Brazil", minute: 90, reason: "Tripping" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-05T07:43:59.774Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-05T22:00:56.762Z';
