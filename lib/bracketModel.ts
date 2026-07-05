@@ -142,6 +142,16 @@ export function buildTeamPath(
     }
   }
 
+  // Every resolved tie (R32 + Phase-2 synthesized R16→Final), keyed by official
+  // match number. This is the SAME source All-Teams mode reads, so a future slot the
+  // followed team actually reached shows its REAL result (score/winner/heatmap) —
+  // not a stale "next" preview. Without this, My-Team mode under-reports every round
+  // past R32 for every team (the R16-vs-Paraguay-not-updating bug).
+  const tieByMatch = new Map<number, KnockoutTie>();
+  for (const rg of rounds) for (const ti of rg.ties) {
+    if (ti.matchNo != null) tieByMatch.set(ti.matchNo, ti);
+  }
+
   // Find the followed team's R32 tie.
   let startMatch: number | null = null;
   let teamForm: TeamForm | null = null;
@@ -175,19 +185,41 @@ export function buildTeamPath(
       if (lost) { status = 'eliminated'; break; }
       reachedHere = won;            // only advance as "reached" if the team actually won
     } else if (slot) {
-      // Future slot — the opponent is the other feeder; the team itself sits on
+      // Future slot (R16→Final). The opponent is the other feeder; the team sits on
       // whichever side its previous win flows into.
       const myFeederWonInto = slot.feeds.find((f) => onPathTo(f, startMatch, r32map));
       const oppFeeder = slot.feeds.find((f) => f !== myFeederWonInto) ?? slot.feeds[1];
-      const opponent = resolveSide(oppFeeder, r32map, winners);
-      const state: PathStep['state'] = reachedHere ? 'next' : 'potential';
-      const lili = opponentOptions(teamForm.name, opponent);
-      steps.push({
-        match: cur, round: slot.round, date: slot.date,
-        stadium: getStadium(slot.stadiumId) ?? null,
-        state, opponent, lili,
-      });
-      reachedHere = false;          // beyond the real next match, every slot is hypothetical
+
+      const resolved = tieByMatch.get(cur);
+      if (resolved && (resolved.fixture.home === favTeam || resolved.fixture.away === favTeam)) {
+        // The followed team actually reached this slot and it's now a real tie
+        // (played, live, or scheduled with both sides known) — render the true result,
+        // exactly like All-Teams mode, so both modes agree for any team.
+        const mySide: Side = resolved.fixture.home === favTeam ? 'home' : 'away';
+        const oppForm = mySide === 'home' ? resolved.away : resolved.home;
+        const won = resolved.winner === mySide;
+        const lost = resolved.winner != null && !won;
+        const state: PathStep['state'] = lost ? 'eliminated' : won ? 'won' : resolved.status === 'LIVE' ? 'live' : 'next';
+        steps.push({
+          match: cur, round: slot.round, date: resolved.fixture.date,
+          stadium: resolved.stadium ?? getStadium(slot.stadiumId) ?? null,
+          state, tie: resolved, mySide,
+          opponent: oppForm ? { kind: 'team', team: oppForm } : resolveSide(oppFeeder, r32map, winners),
+        });
+        if (lost) { status = 'eliminated'; break; }
+        reachedHere = won;          // only keep advancing as "reached" if the team won
+      } else {
+        // Not yet a resolved tie for this team — honest "next / potential opponent" preview.
+        const opponent = resolveSide(oppFeeder, r32map, winners);
+        const state: PathStep['state'] = reachedHere ? 'next' : 'potential';
+        const lili = opponentOptions(teamForm.name, opponent);
+        steps.push({
+          match: cur, round: slot.round, date: slot.date,
+          stadium: getStadium(slot.stadiumId) ?? null,
+          state, opponent, lili,
+        });
+        reachedHere = false;        // beyond the real next match, every slot is hypothetical
+      }
     }
 
     const next = nextSlotForWinner(cur);
