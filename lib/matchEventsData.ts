@@ -1309,13 +1309,13 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Soufiane Rahimi", team: "Morocco", minute: 90, minuteStoppage: 8, type: "goal" },
     ],
     yellowCards: [
-      { player: "Redouane Halhal", team: "Morocco", minute: 20, reason: "Roughing" },
-      { player: "Achraf Hakimi", team: "Morocco", minute: 40, reason: "Unsportsmanlike conduct" },
-      { player: "Richie Laryea", team: "Canada", minute: 40, reason: "Unsportsmanlike conduct" },
-      { player: "Jonathan David", team: "Canada", minute: 43, reason: "Holding" },
-      { player: "Azzedine Ounahi", team: "Morocco", minute: 45, reason: "Tripping" },
-      { player: "Bilal El Khannouss", team: "Morocco", minute: 45, reason: "Roughing" },
-      { player: "Luc de Fougerolles", team: "Canada", minute: 49, reason: "Tripping" },
+      { player: "Redouane Halhal", team: "Morocco", minute: 20, reason: "Foul" },
+      { player: "Richie Laryea", team: "Canada", minute: 40, reason: "Argument" },
+      { player: "Achraf Hakimi", team: "Morocco", minute: 40, reason: "Off the ball foul" },
+      { player: "Jonathan David", team: "Canada", minute: 43, reason: "Foul" },
+      { player: "Bilal El Khannouss", team: "Morocco", minute: 45, reason: "Foul" },
+      { player: "Azzedine Ounahi", team: "Morocco", minute: 45, reason: "Foul" },
+      { player: "Luc de Fougerolles", team: "Canada", minute: 49, reason: "Foul" },
       { player: "Cyle Larin", team: "Canada", minute: 67, reason: "Foul" },
     ],
     redCards: [],
@@ -1335,4 +1335,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-05T04:20:07.956Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-05T05:43:53.718Z';
