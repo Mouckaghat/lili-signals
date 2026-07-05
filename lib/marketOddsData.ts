@@ -60,12 +60,12 @@ export const MARKET_ODDS: MarketOdds[] = [
   { fixtureId: "G3_Cape_Verde_Islands_v_Saudi_Arabia", home: "Cape Verde Islands", away: "Saudi Arabia", market: null, model: { home: 0.5000, draw: 0.5000, away: 0.0000 }, advice: "Double chance : Cape Verde Islands or draw", bookmakers: 0 },
   { fixtureId: "H3_Egypt_v_Iran", home: "Egypt", away: "Iran", market: null, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Double chance : Egypt or draw", bookmakers: 0 },
   { fixtureId: "H3_New_Zealand_v_Belgium", home: "New Zealand", away: "Belgium", market: null, model: { home: 0.1000, draw: 0.4500, away: 0.4500 }, advice: "Double chance : draw or Belgium", bookmakers: 0 },
-  { fixtureId: "L3_Croatia_v_Ghana", home: "Croatia", away: "Ghana", market: { home: 0.5221, draw: 0.2958, away: 0.1821 }, model: { home: 0.3500, draw: 0.3500, away: 0.3000 }, advice: "Combo Double chance : Croatia or draw and -3.5 goals", bookmakers: 12 },
-  { fixtureId: "L3_Panama_v_England", home: "Panama", away: "England", market: { home: 0.0592, draw: 0.1136, away: 0.8272 }, model: { home: 0.1000, draw: 0.4500, away: 0.4500 }, advice: "Combo Winner : England and -3.5 goals", bookmakers: 12 },
-  { fixtureId: "K3_Colombia_v_Portugal", home: "Colombia", away: "Portugal", market: { home: 0.2818, draw: 0.2556, away: 0.4625 }, model: { home: 0.3500, draw: 0.3500, away: 0.3000 }, advice: "Double chance : Colombia or draw", bookmakers: 12 },
-  { fixtureId: "K3_Congo_DR_v_Uzbekistan", home: "Congo DR", away: "Uzbekistan", market: { home: 0.5542, draw: 0.2542, away: 0.1916 }, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Double chance : Congo DR or draw", bookmakers: 12 },
-  { fixtureId: "J3_Algeria_v_Austria", home: "Algeria", away: "Austria", market: { home: 0.2714, draw: 0.4642, away: 0.2644 }, model: { home: 0.1000, draw: 0.4500, away: 0.4500 }, advice: "Double chance : draw or Austria", bookmakers: 12 },
-  { fixtureId: "J3_Jordan_v_Argentina", home: "Jordan", away: "Argentina", market: { home: 0.0462, draw: 0.1123, away: 0.8414 }, model: { home: 0.0000, draw: 0.5000, away: 0.5000 }, advice: "Winner : Argentina", bookmakers: 12 },
+  { fixtureId: "L3_Croatia_v_Ghana", home: "Croatia", away: "Ghana", market: null, model: { home: 0.3500, draw: 0.3500, away: 0.3000 }, advice: "Combo Double chance : Croatia or draw and -3.5 goals", bookmakers: 0 },
+  { fixtureId: "L3_Panama_v_England", home: "Panama", away: "England", market: null, model: { home: 0.1000, draw: 0.4500, away: 0.4500 }, advice: "Combo Winner : England and -3.5 goals", bookmakers: 0 },
+  { fixtureId: "K3_Colombia_v_Portugal", home: "Colombia", away: "Portugal", market: null, model: { home: 0.3500, draw: 0.3500, away: 0.3000 }, advice: "Double chance : Colombia or draw", bookmakers: 0 },
+  { fixtureId: "K3_Congo_DR_v_Uzbekistan", home: "Congo DR", away: "Uzbekistan", market: null, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Double chance : Congo DR or draw", bookmakers: 0 },
+  { fixtureId: "J3_Algeria_v_Austria", home: "Algeria", away: "Austria", market: null, model: { home: 0.1000, draw: 0.4500, away: 0.4500 }, advice: "Double chance : draw or Austria", bookmakers: 0 },
+  { fixtureId: "J3_Jordan_v_Argentina", home: "Jordan", away: "Argentina", market: null, model: { home: 0.0000, draw: 0.5000, away: 0.5000 }, advice: "Winner : Argentina", bookmakers: 0 },
 ];
 
-export const MARKET_ODDS_LAST_UPDATED = '2026-07-04T20:05:15.191Z';
+export const MARKET_ODDS_LAST_UPDATED = '2026-07-05T05:28:44.594Z';
