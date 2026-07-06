@@ -654,15 +654,15 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     fixtureId: "1567824",
     home: "Canada", away: "Morocco", date: "2026-07-04",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Canada", possession: 0.45, totalShots: 11, shotsInsideBox: 7, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 11, xg: 0.86, passAccuracy: 0.76, passes: 357, fouls: 24 },
-    awayStats: { team: "Morocco", possession: 0.55, totalShots: 5, shotsInsideBox: 3, shotsOutsideBox: 2, shotsOnGoal: 4, corners: 1, xg: 0.78, passAccuracy: 0.82, passes: 472, fouls: 14 },
+    homeStats: { team: "Canada", possession: 0.45, totalShots: 10, shotsInsideBox: 6, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 11, xg: 0.84, passAccuracy: 0.76, passes: 359, fouls: 24 },
+    awayStats: { team: "Morocco", possession: 0.55, totalShots: 5, shotsInsideBox: 3, shotsOutsideBox: 2, shotsOnGoal: 4, corners: 1, xg: 0.82, passAccuracy: 0.82, passes: 473, fouls: 14 },
   },
   {
     fixtureId: "1569870",
     home: "Paraguay", away: "France", date: "2026-07-04",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Paraguay", possession: 0.24, totalShots: 5, shotsInsideBox: 1, shotsOutsideBox: 4, shotsOnGoal: 1, corners: 2, xg: 0.15, passAccuracy: 0.54, passes: 183, fouls: 13 },
-    awayStats: { team: "France", possession: 0.76, totalShots: 15, shotsInsideBox: 5, shotsOutsideBox: 10, shotsOnGoal: 5, corners: 12, xg: 1.36, passAccuracy: 0.9, passes: 568, fouls: 11 },
+    homeStats: { team: "Paraguay", possession: 0.24, totalShots: 5, shotsInsideBox: 1, shotsOutsideBox: 4, shotsOnGoal: 1, corners: 2, xg: 0.13, passAccuracy: 0.54, passes: 183, fouls: 13 },
+    awayStats: { team: "France", possession: 0.76, totalShots: 15, shotsInsideBox: 5, shotsOutsideBox: 10, shotsOnGoal: 5, corners: 12, xg: 1.45, passAccuracy: 0.9, passes: 569, fouls: 11 },
   },
   {
     fixtureId: "1568100",
@@ -674,10 +674,10 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "1570714",
     home: "Mexico", away: "England", date: "2026-07-06",
-    status: "LIVE", elapsed: 24,
-    homeStats: { team: "Mexico", possession: 0.5, totalShots: 3, shotsInsideBox: 2, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 2, xg: 0.11, passAccuracy: 0.92, passes: 91, fouls: 5 },
-    awayStats: { team: "England", possession: 0.5, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 2, xg: 0, passAccuracy: 0.85, passes: 91, fouls: 1 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Mexico", possession: 0.67, totalShots: 20, shotsInsideBox: 12, shotsOutsideBox: 8, shotsOnGoal: 5, corners: 12, xg: 1.87, passAccuracy: 0.92, passes: 455, fouls: 14 },
+    awayStats: { team: "England", possession: 0.33, totalShots: 6, shotsInsideBox: 4, shotsOutsideBox: 2, shotsOnGoal: 5, corners: 2, xg: 1.55, passAccuracy: 0.8, passes: 244, fouls: 7 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-06T01:24:22.781Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-06T05:44:08.103Z';
