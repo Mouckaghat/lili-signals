@@ -299,6 +299,11 @@ export interface DispatchI18n {
   types: Record<DispatchType, string>;
   statuses: Record<DispatchStatus, string>;
   escalations: Record<Escalation, string>;
+  // Quarantine / moderation surface (EN+FR filled; others fall back to EN).
+  autoTag?: string;
+  quarantineTitle?: string;
+  quarantineSub?: string;
+  reviewBanner?: string;
 }
 
 export const DISPATCH_I18N: Record<LangCode, DispatchI18n> = {
@@ -309,6 +314,10 @@ export const DISPATCH_I18N: Record<LangCode, DispatchI18n> = {
     types: { ENTRY: 'ENTRY & VISAS', REFEREE: 'REFEREEING', DISCIPLINE: 'DISCIPLINE', POLITICS: 'POLITICS', LOGISTICS: 'LOGISTICS', DOPING: 'ANTI-DOPING' },
     statuses: { CONFIRMED: 'CONFIRMED', DISPUTED: 'DISPUTED', OPINION: 'OPINION' },
     escalations: { FIFA: 'FIFA ACTED', GOVERNMENT: 'GOVERNMENT', LEGAL: 'IN COURT' },
+    autoTag: '⚙ AUTO',
+    quarantineTitle: '⏳ AWAITING REVIEW · NOT PUBLISHED',
+    quarantineSub: 'Captured by Lili from the news, held for your review before anything goes live.',
+    reviewBanner: '⏳ AWAITING REVIEW — NOT LIVE',
   },
   FR: {
     sectionTitle: 'AU-DELÀ DES DONNÉES · DISPATCH COUPE DU MONDE',
@@ -317,6 +326,10 @@ export const DISPATCH_I18N: Record<LangCode, DispatchI18n> = {
     types: { ENTRY: 'VISAS & ENTRÉE', REFEREE: 'ARBITRAGE', DISCIPLINE: 'DISCIPLINE', POLITICS: 'POLITIQUE', LOGISTICS: 'LOGISTIQUE', DOPING: 'ANTIDOPAGE' },
     statuses: { CONFIRMED: 'CONFIRMÉ', DISPUTED: 'CONTESTÉ', OPINION: 'OPINION' },
     escalations: { FIFA: 'LA FIFA A AGI', GOVERNMENT: 'GOUVERNEMENT', LEGAL: 'EN JUSTICE' },
+    autoTag: '⚙ AUTO',
+    quarantineTitle: '⏳ EN ATTENTE DE VALIDATION · NON PUBLIÉ',
+    quarantineSub: 'Capturé par Lili dans l\'actualité, retenu pour votre revue avant toute publication.',
+    reviewBanner: '⏳ EN ATTENTE — NON PUBLIÉ',
   },
   IT: {
     sectionTitle: 'OLTRE I DATI · DISPACCIO MONDIALE',
@@ -392,6 +405,26 @@ export const DISPATCH_I18N: Record<LangCode, DispatchI18n> = {
   },
 };
 
+// ─── Bot candidates: published vs quarantine ──────────────────────────────────
+// The curated 12 above are the BASELINE (the golden set). The sync-dispatch bot
+// captures new stories via GDELT, applies the rules filter, and routes each into
+// one of two visible stages (never auto-rejects into view):
+//   'published'  — cleared the truth gate (≥2 reputable outlets) + no serious
+//                  unattributed accusation → auto-published, marked ⚙ auto.
+//   'quarantine' — grey zone (single outlet, or a sensitive/defamation-risk
+//                  keyword) → held as "Awaiting review", NOT live until promoted.
+// Auto-rejects (tone/relevance fail) are dropped by the bot and never stored.
+
+export type DispatchStage = 'published' | 'quarantine';
+
+export interface DispatchCandidate extends DispatchEvent {
+  stage: DispatchStage;
+  origin: 'auto';
+  capturedAt: string;       // ISO when the bot first captured it
+  signature: string;        // normalized keyword signature (for dedupe/rejection)
+  reputableSources: number; // distinct reputable outlets clustered
+}
+
 // ─── Ordering: real Coverage Index, never a fabricated view count ─────────────
 // coverageScore = distinct outlets tracked + factual escalation weight. This is
 // a transparent, sourceable proxy for prominence (NOT views/impressions).
@@ -410,24 +443,45 @@ export interface ResolvedDispatch {
   title: string;
   body: string;
   sources: DispatchSource[];
-  outlets: number;   // real count, shown as coverage
+  outlets: number;            // real count, shown as coverage
+  origin: 'curated' | 'auto'; // curated baseline vs bot-captured
+  signature?: string;         // present on auto items (for moderation)
 }
 
-// Events ranked by coverage (desc), with EN/FR body resolved for the language.
-export function getDispatch(lang: LangCode): ResolvedDispatch[] {
+function resolve(e: DispatchEvent, lang: LangCode, origin: 'curated' | 'auto', signature?: string): ResolvedDispatch {
   const fr = lang === 'FR';
-  return [...DISPATCH_EVENTS]
-    .sort((a, b) => coverageScore(b) - coverageScore(a) || b.date.localeCompare(a.date))
-    .map((e) => ({
-      id: e.id,
-      date: e.date,
-      type: e.type,
-      status: e.status,
-      escalation: e.escalation,
-      flags: e.flags,
-      title: fr ? e.titleFR : e.titleEN,
-      body: fr ? e.bodyFR : e.bodyEN,
-      sources: e.sources,
-      outlets: e.sources.length,
-    }));
+  return {
+    id: e.id, date: e.date, type: e.type, status: e.status,
+    escalation: e.escalation, flags: e.flags,
+    title: fr ? e.titleFR : e.titleEN,
+    body: fr ? e.bodyFR : e.bodyEN,
+    sources: e.sources, outlets: e.sources.length, origin, signature,
+  };
+}
+
+// PUBLISHED = curated baseline + auto candidates in the 'published' stage,
+// ranked by coverage. This is the live, reader-facing feed.
+export function getPublished(lang: LangCode, candidates: DispatchCandidate[] = []): ResolvedDispatch[] {
+  const curated = DISPATCH_EVENTS.map((e) => resolve(e, lang, 'curated'));
+  const auto = candidates
+    .filter((c) => c.stage === 'published')
+    .map((c) => resolve(c, lang, 'auto', c.signature));
+  return [...curated, ...auto]
+    .sort((a, b) =>
+      (b.sources.length * 10 + b.escalation.length * 6) -
+      (a.sources.length * 10 + a.escalation.length * 6) ||
+      b.date.localeCompare(a.date));
+}
+
+// QUARANTINE = auto candidates awaiting your review (NOT live), newest first.
+export function getQuarantine(lang: LangCode, candidates: DispatchCandidate[] = []): ResolvedDispatch[] {
+  return candidates
+    .filter((c) => c.stage === 'quarantine')
+    .sort((a, b) => b.capturedAt.localeCompare(a.capturedAt))
+    .map((c) => resolve(c, lang, 'auto', c.signature));
+}
+
+// Back-compat alias (curated-only) for any existing callers.
+export function getDispatch(lang: LangCode): ResolvedDispatch[] {
+  return getPublished(lang, []);
 }

@@ -12,13 +12,15 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { computeRouteSignals, type RouteDangerZone, type RouteBriefing } from '../lib/routeSignals';
 import {
-  getDispatch,
+  getPublished,
+  getQuarantine,
   DISPATCH_I18N,
   type ResolvedDispatch,
   type DispatchI18n,
   type DispatchType,
   type DispatchStatus,
 } from '../lib/routeDispatch';
+import { DISPATCH_CANDIDATES } from '../lib/dispatchCandidates';
 import FeatureIntro from '../components/FeatureIntro';
 import TournamentIntelligenceSection from '../components/TournamentIntelligenceSection';
 import { playerByPath } from '../lib/playerXI';
@@ -259,13 +261,16 @@ const STATUS_COLOR: Record<DispatchStatus, string> = {
   CONFIRMED: D.signal, DISPUTED: D.orange, OPINION: D.text2,
 };
 
-function DispatchCard({ item, labels }: { item: ResolvedDispatch; labels: DispatchI18n }) {
+function DispatchCard({ item, labels, review = false }: { item: ResolvedDispatch; labels: DispatchI18n; review?: boolean }) {
   const [open, setOpen] = useState(false);
   const c  = TYPE_COLOR[item.type];
   const sc = STATUS_COLOR[item.status];
   const coverageWord = labels.coverage.replace('{n}', '').trim();
   return (
-    <View style={[dp.card, { borderLeftColor: c }]}>
+    <View style={[dp.card, { borderLeftColor: review ? D.text3 : c }, review && dp.reviewCard]}>
+      {review && (
+        <Text style={dp.reviewBanner}>{labels.reviewBanner ?? '⏳ AWAITING REVIEW — NOT LIVE'}</Text>
+      )}
       <View style={dp.topRow}>
         <View style={dp.badges}>
           <View style={[dp.typeBadge, { backgroundColor: `${c}12`, borderColor: `${c}30` }]}>
@@ -274,6 +279,9 @@ function DispatchCard({ item, labels }: { item: ResolvedDispatch; labels: Dispat
           <View style={[dp.statusBadge, { borderColor: `${sc}45` }]}>
             <Text style={[dp.statusText, { color: sc }]}>{labels.statuses[item.status]}</Text>
           </View>
+          {item.origin === 'auto' && (
+            <View style={dp.autoBadge}><Text style={dp.autoText}>{labels.autoTag ?? '⚙ AUTO'}</Text></View>
+          )}
         </View>
         <View style={dp.coverage}>
           <Text style={dp.coverageNum}>{item.outlets}</Text>
@@ -344,6 +352,10 @@ const dp = StyleSheet.create({
   date:              { fontSize: 9, color: D.text3, fontWeight: '600' },
   sourceList: { gap: 7, paddingTop: 2 },
   sourceLink: { fontSize: 11, color: D.cyan, fontWeight: '600' },
+  reviewCard:   { borderStyle: 'dashed', borderColor: 'rgba(122,144,184,0.35)', backgroundColor: D.surface, opacity: 0.96 },
+  reviewBanner: { fontSize: 8, fontWeight: '800', color: D.text3, letterSpacing: 1.2 },
+  autoBadge:    { paddingHorizontal: 6, paddingVertical: 2, borderRadius: 5, borderWidth: 1, borderColor: 'rgba(122,144,184,0.3)', backgroundColor: 'rgba(122,144,184,0.08)' },
+  autoText:     { fontSize: 7.5, fontWeight: '800', color: D.text2, letterSpacing: 0.8 },
 });
 
 // ─── Main screen ──────────────────────────────────────────────────────────────
@@ -369,7 +381,8 @@ export default function LiliRouteIntelligenceScreen() {
 
   const { i18n, lang } = useLanguage();
   const { zones, briefings } = useMemo(() => computeRouteSignals(i18n, undefined), [i18n]);
-  const dispatch = useMemo(() => getDispatch(lang), [lang]);
+  const dispatch   = useMemo(() => getPublished(lang, DISPATCH_CANDIDATES), [lang]);
+  const quarantine = useMemo(() => getQuarantine(lang, DISPATCH_CANDIDATES), [lang]);
   const dl = DISPATCH_I18N[lang] ?? DISPATCH_I18N.EN;
   const daysToFinal   = daysUntil(FINAL_MS);
   const daysToKickoff = daysUntil(KICKOFF_MS);
@@ -491,6 +504,21 @@ export default function LiliRouteIntelligenceScreen() {
             ))}
           </View>
         </View>
+
+        {/* Quarantine · Awaiting Review (bot candidates, not yet live) */}
+        {quarantine.length > 0 && (
+          <View style={ms.section}>
+            <SectionHeader
+              title={dl.quarantineTitle ?? '⏳ AWAITING REVIEW · NOT PUBLISHED'}
+              sub={dl.quarantineSub ?? 'Captured by Lili, held for your review before anything goes live.'}
+            />
+            <View style={ms.gap8}>
+              {quarantine.map((item) => (
+                <DispatchCard key={item.id} item={item} labels={dl} review />
+              ))}
+            </View>
+          </View>
+        )}
 
         {/* Tournament Intelligence */}
         <TournamentIntelligenceSection />
