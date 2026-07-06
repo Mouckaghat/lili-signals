@@ -681,10 +681,10 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "1576756",
     home: "Portugal", away: "Spain", date: "2026-07-06",
-    status: "LIVE", elapsed: 61,
-    homeStats: { team: "Portugal", possession: 0.44, totalShots: 5, shotsInsideBox: 3, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 3, xg: 0.26, passAccuracy: 0.84, passes: 257, fouls: 5 },
-    awayStats: { team: "Spain", possession: 0.56, totalShots: 8, shotsInsideBox: 4, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 2, xg: 0.98, passAccuracy: 0.87, passes: 322, fouls: 8 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Portugal", possession: 0.45, totalShots: 10, shotsInsideBox: 7, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 3, xg: 0.58, passAccuracy: 0.84, passes: 426, fouls: 9 },
+    awayStats: { team: "Spain", possession: 0.55, totalShots: 15, shotsInsideBox: 8, shotsOutsideBox: 7, shotsOnGoal: 6, corners: 7, xg: 1.77, passAccuracy: 0.88, passes: 531, fouls: 13 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-06T20:23:37.049Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-06T21:52:10.841Z';
