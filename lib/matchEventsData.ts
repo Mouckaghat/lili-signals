@@ -1306,7 +1306,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Azzedine Ounahi", team: "Morocco", minute: 50, type: "goal" },
       { player: "Azzedine Ounahi", team: "Morocco", minute: 82, type: "goal" },
-      { player: "Soufiane Rahimi", team: "Morocco", minute: 90, minuteStoppage: 8, type: "goal" },
+      { player: "Soufiane Rahimi", team: "Morocco", minute: 90, type: "goal" },
     ],
     yellowCards: [
       { player: "Redouane Halhal", team: "Morocco", minute: 20, reason: "Foul" },
@@ -1329,7 +1329,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     yellowCards: [
       { player: "Bradley Barcola", team: "France", minute: 19, reason: "Foul" },
       { player: "Manu Koné", team: "France", minute: 81, reason: "Foul" },
-      { player: "Michael Olise", team: "France", minute: 90, reason: "Unsporting behaviour" },
+      { player: "Michael Olise", team: "France", minute: 90, reason: "Argument" },
     ],
     redCards: [],
   },
@@ -1370,4 +1370,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-06T04:51:06.865Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-06T08:59:44.650Z';
