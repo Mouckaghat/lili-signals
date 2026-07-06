@@ -1368,6 +1368,19 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Jarell Quansah", team: "England", minute: 54, reason: "Serious foul" },
     ],
   },
+  {
+    fixtureId: "1576756",
+    home: "Portugal", away: "Spain", date: "2026-07-06",
+    goals: [
+      { player: "Mikel Merino", team: "Spain", minute: 90, minuteStoppage: 1, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Bernardo Silva", team: "Portugal", minute: 89, reason: "Roughing" },
+      { player: "Renato Veiga", team: "Portugal", minute: 90, reason: "Holding" },
+      { player: "Ferran Torres", team: "Spain", minute: 90, reason: "Tripping" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-06T08:59:44.650Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-06T21:55:03.416Z';
