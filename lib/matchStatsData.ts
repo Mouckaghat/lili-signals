@@ -671,6 +671,13 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Brazil", possession: 0.34, totalShots: 14, shotsInsideBox: 10, shotsOutsideBox: 4, shotsOnGoal: 4, corners: 5, xg: 2.73, passAccuracy: 0.85, passes: 329, fouls: 7 },
     awayStats: { team: "Norway", possession: 0.66, totalShots: 9, shotsInsideBox: 7, shotsOutsideBox: 2, shotsOnGoal: 5, corners: 5, xg: 0.84, passAccuracy: 0.91, passes: 680, fouls: 6 },
   },
+  {
+    fixtureId: "1570714",
+    home: "Mexico", away: "England", date: "2026-07-06",
+    status: "LIVE", elapsed: 24,
+    homeStats: { team: "Mexico", possession: 0.5, totalShots: 3, shotsInsideBox: 2, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 2, xg: 0.11, passAccuracy: 0.92, passes: 91, fouls: 5 },
+    awayStats: { team: "England", possession: 0.5, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 2, xg: 0, passAccuracy: 0.85, passes: 91, fouls: 1 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-05T22:45:32.479Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-06T01:24:22.781Z';
