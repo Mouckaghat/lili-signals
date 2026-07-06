@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Animated,
   Image,
+  Linking,
   ScrollView,
   StyleSheet,
   Text,
@@ -10,6 +11,14 @@ import {
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { computeRouteSignals, type RouteDangerZone, type RouteBriefing } from '../lib/routeSignals';
+import {
+  getDispatch,
+  DISPATCH_I18N,
+  type ResolvedDispatch,
+  type DispatchI18n,
+  type DispatchType,
+  type DispatchStatus,
+} from '../lib/routeDispatch';
 import FeatureIntro from '../components/FeatureIntro';
 import TournamentIntelligenceSection from '../components/TournamentIntelligenceSection';
 import { playerByPath } from '../lib/playerXI';
@@ -241,6 +250,102 @@ const sh = StyleSheet.create({
   sub:   { fontSize: 11, color: D.text2 },
 });
 
+// ─── World Cup Dispatch card ──────────────────────────────────────────────────
+
+const TYPE_COLOR: Record<DispatchType, string> = {
+  ENTRY: D.red, REFEREE: D.gold, DISCIPLINE: D.orange, POLITICS: D.cyan, LOGISTICS: D.blue, DOPING: D.green,
+};
+const STATUS_COLOR: Record<DispatchStatus, string> = {
+  CONFIRMED: D.signal, DISPUTED: D.orange, OPINION: D.text2,
+};
+
+function DispatchCard({ item, labels }: { item: ResolvedDispatch; labels: DispatchI18n }) {
+  const [open, setOpen] = useState(false);
+  const c  = TYPE_COLOR[item.type];
+  const sc = STATUS_COLOR[item.status];
+  const coverageWord = labels.coverage.replace('{n}', '').trim();
+  return (
+    <View style={[dp.card, { borderLeftColor: c }]}>
+      <View style={dp.topRow}>
+        <View style={dp.badges}>
+          <View style={[dp.typeBadge, { backgroundColor: `${c}12`, borderColor: `${c}30` }]}>
+            <Text style={[dp.typeText, { color: c }]}>{labels.types[item.type]}</Text>
+          </View>
+          <View style={[dp.statusBadge, { borderColor: `${sc}45` }]}>
+            <Text style={[dp.statusText, { color: sc }]}>{labels.statuses[item.status]}</Text>
+          </View>
+        </View>
+        <View style={dp.coverage}>
+          <Text style={dp.coverageNum}>{item.outlets}</Text>
+          <Text style={dp.coverageLabel}>{coverageWord}</Text>
+        </View>
+      </View>
+
+      <Text style={dp.title}>{item.flags}  {item.title}</Text>
+      <Text style={dp.body}>{item.body}</Text>
+
+      {item.escalation.length > 0 && (
+        <View style={dp.escRow}>
+          {item.escalation.map((e) => (
+            <View key={e} style={dp.escChip}>
+              <Text style={dp.escText}>⚡ {labels.escalations[e]}</Text>
+            </View>
+          ))}
+        </View>
+      )}
+
+      <TouchableOpacity style={dp.sourcesToggle} onPress={() => setOpen((o) => !o)} activeOpacity={0.7}>
+        <Text style={dp.sourcesToggleText}>{labels.sources} · {item.outlets}  {open ? '▴' : '▾'}</Text>
+        <Text style={dp.date}>{item.date}</Text>
+      </TouchableOpacity>
+
+      {open && (
+        <View style={dp.sourceList}>
+          {item.sources.map((s) => (
+            <TouchableOpacity key={s.url} onPress={() => Linking.openURL(s.url)} activeOpacity={0.7}>
+              <Text style={dp.sourceLink}>↗ {s.outlet}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
+    </View>
+  );
+}
+
+const dp = StyleSheet.create({
+  card: {
+    backgroundColor: D.card,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: D.border,
+    borderLeftWidth: 3,
+    padding: 14,
+    gap: 9,
+  },
+  topRow:   { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 },
+  badges:   { flexDirection: 'row', alignItems: 'center', gap: 6, flexShrink: 1, flexWrap: 'wrap' },
+  typeBadge:   { paddingHorizontal: 7, paddingVertical: 2, borderRadius: 5, borderWidth: 1 },
+  typeText:    { fontSize: 8, fontWeight: '800', letterSpacing: 1.1 },
+  statusBadge: { paddingHorizontal: 7, paddingVertical: 2, borderRadius: 5, borderWidth: 1 },
+  statusText:  { fontSize: 8, fontWeight: '800', letterSpacing: 1 },
+  coverage:      { alignItems: 'flex-end' },
+  coverageNum:   { fontSize: 18, fontWeight: '800', color: D.text1, lineHeight: 20 },
+  coverageLabel: { fontSize: 6.5, fontWeight: '700', color: D.text3, letterSpacing: 0.8, textTransform: 'uppercase' },
+  title: { fontSize: 13.5, fontWeight: '700', color: D.text1, lineHeight: 19 },
+  body:  { fontSize: 11.5, color: D.text2, lineHeight: 17 },
+  escRow:  { flexDirection: 'row', flexWrap: 'wrap', gap: 6 },
+  escChip: { paddingHorizontal: 7, paddingVertical: 2, borderRadius: 5, borderWidth: 1, borderColor: 'rgba(212,165,32,0.28)', backgroundColor: 'rgba(212,165,32,0.06)' },
+  escText: { fontSize: 7.5, fontWeight: '800', color: D.gold, letterSpacing: 0.6 },
+  sourcesToggle: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    borderTopWidth: 1, borderTopColor: D.sep, paddingTop: 8, marginTop: 1,
+  },
+  sourcesToggleText: { fontSize: 9, fontWeight: '800', color: D.blue, letterSpacing: 0.8 },
+  date:              { fontSize: 9, color: D.text3, fontWeight: '600' },
+  sourceList: { gap: 7, paddingTop: 2 },
+  sourceLink: { fontSize: 11, color: D.cyan, fontWeight: '600' },
+});
+
 // ─── Main screen ──────────────────────────────────────────────────────────────
 
 export default function LiliRouteIntelligenceScreen() {
@@ -262,8 +367,10 @@ export default function LiliRouteIntelligenceScreen() {
     ).start();
   }, [breathe, fadeIn]);
 
-  const { i18n } = useLanguage();
+  const { i18n, lang } = useLanguage();
   const { zones, briefings } = useMemo(() => computeRouteSignals(i18n, undefined), [i18n]);
+  const dispatch = useMemo(() => getDispatch(lang), [lang]);
+  const dl = DISPATCH_I18N[lang] ?? DISPATCH_I18N.EN;
   const daysToFinal   = daysUntil(FINAL_MS);
   const daysToKickoff = daysUntil(KICKOFF_MS);
   const isLive        = daysToKickoff === 0;
@@ -374,6 +481,17 @@ export default function LiliRouteIntelligenceScreen() {
           </View>
         </View>
 
+        {/* Beyond the Data · World Cup Dispatch */}
+        <View style={ms.section}>
+          <SectionHeader title={dl.sectionTitle} sub={dl.sectionSub} />
+          <Text style={ms.dispatchTracking}>{dl.tracking.replace('{n}', String(dispatch.length))}</Text>
+          <View style={ms.gap8}>
+            {dispatch.map((item) => (
+              <DispatchCard key={item.id} item={item} labels={dl} />
+            ))}
+          </View>
+        </View>
+
         {/* Tournament Intelligence */}
         <TournamentIntelligenceSection />
 
@@ -477,6 +595,7 @@ const ms = StyleSheet.create({
   // ── Sections
   section: { marginBottom: 24 },
   gap8:    { gap: 8 },
+  dispatchTracking: { fontSize: 10, color: D.signal, fontWeight: '700', letterSpacing: 0.3, marginBottom: 10, marginTop: -4 },
 
   // ── Footer
   footer: {
