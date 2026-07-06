@@ -53,6 +53,7 @@ export const WC_KNOCKOUT: KnockoutFixture[] = [
   { id: '1576804', round: 'R16', roundLabel: 'Round of 16', home: 'Argentina', away: 'Egypt', date: '2026-07-07T16:00:00+00:00', stadiumId: null, venueName: null, city: null, status: 'SCHEDULED', homeScore: null, awayScore: null, winner: null, penHome: null, penAway: null },
   { id: '1576805', round: 'R16', roundLabel: 'Round of 16', home: 'Switzerland', away: 'Colombia', date: '2026-07-07T20:00:00+00:00', stadiumId: null, venueName: null, city: null, status: 'SCHEDULED', homeScore: null, awayScore: null, winner: null, penHome: null, penAway: null },
   { id: '1578539', round: 'QF', roundLabel: 'Quarter-final', home: 'France', away: 'Morocco', date: '2026-07-09T20:00:00+00:00', stadiumId: null, venueName: null, city: null, status: 'SCHEDULED', homeScore: null, awayScore: null, winner: null, penHome: null, penAway: null },
+  { id: '1581037', round: 'QF', roundLabel: 'Quarter-final', home: 'Norway', away: 'England', date: '2026-07-11T21:00:00+00:00', stadiumId: null, venueName: null, city: null, status: 'SCHEDULED', homeScore: null, awayScore: null, winner: null, penHome: null, penAway: null },
 ];
 
-export const WC_KNOCKOUT_LAST_UPDATED = '2026-07-06T03:51:13.130Z';
+export const WC_KNOCKOUT_LAST_UPDATED = '2026-07-06T08:24:13.979Z';
