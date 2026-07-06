@@ -1346,6 +1346,28 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "1570714",
+    home: "Mexico", away: "England", date: "2026-07-06",
+    goals: [
+      { player: "Jude Bellingham", team: "England", minute: 36, type: "goal" },
+      { player: "Jude Bellingham", team: "England", minute: 38, type: "goal" },
+      { player: "Julián Quiñones", team: "Mexico", minute: 42, type: "goal" },
+      { player: "Harry Kane", team: "England", minute: 60, type: "penalty" },
+      { player: "Raúl Jiménez", team: "Mexico", minute: 69, type: "penalty" },
+    ],
+    yellowCards: [
+      { player: "Declan Rice", team: "England", minute: 1, reason: "Roughing" },
+      { player: "Marc Guéhi", team: "England", minute: 68, reason: "Unsportsmanlike conduct" },
+      { player: "Jorge Sánchez", team: "Mexico", minute: 71, reason: "Unsportsmanlike conduct" },
+      { player: "Nico O'Reilly", team: "England", minute: 72, reason: "Unsportsmanlike conduct" },
+      { player: "Johan Vásquez", team: "Mexico", minute: 90, reason: "Unsportsmanlike conduct" },
+      { player: "Jordan Henderson", team: "England", minute: 90 },
+    ],
+    redCards: [
+      { player: "Jarell Quansah", team: "England", minute: 54, reason: "Serious foul" },
+    ],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-05T23:11:32.904Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-06T04:06:57.918Z';
