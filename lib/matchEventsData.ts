@@ -1397,6 +1397,18 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "1576804",
+    home: "Argentina", away: "Egypt", date: "2026-07-07",
+    goals: [
+      { player: "Yasser Ibrahim", team: "Egypt", minute: 15, type: "goal" },
+      { player: "Mostafa Ziko", team: "Egypt", minute: 67, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Mostafa Ziko", team: "Egypt", minute: 61, reason: "Unsportsmanlike conduct" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-07T08:03:30.638Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-07T17:35:09.515Z';

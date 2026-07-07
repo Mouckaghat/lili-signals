@@ -695,10 +695,10 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "1576804",
     home: "Argentina", away: "Egypt", date: "2026-07-07",
-    status: "LIVE", elapsed: 22,
-    homeStats: { team: "Argentina", possession: 0.53, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 0, xg: 0.79, passAccuracy: 0.9, passes: 124, fouls: 4 },
-    awayStats: { team: "Egypt", possession: 0.47, totalShots: 1, shotsInsideBox: 1, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 1, xg: 0.19, passAccuracy: 0.93, passes: 106, fouls: 1 },
+    status: "LIVE", elapsed: 70,
+    homeStats: { team: "Argentina", possession: 0.62, totalShots: 11, shotsInsideBox: 4, shotsOutsideBox: 7, shotsOnGoal: 4, corners: 4, xg: 1.68, passAccuracy: 0.9, passes: 447, fouls: 11 },
+    awayStats: { team: "Egypt", possession: 0.38, totalShots: 3, shotsInsideBox: 2, shotsOutsideBox: 1, shotsOnGoal: 2, corners: 1, xg: 0.21, passAccuracy: 0.83, passes: 272, fouls: 9 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-07T16:25:34.667Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-07T17:34:27.951Z';
