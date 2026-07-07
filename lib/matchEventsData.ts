@@ -1375,9 +1375,9 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Mikel Merino", team: "Spain", minute: 90, minuteStoppage: 1, type: "goal" },
     ],
     yellowCards: [
-      { player: "Bernardo Silva", team: "Portugal", minute: 89, reason: "Roughing" },
-      { player: "Renato Veiga", team: "Portugal", minute: 90, reason: "Holding" },
-      { player: "Ferran Torres", team: "Spain", minute: 90, reason: "Tripping" },
+      { player: "Bernardo Silva", team: "Portugal", minute: 89, reason: "Foul" },
+      { player: "Renato Veiga", team: "Portugal", minute: 90, reason: "Foul" },
+      { player: "Ferran Torres", team: "Spain", minute: 90, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -1388,12 +1388,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Charles De Ketelaere", team: "Belgium", minute: 9, type: "goal" },
       { player: "Malik Tillman", team: "USA", minute: 31, type: "goal" },
       { player: "Charles De Ketelaere", team: "Belgium", minute: 33, type: "goal" },
+      { player: "Hans Vanaken", team: "Belgium", minute: 57, type: "goal" },
+      { player: "Romelu Lukaku", team: "Belgium", minute: 90, minuteStoppage: 3, type: "goal" },
     ],
     yellowCards: [
       { player: "Weston McKennie", team: "USA", minute: 35, reason: "Tripping" },
+      { player: "Malik Tillman", team: "USA", minute: 69, reason: "Tripping" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-07T01:19:23.278Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-07T04:32:33.868Z';
