@@ -2651,7 +2651,7 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "1567309", team: "Portugal", name: "João Neves", pos: "MF", minutes: 90, rating: 7, goals: 0, assists: 0, saves: 0, shots: 1, shotsOn: 0, passes: 51, passAccPct: 92, tackles: 5, interceptions: 0 },
   { fixtureId: "1567309", team: "Portugal", name: "Vitinha", pos: "MF", minutes: 62, rating: 7.2, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 75, passAccPct: 93, tackles: 2, interceptions: 0 },
   { fixtureId: "1567309", team: "Portugal", name: "Pedro Neto", pos: "MF", minutes: 63, rating: 6.2, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 28, passAccPct: 93, tackles: 1, interceptions: 0 },
-  { fixtureId: "1567309", team: "Portugal", name: "Bruno Fernandes", pos: "MF", minutes: 63, rating: 6.6, goals: 0, assists: 0, saves: 0, shots: 1, shotsOn: 1, passes: 31, passAccPct: 90, tackles: 1, interceptions: 0 },
+  { fixtureId: "1567309", team: "Portugal", name: "Bruno Fernandes", pos: "MF", minutes: 63, rating: 6.6, goals: 0, assists: 0, saves: 0, shots: 2, shotsOn: 1, passes: 31, passAccPct: 90, tackles: 1, interceptions: 0 },
   { fixtureId: "1567309", team: "Portugal", name: "Rafael Leão", pos: "MF", minutes: 90, rating: 6.5, goals: 0, assists: 1, saves: 0, shots: 2, shotsOn: 0, passes: 52, passAccPct: 90, tackles: 0, interceptions: 1 },
   { fixtureId: "1567309", team: "Portugal", name: "Nélson Semedo", pos: "DF", minutes: 27, rating: 6.9, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 15, passAccPct: 93, tackles: 0, interceptions: 0 },
   { fixtureId: "1567309", team: "Portugal", name: "Bernardo Silva", pos: "MF", minutes: 28, rating: 6.5, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 11, passAccPct: 73, tackles: 0, interceptions: 0 },
@@ -2986,4 +2986,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "1570715", team: "Belgium", name: "Axel Witsel", pos: "MF", minutes: 1, rating: null, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 4, passAccPct: 100, tackles: 0, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-07-07T09:33:30.534Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-07-07T15:25:15.160Z';
