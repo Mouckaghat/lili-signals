@@ -1112,8 +1112,12 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     yellowCards: [
       { player: "Andrés Cubas", team: "Paraguay", minute: 65, reason: "Foul" },
+      { player: "Gustavo Julio Alfaro", team: "Paraguay", minute: 105, reason: "Dissent" },
+      { player: "Julian Nagelsmann", team: "Germany", minute: 105, reason: "Dissent" },
       { player: "Kai Havertz", team: "Germany", minute: 106, reason: "Foul" },
       { player: "Jamal Musiala", team: "Germany", minute: 115, reason: "Foul" },
+      { player: "Mads Buttgereit", team: "Germany", minute: 116 },
+      { player: "Alejandro Juan Manograsso", team: "Paraguay", minute: 117 },
       { player: "Matías Galarza", team: "Paraguay", minute: 117, reason: "Foul" },
     ],
     redCards: [],
@@ -1416,6 +1420,17 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "1576805",
+    home: "Switzerland", away: "Colombia", date: "2026-07-07",
+    goals: [],
+    yellowCards: [
+      { player: "Granit Xhaka", team: "Switzerland", minute: 51, reason: "Tripping" },
+      { player: "Denis Zakaria", team: "Switzerland", minute: 59, reason: "Tripping" },
+      { player: "Luis Suárez", team: "Colombia", minute: 60, reason: "Holding" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-07T20:24:17.261Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-07T21:53:06.550Z';
