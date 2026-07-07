@@ -688,10 +688,10 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "1570715",
     home: "USA", away: "Belgium", date: "2026-07-07",
-    status: "LIVE", elapsed: 55,
-    homeStats: { team: "USA", possession: 0.49, totalShots: 3, shotsInsideBox: 2, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 1, xg: 0.42, passAccuracy: 0.85, passes: 257, fouls: 5 },
-    awayStats: { team: "Belgium", possession: 0.51, totalShots: 11, shotsInsideBox: 7, shotsOutsideBox: 4, shotsOnGoal: 5, corners: 4, xg: 1.9, passAccuracy: 0.82, passes: 264, fouls: 5 },
+    status: "LIVE", elapsed: 67,
+    homeStats: { team: "USA", possession: 0.55, totalShots: 3, shotsInsideBox: 2, shotsOutsideBox: 1, shotsOnGoal: 1, corners: 1, xg: 0.42, passAccuracy: 0.87, passes: 375, fouls: 5 },
+    awayStats: { team: "Belgium", possession: 0.45, totalShots: 13, shotsInsideBox: 8, shotsOutsideBox: 5, shotsOnGoal: 6, corners: 5, xg: 2.04, passAccuracy: 0.82, passes: 298, fouls: 5 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-07T01:18:45.656Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-07T01:31:32.367Z';
