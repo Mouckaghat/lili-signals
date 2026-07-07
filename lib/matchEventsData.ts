@@ -1386,10 +1386,14 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "USA", away: "Belgium", date: "2026-07-07",
     goals: [
       { player: "Charles De Ketelaere", team: "Belgium", minute: 9, type: "goal" },
+      { player: "Malik Tillman", team: "USA", minute: 31, type: "goal" },
+      { player: "Charles De Ketelaere", team: "Belgium", minute: 33, type: "goal" },
     ],
-    yellowCards: [],
+    yellowCards: [
+      { player: "Weston McKennie", team: "USA", minute: 35, reason: "Tripping" },
+    ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-07T00:20:25.790Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-07T01:19:23.278Z';
