@@ -1412,9 +1412,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Hamdy Fathy", team: "Egypt", minute: 90, reason: "Unsportsmanlike conduct" },
       { player: "Marwan Attia", team: "Egypt", minute: 90, reason: "Holding" },
       { player: "Haissem Hassan", team: "Egypt", minute: 90 },
+      { player: "Haissem Hassan", team: "Egypt", minute: 90, reason: "misses next match" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-07T18:21:16.623Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-07T20:24:17.261Z';
