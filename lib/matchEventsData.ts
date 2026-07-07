@@ -1381,6 +1381,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "1570715",
+    home: "USA", away: "Belgium", date: "2026-07-07",
+    goals: [
+      { player: "Charles De Ketelaere", team: "Belgium", minute: 9, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-06T21:55:03.416Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-07T00:20:25.790Z';
