@@ -1428,9 +1428,11 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Granit Xhaka", team: "Switzerland", minute: 51, reason: "Tripping" },
       { player: "Denis Zakaria", team: "Switzerland", minute: 59, reason: "Tripping" },
       { player: "Luis Suárez", team: "Colombia", minute: 60, reason: "Holding" },
+      { player: "Davinson Sánchez", team: "Colombia", minute: 95, reason: "Holding" },
+      { player: "Miro Muheim", team: "Switzerland", minute: 105, reason: "Roughing" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-07T21:53:06.550Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-07T22:58:41.325Z';
