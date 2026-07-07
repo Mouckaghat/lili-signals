@@ -51,10 +51,10 @@ export const WC_KNOCKOUT: KnockoutFixture[] = [
   { id: '1576756', round: 'R16', roundLabel: 'Round of 16', home: 'Portugal', away: 'Spain', date: '2026-07-06T19:00:00+00:00', stadiumId: 'att', venueName: 'AT&T Stadium', city: 'Dallas', status: 'FINISHED', homeScore: 0, awayScore: 1, winner: 'away', penHome: null, penAway: null },
   { id: '1570715', round: 'R16', roundLabel: 'Round of 16', home: 'USA', away: 'Belgium', date: '2026-07-07T00:00:00+00:00', stadiumId: 'lumen', venueName: 'Lumen Field', city: 'Seattle', status: 'FINISHED', homeScore: 1, awayScore: 4, winner: 'away', penHome: null, penAway: null },
   { id: '1576804', round: 'R16', roundLabel: 'Round of 16', home: 'Argentina', away: 'Egypt', date: '2026-07-07T16:00:00+00:00', stadiumId: 'mercedes', venueName: 'Mercedes-Benz Stadium', city: 'Atlanta', status: 'FINISHED', homeScore: 3, awayScore: 2, winner: 'home', penHome: null, penAway: null },
-  { id: '1576805', round: 'R16', roundLabel: 'Round of 16', home: 'Switzerland', away: 'Colombia', date: '2026-07-07T20:00:00+00:00', stadiumId: 'bc', venueName: 'BC Place', city: 'Vancouver', status: 'SCHEDULED', homeScore: null, awayScore: null, winner: null, penHome: null, penAway: null },
+  { id: '1576805', round: 'R16', roundLabel: 'Round of 16', home: 'Switzerland', away: 'Colombia', date: '2026-07-07T20:00:00+00:00', stadiumId: 'bc', venueName: 'BC Place', city: 'Vancouver', status: 'LIVE', homeScore: 0, awayScore: 0, winner: null, penHome: null, penAway: null },
   { id: '1578539', round: 'QF', roundLabel: 'Quarter-final', home: 'France', away: 'Morocco', date: '2026-07-09T20:00:00+00:00', stadiumId: 'gillette', venueName: 'Gillette Stadium', city: 'Boston', status: 'SCHEDULED', homeScore: null, awayScore: null, winner: null, penHome: null, penAway: null },
   { id: '1581821', round: 'QF', roundLabel: 'Quarter-final', home: 'Spain', away: 'Belgium', date: '2026-07-10T19:00:00+00:00', stadiumId: 'sofi', venueName: 'SoFi Stadium', city: 'Los Angeles', status: 'SCHEDULED', homeScore: null, awayScore: null, winner: null, penHome: null, penAway: null },
   { id: '1581037', round: 'QF', roundLabel: 'Quarter-final', home: 'Norway', away: 'England', date: '2026-07-11T21:00:00+00:00', stadiumId: 'hardrock', venueName: 'Hard Rock Stadium', city: 'Miami', status: 'SCHEDULED', homeScore: null, awayScore: null, winner: null, penHome: null, penAway: null },
 ];
 
-export const WC_KNOCKOUT_LAST_UPDATED = '2026-07-07T18:50:34.010Z';
+export const WC_KNOCKOUT_LAST_UPDATED = '2026-07-07T20:50:56.703Z';
