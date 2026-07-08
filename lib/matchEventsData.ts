@@ -1408,6 +1408,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Enzo Fernández", team: "Argentina", minute: 90, minuteStoppage: 2, type: "goal" },
     ],
     yellowCards: [
+      { player: "Haissem Hassan", team: "Egypt", minute: -5, reason: "Argument" },
       { player: "Marwan Attia", team: "Egypt", minute: 90, reason: "Foul" },
       { player: "Hamdy Fathy", team: "Egypt", minute: 90, reason: "Argument" },
       { player: "Mostafa Shobeir", team: "Egypt", minute: 90, reason: "Argument" },
@@ -1430,4 +1431,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-08T09:06:37.025Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-08T20:03:27.158Z';
