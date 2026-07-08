@@ -703,9 +703,9 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     fixtureId: "1576805",
     home: "Switzerland", away: "Colombia", date: "2026-07-07",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Switzerland", possession: 0.49, totalShots: 2, shotsInsideBox: 2, shotsOutsideBox: 0, shotsOnGoal: 2, corners: 1, xg: 0.06, passAccuracy: 0.88, passes: 248, fouls: 6 },
-    awayStats: { team: "Colombia", possession: 0.51, totalShots: 5, shotsInsideBox: 3, shotsOutsideBox: 2, shotsOnGoal: 1, corners: 4, xg: 0.25, passAccuracy: 0.85, passes: 256, fouls: 6 },
+    homeStats: { team: "Switzerland", possession: 0.53, totalShots: 7, shotsInsideBox: 4, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 3, xg: 0.39, passAccuracy: 0.87, passes: 631, fouls: 22 },
+    awayStats: { team: "Colombia", possession: 0.47, totalShots: 15, shotsInsideBox: 9, shotsOutsideBox: 6, shotsOnGoal: 3, corners: 7, xg: 1.09, passAccuracy: 0.83, passes: 547, fouls: 21 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-08T07:03:02.693Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-08T09:33:49.029Z';
