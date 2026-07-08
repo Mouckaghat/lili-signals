@@ -1376,7 +1376,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     fixtureId: "1576756",
     home: "Portugal", away: "Spain", date: "2026-07-06",
     goals: [
-      { player: "Mikel Merino", team: "Spain", minute: 90, minuteStoppage: 1, type: "goal" },
+      { player: "Mikel Merino", team: "Spain", minute: 90, type: "goal" },
     ],
     yellowCards: [
       { player: "Bernardo Silva", team: "Portugal", minute: 89, reason: "Foul" },
@@ -1393,11 +1393,11 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Malik Tillman", team: "USA", minute: 31, type: "goal" },
       { player: "Charles De Ketelaere", team: "Belgium", minute: 33, type: "goal" },
       { player: "Hans Vanaken", team: "Belgium", minute: 57, type: "goal" },
-      { player: "Romelu Lukaku", team: "Belgium", minute: 90, minuteStoppage: 3, type: "goal" },
+      { player: "Romelu Lukaku", team: "Belgium", minute: 90, type: "goal" },
     ],
     yellowCards: [
-      { player: "Weston McKennie", team: "USA", minute: 35, reason: "Tripping" },
-      { player: "Malik Tillman", team: "USA", minute: 69, reason: "Tripping" },
+      { player: "Weston McKennie", team: "USA", minute: 35, reason: "Foul" },
+      { player: "Malik Tillman", team: "USA", minute: 69, reason: "Foul" },
     ],
     redCards: [],
   },
@@ -1412,11 +1412,9 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Enzo Fernández", team: "Argentina", minute: 90, minuteStoppage: 2, type: "goal" },
     ],
     yellowCards: [
-      { player: "Mostafa Shobeir", team: "Egypt", minute: 90, reason: "Unsportsmanlike conduct" },
-      { player: "Hamdy Fathy", team: "Egypt", minute: 90, reason: "Unsportsmanlike conduct" },
-      { player: "Marwan Attia", team: "Egypt", minute: 90, reason: "Holding" },
-      { player: "Haissem Hassan", team: "Egypt", minute: 90 },
-      { player: "Haissem Hassan", team: "Egypt", minute: 90, reason: "misses next match" },
+      { player: "Marwan Attia", team: "Egypt", minute: 90, reason: "Foul" },
+      { player: "Hamdy Fathy", team: "Egypt", minute: 90, reason: "Argument" },
+      { player: "Mostafa Shobeir", team: "Egypt", minute: 90, reason: "Argument" },
     ],
     redCards: [],
   },
@@ -1435,4 +1433,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-07T22:58:41.325Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-08T06:16:18.821Z';
