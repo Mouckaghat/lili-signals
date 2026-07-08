@@ -682,15 +682,15 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     fixtureId: "1576756",
     home: "Portugal", away: "Spain", date: "2026-07-06",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Portugal", possession: 0.45, totalShots: 10, shotsInsideBox: 7, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 3, xg: 0.58, passAccuracy: 0.84, passes: 426, fouls: 9 },
-    awayStats: { team: "Spain", possession: 0.55, totalShots: 15, shotsInsideBox: 8, shotsOutsideBox: 7, shotsOnGoal: 6, corners: 7, xg: 1.77, passAccuracy: 0.88, passes: 531, fouls: 13 },
+    homeStats: { team: "Portugal", possession: 0.45, totalShots: 10, shotsInsideBox: 7, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 3, xg: 0.63, passAccuracy: 0.84, passes: 427, fouls: 9 },
+    awayStats: { team: "Spain", possession: 0.55, totalShots: 15, shotsInsideBox: 8, shotsOutsideBox: 7, shotsOnGoal: 6, corners: 7, xg: 1.69, passAccuracy: 0.88, passes: 530, fouls: 13 },
   },
   {
     fixtureId: "1570715",
     home: "USA", away: "Belgium", date: "2026-07-07",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "USA", possession: 0.56, totalShots: 7, shotsInsideBox: 5, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 3, xg: 0.67, passAccuracy: 0.87, passes: 527, fouls: 11 },
-    awayStats: { team: "Belgium", possession: 0.44, totalShots: 15, shotsInsideBox: 10, shotsOutsideBox: 5, shotsOnGoal: 7, corners: 5, xg: 2.15, passAccuracy: 0.81, passes: 410, fouls: 9 },
+    homeStats: { team: "USA", possession: 0.56, totalShots: 7, shotsInsideBox: 5, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 3, xg: 0.63, passAccuracy: 0.87, passes: 527, fouls: 11 },
+    awayStats: { team: "Belgium", possession: 0.44, totalShots: 15, shotsInsideBox: 10, shotsOutsideBox: 5, shotsOnGoal: 7, corners: 5, xg: 2.01, passAccuracy: 0.81, passes: 414, fouls: 9 },
   },
   {
     fixtureId: "1576804",
@@ -708,4 +708,4 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-07T23:43:06.879Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-08T07:03:02.693Z';
