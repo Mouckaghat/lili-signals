@@ -1405,7 +1405,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Mostafa Ziko", team: "Egypt", minute: 67, type: "goal" },
       { player: "Cristian Romero", team: "Argentina", minute: 79, type: "goal" },
       { player: "Lionel Messi", team: "Argentina", minute: 83, type: "goal" },
-      { player: "Enzo Fernández", team: "Argentina", minute: 90, minuteStoppage: 2, type: "goal" },
+      { player: "Enzo Fernández", team: "Argentina", minute: 90, type: "goal" },
     ],
     yellowCards: [
       { player: "Haissem Hassan", team: "Egypt", minute: -5, reason: "Argument" },
@@ -1424,11 +1424,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Denis Zakaria", team: "Switzerland", minute: 59, reason: "Foul" },
       { player: "Luis Suárez", team: "Colombia", minute: 60, reason: "Foul" },
       { player: "Davinson Sánchez", team: "Colombia", minute: 95, reason: "Foul" },
-      { player: "Luis Amaranto Perea", team: "Colombia", minute: 95 },
       { player: "Miro Muheim", team: "Switzerland", minute: 105, reason: "Foul" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-08T20:03:27.158Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-09T06:29:43.508Z';
