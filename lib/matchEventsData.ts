@@ -1429,6 +1429,18 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "1578539",
+    home: "France", away: "Morocco", date: "2026-07-09",
+    goals: [
+      { player: "Kylian Mbappé", team: "France", minute: 60, type: "goal" },
+      { player: "Ousmane Dembélé", team: "France", minute: 66, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Issa Diop", team: "Morocco", minute: 63 },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-09T15:48:00.462Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-09T22:02:50.248Z';
