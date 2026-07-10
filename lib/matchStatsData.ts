@@ -717,9 +717,9 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     fixtureId: "1581821",
     home: "Spain", away: "Belgium", date: "2026-07-10",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Spain", possession: 0.68, totalShots: 16, shotsInsideBox: 10, shotsOutsideBox: 6, shotsOnGoal: 7, corners: 5, xg: 2.04, passAccuracy: 0.9, passes: 644, fouls: 13 },
-    awayStats: { team: "Belgium", possession: 0.32, totalShots: 5, shotsInsideBox: 4, shotsOutsideBox: 1, shotsOnGoal: 2, corners: 1, xg: 0.38, passAccuracy: 0.79, passes: 308, fouls: 16 },
+    homeStats: { team: "Spain", possession: 0.68, totalShots: 17, shotsInsideBox: 10, shotsOutsideBox: 7, shotsOnGoal: 8, corners: 5, xg: 2.08, passAccuracy: 0.9, passes: 665, fouls: 13 },
+    awayStats: { team: "Belgium", possession: 0.32, totalShots: 5, shotsInsideBox: 4, shotsOutsideBox: 1, shotsOnGoal: 2, corners: 1, xg: 0.37, passAccuracy: 0.78, passes: 314, fouls: 18 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-10T21:18:36.033Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-10T22:30:21.608Z';
