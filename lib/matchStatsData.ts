@@ -713,6 +713,13 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     homeStats: { team: "France", possession: 0.48, totalShots: 22, shotsInsideBox: 12, shotsOutsideBox: 10, shotsOnGoal: 8, corners: 5, xg: 3.04, passAccuracy: 0.89, passes: 485, fouls: 10 },
     awayStats: { team: "Morocco", possession: 0.52, totalShots: 5, shotsInsideBox: 1, shotsOutsideBox: 4, shotsOnGoal: 1, corners: 5, xg: 0.14, passAccuracy: 0.86, passes: 524, fouls: 13 },
   },
+  {
+    fixtureId: "1581821",
+    home: "Spain", away: "Belgium", date: "2026-07-10",
+    status: "LIVE", elapsed: 48,
+    homeStats: { team: "Spain", possession: 0.63, totalShots: 9, shotsInsideBox: 6, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 3, xg: 1.1, passAccuracy: 0.89, passes: 325, fouls: 7 },
+    awayStats: { team: "Belgium", possession: 0.37, totalShots: 2, shotsInsideBox: 2, shotsOutsideBox: 0, shotsOnGoal: 1, corners: 0, xg: 0.18, passAccuracy: 0.82, passes: 186, fouls: 7 },
+  },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-09T23:05:17.583Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-10T20:10:44.920Z';
