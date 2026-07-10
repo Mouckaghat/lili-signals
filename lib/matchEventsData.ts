@@ -1424,7 +1424,6 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Denis Zakaria", team: "Switzerland", minute: 59, reason: "Foul" },
       { player: "Luis Suárez", team: "Colombia", minute: 60, reason: "Foul" },
       { player: "Davinson Sánchez", team: "Colombia", minute: 95, reason: "Foul" },
-      { player: "Luis Amaranto Perea", team: "Colombia", minute: 95 },
       { player: "Miro Muheim", team: "Switzerland", minute: 105, reason: "Foul" },
     ],
     redCards: [],
@@ -1437,10 +1436,10 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Ousmane Dembélé", team: "France", minute: 66, type: "goal" },
     ],
     yellowCards: [
-      { player: "Issa Diop", team: "Morocco", minute: 63 },
+      { player: "Issa Diop", team: "Morocco", minute: 63, reason: "Foul" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-09T22:02:50.248Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-10T06:28:39.503Z';
