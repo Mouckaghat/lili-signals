@@ -1440,6 +1440,18 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "1581821",
+    home: "Spain", away: "Belgium", date: "2026-07-10",
+    goals: [
+      { player: "Fabián Ruiz", team: "Spain", minute: 30, type: "goal" },
+      { player: "Charles De Ketelaere", team: "Belgium", minute: 41, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Pau Cubarsí", team: "Spain", minute: 43, reason: "Holding" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-10T06:28:39.503Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-10T20:28:06.845Z';
