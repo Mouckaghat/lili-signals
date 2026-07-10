@@ -9303,7 +9303,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Monaco",
     league: "Ligue 1",
     leagueFlag: "🇫🇷",
-    caps: 61,
+    caps: 62,
   },
   {
     name: "Édouard Mendy",
@@ -12549,4 +12549,4 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
   },
 ];
 
-export const PLAYER_PROFILES_LAST_UPDATED = '2026-07-04T08:41:25.457Z';
+export const PLAYER_PROFILES_LAST_UPDATED = '2026-07-10T09:40:02.806Z';
