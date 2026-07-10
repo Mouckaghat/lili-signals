@@ -1446,12 +1446,16 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Fabián Ruiz", team: "Spain", minute: 30, type: "goal" },
       { player: "Charles De Ketelaere", team: "Belgium", minute: 41, type: "goal" },
+      { player: "Mikel Merino", team: "Spain", minute: 88, type: "goal" },
     ],
     yellowCards: [
       { player: "Pau Cubarsí", team: "Spain", minute: 43, reason: "Holding" },
+      { player: "Kevin De Bruyne", team: "Belgium", minute: 85, reason: "Holding" },
+      { player: "Aymeric Laporte", team: "Spain", minute: 90, reason: "Roughing" },
+      { player: "Axel Witsel", team: "Belgium", minute: 90, reason: "Roughing" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-10T20:28:06.845Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-10T21:36:09.318Z';
