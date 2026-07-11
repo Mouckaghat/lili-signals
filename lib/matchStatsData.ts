@@ -723,10 +723,10 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "1581037",
     home: "Norway", away: "England", date: "2026-07-11",
-    status: "LIVE", elapsed: 90,
+    status: "LIVE", elapsed: null,
     homeStats: { team: "Norway", possession: 0.42, totalShots: 9, shotsInsideBox: 8, shotsOutsideBox: 1, shotsOnGoal: 4, corners: 5, xg: 0.52, passAccuracy: 0.85, passes: 385, fouls: 8 },
     awayStats: { team: "England", possession: 0.58, totalShots: 7, shotsInsideBox: 4, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 3, xg: 0.31, passAccuracy: 0.92, passes: 521, fouls: 5 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-11T23:01:47.874Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-11T23:07:07.280Z';
