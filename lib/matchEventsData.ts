@@ -953,24 +953,6 @@ export const MATCH_EVENTS: MatchEvents[] = [
     redCards: [],
   },
   {
-    fixtureId: "H3_Egypt_v_Iran",
-    home: "Egypt", away: "Iran", date: "2026-06-27",
-    goals: [
-      { player: "Mahmoud Saber", team: "Egypt", minute: 5, type: "goal" },
-      { player: "Ramin Rezaeian", team: "Iran", minute: 14, type: "goal" },
-    ],
-    yellowCards: [
-      { player: "Hossein Kanaani", team: "Iran", minute: 19, reason: "Foul" },
-      { player: "Mahmoud Saber", team: "Egypt", minute: 20, reason: "Foul" },
-      { player: "Yasser Ibrahim", team: "Egypt", minute: 42, reason: "Foul" },
-      { player: "Ali Nemati", team: "Iran", minute: 43, reason: "Foul" },
-      { player: "Saeid Ezatolahi", team: "Iran", minute: 79, reason: "Foul" },
-      { player: "Mohanad Lasheen", team: "Egypt", minute: 90, reason: "Foul" },
-      { player: "Shojae Khalilzadeh", team: "Iran", minute: 90 },
-    ],
-    redCards: [],
-  },
-  {
     fixtureId: "H3_New_Zealand_v_Belgium",
     home: "New Zealand", away: "Belgium", date: "2026-06-27",
     goals: [
@@ -1491,4 +1473,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-12T06:32:06.817Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-12T14:14:23.163Z';
