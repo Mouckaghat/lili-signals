@@ -1469,6 +1469,26 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "1582681",
+    home: "Argentina", away: "Switzerland", date: "2026-07-12",
+    goals: [
+      { player: "Alexis Mac Allister", team: "Argentina", minute: 10, type: "goal" },
+      { player: "Dan Ndoye", team: "Switzerland", minute: 67, type: "goal" },
+      { player: "Julián Alvarez", team: "Argentina", minute: 112, type: "goal" },
+      { player: "L. Martinez", team: "Argentina", minute: 120, minuteStoppage: 1, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Breel Embolo", team: "Switzerland", minute: 44, reason: "Roughing" },
+      { player: "Breel Embolo", team: "Switzerland", minute: 72, reason: "Diving" },
+      { player: "Thiago Almada", team: "Argentina", minute: 97, reason: "Holding" },
+      { player: "L. Martinez", team: "Argentina", minute: 98, reason: "Tripping" },
+      { player: "José Manuel López", team: "Argentina", minute: 114, reason: "Unsportsmanlike conduct" },
+    ],
+    redCards: [
+      { player: "Breel Embolo", team: "Switzerland", minute: 72, reason: "Diving" },
+    ],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-12T00:10:42.855Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-12T03:56:48.581Z';
