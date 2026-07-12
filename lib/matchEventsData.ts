@@ -1465,7 +1465,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Jude Bellingham", team: "England", minute: 93, type: "goal" },
     ],
     yellowCards: [
-      { player: "Kristoffer Ajer", team: "Norway", minute: 117, reason: "Unsportsmanlike conduct" },
+      { player: "Kristoffer Ajer", team: "Norway", minute: 117, reason: "Argument" },
     ],
     redCards: [],
   },
@@ -1491,4 +1491,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-12T03:56:48.581Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-12T06:32:06.817Z';
