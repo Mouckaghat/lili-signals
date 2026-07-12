@@ -1462,10 +1462,13 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Andreas Schjelderup", team: "Norway", minute: 36, type: "goal" },
       { player: "Jude Bellingham", team: "England", minute: 45, minuteStoppage: 2, type: "goal" },
+      { player: "Jude Bellingham", team: "England", minute: 93, type: "goal" },
     ],
-    yellowCards: [],
+    yellowCards: [
+      { player: "Kristoffer Ajer", team: "Norway", minute: 117, reason: "Unsportsmanlike conduct" },
+    ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-11T21:59:55.714Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-12T00:10:42.855Z';
