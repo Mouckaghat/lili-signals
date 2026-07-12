@@ -3162,7 +3162,7 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "1582681", team: "Argentina", name: "Thiago Almada", pos: "MF", minutes: 30, rating: 7.2, goals: 0, assists: 0, saves: 0, shots: 3, shotsOn: 2, passes: 27, passAccPct: 100, tackles: 0, interceptions: 0 },
   { fixtureId: "1582681", team: "Argentina", name: "Nicolás Otamendi", pos: "DF", minutes: 15, rating: 7, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 7, passAccPct: 86, tackles: 1, interceptions: 0 },
   { fixtureId: "1582681", team: "Argentina", name: "José Manuel López", pos: "FW", minutes: 10, rating: 6.3, goals: 0, assists: 1, saves: 0, shots: 0, shotsOn: 0, passes: 3, passAccPct: 67, tackles: 0, interceptions: 0 },
-  { fixtureId: "1582681", team: "Switzerland", name: "Gregor Kobel", pos: "GK", minutes: 120, rating: 6.6, goals: 0, assists: 0, saves: 4, shots: 0, shotsOn: 0, passes: 38, passAccPct: 50, tackles: 0, interceptions: 0 },
+  { fixtureId: "1582681", team: "Switzerland", name: "Gregor Kobel", pos: "GK", minutes: 120, rating: 6.7, goals: 0, assists: 0, saves: 4, shots: 0, shotsOn: 0, passes: 38, passAccPct: 50, tackles: 0, interceptions: 0 },
   { fixtureId: "1582681", team: "Switzerland", name: "Denis Zakaria", pos: "DF", minutes: 96, rating: 6.2, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 47, passAccPct: 83, tackles: 2, interceptions: 2 },
   { fixtureId: "1582681", team: "Switzerland", name: "Nico Elvedi", pos: "DF", minutes: 120, rating: 6.3, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 59, passAccPct: 93, tackles: 1, interceptions: 1 },
   { fixtureId: "1582681", team: "Switzerland", name: "Manuel Akanji", pos: "DF", minutes: 120, rating: 6, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 58, passAccPct: 86, tackles: 1, interceptions: 0 },
@@ -3180,4 +3180,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "1582681", team: "Switzerland", name: "Rubén Vargas", pos: "MF", minutes: 9, rating: 6.5, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 3, passAccPct: 67, tackles: 0, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-07-12T04:50:18.042Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-07-12T07:27:04.551Z';
