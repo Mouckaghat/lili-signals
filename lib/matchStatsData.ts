@@ -731,9 +731,9 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     fixtureId: "1582681",
     home: "Argentina", away: "Switzerland", date: "2026-07-12",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Argentina", possession: 0.59, totalShots: 22, shotsInsideBox: 12, shotsOutsideBox: 10, shotsOnGoal: 7, corners: 8, xg: 1.96, passAccuracy: 0.89, passes: 680, fouls: 14 },
+    homeStats: { team: "Argentina", possession: 0.59, totalShots: 22, shotsInsideBox: 12, shotsOutsideBox: 10, shotsOnGoal: 7, corners: 8, xg: 1.98, passAccuracy: 0.89, passes: 692, fouls: 14 },
     awayStats: { team: "Switzerland", possession: 0.41, totalShots: 11, shotsInsideBox: 5, shotsOutsideBox: 6, shotsOnGoal: 5, corners: 2, xg: 0.53, passAccuracy: 0.84, passes: 474, fouls: 18 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-12T03:52:16.001Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-12T06:23:58.933Z';
