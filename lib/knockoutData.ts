@@ -57,6 +57,7 @@ export const WC_KNOCKOUT: KnockoutFixture[] = [
   { id: '1581037', round: 'QF', roundLabel: 'Quarter-final', home: 'Norway', away: 'England', date: '2026-07-11T21:00:00+00:00', stadiumId: 'hardrock', venueName: 'Hard Rock Stadium', city: 'Miami', status: 'FINISHED', homeScore: 1, awayScore: 2, winner: 'away', penHome: null, penAway: null },
   { id: '1582681', round: 'QF', roundLabel: 'Quarter-final', home: 'Argentina', away: 'Switzerland', date: '2026-07-12T01:00:00+00:00', stadiumId: 'arrowhead', venueName: 'Arrowhead Stadium', city: 'Kansas City', status: 'FINISHED', homeScore: 3, awayScore: 1, winner: 'home', penHome: null, penAway: null },
   { id: '1585131', round: 'SF', roundLabel: 'Semi-final', home: 'France', away: 'Spain', date: '2026-07-14T19:00:00+00:00', stadiumId: null, venueName: null, city: null, status: 'SCHEDULED', homeScore: null, awayScore: null, winner: null, penHome: null, penAway: null },
+  { id: '1586077', round: 'SF', roundLabel: 'Semi-final', home: 'England', away: 'Argentina', date: '2026-07-15T19:00:00+00:00', stadiumId: null, venueName: null, city: null, status: 'SCHEDULED', homeScore: null, awayScore: null, winner: null, penHome: null, penAway: null },
 ];
 
-export const WC_KNOCKOUT_LAST_UPDATED = '2026-07-12T03:45:22.317Z';
+export const WC_KNOCKOUT_LAST_UPDATED = '2026-07-12T06:21:50.514Z';
