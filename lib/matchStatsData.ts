@@ -724,9 +724,16 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     fixtureId: "1581037",
     home: "Norway", away: "England", date: "2026-07-11",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Norway", possession: 0.47, totalShots: 13, shotsInsideBox: 10, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 7, xg: 0.77, passAccuracy: 0.86, passes: 563, fouls: 10 },
-    awayStats: { team: "England", possession: 0.53, totalShots: 14, shotsInsideBox: 8, shotsOutsideBox: 6, shotsOnGoal: 8, corners: 4, xg: 1.09, passAccuracy: 0.91, passes: 621, fouls: 8 },
+    homeStats: { team: "Norway", possession: 0.48, totalShots: 13, shotsInsideBox: 10, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 7, xg: 0.77, passAccuracy: 0.85, passes: 576, fouls: 10 },
+    awayStats: { team: "England", possession: 0.52, totalShots: 14, shotsInsideBox: 8, shotsOutsideBox: 6, shotsOnGoal: 8, corners: 4, xg: 1.09, passAccuracy: 0.91, passes: 626, fouls: 8 },
+  },
+  {
+    fixtureId: "1582681",
+    home: "Argentina", away: "Switzerland", date: "2026-07-12",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Argentina", possession: 0.59, totalShots: 22, shotsInsideBox: 12, shotsOutsideBox: 10, shotsOnGoal: 7, corners: 8, xg: 1.96, passAccuracy: 0.89, passes: 680, fouls: 14 },
+    awayStats: { team: "Switzerland", possession: 0.41, totalShots: 11, shotsInsideBox: 5, shotsOutsideBox: 6, shotsOnGoal: 5, corners: 2, xg: 0.53, passAccuracy: 0.84, passes: 474, fouls: 18 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-12T00:08:02.092Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-12T03:52:16.001Z';
