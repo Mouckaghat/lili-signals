@@ -1476,7 +1476,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Alexis Mac Allister", team: "Argentina", minute: 10, type: "goal" },
       { player: "Dan Ndoye", team: "Switzerland", minute: 67, type: "goal" },
       { player: "Julián Alvarez", team: "Argentina", minute: 112, type: "goal" },
-      { player: "L. Martinez", team: "Argentina", minute: 120, type: "goal" },
+      { player: "Lautaro Martínez", team: "Argentina", minute: 120, minuteStoppage: 1, type: "goal" },
     ],
     yellowCards: [
       { player: "Breel Embolo", team: "Switzerland", minute: 44, reason: "Foul" },
@@ -1491,4 +1491,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-13T08:15:08.891Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-13T13:49:27.592Z';
