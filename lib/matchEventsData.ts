@@ -1461,7 +1461,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Norway", away: "England", date: "2026-07-11",
     goals: [
       { player: "Andreas Schjelderup", team: "Norway", minute: 36, type: "goal" },
-      { player: "Jude Bellingham", team: "England", minute: 45, minuteStoppage: 2, type: "goal" },
+      { player: "Jude Bellingham", team: "England", minute: 45, type: "goal" },
       { player: "Jude Bellingham", team: "England", minute: 93, type: "goal" },
     ],
     yellowCards: [
@@ -1476,19 +1476,19 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Alexis Mac Allister", team: "Argentina", minute: 10, type: "goal" },
       { player: "Dan Ndoye", team: "Switzerland", minute: 67, type: "goal" },
       { player: "Julián Alvarez", team: "Argentina", minute: 112, type: "goal" },
-      { player: "L. Martinez", team: "Argentina", minute: 120, minuteStoppage: 1, type: "goal" },
+      { player: "L. Martinez", team: "Argentina", minute: 120, type: "goal" },
     ],
     yellowCards: [
-      { player: "Breel Embolo", team: "Switzerland", minute: 44, reason: "Roughing" },
-      { player: "Breel Embolo", team: "Switzerland", minute: 72, reason: "Diving" },
-      { player: "Thiago Almada", team: "Argentina", minute: 97, reason: "Holding" },
-      { player: "L. Martinez", team: "Argentina", minute: 98, reason: "Tripping" },
-      { player: "José Manuel López", team: "Argentina", minute: 114, reason: "Unsportsmanlike conduct" },
+      { player: "Breel Embolo", team: "Switzerland", minute: 44, reason: "Foul" },
+      { player: "Breel Embolo", team: "Switzerland", minute: 72, reason: "Simulation" },
+      { player: "Thiago Almada", team: "Argentina", minute: 97, reason: "Foul" },
+      { player: "Lautaro Martínez", team: "Argentina", minute: 98, reason: "Foul" },
+      { player: "José Manuel López", team: "Argentina", minute: 114, reason: "Argument" },
     ],
     redCards: [
-      { player: "Breel Embolo", team: "Switzerland", minute: 72, reason: "Diving" },
+      { player: "Breel Embolo", team: "Switzerland", minute: 72, reason: "Simulation" },
     ],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-12T14:44:19.482Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-13T08:15:08.891Z';
