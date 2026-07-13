@@ -724,8 +724,8 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     fixtureId: "1581037",
     home: "Norway", away: "England", date: "2026-07-11",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Norway", possession: 0.48, totalShots: 13, shotsInsideBox: 10, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 7, xg: 0.77, passAccuracy: 0.85, passes: 576, fouls: 10 },
-    awayStats: { team: "England", possession: 0.52, totalShots: 14, shotsInsideBox: 8, shotsOutsideBox: 6, shotsOnGoal: 8, corners: 4, xg: 1.09, passAccuracy: 0.91, passes: 626, fouls: 8 },
+    homeStats: { team: "Norway", possession: 0.48, totalShots: 13, shotsInsideBox: 10, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 7, xg: 0.68, passAccuracy: 0.86, passes: 577, fouls: 10 },
+    awayStats: { team: "England", possession: 0.52, totalShots: 14, shotsInsideBox: 8, shotsOutsideBox: 6, shotsOnGoal: 8, corners: 4, xg: 1.04, passAccuracy: 0.9, passes: 628, fouls: 8 },
   },
   {
     fixtureId: "1582681",
@@ -736,4 +736,4 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-12T08:35:37.121Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-13T06:42:44.889Z';
