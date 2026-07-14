@@ -3185,8 +3185,8 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "1585131", team: "France", name: "J. Koundé", pos: "DF", minutes: 45, rating: 6.29, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 12, passAccPct: 67, tackles: 0, interceptions: 1 },
   { fixtureId: "1585131", team: "France", name: "M. Lacroix", pos: "DF", minutes: 15, rating: 6.68, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 21, passAccPct: 95, tackles: 0, interceptions: 0 },
   { fixtureId: "1585131", team: "France", name: "A. Tchouaméni", pos: "MF", minutes: 45, rating: 6.83, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 23, passAccPct: 91, tackles: 2, interceptions: 0 },
-  { fixtureId: "1585131", team: "France", name: "Kylian Mbappé", pos: "FW", minutes: 45, rating: 6.6, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 7, passAccPct: 86, tackles: 0, interceptions: 0 },
-  { fixtureId: "1585131", team: "France", name: "O. Dembélé", pos: "FW", minutes: 45, rating: 6.4, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 13, passAccPct: 62, tackles: 0, interceptions: 0 },
+  { fixtureId: "1585131", team: "France", name: "Kylian Mbappé", pos: "FW", minutes: 45, rating: 5.8, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 7, passAccPct: 86, tackles: 0, interceptions: 0 },
+  { fixtureId: "1585131", team: "France", name: "O. Dembélé", pos: "FW", minutes: 45, rating: 6.6, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 13, passAccPct: 62, tackles: 0, interceptions: 0 },
   { fixtureId: "1585131", team: "France", name: "D. Upamecano", pos: "DF", minutes: 45, rating: 6.68, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 23, passAccPct: 91, tackles: 0, interceptions: 0 },
   { fixtureId: "1585131", team: "France", name: "A. Rabiot", pos: "MF", minutes: 45, rating: 5.94, goals: 0, assists: 0, saves: 0, shots: 1, shotsOn: 0, passes: 21, passAccPct: 67, tackles: 4, interceptions: 3 },
   { fixtureId: "1585131", team: "France", name: "M. Maignan", pos: "GK", minutes: 45, rating: 6.04, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 13, passAccPct: 77, tackles: 0, interceptions: 0 },
@@ -3203,4 +3203,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "1585131", team: "Spain", name: "Aymeric Laporte", pos: "DF", minutes: 45, rating: 7.17, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 50, passAccPct: 96, tackles: 0, interceptions: 1 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-07-14T20:00:28.760Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-07-14T20:07:50.405Z';
