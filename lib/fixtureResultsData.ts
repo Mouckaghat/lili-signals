@@ -13,6 +13,7 @@ export interface FixtureResult {
 // Keyed by "HomeTeam|AwayTeam" — matches WC_FIXTURES home|away exactly.
 // Only contains entries for fixtures that are LIVE or FINISHED.
 export const FIXTURE_RESULTS: Record<string, FixtureResult> = {
+  "France|Spain": { status: 'LIVE', homeScore: 0, awayScore: 1, winner: 'Spain' },
   "Mexico|South Africa": { status: 'FINISHED', homeScore: 2, awayScore: 0, winner: 'Mexico' },
   "South Korea|Czech Republic": { status: 'FINISHED', homeScore: 2, awayScore: 1, winner: 'South Korea' },
   "Canada|Bosnia & Herzegovina": { status: 'FINISHED', homeScore: 1, awayScore: 1, winner: null },
@@ -115,4 +116,4 @@ export const FIXTURE_RESULTS: Record<string, FixtureResult> = {
   "Argentina|Switzerland": { status: 'FINISHED', homeScore: 3, awayScore: 1, winner: 'Argentina' },
 };
 
-export const FIXTURE_RESULTS_LAST_UPDATED = '2026-07-12T04:02:00.071Z';
+export const FIXTURE_RESULTS_LAST_UPDATED = '2026-07-14T19:58:30.000Z';
