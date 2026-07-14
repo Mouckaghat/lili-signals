@@ -1494,13 +1494,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "France", away: "Spain", date: "2026-07-14",
     goals: [
       { player: "Mikel Oyarzabal", team: "Spain", minute: 22, type: "penalty" },
+      { player: "Pedro Porro", team: "Spain", minute: 58, type: "goal" },
     ],
     yellowCards: [
-      { player: "Adrien Rabiot", team: "France", minute: 9, reason: "Foul" },
-      { player: "Marc Cucurella", team: "Spain", minute: 31, reason: "Foul" },
+      { player: "Adrien Rabiot", team: "France", minute: 9, reason: "Roughing" },
+      { player: "Marc Cucurella", team: "Spain", minute: 31, reason: "Roughing" },
+      { player: "Kylian Mbappé", team: "France", minute: 86, reason: "Roughing" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-14T19:59:26.599Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-14T21:10:08.564Z';
