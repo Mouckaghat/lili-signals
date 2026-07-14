@@ -1489,6 +1489,18 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Breel Embolo", team: "Switzerland", minute: 72, reason: "Simulation" },
     ],
   },
+  {
+    fixtureId: "1585131",
+    home: "France", away: "Spain", date: "2026-07-14",
+    goals: [
+      { player: "Mikel Oyarzabal", team: "Spain", minute: 22, type: "penalty" },
+    ],
+    yellowCards: [
+      { player: "Adrien Rabiot", team: "France", minute: 9, reason: "Foul" },
+      { player: "Marc Cucurella", team: "Spain", minute: 31, reason: "Foul" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-13T13:49:27.592Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-14T19:59:26.599Z';
