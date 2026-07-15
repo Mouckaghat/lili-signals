@@ -744,10 +744,10 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "1586077",
     home: "England", away: "Argentina", date: "2026-07-15",
-    status: "LIVE", elapsed: 80,
-    homeStats: { team: "England", possession: 0.36, totalShots: 4, shotsInsideBox: 2, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 1, xg: 0.48, passAccuracy: 0.87, passes: 283, fouls: 9 },
-    awayStats: { team: "Argentina", possession: 0.64, totalShots: 10, shotsInsideBox: 6, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 5, xg: 0.91, passAccuracy: 0.91, passes: 493, fouls: 14 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "England", possession: 0.36, totalShots: 5, shotsInsideBox: 2, shotsOutsideBox: 3, shotsOnGoal: 2, corners: 1, xg: 0.53, passAccuracy: 0.84, passes: 324, fouls: 11 },
+    awayStats: { team: "Argentina", possession: 0.64, totalShots: 15, shotsInsideBox: 7, shotsOutsideBox: 8, shotsOnGoal: 5, corners: 6, xg: 1.84, passAccuracy: 0.91, passes: 590, fouls: 15 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-15T20:41:53.768Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-15T21:06:35.310Z';
