@@ -1476,7 +1476,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Alexis Mac Allister", team: "Argentina", minute: 10, type: "goal" },
       { player: "Dan Ndoye", team: "Switzerland", minute: 67, type: "goal" },
       { player: "Julián Alvarez", team: "Argentina", minute: 112, type: "goal" },
-      { player: "Lautaro Martínez", team: "Argentina", minute: 120, minuteStoppage: 1, type: "goal" },
+      { player: "L. Martinez", team: "Argentina", minute: 120, type: "goal" },
     ],
     yellowCards: [
       { player: "Breel Embolo", team: "Switzerland", minute: 44, reason: "Foul" },
@@ -1497,12 +1497,12 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Pedro Porro", team: "Spain", minute: 58, type: "goal" },
     ],
     yellowCards: [
-      { player: "Adrien Rabiot", team: "France", minute: 9, reason: "Roughing" },
-      { player: "Marc Cucurella", team: "Spain", minute: 31, reason: "Roughing" },
-      { player: "Kylian Mbappé", team: "France", minute: 86, reason: "Roughing" },
+      { player: "Adrien Rabiot", team: "France", minute: 9, reason: "Foul" },
+      { player: "Marc Cucurella", team: "Spain", minute: 31, reason: "Foul" },
+      { player: "Kylian Mbappé", team: "France", minute: 86, reason: "Violent conduct" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-14T21:10:08.564Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-15T05:59:37.774Z';
