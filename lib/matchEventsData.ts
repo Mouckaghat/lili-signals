@@ -1264,6 +1264,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Mohamed Hany", team: "Egypt", minute: 55, type: "own-goal" },
     ],
     yellowCards: [
+      { player: "Saafan El-Sagheer", team: "Egypt", minute: 91 },
       { player: "Haissem Hassan", team: "Egypt", minute: 105, reason: "Foul" },
       { player: "Yasser Ibrahim", team: "Egypt", minute: 120, reason: "Foul" },
     ],
@@ -1505,4 +1506,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-15T05:59:37.774Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-15T18:04:17.058Z';
