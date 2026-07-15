@@ -1504,6 +1504,16 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "1586077",
+    home: "England", away: "Argentina", date: "2026-07-15",
+    goals: [],
+    yellowCards: [
+      { player: "Elliot Anderson", team: "England", minute: 37, reason: "Tripping" },
+      { player: "L. Martinez", team: "Argentina", minute: 42, reason: "Holding" },
+    ],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-15T18:04:17.058Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-15T19:54:27.265Z';
