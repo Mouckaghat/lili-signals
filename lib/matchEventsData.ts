@@ -1429,6 +1429,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Denis Zakaria", team: "Switzerland", minute: 59, reason: "Foul" },
       { player: "Luis Suárez", team: "Colombia", minute: 60, reason: "Foul" },
       { player: "Davinson Sánchez", team: "Colombia", minute: 95, reason: "Foul" },
+      { player: "Luis Amaranto Perea", team: "Colombia", minute: 95 },
       { player: "Miro Muheim", team: "Switzerland", minute: 105, reason: "Foul" },
     ],
     redCards: [],
@@ -1513,14 +1514,17 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "England", away: "Argentina", date: "2026-07-15",
     goals: [
       { player: "Anthony Gordon", team: "England", minute: 55, type: "goal" },
+      { player: "Enzo Fernández", team: "Argentina", minute: 85, type: "goal" },
+      { player: "L. Martinez", team: "Argentina", minute: 90, minuteStoppage: 2, type: "goal" },
     ],
     yellowCards: [
       { player: "Elliot Anderson", team: "England", minute: 37, reason: "Tripping" },
       { player: "L. Martinez", team: "Argentina", minute: 42, reason: "Holding" },
       { player: "Cristian Romero", team: "Argentina", minute: 51, reason: "Holding" },
+      { player: "Rodrigo De Paul", team: "Argentina", minute: 90, reason: "Unsportsmanlike conduct" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-15T20:42:05.709Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-15T21:39:49.330Z';
