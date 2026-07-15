@@ -1112,8 +1112,12 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     yellowCards: [
       { player: "Andrés Cubas", team: "Paraguay", minute: 65, reason: "Foul" },
+      { player: "Gustavo Julio Alfaro", team: "Paraguay", minute: 105, reason: "Dissent" },
+      { player: "Julian Nagelsmann", team: "Germany", minute: 105, reason: "Dissent" },
       { player: "Kai Havertz", team: "Germany", minute: 106, reason: "Foul" },
       { player: "Jamal Musiala", team: "Germany", minute: 115, reason: "Foul" },
+      { player: "Mads Buttgereit", team: "Germany", minute: 116 },
+      { player: "Alejandro Juan Manograsso", team: "Paraguay", minute: 117 },
       { player: "Matías Galarza", team: "Paraguay", minute: 117, reason: "Foul" },
     ],
     redCards: [],
@@ -1507,13 +1511,16 @@ export const MATCH_EVENTS: MatchEvents[] = [
   {
     fixtureId: "1586077",
     home: "England", away: "Argentina", date: "2026-07-15",
-    goals: [],
+    goals: [
+      { player: "Anthony Gordon", team: "England", minute: 55, type: "goal" },
+    ],
     yellowCards: [
       { player: "Elliot Anderson", team: "England", minute: 37, reason: "Tripping" },
       { player: "L. Martinez", team: "Argentina", minute: 42, reason: "Holding" },
+      { player: "Cristian Romero", team: "Argentina", minute: 51, reason: "Holding" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-15T19:54:27.265Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-15T20:42:05.709Z';
