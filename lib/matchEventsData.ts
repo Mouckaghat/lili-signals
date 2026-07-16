@@ -1514,17 +1514,17 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "England", away: "Argentina", date: "2026-07-15",
     goals: [
       { player: "Anthony Gordon", team: "England", minute: 55, type: "goal" },
-      { player: "Enzo Fernández", team: "Argentina", minute: 85, type: "goal" },
-      { player: "L. Martinez", team: "Argentina", minute: 90, minuteStoppage: 2, type: "goal" },
+      { player: "Enzo Fernández", team: "Argentina", minute: 86, type: "goal" },
+      { player: "Lautaro Martínez", team: "Argentina", minute: 90, minuteStoppage: 2, type: "goal" },
     ],
     yellowCards: [
-      { player: "Elliot Anderson", team: "England", minute: 37, reason: "Tripping" },
-      { player: "L. Martinez", team: "Argentina", minute: 42, reason: "Holding" },
-      { player: "Cristian Romero", team: "Argentina", minute: 51, reason: "Holding" },
-      { player: "Rodrigo De Paul", team: "Argentina", minute: 90, reason: "Unsportsmanlike conduct" },
+      { player: "Elliot Anderson", team: "England", minute: 37, reason: "Foul" },
+      { player: "Lisandro Martínez", team: "Argentina", minute: 42, reason: "Foul" },
+      { player: "Cristian Romero", team: "Argentina", minute: 51, reason: "Foul" },
+      { player: "Rodrigo De Paul", team: "Argentina", minute: 90, reason: "Argument" },
     ],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-15T21:39:49.330Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-16T06:41:58.707Z';
