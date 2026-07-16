@@ -51,7 +51,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "R. Bensebaini",
+          "name": "R. Bensebaïni",
           "number": 21,
           "pos": "DF",
           "starter": true
@@ -63,7 +63,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "F. Chaibi",
+          "name": "F. Chaïbi",
           "number": 10,
           "pos": "MF",
           "starter": true
@@ -77,7 +77,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
         {
           "name": "R. Mahrez",
           "number": 7,
-          "pos": "MF",
+          "pos": "FW",
           "starter": true
         },
         {
@@ -105,20 +105,20 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "M. Mastil",
-          "number": 1,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "R. Ait-Nouri",
+          "name": "R. Aït-Nouri",
           "number": 15,
           "pos": "DF",
           "starter": false
         },
         {
-          "name": "R. Zerrouki",
-          "number": 6,
+          "name": "S. Chergui",
+          "number": 26,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "A. Boulbina",
+          "number": 20,
           "pos": "MF",
           "starter": false
         },
@@ -129,27 +129,9 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "S. Chergui",
-          "number": 26,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "Y. Titraoui",
-          "number": 24,
+          "name": "R. Zerrouki",
+          "number": 6,
           "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "A. Boulbina",
-          "number": 20,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "F. Ghedjemis",
-          "number": 25,
-          "pos": "FW",
           "starter": false
         },
         {
@@ -159,15 +141,33 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "Z. Belaid",
+          "name": "Z. Belaïd",
           "number": 5,
           "pos": "DF",
           "starter": false
         },
         {
-          "name": "N. Benbouali",
+          "name": "A. Benbouali",
           "number": 12,
           "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "M. Mastil",
+          "number": 1,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "A. Hadj-Moussa",
+          "number": 11,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Y. Titraoui",
+          "number": 24,
+          "pos": "MF",
           "starter": false
         },
         {
@@ -177,13 +177,13 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "A. Hadj Moussa",
-          "number": 11,
+          "name": "F. Ghedjemis",
+          "number": 25,
           "pos": "FW",
           "starter": false
         }
       ],
-      "coach": "Vladimir Petkovic"
+      "coach": "V. Petković"
     },
     "away": {
       "formation": "4-2-3-1",
@@ -249,20 +249,74 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "M. Arnautovic",
+          "name": "M. Arnautović",
           "number": 7,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "P. Pentz",
-          "number": 13,
-          "pos": "GK",
+          "name": "C. Chukwuemeka",
+          "number": 17,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "D. Affengruber",
+          "number": 2,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "P. Wimmer",
+          "number": 21,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "A. Prass",
+          "number": 22,
+          "pos": "DF",
           "starter": false
         },
         {
           "name": "F. Wiegele",
           "number": 12,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "M. Svoboda",
+          "number": 25,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "S. Kalajdzic",
+          "number": 14,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "D. Ljubičić",
+          "number": 19,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "M. Friedl",
+          "number": 23,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "K. Danso",
+          "number": 3,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "P. Pentz",
+          "number": 13,
           "pos": "GK",
           "starter": false
         },
@@ -273,38 +327,8 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "D. Ljubicic",
-          "number": 19,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "S. Kalajdzic",
-          "number": 14,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "M. Svoboda",
-          "number": 25,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "A. Prass",
-          "number": 22,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "D. Affengruber",
-          "number": 2,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "P. Wanner",
-          "number": 24,
+          "name": "A. Schöpf",
+          "number": 26,
           "pos": "MF",
           "starter": false
         },
@@ -315,41 +339,17 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "A. Schopf",
-          "number": 26,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "K. Danso",
-          "number": 3,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "M. Friedl",
-          "number": 23,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "P. Wimmer",
-          "number": 21,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "C. Chukwuemeka",
-          "number": 17,
+          "name": "P. Wanner",
+          "number": 24,
           "pos": "MF",
           "starter": false
         }
       ],
-      "coach": "Ralf Rangnick"
+      "coach": "R. Rangnick"
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:42.464Z"
+    "updatedAt": "2026-07-16T14:32:22.386Z"
   },
   {
     "fixtureKey": "Argentina|Algeria",
@@ -357,7 +357,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
       "formation": "4-4-2",
       "players": [
         {
-          "name": "E. Martinez",
+          "name": "E. Martínez",
           "number": 23,
           "pos": "GK",
           "starter": true
@@ -375,7 +375,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "L. Martinez",
+          "name": "Lisandro Martínez",
           "number": 6,
           "pos": "DF",
           "starter": true
@@ -387,7 +387,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "R. de Paul",
+          "name": "R. De Paul",
           "number": 7,
           "pos": "MF",
           "starter": true
@@ -399,7 +399,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "E. Fernandez",
+          "name": "E. Fernández",
           "number": 24,
           "pos": "MF",
           "starter": true
@@ -407,7 +407,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
         {
           "name": "T. Almada",
           "number": 16,
-          "pos": "MF",
+          "pos": "FW",
           "starter": true
         },
         {
@@ -417,20 +417,20 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "L. Martinez",
+          "name": "Lautaro Martínez",
           "number": 22,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "G. Rulli",
-          "number": 12,
-          "pos": "GK",
+          "name": "N. Tagliafico",
+          "number": 3,
+          "pos": "DF",
           "starter": false
         },
         {
-          "name": "J. Musso",
-          "number": 1,
+          "name": "G. Rulli",
+          "number": 12,
           "pos": "GK",
           "starter": false
         },
@@ -447,38 +447,26 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "E. Palacios",
-          "number": 14,
+          "name": "N. Paz",
+          "number": 18,
           "pos": "MF",
           "starter": false
         },
         {
-          "name": "N. Gonzalez",
-          "number": 15,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "N. Molina",
-          "number": 26,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "G. Simeone",
-          "number": 17,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "N. Tagliafico",
-          "number": 3,
-          "pos": "DF",
+          "name": "J. Musso",
+          "number": 1,
+          "pos": "GK",
           "starter": false
         },
         {
           "name": "G. Lo Celso",
           "number": 11,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "E. Palacios",
+          "number": 14,
           "pos": "MF",
           "starter": false
         },
@@ -489,13 +477,25 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "J. Alvarez",
+          "name": "N. Molina",
+          "number": 26,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "N. González",
+          "number": 15,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "J. Álvarez",
           "number": 9,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "J. Lopez",
+          "name": "J. López",
           "number": 21,
           "pos": "FW",
           "starter": false
@@ -507,13 +507,13 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "N. Paz",
-          "number": 18,
+          "name": "G. Simeone",
+          "number": 17,
           "pos": "FW",
           "starter": false
         }
       ],
-      "coach": "Lionel Scaloni"
+      "coach": "L. Scaloni"
     },
     "away": {
       "formation": "4-3-3",
@@ -537,13 +537,13 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "R. Bensebaini",
+          "name": "R. Bensebaïni",
           "number": 21,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "R. Ait-Nouri",
+          "name": "R. Aït-Nouri",
           "number": 15,
           "pos": "DF",
           "starter": true
@@ -567,7 +567,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "A. Hadj Moussa",
+          "name": "A. Hadj-Moussa",
           "number": 11,
           "pos": "FW",
           "starter": true
@@ -579,10 +579,28 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "F. Chaibi",
+          "name": "F. Chaïbi",
           "number": 10,
-          "pos": "FW",
+          "pos": "MF",
           "starter": true
+        },
+        {
+          "name": "F. Ghedjemis",
+          "number": 25,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "A. Abada",
+          "number": 3,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Y. Titraoui",
+          "number": 24,
+          "pos": "MF",
+          "starter": false
         },
         {
           "name": "M. Mastil",
@@ -591,21 +609,39 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "O. Benbot",
-          "number": 16,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "R. Mahrez",
-          "number": 7,
+          "name": "M. Amoura",
+          "number": 18,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "H. Aouar",
-          "number": 8,
-          "pos": "MF",
+          "name": "A. Benbouali",
+          "number": 12,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Z. Belaïd",
+          "number": 5,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "J. Hadjam",
+          "number": 13,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "M. Tougai",
+          "number": 4,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "O. Benbot",
+          "number": 16,
+          "pos": "GK",
           "starter": false
         },
         {
@@ -621,65 +657,29 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "J. Hadjam",
-          "number": 13,
-          "pos": "DF",
+          "name": "H. Aouar",
+          "number": 8,
+          "pos": "MF",
           "starter": false
         },
         {
-          "name": "Y. Titraoui",
-          "number": 24,
-          "pos": "MF",
+          "name": "R. Mahrez",
+          "number": 7,
+          "pos": "FW",
           "starter": false
         },
         {
           "name": "A. Boulbina",
           "number": 20,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "F. Ghedjemis",
-          "number": 25,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "M. Tougai",
-          "number": 4,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "Z. Belaid",
-          "number": 5,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "M. Amoura",
-          "number": 18,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "N. Benbouali",
-          "number": 12,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "A. Abada",
-          "number": 3,
-          "pos": "DF",
+          "pos": "MF",
           "starter": false
         }
       ],
-      "coach": "Vladimir Petkovic"
+      "coach": "V. Petković"
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:19.822Z"
+    "updatedAt": "2026-07-16T14:32:03.262Z"
   },
   {
     "fixtureKey": "Argentina|Austria",
@@ -1009,7 +1009,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:29.413Z"
+    "updatedAt": "2026-07-16T14:32:11.399Z"
   },
   {
     "fixtureKey": "Australia|Türkiye",
@@ -1339,7 +1339,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:15.007Z"
+    "updatedAt": "2026-07-16T14:31:58.841Z"
   },
   {
     "fixtureKey": "Austria|Jordan",
@@ -1669,7 +1669,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:20.254Z"
+    "updatedAt": "2026-07-16T14:32:03.667Z"
   },
   {
     "fixtureKey": "Belgium|Egypt",
@@ -1993,7 +1993,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:17.619Z"
+    "updatedAt": "2026-07-16T14:32:01.193Z"
   },
   {
     "fixtureKey": "Belgium|Iran",
@@ -2311,7 +2311,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:28.058Z"
+    "updatedAt": "2026-07-16T14:32:10.303Z"
   },
   {
     "fixtureKey": "Bosnia & Herzegovina|Qatar",
@@ -2623,7 +2623,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:33.364Z"
+    "updatedAt": "2026-07-16T14:32:14.709Z"
   },
   {
     "fixtureKey": "Brazil|Haiti",
@@ -2631,7 +2631,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
       "formation": "4-3-3",
       "players": [
         {
-          "name": "Alisson",
+          "name": "Alisson Becker",
           "number": 1,
           "pos": "GK",
           "starter": true
@@ -2649,7 +2649,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "Gabriel",
+          "name": "Gabriel Magalhães",
           "number": 3,
           "pos": "DF",
           "starter": true
@@ -2661,7 +2661,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "Bruno Guimaraes",
+          "name": "Bruno Guimarães",
           "number": 8,
           "pos": "MF",
           "starter": true
@@ -2673,7 +2673,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "Lucas Paqueta",
+          "name": "Lucas Paquetá",
           "number": 20,
           "pos": "MF",
           "starter": true
@@ -2685,69 +2685,21 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "M. Cunha",
+          "name": "Matheus Cunha",
           "number": 9,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "Vinicius Junior",
+          "name": "Vinícius Júnior",
           "number": 7,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "Ederson",
-          "number": 23,
-          "pos": "GK",
-          "starter": false
-        },
-        {
           "name": "Weverton",
           "number": 12,
           "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "Alex Sandro",
-          "number": 6,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "Leo Pereira",
-          "number": 15,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "Ibanez",
-          "number": 24,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "G. Martinelli",
-          "number": 22,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "Ederson",
-          "number": 2,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "Luiz Henrique",
-          "number": 21,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "Endrick",
-          "number": 19,
-          "pos": "FW",
           "starter": false
         },
         {
@@ -2757,13 +2709,55 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
+          "name": "Alex Sandro",
+          "number": 6,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Endrick",
+          "number": 19,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Ederson",
+          "number": 23,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Léo Pereira",
+          "number": 15,
+          "pos": "DF",
+          "starter": false
+        },
+        {
           "name": "Bremer",
           "number": 14,
           "pos": "DF",
           "starter": false
         },
         {
-          "name": "I. Thiago",
+          "name": "Ibañez",
+          "number": 24,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Gabriel Martinelli",
+          "number": 22,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Éderson",
+          "number": 2,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Thiago",
           "number": 25,
           "pos": "FW",
           "starter": false
@@ -2775,13 +2769,19 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
+          "name": "Luiz Henrique",
+          "number": 21,
+          "pos": "FW",
+          "starter": false
+        },
+        {
           "name": "Rayan",
           "number": 26,
           "pos": "FW",
           "starter": false
         }
       ],
-      "coach": "Carlo Ancelotti"
+      "coach": "C. Ancelotti"
     },
     "away": {
       "formation": "5-4-1",
@@ -2799,14 +2799,14 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "J. Duverne",
-          "number": 22,
+          "name": "Ricardo Ade",
+          "number": 4,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "R. Ade",
-          "number": 4,
+          "name": "J. Duverne",
+          "number": 22,
           "pos": "DF",
           "starter": true
         },
@@ -2817,7 +2817,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "M. Experience",
+          "name": "M. Expérience",
           "number": 8,
           "pos": "DF",
           "starter": true
@@ -2825,11 +2825,11 @@ export const MATCH_LINEUPS: MatchLineup[] = [
         {
           "name": "J. Casimir",
           "number": 21,
-          "pos": "MF",
+          "pos": "FW",
           "starter": true
         },
         {
-          "name": "D. Jean Jacques",
+          "name": "D. Jean-Jacques",
           "number": 17,
           "pos": "MF",
           "starter": true
@@ -2843,7 +2843,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
         {
           "name": "R. Providence",
           "number": 15,
-          "pos": "MF",
+          "pos": "FW",
           "starter": true
         },
         {
@@ -2853,9 +2853,27 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "J. Duverger",
-          "number": 23,
-          "pos": "GK",
+          "name": "W. Pierre",
+          "number": 26,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "W. Paugain",
+          "number": 24,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "D. Simon",
+          "number": 25,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "G. Métusala",
+          "number": 14,
+          "pos": "DF",
           "starter": false
         },
         {
@@ -2865,25 +2883,13 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "D. Lacroix",
-          "number": 13,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "D. Nazon",
-          "number": 9,
+          "name": "L. Joseph",
+          "number": 16,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "D. Etienne",
-          "number": 7,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "C. Sainte",
+          "name": "C. F. Sainte",
           "number": 6,
           "pos": "MF",
           "starter": false
@@ -2895,37 +2901,19 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "L. Joseph",
-          "number": 16,
-          "pos": "FW",
+          "name": "J. Duverger",
+          "number": 23,
+          "pos": "GK",
           "starter": false
         },
         {
-          "name": "G. Metusala",
-          "number": 14,
+          "name": "D. Lacroix",
+          "number": 13,
           "pos": "DF",
           "starter": false
         },
         {
-          "name": "D. Simon",
-          "number": 25,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "W. Pierre",
-          "number": 26,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "K. Thermoncy",
-          "number": 3,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "Y. Fortune",
+          "name": "Y. Fortuné",
           "number": 19,
           "pos": "FW",
           "starter": false
@@ -2937,17 +2925,29 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "W. Paugain",
-          "number": 24,
+          "name": "D. Etienne",
+          "number": 7,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "D. Nazon",
+          "number": 9,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "K. Thermoncy",
+          "number": 3,
           "pos": "DF",
           "starter": false
         }
       ],
-      "coach": "Sebastien Migne"
+      "coach": "S. Migné"
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:25.024Z"
+    "updatedAt": "2026-07-16T14:32:07.746Z"
   },
   {
     "fixtureKey": "Brazil|Morocco",
@@ -3271,7 +3271,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:14.140Z"
+    "updatedAt": "2026-07-16T14:31:58.113Z"
   },
   {
     "fixtureKey": "Canada|Bosnia & Herzegovina",
@@ -3601,7 +3601,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:12.808Z"
+    "updatedAt": "2026-07-16T14:31:56.963Z"
   },
   {
     "fixtureKey": "Canada|Qatar",
@@ -3925,71 +3925,65 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:23.282Z"
+    "updatedAt": "2026-07-16T14:32:06.270Z"
   },
   {
     "fixtureKey": "Cape Verde Islands|Saudi Arabia",
     "home": {
-      "formation": "4-1-4-1",
+      "formation": "4-1-2-3",
       "players": [
         {
-          "name": "Vozinha",
+          "name": "Vózinha",
           "number": 1,
           "pos": "GK",
           "starter": true
         },
         {
-          "name": "W. Pina",
+          "name": "Wagner Pina",
           "number": 24,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "R. Lopes",
+          "name": "Pico",
           "number": 4,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "D. Borges",
+          "name": "Diney Borges",
           "number": 3,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "Joao Paulo",
+          "name": "João Paulo",
           "number": 8,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "K. Lenini",
+          "name": "Kevin Pina",
           "number": 6,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "R. Mendes",
-          "number": 20,
-          "pos": "MF",
-          "starter": true
-        },
-        {
-          "name": "D. Duarte",
+          "name": "Deroy Duarte",
           "number": 14,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "J. Monteiro",
+          "name": "Jamiro Monteiro",
           "number": 10,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "W. Semedo",
-          "number": 17,
-          "pos": "MF",
+          "name": "Ryan Mendes",
+          "number": 20,
+          "pos": "FW",
           "starter": true
         },
         {
@@ -3999,20 +3993,20 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "M. Rosa",
-          "number": 12,
-          "pos": "GK",
+          "name": "Willy Semedo",
+          "number": 17,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Stopira",
+          "number": 2,
+          "pos": "DF",
           "starter": false
         },
         {
-          "name": "dos Santos CJ",
-          "number": 23,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "G. Rodrigues",
-          "number": 11,
+          "name": "Nuno da Costa",
+          "number": 21,
           "pos": "FW",
           "starter": false
         },
@@ -4023,27 +4017,51 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "L. Costa",
+          "name": "Márcio Rosa",
+          "number": 12,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Logan Costa",
           "number": 5,
           "pos": "DF",
           "starter": false
         },
         {
-          "name": "K. Pires",
+          "name": "Garry Rodrigues",
+          "number": 11,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "C. dos Santos",
+          "number": 23,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Yannick Semedo",
+          "number": 16,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Kelvin Pires",
           "number": 25,
           "pos": "DF",
           "starter": false
         },
         {
-          "name": "H. Varela",
-          "number": 26,
+          "name": "Gilson Benchimol",
+          "number": 9,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "Stopira",
-          "number": 2,
-          "pos": "DF",
+          "name": "Hélio Varela",
+          "number": 26,
+          "pos": "FW",
           "starter": false
         },
         {
@@ -4053,202 +4071,184 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "N. Da Costa",
-          "number": 21,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "J. Cabral",
+          "name": "Jovane Cabral",
           "number": 7,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "Y. Semedo",
-          "number": 16,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "Benchimol",
-          "number": 9,
           "pos": "FW",
           "starter": false
         }
       ],
-      "coach": "Pedro Leitao Brito"
+      "coach": "Bubista"
     },
     "away": {
       "formation": "4-4-2",
       "players": [
         {
-          "name": "M. Al Owais",
+          "name": "Mohammed Al Owais",
           "number": 21,
           "pos": "GK",
           "starter": true
         },
         {
-          "name": "S. Abdulhamid",
+          "name": "Saud Abdulhamid",
           "number": 12,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "A. Al Amri",
+          "name": "Abdulelah Al Amri",
           "number": 4,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "H. Tambakti",
+          "name": "Hassan Tambakti",
           "number": 5,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "N. Boushal",
+          "name": "Nawaf Boushal",
           "number": 13,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "S. Mandash",
-          "number": 20,
-          "pos": "MF",
-          "starter": true
-        },
-        {
-          "name": "A. Al Khaibari",
-          "number": 15,
-          "pos": "MF",
-          "starter": true
-        },
-        {
-          "name": "N. Al Dawsari",
+          "name": "Nasser Al Dawsari",
           "number": 6,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "S. Al Dawsari",
-          "number": 10,
+          "name": "Mohamed Kanno",
+          "number": 23,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "F. Al Buraikan",
+          "name": "Abdullah Al Khaibari",
+          "number": 15,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Salem Al Dawsari",
+          "number": 10,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Feras Al Brikan",
           "number": 9,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "M. Kanno",
-          "number": 23,
+          "name": "Sultan Mandash",
+          "number": 20,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "A. Al Kassar",
-          "number": 22,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "N. Al Aqidi",
-          "number": 1,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "S. Al Shehri",
-          "number": 11,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "A. Lajami",
-          "number": 3,
+          "name": "J. Thakri",
+          "number": 25,
           "pos": "DF",
           "starter": false
         },
         {
-          "name": "A. Majrashi",
-          "number": 2,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "K. Al Ghannam",
-          "number": 17,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "A. Al Hamdan",
-          "number": 19,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "Z. Al Johani",
-          "number": 16,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "M. Al Juwayr",
+          "name": "Musab Al Juwayr",
           "number": 7,
           "pos": "MF",
           "starter": false
         },
         {
-          "name": "H. Kadesh",
-          "number": 14,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "A. Hejji",
+          "name": "Ala Al Haji",
           "number": 18,
           "pos": "MF",
           "starter": false
         },
         {
-          "name": "A. Yahya",
-          "number": 8,
+          "name": "Ziyad Al Johani",
+          "number": 16,
           "pos": "MF",
           "starter": false
         },
         {
-          "name": "M. Al Harbi",
+          "name": "Moteb Al Harbi",
           "number": 24,
           "pos": "DF",
           "starter": false
         },
         {
-          "name": "M. Abu Al Shamat",
-          "number": 26,
+          "name": "Nawaf Al Aqidi",
+          "number": 1,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Ayman Yahya",
+          "number": 8,
           "pos": "MF",
           "starter": false
         },
         {
-          "name": "J. Thakri",
-          "number": 25,
-          "pos": "MF",
+          "name": "Khalid Al Ghannam",
+          "number": 17,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Ali Majrashi",
+          "number": 2,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Abdullah Al Hamdan",
+          "number": 19,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Hassan Kadesh",
+          "number": 14,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Saleh Al Shehri",
+          "number": 11,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Ahmed Al Kassar",
+          "number": 22,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Ali Lajami",
+          "number": 3,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Mohammed Abu Al Shamat",
+          "number": 26,
+          "pos": "DF",
           "starter": false
         }
       ],
-      "coach": "Georgios Donis"
+      "coach": "G. Donis"
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:39.459Z"
+    "updatedAt": "2026-07-16T14:32:19.833Z"
   },
   {
     "fixtureKey": "Colombia|Congo DR",
     "home": {
-      "formation": "4-3-3",
+      "formation": "4-1-2-3",
       "players": [
         {
           "name": "C. Vargas",
@@ -4257,19 +4257,19 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "D. Munoz",
+          "name": "D. Muñoz",
           "number": 2,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "D. Sanchez",
+          "name": "D. Sánchez",
           "number": 23,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "J. Lucumi",
+          "name": "J. Lucumí",
           "number": 3,
           "pos": "DF",
           "starter": true
@@ -4281,82 +4281,40 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "G. Puerta",
-          "number": 14,
-          "pos": "MF",
-          "starter": true
-        },
-        {
           "name": "J. Lerma",
           "number": 16,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "J. Arias",
-          "number": 11,
+          "name": "G. Puerta",
+          "number": 14,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "J. Rodriguez",
-          "number": 10,
+          "name": "J. Arias",
+          "number": 11,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "L. Suarez",
+          "name": "J. Rodríguez",
+          "number": 10,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "L. Suárez",
           "number": 25,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "L. Diaz",
+          "name": "L. Díaz",
           "number": 7,
           "pos": "FW",
           "starter": true
-        },
-        {
-          "name": "D. Ospina",
-          "number": 1,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "A. Montero",
-          "number": 24,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "J. Cordoba",
-          "number": 9,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "Y. Mina",
-          "number": 13,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "D. Machado",
-          "number": 22,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "C. Hernandez",
-          "number": 19,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "J. Portilla",
-          "number": 15,
-          "pos": "MF",
-          "starter": false
         },
         {
           "name": "S. Arias",
@@ -4371,15 +4329,57 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
+          "name": "J. Córdoba",
+          "number": 9,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "D. Ospina",
+          "number": 1,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "A. Gómez",
+          "number": 26,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Y. Mina",
+          "number": 13,
+          "pos": "DF",
+          "starter": false
+        },
+        {
           "name": "J. Carrascal",
           "number": 8,
           "pos": "MF",
           "starter": false
         },
         {
+          "name": "Á. Montero",
+          "number": 24,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "D. Machado",
+          "number": 22,
+          "pos": "DF",
+          "starter": false
+        },
+        {
           "name": "J. Campaz",
           "number": 21,
-          "pos": "MF",
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "C. Hernández",
+          "number": 19,
+          "pos": "FW",
           "starter": false
         },
         {
@@ -4389,31 +4389,31 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
+          "name": "J. Portilla",
+          "number": 15,
+          "pos": "MF",
+          "starter": false
+        },
+        {
           "name": "R. Rios",
           "number": 6,
           "pos": "MF",
           "starter": false
         },
         {
-          "name": "K. Castano",
+          "name": "K. Castaño",
           "number": 5,
           "pos": "MF",
           "starter": false
-        },
-        {
-          "name": "A. Gomez",
-          "number": 26,
-          "pos": "FW",
-          "starter": false
         }
       ],
-      "coach": "Nestor Lorenzo"
+      "coach": "N.  Lorenzo"
     },
     "away": {
       "formation": "5-3-2",
       "players": [
         {
-          "name": "L. Mpasi-Nzau",
+          "name": "L. Mpasi",
           "number": 1,
           "pos": "GK",
           "starter": true
@@ -4479,56 +4479,8 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "M. Epolo",
-          "number": 21,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "T. Fayulu",
-          "number": 16,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "J. Kayembe",
-          "number": 12,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "C. Pickel",
-          "number": 18,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "G. Kalulu",
-          "number": 24,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "S. Banza",
-          "number": 23,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "N. Mbuku",
-          "number": 7,
-          "pos": "FW",
-          "starter": false
-        },
-        {
           "name": "B. Cipenga",
           "number": 9,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "F. Mayele",
-          "number": 19,
           "pos": "FW",
           "starter": false
         },
@@ -4539,8 +4491,62 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "G. Kakuta",
-          "number": 11,
+          "name": "M. Epolo",
+          "number": 21,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "F. Mayele",
+          "number": 19,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "G. Kalulu",
+          "number": 24,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "N. Mbuku",
+          "number": 7,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "T. Fayulu",
+          "number": 16,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "M. Elia",
+          "number": 13,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "S. Banza",
+          "number": 23,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "C. Pickel",
+          "number": 18,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "J. Kayembe",
+          "number": 12,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "A. Tshibola",
+          "number": 15,
           "pos": "MF",
           "starter": false
         },
@@ -4557,23 +4563,17 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "A. Tshibola",
-          "number": 15,
+          "name": "G. Kakuta",
+          "number": 11,
           "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "M. Elia",
-          "number": 13,
-          "pos": "FW",
           "starter": false
         }
       ],
-      "coach": "Sebastien Desabre"
+      "coach": "S. Desabre"
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:32.475Z"
+    "updatedAt": "2026-07-16T14:32:13.989Z"
   },
   {
     "fixtureKey": "Colombia|Portugal",
@@ -4903,7 +4903,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:41.607Z"
+    "updatedAt": "2026-07-16T14:32:21.658Z"
   },
   {
     "fixtureKey": "Congo DR|Uzbekistan",
@@ -5233,7 +5233,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:42.036Z"
+    "updatedAt": "2026-07-16T14:32:22.022Z"
   },
   {
     "fixtureKey": "Croatia|Ghana",
@@ -5563,7 +5563,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:40.752Z"
+    "updatedAt": "2026-07-16T14:32:20.926Z"
   },
   {
     "fixtureKey": "Curaçao|Ivory Coast",
@@ -5893,88 +5893,106 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:35.953Z"
+    "updatedAt": "2026-07-16T14:32:16.893Z"
   },
   {
     "fixtureKey": "Czech Republic|Mexico",
     "home": {
-      "formation": "4-2-3-1",
+      "formation": "5-2-3",
       "players": [
         {
-          "name": "M. Kovar",
+          "name": "M. Kovář",
           "number": 1,
           "pos": "GK",
           "starter": true
         },
         {
-          "name": "T. Holes",
+          "name": "V. Coufal",
+          "number": 5,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "T. Holeš",
           "number": 3,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "R. Hranac",
+          "name": "R. Hranáč",
           "number": 4,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "L. Krejci",
+          "name": "L. Krejčí",
           "number": 7,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "V. Coufal",
-          "number": 5,
-          "pos": "MF",
-          "starter": true
-        },
-        {
-          "name": "L. Cerv",
-          "number": 12,
-          "pos": "MF",
-          "starter": true
-        },
-        {
-          "name": "M. Sadilek",
-          "number": 18,
-          "pos": "MF",
-          "starter": true
-        },
-        {
-          "name": "D. Doudera",
+          "name": "D. Douděra",
           "number": 21,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "P. Sulc",
-          "number": 15,
-          "pos": "FW",
+          "name": "M. Sadílek",
+          "number": 18,
+          "pos": "MF",
           "starter": true
         },
         {
-          "name": "D. Visinsky",
+          "name": "L. Červ",
+          "number": 12,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "D. Višinský",
           "number": 26,
-          "pos": "FW",
+          "pos": "MF",
           "starter": true
         },
         {
-          "name": "A. Hlozek",
+          "name": "A. Hložek",
           "number": 9,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "J. Stanek",
-          "number": 16,
-          "pos": "GK",
+          "name": "P. Šulc",
+          "number": 15,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "T. Chorý",
+          "number": 19,
+          "pos": "FW",
           "starter": false
         },
         {
-          "name": "L. Hornicek",
-          "number": 23,
+          "name": "J. Zelený",
+          "number": 20,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "V. Darida",
+          "number": 8,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "H. Sochurek",
+          "number": 25,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "J. Staněk",
+          "number": 16,
           "pos": "GK",
           "starter": false
         },
@@ -5991,6 +6009,12 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
+          "name": "T. Souček",
+          "number": 22,
+          "pos": "MF",
+          "starter": false
+        },
+        {
           "name": "J. Kuchta",
           "number": 11,
           "pos": "FW",
@@ -6003,39 +6027,9 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "A. Sojka",
-          "number": 24,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "S. Chaloupek",
-          "number": 6,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "J. Zeleny",
-          "number": 20,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "V. Darida",
-          "number": 8,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "T. Chory",
-          "number": 19,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "T. Soucek",
-          "number": 22,
-          "pos": "MF",
+          "name": "L. Horníček",
+          "number": 23,
+          "pos": "GK",
           "starter": false
         },
         {
@@ -6045,24 +6039,31 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "H. Sochurek",
-          "number": 25,
+          "name": "A. Sojka",
+          "number": 24,
           "pos": "MF",
           "starter": false
+        },
+        {
+          "name": "Š. Chaloupek",
+          "number": 6,
+          "pos": "DF",
+          "starter": false
         }
-      ]
+      ],
+      "coach": "M. Koubek"
     },
     "away": {
-      "formation": "4-3-3",
+      "formation": "4-1-2-3",
       "players": [
         {
-          "name": "R. Rangel",
+          "name": "J. Rangel",
           "number": 1,
           "pos": "GK",
           "starter": true
         },
         {
-          "name": "J. Sanchez",
+          "name": "J. Sánchez",
           "number": 2,
           "pos": "DF",
           "starter": true
@@ -6074,14 +6075,20 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "I. Reyes",
-          "number": 15,
+          "name": "E. Álvarez",
+          "number": 4,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "M. Chávez",
+          "number": 20,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "M. Chavez Garcia",
-          "number": 20,
+          "name": "I. Reyes",
+          "number": 15,
           "pos": "DF",
           "starter": true
         },
@@ -6092,15 +6099,9 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "E. Alvarez",
-          "number": 4,
-          "pos": "MF",
-          "starter": true
-        },
-        {
           "name": "L. Romo",
           "number": 7,
-          "pos": "MF",
+          "pos": "DF",
           "starter": true
         },
         {
@@ -6110,45 +6111,21 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "G. Martinez",
+          "name": "G. Martínez",
           "number": 22,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "J. Quinones",
+          "name": "J. Quiñones",
           "number": 16,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "G. Ochoa",
-          "number": 13,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "C. Acevedo",
-          "number": 12,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "R. Jimenez",
-          "number": 9,
+          "name": "A. González",
+          "number": 14,
           "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "L. Chavez",
-          "number": 24,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "J. Vasquez",
-          "number": 5,
-          "pos": "DF",
           "starter": false
         },
         {
@@ -6158,21 +6135,51 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
+          "name": "B. Gutiérrez",
+          "number": 26,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "É. Lira",
+          "number": 6,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "J. Vásquez",
+          "number": 5,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "S. Giménez",
+          "number": 11,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "C. Huerta",
+          "number": 21,
+          "pos": "FW",
+          "starter": false
+        },
+        {
           "name": "O. Pineda",
           "number": 17,
           "pos": "MF",
           "starter": false
         },
         {
-          "name": "A. Fidalgo",
-          "number": 8,
-          "pos": "MF",
+          "name": "C. Acevedo",
+          "number": 12,
+          "pos": "GK",
           "starter": false
         },
         {
-          "name": "J. Gallardo",
-          "number": 23,
-          "pos": "DF",
+          "name": "Álvaro Fidalgo",
+          "number": 8,
+          "pos": "MF",
           "starter": false
         },
         {
@@ -6182,41 +6189,35 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "S. Gimenez",
-          "number": 11,
+          "name": "J. Gallardo",
+          "number": 23,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "L. Chávez",
+          "number": 24,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "R. Jiménez",
+          "number": 9,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "C. S. Huerta Valera",
-          "number": 21,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "E. Lira",
-          "number": 6,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "B. Gutierrez",
-          "number": 26,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "A. Gonzalez",
-          "number": 14,
-          "pos": "FW",
+          "name": "G. Ochoa",
+          "number": 13,
+          "pos": "GK",
           "starter": false
         }
       ],
-      "coach": "Javier Aguirre"
+      "coach": "J. Aguirre"
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:34.652Z"
+    "updatedAt": "2026-07-16T14:32:15.803Z"
   },
   {
     "fixtureKey": "Czech Republic|South Africa",
@@ -6527,15 +6528,15 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:22.405Z"
+    "updatedAt": "2026-07-16T14:32:05.549Z"
   },
   {
     "fixtureKey": "Ecuador|Curaçao",
     "home": {
-      "formation": "4-2-3-1",
+      "formation": "3-5-2",
       "players": [
         {
-          "name": "H. Galindez",
+          "name": "H. Galíndez",
           "number": 1,
           "pos": "GK",
           "starter": true
@@ -6543,7 +6544,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
         {
           "name": "A. Franco",
           "number": 21,
-          "pos": "DF",
+          "pos": "MF",
           "starter": true
         },
         {
@@ -6553,26 +6554,14 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "P. Hincapie",
+          "name": "P. Hincapié",
           "number": 3,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "J. Alcivar",
-          "number": 5,
-          "pos": "MF",
-          "starter": true
-        },
-        {
           "name": "J. Yeboah",
           "number": 9,
-          "pos": "MF",
-          "starter": true
-        },
-        {
-          "name": "P. Vite",
-          "number": 15,
           "pos": "MF",
           "starter": true
         },
@@ -6583,9 +6572,21 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "P. Estupinan",
-          "number": 7,
+          "name": "J. Alcívar",
+          "number": 5,
           "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "P. Vite",
+          "number": 15,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "P. Estupiñán",
+          "number": 7,
+          "pos": "DF",
           "starter": true
         },
         {
@@ -6601,50 +6602,14 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "G. Valle",
-          "number": 22,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "M. Ramirez",
-          "number": 12,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "J. Caicedo",
-          "number": 16,
-          "pos": "FW",
-          "starter": false
-        },
-        {
           "name": "A. Preciado",
           "number": 17,
           "pos": "DF",
           "starter": false
         },
         {
-          "name": "A. Valencia",
-          "number": 8,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "N. Angulo",
-          "number": 20,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "J. Ordonez",
-          "number": 4,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "K. Rodriguez",
-          "number": 11,
+          "name": "J. Caicedo",
+          "number": 16,
           "pos": "FW",
           "starter": false
         },
@@ -6655,15 +6620,27 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "J. Porozo",
-          "number": 25,
-          "pos": "DF",
+          "name": "M. Ramírez",
+          "number": 12,
+          "pos": "GK",
           "starter": false
         },
         {
-          "name": "A. Minda",
-          "number": 14,
-          "pos": "FW",
+          "name": "K. Páez",
+          "number": 10,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "G. Valle",
+          "number": 22,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "J. Porozo",
+          "number": 25,
+          "pos": "DF",
           "starter": false
         },
         {
@@ -6679,21 +6656,46 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "J. Arevalo",
+          "name": "A. Minda",
+          "number": 14,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "N. Angulo",
+          "number": 20,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Jeremy Arévalo",
           "number": 24,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "K. Paez",
-          "number": 10,
-          "pos": "MF",
+          "name": "A. Valencia",
+          "number": 8,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "J. Ordoñez",
+          "number": 4,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "K. Rodríguez",
+          "number": 11,
+          "pos": "FW",
           "starter": false
         }
-      ]
+      ],
+      "coach": "S. Beccacece"
     },
     "away": {
-      "formation": "5-4-1",
+      "formation": "5-3-2",
       "players": [
         {
           "name": "E. Room",
@@ -6726,15 +6728,9 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "D. Fonville",
+          "name": "Deveron Fonville",
           "number": 24,
           "pos": "DF",
-          "starter": true
-        },
-        {
-          "name": "T. Chong",
-          "number": 21,
-          "pos": "MF",
           "starter": true
         },
         {
@@ -6750,8 +6746,8 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "J. Bacuna",
-          "number": 7,
+          "name": "T. Chong",
+          "number": 21,
           "pos": "MF",
           "starter": true
         },
@@ -6762,10 +6758,10 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "T. Doornbusch",
-          "number": 26,
-          "pos": "GK",
-          "starter": false
+          "name": "J. Bacuna",
+          "number": 7,
+          "pos": "MF",
+          "starter": true
         },
         {
           "name": "T. Bodak",
@@ -6774,38 +6770,8 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "R. Bazoer",
-          "number": 23,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "B. Kuwas",
-          "number": 17,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "K. Gorre",
-          "number": 14,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "K. Felida",
-          "number": 22,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "R. van Eijma",
-          "number": 4,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "J. Antonisse",
-          "number": 11,
+          "name": "J. Margaritha",
+          "number": 16,
           "pos": "FW",
           "starter": false
         },
@@ -6816,14 +6782,50 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "T. Noslin",
-          "number": 13,
+          "name": "S. Hansen",
+          "number": 12,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "K. Felida",
+          "number": 22,
           "pos": "MF",
           "starter": false
         },
         {
-          "name": "J. Margaritha",
-          "number": 16,
+          "name": "J. Antonisse",
+          "number": 11,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "S. Sambo",
+          "number": 2,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "T. Doornbusch",
+          "number": 26,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "G. Roemeratoe",
+          "number": 6,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "R. van Eijma",
+          "number": 4,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "K. Gorré",
+          "number": 14,
           "pos": "FW",
           "starter": false
         },
@@ -6834,29 +6836,29 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "G. Roemeratoe",
-          "number": 6,
-          "pos": "MF",
+          "name": "B. Kuwas",
+          "number": 17,
+          "pos": "FW",
           "starter": false
         },
         {
-          "name": "S. Sambo",
-          "number": 2,
+          "name": "R. Bazoer",
+          "number": 23,
           "pos": "DF",
           "starter": false
         },
         {
-          "name": "S. Hansen",
-          "number": 12,
-          "pos": "FW",
+          "name": "T. Noslin",
+          "number": 13,
+          "pos": "MF",
           "starter": false
         }
       ],
-      "coach": "Dick Advocaat"
+      "coach": "D. Advocaat"
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:26.760Z"
+    "updatedAt": "2026-07-16T14:32:09.215Z"
   },
   {
     "fixtureKey": "Ecuador|Germany",
@@ -7173,7 +7175,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:35.517Z"
+    "updatedAt": "2026-07-16T14:32:16.529Z"
   },
   {
     "fixtureKey": "Egypt|Iran",
@@ -7491,7 +7493,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:39.890Z"
+    "updatedAt": "2026-07-16T14:32:20.193Z"
   },
   {
     "fixtureKey": "England|Croatia",
@@ -7815,7 +7817,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:21.120Z"
+    "updatedAt": "2026-07-16T14:32:04.454Z"
   },
   {
     "fixtureKey": "England|Ghana",
@@ -8145,7 +8147,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:31.609Z"
+    "updatedAt": "2026-07-16T14:32:13.238Z"
   },
   {
     "fixtureKey": "France|Iraq",
@@ -8475,7 +8477,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:29.844Z"
+    "updatedAt": "2026-07-16T14:32:11.760Z"
   },
   {
     "fixtureKey": "France|Senegal",
@@ -8805,7 +8807,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:18.941Z"
+    "updatedAt": "2026-07-16T14:32:02.406Z"
   },
   {
     "fixtureKey": "Germany|Curaçao",
@@ -9135,7 +9137,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:15.446Z"
+    "updatedAt": "2026-07-16T14:31:59.227Z"
   },
   {
     "fixtureKey": "Germany|Ivory Coast",
@@ -9465,7 +9467,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:26.329Z"
+    "updatedAt": "2026-07-16T14:32:08.852Z"
   },
   {
     "fixtureKey": "Ghana|Panama",
@@ -9789,7 +9791,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:21.547Z"
+    "updatedAt": "2026-07-16T14:32:04.817Z"
   },
   {
     "fixtureKey": "Haiti|Scotland",
@@ -9797,328 +9799,329 @@ export const MATCH_LINEUPS: MatchLineup[] = [
       "formation": "4-4-2",
       "players": [
         {
-          "name": "J. Placide",
+          "name": "Johny Placide",
           "number": 1,
           "pos": "GK",
           "starter": true
         },
         {
-          "name": "C. Arcus",
+          "name": "Carlens Arcus",
           "number": 2,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "R. Ade",
+          "name": "Ricardo Adé",
           "number": 4,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "H. Delcroix",
+          "name": "Hannes Delcroix",
           "number": 5,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "M. Experience",
+          "name": "Martin Expérience",
           "number": 8,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "L. Deedson",
+          "name": "Louicius Don Deedson",
           "number": 11,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "D. Jean Jacques",
+          "name": "Danley Jean Jacques",
           "number": 17,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "J. Bellegarde",
+          "name": "Jean-Ricner Bellegarde",
           "number": 10,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "R. Providence",
+          "name": "Ruben Providence",
           "number": 15,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "F. Pierrot",
+          "name": "Frantzdy Pierrot",
           "number": 20,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "W. Isidor",
+          "name": "Wilson Isidor",
           "number": 18,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "J. Duverger",
-          "number": 23,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "A. Pierre",
-          "number": 12,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "D. Lacroix",
-          "number": 13,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "D. Nazon",
-          "number": 9,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "D. Etienne",
-          "number": 7,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "J. Duverne",
-          "number": 22,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "C. Sainte",
-          "number": 6,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "J. Casimir",
+          "name": "Josué Casimir",
           "number": 21,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "L. Joseph",
+          "name": "Lenny Joseph",
           "number": 16,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "G. Metusala",
-          "number": 14,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "D. Simon",
-          "number": 25,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "W. Pierre",
-          "number": 26,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "K. Thermoncy",
-          "number": 3,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "Y. Fortune",
+          "name": "Yassin Fortune",
           "number": 19,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "W. Paugain",
+          "name": "Alexandre Pierre",
+          "number": 12,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Josué Duverger",
+          "number": 23,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Keeto Thermoncy",
+          "number": 3,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Duke Lacroix",
+          "number": 13,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Garven-Michee Metusala",
+          "number": 14,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Jean-Kévin Duverne",
+          "number": 22,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Wilguens Paugain",
           "number": 24,
           "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Carl Fred Sainté",
+          "number": 6,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Dominique Simon",
+          "number": 25,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Woodensky Pierre",
+          "number": 26,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Derrick Etienne",
+          "number": 7,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Duckens Nazon",
+          "number": 9,
+          "pos": "FW",
           "starter": false
         }
       ],
       "coach": "Sebastien Migne"
     },
     "away": {
-      "formation": "4-2-3-1",
+      "formation": "4-4-2",
       "players": [
         {
-          "name": "A. Gunn",
+          "name": "Angus Gunn",
           "number": 1,
           "pos": "GK",
           "starter": true
         },
         {
-          "name": "A. Hickey",
+          "name": "Aaron Hickey",
           "number": 2,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "G. Hanley",
+          "name": "Grant Hanley",
           "number": 5,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "J. Hendry",
+          "name": "Jack Hendry",
           "number": 13,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "A. Robertson",
+          "name": "Andy Robertson",
           "number": 3,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "B. Gannon-Doak",
+          "name": "Ben Gannon-Doak",
           "number": 17,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "S. McTominay",
+          "name": "Scott McTominay",
           "number": 4,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "L. Ferguson",
+          "name": "Lewis Ferguson",
           "number": 19,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "J. McGinn",
+          "name": "John McGinn",
           "number": 7,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "L. Shankland",
+          "name": "Lawrence Shankland",
           "number": 20,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "C. Adams",
+          "name": "Che Adams",
           "number": 10,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "C. Gordon",
-          "number": 21,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "L. Kelly",
-          "number": 12,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "K. McLean",
-          "number": 23,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "J. Souttar",
-          "number": 15,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "R. Christie",
-          "number": 11,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "K. Tierney",
-          "number": 6,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "A. Ralston",
-          "number": 24,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "L. Dykes",
-          "number": 9,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "N. Patterson",
+          "name": "Nathan Patterson",
           "number": 22,
           "pos": "DF",
           "starter": false
         },
         {
-          "name": "S. McKenna",
-          "number": 26,
+          "name": "Ryan Christie",
+          "number": 11,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Lyndon Dykes",
+          "number": 9,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Kenny McLean",
+          "number": 23,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Findlay Curtis",
+          "number": 25,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Liam Kelly",
+          "number": 12,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Craig Gordon",
+          "number": 21,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Kieran Tierney",
+          "number": 6,
           "pos": "DF",
           "starter": false
         },
         {
-          "name": "D. Hyam",
+          "name": "John Souttar",
+          "number": 15,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Dominic Hyam",
           "number": 16,
           "pos": "DF",
           "starter": false
         },
         {
-          "name": "G. Hirst",
-          "number": 18,
-          "pos": "FW",
+          "name": "Tony Ralston",
+          "number": 24,
+          "pos": "DF",
           "starter": false
         },
         {
-          "name": "R. Stewart",
-          "number": 14,
-          "pos": "FW",
+          "name": "Scott McKenna",
+          "number": 26,
+          "pos": "DF",
           "starter": false
         },
         {
-          "name": "T. Fletcher",
+          "name": "Tyler Fletcher",
           "number": 8,
           "pos": "MF",
           "starter": false
         },
         {
-          "name": "F. Curtis",
-          "number": 25,
+          "name": "Ross Stewart",
+          "number": 14,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "George Hirst",
+          "number": 18,
           "pos": "FW",
           "starter": false
         }
-      ]
+      ],
+      "coach": "S. Clarke"
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:14.571Z"
+    "updatedAt": "2026-07-16T14:31:58.480Z"
   },
   {
     "fixtureKey": "Iran|New Zealand",
@@ -10126,159 +10129,159 @@ export const MATCH_LINEUPS: MatchLineup[] = [
       "formation": "4-4-2",
       "players": [
         {
-          "name": "A. Beiranvand",
+          "name": "Alireza Beiranvand",
           "number": 1,
           "pos": "GK",
           "starter": true
         },
         {
-          "name": "R. Rezaeian",
+          "name": "Ramin Rezaeian",
           "number": 23,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "S. Khalilzadeh",
+          "name": "Shoja Khalilzadeh",
           "number": 4,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "A. Nemati",
+          "name": "Ali Nemati",
           "number": 19,
-          "pos": "MF",
+          "pos": "DF",
           "starter": true
         },
         {
-          "name": "M. Mohammadi",
+          "name": "Milad Mohammadi",
           "number": 5,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "M. Mohebi",
+          "name": "Mohammad Mohebi",
           "number": 8,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "S. Ghoddos",
+          "name": "Saman Ghoddos",
           "number": 14,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "S. Ezatolahi",
+          "name": "Saeid Ezatolahi",
           "number": 6,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "A. Yousefi",
+          "name": "Aria Yousefi",
           "number": 17,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "S. Moghanlou",
+          "name": "Shahriar Moghanlou",
           "number": 20,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "M. Taremi",
+          "name": "Mehdi Taremi",
           "number": 9,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "H. Hosseini",
-          "number": 22,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "P. Niazmand",
-          "number": 12,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "E. Hajsafi",
-          "number": 3,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "H. Kanaani",
-          "number": 13,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "M. Torabi",
-          "number": 16,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "D. Eckert",
-          "number": 24,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "M. Ghaedi",
+          "name": "Mehdi Ghayedi",
           "number": 10,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "A. Hosseinzadeh",
-          "number": 18,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "S. Hardani",
-          "number": 2,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "A. Razzaghinia",
-          "number": 26,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "M. Ghorbani",
-          "number": 21,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "A. Jahanbakhsh",
-          "number": 7,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "A. Alipour",
+          "name": "Ali Alipour",
           "number": 11,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "R. Cheshmi",
+          "name": "Ehsan Hajsafi",
+          "number": 3,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Amirhossein Hosseinzadeh",
+          "number": 18,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Payam Niazmand",
+          "number": 12,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Hossein Hosseini",
+          "number": 22,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Saleh Hardani",
+          "number": 2,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Hossein Kanaani",
+          "number": 13,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Roozbeh Cheshmi",
           "number": 15,
           "pos": "MF",
           "starter": false
         },
         {
-          "name": "D. Eiri",
+          "name": "Danial Eiri",
           "number": 25,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Amirmohammad Razzaghinia",
+          "number": 26,
           "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Mohammad Ghorbani",
+          "number": 21,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Mahdi Torabi",
+          "number": 16,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Alireza Jahanbakhsh",
+          "number": 7,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Dennis Eckert Ayensa",
+          "number": 24,
+          "pos": "FW",
           "starter": false
         }
       ],
@@ -10288,160 +10291,161 @@ export const MATCH_LINEUPS: MatchLineup[] = [
       "formation": "4-2-3-1",
       "players": [
         {
-          "name": "M. Crocombe",
+          "name": "Max Crocombe",
           "number": 1,
           "pos": "GK",
           "starter": true
         },
         {
-          "name": "T. Payne",
+          "name": "Tim Payne",
           "number": 2,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "F. Surman",
+          "name": "Finn Surman",
           "number": 16,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "M. Boxall",
+          "name": "Michael Boxall",
           "number": 5,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "L. Cacace",
+          "name": "Liberato Cacace",
           "number": 13,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "J. Bell",
+          "name": "Joe Bell",
           "number": 6,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "M. Stamenic",
+          "name": "Marko Stamenić",
           "number": 8,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "C. McCowatt",
+          "name": "Callum McCowatt",
           "number": 20,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "S. Singh",
+          "name": "Sarpreet Singh",
           "number": 10,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "E. Just",
+          "name": "Elijah Just",
           "number": 11,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "C. Wood",
+          "name": "Chris Wood",
           "number": 9,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "M. Woud",
-          "number": 22,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "A. Paulsen",
-          "number": 12,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "T. Smith",
-          "number": 26,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "R. Thomas",
-          "number": 23,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "B. Waine",
-          "number": 18,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "B. Old",
+          "name": "Benjamin Old",
           "number": 19,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "J. Randall",
-          "number": 21,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "L. Bayliss",
-          "number": 25,
+          "name": "Ryan Thomas",
+          "number": 23,
           "pos": "MF",
           "starter": false
         },
         {
-          "name": "K. Barbarouses",
-          "number": 17,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "A. Rufer",
-          "number": 14,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "F. De Vries",
-          "number": 3,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "C. Elliot",
+          "name": "Callan Elliot",
           "number": 24,
           "pos": "DF",
           "starter": false
         },
         {
-          "name": "N. Pijnaker",
+          "name": "Tyler Bindon",
+          "number": 4,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Jesse Randall",
+          "number": 21,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Alex Paulsen",
+          "number": 12,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Michael Woud",
+          "number": 22,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Tommy Smith",
+          "number": 26,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Francis De Vries",
+          "number": 3,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Nando Pijnaker",
           "number": 15,
           "pos": "DF",
           "starter": false
         },
         {
-          "name": "T. Bindon",
-          "number": 4,
-          "pos": "DF",
+          "name": "Lachlan Bayliss",
+          "number": 25,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Alex Rufer",
+          "number": 14,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Ben Waine",
+          "number": 18,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Kosta Barbarouses",
+          "number": 17,
+          "pos": "FW",
           "starter": false
         }
-      ]
+      ],
+      "coach": "D. Bazeley"
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:18.510Z"
+    "updatedAt": "2026-07-16T14:32:01.953Z"
   },
   {
     "fixtureKey": "Iraq|Norway",
@@ -10771,7 +10775,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:19.377Z"
+    "updatedAt": "2026-07-16T14:32:02.851Z"
   },
   {
     "fixtureKey": "Ivory Coast|Ecuador",
@@ -11101,7 +11105,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:16.324Z"
+    "updatedAt": "2026-07-16T14:31:59.968Z"
   },
   {
     "fixtureKey": "Japan|Sweden",
@@ -11425,7 +11429,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:36.387Z"
+    "updatedAt": "2026-07-16T14:32:17.259Z"
   },
   {
     "fixtureKey": "Jordan|Algeria",
@@ -11749,59 +11753,59 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:30.749Z"
+    "updatedAt": "2026-07-16T14:32:12.509Z"
   },
   {
     "fixtureKey": "Jordan|Argentina",
     "home": {
-      "formation": "3-4-2-1",
+      "formation": "3-4-3",
       "players": [
         {
-          "name": "Y. Abulaila",
+          "name": "Yazid Abu Layla",
           "number": 1,
           "pos": "GK",
           "starter": true
         },
         {
-          "name": "A. Nasib",
+          "name": "Abdallah Naseeb",
           "number": 3,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "Y. Al Arab",
+          "name": "Yazan Al Arab",
           "number": 5,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "H. Abu Dahab",
+          "name": "H. Abu Al Dahab",
           "number": 4,
-          "pos": "MF",
+          "pos": "DF",
           "starter": true
         },
         {
-          "name": "E. Haddad",
+          "name": "Ehsan Haddad",
           "number": 23,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "N. Al Rashdan",
+          "name": "Nizar Al Rashdan",
           "number": 21,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "N. Al Rawabdeh",
+          "name": "Noor Al Rawabdeh",
           "number": 8,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "M. Abu Taha",
+          "name": "Mohannad Abu Taha",
           "number": 20,
-          "pos": "MF",
+          "pos": "DF",
           "starter": true
         },
         {
@@ -11811,33 +11815,21 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "A. Olwan",
+          "name": "O. Al Fakhouri",
+          "number": 11,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Ali Olwan",
           "number": 9,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "O. Al Fakhouri",
-          "number": 11,
-          "pos": "MF",
-          "starter": true
-        },
-        {
-          "name": "N. Bani Attiah",
-          "number": 12,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "A. Al Fakhouri",
-          "number": 22,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "R. Ayed",
-          "number": 14,
-          "pos": "MF",
+          "name": "Mousa Tamari",
+          "number": 10,
+          "pos": "FW",
           "starter": false
         },
         {
@@ -11847,39 +11839,57 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "S. Obaid",
-          "number": 17,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "I. Saadeh",
-          "number": 15,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "S. Al Rosan",
-          "number": 19,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "M. Abu Hasheesh",
-          "number": 2,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "M. Al Mardi",
+          "name": "Mahmoud Al Mardi",
           "number": 13,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "M. Tamari",
-          "number": 10,
+          "name": "Rajaei Ayed",
+          "number": 14,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "A. Badawi",
+          "number": 26,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Noureddin Bani Attiah",
+          "number": 12,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Ibrahim Sadeh",
+          "number": 15,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Abdallah Al Fakhouri",
+          "number": 22,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Amer Jamous",
+          "number": 6,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Mohammed Abu Zurayq",
+          "number": 7,
           "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "M. Abu Hasheesh",
+          "number": 2,
+          "pos": "DF",
           "starter": false
         },
         {
@@ -11889,20 +11899,14 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "A. Jamous",
-          "number": 6,
-          "pos": "MF",
+          "name": "Saleem Obaid",
+          "number": 17,
+          "pos": "DF",
           "starter": false
         },
         {
-          "name": "Shararh",
-          "number": 7,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "A. Badawi",
-          "number": 26,
+          "name": "Saed Al Rosan",
+          "number": 19,
           "pos": "DF",
           "starter": false
         },
@@ -11913,13 +11917,13 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         }
       ],
-      "coach": "Jamal Sellami"
+      "coach": "J. Sellami"
     },
     "away": {
       "formation": "4-4-2",
       "players": [
         {
-          "name": "E. Martinez",
+          "name": "E. Martínez",
           "number": 23,
           "pos": "GK",
           "starter": true
@@ -11927,7 +11931,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
         {
           "name": "E. Palacios",
           "number": 14,
-          "pos": "DF",
+          "pos": "MF",
           "starter": true
         },
         {
@@ -11951,7 +11955,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
         {
           "name": "G. Simeone",
           "number": 17,
-          "pos": "MF",
+          "pos": "FW",
           "starter": true
         },
         {
@@ -11973,57 +11977,45 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "L. Martinez",
+          "name": "Lautaro Martínez",
           "number": 22,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "J. Alvarez",
+          "name": "J. Álvarez",
           "number": 9,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "G. Rulli",
-          "number": 12,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "J. Musso",
-          "number": 1,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "L. Messi",
-          "number": 10,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "R. de Paul",
-          "number": 7,
+          "name": "V. Barco",
+          "number": 8,
           "pos": "MF",
           "starter": false
         },
         {
-          "name": "G. Montiel",
-          "number": 4,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "N. Gonzalez",
-          "number": 15,
+          "name": "J. López",
+          "number": 21,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "N. Molina",
-          "number": 26,
-          "pos": "DF",
+          "name": "E. Fernández",
+          "number": 24,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "T. Almada",
+          "number": 16,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "N. González",
+          "number": 15,
+          "pos": "FW",
           "starter": false
         },
         {
@@ -12033,13 +12025,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "C. Romero",
-          "number": 13,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "L. Martinez",
+          "name": "Lisandro Martínez",
           "number": 6,
           "pos": "DF",
           "starter": false
@@ -12051,35 +12037,53 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "T. Almada",
-          "number": 16,
+          "name": "N. Molina",
+          "number": 26,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "C. Romero",
+          "number": 13,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "G. Montiel",
+          "number": 4,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "J. Musso",
+          "number": 1,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "R. De Paul",
+          "number": 7,
           "pos": "MF",
           "starter": false
         },
         {
-          "name": "E. Fernandez",
-          "number": 24,
-          "pos": "MF",
+          "name": "G. Rulli",
+          "number": 12,
+          "pos": "GK",
           "starter": false
         },
         {
-          "name": "J. Lopez",
-          "number": 21,
+          "name": "L. Messi",
+          "number": 10,
           "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "V. Barco",
-          "number": 8,
-          "pos": "MF",
           "starter": false
         }
       ],
-      "coach": "Lionel Scaloni"
+      "coach": "L. Scaloni"
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:42.895Z"
+    "updatedAt": "2026-07-16T14:32:22.746Z"
   },
   {
     "fixtureKey": "Mexico|South Africa",
@@ -12409,33 +12413,33 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:11.883Z"
+    "updatedAt": "2026-07-16T14:31:56.236Z"
   },
   {
     "fixtureKey": "Mexico|South Korea",
     "home": {
-      "formation": "4-3-3",
+      "formation": "4-1-2-3",
       "players": [
         {
-          "name": "R. Rangel",
+          "name": "J. Rangel",
           "number": 1,
           "pos": "GK",
           "starter": true
         },
         {
-          "name": "J. Sanchez",
+          "name": "J. Sánchez",
           "number": 2,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "E. Alvarez",
+          "name": "E. Álvarez",
           "number": 4,
-          "pos": "DF",
+          "pos": "MF",
           "starter": true
         },
         {
-          "name": "J. Vasquez",
+          "name": "J. Vásquez",
           "number": 5,
           "pos": "DF",
           "starter": true
@@ -12447,21 +12451,21 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "B. Gutierrez",
-          "number": 26,
+          "name": "É. Lira",
+          "number": 6,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "E. Lira",
-          "number": 6,
+          "name": "B. Gutiérrez",
+          "number": 26,
           "pos": "MF",
           "starter": true
         },
         {
           "name": "L. Romo",
           "number": 7,
-          "pos": "MF",
+          "pos": "DF",
           "starter": true
         },
         {
@@ -12471,21 +12475,51 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "R. Jimenez",
+          "name": "R. Jiménez",
           "number": 9,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "J. Quinones",
+          "name": "J. Quiñones",
           "number": 16,
           "pos": "FW",
           "starter": true
         },
         {
+          "name": "L. Chávez",
+          "number": 24,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "G. Martínez",
+          "number": 22,
+          "pos": "FW",
+          "starter": false
+        },
+        {
           "name": "G. Ochoa",
           "number": 13,
           "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "G. Mora",
+          "number": 19,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "A. Vega",
+          "number": 10,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Álvaro Fidalgo",
+          "number": 8,
+          "pos": "MF",
           "starter": false
         },
         {
@@ -12495,15 +12529,21 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "G. Martinez",
-          "number": 22,
+          "name": "O. Pineda",
+          "number": 17,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "C. Huerta",
+          "number": 21,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "L. Chavez",
-          "number": 24,
-          "pos": "MF",
+          "name": "S. Giménez",
+          "number": 11,
+          "pos": "FW",
           "starter": false
         },
         {
@@ -12519,58 +12559,22 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "M. Chavez Garcia",
-          "number": 20,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "O. Pineda",
-          "number": 17,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "A. Fidalgo",
-          "number": 8,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "A. Vega",
-          "number": 10,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "S. Gimenez",
-          "number": 11,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "C. S. Huerta Valera",
-          "number": 21,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "A. Gonzalez",
+          "name": "A. González",
           "number": 14,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "G. Mora",
-          "number": 19,
-          "pos": "MF",
+          "name": "M. Chávez",
+          "number": 20,
+          "pos": "DF",
           "starter": false
         }
       ],
-      "coach": "Javier Aguirre"
+      "coach": "J. Aguirre"
     },
     "away": {
-      "formation": "3-4-2-1",
+      "formation": "3-4-3",
       "players": [
         {
           "name": "Kim Seung-Gyu",
@@ -12599,6 +12603,12 @@ export const MATCH_LINEUPS: MatchLineup[] = [
         {
           "name": "Kim Moon-Hwan",
           "number": 15,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Paik Seung-Ho",
+          "number": 8,
           "pos": "MF",
           "starter": true
         },
@@ -12609,27 +12619,15 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "Paik Seung-Ho",
-          "number": 8,
-          "pos": "MF",
-          "starter": true
-        },
-        {
           "name": "Seol Young-Woo",
           "number": 22,
-          "pos": "MF",
+          "pos": "DF",
           "starter": true
         },
         {
           "name": "Lee Kang-In",
           "number": 19,
-          "pos": "FW",
-          "starter": true
-        },
-        {
-          "name": "Lee Jae-Sung",
-          "number": 10,
-          "pos": "FW",
+          "pos": "MF",
           "starter": true
         },
         {
@@ -12639,20 +12637,44 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "Jo Hyeon-Woo",
-          "number": 21,
-          "pos": "GK",
+          "name": "Lee Jae-Sung",
+          "number": 10,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "Cho Wi-Je",
+          "number": 14,
+          "pos": "DF",
           "starter": false
         },
         {
-          "name": "Song Bum-Keun",
-          "number": 12,
-          "pos": "GK",
+          "name": "Yang Hyun-Jun",
+          "number": 20,
+          "pos": "MF",
           "starter": false
         },
         {
-          "name": "Hwang Hee-Chan",
-          "number": 11,
+          "name": "J. Castrop",
+          "number": 23,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Park Jin-Seop",
+          "number": 16,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Oh Hyeon-Gyu",
+          "number": 18,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Cho Gue-Sung",
+          "number": 9,
           "pos": "FW",
           "starter": false
         },
@@ -12663,45 +12685,9 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "Park Jin-Seob",
-          "number": 16,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "Lee Dong-Gyeong",
-          "number": 26,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "Cho Gue-Sung",
-          "number": 9,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "Oh Hyeon-Gyu",
-          "number": 18,
-          "pos": "FW",
-          "starter": false
-        },
-        {
           "name": "Eom Ji-Sung",
           "number": 25,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "J. Castrop",
-          "number": 23,
           "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "Kim Tae-Hyeon",
-          "number": 5,
-          "pos": "DF",
           "starter": false
         },
         {
@@ -12711,9 +12697,33 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "Yang Hyun-Jun",
-          "number": 20,
-          "pos": "FW",
+          "name": "Kim Tae-Hyeon",
+          "number": 5,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Song Bum-Keun",
+          "number": 12,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Lee Dong-Gyeong",
+          "number": 26,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Jo Hyeon-Woo",
+          "number": 21,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Hwang Hee-Chan",
+          "number": 11,
+          "pos": "MF",
           "starter": false
         },
         {
@@ -12721,18 +12731,13 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "number": 17,
           "pos": "MF",
           "starter": false
-        },
-        {
-          "name": "Cho Wi-Je",
-          "number": 14,
-          "pos": "MF",
-          "starter": false
         }
-      ]
+      ],
+      "coach": "Myung-Bo Hong"
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:23.713Z"
+    "updatedAt": "2026-07-16T14:32:06.642Z"
   },
   {
     "fixtureKey": "Morocco|Haiti",
@@ -13062,7 +13067,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:33.798Z"
+    "updatedAt": "2026-07-16T14:32:15.074Z"
   },
   {
     "fixtureKey": "Netherlands|Japan",
@@ -13392,7 +13397,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:15.874Z"
+    "updatedAt": "2026-07-16T14:31:59.594Z"
   },
   {
     "fixtureKey": "Netherlands|Sweden",
@@ -13716,7 +13721,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:25.898Z"
+    "updatedAt": "2026-07-16T14:32:08.482Z"
   },
   {
     "fixtureKey": "New Zealand|Belgium",
@@ -14033,7 +14038,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:40.323Z"
+    "updatedAt": "2026-07-16T14:32:20.562Z"
   },
   {
     "fixtureKey": "New Zealand|Egypt",
@@ -14077,7 +14082,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "M. Stamenic",
+          "name": "M. Stamenić",
           "number": 8,
           "pos": "MF",
           "starter": true
@@ -14085,7 +14090,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
         {
           "name": "C. McCowatt",
           "number": 20,
-          "pos": "MF",
+          "pos": "FW",
           "starter": true
         },
         {
@@ -14097,7 +14102,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
         {
           "name": "E. Just",
           "number": 11,
-          "pos": "MF",
+          "pos": "FW",
           "starter": true
         },
         {
@@ -14107,57 +14112,9 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "M. Woud",
-          "number": 22,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "A. Paulsen",
-          "number": 12,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "T. Smith",
-          "number": 26,
-          "pos": "DF",
-          "starter": false
-        },
-        {
           "name": "R. Thomas",
           "number": 23,
           "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "B. Waine",
-          "number": 18,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "B. Old",
-          "number": 19,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "J. Randall",
-          "number": 21,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "L. Bayliss",
-          "number": 25,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "K. Barbarouses",
-          "number": 17,
-          "pos": "FW",
           "starter": false
         },
         {
@@ -14167,13 +14124,37 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "L. Rogerson",
-          "number": 7,
+          "name": "T. Smith",
+          "number": 26,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "K. Barbarouses",
+          "number": 17,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "F. De Vries",
+          "name": "Tyler Bindon",
+          "number": 4,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "M. Woud",
+          "number": 22,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "B. Waine",
+          "number": 18,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "F. de Vries",
           "number": 3,
           "pos": "DF",
           "starter": false
@@ -14191,78 +14172,103 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "T. Bindon",
-          "number": 4,
-          "pos": "DF",
+          "name": "J. Randall",
+          "number": 21,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "A. Paulsen",
+          "number": 12,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "L. Rogerson",
+          "number": 7,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "B. Old",
+          "number": 19,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "L. Bayliss",
+          "number": 25,
+          "pos": "MF",
           "starter": false
         }
-      ]
+      ],
+      "coach": "D. Bazeley"
     },
     "away": {
       "formation": "4-2-3-1",
       "players": [
         {
-          "name": "M. Shobeir",
+          "name": "Mostafa Shobeir",
           "number": 23,
           "pos": "GK",
           "starter": true
         },
         {
-          "name": "M. Hany",
+          "name": "Mohamed Hany",
           "number": 3,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "Y. Ibrahim",
+          "name": "Yasser Ibrahim",
           "number": 2,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "H. Fathy",
+          "name": "Hamdi Fathy",
           "number": 14,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "A. Fatouh",
+          "name": "Ahmed Abou El Fotouh",
           "number": 13,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "M. Attia",
+          "name": "Marwan Attia",
           "number": 19,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "M. Lasheen",
+          "name": "Mohanad Lasheen",
           "number": 17,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "M. Ziko",
+          "name": "Mostafa Zico",
           "number": 11,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "M. Salah",
+          "name": "Mohamed Salah",
           "number": 10,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "E. Ashour",
+          "name": "Emam Ashour",
           "number": 8,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "O. Marmoush",
+          "name": "Omar Marmoush",
           "number": 22,
           "pos": "FW",
           "starter": true
@@ -14270,49 +14276,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
         {
           "name": "M. Alaa",
           "number": 26,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "M. El Shenawy",
-          "number": 1,
           "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "E. M. Soliman",
-          "number": 16,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "R. Rabia",
-          "number": 5,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "Trezeguet",
-          "number": 7,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "I. Adel",
-          "number": 20,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "M. Saber",
-          "number": 21,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "M. Abdelmonem",
-          "number": 6,
-          "pos": "DF",
           "starter": false
         },
         {
@@ -14322,39 +14286,81 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "H. Abdelkarim",
-          "number": 9,
-          "pos": "FW",
+          "name": "Mahmoud Saber",
+          "number": 21,
+          "pos": "MF",
           "starter": false
         },
         {
-          "name": "Zizo",
-          "number": 25,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "K. Hafez",
-          "number": 15,
+          "name": "Hossam Abdelmaguid",
+          "number": 4,
           "pos": "DF",
           "starter": false
         },
         {
-          "name": "N. Dunga",
-          "number": 18,
+          "name": "Mohamed Abdelmonem",
+          "number": 6,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Ibrahim Adel",
+          "number": 20,
           "pos": "MF",
           "starter": false
         },
         {
           "name": "H. Hassan",
           "number": 12,
-          "pos": "FW",
+          "pos": "MF",
           "starter": false
         },
         {
-          "name": "H. Abdelmaguid",
-          "number": 4,
+          "name": "Al Mahdi Soliman",
+          "number": 16,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Nabil Emad Dunga",
+          "number": 18,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Mohamed El Shenawy",
+          "number": 1,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Karim Hafez",
+          "number": 15,
           "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Zizo",
+          "number": 25,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Trézéguet",
+          "number": 7,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Rami Rabia",
+          "number": 5,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "H. Abdelkarim",
+          "number": 9,
+          "pos": "FW",
           "starter": false
         }
       ],
@@ -14362,7 +14368,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:28.956Z"
+    "updatedAt": "2026-07-16T14:32:11.035Z"
   },
   {
     "fixtureKey": "Norway|France",
@@ -14692,15 +14698,15 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:38.590Z"
+    "updatedAt": "2026-07-16T14:32:19.104Z"
   },
   {
     "fixtureKey": "Norway|Senegal",
     "home": {
-      "formation": "4-3-3",
+      "formation": "4-1-2-3",
       "players": [
         {
-          "name": "O. Nyland",
+          "name": "Ø. Nyland",
           "number": 1,
           "pos": "GK",
           "starter": true
@@ -14724,20 +14730,20 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "D. Wolfe",
+          "name": "D. Møller Wolfe",
           "number": 5,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "M. Odegaard",
-          "number": 10,
+          "name": "S. Berge",
+          "number": 8,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "S. Berge",
-          "number": 8,
+          "name": "M. Ødegaard",
+          "number": 10,
           "pos": "MF",
           "starter": true
         },
@@ -14748,7 +14754,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "A. Sorloth",
+          "name": "A. Sørloth",
           "number": 7,
           "pos": "FW",
           "starter": true
@@ -14772,55 +14778,31 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "S. Tangvik",
-          "number": 12,
-          "pos": "GK",
-          "starter": false
-        },
-        {
           "name": "M. Thorsby",
           "number": 2,
           "pos": "MF",
           "starter": false
         },
         {
-          "name": "P. Berg",
-          "number": 6,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "F. Bjorkan",
-          "number": 15,
-          "pos": "DF",
-          "starter": false
-        },
-        {
           "name": "J. Hauge",
           "number": 23,
-          "pos": "MF",
+          "pos": "FW",
           "starter": false
         },
         {
-          "name": "J. Larsen",
+          "name": "J. Strand Larsen",
           "number": 11,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "O. Bobb",
-          "number": 22,
-          "pos": "MF",
+          "name": "F. Bjørkan",
+          "number": 15,
+          "pos": "DF",
           "starter": false
         },
         {
-          "name": "T. Aasgaard",
-          "number": 19,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "L. Ostigard",
+          "name": "L. Østigård",
           "number": 4,
           "pos": "DF",
           "starter": false
@@ -14838,31 +14820,55 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
+          "name": "S. Tangvik",
+          "number": 12,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "S. Langås",
+          "number": 24,
+          "pos": "DF",
+          "starter": false
+        },
+        {
           "name": "H. Falchener",
           "number": 25,
           "pos": "DF",
           "starter": false
         },
         {
-          "name": "S. Langas",
-          "number": 24,
-          "pos": "DF",
+          "name": "Oscar Bobb",
+          "number": 22,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "T. Aasgaard",
+          "number": 19,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "P. Berg",
+          "number": 6,
+          "pos": "MF",
           "starter": false
         },
         {
           "name": "A. Schjelderup",
           "number": 21,
-          "pos": "FW",
+          "pos": "MF",
           "starter": false
         }
       ],
-      "coach": "Stale Solbakken"
+      "coach": "S. Solbakken"
     },
     "away": {
-      "formation": "4-2-3-1",
+      "formation": "4-3-3",
       "players": [
         {
-          "name": "E. Mendy",
+          "name": "É. Mendy",
           "number": 16,
           "pos": "GK",
           "starter": true
@@ -14870,7 +14876,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
         {
           "name": "K. Diatta",
           "number": 15,
-          "pos": "DF",
+          "pos": "MF",
           "starter": true
         },
         {
@@ -14880,21 +14886,15 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "M. Niakhate",
+          "name": "M. Niakhaté",
           "number": 19,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "M. Diouf",
+          "name": "E. Diouf",
           "number": 25,
           "pos": "DF",
-          "starter": true
-        },
-        {
-          "name": "I. Gueye",
-          "number": 5,
-          "pos": "MF",
           "starter": true
         },
         {
@@ -14904,8 +14904,8 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "I. Sarr",
-          "number": 18,
+          "name": "I. Gueye",
+          "number": 5,
           "pos": "MF",
           "starter": true
         },
@@ -14916,9 +14916,9 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "S. Mane",
-          "number": 10,
-          "pos": "MF",
+          "name": "I. Sarr",
+          "number": 18,
+          "pos": "FW",
           "starter": true
         },
         {
@@ -14928,33 +14928,21 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "M. Diaw",
-          "number": 23,
-          "pos": "GK",
-          "starter": false
+          "name": "S. Mané",
+          "number": 10,
+          "pos": "FW",
+          "starter": true
         },
         {
-          "name": "Y. Diouf",
-          "number": 1,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "I. Jakobs",
-          "number": 14,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "B. Dieng",
-          "number": 9,
+          "name": "I. Mbaye",
+          "number": 20,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "A. Mendy",
-          "number": 24,
-          "pos": "DF",
+          "name": "Assane Diao",
+          "number": 7,
+          "pos": "FW",
           "starter": false
         },
         {
@@ -14970,14 +14958,38 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "A. Diao",
-          "number": 7,
+          "name": "A. Mendy",
+          "number": 24,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "B. Dieng",
+          "number": 9,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "A. Seck",
-          "number": 4,
+          "name": "I. Ndiaye",
+          "number": 13,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "P. Sarr",
+          "number": 17,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "P. Ciss",
+          "number": 6,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "I. Jakobs",
+          "number": 14,
           "pos": "DF",
           "starter": false
         },
@@ -14988,41 +15000,35 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "P. Ciss",
-          "number": 6,
-          "pos": "MF",
+          "name": "Y. Diouf",
+          "number": 1,
+          "pos": "GK",
           "starter": false
         },
         {
-          "name": "I. Ndiaye",
-          "number": 13,
-          "pos": "FW",
+          "name": "A. Seck",
+          "number": 4,
+          "pos": "DF",
           "starter": false
         },
         {
-          "name": "P. M. Sarr",
-          "number": 17,
-          "pos": "MF",
+          "name": "M. Diaw",
+          "number": 23,
+          "pos": "GK",
           "starter": false
         },
         {
-          "name": "I. Mbaye",
-          "number": 20,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "B. Sapoko Ndiaye",
+          "name": "Bara Ndiaye",
           "number": 22,
           "pos": "MF",
           "starter": false
         }
       ],
-      "coach": "Bouna Thiaw Pape"
+      "coach": "P. Thiaw"
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:30.318Z"
+    "updatedAt": "2026-07-16T14:32:12.146Z"
   },
   {
     "fixtureKey": "Panama|Croatia",
@@ -15352,7 +15358,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:32.048Z"
+    "updatedAt": "2026-07-16T14:32:13.617Z"
   },
   {
     "fixtureKey": "Panama|England",
@@ -15676,12 +15682,12 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:41.180Z"
+    "updatedAt": "2026-07-16T14:32:21.289Z"
   },
   {
     "fixtureKey": "Paraguay|Australia",
     "home": {
-      "formation": "5-3-2",
+      "formation": "5-4-1",
       "players": [
         {
           "name": "O. Gill",
@@ -15690,19 +15696,19 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "J. Caceres",
+          "name": "J. Cáceres",
           "number": 4,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "G. Velazquez",
+          "name": "G. Velázquez",
           "number": 2,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "G. Gomez",
+          "name": "G. Gómez",
           "number": 15,
           "pos": "DF",
           "starter": true
@@ -15720,7 +15726,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "D. Gomez",
+          "name": "D. Gómez",
           "number": 8,
           "pos": "MF",
           "starter": true
@@ -15738,22 +15744,16 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "G. Avalos",
+          "name": "J. Enciso",
+          "number": 19,
+          "pos": "MF",
+          "starter": true
+        },
+        {
+          "name": "G. Ávalos",
           "number": 21,
           "pos": "FW",
           "starter": true
-        },
-        {
-          "name": "J. Enciso",
-          "number": 19,
-          "pos": "FW",
-          "starter": true
-        },
-        {
-          "name": "R. Fernandez",
-          "number": 1,
-          "pos": "MF",
-          "starter": false
         },
         {
           "name": "G. Olveira",
@@ -15762,8 +15762,8 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "Fabian Balbuena",
-          "number": 5,
+          "name": "J. Alonso",
+          "number": 6,
           "pos": "DF",
           "starter": false
         },
@@ -15774,33 +15774,9 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "J. Alonso",
-          "number": 6,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "G. Caballero",
-          "number": 24,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "J. Canale",
-          "number": 13,
-          "pos": "DF",
-          "starter": false
-        },
-        {
           "name": "I. Pitta",
           "number": 25,
           "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "Mauricio",
-          "number": 11,
-          "pos": "MF",
           "starter": false
         },
         {
@@ -15810,8 +15786,8 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "Kaku",
-          "number": 17,
+          "name": "D. Bobadilla",
+          "number": 16,
           "pos": "MF",
           "starter": false
         },
@@ -15822,22 +15798,52 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "B. Ojeda",
-          "number": 20,
+          "name": "A. Romero",
+          "number": 17,
           "pos": "MF",
           "starter": false
         },
         {
-          "name": "D. Bobadilla",
-          "number": 16,
+          "name": "F. Balbuena",
+          "number": 5,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Maurício",
+          "number": 11,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "G. Caballero",
+          "number": 24,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "R. Fernandez",
+          "number": 1,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "J. Canale",
+          "number": 13,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "B. Ojeda",
+          "number": 20,
           "pos": "MF",
           "starter": false
         }
       ],
-      "coach": "Gustavo Alfaro"
+      "coach": "G. Alfaro"
     },
     "away": {
-      "formation": "3-4-2-1",
+      "formation": "3-4-3",
       "players": [
         {
           "name": "P. Beach",
@@ -15864,13 +15870,13 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "J. Bos",
-          "number": 5,
+          "name": "A. Behich",
+          "number": 16,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "A. O'Neill",
+          "name": "A. O&apos;Neill",
           "number": 13,
           "pos": "MF",
           "starter": true
@@ -15882,21 +15888,15 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "A. Behich",
-          "number": 16,
+          "name": "J. Bos",
+          "number": 5,
           "pos": "MF",
-          "starter": true
-        },
-        {
-          "name": "C. Volpato",
-          "number": 20,
-          "pos": "FW",
           "starter": true
         },
         {
           "name": "C. Metcalfe",
           "number": 8,
-          "pos": "FW",
+          "pos": "MF",
           "starter": true
         },
         {
@@ -15906,62 +15906,38 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "M. Ryan",
-          "number": 1,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "P. Izzo",
-          "number": 12,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "J. Geria",
-          "number": 6,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "A. Mabil",
-          "number": 11,
+          "name": "C. Volpato",
+          "number": 20,
           "pos": "MF",
-          "starter": false
+          "starter": true
         },
         {
-          "name": "C. Burgess",
-          "number": 21,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "A. Hrustic",
-          "number": 10,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "K. Trewin",
-          "number": 15,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "M. Toure",
-          "number": 9,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "P. Okon-Engstler",
+          "name": "Paul Michael Junior Okon-Engstler",
           "number": 24,
           "pos": "MF",
           "starter": false
         },
         {
-          "name": "M. Degenek",
-          "number": 2,
+          "name": "N. Velupillay",
+          "number": 23,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "T. Yengi",
+          "number": 26,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "M. Touré",
+          "number": 9,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "K. Trewin",
+          "number": 15,
           "pos": "DF",
           "starter": false
         },
@@ -15972,23 +15948,53 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "T. Yengi",
-          "number": 26,
-          "pos": "FW",
+          "name": "A. Hrustić",
+          "number": 10,
+          "pos": "MF",
           "starter": false
         },
         {
-          "name": "N. Velupillay",
-          "number": 23,
-          "pos": "FW",
+          "name": "C. Burgess",
+          "number": 21,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "A. Mabil",
+          "number": 11,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "J. Geria",
+          "number": 6,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "M. Degenek",
+          "number": 2,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "P. Izzo",
+          "number": 12,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "M. Ryan",
+          "number": 1,
+          "pos": "GK",
           "starter": false
         }
       ],
-      "coach": "Tony Popovic"
+      "coach": "T. Popović"
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:37.684Z"
+    "updatedAt": "2026-07-16T14:32:18.380Z"
   },
   {
     "fixtureKey": "Portugal|Congo DR",
@@ -16318,7 +16324,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:20.692Z"
+    "updatedAt": "2026-07-16T14:32:04.072Z"
   },
   {
     "fixtureKey": "Portugal|Uzbekistan",
@@ -16648,7 +16654,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:31.179Z"
+    "updatedAt": "2026-07-16T14:32:12.871Z"
   },
   {
     "fixtureKey": "Qatar|Switzerland",
@@ -16978,7 +16984,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:13.678Z"
+    "updatedAt": "2026-07-16T14:31:57.745Z"
   },
   {
     "fixtureKey": "Saudi Arabia|Uruguay",
@@ -17296,7 +17302,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:18.070Z"
+    "updatedAt": "2026-07-16T14:32:01.588Z"
   },
   {
     "fixtureKey": "Scotland|Brazil",
@@ -17620,7 +17626,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:34.223Z"
+    "updatedAt": "2026-07-16T14:32:15.441Z"
   },
   {
     "fixtureKey": "Scotland|Morocco",
@@ -17950,7 +17956,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:24.582Z"
+    "updatedAt": "2026-07-16T14:32:07.385Z"
   },
   {
     "fixtureKey": "Senegal|Iraq",
@@ -18274,7 +18280,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:38.150Z"
+    "updatedAt": "2026-07-16T14:32:18.744Z"
   },
   {
     "fixtureKey": "South Africa|South Korea",
@@ -18312,33 +18318,33 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
+          "name": "S. Sithole",
+          "number": 13,
+          "pos": "MF",
+          "starter": true
+        },
+        {
           "name": "T. Mbatha",
           "number": 5,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "Y. Sithole",
-          "number": 13,
-          "pos": "MF",
-          "starter": true
-        },
-        {
           "name": "T. Maseko",
           "number": 12,
-          "pos": "MF",
+          "pos": "FW",
           "starter": true
         },
         {
           "name": "R. Mofokeng",
           "number": 10,
-          "pos": "MF",
+          "pos": "FW",
           "starter": true
         },
         {
           "name": "O. Appollis",
           "number": 7,
-          "pos": "MF",
+          "pos": "FW",
           "starter": true
         },
         {
@@ -18354,42 +18360,6 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "S. Chaine",
-          "number": 16,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "B. Cross",
-          "number": 26,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "J. Adams",
-          "number": 23,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "T. Matuludi",
-          "number": 2,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "K. Ndamane",
-          "number": 3,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "I. Rayners",
-          "number": 15,
-          "pos": "FW",
-          "starter": false
-        },
-        {
           "name": "N. Sibisi",
           "number": 19,
           "pos": "DF",
@@ -18402,6 +18372,30 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
+          "name": "I. Rayners",
+          "number": 15,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "B. Cross",
+          "number": 26,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "S. Chaine",
+          "number": 16,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "J. Adams",
+          "number": 23,
+          "pos": "MF",
+          "starter": false
+        },
+        {
           "name": "T. Moremi",
           "number": 8,
           "pos": "FW",
@@ -18410,7 +18404,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
         {
           "name": "K. Sebelebele",
           "number": 25,
-          "pos": "MF",
+          "pos": "DF",
           "starter": false
         },
         {
@@ -18420,16 +18414,28 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
+          "name": "T. Matuludi",
+          "number": 2,
+          "pos": "DF",
+          "starter": false
+        },
+        {
           "name": "S. Kabini",
           "number": 18,
           "pos": "DF",
           "starter": false
+        },
+        {
+          "name": "K. Ndamane",
+          "number": 3,
+          "pos": "DF",
+          "starter": false
         }
       ],
-      "coach": "Hugo Broos"
+      "coach": "H. Broos"
     },
     "away": {
-      "formation": "3-4-2-1",
+      "formation": "3-4-3",
       "players": [
         {
           "name": "Kim Seung-Gyu",
@@ -18458,6 +18464,12 @@ export const MATCH_LINEUPS: MatchLineup[] = [
         {
           "name": "Seol Young-Woo",
           "number": 22,
+          "pos": "DF",
+          "starter": true
+        },
+        {
+          "name": "Hwang In-Beom",
+          "number": 6,
           "pos": "MF",
           "starter": true
         },
@@ -18468,27 +18480,15 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "Hwang In-Beom",
-          "number": 6,
-          "pos": "MF",
-          "starter": true
-        },
-        {
           "name": "Lee Tae-Seok",
           "number": 13,
-          "pos": "MF",
+          "pos": "DF",
           "starter": true
         },
         {
           "name": "Lee Kang-In",
           "number": 19,
-          "pos": "FW",
-          "starter": true
-        },
-        {
-          "name": "Hwang Hee-Chan",
-          "number": 11,
-          "pos": "FW",
+          "pos": "MF",
           "starter": true
         },
         {
@@ -18498,82 +18498,10 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "Jo Hyeon-Woo",
-          "number": 21,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "Song Bum-Keun",
-          "number": 12,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "Son Heung-Min",
-          "number": 7,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "Kim Jin-Gyu",
-          "number": 24,
+          "name": "Hwang Hee-Chan",
+          "number": 11,
           "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "Park Jin-Seob",
-          "number": 16,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "Lee Dong-Gyeong",
-          "number": 26,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "Cho Gue-Sung",
-          "number": 9,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "Eom Ji-Sung",
-          "number": 25,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "J. Castrop",
-          "number": 23,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "Lee Jae-Sung",
-          "number": 10,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "Kim Moon-Hwan",
-          "number": 15,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "Kim Tae-Hyeon",
-          "number": 5,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "Yang Hyun-Jun",
-          "number": 20,
-          "pos": "FW",
-          "starter": false
+          "starter": true
         },
         {
           "name": "Bae Jun-Ho",
@@ -18584,14 +18512,93 @@ export const MATCH_LINEUPS: MatchLineup[] = [
         {
           "name": "Cho Wi-Je",
           "number": 14,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Yang Hyun-Jun",
+          "number": 20,
           "pos": "MF",
           "starter": false
+        },
+        {
+          "name": "J. Castrop",
+          "number": 23,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Park Jin-Seop",
+          "number": 16,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Cho Gue-Sung",
+          "number": 9,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Kim Jin-Gyu",
+          "number": 24,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Eom Ji-Sung",
+          "number": 25,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Kim Tae-Hyeon",
+          "number": 5,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Song Bum-Keun",
+          "number": 12,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Lee Dong-Gyeong",
+          "number": 26,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Kim Moon-Hwan",
+          "number": 15,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Jo Hyeon-Woo",
+          "number": 21,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Lee Jae-Sung",
+          "number": 10,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Son Heung-Min",
+          "number": 7,
+          "pos": "FW",
+          "starter": false
         }
-      ]
+      ],
+      "coach": "Myung-Bo Hong"
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:35.086Z"
+    "updatedAt": "2026-07-16T14:32:16.164Z"
   },
   {
     "fixtureKey": "South Korea|Czech Republic",
@@ -18919,7 +18926,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:12.369Z"
+    "updatedAt": "2026-07-16T14:31:56.599Z"
   },
   {
     "fixtureKey": "Spain|Cape Verde Islands",
@@ -19249,7 +19256,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:17.186Z"
+    "updatedAt": "2026-07-16T14:32:00.796Z"
   },
   {
     "fixtureKey": "Spain|Saudi Arabia",
@@ -19579,7 +19586,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:27.623Z"
+    "updatedAt": "2026-07-16T14:32:09.942Z"
   },
   {
     "fixtureKey": "Sweden|Tunisia",
@@ -19908,7 +19915,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:16.756Z"
+    "updatedAt": "2026-07-16T14:32:00.421Z"
   },
   {
     "fixtureKey": "Switzerland|Bosnia & Herzegovina",
@@ -20232,7 +20239,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:22.844Z"
+    "updatedAt": "2026-07-16T14:32:05.907Z"
   },
   {
     "fixtureKey": "Switzerland|Canada",
@@ -20544,7 +20551,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:32.921Z"
+    "updatedAt": "2026-07-16T14:32:14.351Z"
   },
   {
     "fixtureKey": "Tunisia|Japan",
@@ -20861,7 +20868,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:27.187Z"
+    "updatedAt": "2026-07-16T14:32:09.578Z"
   },
   {
     "fixtureKey": "Tunisia|Netherlands",
@@ -21179,7 +21186,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:36.817Z"
+    "updatedAt": "2026-07-16T14:32:17.631Z"
   },
   {
     "fixtureKey": "Türkiye|Paraguay",
@@ -21509,7 +21516,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:25.457Z"
+    "updatedAt": "2026-07-16T14:32:08.111Z"
   },
   {
     "fixtureKey": "Türkiye|USA",
@@ -21833,7 +21840,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:37.246Z"
+    "updatedAt": "2026-07-16T14:32:17.995Z"
   },
   {
     "fixtureKey": "Uruguay|Cape Verde Islands",
@@ -22151,12 +22158,12 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:28.502Z"
+    "updatedAt": "2026-07-16T14:32:10.665Z"
   },
   {
     "fixtureKey": "Uruguay|Spain",
     "home": {
-      "formation": "4-1-4-1",
+      "formation": "4-1-2-3",
       "players": [
         {
           "name": "F. Muslera",
@@ -22171,7 +22178,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "S. Caceres",
+          "name": "S. Cáceres",
           "number": 3,
           "pos": "DF",
           "starter": true
@@ -22195,12 +22202,6 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "A. Canobbio",
-          "number": 14,
-          "pos": "MF",
-          "starter": true
-        },
-        {
           "name": "R. Bentancur",
           "number": 6,
           "pos": "MF",
@@ -22213,70 +22214,22 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "M. Araujo",
-          "number": 20,
-          "pos": "MF",
+          "name": "A. Canobbio",
+          "number": 14,
+          "pos": "FW",
           "starter": true
         },
         {
-          "name": "D. Nunez",
+          "name": "D. Núñez",
           "number": 9,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "S. Rochet",
-          "number": 1,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "S. Mele",
-          "number": 12,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "J. Gimenez",
-          "number": 2,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "G. de Arrascaeta",
-          "number": 10,
+          "name": "M. Araújo",
+          "number": 20,
           "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "M. Vina",
-          "number": 17,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "R. Araujo",
-          "number": 4,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "B. Rodriguez",
-          "number": 18,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "F. Vinas",
-          "number": 21,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "E. Martinez",
-          "number": 15,
-          "pos": "MF",
-          "starter": false
+          "starter": true
         },
         {
           "name": "R. Aguirre",
@@ -22285,9 +22238,21 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "N. de la Cruz",
-          "number": 7,
-          "pos": "MF",
+          "name": "J. Giménez",
+          "number": 2,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "S. Rochet",
+          "number": 1,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "F. Pellistri",
+          "number": 11,
+          "pos": "FW",
           "starter": false
         },
         {
@@ -22297,9 +22262,33 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
+          "name": "S. Mele",
+          "number": 12,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "M. Viña",
+          "number": 17,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "N. de la Cruz",
+          "number": 7,
+          "pos": "MF",
+          "starter": false
+        },
+        {
           "name": "J. Piquerez",
           "number": 22,
           "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "B. Rodríguez",
+          "number": 18,
+          "pos": "FW",
           "starter": false
         },
         {
@@ -22309,51 +22298,63 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "F. Pellistri",
-          "number": 11,
+          "name": "F. Viñas",
+          "number": 21,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "E. Martínez",
+          "number": 15,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "R. Araújo",
+          "number": 4,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "G. de Arrascaeta",
+          "number": 10,
           "pos": "MF",
           "starter": false
         }
       ],
-      "coach": "Marcelo Bielsa"
+      "coach": "M. Bielsa"
     },
     "away": {
-      "formation": "4-2-3-1",
+      "formation": "4-1-2-3",
       "players": [
         {
-          "name": "U. Simon",
+          "name": "Unai Simón",
           "number": 23,
           "pos": "GK",
           "starter": true
         },
         {
-          "name": "M. Llorente",
+          "name": "Marcos Llorente",
           "number": 5,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "P. Cubarsi",
+          "name": "Pau Cubarsí Paredes",
           "number": 22,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "A. Laporte",
+          "name": "Aymeric Laporte",
           "number": 14,
           "pos": "DF",
           "starter": true
         },
         {
-          "name": "M. Cucurella",
+          "name": "Marc Cucurella",
           "number": 24,
           "pos": "DF",
-          "starter": true
-        },
-        {
-          "name": "Pedri",
-          "number": 20,
-          "pos": "MF",
           "starter": true
         },
         {
@@ -22363,63 +22364,45 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": true
         },
         {
-          "name": "Lamine Yamal",
-          "number": 19,
-          "pos": "MF",
-          "starter": true
-        },
-        {
-          "name": "M. Merino",
+          "name": "Mikel Merino",
           "number": 6,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "A. Baena",
-          "number": 15,
+          "name": "Pedri",
+          "number": 20,
           "pos": "MF",
           "starter": true
         },
         {
-          "name": "M. Oyarzabal",
+          "name": "Lamine Yamal",
+          "number": 19,
+          "pos": "FW",
+          "starter": true
+        },
+        {
+          "name": "Mikel Oyarzabal",
           "number": 21,
           "pos": "FW",
           "starter": true
         },
         {
-          "name": "D. Raya",
-          "number": 1,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "J. Garcia",
-          "number": 13,
-          "pos": "GK",
-          "starter": false
-        },
-        {
-          "name": "F. Ruiz",
-          "number": 8,
+          "name": "Álex Baena",
+          "number": 15,
           "pos": "MF",
-          "starter": false
+          "starter": true
         },
         {
-          "name": "F. Torres",
-          "number": 7,
+          "name": "Víctor Muñoz",
+          "number": 25,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "P. Porro",
-          "number": 12,
+          "name": "Marc Pubill",
+          "number": 2,
           "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "M. Zubimendi",
-          "number": 18,
-          "pos": "MF",
           "starter": false
         },
         {
@@ -22429,50 +22412,74 @@ export const MATCH_LINEUPS: MatchLineup[] = [
           "starter": false
         },
         {
-          "name": "A. Grimaldo",
-          "number": 3,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "B. Iglesias",
-          "number": 26,
-          "pos": "FW",
-          "starter": false
-        },
-        {
-          "name": "D. Olmo",
-          "number": 10,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "E. Garcia",
-          "number": 4,
-          "pos": "DF",
-          "starter": false
-        },
-        {
-          "name": "Y. Pino",
-          "number": 11,
-          "pos": "MF",
-          "starter": false
-        },
-        {
-          "name": "N. Williams",
+          "name": "Nico Williams",
           "number": 17,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "V. Munoz",
-          "number": 25,
+          "name": "Joan García",
+          "number": 13,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Yeremy Pino",
+          "number": 11,
           "pos": "FW",
           "starter": false
         },
         {
-          "name": "M. Pubill",
-          "number": 2,
+          "name": "Martín Zubimendi",
+          "number": 18,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Pedro Porro",
+          "number": 12,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Eric García",
+          "number": 4,
+          "pos": "DF",
+          "starter": false
+        },
+        {
+          "name": "Ferran Torres",
+          "number": 7,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Dani Olmo",
+          "number": 10,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "Borja Iglesias",
+          "number": 26,
+          "pos": "FW",
+          "starter": false
+        },
+        {
+          "name": "Fabián Ruiz",
+          "number": 8,
+          "pos": "MF",
+          "starter": false
+        },
+        {
+          "name": "David Raya",
+          "number": 1,
+          "pos": "GK",
+          "starter": false
+        },
+        {
+          "name": "Álex Grimaldo",
+          "number": 3,
           "pos": "DF",
           "starter": false
         }
@@ -22481,7 +22488,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:39.020Z"
+    "updatedAt": "2026-07-16T14:32:19.467Z"
   },
   {
     "fixtureKey": "USA|Australia",
@@ -22805,7 +22812,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:24.142Z"
+    "updatedAt": "2026-07-16T14:32:07.020Z"
   },
   {
     "fixtureKey": "USA|Paraguay",
@@ -23135,7 +23142,7 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:13.245Z"
+    "updatedAt": "2026-07-16T14:31:57.325Z"
   },
   {
     "fixtureKey": "Uzbekistan|Colombia",
@@ -23465,8 +23472,8 @@ export const MATCH_LINEUPS: MatchLineup[] = [
     },
     "confirmed": true,
     "source": "api-football",
-    "updatedAt": "2026-07-16T12:20:21.976Z"
+    "updatedAt": "2026-07-16T14:32:05.183Z"
   }
 ];
 
-export const LINEUPS_LAST_UPDATED = '2026-07-16T12:20:43.151Z';
+export const LINEUPS_LAST_UPDATED = '2026-07-16T14:32:23.006Z';
