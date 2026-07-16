@@ -126,6 +126,13 @@ export const MATCH_STATS: MatchStats[] = [
     awayStats: { team: "Egypt", possession: 0.46, totalShots: 14, shotsInsideBox: 10, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 7, xg: 1.08, passAccuracy: 0.81, passes: 398, fouls: 15 },
   },
   {
+    fixtureId: "G1_Saudi_Arabia_v_Uruguay",
+    home: "Saudi Arabia", away: "Uruguay", date: "2026-06-15",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Saudi Arabia", possession: 0.33, totalShots: 7, shotsInsideBox: 4, shotsOutsideBox: 3, shotsOnGoal: 3, corners: 4, xg: 0.66, passAccuracy: 0.73, passes: 322, fouls: 11 },
+    awayStats: { team: "Uruguay", possession: 0.67, totalShots: 27, shotsInsideBox: 16, shotsOutsideBox: 11, shotsOnGoal: 10, corners: 14, xg: 1.72, passAccuracy: 0.88, passes: 612, fouls: 6 },
+  },
+  {
     fixtureId: "H1_Iran_v_New_Zealand",
     home: "Iran", away: "New Zealand", date: "2026-06-16",
     status: "FINISHED", elapsed: null,
@@ -152,6 +159,13 @@ export const MATCH_STATS: MatchStats[] = [
     status: "FINISHED", elapsed: null,
     homeStats: { team: "Argentina", possession: 0.48, totalShots: 10, shotsInsideBox: 4, shotsOutsideBox: 6, shotsOnGoal: 6, corners: 2, xg: 1.47, passAccuracy: 0.9, passes: 561, fouls: 13 },
     awayStats: { team: "Algeria", possession: 0.52, totalShots: 7, shotsInsideBox: 3, shotsOutsideBox: 4, shotsOnGoal: 0, corners: 2, xg: 0.3, passAccuracy: 0.92, passes: 609, fouls: 8 },
+  },
+  {
+    fixtureId: "J1_Austria_v_Jordan",
+    home: "Austria", away: "Jordan", date: "2026-06-17",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Austria", possession: 0.63, totalShots: 11, shotsInsideBox: 6, shotsOutsideBox: 5, shotsOnGoal: 4, corners: 4, xg: 1.69, passAccuracy: 0.84, passes: 580, fouls: 12 },
+    awayStats: { team: "Jordan", possession: 0.37, totalShots: 11, shotsInsideBox: 7, shotsOutsideBox: 4, shotsOnGoal: 4, corners: 3, xg: 1.15, passAccuracy: 0.73, passes: 332, fouls: 7 },
   },
   {
     fixtureId: "K1_Portugal_v_Congo_DR",
@@ -271,6 +285,13 @@ export const MATCH_STATS: MatchStats[] = [
     status: "FINISHED", elapsed: null,
     homeStats: { team: "Spain", possession: 0.67, totalShots: 22, shotsInsideBox: 13, shotsOutsideBox: 9, shotsOnGoal: 8, corners: 6, xg: 2.3, passAccuracy: 0.92, passes: 726, fouls: 10 },
     awayStats: { team: "Saudi Arabia", possession: 0.33, totalShots: 3, shotsInsideBox: 0, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 1, xg: 0.14, passAccuracy: 0.81, passes: 364, fouls: 2 },
+  },
+  {
+    fixtureId: "H2_Belgium_v_Iran",
+    home: "Belgium", away: "Iran", date: "2026-06-21",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Belgium", possession: 0.7, totalShots: 23, shotsInsideBox: 20, shotsOutsideBox: 3, shotsOnGoal: 7, corners: 4, xg: 1.79, passAccuracy: 0.86, passes: 621, fouls: 7 },
+    awayStats: { team: "Iran", possession: 0.3, totalShots: 7, shotsInsideBox: 6, shotsOutsideBox: 1, shotsOnGoal: 3, corners: 2, xg: 0.62, passAccuracy: 0.73, passes: 270, fouls: 9 },
   },
   {
     fixtureId: "G2_Uruguay_v_Cape_Verde_Islands",
@@ -420,6 +441,13 @@ export const MATCH_STATS: MatchStats[] = [
     awayStats: { team: "USA", possession: 0.53, totalShots: 18, shotsInsideBox: 15, shotsOutsideBox: 3, shotsOnGoal: 7, corners: 9, xg: 2.13, passAccuracy: 0.85, passes: 471, fouls: 13 },
   },
   {
+    fixtureId: "C3_Paraguay_v_Australia",
+    home: "Paraguay", away: "Australia", date: "2026-06-25",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Paraguay", possession: 0.44, totalShots: 7, shotsInsideBox: 3, shotsOutsideBox: 4, shotsOnGoal: 2, corners: 1, xg: 0.24, passAccuracy: 0.77, passes: 426, fouls: 9 },
+    awayStats: { team: "Australia", possession: 0.56, totalShots: 12, shotsInsideBox: 7, shotsOutsideBox: 5, shotsOnGoal: 5, corners: 3, xg: 0.55, passAccuracy: 0.82, passes: 537, fouls: 6 },
+  },
+  {
     fixtureId: "I3_Senegal_v_Iraq",
     home: "Senegal", away: "Iraq", date: "2026-06-26",
     status: "FINISHED", elapsed: null,
@@ -446,6 +474,13 @@ export const MATCH_STATS: MatchStats[] = [
     status: "FINISHED", elapsed: null,
     homeStats: { team: "Cape Verde Islands", possession: 0.51, totalShots: 15, shotsInsideBox: 9, shotsOutsideBox: 6, shotsOnGoal: 2, corners: 4, xg: 1.39, passAccuracy: 0.84, passes: 451, fouls: 10 },
     awayStats: { team: "Saudi Arabia", possession: 0.49, totalShots: 7, shotsInsideBox: 5, shotsOutsideBox: 2, shotsOnGoal: 3, corners: 2, xg: 0.39, passAccuracy: 0.81, passes: 444, fouls: 16 },
+  },
+  {
+    fixtureId: "H3_Egypt_v_Iran",
+    home: "Egypt", away: "Iran", date: "2026-06-27",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Egypt", possession: 0.61, totalShots: 15, shotsInsideBox: 8, shotsOutsideBox: 7, shotsOnGoal: 3, corners: 8, xg: 0.84, passAccuracy: 0.87, passes: 589, fouls: 11 },
+    awayStats: { team: "Iran", possession: 0.39, totalShots: 13, shotsInsideBox: 10, shotsOutsideBox: 3, shotsOnGoal: 4, corners: 2, xg: 1.97, passAccuracy: 0.77, passes: 367, fouls: 16 },
   },
   {
     fixtureId: "H3_New_Zealand_v_Belgium",
@@ -565,6 +600,13 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     status: "FINISHED", elapsed: null,
     homeStats: { team: "Belgium", possession: 0.52, totalShots: 19, shotsInsideBox: 11, shotsOutsideBox: 8, shotsOnGoal: 5, corners: 4, xg: 1.8, passAccuracy: 0.86, passes: 699, fouls: 22 },
     awayStats: { team: "Senegal", possession: 0.48, totalShots: 19, shotsInsideBox: 10, shotsOutsideBox: 9, shotsOnGoal: 5, corners: 2, xg: 3.54, passAccuracy: 0.84, passes: 639, fouls: 12 },
+  },
+  {
+    fixtureId: "1562586",
+    home: "USA", away: "Bosnia & Herzegovina", date: "2026-07-02",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "USA", possession: 0.48, totalShots: 8, shotsInsideBox: 6, shotsOutsideBox: 2, shotsOnGoal: 2, corners: 4, xg: 0.92, passAccuracy: 0.83, passes: 415, fouls: 7 },
+    awayStats: { team: "Bosnia & Herzegovina", possession: 0.52, totalShots: 10, shotsInsideBox: 5, shotsOutsideBox: 5, shotsOnGoal: 3, corners: 3, xg: 0.25, passAccuracy: 0.82, passes: 446, fouls: 13 },
   },
   {
     fixtureId: "1567311",
@@ -708,4 +750,4 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-16T12:15:10.086Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-16T13:03:32.264Z';
