@@ -55,7 +55,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Ladislav Krejčí", team: "Czech Republic", minute: 59, type: "goal" },
       { player: "Hwang In-beom", team: "South Korea", minute: 67, type: "goal" },
-      { player: "Oh Hyeon-gyu", team: "South Korea", minute: 80, type: "goal" },
+      { player: "Hyeon-gyu Oh", team: "South Korea", minute: 80, type: "goal" },
     ],
     yellowCards: [
       { player: "Gi-Hyuk Lee", team: "South Korea", minute: 90, reason: "Foul" },
@@ -206,7 +206,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Omar Rekik", team: "Tunisia", minute: 43, type: "goal" },
       { player: "Viktor Gyökeres", team: "Sweden", minute: 59, type: "goal" },
       { player: "Mattias Svanberg", team: "Sweden", minute: 84, type: "goal" },
-      { player: "Yasin Ayari", team: "Sweden", minute: 90, type: "goal" },
+      { player: "Yasin Ayari", team: "Sweden", minute: 90, minuteStoppage: 6, type: "goal" },
     ],
     yellowCards: [
       { player: "Rani Khedira", team: "Tunisia", minute: 54, reason: "Foul" },
@@ -786,9 +786,9 @@ export const MATCH_EVENTS: MatchEvents[] = [
     fixtureId: "A3_Czech_Republic_v_Mexico",
     home: "Czech Republic", away: "Mexico", date: "2026-06-25",
     goals: [
-      { player: "M. Chavez Garcia", team: "Mexico", minute: 55, type: "goal" },
+      { player: "Mateo Chávez", team: "Mexico", minute: 55, type: "goal" },
       { player: "Julián Quiñones", team: "Mexico", minute: 61, type: "goal" },
-      { player: "Álvaro Fidalgo", team: "Mexico", minute: 90, type: "goal" },
+      { player: "Álvaro Fidalgo", team: "Mexico", minute: 90, minuteStoppage: 4, type: "goal" },
     ],
     yellowCards: [
       { player: "Edson Álvarez", team: "Mexico", minute: 64, reason: "Foul" },
@@ -1527,4 +1527,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-16T11:12:18.891Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-16T14:58:51.595Z';
