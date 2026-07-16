@@ -1087,23 +1087,6 @@ export const MATCH_EVENTS: MatchEvents[] = [
     redCards: [],
   },
   {
-    fixtureId: "1562344",
-    home: "Brazil", away: "Japan", date: "2026-06-29",
-    goals: [
-      { player: "Kaishū Sano", team: "Japan", minute: 29, type: "goal" },
-      { player: "Casemiro", team: "Brazil", minute: 56, type: "goal" },
-      { player: "Gabriel Martinelli", team: "Brazil", minute: 90, type: "goal" },
-    ],
-    yellowCards: [
-      { player: "Kaishū Sano", team: "Japan", minute: 12, reason: "Foul" },
-      { player: "Casemiro", team: "Brazil", minute: 14, reason: "Foul" },
-      { player: "Daichi Kamada", team: "Japan", minute: 45, reason: "Foul" },
-      { player: "Danilo", team: "Brazil", minute: 48, reason: "Foul" },
-      { player: "Junnosuke Suzuki", team: "Japan", minute: 84, reason: "Foul" },
-    ],
-    redCards: [],
-  },
-  {
     fixtureId: "1565176",
     home: "Germany", away: "Paraguay", date: "2026-06-29",
     goals: [
@@ -1218,19 +1201,6 @@ export const MATCH_EVENTS: MatchEvents[] = [
     redCards: [
       { player: "Folarin Balogun", team: "USA", minute: 64, reason: "Serious foul" },
     ],
-  },
-  {
-    fixtureId: "1567311",
-    home: "Spain", away: "Austria", date: "2026-07-02",
-    goals: [
-      { player: "Mikel Oyarzabal", team: "Spain", minute: 36, type: "goal" },
-      { player: "Pedro Porro", team: "Spain", minute: 66, type: "goal" },
-      { player: "Mikel Oyarzabal", team: "Spain", minute: 89, type: "goal" },
-    ],
-    yellowCards: [
-      { player: "Stefan Posch", team: "Austria", minute: 83, reason: "Foul" },
-    ],
-    redCards: [],
   },
   {
     fixtureId: "1567309",
@@ -1527,4 +1497,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-16T14:58:51.595Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-16T17:46:08.471Z';
