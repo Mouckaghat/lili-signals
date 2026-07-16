@@ -772,7 +772,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "Scotland", away: "Brazil", date: "2026-06-24",
     goals: [
       { player: "Vinícius Júnior", team: "Brazil", minute: 7, type: "goal" },
-      { player: "Vinícius Júnior", team: "Brazil", minute: 45, type: "goal" },
+      { player: "Vinícius Júnior", team: "Brazil", minute: 45, minuteStoppage: 3, type: "goal" },
       { player: "Matheus Cunha", team: "Brazil", minute: 60, type: "goal" },
     ],
     yellowCards: [
@@ -1527,4 +1527,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-16T06:41:58.707Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-16T11:12:18.891Z';
