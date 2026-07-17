@@ -1268,7 +1268,6 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Mohamed Hany", team: "Egypt", minute: 55, type: "own-goal" },
     ],
     yellowCards: [
-      { player: "Saafan El-Sagheer", team: "Egypt", minute: 91 },
       { player: "Haissem Hassan", team: "Egypt", minute: 105, reason: "Foul" },
       { player: "Yasser Ibrahim", team: "Egypt", minute: 120, reason: "Foul" },
     ],
@@ -1514,8 +1513,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
     home: "England", away: "Argentina", date: "2026-07-15",
     goals: [
       { player: "Anthony Gordon", team: "England", minute: 55, type: "goal" },
-      { player: "Enzo Fernández", team: "Argentina", minute: 86, type: "goal" },
-      { player: "Lautaro Martínez", team: "Argentina", minute: 90, minuteStoppage: 2, type: "goal" },
+      { player: "Enzo Fernández", team: "Argentina", minute: 85, type: "goal" },
+      { player: "L. Martinez", team: "Argentina", minute: 90, type: "goal" },
     ],
     yellowCards: [
       { player: "Elliot Anderson", team: "England", minute: 37, reason: "Foul" },
@@ -1527,4 +1526,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-16T18:11:21.488Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-17T06:37:33.288Z';
