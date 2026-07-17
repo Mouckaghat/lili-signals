@@ -786,9 +786,9 @@ export const MATCH_EVENTS: MatchEvents[] = [
     fixtureId: "A3_Czech_Republic_v_Mexico",
     home: "Czech Republic", away: "Mexico", date: "2026-06-25",
     goals: [
-      { player: "Mateo Chávez", team: "Mexico", minute: 55, type: "goal" },
+      { player: "M. Chavez Garcia", team: "Mexico", minute: 55, type: "goal" },
       { player: "Julián Quiñones", team: "Mexico", minute: 61, type: "goal" },
-      { player: "Álvaro Fidalgo", team: "Mexico", minute: 90, minuteStoppage: 4, type: "goal" },
+      { player: "Álvaro Fidalgo", team: "Mexico", minute: 90, type: "goal" },
     ],
     yellowCards: [
       { player: "Edson Álvarez", team: "Mexico", minute: 64, reason: "Foul" },
@@ -1521,4 +1521,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-17T10:48:22.074Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-17T14:02:49.733Z';
