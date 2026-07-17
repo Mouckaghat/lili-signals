@@ -1112,12 +1112,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     yellowCards: [
       { player: "Andrés Cubas", team: "Paraguay", minute: 65, reason: "Foul" },
-      { player: "Gustavo Julio Alfaro", team: "Paraguay", minute: 105, reason: "Dissent" },
-      { player: "Julian Nagelsmann", team: "Germany", minute: 105, reason: "Dissent" },
       { player: "Kai Havertz", team: "Germany", minute: 106, reason: "Foul" },
       { player: "Jamal Musiala", team: "Germany", minute: 115, reason: "Foul" },
-      { player: "Mads Buttgereit", team: "Germany", minute: 116 },
-      { player: "Alejandro Juan Manograsso", team: "Paraguay", minute: 117 },
       { player: "Matías Galarza", team: "Paraguay", minute: 117, reason: "Foul" },
     ],
     redCards: [],
@@ -1526,4 +1522,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-17T06:37:33.288Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-17T08:57:45.665Z';
