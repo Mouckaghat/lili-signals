@@ -1525,10 +1525,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [
       { player: "Declan Rice", team: "England", minute: 3, type: "goal" },
       { player: "Ezri Konsa", team: "England", minute: 18, type: "goal" },
+      { player: "Bukayo Saka", team: "England", minute: 37, type: "goal" },
+      { player: "Bukayo Saka", team: "England", minute: 45, minuteStoppage: 1, type: "goal" },
+      { player: "Kylian Mbappé", team: "France", minute: 48, type: "goal" },
+      { player: "Bradley Barcola", team: "France", minute: 54, type: "goal" },
+      { player: "Kylian Mbappé", team: "France", minute: 66, type: "goal" },
     ],
     yellowCards: [],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-18T21:35:02.710Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-18T22:32:46.371Z';
