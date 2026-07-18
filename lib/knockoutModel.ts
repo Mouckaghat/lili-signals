@@ -115,6 +115,7 @@ export function buildRoadToFinal(liveResults: Record<string, LiveResult> = {}): 
   // rounds in order (R32 first). Lets a feed R16+ tie find its slot number by
   // matching its two teams to the winners of the slot's feeder matches.
   const winnerByMatch = new Map<number, string>();
+  const loserByMatch = new Map<number, string>();
 
   for (const fx of [...WC_KNOCKOUT].sort((a, b) =>
     KNOCKOUT_ORDER[a.round] - KNOCKOUT_ORDER[b.round] ||
@@ -162,24 +163,31 @@ export function buildRoadToFinal(liveResults: Record<string, LiveResult> = {}): 
     }
 
     // Official match number: R32 maps directly by team pair; an R16+ tie matches
-    // the slot of its round whose two feeder matches were won by these two teams.
+    // the slot of its round whose feeder outcomes produce these two teams.
     let matchNo: number | null = null;
     if (fx.round === 'R32') {
       matchNo = r32MatchOf(fx.home, fx.away);
     } else {
       for (const slot of BRACKET_SLOTS) {
         if (slot.round !== fx.round) continue;
-        const a = winnerByMatch.get(slot.feeds[0]);
-        const b = winnerByMatch.get(slot.feeds[1]);
+        const source = slot.thirdPlace ? loserByMatch : winnerByMatch;
+        const a = source.get(slot.feeds[0]);
+        const b = source.get(slot.feeds[1]);
         if (a && b && (a === fx.home || a === fx.away) && (b === fx.home || b === fx.away)) {
           matchNo = slot.match;
           break;
         }
       }
     }
-    // Record this tie's winner under its match number so later rounds can resolve.
+    // Record winner/loser under this match number so Final and 3rd-place slots can resolve.
     if (matchNo != null && winner != null) {
-      winnerByMatch.set(matchNo, winner === 'home' ? fx.home : fx.away);
+      if (winner === 'home') {
+        winnerByMatch.set(matchNo, fx.home);
+        loserByMatch.set(matchNo, fx.away);
+      } else {
+        winnerByMatch.set(matchNo, fx.away);
+        loserByMatch.set(matchNo, fx.home);
+      }
     }
 
     const tie: KnockoutTie = {
@@ -207,21 +215,22 @@ export function buildRoadToFinal(liveResults: Record<string, LiveResult> = {}): 
   // ── Phase 2: progressive future rounds (deploy-independent) ────────────────────
   // The feed only ever carries the CURRENT round's fixtures, and even once a deeper
   // round is baked into WC_KNOCKOUT it's deploy-gated. So for any bracket slot whose
-  // BOTH feeder winners are already known, synthesize its tie here — teams resolved
-  // from the winners we just computed, and any live/final score pulled straight from
-  // the /api/fixture-results overlay by team name. This means a new round appears —
-  // real matchup + live score + winner — the instant the previous round finishes,
-  // with NO redeploy. Walk in match-number order so a synthesized winner feeds the
-  // next slot (feeds are always lower-numbered matches).
+  // BOTH feeder winners (or losers, for 3rd place) are already known, synthesize its
+  // tie here — teams resolved from the winners/losers we just computed, and any
+  // live/final score pulled straight from the /api/fixture-results overlay by team
+  // name. This means a new round appears — real matchup + live score + winner — the
+  // instant the previous round finishes, with NO redeploy. Walk in match-number order
+  // so a synthesized winner feeds the next slot (feeds are always lower-numbered).
   const labelOf = new Map(ALL_ROUNDS.map((r) => [r.round, r.label]));
   const haveMatch = new Set<number>();
   for (const list of byRound.values()) for (const ti of list) if (ti.matchNo != null) haveMatch.add(ti.matchNo);
 
   for (const slot of [...BRACKET_SLOTS].sort((a, b) => a.match - b.match)) {
     if (haveMatch.has(slot.match)) continue;   // already a real (baked) tie
-    if (slot.thirdPlace) continue;             // 3rd place uses LOSERS — not tracked here
-    const hName = winnerByMatch.get(slot.feeds[0]);
-    const aName = winnerByMatch.get(slot.feeds[1]);
+    // 3rd place uses LOSERS from the two semis; others use WINNERS.
+    const source = slot.thirdPlace ? loserByMatch : winnerByMatch;
+    const hName = source.get(slot.feeds[0]);
+    const aName = source.get(slot.feeds[1]);
     if (!hName || !aName) continue;            // both sides not yet decided → leave as a preview slot
 
     const home = buildTeamForm(hName, liliRec);
