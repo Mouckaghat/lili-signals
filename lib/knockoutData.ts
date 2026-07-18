@@ -58,8 +58,8 @@ export const WC_KNOCKOUT: KnockoutFixture[] = [
   { id: '1582681', round: 'QF', roundLabel: 'Quarter-final', home: 'Argentina', away: 'Switzerland', date: '2026-07-12T01:00:00+00:00', stadiumId: 'arrowhead', venueName: 'Arrowhead Stadium', city: 'Kansas City', status: 'FINISHED', homeScore: 3, awayScore: 1, winner: 'home', penHome: null, penAway: null },
   { id: '1585131', round: 'SF', roundLabel: 'Semi-final', home: 'France', away: 'Spain', date: '2026-07-14T19:00:00+00:00', stadiumId: null, venueName: 'Dallas Stadium', city: 'Arlington', status: 'FINISHED', homeScore: 0, awayScore: 2, winner: 'away', penHome: null, penAway: null },
   { id: '1586077', round: 'SF', roundLabel: 'Semi-final', home: 'England', away: 'Argentina', date: '2026-07-15T19:00:00+00:00', stadiumId: 'mercedes', venueName: 'Mercedes-Benz Stadium', city: 'Atlanta', status: 'FINISHED', homeScore: 1, awayScore: 2, winner: 'away', penHome: null, penAway: null },
-  { id: '1591865', round: '3RD', roundLabel: 'Third-place play-off', home: 'France', away: 'England', date: '2026-07-18T21:00:00+00:00', stadiumId: null, venueName: 'Hard Rock Stadium, Miami Garden', city: 'Miami', status: 'LIVE', homeScore: 0, awayScore: 2, winner: 'away', penHome: null, penAway: null },
+  { id: '1591865', round: '3RD', roundLabel: 'Third-place play-off', home: 'France', away: 'England', date: '2026-07-18T21:00:00+00:00', stadiumId: null, venueName: 'Hard Rock Stadium, Miami Garden', city: 'Miami', status: 'LIVE', homeScore: 2, awayScore: 4, winner: 'away', penHome: null, penAway: null },
   { id: '1591866', round: 'F', roundLabel: 'Final', home: 'Spain', away: 'Argentina', date: '2026-07-19T19:00:00+00:00', stadiumId: null, venueName: null, city: null, status: 'SCHEDULED', homeScore: null, awayScore: null, winner: null, penHome: null, penAway: null },
 ];
 
-export const WC_KNOCKOUT_LAST_UPDATED = '2026-07-18T21:29:02.730Z';
+export const WC_KNOCKOUT_LAST_UPDATED = '2026-07-18T22:27:42.703Z';
