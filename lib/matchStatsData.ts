@@ -751,10 +751,10 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "1591865",
     home: "France", away: "England", date: "2026-07-18",
-    status: "LIVE", elapsed: 90,
-    homeStats: { team: "France", possession: 0.46, totalShots: 20, shotsInsideBox: 13, shotsOutsideBox: 7, shotsOnGoal: 9, corners: 3, xg: 2.59, passAccuracy: 0.91, passes: 441, fouls: 14 },
-    awayStats: { team: "England", possession: 0.54, totalShots: 18, shotsInsideBox: 15, shotsOutsideBox: 3, shotsOnGoal: 10, corners: 4, xg: 2.58, passAccuracy: 0.91, passes: 502, fouls: 8 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "France", possession: 0.46, totalShots: 19, shotsInsideBox: 12, shotsOutsideBox: 7, shotsOnGoal: 9, corners: 3, xg: 2.87, passAccuracy: 0.91, passes: 442, fouls: 14 },
+    awayStats: { team: "England", possession: 0.54, totalShots: 19, shotsInsideBox: 16, shotsOutsideBox: 3, shotsOnGoal: 11, corners: 4, xg: 2.58, passAccuracy: 0.91, passes: 515, fouls: 8 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-18T23:01:08.195Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-18T23:06:33.684Z';
