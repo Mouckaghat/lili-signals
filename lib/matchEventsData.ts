@@ -1519,6 +1519,16 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
     redCards: [],
   },
+  {
+    fixtureId: "1591865",
+    home: "France", away: "England", date: "2026-07-18",
+    goals: [
+      { player: "Declan Rice", team: "England", minute: 3, type: "goal" },
+      { player: "Ezri Konsa", team: "England", minute: 18, type: "goal" },
+    ],
+    yellowCards: [],
+    redCards: [],
+  },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-17T15:39:21.753Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-18T21:35:02.710Z';
