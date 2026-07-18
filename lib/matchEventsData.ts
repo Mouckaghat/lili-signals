@@ -1530,10 +1530,13 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Kylian Mbappé", team: "France", minute: 48, type: "goal" },
       { player: "Bradley Barcola", team: "France", minute: 54, type: "goal" },
       { player: "Kylian Mbappé", team: "France", minute: 66, type: "goal" },
+      { player: "Bukayo Saka", team: "England", minute: 87, type: "penalty" },
+      { player: "Ousmane Dembélé", team: "France", minute: 90, minuteStoppage: 6, type: "goal" },
+      { player: "Jude Bellingham", team: "England", minute: 90, minuteStoppage: 8, type: "goal" },
     ],
     yellowCards: [],
     redCards: [],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-18T22:32:46.371Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-18T23:36:33.780Z';
