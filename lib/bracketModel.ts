@@ -76,8 +76,10 @@ function resolveSide(
   match: number,
   r32: Map<number, KnockoutTie>,
   winners: Map<number, TeamForm>,
+  losers: Map<number, TeamForm>,
+  fromLoser = false,
 ): SlotSide {
-  const w = winners.get(match);
+  const w = (fromLoser ? losers : winners).get(match);
   if (w) return { kind: 'team', team: w };
   const tie = r32.get(match);
   if (tie) return { kind: 'pair', a: tie.home, b: tie.away, fromMatch: match };
@@ -100,13 +102,16 @@ export function buildFullBracket(liveResults: Record<string, LiveResult> = {}): 
   // so a slot can both carry its own result and resolve its feeder sides.
   const tieByMatch = new Map<number, KnockoutTie>();
   const winners = new Map<number, TeamForm>();
+  const losers = new Map<number, TeamForm>();
   for (const rg of rounds) {
     for (const ti of rg.ties) {
       if (ti.matchNo == null) continue;
       tieByMatch.set(ti.matchNo, ti);
       if (ti.winner) {
         const w = ti.winner === 'home' ? ti.home : ti.away;
+        const l = ti.winner === 'home' ? ti.away : ti.home;
         if (w) winners.set(ti.matchNo, w);
+        if (l) losers.set(ti.matchNo, l);
       }
     }
   }
@@ -116,8 +121,8 @@ export function buildFullBracket(liveResults: Record<string, LiveResult> = {}): 
     round: slot.round,
     date: slot.date,
     stadium: getStadium(slot.stadiumId) ?? null,
-    sideA: resolveSide(slot.feeds[0], r32map, winners),
-    sideB: resolveSide(slot.feeds[1], r32map, winners),
+    sideA: resolveSide(slot.feeds[0], r32map, winners, losers, !!slot.thirdPlace),
+    sideB: resolveSide(slot.feeds[1], r32map, winners, losers, !!slot.thirdPlace),
     tie: tieByMatch.get(slot.match) ?? null,
   }));
   return { r32, nodes };
@@ -135,10 +140,13 @@ export function buildTeamPath(
   // Winners across ALL rounds, so a future opponent resolves once its feeder round
   // finishes (not only from R32).
   const winners = new Map<number, TeamForm>();
+  const losers = new Map<number, TeamForm>();
   for (const rg of rounds) for (const ti of rg.ties) {
     if (ti.matchNo != null && ti.winner) {
       const w = ti.winner === 'home' ? ti.home : ti.away;
+      const l = ti.winner === 'home' ? ti.away : ti.home;
       if (w) winners.set(ti.matchNo, w);
+      if (l) losers.set(ti.matchNo, l);
     }
   }
 
@@ -204,13 +212,13 @@ export function buildTeamPath(
           match: cur, round: slot.round, date: resolved.fixture.date,
           stadium: resolved.stadium ?? getStadium(slot.stadiumId) ?? null,
           state, tie: resolved, mySide,
-          opponent: oppForm ? { kind: 'team', team: oppForm } : resolveSide(oppFeeder, r32map, winners),
+          opponent: oppForm ? { kind: 'team', team: oppForm } : resolveSide(oppFeeder, r32map, winners, losers),
         });
         if (lost) { status = 'eliminated'; break; }
         reachedHere = won;          // only keep advancing as "reached" if the team won
       } else {
         // Not yet a resolved tie for this team — honest "next / potential opponent" preview.
-        const opponent = resolveSide(oppFeeder, r32map, winners);
+        const opponent = resolveSide(oppFeeder, r32map, winners, losers);
         const state: PathStep['state'] = reachedHere ? 'next' : 'potential';
         const lili = opponentOptions(teamForm.name, opponent);
         steps.push({
