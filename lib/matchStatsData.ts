@@ -154,6 +154,13 @@ export const MATCH_STATS: MatchStats[] = [
     awayStats: { team: "Norway", possession: 0.61, totalShots: 12, shotsInsideBox: 11, shotsOutsideBox: 1, shotsOnGoal: 5, corners: 5, xg: 2.52, passAccuracy: 0.89, passes: 537, fouls: 13 },
   },
   {
+    fixtureId: "J1_Argentina_v_Algeria",
+    home: "Argentina", away: "Algeria", date: "2026-06-17",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Argentina", possession: 0.48, totalShots: 10, shotsInsideBox: 4, shotsOutsideBox: 6, shotsOnGoal: 6, corners: 2, xg: 1.47, passAccuracy: 0.9, passes: 561, fouls: 13 },
+    awayStats: { team: "Algeria", possession: 0.52, totalShots: 7, shotsInsideBox: 3, shotsOutsideBox: 4, shotsOnGoal: 0, corners: 2, xg: 0.3, passAccuracy: 0.92, passes: 609, fouls: 8 },
+  },
+  {
     fixtureId: "J1_Austria_v_Jordan",
     home: "Austria", away: "Jordan", date: "2026-06-17",
     status: "FINISHED", elapsed: null,
@@ -517,13 +524,6 @@ export const MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Algeria", possession: 0.65, totalShots: 12, shotsInsideBox: 6, shotsOutsideBox: 6, shotsOnGoal: 5, corners: 0, xg: 1.62, passAccuracy: 0.94, passes: 755, fouls: 3 },
     awayStats: { team: "Austria", possession: 0.35, totalShots: 10, shotsInsideBox: 6, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 3, xg: 1.44, passAccuracy: 0.87, passes: 397, fouls: 7 },
   },
-  {
-    fixtureId: "J3_Jordan_v_Argentina",
-    home: "Jordan", away: "Argentina", date: "2026-06-28",
-    status: "FINISHED", elapsed: null,
-    homeStats: { team: "Jordan", possession: 0.27, totalShots: 5, shotsInsideBox: 2, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 2, xg: 0.74, passAccuracy: 0.8, passes: 285, fouls: 13 },
-    awayStats: { team: "Argentina", possession: 0.73, totalShots: 12, shotsInsideBox: 6, shotsOutsideBox: 6, shotsOnGoal: 4, corners: 6, xg: 2.14, passAccuracy: 0.92, passes: 799, fouls: 7 },
-  },
 ];
 
 // Knockout-stage match stats — kept SEPARATE from MATCH_STATS so the tournament
@@ -751,10 +751,10 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "1591866",
     home: "Spain", away: "Argentina", date: "2026-07-19",
-    status: "LIVE", elapsed: 101,
-    homeStats: { team: "Spain", possession: 0.67, totalShots: 16, shotsInsideBox: 7, shotsOutsideBox: 9, shotsOnGoal: 11, corners: 9, xg: 0, passAccuracy: 0, passes: 718, fouls: 16 },
-    awayStats: { team: "Argentina", possession: 0.33, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 1, xg: 0, passAccuracy: 0, passes: 356, fouls: 20 },
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Spain", possession: 0.65, totalShots: 20, shotsInsideBox: 9, shotsOutsideBox: 11, shotsOnGoal: 12, corners: 9, xg: 0, passAccuracy: 0, passes: 852, fouls: 21 },
+    awayStats: { team: "Argentina", possession: 0.35, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 4, xg: 0, passAccuracy: 0, passes: 463, fouls: 25 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-19T21:31:59.890Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-19T22:04:45.943Z';

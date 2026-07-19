@@ -1917,6 +1917,28 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
   },
   {
+    fixtureId: "1561329",
+    home: "South Africa", away: "Canada", date: "2026-06-28",
+    goals: [
+      { player: "Stephen Eustáquio", team: "Canada", minute: 90, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Nathan Saliba", team: "Canada", minute: 54, reason: "Foul" },
+      { player: "Niko Sigur", team: "Canada", minute: 67, reason: "Foul" },
+    ],
+    redCards: [],
+    subs: [
+      { playerIn: "Relebohile Mofokeng", playerOut: "Thalente Mbatha", team: "South Africa", minute: 46 },
+      { playerIn: "Moïse Bombito", playerOut: "Luc de Fougerolles", team: "Canada", minute: 59 },
+      { playerIn: "Nathan Saliba", playerOut: "Niko Sigur", team: "Canada", minute: 59 },
+      { playerIn: "Liam Millar", playerOut: "Jacob Shaffelburg", team: "Canada", minute: 70 },
+      { playerIn: "Tani Oluwaseyi", playerOut: "Promise David", team: "Canada", minute: 70 },
+      { playerIn: "Tajon Buchanan", playerOut: "Alphonso Davies", team: "Canada", minute: 75 },
+      { playerIn: "Evidence Makgopa", playerOut: "Iqraam Rayners", team: "South Africa", minute: 86 },
+      { playerIn: "Thapelo Maseko", playerOut: "Tshepang Moremi", team: "South Africa", minute: 86 },
+    ],
+  },
+  {
     fixtureId: "1562344",
     home: "Brazil", away: "Japan", date: "2026-06-29",
     goals: [
@@ -2723,12 +2745,16 @@ export const MATCH_EVENTS: MatchEvents[] = [
   {
     fixtureId: "1591866",
     home: "Spain", away: "Argentina", date: "2026-07-19",
-    goals: [],
+    goals: [
+      { player: "Ferran Torres", team: "Spain", minute: 106, type: "goal" },
+    ],
     yellowCards: [
       { player: "Lisandro Martínez", team: "Argentina", minute: 41, reason: "Foul" },
       { player: "Leandro Paredes", team: "Argentina", minute: 52, reason: "Argument" },
       { player: "Enzo Fernández", team: "Argentina", minute: 82, reason: "Dissent" },
       { player: "Cristian Romero", team: "Argentina", minute: 90, reason: "Dissent" },
+      { player: "Lionel Sebastián Scaloni", team: "Argentina", minute: 104, reason: "Dissent" },
+      { player: "Alexis Mac Allister", team: "Argentina", minute: 111, reason: "Foul" },
     ],
     redCards: [],
     subs: [
@@ -2748,4 +2774,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-19T21:36:00.380Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-19T22:05:27.697Z';
