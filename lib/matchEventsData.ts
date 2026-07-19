@@ -1917,28 +1917,6 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
   },
   {
-    fixtureId: "1561329",
-    home: "South Africa", away: "Canada", date: "2026-06-28",
-    goals: [
-      { player: "Stephen Eustáquio", team: "Canada", minute: 90, type: "goal" },
-    ],
-    yellowCards: [
-      { player: "Nathan Saliba", team: "Canada", minute: 54, reason: "Foul" },
-      { player: "Niko Sigur", team: "Canada", minute: 67, reason: "Foul" },
-    ],
-    redCards: [],
-    subs: [
-      { playerIn: "Relebohile Mofokeng", playerOut: "Thalente Mbatha", team: "South Africa", minute: 46 },
-      { playerIn: "Moïse Bombito", playerOut: "Luc de Fougerolles", team: "Canada", minute: 59 },
-      { playerIn: "Nathan Saliba", playerOut: "Niko Sigur", team: "Canada", minute: 59 },
-      { playerIn: "Liam Millar", playerOut: "Jacob Shaffelburg", team: "Canada", minute: 70 },
-      { playerIn: "Tani Oluwaseyi", playerOut: "Promise David", team: "Canada", minute: 70 },
-      { playerIn: "Tajon Buchanan", playerOut: "Alphonso Davies", team: "Canada", minute: 75 },
-      { playerIn: "Evidence Makgopa", playerOut: "Iqraam Rayners", team: "South Africa", minute: 86 },
-      { playerIn: "Thapelo Maseko", playerOut: "Tshepang Moremi", team: "South Africa", minute: 86 },
-    ],
-  },
-  {
     fixtureId: "1562344",
     home: "Brazil", away: "Japan", date: "2026-06-29",
     goals: [
@@ -2749,6 +2727,8 @@ export const MATCH_EVENTS: MatchEvents[] = [
     yellowCards: [
       { player: "Lisandro Martínez", team: "Argentina", minute: 41, reason: "Foul" },
       { player: "Leandro Paredes", team: "Argentina", minute: 52, reason: "Argument" },
+      { player: "Enzo Fernández", team: "Argentina", minute: 82, reason: "Dissent" },
+      { player: "Cristian Romero", team: "Argentina", minute: 90, reason: "Dissent" },
     ],
     redCards: [],
     subs: [
@@ -2757,8 +2737,15 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { playerIn: "Gonzalo Montiel", playerOut: "Nahuel Molina", team: "Argentina", minute: 58 },
       { playerIn: "Mikel Oyarzabal", playerOut: "Ferran Torres", team: "Spain", minute: 62 },
       { playerIn: "Fabián Ruiz", playerOut: "Pedri", team: "Spain", minute: 62 },
+      { playerIn: "Cristian Romero", playerOut: "Facundo Medina", team: "Argentina", minute: 70 },
+      { playerIn: "Rodrigo De Paul", playerOut: "Giuliano Simeone Baldini", team: "Argentina", minute: 70 },
+      { playerIn: "Alejandro Baena Rodríguez", playerOut: "Nico Williams", team: "Spain", minute: 75 },
+      { playerIn: "Daniel Olmo Carvajal", playerOut: "Mikel Merino", team: "Spain", minute: 75 },
+      { playerIn: "Rodrigo Hernandez Cascante", playerOut: "Martín Zubimendi", team: "Spain", minute: 99 },
+      { playerIn: "Aymeric Laporte", playerOut: "Eric García", team: "Spain", minute: 99 },
+      { playerIn: "Julián Alvarez", playerOut: "Marcos Senesi", team: "Argentina", minute: 102 },
     ],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-19T20:42:28.683Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-19T21:36:00.380Z';
