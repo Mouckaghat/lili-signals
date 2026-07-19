@@ -7,10 +7,30 @@ import { WC_FIXTURES, WC_TEAMS } from './wcData';
 import { FIXTURE_STADIUM_ID, getStadium } from './stadiumData';
 import { MATCH_EVENTS, type MatchEvents } from './matchEventsData';
 import { GROUP_STANDINGS } from './standingsData';
+import { WC_KNOCKOUT } from './knockoutData';
 import { buildHeatGrid } from './heatmap';
 import { HEATMAP_I18N, hmT, type HeatmapI18n } from './heatmapI18n';
+import { liliNarrative, type LiliBeat, type VoiceLang } from './liliVoice';
 
 const flagOf = (t: string) => WC_TEAMS.find((x) => x.name === t)?.flag ?? '🏳';
+const strengthOf = (t: string) => WC_TEAMS.find((x) => x.name === t)?.strength ?? 65;
+
+// A team's real tournament goals-for / goals-against coming INTO a given match
+// (that fixture excluded): group-stage totals from the standings + every
+// finished knockout tie the team has played. Feeds Lili's "something's off"
+// theory with real numbers — never a fabricated aggregate.
+interface TournamentProfile { gf: number; ga: number; games: number }
+function tournamentProfile(team: string, excludeFixtureId: string): TournamentProfile {
+  const s = GROUP_STANDINGS.find((x) => x.team === team);
+  let gf = s?.gf ?? 0, ga = s?.ga ?? 0, games = s?.played ?? 0;
+  for (const k of WC_KNOCKOUT) {
+    if (k.id === excludeFixtureId) continue;
+    if (k.status !== 'FINISHED' || k.homeScore == null || k.awayScore == null) continue;
+    if (k.home === team)      { gf += k.homeScore; ga += k.awayScore; games++; }
+    else if (k.away === team) { gf += k.awayScore; ga += k.homeScore; games++; }
+  }
+  return { gf, ga, games };
+}
 const share = (h: number, a: number) => (h + a > 0 ? h / (h + a) : 0.5);
 
 export interface StatPair { label: string; home: string; away: string; hShare: number }
@@ -30,6 +50,7 @@ export interface Overview {
   headline: string;
   drivers: string[];
   lili: string;
+  beats: LiliBeat[];
   events: OverviewEvent[];
   impactHome: TeamImpact | null; impactAway: TeamImpact | null;
 }
@@ -51,7 +72,7 @@ function impactFor(team: string): TeamImpact | null {
   return { rank: s.rank, points: s.pts, gd: s.gd, qualPct: qualPct(s.pts, s.played) };
 }
 
-export function computeOverview(match: MatchStats, results: Record<string, FixtureResult> = FIXTURE_RESULTS, t: HeatmapI18n = HEATMAP_I18N.EN, allEvents: MatchEvents[] = MATCH_EVENTS): Overview {
+export function computeOverview(match: MatchStats, results: Record<string, FixtureResult> = FIXTURE_RESULTS, t: HeatmapI18n = HEATMAP_I18N.EN, allEvents: MatchEvents[] = MATCH_EVENTS, voiceLang: VoiceLang = 'EN'): Overview {
   const f = WC_FIXTURES.find((x) => x.id === match.fixtureId);
   const r = results[`${match.home}|${match.away}`];
   const stadium = f ? getStadium(FIXTURE_STADIUM_ID[f.stadium] ?? '') : undefined;
@@ -150,6 +171,28 @@ export function computeOverview(match: MatchStats, results: Record<string, Fixtu
     ...ev.redCards.map((c) => ({ icon: '🟥', minute: c.minute ?? 0, side: (c.team === match.home ? 'home' : 'away') as 'home' | 'away' })),
   ].sort((x, y) => x.minute - y.minute) : [];
 
+  // Lili's evolving, multi-beat narrative — reads like someone who has watched
+  // hundreds of games. Real signals only; every interpretive leap is labelled as
+  // her theory (see lib/liliVoice.ts). Recomputes live from score/xG/events.
+  const ko = WC_KNOCKOUT.find((k) => k.id === match.fixtureId);
+  const roundLabel = ko?.roundLabel ?? (f ? `Group ${f.group}` : undefined);
+  const hp = tournamentProfile(match.home, match.fixtureId);
+  const ap = tournamentProfile(match.away, match.fixtureId);
+  const goalsTl = ev ? ev.goals.map((g) => ({ minute: g.minute, side: (g.team === match.home ? 'home' : 'away') as 'home' | 'away' })) : [];
+  const beats = liliNarrative({
+    home: match.home, away: match.away,
+    homeScore, awayScore, status,
+    elapsed: (match as { elapsed?: number | null }).elapsed ?? null,
+    controlHome,
+    xgHome: h.xg, xgAway: a.xg,
+    strengthHome: strengthOf(match.home), strengthAway: strengthOf(match.away),
+    homeGF: hp.gf, homeGA: hp.ga, homeGames: hp.games,
+    awayGF: ap.gf, awayGA: ap.ga, awayGames: ap.games,
+    goals: goalsTl,
+    topDriver: drivers[0],
+    roundLabel,
+  }, voiceLang);
+
   return {
     home: match.home, away: match.away, homeFlag: flagOf(match.home), awayFlag: flagOf(match.away),
     homeScore: r?.homeScore ?? null, awayScore: r?.awayScore ?? null, status,
@@ -157,7 +200,7 @@ export function computeOverview(match: MatchStats, results: Record<string, Fixtu
     capacity: stadium?.capacity ?? 0, dateStr: f ? fmtDate(f.date) : '',
     altitude: stadium?.altitudeM ?? null, tempJune: stadium?.tempJuneC ?? null,
     totalGoals,
-    stats, controlHome, controlAway, verdict, matchProfile, headline, drivers, lili, events,
+    stats, controlHome, controlAway, verdict, matchProfile, headline, drivers, lili, beats, events,
     impactHome: impactFor(match.home), impactAway: impactFor(match.away),
   };
 }

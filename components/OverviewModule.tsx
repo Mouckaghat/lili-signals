@@ -17,6 +17,7 @@ const D = {
   red:    '#FF3B47',
   gold:   '#F2C24B',
   green:  '#33C26B',
+  purple: '#9A52FF',
   text1:  '#F1F5FF',
   text2:  '#8DA2C8',
   text3:  '#52668C',
@@ -30,7 +31,8 @@ export default function OverviewModule({ match }: { match: MatchStats }) {
   const results = useLiveResults();
   const events = useLiveEvents();
   const { lang } = useLanguage();
-  const o: Overview = useMemo(() => computeOverview(match, results, HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN, events), [match, results, lang, events]);
+  const voice = lang === 'FR' ? 'FR' : 'EN';
+  const o: Overview = useMemo(() => computeOverview(match, results, HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN, events, voice), [match, results, lang, events, voice]);
 
   const statusColor = o.status === 'LIVE' ? D.red : o.status === 'FINAL' ? D.text2 : D.blue;
 
@@ -116,11 +118,25 @@ export default function OverviewModule({ match }: { match: MatchStats }) {
     </View>
   );
 
-  // why it happened — Lili's full analysis
+  // why it happened — Lili's evolving, multi-beat read (grows live during a
+  // game). Each beat is a real signal + a labelled theory; falls back to the
+  // one-line summary if no beat fired.
+  const beatColor: Record<string, string> = {
+    read: D.blue, theory: D.gold, swing: D.green, verdict: D.text1, story: D.purple,
+  };
   const Lili = (
     <View style={[s.card, { borderColor: 'rgba(242,194,75,0.3)' }]}>
       <Text style={[s.cardTitle, { color: D.gold }]}>🦞 LILI MATCH INTELLIGENCE</Text>
-      <Text style={s.liliTxt}>{o.lili}</Text>
+      {o.beats.length > 0 ? (
+        o.beats.map((b, i) => (
+          <View key={i} style={[s.beat, { borderLeftColor: beatColor[b.tone] ?? D.gold }]}>
+            <Text style={[s.beatTag, { color: beatColor[b.tone] ?? D.gold }]}>{b.tag}</Text>
+            <Text style={s.beatTxt}>{b.text}</Text>
+          </View>
+        ))
+      ) : (
+        <Text style={s.liliTxt}>{o.lili}</Text>
+      )}
     </View>
   );
 
@@ -278,6 +294,9 @@ const s = StyleSheet.create({
   statBar:  { flexDirection: 'row', height: 5, borderRadius: 3, overflow: 'hidden', backgroundColor: D.panel2 },
 
   liliTxt:  { color: D.text1, fontSize: 12, lineHeight: 18 },
+  beat:     { backgroundColor: D.panel2, borderRadius: 9, paddingVertical: 8, paddingHorizontal: 10, marginTop: 8, borderLeftWidth: 3, borderLeftColor: D.gold },
+  beatTag:  { fontSize: 9, fontWeight: '900', letterSpacing: 1, marginBottom: 3 },
+  beatTxt:  { color: D.text1, fontSize: 12.5, lineHeight: 18 },
 
   // ── Evidence drivers ──
   evidence:   { backgroundColor: D.panel2, borderRadius: 9, paddingVertical: 8, paddingHorizontal: 10, marginTop: 8,
