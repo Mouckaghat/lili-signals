@@ -154,13 +154,6 @@ export const MATCH_STATS: MatchStats[] = [
     awayStats: { team: "Norway", possession: 0.61, totalShots: 12, shotsInsideBox: 11, shotsOutsideBox: 1, shotsOnGoal: 5, corners: 5, xg: 2.52, passAccuracy: 0.89, passes: 537, fouls: 13 },
   },
   {
-    fixtureId: "J1_Argentina_v_Algeria",
-    home: "Argentina", away: "Algeria", date: "2026-06-17",
-    status: "FINISHED", elapsed: null,
-    homeStats: { team: "Argentina", possession: 0.48, totalShots: 10, shotsInsideBox: 4, shotsOutsideBox: 6, shotsOnGoal: 6, corners: 2, xg: 1.47, passAccuracy: 0.9, passes: 561, fouls: 13 },
-    awayStats: { team: "Algeria", possession: 0.52, totalShots: 7, shotsInsideBox: 3, shotsOutsideBox: 4, shotsOnGoal: 0, corners: 2, xg: 0.3, passAccuracy: 0.92, passes: 609, fouls: 8 },
-  },
-  {
     fixtureId: "J1_Austria_v_Jordan",
     home: "Austria", away: "Jordan", date: "2026-06-17",
     status: "FINISHED", elapsed: null,
@@ -758,10 +751,10 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   {
     fixtureId: "1591866",
     home: "Spain", away: "Argentina", date: "2026-07-19",
-    status: "LIVE", elapsed: 83,
-    homeStats: { team: "Spain", possession: 0.65, totalShots: 11, shotsInsideBox: 4, shotsOutsideBox: 7, shotsOnGoal: 8, corners: 8, xg: 0, passAccuracy: 0, passes: 560, fouls: 11 },
-    awayStats: { team: "Argentina", possession: 0.35, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 1, xg: 0, passAccuracy: 0, passes: 314, fouls: 16 },
+    status: "LIVE", elapsed: 101,
+    homeStats: { team: "Spain", possession: 0.67, totalShots: 16, shotsInsideBox: 7, shotsOutsideBox: 9, shotsOnGoal: 11, corners: 9, xg: 0, passAccuracy: 0, passes: 718, fouls: 16 },
+    awayStats: { team: "Argentina", possession: 0.33, totalShots: 0, shotsInsideBox: 0, shotsOutsideBox: 0, shotsOnGoal: 0, corners: 1, xg: 0, passAccuracy: 0, passes: 356, fouls: 20 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-19T21:01:15.511Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-19T21:31:59.890Z';
