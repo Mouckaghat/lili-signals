@@ -154,13 +154,6 @@ export const MATCH_STATS: MatchStats[] = [
     awayStats: { team: "Norway", possession: 0.61, totalShots: 12, shotsInsideBox: 11, shotsOutsideBox: 1, shotsOnGoal: 5, corners: 5, xg: 2.52, passAccuracy: 0.89, passes: 537, fouls: 13 },
   },
   {
-    fixtureId: "J1_Argentina_v_Algeria",
-    home: "Argentina", away: "Algeria", date: "2026-06-17",
-    status: "FINISHED", elapsed: null,
-    homeStats: { team: "Argentina", possession: 0.48, totalShots: 10, shotsInsideBox: 4, shotsOutsideBox: 6, shotsOnGoal: 6, corners: 2, xg: 1.47, passAccuracy: 0.9, passes: 561, fouls: 13 },
-    awayStats: { team: "Algeria", possession: 0.52, totalShots: 7, shotsInsideBox: 3, shotsOutsideBox: 4, shotsOnGoal: 0, corners: 2, xg: 0.3, passAccuracy: 0.92, passes: 609, fouls: 8 },
-  },
-  {
     fixtureId: "J1_Austria_v_Jordan",
     home: "Austria", away: "Jordan", date: "2026-06-17",
     status: "FINISHED", elapsed: null,
@@ -759,9 +752,9 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
     fixtureId: "1591866",
     home: "Spain", away: "Argentina", date: "2026-07-19",
     status: "FINISHED", elapsed: null,
-    homeStats: { team: "Spain", possession: 0.65, totalShots: 20, shotsInsideBox: 9, shotsOutsideBox: 11, shotsOnGoal: 12, corners: 9, xg: 0, passAccuracy: 0, passes: 852, fouls: 21 },
-    awayStats: { team: "Argentina", possession: 0.35, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 4, xg: 0, passAccuracy: 0, passes: 463, fouls: 25 },
+    homeStats: { team: "Spain", possession: 0.65, totalShots: 20, shotsInsideBox: 9, shotsOutsideBox: 11, shotsOnGoal: 12, corners: 9, xg: 1.94, passAccuracy: 0.89, passes: 852, fouls: 21 },
+    awayStats: { team: "Argentina", possession: 0.35, totalShots: 2, shotsInsideBox: 1, shotsOutsideBox: 1, shotsOnGoal: 0, corners: 4, xg: 0.22, passAccuracy: 0.77, passes: 463, fouls: 25 },
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-19T22:32:13.399Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-19T23:37:06.539Z';
