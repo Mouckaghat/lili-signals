@@ -39,6 +39,7 @@ export default function RootLayout() {
             <Stack.Screen name="match-heatmap" options={{ title: 'Match Heatmaps' }} />
             <Stack.Screen name="lili-vs-market" options={{ title: 'Lili vs The Market' }} />
             <Stack.Screen name="knockout-bracket" options={{ title: 'Road to the Final' }} />
+            <Stack.Screen name="diamonds" options={{ title: 'Diamonds of the Tournament', headerShown: false }} />
           </Stack>
           <BottomNavigationDock />
         </View>

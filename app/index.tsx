@@ -687,6 +687,26 @@ export default function LandingScreen() {
             {/* ── The Lili XI — pitch formation ── */}
             <PitchFormation cardFlashes={cardFlashes} cardLangs={cardLangs} />
 
+            {/* ── Diamonds of the Tournament — celebration surface ── */}
+            <TouchableOpacity
+              activeOpacity={0.85}
+              style={ls.diamondCta}
+              onPress={() => router.push('/diamonds' as any)}
+            >
+              <Text style={ls.diamondIcon}>💎</Text>
+              <View style={{ flex: 1, minWidth: 0 }}>
+                <Text style={ls.diamondTitle}>
+                  {lang === 'FR' ? 'LES DIAMANTS DU TOURNOI' : 'DIAMONDS OF THE TOURNAMENT'}
+                </Text>
+                <Text style={ls.diamondSub} numberOfLines={2}>
+                  {lang === 'FR'
+                    ? 'Les révélations et les équipes surprises que Lili célèbre.'
+                    : 'The breakout players & overachieving teams Lili celebrates.'}
+                </Text>
+              </View>
+              <Text style={ls.diamondChevron}>›</Text>
+            </TouchableOpacity>
+
             {/* ── Footer ── */}
             <Animated.View style={[ls.footer, { opacity: footerFlash }]}>
               <Brand tone="dim" />
@@ -1067,6 +1087,24 @@ const ls = StyleSheet.create({
   },
 
   // ── Footer
+  diamondCta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    marginHorizontal: 16,
+    marginTop: 20,
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    borderRadius: 16,
+    backgroundColor: 'rgba(56,225,214,0.06)',
+    borderWidth: 1,
+    borderColor: 'rgba(242,194,75,0.35)',
+  },
+  diamondIcon: { fontSize: 26 },
+  diamondTitle: { color: '#F2C24B', fontSize: 13, fontWeight: '900', letterSpacing: 0.6 },
+  diamondSub: { color: 'rgba(238,242,255,0.6)', fontSize: 11, marginTop: 2, lineHeight: 15 },
+  diamondChevron: { color: '#F2C24B', fontSize: 24, fontWeight: '300' },
+
   footer: {
     alignItems: 'center',
     gap: 5,
