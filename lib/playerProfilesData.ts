@@ -770,7 +770,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Mamelodi Sundowns",
     league: "Betway Premiership",
     leagueFlag: "🇿🇦",
-    caps: 5,
+    caps: 9,
   },
   {
     name: "Olwethu Makhanya",
@@ -6164,7 +6164,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     caps: 4,
   },
   {
-    name: "Hadj Mahmoud",
+    name: "Mohamed Belhadj Mahmoud",
     nation: "Tunisia",
     dob: "2000-04-24",
     age: 26,
@@ -12549,4 +12549,4 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
   },
 ];
 
-export const PLAYER_PROFILES_LAST_UPDATED = '2026-07-10T09:40:02.806Z';
+export const PLAYER_PROFILES_LAST_UPDATED = '2026-07-19T08:23:23.634Z';
