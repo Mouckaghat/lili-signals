@@ -28,7 +28,7 @@ export default function ShotsModule({ match }: { match: MatchStats }) {
   const wide = width >= 860;
   const results = useLiveResults();
   const { lang } = useLanguage();
-  const m: ShotsMatch | null = useMemo(() => shotsMatch(match.fixtureId, results, HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN), [match.fixtureId, results, lang]);
+  const m: ShotsMatch | null = useMemo(() => shotsMatch(match, results, HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN), [match, results, lang]);
   const fut = useMemo(() => shotFuture(match.home, results), [match.home, results]);
 
   if (!m) return <View style={s.wrap}><Text style={s.empty}>No shot data for this match yet.</Text></View>;

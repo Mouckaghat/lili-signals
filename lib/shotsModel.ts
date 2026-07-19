@@ -3,7 +3,7 @@
 // per-player saves + results. We have NO shot coordinates, so the map plots by
 // AREA (box vs outside), never fake pixel-exact locations.
 
-import { MATCH_STATS, type TeamMatchStats } from './matchStatsData';
+import { MATCH_STATS, type TeamMatchStats, type MatchStats } from './matchStatsData';
 import { PLAYER_MATCH_STATS } from './playerStatsData';
 import { FIXTURE_RESULTS, type FixtureResult } from './fixtureResultsData';
 import { WC_TEAMS } from './wcData';
@@ -56,15 +56,21 @@ function teamLine(team: string, s: TeamMatchStats, goals: number): ShotTeam {
   };
 }
 
-export function shotsMatch(fixtureId: string, results: Record<string, FixtureResult> = FIXTURE_RESULTS, L: HeatmapI18n = HEATMAP_I18N.EN): ShotsMatch | null {
-  const m = MATCH_STATS.find((x) => x.fixtureId === fixtureId);
-  if (!m) return null;
+// Takes the LIVE match object the screen already holds (MatchStats from
+// useLiveStats) — NOT a re-lookup from the baked MATCH_STATS by id. A live or
+// knockout game isn't in the baked array (knockouts live in a separate export,
+// live games only in the runtime overlay), so re-fetching by id returned null
+// and the shots map showed "no data" exactly when it mattered. Use the object
+// we're handed (the recurring lesson) so it also refreshes as shots increment.
+export function shotsMatch(match: MatchStats, results: Record<string, FixtureResult> = FIXTURE_RESULTS, L: HeatmapI18n = HEATMAP_I18N.EN): ShotsMatch | null {
+  const m = match;
+  if (!m || !m.homeStats || !m.awayStats) return null;
   const r = results[`${m.home}|${m.away}`];
   const hg = r?.homeScore ?? 0, ag = r?.awayScore ?? 0;
   const home = teamLine(m.home, m.homeStats, hg);
   const away = teamLine(m.away, m.awayStats, ag);
-  const gkHome = gkLine(gkSaves(fixtureId, m.home), m.awayStats.xg || 0, ag, L); // home GK faces away xG, concedes away goals
-  const gkAway = gkLine(gkSaves(fixtureId, m.away), m.homeStats.xg || 0, hg, L);
+  const gkHome = gkLine(gkSaves(m.fixtureId, m.home), m.awayStats.xg || 0, ag, L); // home GK faces away xG, concedes away goals
+  const gkAway = gkLine(gkSaves(m.fixtureId, m.away), m.homeStats.xg || 0, hg, L);
 
   const [dom, sub] = home.danger >= away.danger ? [home, away] : [away, home];
   const finClause = dom.effIcon === '🔥' ? hmT(L.shClinical, { dom: dom.team })

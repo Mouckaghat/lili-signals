@@ -152,7 +152,7 @@ function ShotDot({ d, color }: { d: Dot; color: string }) {
 
 export function ShotsMapPanel({ match }: { match: MatchStats }) {
   const results = useLiveResults();
-  const m = useMemo(() => shotsMatch(match.fixtureId, results), [match.fixtureId, results]);
+  const m = useMemo(() => shotsMatch(match, results), [match, results]);
   const dots = useMemo(() => {
     if (!m) return [];
     return [...buildDots(match.fixtureId, m.home, 'home'), ...buildDots(match.fixtureId, m.away, 'away')];
