@@ -2748,12 +2748,17 @@ export const MATCH_EVENTS: MatchEvents[] = [
     goals: [],
     yellowCards: [
       { player: "Lisandro Martínez", team: "Argentina", minute: 41, reason: "Foul" },
+      { player: "Leandro Paredes", team: "Argentina", minute: 52, reason: "Argument" },
     ],
     redCards: [],
     subs: [
       { playerIn: "Lisandro Martínez", playerOut: "Nicolás Otamendi", team: "Argentina", minute: 44 },
+      { playerIn: "Nicolás González", playerOut: "Leandro Paredes", team: "Argentina", minute: 45 },
+      { playerIn: "Gonzalo Montiel", playerOut: "Nahuel Molina", team: "Argentina", minute: 58 },
+      { playerIn: "Mikel Oyarzabal", playerOut: "Ferran Torres", team: "Spain", minute: 62 },
+      { playerIn: "Fabián Ruiz", playerOut: "Pedri", team: "Spain", minute: 62 },
     ],
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-19T19:53:08.231Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-19T20:42:28.683Z';
