@@ -524,6 +524,13 @@ export const MATCH_STATS: MatchStats[] = [
     homeStats: { team: "Algeria", possession: 0.65, totalShots: 12, shotsInsideBox: 6, shotsOutsideBox: 6, shotsOnGoal: 5, corners: 0, xg: 1.62, passAccuracy: 0.94, passes: 755, fouls: 3 },
     awayStats: { team: "Austria", possession: 0.35, totalShots: 10, shotsInsideBox: 6, shotsOutsideBox: 4, shotsOnGoal: 3, corners: 3, xg: 1.44, passAccuracy: 0.87, passes: 397, fouls: 7 },
   },
+  {
+    fixtureId: "J3_Jordan_v_Argentina",
+    home: "Jordan", away: "Argentina", date: "2026-06-28",
+    status: "FINISHED", elapsed: null,
+    homeStats: { team: "Jordan", possession: 0.27, totalShots: 5, shotsInsideBox: 2, shotsOutsideBox: 3, shotsOnGoal: 1, corners: 2, xg: 0.74, passAccuracy: 0.8, passes: 285, fouls: 13 },
+    awayStats: { team: "Argentina", possession: 0.73, totalShots: 12, shotsInsideBox: 6, shotsOutsideBox: 6, shotsOnGoal: 4, corners: 6, xg: 2.14, passAccuracy: 0.92, passes: 799, fouls: 7 },
+  },
 ];
 
 // Knockout-stage match stats — kept SEPARATE from MATCH_STATS so the tournament
@@ -757,4 +764,4 @@ export const KNOCKOUT_MATCH_STATS: MatchStats[] = [
   },
 ];
 
-export const MATCH_STATS_LAST_UPDATED = '2026-07-19T22:04:45.943Z';
+export const MATCH_STATS_LAST_UPDATED = '2026-07-19T22:32:13.399Z';
