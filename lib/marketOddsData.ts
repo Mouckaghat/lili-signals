@@ -44,6 +44,7 @@ export const MARKET_ODDS: MarketOdds[] = [
   { fixtureId: "K2_Colombia_v_Congo_DR", home: "Colombia", away: "Congo DR", market: null, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Winner : Colombia", bookmakers: 0 },
   { fixtureId: "B3_Switzerland_v_Canada", home: "Switzerland", away: "Canada", market: null, model: { home: 0.1000, draw: 0.4500, away: 0.4500 }, advice: "Combo Double chance : draw or Canada and +1.5 goals", bookmakers: 0 },
   { fixtureId: "B3_Bosnia_Herzegovina_v_Qatar", home: "Bosnia & Herzegovina", away: "Qatar", market: null, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Combo Double chance : Bosnia & Herzegovina or draw and +1.5 goals", bookmakers: 0 },
+  { fixtureId: "D3_Morocco_v_Haiti", home: "Morocco", away: "Haiti", market: null, model: { home: 0.5000, draw: 0.5000, away: 0.0000 }, advice: "Combo Double chance : Morocco or draw and -3.5 goals", bookmakers: 0 },
   { fixtureId: "D3_Scotland_v_Brazil", home: "Scotland", away: "Brazil", market: null, model: { home: 0.1000, draw: 0.4500, away: 0.4500 }, advice: "Combo Double chance : draw or Brazil and -3.5 goals", bookmakers: 0 },
   { fixtureId: "A3_Czech_Republic_v_Mexico", home: "Czech Republic", away: "Mexico", market: null, model: { home: 0.1000, draw: 0.4500, away: 0.4500 }, advice: "Combo Double chance : draw or Mexico and -3.5 goals", bookmakers: 0 },
   { fixtureId: "A3_South_Africa_v_South_Korea", home: "South Africa", away: "South Korea", market: null, model: { home: 0.0000, draw: 0.5000, away: 0.5000 }, advice: "Combo Double chance : draw or South Korea and -3.5 goals", bookmakers: 0 },
@@ -67,4 +68,4 @@ export const MARKET_ODDS: MarketOdds[] = [
   { fixtureId: "J3_Jordan_v_Argentina", home: "Jordan", away: "Argentina", market: null, model: { home: 0.0000, draw: 0.5000, away: 0.5000 }, advice: "Winner : Argentina", bookmakers: 0 },
 ];
 
-export const MARKET_ODDS_LAST_UPDATED = '2026-07-19T21:41:48.978Z';
+export const MARKET_ODDS_LAST_UPDATED = '2026-07-19T22:41:29.164Z';
