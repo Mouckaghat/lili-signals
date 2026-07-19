@@ -20,6 +20,16 @@ export interface CardEvent {
   reason?: string;
 }
 
+// A substitution: who came ON, who went OFF, and when. From api-football's
+// `subst` events (player = on, assist = off). Optional so older baked entries
+// (generated before subs were captured) stay valid.
+export interface SubEvent {
+  playerIn:  string;
+  playerOut: string;
+  team:      string;
+  minute?:   number;
+}
+
 export interface MatchEvents {
   fixtureId:   string; // matches WCFixture.id
   home:        string;
@@ -28,6 +38,7 @@ export interface MatchEvents {
   goals:       GoalEvent[];
   yellowCards: CardEvent[];
   redCards:    CardEvent[];
+  subs?:       SubEvent[];
 }
 
 export const MATCH_EVENTS: MatchEvents[] = [

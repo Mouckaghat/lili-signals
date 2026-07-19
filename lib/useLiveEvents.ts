@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { MATCH_EVENTS, type MatchEvents, type GoalEvent, type CardEvent } from './matchEventsData';
+import { MATCH_EVENTS, type MatchEvents, type GoalEvent, type CardEvent, type SubEvent } from './matchEventsData';
 import { WC_FIXTURES } from './wcData';
 import { WC_KNOCKOUT } from './knockoutData';
 import { apiUrl, LIVE_API_ENABLED } from './apiBase';
@@ -17,6 +17,7 @@ interface LiveEventsPayload {
   goals: GoalEvent[];
   yellowCards: CardEvent[];
   redCards: CardEvent[];
+  subs?: SubEvent[];
 }
 
 /**
@@ -55,6 +56,7 @@ export function useLiveEvents(): MatchEvents[] {
               goals: live.goals ?? [],
               yellowCards: live.yellowCards ?? [],
               redCards: live.redCards ?? [],
+              subs: live.subs ?? [],
             });
           }
           return [...byKey.values()];

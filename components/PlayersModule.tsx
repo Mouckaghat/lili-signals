@@ -4,6 +4,7 @@ import { computePlayerLeaders, matchHero, matchSquads, startingXI, type ImpactRo
 import type { MatchStats } from '../lib/matchStatsData';
 import { useLiveResults } from '../lib/useLiveResults';
 import { useLivePlayers } from '../lib/useLivePlayers';
+import { useLiveEvents } from '../lib/useLiveEvents';
 import { WC_TEAMS } from '../lib/wcData';
 import { useLanguage } from '../contexts/LanguageContext';
 import { HEATMAP_I18N } from '../lib/heatmapI18n';
@@ -31,12 +32,54 @@ export default function PlayersModule({ match }: { match: MatchStats }) {
   const wide = width >= 860;
   const results = useLiveResults();
   const livePlayers = useLivePlayers();
+  const allEvents = useLiveEvents();
   const { lang } = useLanguage();
   const L = useMemo(() => computePlayerLeaders(results, HEATMAP_I18N[lang] ?? HEATMAP_I18N.EN), [results, lang]);
   const hero = useMemo(() => matchHero(match.fixtureId, results, livePlayers), [match.fixtureId, results, livePlayers]);
   const xi = useMemo(() => startingXI(match.fixtureId, livePlayers), [match.fixtureId, livePlayers]);
   // No confirmed XI yet → fall back to the real squad pool (honest names early).
   const squads = useMemo(() => (xi ? null : matchSquads(match.fixtureId)), [match.fixtureId, xi]);
+
+  // Match Log — a chronological "what happened" list for THIS game: who scored,
+  // who was booked/sent off, and who was replaced. Live-overlaid via
+  // useLiveEvents, so it grows in real time during a match.
+  const ev = useMemo(
+    () => allEvents.find((e) => e.fixtureId === match.fixtureId)
+       ?? allEvents.find((e) => e.home === match.home && e.away === match.away),
+    [allEvents, match.fixtureId, match.home, match.away],
+  );
+  type LogRow = { minute: number; stoppage?: number; icon: string; text: string; team: string };
+  const log: LogRow[] = useMemo(() => {
+    if (!ev) return [];
+    const rows: LogRow[] = [];
+    for (const g of ev.goals) {
+      const icon = g.type === 'own-goal' ? '🥅' : g.type === 'penalty' ? '⚽' : '⚽';
+      const tail = g.type === 'own-goal' ? ' (OG)' : g.type === 'penalty' ? ' (pen)' : '';
+      rows.push({ minute: g.minute, stoppage: g.minuteStoppage, icon, text: `${g.player}${tail}`, team: g.team });
+    }
+    for (const c of ev.yellowCards) rows.push({ minute: c.minute ?? 0, icon: '🟨', text: c.player, team: c.team });
+    for (const c of ev.redCards)    rows.push({ minute: c.minute ?? 0, icon: '🟥', text: c.player, team: c.team });
+    for (const sub of ev.subs ?? []) rows.push({ minute: sub.minute ?? 0, icon: '🔄', text: `${sub.playerOut} → ${sub.playerIn}`, team: sub.team });
+    return rows.sort((a, b) => (a.minute - b.minute) || ((a.stoppage ?? 0) - (b.stoppage ?? 0)));
+  }, [ev]);
+
+  const MatchLog = (
+    <View style={s.card}>
+      <Text style={s.cardTitle}>📋 MATCH LOG · {match.home} v {match.away}</Text>
+      {log.length > 0 ? (
+        log.map((r, i) => (
+          <View key={i} style={s.logRow}>
+            <Text style={s.logMin}>{r.minute}{r.stoppage ? `+${r.stoppage}` : ''}'</Text>
+            <Text style={s.logIcon}>{r.icon}</Text>
+            <Text style={s.logFlag}>{flagOf(r.team)}</Text>
+            <Text style={[s.logText, { color: r.team === match.home ? D.text1 : D.text1 }]} numberOfLines={1}>{r.text}</Text>
+          </View>
+        ))
+      ) : (
+        <Text style={s.empty}>Goals, cards and substitutions appear here as the match unfolds.</Text>
+      )}
+    </View>
+  );
 
   const [sel, setSel] = useState<Sel | null>(null);
   const selected: Sel | null = sel ?? (L.spotlight ? { name: L.spotlight.row.name, team: L.spotlight.row.team } : null);
@@ -151,7 +194,7 @@ export default function PlayersModule({ match }: { match: MatchStats }) {
       <Text style={s.h1}>👤 PLAYERS</Text>
       <Text style={s.h1sub}>Which players are driving this World Cup?</Text>
       <View style={wide ? s.cols : undefined}>
-        <View style={wide ? s.left : undefined}>{LeadersLink}{Contributors}{Squad}</View>
+        <View style={wide ? s.left : undefined}>{MatchLog}{Contributors}{Squad}{LeadersLink}</View>
         <View style={wide ? s.right : undefined}>{Hero}{Details}</View>
       </View>
       <Text style={s.foot}>Goals & cards from match events · assists, saves, ratings, tackles from player match stats · clean sheets derived · Impact = goals + assists + clean sheets + saves − discipline.</Text>
@@ -197,6 +240,12 @@ const s = StyleSheet.create({
   xiRating:{ fontSize: 11, fontWeight: '800', width: 28, textAlign: 'right' },
   barTrack:{ height: 3, backgroundColor: D.panel2, borderRadius: 2, marginTop: 2, overflow: 'hidden' },
   barFill: { height: 3, backgroundColor: D.blue, borderRadius: 2 },
+
+  logRow:  { flexDirection: 'row', alignItems: 'center', gap: 7, paddingVertical: 3, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: D.border },
+  logMin:  { color: D.text3, fontSize: 11, fontWeight: '800', width: 34 },
+  logIcon: { fontSize: 12, width: 18, textAlign: 'center' },
+  logFlag: { fontSize: 12, width: 18, textAlign: 'center' },
+  logText: { color: D.text1, fontSize: 12, fontWeight: '600', flex: 1, minWidth: 0 },
 
   squadNote: { color: D.text3, fontSize: 10, marginTop: -4, marginBottom: 8, lineHeight: 14 },
   squadClub: { color: D.text3, fontSize: 9, fontWeight: '600' },

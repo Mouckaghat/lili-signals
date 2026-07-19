@@ -135,7 +135,8 @@ interface ApiFixtureLite {
 interface ApiEvent {
   time:   { elapsed: number | null; extra: number | null };
   team:   { name: string };
-  player: { id: number | null; name: string | null };
+  player: { id: number | null; name: string | null };  // for 'subst': player ON
+  assist: { id: number | null; name: string | null } | null; // for 'subst': player OFF
   type:   string;   // 'Goal' | 'Card' | 'subst' | 'Var'
   detail: string;   // 'Normal Goal' | 'Own Goal' | 'Penalty' | 'Missed Penalty' | 'Yellow Card' | 'Red Card' | 'Second Yellow card'
   comments: string | null;
@@ -159,9 +160,10 @@ const isPlayed = (short: string) => LIVE_STATUSES.has(short) || DONE_STATUSES.ha
 type EventType = 'goal' | 'own-goal' | 'penalty';
 interface GoalEvent { player: string; team: string; minute: number; minuteStoppage?: number; type: EventType; }
 interface CardEvent { player: string; team: string; minute?: number; reason?: string; }
+interface SubEvent { playerIn: string; playerOut: string; team: string; minute?: number; }
 interface MatchEvents {
   fixtureId: string; home: string; away: string; date: string;
-  goals: GoalEvent[]; yellowCards: CardEvent[]; redCards: CardEvent[];
+  goals: GoalEvent[]; yellowCards: CardEvent[]; redCards: CardEvent[]; subs: SubEvent[];
 }
 
 // ─── Fetch helpers ──────────────────────────────────────────────────────────────
@@ -190,6 +192,7 @@ function buildEntry(
   const goals: GoalEvent[]   = [];
   const yellows: CardEvent[] = [];
   const reds: CardEvent[]    = [];
+  const subs: SubEvent[]     = [];
 
   const opponentOf = (t: string) => (t === fixture.home ? fixture.away : fixture.home);
 
@@ -201,6 +204,17 @@ function buildEntry(
     if (e.comments === 'Penalty Shootout') continue;
     const minute  = e.time?.elapsed ?? undefined;
     const apiTeam = normTeam(e.team?.name ?? '');
+
+    // Substitution — player = ON, assist = OFF (probed against the live feed).
+    if (e.type === 'subst') {
+      const playerIn  = resolveName(e.player?.name ?? '', apiTeam);
+      const playerOut = resolveName(e.assist?.name ?? '', apiTeam);
+      if (!playerIn && !playerOut) continue;
+      const sub: SubEvent = { playerIn, playerOut, team: apiTeam };
+      if (minute !== undefined) sub.minute = minute;
+      subs.push(sub);
+      continue;
+    }
 
     if (e.type === 'Goal') {
       if (e.detail === 'Missed Penalty') continue; // not a goal
@@ -233,8 +247,9 @@ function buildEntry(
   goals.sort((a, b) => (a.minute - b.minute) || (a.minuteStoppage ?? 0) - (b.minuteStoppage ?? 0));
   yellows.sort(byMinute);
   reds.sort(byMinute);
+  subs.sort(byMinute);
 
-  return { fixtureId: fixture.id, home: fixture.home, away: fixture.away, date: fixture.date, goals, yellowCards: yellows, redCards: reds };
+  return { fixtureId: fixture.id, home: fixture.home, away: fixture.away, date: fixture.date, goals, yellowCards: yellows, redCards: reds, subs };
 }
 
 // ─── Code generation ────────────────────────────────────────────────────────────
@@ -260,16 +275,27 @@ function cardLine(c: CardEvent): string {
   return `      { ${parts.join(', ')} },`;
 }
 
+function subLine(sub: SubEvent): string {
+  const parts = [
+    `playerIn: ${JSON.stringify(sub.playerIn)}`,
+    `playerOut: ${JSON.stringify(sub.playerOut)}`,
+    `team: ${JSON.stringify(sub.team)}`,
+    ...(sub.minute !== undefined ? [`minute: ${sub.minute}`] : []),
+  ];
+  return `      { ${parts.join(', ')} },`;
+}
+
 function entryBlock(m: MatchEvents): string {
   const goals = m.goals.length ? `\n${m.goals.map(goalLine).join('\n')}\n    ` : '';
   const yel   = m.yellowCards.length ? `\n${m.yellowCards.map(cardLine).join('\n')}\n    ` : '';
   const red   = m.redCards.length ? `\n${m.redCards.map(cardLine).join('\n')}\n    ` : '';
+  const sub   = m.subs.length ? `\n    subs: [\n${m.subs.map(subLine).join('\n')}\n    ],` : '';
   return `  {
     fixtureId: ${JSON.stringify(m.fixtureId)},
     home: ${JSON.stringify(m.home)}, away: ${JSON.stringify(m.away)}, date: ${JSON.stringify(m.date)},
     goals: [${goals}],
     yellowCards: [${yel}],
-    redCards: [${red}],
+    redCards: [${red}],${sub}
   },`;
 }
 
@@ -296,6 +322,16 @@ export interface CardEvent {
   reason?: string;
 }
 
+// A substitution: who came ON, who went OFF, and when. From api-football's
+// \`subst\` events (player = on, assist = off). Optional so older baked entries
+// (generated before subs were captured) stay valid.
+export interface SubEvent {
+  playerIn:  string;
+  playerOut: string;
+  team:      string;
+  minute?:   number;
+}
+
 export interface MatchEvents {
   fixtureId:   string; // matches WCFixture.id
   home:        string;
@@ -304,6 +340,7 @@ export interface MatchEvents {
   goals:       GoalEvent[];
   yellowCards: CardEvent[];
   redCards:    CardEvent[];
+  subs?:       SubEvent[];
 }
 
 export const MATCH_EVENTS: MatchEvents[] = [
@@ -406,7 +443,7 @@ async function main() {
         { id: p.wc!.id, home: p.wc!.home, away: p.wc!.away, date: p.wc!.date.slice(0, 10) },
         events,
       );
-      if (entry.goals.length || entry.yellowCards.length || entry.redCards.length) {
+      if (entry.goals.length || entry.yellowCards.length || entry.redCards.length || entry.subs.length) {
         entries.push(entry);
       }
     } catch (err) {

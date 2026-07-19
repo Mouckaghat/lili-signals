@@ -30,11 +30,13 @@ function recentDates(): string[] {
 type EventType = 'goal' | 'own-goal' | 'penalty';
 interface GoalEvent { player: string; team: string; minute: number; minuteStoppage?: number; type: EventType }
 interface CardEvent { player: string; team: string; minute?: number; reason?: string }
+interface SubEvent { playerIn: string; playerOut: string; team: string; minute?: number }
 
 interface ApiEvent {
   time:   { elapsed: number | null; extra: number | null };
   team:   { name: string };
-  player: { name: string | null };
+  player: { name: string | null };   // for 'subst': the player coming ON
+  assist: { name: string | null } | null; // for 'subst': the player going OFF
   type:   string;   // 'Goal' | 'Card' | 'subst' | 'Var'
   detail: string;   // 'Normal Goal' | 'Own Goal' | 'Penalty' | 'Missed Penalty' | 'Yellow Card' | 'Red Card' | 'Second Yellow card'
   comments: string | null;
@@ -48,6 +50,7 @@ function buildEntry(home: string, away: string, events: ApiEvent[]) {
   const goals: GoalEvent[] = [];
   const yellowCards: CardEvent[] = [];
   const redCards: CardEvent[] = [];
+  const subs: SubEvent[] = [];
   const opponentOf = (t: string) => (t === home ? away : home);
 
   for (const e of events) {
@@ -57,6 +60,18 @@ function buildEntry(home: string, away: string, events: ApiEvent[]) {
     if (e.comments === 'Penalty Shootout') continue;
     const minute  = e.time?.elapsed ?? undefined;
     const apiTeam = normalise(e.team?.name ?? '');
+
+    // Substitution — player = ON, assist = OFF (probed against the live feed).
+    if (e.type === 'subst') {
+      const playerIn = e.player?.name ?? '';
+      const playerOut = e.assist?.name ?? '';
+      if (!playerIn && !playerOut) continue;
+      const sub: SubEvent = { playerIn, playerOut, team: apiTeam };
+      if (minute !== undefined) sub.minute = minute;
+      subs.push(sub);
+      continue;
+    }
+
     const player  = e.player?.name ?? '';
     if (!player) continue;
 
@@ -80,7 +95,8 @@ function buildEntry(home: string, away: string, events: ApiEvent[]) {
   goals.sort((a, b) => (a.minute - b.minute) || (a.minuteStoppage ?? 0) - (b.minuteStoppage ?? 0));
   yellowCards.sort(byMin);
   redCards.sort(byMin);
-  return { goals, yellowCards, redCards };
+  subs.sort(byMin);
+  return { goals, yellowCards, redCards, subs };
 }
 
 export default async function handler(req: any, res: any) {
