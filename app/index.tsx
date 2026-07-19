@@ -16,6 +16,9 @@ import { checkApiHealth, type ApiStatus } from '../lib/apiClient';
 import { PLAYERS, type PlayerXI } from '../lib/playerXI';
 import { useLanguage } from '../contexts/LanguageContext';
 import { I18N, LANGUAGES, type LangCode } from '../lib/i18n';
+import { WC_KNOCKOUT } from '../lib/knockoutData';
+import { WC_TEAMS } from '../lib/wcData';
+import { useLiveResults } from '../lib/useLiveResults';
 import Brand from '../components/Brand';
 
 // Maps player jersey number (1–11) to i18n.modules array index.
@@ -148,6 +151,66 @@ function CountdownBlock({ lang }: { lang: LangCode }) {
       <Text style={ls.countdownSub}>
         MetLife Stadium · New York/New Jersey · July 19, 2026
       </Text>
+    </View>
+  );
+}
+
+// ─── Museum hero — "Relive the World Cup" ─────────────────────────────────────
+// Replaces the "FINAL IN" countdown now that the tournament is a completed
+// archive. Crowns the champion straight from the real bracket result — the live
+// results overlay first (instant the whistle goes), then the baked Final tie —
+// so it needs no manual flip: while the Final is still being decided it shows
+// the last chapter honestly (no fabricated champion), then auto-upgrades to the
+// trophy. EN + FR inline (others fall back to EN — native pass owed).
+
+const museumFlag = (name: string) => WC_TEAMS.find((t) => t.name === name)?.flag ?? '🏆';
+
+function resolveChampion(results: Record<string, { status: string; homeScore: number | null; awayScore: number | null; winner: string | null }>) {
+  const finalTie = WC_KNOCKOUT.find((k) => k.round === 'F');
+  if (!finalTie) return { finalTie: null as typeof finalTie | null, champion: null as string | null, live: null as any };
+  const r = results[`${finalTie.home}|${finalTie.away}`];
+  let champion: string | null = null;
+  if (r && r.status === 'FINISHED' && r.homeScore != null && r.awayScore != null) {
+    champion = r.winner && r.winner !== 'Draw' ? r.winner
+      : r.homeScore > r.awayScore ? finalTie.home
+      : r.awayScore > r.homeScore ? finalTie.away : null;
+  }
+  if (!champion && finalTie.status === 'FINISHED' && finalTie.winner) {
+    champion = finalTie.winner === 'home' ? finalTie.home : finalTie.away;
+  }
+  return { finalTie, champion, live: r ?? null };
+}
+
+function MuseumHero({ lang }: { lang: LangCode }) {
+  const results = useLiveResults();
+  const fr = lang === 'FR';
+  const { finalTie, champion, live } = resolveChampion(results as any);
+
+  if (champion) {
+    return (
+      <View style={ls.museumCard}>
+        <Text style={ls.museumTrophy}>🏆</Text>
+        <Text style={ls.museumChampFlag}>{museumFlag(champion)}</Text>
+        <Text style={ls.museumChampName}>{champion.toUpperCase()}</Text>
+        <Text style={ls.museumChampLabel}>{fr ? 'CHAMPIONS DU MONDE · 2026' : 'WORLD CHAMPIONS · 2026'}</Text>
+        <View style={ls.museumSep} />
+        <Text style={ls.museumRelive}>{fr ? 'REVIVEZ LA COUPE DU MONDE' : 'RELIVE THE 2026 WORLD CUP'}</Text>
+        <Text style={ls.museumSub}>{fr ? 'Un musée de chaque instant — parcourez-la à nouveau, but par but.' : 'A museum of every moment — walk back through it, goal by goal.'}</Text>
+      </View>
+    );
+  }
+
+  // Final not decided yet — honest "last chapter" state, no fabricated champion.
+  const score = live && live.homeScore != null ? `${live.homeScore} – ${live.awayScore ?? 0}` : (fr ? 'contre' : 'v');
+  return (
+    <View style={ls.museumCard}>
+      <Text style={ls.museumRelive}>{fr ? 'LE DERNIER CHAPITRE' : 'THE FINAL CHAPTER'}</Text>
+      {finalTie ? (
+        <Text style={ls.museumFinalRow}>
+          {museumFlag(finalTie.home)} {finalTie.home}  <Text style={ls.museumFinalScore}>{score}</Text>  {finalTie.away} {museumFlag(finalTie.away)}
+        </Text>
+      ) : null}
+      <Text style={ls.museumSub}>{fr ? 'La finale se joue maintenant — le champion sera couronné ici, puis revivez toute la Coupe du monde.' : 'The Final is being decided now — the champion is crowned here, then relive the whole World Cup.'}</Text>
     </View>
   );
 }
@@ -676,9 +739,9 @@ export default function LandingScreen() {
               </View>
             </Animated.View>
 
-            {/* ── Countdown ── */}
+            {/* ── Museum hero — Relive the World Cup (crowns the champion) ── */}
             <Animated.View style={{ opacity: countFlash }}>
-              <CountdownBlock lang={countdownLang} />
+              <MuseumHero lang={lang} />
             </Animated.View>
 
             {/* ── Lobster signal node ── */}
@@ -823,6 +886,32 @@ const ls = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
   },
+
+  // ── Museum hero ──
+  museumCard: {
+    backgroundColor: D.card,
+    borderRadius: 18,
+    borderWidth: 1,
+    borderColor: D.borderGold,
+    paddingVertical: 22,
+    paddingHorizontal: 18,
+    marginBottom: 28,
+    alignItems: 'center',
+    gap: 5,
+    shadowColor: D.gold,
+    shadowOpacity: 0.2,
+    shadowRadius: 18,
+    shadowOffset: { width: 0, height: 6 },
+  },
+  museumTrophy:     { fontSize: 40, marginBottom: 2 },
+  museumChampFlag:  { fontSize: 44 },
+  museumChampName:  { color: D.text1, fontSize: 26, fontWeight: '900', letterSpacing: 1, textAlign: 'center' },
+  museumChampLabel: { color: D.gold, fontSize: 11, fontWeight: '900', letterSpacing: 2, marginTop: 2 },
+  museumSep:        { height: 1, alignSelf: 'stretch', backgroundColor: D.borderGold, marginVertical: 12 },
+  museumRelive:     { color: D.text1, fontSize: 14, fontWeight: '900', letterSpacing: 1.5, textAlign: 'center' },
+  museumSub:        { color: D.text2, fontSize: 11.5, lineHeight: 16, textAlign: 'center', marginTop: 3, paddingHorizontal: 6 },
+  museumFinalRow:   { color: D.text1, fontSize: 15, fontWeight: '800', textAlign: 'center', marginTop: 8 },
+  museumFinalScore: { color: D.gold, fontWeight: '900' },
   countdownTitle: {
     fontSize: 9,
     fontWeight: '700',
