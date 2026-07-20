@@ -1085,6 +1085,33 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
   },
   {
+    fixtureId: "J2_Argentina_v_Austria",
+    home: "Argentina", away: "Austria", date: "2026-06-22",
+    goals: [
+      { player: "Lionel Messi", team: "Argentina", minute: 38, type: "goal" },
+      { player: "Lionel Messi", team: "Argentina", minute: 90, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Stefan Posch", team: "Austria", minute: 40, reason: "Argument" },
+      { player: "Facundo Medina", team: "Argentina", minute: 76, reason: "Argument" },
+      { player: "Konrad Laimer", team: "Austria", minute: 76, reason: "Argument" },
+      { player: "Leandro Paredes", team: "Argentina", minute: 90, reason: "Foul" },
+    ],
+    redCards: [],
+    subs: [
+      { playerIn: "Cristian Romero", playerOut: "Nicolás Otamendi", team: "Argentina", minute: 57 },
+      { playerIn: "Thiago Almada", playerOut: "Julián Alvarez", team: "Argentina", minute: 64 },
+      { playerIn: "L. Martinez", playerOut: "Nicolás González", team: "Argentina", minute: 65 },
+      { playerIn: "David Alaba", playerOut: "Marco Friedl", team: "Austria", minute: 67 },
+      { playerIn: "Paul Wanner", playerOut: "Marko Arnautović", team: "Austria", minute: 68 },
+      { playerIn: "Stefan Posch", playerOut: "Alexander Prass", team: "Austria", minute: 68 },
+      { playerIn: "Romano Schmid", playerOut: "Patrick Wimmer", team: "Austria", minute: 78 },
+      { playerIn: "Rodrigo De Paul", playerOut: "Leandro Paredes", team: "Argentina", minute: 82 },
+      { playerIn: "Facundo Medina", playerOut: "Nicolás Tagliafico", team: "Argentina", minute: 82 },
+      { playerIn: "Michael Gregoritsch", playerOut: "Carney Chukwuemeka", team: "Austria", minute: 85 },
+    ],
+  },
+  {
     fixtureId: "I2_France_v_Iraq",
     home: "France", away: "Iraq", date: "2026-06-22",
     goals: [
@@ -2750,4 +2777,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-07-19T23:39:59.392Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-07-20T00:16:54.364Z';
