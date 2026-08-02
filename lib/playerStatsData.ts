@@ -3310,4 +3310,4 @@ export const PLAYER_MATCH_STATS: PlayerMatchStat[] = [
   { fixtureId: "1591866", team: "Argentina", name: "Marcos Senesi", pos: "DF", minutes: 18, rating: 6.2, goals: 0, assists: 0, saves: 0, shots: 0, shotsOn: 0, passes: 7, passAccPct: 71, tackles: 0, interceptions: 0 },
 ];
 
-export const PLAYER_STATS_LAST_UPDATED = '2026-07-20T01:04:45.788Z';
+export const PLAYER_STATS_LAST_UPDATED = '2026-08-02T14:36:47.869Z';
