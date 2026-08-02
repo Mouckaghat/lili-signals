@@ -214,7 +214,19 @@ export function buildTeamPath(
           state, tie: resolved, mySide,
           opponent: oppForm ? { kind: 'team', team: oppForm } : resolveSide(oppFeeder, r32map, winners, losers),
         });
-        if (lost) { status = 'eliminated'; break; }
+        if (lost) {
+          status = 'eliminated';
+          // A semi-final defeat does not end the team's tournament: the loser
+          // continues into the third-place play-off (match 103). Keep the SF
+          // marked as an elimination from the title path, then append the real
+          // consolation match so My Team shows the complete campaign.
+          if (slot.round === 'SF') {
+            reachedHere = true;
+            cur = 103;
+            continue;
+          }
+          break;
+        }
         reachedHere = won;          // only keep advancing as "reached" if the team won
       } else {
         // Not yet a resolved tie for this team — honest "next / potential opponent" preview.
