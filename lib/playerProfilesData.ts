@@ -6289,9 +6289,9 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     nation: "Cape Verde Islands",
     dob: "1986-06-03",
     age: 40,
-    club: "Chaves",
-    league: "Primeira Liga",
-    leagueFlag: "🇵🇹",
+    club: "ColoColo",
+    league: "Primera División",
+    leagueFlag: "🇨🇱",
     caps: 90,
   },
   {
@@ -12549,4 +12549,4 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
   },
 ];
 
-export const PLAYER_PROFILES_LAST_UPDATED = '2026-07-22T08:32:56.297Z';
+export const PLAYER_PROFILES_LAST_UPDATED = '2026-09-06T10:31:30.849Z';
