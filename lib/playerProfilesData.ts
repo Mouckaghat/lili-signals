@@ -10370,7 +10370,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     caps: 11,
   },
   {
-    name: "Mohammad Taha",
+    name: "Mohammad Abu Ghoush",
     nation: "Jordan",
     dob: "2005-07-13",
     age: 20,
@@ -12549,4 +12549,4 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
   },
 ];
 
-export const PLAYER_PROFILES_LAST_UPDATED = '2026-09-10T10:53:16.750Z';
+export const PLAYER_PROFILES_LAST_UPDATED = '2026-09-22T11:10:41.698Z';
