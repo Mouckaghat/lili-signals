@@ -1180,7 +1180,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { playerIn: "M. Al Mardi", playerOut: "O. Al Fakhouri", team: "Jordan", minute: 76 },
       { playerIn: "Riyad Mahrez", playerOut: "Anis Hadj Moussa", team: "Algeria", minute: 76 },
       { playerIn: "M. Tamari", playerOut: "Ali Azaizeh", team: "Jordan", minute: 84 },
-      { playerIn: "M. Abu Taha", playerOut: "M. Abu Hasheesh", team: "Jordan", minute: 85 },
+      { playerIn: "Mohannad Abu Taha", playerOut: "M. Abu Hasheesh", team: "Jordan", minute: 85 },
       { playerIn: "Rayan Aït-Nouri", playerOut: "Jaouen Hadjam", team: "Algeria", minute: 85 },
       { playerIn: "Amine Gouiri", playerOut: "Zineddine Belaïd", team: "Algeria", minute: 86 },
       { playerIn: "Husam Abu Dahab", playerOut: "Salim Obaid", team: "Jordan", minute: 90 },
@@ -1898,7 +1898,7 @@ export const MATCH_EVENTS: MatchEvents[] = [
       { player: "Lionel Messi", team: "Argentina", minute: 80, type: "goal" },
     ],
     yellowCards: [
-      { player: "M. Abu Taha", team: "Jordan", minute: 17, reason: "Tripping" },
+      { player: "Mohannad Abu Taha", team: "Jordan", minute: 17, reason: "Tripping" },
       { player: "Y. Al Arab", team: "Jordan", minute: 64, reason: "Roughing" },
       { player: "Shararh", team: "Jordan", minute: 90, reason: "Tripping" },
     ],
@@ -2776,4 +2776,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-08-02T18:04:18.280Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-09-22T14:23:29.628Z';
