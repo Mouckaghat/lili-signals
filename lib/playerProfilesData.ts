@@ -7938,7 +7938,7 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
     club: "Olympiacos",
     league: "Super League Greece",
     leagueFlag: "🇬🇷",
-    caps: 105,
+    caps: 106,
   },
   {
     name: "Mehdi Ghayedi",
@@ -12549,4 +12549,4 @@ export const PLAYER_PROFILES: PlayerProfile[] = [
   },
 ];
 
-export const PLAYER_PROFILES_LAST_UPDATED = '2026-09-22T11:10:41.698Z';
+export const PLAYER_PROFILES_LAST_UPDATED = '2026-09-25T11:25:20.665Z';
