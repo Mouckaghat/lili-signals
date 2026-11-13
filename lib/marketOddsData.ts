@@ -22,7 +22,7 @@ export const MARKET_ODDS: MarketOdds[] = [
   { fixtureId: "H1_Belgium_v_Egypt", home: "Belgium", away: "Egypt", market: null, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Double chance : Belgium or draw", bookmakers: 0 },
   { fixtureId: "G1_Saudi_Arabia_v_Uruguay", home: "Saudi Arabia", away: "Uruguay", market: null, model: { home: 0.0000, draw: 0.5000, away: 0.5000 }, advice: "Double chance : draw or Uruguay", bookmakers: 0 },
   { fixtureId: "L1_England_v_Croatia", home: "England", away: "Croatia", market: null, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Double chance : England or draw", bookmakers: 0 },
-  { fixtureId: "A2_Czech_Republic_v_South_Africa", home: "Czech Republic", away: "South Africa", market: null, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Double chance : Czechia or draw", bookmakers: 0 },
+  { fixtureId: "A2_Czech_Republic_v_South_Africa", home: "Czech Republic", away: "South Africa", market: null, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Double chance : Czech Republic or draw", bookmakers: 0 },
   { fixtureId: "B2_Canada_v_Qatar", home: "Canada", away: "Qatar", market: null, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Combo Double chance : Canada or draw and -3.5 goals", bookmakers: 0 },
   { fixtureId: "A2_Mexico_v_South_Korea", home: "Mexico", away: "South Korea", market: null, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Double chance : Mexico or draw", bookmakers: 0 },
   { fixtureId: "C2_USA_v_Australia", home: "USA", away: "Australia", market: null, model: { home: 0.4500, draw: 0.4500, away: 0.1000 }, advice: "Winner : USA", bookmakers: 0 },
@@ -68,4 +68,4 @@ export const MARKET_ODDS: MarketOdds[] = [
   { fixtureId: "J3_Jordan_v_Argentina", home: "Jordan", away: "Argentina", market: null, model: { home: 0.0000, draw: 0.5000, away: 0.5000 }, advice: "Winner : Argentina", bookmakers: 0 },
 ];
 
-export const MARKET_ODDS_LAST_UPDATED = '2026-07-19T22:41:29.164Z';
+export const MARKET_ODDS_LAST_UPDATED = '2026-11-13T06:33:09.970Z';
