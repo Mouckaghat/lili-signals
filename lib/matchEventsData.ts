@@ -2021,6 +2021,29 @@ export const MATCH_EVENTS: MatchEvents[] = [
     ],
   },
   {
+    fixtureId: "1564789",
+    home: "Ivory Coast", away: "Norway", date: "2026-06-30",
+    goals: [
+      { player: "Antonio Nusa", team: "Norway", minute: 39, type: "goal" },
+      { player: "Amad Diallo", team: "Ivory Coast", minute: 74, type: "goal" },
+      { player: "Erling Haaland", team: "Norway", minute: 86, type: "goal" },
+    ],
+    yellowCards: [
+      { player: "Antonio Nusa", team: "Norway", minute: 45, reason: "Foul" },
+    ],
+    redCards: [],
+    subs: [
+      { playerIn: "Christ Inao Oulaï", playerOut: "Amad Diallo", team: "Ivory Coast", minute: 60 },
+      { playerIn: "Ange-Yoan Bonny", playerOut: "Elye Wahi", team: "Ivory Coast", minute: 60 },
+      { playerIn: "A. Sorloth", playerOut: "Oscar Bobb", team: "Norway", minute: 71 },
+      { playerIn: "Antonio Nusa", playerOut: "Andreas Schjelderup", team: "Norway", minute: 71 },
+      { playerIn: "Marcus Holmgren Pedersen", playerOut: "Fredrik Aursnes", team: "Norway", minute: 83 },
+      { playerIn: "Nicolas Pépé", playerOut: "Oumar Diakité", team: "Ivory Coast", minute: 87 },
+      { playerIn: "Ghislain Konan", playerOut: "Bazoumana Touré", team: "Ivory Coast", minute: 90 },
+      { playerIn: "Yan Diomande", playerOut: "Evann Guessand", team: "Ivory Coast", minute: 90 },
+    ],
+  },
+  {
     fixtureId: "1565177",
     home: "France", away: "Sweden", date: "2026-06-30",
     goals: [
@@ -2753,4 +2776,4 @@ export const MATCH_EVENTS: MatchEvents[] = [
   },
 ];
 
-export const MATCH_EVENTS_LAST_UPDATED = '2026-11-20T12:12:24.972Z';
+export const MATCH_EVENTS_LAST_UPDATED = '2026-11-20T13:08:19.360Z';
